@@ -1,5 +1,13 @@
 # Log
 
+## [2026-04-30] manual | sample-program.md — root-level template extracted from Llama 3 + Gemma 4 program.md files
+
+**Op**: manual (template extraction).
+**Pages created**: [`sample-program.md`](../sample-program.md) (project root, ~250 lines).
+**Pages updated**: [`README.md`](../README.md) — Get-started step 4 now points users at `sample-program.md` instead of asking the agent to derive a program.md from scratch; repo-layout block lists the new file.
+**Key result**: the two existing program.md files (Llama 3 8B, Gemma 4 E4B) are ~95 % identical — only the model identity, architecture table, conda env name, branch prefix, libtpu version, and per-model Pallas tables differ. The template separates `<!-- GENERIC -->` sections (contract, what-you-can-cannot-do, the loop, branch model, measurement protocol, output format, observations template, heuristics, references — copy-paste verbatim) from `<!-- MODEL-SPECIFIC -->` sections (the binding values + the two Pallas-kernel tables). Includes a "How to use this template" intro block and an inline reference to the worked Llama 3 / Gemma 4 instantiations as cross-reference.
+**Notes**: incorporates the schema changes from this morning — references the now-required `## Next hypotheses` (SCHEMA.md), the bottleneck reverse-index analysis, the HLO pre-filter heuristic, and the Pallas kernel directory. 41 markdown links validated, all resolve.
+
 ## [2026-04-30] analyze | Bottleneck reverse-index v0 — profile bucket → candidate levers + tried-and-refuted
 
 **Op**: analyze (bootstrap a standing reverse-index page).

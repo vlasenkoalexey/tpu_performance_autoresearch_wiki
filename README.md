@@ -134,6 +134,7 @@ Point it at a model and act as reviewer — you approve hypotheses, arbitrate co
 SCHEMA.md           single source of truth — page types, operations, rules.
 CLAUDE.md           @SCHEMA.md pointer for Claude Code.
 GEMINI.md           @SCHEMA.md pointer for Gemini CLI.
+sample-program.md   template program.md — copy to wiki/experiments/<slug>/program.md and fill in placeholders.
 wiki/               LLM-owned markdown (index, log, page types per schema).
   index.md          cross-section — updated on every write.
   log.md            append-only event log.
@@ -176,13 +177,13 @@ To run the optimization loop against your own model:
 1. Add the model's training repo as a submodule: `git submodule add <url> raw/code/<slug>`
 2. Ask the agent to ingest it: *"Ingest raw/code/<slug> as a codebase page, highlighting performance-relevant surfaces."*
 3. Create a model page under `wiki/models/<slug>.md` with baseline metrics and a hardware target.
-4. Ask the agent: *"Adapt the original autoresearch idea to optimize the model located at raw/code/<slug>. Refer to other experiments and documentation in this wiki to generate a program.md most suitable to my codebase."*
-5. Check your program.md file to see if it requires any modifications for your use case.
-6. Ask the agent: *"Start model optimization in accordance with the protocol described in raw/code/<slug>/program.md"*
+4. Bootstrap a `program.md` from the template at [`sample-program.md`](sample-program.md): *"Copy `sample-program.md` to `wiki/experiments/<slug>/program.md`, fill in every `<PLACEHOLDER>` for `raw/code/<slug>` on my hardware, and adapt the model-specific Pallas tables. Refer to other experiments and documentation in this wiki for the model-specific values."*
+5. Check your `program.md` file — the template marks every section as `<!-- GENERIC -->` (leave as-is unless your stack genuinely differs) or `<!-- MODEL-SPECIFIC -->` (must edit). Adjust as needed.
+6. Ask the agent: *"Start model optimization in accordance with the protocol described in `wiki/experiments/<slug>/program.md`."*
 
 The rest is iteration.
 
-For a worked case study, see [`wiki/experiments/llama3_8B_autoresearch_optimization/`](wiki/experiments/llama3_8B_autoresearch_optimization/) — browse the experiment pages in chronological order to see the loop in action. For a sample autoresearch prompt, see [`program.md`](wiki/experiments/llama3_8B_autoresearch_optimization/program.md) in that same directory.
+For a worked case study, see [`wiki/experiments/llama3_8B_autoresearch_optimization/`](wiki/experiments/llama3_8B_autoresearch_optimization/) — browse the experiment pages in chronological order to see the loop in action. The two existing program.md files ([Llama 3 8B](wiki/experiments/llama3_8B_autoresearch_optimization/program.md), [Gemma 4 E4B](wiki/experiments/gemma4_autoresearch_optimization/program.md)) are concrete instantiations of [`sample-program.md`](sample-program.md) — useful as cross-reference if a placeholder in the template is ambiguous.
 
 Like autoresearch itself, this repo isn't meant to be used as-is — it provides a structure and starting point you adapt to your own model and codebase.
 

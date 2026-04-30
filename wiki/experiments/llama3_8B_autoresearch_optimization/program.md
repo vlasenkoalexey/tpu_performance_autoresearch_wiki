@@ -248,6 +248,8 @@ No `git reset --hard` in the happy path. Failed attempts are parked as unmerged 
 
 LOOP FOREVER:
 
+**NEVER STOP**: Once the experiment loop has begun (after the initial setup), do NOT pause to ask the human if you should continue. Do NOT ask "should I keep going?" or "is this a good stopping point?". The human might be asleep, or gone from a computer and expects you to continue working *indefinitely* until you are manually stopped. You are autonomous. If you run out of ideas, think harder — read papers referenced in the code, re-read the in-scope files for new angles, try combining previous near-misses, try more radical architectural changes. The loop runs until the human interrupts you, period.
+
 1. **State check.** Read the tail of `OBSERVATIONS.md` for recent context and the last `status: keep` row of `RESULTS.tsv`. The trainer source on `main` is at that kept state.
 2. **Generate a hypothesis**, priority order:
    a. **Profile-driven** — highest-signal gap in the most recent profile: top slow op, low HBM BW utilization on bandwidth-bound op, collective wait, `async-collective-done` stall, missing fusion. Query `get_overview`, `get_top_hlo_ops`, `get_op_profile`, `get_memory_profile`.
