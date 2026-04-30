@@ -147,7 +147,12 @@ model: <model-slug>
 commit: <model-repo-sha>
 verdict: supported | refuted | inconclusive | invalid
 ```
-- H2: Hypothesis under test, Setup (hardware, env, conda env, exact command — copy from model page and diff the changed flags), Baseline comparison, Results (table: metric × baseline × this run × delta × noise band), **Profile** (see below), Observations (links to observation pages produced), Verdict + reasoning, Next hypotheses (links).
+- H2: Hypothesis under test, Setup (hardware, env, conda env, exact command — copy from model page and diff the changed flags), Baseline comparison, Results (table: metric × baseline × this run × delta × noise band), **Profile** (see below), Observations (links to observation pages produced), Verdict + reasoning, **Next hypotheses** (see below).
+- **Next hypotheses section is mandatory.** Every experiment ends with `## Next hypotheses` enumerating the follow-up candidates this run motivates. This is what keeps the queue refilling — the experiment that just landed is the cheapest moment to capture the next move while the context is fresh. Format:
+  - One bullet per candidate. Each bullet is a markdown link to a `../hypotheses/<slug>.md` page followed by ` — ` and a one-line description focused on *what differs from the run that just landed*.
+  - Every linked hypothesis page must exist — file stubs in the same change as the experiment, with `origin: <experiment-slug>` in their frontmatter and `status: open`. A link to a non-existent file fails LINT.
+  - If there are genuinely no follow-ups, write the single literal line `None — <reason>` (e.g. `None — frontier closed; ridge point reached`, `None — hypothesis refuted, no derivative`, `None — blocked on hardware scale-up`). An absent or empty section fails LINT.
+  - Three or more bullets is normal and good. The discipline favors *breadth at capture time*; ranking happens later in the model/program page.
 - **Profile section is mandatory whenever the run actually executed.** It must carry:
   - (a) a **direct clickable browser URL into the xprof UI** for the run (e.g., `http://localhost:8791/?run=<run-name>` when a local xprof server is configured; use the project's documented base URL otherwise). This lets the reviewer jump straight to the interactive trace viewer.
   - (b) the **run name** as it appears in the xprof server (typically the GCS/logdir subdirectory name).
@@ -216,7 +221,8 @@ Trigger: human approves a hypothesis for testing (or asks "run the top hypothesi
 5. Write `wiki/experiments/<YYYY-MM-DD>-<slug>.md` with full results table.
 6. Extract `observation` pages for any finding that may recur.
 7. Update the hypothesis (`status:`, link to experiment), update the model page (`Current best` if this wins, ranked list if new hypotheses were generated).
-8. Update `index.md` and `log.md`.
+8. **File next-hypothesis stubs.** Every bullet in the experiment's `## Next hypotheses` section must resolve to an existing `wiki/hypotheses/<slug>.md` page. File the stubs concurrently with the experiment, with `status: open`, `origin: <experiment-slug>`, and at minimum a one-sentence falsifiable Statement and a Rationale citing this experiment. They can be lightweight — ranking and full Proposed-experiment detail can come later under FORMULATE-HYPOTHESIS — but they must exist so the queue is real, not aspirational.
+9. Update `index.md` and `log.md`.
 
 ### RECORD-OBSERVATION
 
@@ -243,6 +249,8 @@ Check and report:
 - Unresolved `[!warning]` contradictions.
 - Hypotheses `open` with no activity for > 14 days on an actively-optimized model.
 - Experiments without profile artifacts in `raw/profiles/`.
+- Experiments missing a `## Next hypotheses` section, with an empty body, or with a hypothesis link that targets a non-existent file. (`None — <reason>` is acceptable; bare absence is not.)
+- Hypothesis pages whose `origin:` references an experiment slug that has no corresponding experiment page.
 - Model pages where `Current best` does not match the latest `supported` experiment.
 - Orphan pages (no inbound links).
 - Broken markdown links (target `.md` does not exist).

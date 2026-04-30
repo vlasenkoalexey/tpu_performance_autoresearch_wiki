@@ -1,5 +1,20 @@
 # Log
 
+## [2026-04-30] analyze | Bottleneck reverse-index v0 — profile bucket → candidate levers + tried-and-refuted
+
+**Op**: analyze (bootstrap a standing reverse-index page).
+**Pages created**: [analyses/2026-04-30-bottleneck-reverse-index.md](analyses/2026-04-30-bottleneck-reverse-index.md).
+**Pages updated**: [index.md](index.md) (Analyses 5 → 6, with featured-quality blurb so the agent reads it before formulating hypotheses).
+**Key result**: covers 7 measured buckets (matmul, splash MHA, CE, loop-fusion, collectives, HBM peak, data-formatting) plus 4 placeholder buckets for regimes not yet seen in this wiki (megascale/DCN, embedding-grad, host overhead, VMEM spill). Each bucket section has Standing levers + Tried & refuted + Open hypotheses subsections; cross-links to the concept directory, the kernel directory, and the experiment ledger. Bootstrap data source is the [llama3-8b-torchax converged-stack bottleneck breakdown](observations/llama3-8b-torchax-converged-stack-bottleneck-breakdown.md) observation (exp 61b + exp 79 traces).
+**Notes**: explicitly framed as **non-exhaustive and not a fence** — the front-matter callout says treat absence-from-this-list as "haven't tried it here yet," not "won't work." Pairs with [SCHEMA](../SCHEMA.md) `## Next hypotheses` requirement (logged below) — this page is the primary upstream consumer for that section. Future automation note recorded: when concept + hypothesis frontmatter gain a `bottleneck_bucket:` field, the page can be regenerated as a LINT subtask. Not wired up yet.
+
+## [2026-04-30] manual | SCHEMA — `## Next hypotheses` made mandatory + structured in experiment pages; LINT extended
+
+**Op**: manual (schema edit).
+**Pages updated**: [SCHEMA.md](../SCHEMA.md) — experiment template (Next hypotheses now bolded as required, with explicit format rules: bullets link to existing `hypotheses/<slug>.md` pages, `None — <reason>` allowed, empty/absent fails LINT); RUN-EXPERIMENT op gains step 8 ("File next-hypothesis stubs") so every bullet resolves to a real page filed concurrently with the experiment, `origin: <experiment-slug>`; LINT gains two checks (missing/empty Next hypotheses, dangling `origin:` references).
+**Key result**: closes the gap where follow-ups were captured in prose and forgotten. The discipline is "breadth at capture time" — three+ bullets is normal; ranking happens later. Existing experiments are not retrofitted (immutability rule); new experiments from 2026-04-30 onward must comply.
+**Notes**: implements proposal #5 from the 2026-04-30 hypothesis-generation review. Proposal #1 (HLO pre-filter as required step for kernel-replacement hypotheses) and #2 (`DIFF-REFERENCE` op) remain unimplemented.
+
 ## [2026-04-27] HLO inspection | jax Llama 3 8B v6e-8 — hypotheses #2 and #3 (Pallas RMSNorm+matmul, Pallas SwiGLU+down_proj) refuted by HLO before kernel-write; XLA already does both fusions
 
 **Op**: HLO dump + inspection (one short run with `XLA_FLAGS="--xla_dump_to=/tmp/hlo --xla_dump_hlo_as_text"`) + analysis via `mcp__xprof__list_hlo_dump_modules` and grep over `module_0262.jit_train_step.cl_854318611.after_optimizations.hlo`.

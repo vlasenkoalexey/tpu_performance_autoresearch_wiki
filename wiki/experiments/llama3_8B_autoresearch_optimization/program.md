@@ -252,7 +252,7 @@ LOOP FOREVER:
 2. **Generate a hypothesis**, priority order:
    a. **Profile-driven** — highest-signal gap in the most recent profile: top slow op, low HBM BW utilization on bandwidth-bound op, collective wait, `async-collective-done` stall, missing fusion. Query `get_overview`, `get_top_hlo_ops`, `get_op_profile`, `get_memory_profile`.
    b. **Follow-up** — an unexplored idea from a previous observation's "follow-ups".
-   c. **Wiki-driven** — consult [scaling-book](../../codebases/scaling-book.md) (when chapter sources land), [xprof-mcp TPU optimization guide](../../sources/2026-xprof-mcp-tpu-optimization.md), the relevant [concepts/](../../concepts/) page for the bottlenecked op.
+   c. **Wiki-driven** — consult current accumulated wiki knowledge base and if some information is missing consider checking internet to check on potential bottlenecks observed for the current model and for ideas to try.
    d. **Heuristics table below** — accumulated rules of thumb.
 
    **Within these, prefer structural changes (shape, sharding, code) over flag-only changes.** Exp 1 (2026-04-25, async-collective flag bundle) was `refuted` with a 25% regression because the compiler had already found a good schedule for the small workload; giving it more freedom to reorder broke compute-fusion memory locality. On already-decent configs, XLA/LIBTPU flag-only experiments tend to be null or noise unless they follow a structural change that unlocks them.
