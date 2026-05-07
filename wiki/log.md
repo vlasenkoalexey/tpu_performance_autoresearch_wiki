@@ -1,5 +1,17 @@
 # Log
 
+## [2026-05-06] manual | AOT analysis capability — concept page, HLO-dumping expansion, SCHEMA + program template updates
+
+**Op**: manual (schema/methodology enhancement).
+**Pages created**: [`wiki/concepts/aot-compilation.md`](concepts/aot-compilation.md) — full concept page covering the JAX AOT pipeline (`jit → lower → compile → cost_analysis`), HLO pre-filter workflow, pre-experiment screening, offline HLO analysis, inline `aot_screen()` utility, known results table (Llama 3 refutations, Gemma 4 ceiling, helper.py production use), caveats.
+**Pages updated**:
+- [`wiki/concepts/hlo-dumping-and-diffing.md`](concepts/hlo-dumping-and-diffing.md) — expanded from 24-line stub to full concept page: dump capture commands (JAX + PyTorch/XLA), file formats and naming, stage aliases table, xprof-mcp dump tools table with usage examples, key HLO patterns to grep for, fusion verification recipe, pass-by-pass vs final-only guidance, wiki conventions.
+- [`SCHEMA.md`](../SCHEMA.md) — FORMULATE-HYPOTHESIS gains step 2b (HLO pre-filter, mandatory for kernel-replacement hypotheses, requires `hlo_prefilter:` frontmatter field); RUN-EXPERIMENT gains step 1b (optional AOT screening via `cost_analysis()`); LINT gains kernel-replacement `hlo_prefilter:` check.
+- [`sample-program.md`](../sample-program.md) — new `## AOT screening protocol` section with three use cases (HLO pre-filter, pre-experiment screening, offline analysis); HLO pre-filter heuristic upgraded from informal to MANDATORY with SCHEMA cross-reference; `aot-compilation` added to "Reference material at a glance".
+- [`wiki/index.md`](index.md) — `aot-compilation` entry added under Compiler & HLO (12 → 13 entries, 96 → 97 concepts); `hlo-dumping-and-diffing` description updated (no longer a stub); page count 192 → 193.
+**Key result**: formalizes two AOT analysis capabilities that were already in use informally: (1) HLO pre-filter for kernel-replacement hypotheses (now mandatory in SCHEMA), (2) pre-experiment AOT screening (now documented as optional step). Also documents offline HLO analysis for customer-sends-dumps workflow. No new SCHEMA operations added — AOT folds into existing FORMULATE-HYPOTHESIS and RUN-EXPERIMENT operations.
+**Notes**: design decision per internal meeting action item: AOT analysis does NOT become a new operation. It integrates into existing operations where the analysis naturally occurs (hypothesis pre-filtering, pre-experiment screening, offline analysis under ANALYZE). The xprof-mcp dump tools already work on CPU without TPU; the JAX AOT pattern already exists in `helper.py`. What was missing was formalization in the schema, concept documentation, and program template.
+
 ## [2026-04-30] manual | sample-program.md — root-level template extracted from Llama 3 + Gemma 4 program.md files
 
 **Op**: manual (template extraction).

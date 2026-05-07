@@ -113,7 +113,7 @@ Two questions to ask on every profile before proposing an experiment:
 - **Memory-bound below the ridge point**: Pallas candidate. Keep tiles in VMEM, fuse consecutive HBM round-trips.
 - **Fusion of matmuls sharing an input**: helps **iff output shapes are similar**. `gate_proj` + `up_proj` are symmetric — good fuse. QKV under GQA are asymmetric (Q is N× K/V) — bad fuse.
 - **Always profile first.** Proposing a Pallas kernel without a matched profile signal is speculation.
-- **HLO pre-filter**: before authoring any Pallas-replacement kernel, dump the post-optimization HLO (`XLA_FLAGS="--xla_dump_to=… --xla_dump_hlo_as_text"`) and grep for whether XLA already fuses your target pattern into an adjacent matmul (`kind=kOutput` Mosaic kernels). Recent log entries in this wiki have refuted multiple Pallas hypotheses cheaply this way.
+- **HLO pre-filter (MANDATORY for kernel-replacement hypotheses)**: before authoring any Pallas-replacement kernel, AOT-compile the baseline via `jax.jit(fn).lower(*args).compile()` or dump the post-optimization HLO (`XLA_FLAGS="--xla_dump_to=… --xla_dump_hlo_as_text"`) and grep for whether XLA already fuses your target pattern into an adjacent matmul (`kind=kOutput` Mosaic kernels). If it does, retire the hypothesis with reason `xla-already-fuses`. This is **required by [SCHEMA.md](SCHEMA.md) FORMULATE-HYPOTHESIS step 2b** — kernel-replacement hypotheses that skip this step fail LINT. See [AOT Compilation](wiki/concepts/aot-compilation.md) for the full workflow. This refuted the Pallas RMSNorm+matmul and SwiGLU+down_proj hypotheses in this wiki, saving weeks of kernel-authoring effort.
 
 ### Existing Pallas / Mosaic-TPU kernels to TRY <!-- MODEL-SPECIFIC: enumerate per-model -->
 
@@ -320,6 +320,95 @@ Rules of thumb, not invariants. Most of these surfaced from the worked Llama 3 /
 - **Compile time dominates short runs.** Step 0 + step 1 recompile can total ~300 s. `scan-over-layers` collapses N-layer unroll to one scan-body compile; consider it for any program with > 16 layers.
 - **SparseCore offload of FSDP collectives** (`xla_tpu_enable_sparse_core_collective_offload_{all_reduce,reduce_scatter,all_gather}`): all three together is the win; each individually is small.
 
+## AOT screening protocol <!-- GENERIC -->
+
+Two AOT (ahead-of-time) analysis workflows supplement the main experiment loop. Both use JAX's `jit → lower → compile` pipeline to inspect what XLA will do **before** burning TPU time. See [AOT Compilation](wiki/concepts/aot-compilation.md) for the concept page and [HLO Dumping and Diffing](wiki/concepts/hlo-dumping-and-diffing.md) for the dump-file workflow.
+
+### Use case 1: HLO pre-filter for kernel-replacement hypotheses
+
+**When**: before ranking any hypothesis that proposes replacing XLA-generated code with a Pallas/Mosaic kernel (fusing ops, custom matmul prologue, custom norm+matmul, etc.).
+
+**Status**: **MANDATORY** per [SCHEMA.md](SCHEMA.md) FORMULATE-HYPOTHESIS step 2b. Kernel-replacement hypotheses that skip this step fail LINT.
+
+**Steps**:
+
+1. **AOT-compile the baseline** (no code changes needed):
+   ```python
+   lowered = jax.jit(train_step, donate_argnums=(0, 2),
+                     out_shardings=out_shardings).lower(*args)
+   compiled = lowered.compile()
+   ```
+   Or capture via dump files:
+   ```bash
+   XLA_FLAGS="--xla_dump_to=/tmp/hlo --xla_dump_hlo_as_text" \
+     python -m train --steps 1
+   ```
+
+2. **Inspect the post-optimization HLO** for the target fusion pattern:
+   ```bash
+   # Grep for Mosaic fused kernels containing your target op
+   grep -A 20 'kind=kOutput' /tmp/hlo/*.after_optimizations.hlo \
+     | grep -i 'rmsnorm\|rsqrt\|silu\|multiply'
+   ```
+   Or via xprof-mcp (works on CPU, no xprof server needed):
+   ```
+   list_hlo_dump_modules(dump_dir="/tmp/hlo")
+   get_hlo_dump(dump_dir="/tmp/hlo", module_id="module_0262",
+                stage="after_optimizations")
+   ```
+
+3. **Decision**:
+   - If XLA already fuses the target pattern → **retire** the hypothesis with `status: retired`, `hlo_prefilter: refuted`, reason `xla-already-fuses`. Record the `fused_computation` name as evidence.
+   - If XLA does **not** fuse it → hypothesis passes. Set `hlo_prefilter: passed` and proceed to ranking.
+
+**Evidence from this wiki**: the Llama 3 Pallas RMSNorm+matmul and SwiGLU+down_proj hypotheses were both refuted this way in 30 minutes (2026-04-27 log entry), saving weeks of kernel-authoring effort.
+
+### Use case 2: Pre-experiment AOT screening
+
+**When**: before a full 20-step TPU run, for any hypothesis where you want an early sanity check.
+
+**Status**: Optional but recommended, especially for sharding/config/flag changes. Specified in [SCHEMA.md](SCHEMA.md) RUN-EXPERIMENT step 1b.
+
+**Steps**:
+
+1. **AOT-compile both baseline and modified versions**:
+   ```python
+   # Baseline
+   baseline_compiled = jax.jit(baseline_step).lower(*args).compile()
+   baseline_cost = baseline_compiled.cost_analysis()
+
+   # Modified
+   modified_compiled = jax.jit(modified_step).lower(*args).compile()
+   modified_cost = modified_compiled.cost_analysis()
+   ```
+
+2. **Compare cost analyses**:
+   ```python
+   for b, m in zip(baseline_cost, modified_cost):
+       print(f"FLOPs:  {b['flops']:.2e} → {m['flops']:.2e}")
+       print(f"Bytes:  {b['bytes accessed']/1e9:.2f} → {m['bytes accessed']/1e9:.2f} GB")
+   ```
+
+3. **Decision**:
+   - Compilation failure (OOM, shape mismatch) → fix or abandon before TPU launch.
+   - Cost model shows regression → reconsider hypothesis.
+   - Cost model shows improvement or is neutral → proceed to full TPU run. Note that `cost_analysis()` uses the [XLA cost model](wiki/concepts/xla-cost-model.md) (static estimates, not wall-clock) — it is directional, not precise.
+
+### Use case 3: Offline HLO analysis (customer dumps)
+
+**When**: a customer provides HLO dump files but no TPU access. The agent diagnoses sharding, fusion, and collective patterns from the files alone.
+
+**Steps**:
+
+1. Point xprof-mcp dump tools at the customer's dump directory.
+2. Use `list_hlo_dump_modules` to catalog available modules.
+3. Use `get_hlo_dump` with `stage="after_optimizations"` to read the final HLO.
+4. Use `diff_hlo_stages` to compare pre- vs post-optimization.
+5. Use `get_hlo_dump_neighborhood` to trace specific ops' producer/consumer chains.
+6. File findings as an [analysis page](SCHEMA.md) or respond directly.
+
+No TPU, no xprof server, no training run required — the dump tools work entirely on CPU.
+
 ## Reference material at a glance <!-- GENERIC -->
 
 - Bottleneck diagnosis: [xprof — overview page](wiki/sources/2026-xprof-overview-page.md), [xprof — roofline model](wiki/sources/2026-xprof-roofline-model.md), [xprof — HLO op stats](wiki/sources/2026-xprof-hlo-op-stats.md), [xprof — HLO op profile](wiki/sources/2026-xprof-hlo-op-profile.md), [xprof — memory profile](wiki/sources/2026-xprof-memory-profile.md), [xprof — trace viewer](wiki/sources/2026-xprof-trace-viewer.md).
@@ -328,7 +417,7 @@ Rules of thumb, not invariants. Most of these surfaced from the worked Llama 3 /
 - **Pallas kernel directory**: [analyses/2026-04-23-pallas-kernel-directory.md](wiki/analyses/2026-04-23-pallas-kernel-directory.md) — ~200 kernels across ~30 repos.
 - Attention: [flash-attention](wiki/concepts/flash-attention.md), [splash-attention](wiki/concepts/splash-attention.md), [attention-block-sizes](wiki/concepts/attention-block-sizes.md), [tokamax — splash attention](wiki/sources/2026-tokamax-splash-attention.md), [tokamax — autotuning](wiki/sources/2026-tokamax-autotuning.md).
 - Sharding / parallelism: [fsdp](wiki/concepts/fsdp.md), [tensor-parallelism](wiki/concepts/tensor-parallelism.md), [sharding](wiki/concepts/sharding.md), [collective-communication](wiki/concepts/collective-communication.md), [reduce-scatter](wiki/concepts/reduce-scatter.md), [all-gather](wiki/concepts/all-gather.md), [ici](wiki/concepts/ici.md).
-- Remat / compile: [rematerialization](wiki/concepts/rematerialization.md), [scan-over-layers](wiki/concepts/scan-over-layers.md), [xla-fusion](wiki/concepts/xla-fusion.md), [hlo-dumping-and-diffing](wiki/concepts/hlo-dumping-and-diffing.md), [xla-flags](wiki/concepts/xla-flags.md), [async-collectives](wiki/concepts/async-collectives.md), [latency-hiding-scheduler](wiki/concepts/latency-hiding-scheduler.md), [custom-call](wiki/concepts/custom-call.md), [pallas-kernel](wiki/concepts/pallas-kernel.md).
+- Remat / compile: [rematerialization](wiki/concepts/rematerialization.md), [scan-over-layers](wiki/concepts/scan-over-layers.md), [xla-fusion](wiki/concepts/xla-fusion.md), [hlo-dumping-and-diffing](wiki/concepts/hlo-dumping-and-diffing.md), [aot-compilation](wiki/concepts/aot-compilation.md), [xla-flags](wiki/concepts/xla-flags.md), [async-collectives](wiki/concepts/async-collectives.md), [latency-hiding-scheduler](wiki/concepts/latency-hiding-scheduler.md), [custom-call](wiki/concepts/custom-call.md), [pallas-kernel](wiki/concepts/pallas-kernel.md).
 - Kernels library: [tokamax codebase](wiki/codebases/tokamax.md), [tokamax — supported ops](wiki/sources/2026-tokamax-supported-ops.md), [tokamax — basic usage](wiki/sources/2026-tokamax-basic-usage.md).
 - Runtime: [torchax codebase](wiki/codebases/torchax.md) — `JittableModule`, `interop.jax_view`, `jax_shard_map`, `ScannedModule`.
 - Prior art: [jax-huggingface codebase](wiki/codebases/jax-huggingface.md) + the four `2026-jax-huggingface-part-{1,2,3,4}.md` source pages.

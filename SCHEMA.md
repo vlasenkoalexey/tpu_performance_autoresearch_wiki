@@ -207,6 +207,8 @@ Trigger: human asks you to propose optimizations, or an observation suggests a n
 
 1. Read the relevant model page, existing hypotheses (open and retired), and recent observations.
 2. Draft hypothesis page(s). Each one must be **falsifiable** (state the expected metric delta and how you'd measure it).
+   - **2b. HLO pre-filter (mandatory for kernel-replacement hypotheses).** Before ranking a hypothesis that proposes replacing XLA-generated code with a Pallas/Mosaic kernel (fusing ops, custom matmul prologue, custom norm+matmul, etc.), AOT-compile the baseline via `jax.jit(fn).lower(*args).compile()` and inspect the post-optimization HLO (or use the xprof-mcp dump tools on an existing dump). If XLA already fuses the target pattern into a single `kind=kOutput` Mosaic kernel, **retire the hypothesis immediately** with `status: retired` and reason `xla-already-fuses`. Record the specific `fused_computation` name as evidence. See [AOT Compilation](wiki/concepts/aot-compilation.md) for the full workflow.
+   - Kernel-replacement hypothesis pages must include an `hlo_prefilter:` frontmatter field with value `passed`, `refuted`, or `pending`. A hypothesis with `hlo_prefilter: pending` may be filed as a stub but must not be ranked above hypotheses that have passed the pre-filter.
 3. Rank against existing open hypotheses by `expected_gain × confidence / effort`. Place in the model page's ranked list.
 4. Update `log.md`.
 
@@ -215,6 +217,7 @@ Trigger: human asks you to propose optimizations, or an observation suggests a n
 Trigger: human approves a hypothesis for testing (or asks "run the top hypothesis").
 
 1. Read the hypothesis and the model page. Resolve any ambiguity **before running**.
+   - **1b. (Optional) AOT screening.** Before committing to a full 20-step TPU run, AOT-compile the modified function via `jax.jit(fn).lower(*args).compile()` and call `.cost_analysis()`. This catches compilation errors (OOM, shape mismatches) on CPU and provides a first-order prediction of whether the change will move the metric. Compare `flops`, `bytes accessed`, and `optimal_seconds` against the baseline's cost analysis. If the cost model shows no improvement or a regression, reconsider the hypothesis before burning TPU time. See [AOT Compilation](wiki/concepts/aot-compilation.md).
 2. Prepare the run: copy the model's baseline command, diff only the flags/code paths the hypothesis changes. Record the diff in the experiment page.
 3. Execute. Capture profile to `raw/profiles/<YYYY-MM-DD>-<exp-slug>/`.
 4. **Validate the model still computes the same thing** — check loss trajectory vs baseline over the profiled steps. If it diverges, verdict is `invalid`.
@@ -256,6 +259,7 @@ Check and report:
 - Broken markdown links (target `.md` does not exist).
 - Concept/entity names mentioned in prose but not linked to an existing page.
 - Stale codebase pages whose `commit:` is far behind the current checkout.
+- Kernel-replacement hypothesis pages with `status: open` that lack an `hlo_prefilter:` frontmatter field (must be `passed`, `refuted`, or `pending`).
 
 Fix mechanical issues automatically; flag judgment calls for the human.
 

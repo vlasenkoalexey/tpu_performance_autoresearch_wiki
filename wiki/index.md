@@ -1,5 +1,5 @@
 # TPU Model Performance Auto-optimization — Index
-*Last updated: 2026-04-26 — 192 pages (27 codebases + 45 sources + 96 concepts + 2 model-programs + 4 analyses + 6 analysis subpages + jax-exp47 rejected page + 2 maxtext baseline experiments + 1 torchax llama3-8b baseline + 1 torchax llama3-8b splash kernel-only autotune + 1 jax-llama3-8b SparseCore-offload frontier)*
+*Last updated: 2026-05-06 — 193 pages (27 codebases + 45 sources + 97 concepts + 2 model-programs + 4 analyses + 6 analysis subpages + jax-exp47 rejected page + 2 maxtext baseline experiments + 1 torchax llama3-8b baseline + 1 torchax llama3-8b splash kernel-only autotune + 1 jax-llama3-8b SparseCore-offload frontier)*
 
 *Methodology: autoresearch (see [README](../README.md) + [SCHEMA](../SCHEMA.md)).*
 
@@ -183,7 +183,7 @@ These were the candidates expected to recover the 9.2 % loop-fusion line in the 
 - [scaling-book](codebases/scaling-book.md) — commit `6cda371` — "How To Scale Your Model" book (DeepMind); 11 chapters to be ingested as sources in Wave 3.
 - [autoresearch](codebases/autoresearch.md) — commit `228791f` — Karpathy's autoresearch reference impl (single H100, `val_bpb`); methodological model for this wiki's loop.
 
-## Concepts (96)
+## Concepts (97)
 
 ### Pallas-authoring patterns (11, stubs — added 2026-04-23)
 - [online-softmax-with-logit-sink](concepts/online-softmax-with-logit-sink.md) — axlearn splash extension; add `exp(sink - m_final)` to normalizer.
@@ -235,7 +235,7 @@ These were the candidates expected to recover the 9.2 % loop-fusion line in the 
 - [compute-bound](concepts/compute-bound.md) — FLOPs-limited regime (above ridge point).
 - [ici-roofline](concepts/ici-roofline.md) — ICI-bandwidth ceiling for sharded ops.
 
-### Compiler & HLO (12)
+### Compiler & HLO (13)
 - [hlo](concepts/hlo.md) — XLA High-Level Optimizer IR.
 - [hlo-op](concepts/hlo-op.md) — single HLO operation node.
 - [xla-fusion](concepts/xla-fusion.md) — op-fusion compiler pass.
@@ -247,7 +247,8 @@ These were the candidates expected to recover the 9.2 % loop-fusion line in the 
 - [xla-cost-model](concepts/xla-cost-model.md) — compiler's static FLOPs/bytes estimates.
 - [latency-hiding-scheduler](concepts/latency-hiding-scheduler.md) — XLA scheduling pass that overlaps collectives with compute.
 - [async-collectives](concepts/async-collectives.md) — XLA flags for async all-reduce/all-gather fusion.
-- [hlo-dumping-and-diffing](concepts/hlo-dumping-and-diffing.md) — workflow for inspecting pass-by-pass HLO.
+- [hlo-dumping-and-diffing](concepts/hlo-dumping-and-diffing.md) — workflow for capturing, inspecting, and diffing pass-by-pass HLO; xprof-mcp dump tools for offline CPU-only analysis.
+- [aot-compilation](concepts/aot-compilation.md) — JAX AOT pipeline (`jit → lower → compile → cost_analysis`); HLO pre-filter for kernel-replacement hypotheses; pre-experiment screening; offline analysis.
 
 ### Kernels (9)
 - [flash-attention](concepts/flash-attention.md) — tiled SRAM-resident attention algorithm.
