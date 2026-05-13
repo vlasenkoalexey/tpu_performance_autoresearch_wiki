@@ -433,3 +433,20 @@ Writeup: [2026-04-24-exp53-jax-splash-block-sweep-fp32master-rejected.md](2026-0
 ## new-regime ceiling analysis (exp 52–53 arc)
 
 Filed as [analyses/2026-04-24-gemma4-jax-fp32master-seq8k-regime.md](../../../../analyses/2026-04-24-gemma4-jax-fp32master-seq8k-regime.md). Records the seq=8192 memory-wall data, the non-monotonic XLA compile-time peak observation, the counter-intuitive `nothing_saveable` / `offload_dot_with_no_batch_dims` regression, and the three-branch forward path (Branch A: optimize at seq=2048; Branch B: larger mesh; Branch C: memory-saving code changes).
+
+## exp 55 — scan-over-layers at seq=2048 b=1 fp32-master (CRASH: OOM)
+
+**Config**: `seq=2048 b=1 fp32-master + bf16-compute` with `JAX_SCAN_LAYERS=1`.
+
+- **Result**: `CompileTimeHbmOom` (Used 31.91G of 31.25G hbm. Exceeded hbm capacity by 681.08M).
+- **Mechanism**: The new `fp32-master` regime runs extremely tight on memory (Exp 52 profiled at 98.85% utilization, leaving only ~350MB of headroom). The HLO graph structural changes introduced by `jax.lax.scan` and its internal `jax.checkpoint` policy carry a minor memory overhead that pushes this specific configuration over the edge.
+
+Writeup: [2026-05-12-exp55-jax-scan-layers-fp32master.md](2026-05-12-exp55-jax-scan-layers-fp32master.md). 
+
+**Analysis**: We cannot measure the steady-state TPS of `scan-over-layers` at this shape. This strongly reinforces the core `program.md` heuristic: *Win memory before throughput.* Any further throughput optimizations that perturb the graph layout must be preceded by an optimization that frees at least 1-3 GiB of HBM.
+
+**Decision**: **crash**. Code reverted (env var `JAX_SCAN_LAYERS=1` turned off). Exp 52 remains the new-regime baseline.
+
+**Follow-ups**:
+1. **exp 56 — 2D mesh (dp=2, tp=2)** at `seq=2048` or `seq=8192` to alter the parameter footprint.
+2. **exp 57 — Offload PLE embedding lookup to host** to free ~11 GiB of `fp32` memory.
