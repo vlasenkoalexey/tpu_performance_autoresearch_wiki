@@ -155,7 +155,7 @@ Mapping survey findings back to items already tracked in the wiki:
 ## Gaps the survey could not close
 
 - **NVIDIA Mosaic-GPU work** lives inside `jax-ml/jax` directly (`jax/_src/pallas/mosaic_gpu/`, `jax/experimental/pallas/ops/gpu/*_mgpu.py`). GPU-side ops catalog (`collective_matmul_mgpu`, `transposed_ragged_dot_mgpu`, `decode_attention`, `rms_norm`, etc.) was not enumerated.
-- **Internal Google trees** — Gemini/Gemma training stacks are likely in private repos; only partial mirrors on GitHub. The `google-deepmind/gemma` repo was not enumerated and may ship Pallas.
+- **Closed-source training stacks** — Gemini/Gemma training stacks are likely in private repos; only partial mirrors on GitHub. The `google-deepmind/gemma` repo was not enumerated and may ship Pallas.
 - **GoogleCloudPlatform/\*** sample / cookbook repos — likely contain Pallas demos; not enumerated.
 - **Anthropic / xAI / Cohere / Character** — confirmed Pallas users per job postings but no public repos found. Follow conference talks and job postings for signals.
 - **Ragged Paged Attention paper arXiv ID** — the scrape returned `2604.15464` (likely typo / future-dated). Confirm real ID before citing.

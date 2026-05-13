@@ -266,7 +266,7 @@ These are cross-cutting techniques that appear in multiple kernels and deserve t
 - **Pallas triangle_multiplication** — tokamax ships only an XLA reference (`api.py` `Literal["xla"]`). No Pallas backend anywhere. Potentially addressable if AlphaFold3-style protein work enters the loop.
 - **`google-deepmind/gemma`** — not enumerated by any agent. May ship Pallas. Previously flagged as a gap in the 2026-04-23 source survey; still a gap.
 - **NVIDIA Mosaic-GPU kernel catalog for GPU-side parity** — Group A enumerated the Mosaic-GPU ops in jax-ml/jax (collective_matmul, all_gather_mgpu, reduce_scatter_mgpu, hopper_matmul, mixed_type_matmul, blackwell_matmul, ragged_dot_mgpu, transposed_ragged_dot_mgpu, blackwell_ragged_dot_mgpu, attention_mgpu, decode_attention, layer_norm, rms_norm, softmax) — but downstream GPU-Pallas repos (beyond tokamax, alphafold3, axlearn) were not exhaustively surveyed.
-- **Internal Google trees** — Gemini training stacks are private; only partial mirrors on GitHub.
+- **Closed-source training stacks** — Gemini training stacks are private; only partial mirrors on GitHub.
 - **Anthropic / xAI / Cohere / Character** — Pallas users per job postings; no public repos.
 - **Ragged Paged Attention paper arXiv ID** — agent-A saw `2604.15464` in a search result (likely scrape glitch / future-dated); verify the real ID before citing.
 
