@@ -121,7 +121,7 @@ Exp 12 (torchax) got its 1.5 GiB back because torchax's code *did* have an expli
 - **xprof browser URL**: [2026-04-23-gemma4-jax-exp37-splash-b3-bf16ce](http://localhost:8791/?run=2026-04-23-gemma4-jax-exp37-splash-b3-bf16ce) — opens the interactive trace viewer.
 - **Run name** (`mcp__xprof__list_runs`): `2026-04-23-gemma4-jax-exp37-splash-b3-bf16ce/2026_04_24_03_32_18`
 - **On-disk directory**: [`raw/profiles/2026-04-23-gemma4-jax-exp37-splash-b3-bf16ce/`](../../../../../raw/profiles/2026-04-23-gemma4-jax-exp37-splash-b3-bf16ce/) (gitignored; 321 MB)
-- **GCS mirror**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/2026-04-23-gemma4-jax-exp37-splash-b3-bf16ce/`
+- **GCS mirror**: `gs://<your-bucket>/autoresearch/2026-04-23-gemma4-jax-exp37-splash-b3-bf16ce/`
 - **Steps captured**: 10, 11, 12
 - **What's inside**: xprof trace of the native-JAX trainer at batch=3 seq=1024 fsdp=4 bf16 with `JAX_ATTENTION_IMPL=splash JAX_CE_DTYPE=bf16`. Step-time 354.85 ms; peak HBM 27.45 GiB / 87.84 %; HLO graph indistinguishable from exp 36 aside from one dropped implicit-cast in the reduction.
 
@@ -159,5 +159,5 @@ With exp 37 confirmed as a no-op, the ranking from exp 36 stands, with one small
 - `/tmp/gemma4_jax_exp37.log` — full 20-step run log.
 - `/tmp/gemma4_jax_exp37_smoke.log` — 5-step smoke test.
 - Profile directory: `raw/profiles/2026-04-23-gemma4-jax-exp37-splash-b3-bf16ce/` — xprof run `2026-04-23-gemma4-jax-exp37-splash-b3-bf16ce/2026_04_24_03_32_18` at http://localhost:8791/?run=2026-04-23-gemma4-jax-exp37-splash-b3-bf16ce
-- GCS mirror: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/2026-04-23-gemma4-jax-exp37-splash-b3-bf16ce/`
+- GCS mirror: `gs://<your-bucket>/autoresearch/2026-04-23-gemma4-jax-exp37-splash-b3-bf16ce/`
 - [exp 36 page](2026-04-23-exp36-jax-splash-batch3-accepted.md) — comparison baseline (identical numerical path by construction).

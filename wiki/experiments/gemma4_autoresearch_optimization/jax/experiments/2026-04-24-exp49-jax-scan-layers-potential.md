@@ -202,7 +202,7 @@ follow-up work.
 - **xprof browser URL**: [2026-04-24-gemma4-jax-exp49-scan-layers](http://localhost:8791/?run=2026-04-24-gemma4-jax-exp49-scan-layers)
 - **Run name**: `2026-04-24-gemma4-jax-exp49-scan-layers/2026_04_24_07_24_43`
 - **On-disk directory**: [`raw/profiles/2026-04-24-gemma4-jax-exp49-scan-layers/`](../../../../../raw/profiles/2026-04-24-gemma4-jax-exp49-scan-layers/) (gitignored; 158 MB).
-- **GCS mirror**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/2026-04-24-gemma4-jax-exp49-scan-layers/`
+- **GCS mirror**: `gs://<your-bucket>/autoresearch/2026-04-24-gemma4-jax-exp49-scan-layers/`
 - **Steps captured**: 10, 11, 12.
 - **What's inside**: trace of the scan-over-layers JAX trainer at
   batch=3 seq=1024 fsdp=4 bf16 splash. Mean step 450 ms (27,290 TPS,
@@ -270,6 +270,6 @@ re-implementing.
 - `/tmp/gemma4_jax_exp49.log` — full 20-step run log.
 - `/tmp/gemma4_jax_exp49_smoke.log` — 5-step smoke test.
 - Profile directory: `raw/profiles/2026-04-24-gemma4-jax-exp49-scan-layers/` — xprof run `2026-04-24-gemma4-jax-exp49-scan-layers/2026_04_24_07_24_43`.
-- GCS mirror: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/2026-04-24-gemma4-jax-exp49-scan-layers/`
+- GCS mirror: `gs://<your-bucket>/autoresearch/2026-04-24-gemma4-jax-exp49-scan-layers/`
 - [exp 36 page](2026-04-23-exp36-jax-splash-batch3-accepted.md) — baseline comparison this entry stacks on.
 - [torchax exp 26 page](../../torchax/experiments/2026-04-23-exp26-scan-over-layers-potential.md) — the parked torchax attempt this resolves on the JAX stack.

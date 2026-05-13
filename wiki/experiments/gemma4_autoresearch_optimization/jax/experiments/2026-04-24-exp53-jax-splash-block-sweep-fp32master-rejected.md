@@ -45,7 +45,7 @@ Loss descent for 53b matches exp 52 within bf16-reorder noise (step 4: 2.42 vs 2
 ## Profile
 
 - On-disk path: `raw/profiles/2026-04-24-gemma4-jax-exp53-splash-block512-seq2k-fp32master/` (gitignored). Steps 10–12 captured.
-- GCS mirror: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/2026-04-24-gemma4-jax-exp53-splash-block512-seq2k-fp32master/`
+- GCS mirror: `gs://<your-bucket>/autoresearch/2026-04-24-gemma4-jax-exp53-splash-block512-seq2k-fp32master/`
 - Browser URL: `http://localhost:8791/?run=2026-04-24-gemma4-jax-exp53-splash-block512-seq2k-fp32master`
 
 ## Verdict + reasoning
@@ -69,5 +69,5 @@ From the exp 52 queue, still open:
 ## Sources
 
 - `raw/profiles/2026-04-24-gemma4-jax-exp53-splash-block512-seq2k-fp32master/` (xprof trace)
-- `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/2026-04-24-gemma4-jax-exp53-splash-block512-seq2k-fp32master/` (GCS mirror)
+- `gs://<your-bucket>/autoresearch/2026-04-24-gemma4-jax-exp53-splash-block512-seq2k-fp32master/` (GCS mirror)
 - `/tmp/gemma4_jax_exp53.log` (run stdout)

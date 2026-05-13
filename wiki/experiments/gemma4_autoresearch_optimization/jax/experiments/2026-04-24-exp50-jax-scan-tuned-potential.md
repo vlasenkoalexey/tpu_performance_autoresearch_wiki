@@ -190,7 +190,7 @@ Of exp 49's −21.2 pt regression vs exp 36, exp 50 closed:
 
 - **Profile dir**: `raw/profiles/2026-04-24-gemma4-jax-exp50-scan-tuned/`
   (~155 MB, gitignored).
-- **GCS mirror**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/2026-04-24-gemma4-jax-exp50-scan-tuned/`
+- **GCS mirror**: `gs://<your-bucket>/autoresearch/2026-04-24-gemma4-jax-exp50-scan-tuned/`
 - **Steps captured**: 10, 11, 12 (mean 402 ms each, representative of
   steady state).
 - HLO drill-down is follow-up work — the gap-closure analysis above is
@@ -199,7 +199,7 @@ Of exp 49's −21.2 pt regression vs exp 36, exp 50 closed:
 ## Profile
 
 - **On-disk directory**: [`raw/profiles/2026-04-24-gemma4-jax-exp50-scan-tuned/`](../../../../../raw/profiles/2026-04-24-gemma4-jax-exp50-scan-tuned/) (gitignored; ~155 MB).
-- **GCS mirror**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/2026-04-24-gemma4-jax-exp50-scan-tuned/`
+- **GCS mirror**: `gs://<your-bucket>/autoresearch/2026-04-24-gemma4-jax-exp50-scan-tuned/`
 - **Steps captured**: 10, 11, 12.
 - **What's inside**: trace of the scan-tuned JAX trainer at batch=3
   seq=1024 fsdp=4 bf16 splash. Steady-state step 399-402 ms (30,778 TPS
@@ -257,6 +257,6 @@ below −5 % after trying both fix paths, stop after 3 hours and file
 - `/tmp/gemma4_jax_exp50.log` — 20-step benchmark log.
 - `/tmp/gemma4_jax_exp50_freshcompile.log` — 3-step fresh-cache compile measurement (72.7 s).
 - Profile directory: `raw/profiles/2026-04-24-gemma4-jax-exp50-scan-tuned/` — xprof run `2026-04-24-gemma4-jax-exp50-scan-tuned/2026_04_24_08_08_12`.
-- GCS mirror: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/2026-04-24-gemma4-jax-exp50-scan-tuned/`
+- GCS mirror: `gs://<your-bucket>/autoresearch/2026-04-24-gemma4-jax-exp50-scan-tuned/`
 - [exp 36 page](2026-04-23-exp36-jax-splash-batch3-accepted.md) — comparison baseline.
 - [exp 49 page](2026-04-24-exp49-jax-scan-layers-potential.md) — predecessor.

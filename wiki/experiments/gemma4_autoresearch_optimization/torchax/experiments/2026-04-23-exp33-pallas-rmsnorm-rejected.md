@@ -74,7 +74,7 @@ Raw per-step (steps 2–19): 400.0–401.6 ms, σ < 0.5 ms — extremely tight. 
 - **Run name** (as listed by `mcp__xprof__list_runs`): `2026-04-23-gemma4-exp33-pallas-rmsnorm`
 - **On-disk directory**: [`raw/profiles/2026-04-23-gemma4-exp33-pallas-rmsnorm/`](../../../../../raw/profiles/2026-04-23-gemma4-exp33-pallas-rmsnorm/) (gitignored; relative link click-throughs open the trace folder locally)
 - **Steps captured**: 10, 11, 12
-- **What's inside**: xprof trace — hand-written Pallas RMSNorm + custom_vjp replacing Gemma4RMSNorm (~250 sites/step); −8.1 % via fusion-boundary tax (Pallas custom-calls prevent XLA from fusing norms with neighboring matmuls). Also uploaded to `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/2026-04-23-gemma4-exp33-pallas-rmsnorm/` for direct xprof UI access.
+- **What's inside**: xprof trace — hand-written Pallas RMSNorm + custom_vjp replacing Gemma4RMSNorm (~250 sites/step); −8.1 % via fusion-boundary tax (Pallas custom-calls prevent XLA from fusing norms with neighboring matmuls). Also uploaded to `gs://<your-bucket>/autoresearch/2026-04-23-gemma4-exp33-pallas-rmsnorm/` for direct xprof UI access.
 
 ## Mechanism — why it regressed
 
@@ -110,7 +110,7 @@ Headline: the recipe that worked for attention (exp 8) does NOT generalize to el
 
 ## Sources
 
-- `raw/profiles/2026-04-23-gemma4-exp33-pallas-rmsnorm/` (GCS mirror: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/2026-04-23-gemma4-exp33-pallas-rmsnorm/`).
+- `raw/profiles/2026-04-23-gemma4-exp33-pallas-rmsnorm/` (GCS mirror: `gs://<your-bucket>/autoresearch/2026-04-23-gemma4-exp33-pallas-rmsnorm/`).
 - `wiki/experiments/gemma4_autoresearch_optimization/torchax/model/pallas_rmsnorm.py` (new file).
 - `wiki/experiments/gemma4_autoresearch_optimization/torchax/train.py` (+6 lines env-gated registration).
 - `/tmp/gemma4_exp33.log` — 20-step benchmark log.

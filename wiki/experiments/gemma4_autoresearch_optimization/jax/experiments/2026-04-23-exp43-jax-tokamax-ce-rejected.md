@@ -29,7 +29,7 @@ Replace the JAX-stack `forward_loss` sequence — `logits = hidden @ W.T` → `s
 ### Verified tokamax is installed and imports
 
 ```
-$ /home/alekseyv_google_com/miniconda3/envs/gemma4_py313/bin/python -c \
+$ $HOME/miniconda3/envs/gemma4_py313/bin/python -c \
     "import tokamax; print(tokamax.__version__); \
      from tokamax._src.ops.linear_softmax_cross_entropy_loss import api as lce; \
      print([x for x in dir(lce) if not x.startswith('_')])"

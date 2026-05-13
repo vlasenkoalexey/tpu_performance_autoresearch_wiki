@@ -106,7 +106,7 @@ Not a bit-match — and shouldn't be, because the data loader packs 3 sequences 
 - **xprof browser URL**: [2026-04-23-gemma4-jax-exp36-splash-batch3](http://localhost:8791/?run=2026-04-23-gemma4-jax-exp36-splash-batch3) — opens the interactive trace viewer.
 - **Run name** (as listed by `mcp__xprof__list_runs`): `2026-04-23-gemma4-jax-exp36-splash-batch3/2026_04_24_03_01_54`
 - **On-disk directory**: [`raw/profiles/2026-04-23-gemma4-jax-exp36-splash-batch3/`](../../../../../raw/profiles/2026-04-23-gemma4-jax-exp36-splash-batch3/) (gitignored; 321 MB).
-- **GCS mirror** (for xprof_mcp / xprof browser server): `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/2026-04-23-gemma4-jax-exp36-splash-batch3/`
+- **GCS mirror** (for xprof_mcp / xprof browser server): `gs://<your-bucket>/autoresearch/2026-04-23-gemma4-jax-exp36-splash-batch3/`
 - **Steps captured**: 10, 11, 12 (xprof trace + xplane.pb).
 - **What's inside**: trace of the native-JAX trainer at batch=3 seq=1024 fsdp=4 bf16 with `JAX_ATTENTION_IMPL=splash`. Step-time 375.5 ms (xprof avg over 3 steady-state steps, profile-capture inflates slightly vs the 355 ms median); peak HBM 27.11 GiB / 86.75 %; splash custom fusion at 3.9 % of step time.
 
@@ -147,5 +147,5 @@ These two amortize in parallel: neither is possible without splash landing in ex
 - `/tmp/gemma4_jax_exp36.log` — full 20-step run log.
 - `/tmp/gemma4_jax_exp36_smoke.log` — 5-step smoke test.
 - Profile directory: `raw/profiles/2026-04-23-gemma4-jax-exp36-splash-batch3/` — xprof run `2026-04-23-gemma4-jax-exp36-splash-batch3/2026_04_24_03_01_54` at http://localhost:8791/?run=2026-04-23-gemma4-jax-exp36-splash-batch3
-- GCS mirror: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/2026-04-23-gemma4-jax-exp36-splash-batch3/`
+- GCS mirror: `gs://<your-bucket>/autoresearch/2026-04-23-gemma4-jax-exp36-splash-batch3/`
 - [exp 35 page](2026-04-23-exp35-jax-splash-potential.md) — baseline comparison this entry stacks on.

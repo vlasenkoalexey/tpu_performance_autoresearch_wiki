@@ -39,9 +39,9 @@ per-token cost drops sharply.
 
 ## Profile
 
-- **xprof browser URL**: [2026-04-25-llama3-8b-exp3-splash-bs4](http://localhost:8791/?run=2026-04-25-llama3-8b-exp3-splash-bs4) (point xprof at `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/`).
+- **xprof browser URL**: [2026-04-25-llama3-8b-exp3-splash-bs4](http://localhost:8791/?run=2026-04-25-llama3-8b-exp3-splash-bs4) (point xprof at `gs://<your-bucket>/autoresearch/`).
 - **Run name**: `2026-04-25-llama3-8b-exp3-splash-bs4`
-- **GCS**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/2026-04-25-llama3-8b-exp3-splash-bs4/plugins/profile/2026_04_25_18_38_42/`
+- **GCS**: `gs://<your-bucket>/autoresearch/2026-04-25-llama3-8b-exp3-splash-bs4/plugins/profile/2026_04_25_18_38_42/`
 - **On-disk**: [`raw/profiles/2026-04-25-llama3-8b-exp3-splash-bs4/`](../../../../../raw/profiles/2026-04-25-llama3-8b-exp3-splash-bs4/) (gitignored, 617 MiB, both ranks).
 - **Steps captured**: 7.
 
@@ -85,4 +85,4 @@ experiments branch from here.
 ## Sources
 
 - [`raw/profiles/2026-04-25-llama3-8b-exp3-splash-bs4/`](../../../../../raw/profiles/2026-04-25-llama3-8b-exp3-splash-bs4/)
-- [`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/2026-04-25-llama3-8b-exp3-splash-bs4/`]
+- [`gs://<your-bucket>/autoresearch/2026-04-25-llama3-8b-exp3-splash-bs4/`]

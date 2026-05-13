@@ -35,7 +35,7 @@ Classic "more budget is not better" — the default 128 MiB is the sweet spot on
 
 - **xprof browser URL**: [2026-04-23-gemma4-jax-exp41-vmem512](http://localhost:8791/?run=2026-04-23-gemma4-jax-exp41-vmem512) — opens the trace viewer.
 - **Run name**: `2026-04-23-gemma4-jax-exp41-vmem512`
-- **On-disk directory**: [`raw/profiles/2026-04-23-gemma4-jax-exp41-vmem512/`](../../../../../raw/profiles/2026-04-23-gemma4-jax-exp41-vmem512/) (gitignored; GCS mirror at `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/2026-04-23-gemma4-jax-exp41-vmem512/`).
+- **On-disk directory**: [`raw/profiles/2026-04-23-gemma4-jax-exp41-vmem512/`](../../../../../raw/profiles/2026-04-23-gemma4-jax-exp41-vmem512/) (gitignored; GCS mirror at `gs://<your-bucket>/autoresearch/2026-04-23-gemma4-jax-exp41-vmem512/`).
 - **Steps captured**: 10, 11, 12.
 - **What's inside**: xprof trace of exp 36 config with VMEM limit at 512 MiB — compare to exp 36 trace to see which op buckets grew.
 

@@ -51,7 +51,7 @@ saving is absorbed by the FSDP all-gather scheduling around attention
 ## Profile
 
 - **xprof browser URL**: [2026-04-25-llama3-8b-exp9-splash-autotuned](http://localhost:8791/?run=2026-04-25-llama3-8b-exp9-splash-autotuned).
-- **GCS**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/2026-04-25-llama3-8b-exp9-splash-autotuned/plugins/profile/<session>/`.
+- **GCS**: `gs://<your-bucket>/autoresearch/2026-04-25-llama3-8b-exp9-splash-autotuned/plugins/profile/<session>/`.
 - **On-disk**: [`raw/profiles/2026-04-25-llama3-8b-exp9-splash-autotuned/`](../../../../../raw/profiles/2026-04-25-llama3-8b-exp9-splash-autotuned/) (gitignored, both ranks).
 - **Steps captured**: 7.
 
@@ -106,5 +106,5 @@ it's already a custom-call; we only changed its internal tiling — so the
 ## Sources
 
 - [`raw/profiles/2026-04-25-llama3-8b-exp9-splash-autotuned/`](../../../../../raw/profiles/2026-04-25-llama3-8b-exp9-splash-autotuned/)
-- `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/2026-04-25-llama3-8b-exp9-splash-autotuned/`
+- `gs://<your-bucket>/autoresearch/2026-04-25-llama3-8b-exp9-splash-autotuned/`
 - Workload (XPK): `llama3-8b-exp9-exp9-splash-autotuned-bs4`

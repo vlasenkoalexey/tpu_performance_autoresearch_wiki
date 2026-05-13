@@ -216,7 +216,7 @@ vs MaxText reference 7,069/chip at bs=3 → **+5.7 % per chip**.
 ## Profile (bs=5 frontier)
 
 - **xprof run name**: `llama3-8b-jax-exp15-mxt-prof-bs5/2026_04_26_21_54_58`
-- **on-disk**: `gs://tpu-pytorch-alekseyv-us-central2/jax-experiment/llama3-8b-jax-exp15-mxt-prof-bs5/`
+- **on-disk**: `gs://<your-bucket>/jax-experiment/llama3-8b-jax-exp15-mxt-prof-bs5/`
 - **steps captured**: profile_step=5 of a 9-step run
 - **headline**: MXU util 64.1% (BEATS MaxText 60.6%); step_time 5535.6 ms; conv fusion 57.2%, splash 24.6%, loop fusion 8.5%
 

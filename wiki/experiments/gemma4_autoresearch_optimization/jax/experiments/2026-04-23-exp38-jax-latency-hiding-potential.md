@@ -36,7 +36,7 @@ Compile time bumped as expected (scheduler has more search space). Runtime ident
 
 - **xprof browser URL**: [2026-04-23-gemma4-jax-exp38-latency-hiding](http://localhost:8791/?run=2026-04-23-gemma4-jax-exp38-latency-hiding) — opens the interactive trace viewer.
 - **Run name**: `2026-04-23-gemma4-jax-exp38-latency-hiding`
-- **On-disk directory**: [`raw/profiles/2026-04-23-gemma4-jax-exp38-latency-hiding/`](../../../../../raw/profiles/2026-04-23-gemma4-jax-exp38-latency-hiding/) (gitignored; also mirrored at `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/2026-04-23-gemma4-jax-exp38-latency-hiding/`).
+- **On-disk directory**: [`raw/profiles/2026-04-23-gemma4-jax-exp38-latency-hiding/`](../../../../../raw/profiles/2026-04-23-gemma4-jax-exp38-latency-hiding/) (gitignored; also mirrored at `gs://<your-bucket>/autoresearch/2026-04-23-gemma4-jax-exp38-latency-hiding/`).
 - **Steps captured**: 10, 11, 12.
 - **What's inside**: xprof trace of splash+b3 with latency-hiding-scheduler enabled. Use to compare the `collective-permute-done` bucket against exp 36's profile — if the wait duration dropped but other buckets grew to absorb it, the scheduler IS reordering but the reorder has no net benefit at this scale.
 

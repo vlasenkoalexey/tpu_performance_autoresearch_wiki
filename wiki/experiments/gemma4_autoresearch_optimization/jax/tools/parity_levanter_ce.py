@@ -13,7 +13,7 @@ a plain log_softmax). Prints max/mean abs diff and PASS/FAIL.
 
 Usage::
 
-    /home/alekseyv_google_com/miniconda3/envs/gemma4_py313/bin/python \
+    $HOME/miniconda3/envs/gemma4_py313/bin/python \
         -m tools.parity_levanter_ce
 
 from inside ``wiki/experiments/gemma4_autoresearch_optimization/jax/``.

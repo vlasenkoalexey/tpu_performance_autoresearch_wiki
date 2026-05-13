@@ -62,7 +62,7 @@ Per-token cost progression:
 
 - **xprof browser URL**: [2026-04-23-gemma4-jax-exp40-seq2048-batch2](http://localhost:8791/?run=2026-04-23-gemma4-jax-exp40-seq2048-batch2) — opens the interactive trace viewer.
 - **Run name**: `2026-04-23-gemma4-jax-exp40-seq2048-batch2`
-- **On-disk directory**: [`raw/profiles/2026-04-23-gemma4-jax-exp40-seq2048-batch2/`](../../../../../raw/profiles/2026-04-23-gemma4-jax-exp40-seq2048-batch2/) (gitignored; mirrored at `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/2026-04-23-gemma4-jax-exp40-seq2048-batch2/`).
+- **On-disk directory**: [`raw/profiles/2026-04-23-gemma4-jax-exp40-seq2048-batch2/`](../../../../../raw/profiles/2026-04-23-gemma4-jax-exp40-seq2048-batch2/) (gitignored; mirrored at `gs://<your-bucket>/autoresearch/2026-04-23-gemma4-jax-exp40-seq2048-batch2/`).
 - **Steps captured**: 10, 11, 12.
 - **What's inside**: xprof trace at seq=2048 b=2 — the long-seq profile for the JAX stack. Splash's N² elimination visible here; comparing with exp 36's b=3 s=1024 trace shows where attention cost scales vs where MLP / other scales.
 

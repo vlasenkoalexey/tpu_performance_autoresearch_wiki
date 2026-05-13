@@ -152,4 +152,4 @@ ceiling of the knob-tunable surface.
 
 - All exp_* xpk shell scripts under `/tmp/llama3_run/xpk/`
 - Trainer: `/mnt/disks/persist/docker-build-llama3/trainer/{train.py,splash_attn.py,model/scan.py,model/sharding.py}`
-- Profile artifact: `gs://tpu-pytorch-alekseyv-us-central2/jax-experiment/llama3-8b-exp79-tk-prof/`
+- Profile artifact: `gs://<your-bucket>/jax-experiment/llama3-8b-exp79-tk-prof/`

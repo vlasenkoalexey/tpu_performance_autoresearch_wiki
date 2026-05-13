@@ -147,7 +147,7 @@ This is the **new program-target best for the JAX stack**:
 - **xprof run name**: `llama3-8b-jax-exp28pf-sc-bs4-prof/2026_04_27_03_14_26`
 - **xprof URL**: http://localhost:8791/?run=llama3-8b-jax-exp28pf-sc-bs4-prof/2026_04_27_03_14_26
 - **on-disk**: [`raw/profiles/2026-04-26-jax-exp28b-sc-rsag-bs4/`](../../../../../raw/profiles/2026-04-26-jax-exp28b-sc-rsag-bs4/)
-- **GCS**: `gs://tpu-pytorch-alekseyv-us-central2/jax-experiment/llama3-8b-jax-exp28pf-sc-bs4-prof/`
+- **GCS**: `gs://<your-bucket>/jax-experiment/llama3-8b-jax-exp28pf-sc-bs4-prof/`
 - **steps captured**: profile_step=7 of a 10-step run (config matches exp 28b verbatim)
 - **headline**: MXU util **65.8 %** (was 64.1 % at exp 13/15); step time 4,267 ms; conv fusion **60.1 %** (was 57.2 %); splash custom-call 25.5 %; loop fusion 9.2 %; **async-collective dropped from 5.0 % → 1.7 %** (3.3 pp saved by SC RS+AG offload).
 

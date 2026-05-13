@@ -56,5 +56,5 @@ vs higher throughput).
 ## Sources
 
 - Workload (XPK): `llama3-8b-exp23-amp-bs2-seq4k`.
-- Image: `us-central1-docker.pkg.dev/tpu-pytorch/test/llama3-8b-torchax-container:hf-v7`.
+- Image: `us-central1-docker.pkg.dev/<your-project>/test/llama3-8b-torchax-container:hf-v7`.
 - Branch: `v6e8-llama3-8b-torchax-20260425-exp23-amp-bs2-seq4k`.

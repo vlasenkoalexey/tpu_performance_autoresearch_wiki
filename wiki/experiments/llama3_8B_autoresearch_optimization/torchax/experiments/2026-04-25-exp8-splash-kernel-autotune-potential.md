@@ -56,12 +56,12 @@ are already at the local optimum and the autotune is a no-op (refuted).
 ### Hardware / job
 
 - TPU v6e-8 (1 slice, 2 hosts × 4 chips, 2x4 topology),
-  cluster `alekseyv-tpu-v6e8-spot-xpk` in `us-central2-b`. Each rank's process
+  cluster `<your-v6e8-cluster>` in `<your-zone>`. Each rank's process
   independently runs the sweep on its local chip 0 (no `jax.distributed`
   cross-rank coordination is needed — splash on a single device is what we're
   measuring; the other 7 chips sit idle). Both ranks' results are recorded
   for cross-validation.
-- Image: `us-central1-docker.pkg.dev/tpu-pytorch/test/llama3-8b-torchax-container:tune-v2`
+- Image: `us-central1-docker.pkg.dev/<your-project>/test/llama3-8b-torchax-container:tune-v2`
   (base `jax-ai-image/tpu:jax0.9.0-rev1`, +`tune_splash.py`; same trainer
   image as `hf-v2` plus the new harness file). XLA flags via
   `LIBTPU_INIT_ARGS=--xla_tpu_scoped_vmem_limit_kib=65536` to match production
@@ -432,5 +432,5 @@ See "Next hypotheses" below.
   config to edit for exp 9).
 - [`Dockerfile`](../Dockerfile) and
   [`DEPLOY.md`](../DEPLOY.md) — image / submission flow (image tag
-  `tune-v2`, registry `us-central1-docker.pkg.dev/tpu-pytorch/test/llama3-8b-torchax-container`).
+  `tune-v2`, registry `us-central1-docker.pkg.dev/<your-project>/test/llama3-8b-torchax-container`).
 - Workload name (XPK): `llama3-splash-tune-20260425-191044`.

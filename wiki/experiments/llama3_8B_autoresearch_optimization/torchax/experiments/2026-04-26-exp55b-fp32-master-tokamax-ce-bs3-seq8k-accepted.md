@@ -58,8 +58,8 @@ Every accepted optimization stacks here:
   `_maybe_cast_weights` autocast in `model_fn`. Builds on `hf-v22` (which
   added the `shard_map` wrap for tokamax CE) and `hf-v25` (which fixed an
   MFU-formula bug — see *MFU correction* section below).
-- Cluster: `alekseyv-tpu-v6e8-spot-xpk`, single v6e-8 slice (8 chips,
-  2 hosts × 4 local devices), us-central2-b.
+- Cluster: `<your-v6e8-cluster>`, single v6e-8 slice (8 chips,
+  2 hosts × 4 local devices), <your-zone>.
 - Branch: `v6e8-llama3-8b-torchax-20260426-exp55b-fp32-master-tokamax`.
 - Command (key flags only):
   ```

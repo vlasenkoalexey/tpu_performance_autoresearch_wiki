@@ -160,5 +160,5 @@ Abbreviated comparison — the two best-of-stack + baselines only:
 ## Sources
 
 - All experiments exp 34 – exp 42 under `wiki/experiments/gemma4_autoresearch_optimization/jax/experiments/`.
-- Profiles at `raw/profiles/2026-04-23-gemma4-jax-exp{34..42}-*/` (gitignored, mirrored to `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/`).
+- Profiles at `raw/profiles/2026-04-23-gemma4-jax-exp{34..42}-*/` (gitignored, mirrored to `gs://<your-bucket>/autoresearch/`).
 - All commits on branch `main`: `49d43e9` (port) → `d9db1bc` (exp 42).

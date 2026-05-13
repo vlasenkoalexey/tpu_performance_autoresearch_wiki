@@ -20,7 +20,7 @@ fp32 master weights + bf16 matmul/conv compute (AMP, standard for large-model tr
 
 - **Hardware**: TPU v6e-4 (4 chips, 31.25 GiB HBM/chip)
 - **Commit**: 176fd2c (mixed-precision training wiring on top of 517a689 flag wiring)
-- **Python**: `/home/alekseyv_google_com/miniconda3/envs/gemma4_py313/bin/python`
+- **Python**: `$HOME/miniconda3/envs/gemma4_py313/bin/python`
 - **Env**: `JAX_COMPILATION_CACHE_DIR=/tmp/jax_compile_cache` `JAX_ATTENTION_IMPL=splash`
 - **Command**:
   ```bash
@@ -77,7 +77,7 @@ Every config below OOMs at compile time. Peak HBM reported is what XLA said it w
 ## Profile
 
 - **On-disk path**: `raw/profiles/2026-04-24-gemma4-jax-exp52-baseline-seq2k-fp32master/` — single xprof trace captured at steps 10–12. Gitignored.
-- **GCS mirror**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/2026-04-24-gemma4-jax-exp52-baseline-seq2k-fp32master/` (uploaded for xprof UI visibility; the xprof MCP server for this session was pointed at a different logdir so MCP queries were not run).
+- **GCS mirror**: `gs://<your-bucket>/autoresearch/2026-04-24-gemma4-jax-exp52-baseline-seq2k-fp32master/` (uploaded for xprof UI visibility; the xprof MCP server for this session was pointed at a different logdir so MCP queries were not run).
 - **Browser URL (via active xprof)**: `http://localhost:8791/?run=2026-04-24-gemma4-jax-exp52-baseline-seq2k-fp32master` — will resolve once the xprof server is re-pointed at the `autoresearch/` logdir.
 - **Captured steps**: 10, 11, 12 (three consecutive steady-state steps via `--profile_steps 10 11 12`).
 - **What's inside**: xprof trace (trace_viewer + overview_page + hlo_op_stats JSONs).
@@ -122,7 +122,7 @@ Every config below OOMs at compile time. Peak HBM reported is what XLA said it w
 ## Sources
 
 - `raw/profiles/2026-04-24-gemma4-jax-exp52-baseline-seq2k-fp32master/` (on-disk, gitignored) — xprof trace for steps 10–12
-- `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/2026-04-24-gemma4-jax-exp52-baseline-seq2k-fp32master/` (GCS mirror for xprof UI)
+- `gs://<your-bucket>/autoresearch/2026-04-24-gemma4-jax-exp52-baseline-seq2k-fp32master/` (GCS mirror for xprof UI)
 - `/tmp/gemma4_jax_exp52.log` (run stdout — replicable via the command in Setup)
 - commit `176fd2c` — mixed-precision training wiring
 - commit `517a689` — `--weights-dtype` / `--compute-dtype` flags

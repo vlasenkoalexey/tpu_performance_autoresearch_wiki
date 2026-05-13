@@ -12,5 +12,5 @@ cd "$(dirname "${BASH_SOURCE[0]}")"
 export XLA_FLAGS="${XLA_FLAGS:-}"
 export LIBTPU_INIT_ARGS="${LIBTPU_INIT_ARGS:-}"
 
-PY="${PY:-/home/alekseyv_google_com/miniconda3/envs/gemma4_py313/bin/python}"
+PY="${PY:-$HOME/miniconda3/envs/gemma4_py313/bin/python}"
 exec "$PY" -m train "$@"

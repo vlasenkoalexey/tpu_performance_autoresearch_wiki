@@ -106,7 +106,7 @@ reproducible flag set:
   re-running with `--profile_dir=gs://...` once GCS write permissions
   are sorted (exp 62 hit a 403 on profile-write at step 7; non-profile
   runs are clean).
-- **Run prior to this milestone (still authoritative for the breakdown)**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/profiles/llama3-8b-exp61b-profile-bs3/`
+- **Run prior to this milestone (still authoritative for the breakdown)**: `gs://<your-bucket>/autoresearch/profiles/llama3-8b-exp61b-profile-bs3/`
 
 ## See also
 

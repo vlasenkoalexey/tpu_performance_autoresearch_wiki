@@ -18,7 +18,7 @@ Pre-cast bf16 weights at bs=5 — 7,665/chip 43.0 % MFU, **-0.7 %** (within nois
 - Shape: bs=5 seq=8192
 - Compute: bf16 + AMP (fp32 master weights, fp32 adamw mu/nu)
 - Stack: scan-over-layers + tokamax CE (chunked_xla, autotune) + tokamax-splash with `base2/fuse_recip/mlc=30` (unless noted) + full MaxText XLA flag stack + SparseCore offload of all 3 FSDP collectives + `nothing_saveable` remat
-- Image: `us-central1-docker.pkg.dev/tpu-pytorch/test/llama3-8b-jax-container:precast-1`
+- Image: `us-central1-docker.pkg.dev/<your-project>/test/llama3-8b-jax-container:precast-1`
 - Submission script: `/tmp/llama3_run/xpk/exp_jax_maxtext_flags.sh` (or `exp_jax_minimal.sh` for the minimal-flags-baseline variants)
 
 ## Results

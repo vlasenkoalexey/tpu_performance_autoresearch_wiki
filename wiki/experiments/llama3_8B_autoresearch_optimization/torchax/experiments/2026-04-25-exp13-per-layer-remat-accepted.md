@@ -181,5 +181,5 @@ the actual fix here is per-layer.
   - `llama3-8b-exp13a-layer-remat-bs4-seq1k`
   - `llama3-8b-exp13b-layer-remat-bs4-seq2k`
   - `llama3-8b-exp13c-layer-remat-bs8-seq1k`
-- Image: `us-central1-docker.pkg.dev/tpu-pytorch/test/llama3-8b-torchax-container:hf-v5`.
+- Image: `us-central1-docker.pkg.dev/<your-project>/test/llama3-8b-torchax-container:hf-v5`.
 - Branch: `v6e8-llama3-8b-torchax-20260425-exp13-scan`.

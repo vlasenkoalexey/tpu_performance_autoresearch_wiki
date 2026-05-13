@@ -84,7 +84,7 @@ Otherwise the in-image `/deps/src/maxtext/configs/types.py` (without the patch) 
 
 ## Setup — cluster and tools
 
-**Cluster**: `alekseyv-tpu-v6e8-spot-xpk` (us-central2-b, project tpu-pytorch, 2 hosts × 4 chips = 8, **spot**).
+**Cluster**: `<your-v6e8-cluster>` (<your-zone>, project <your-project>, 2 hosts × 4 chips = 8, **spot**).
 
 **MaxText**: `main` @ `532c8b3d8` (commit ID; not a tagged release). Worktree at `/mnt/disks/persist/maxtext-main` (kept outside `raw/` per SCHEMA rule 1).
 
@@ -92,14 +92,14 @@ Otherwise the in-image `/deps/src/maxtext/configs/types.py` (without the patch) 
 
 **XPK**: tag `v0.14.3` at `~/xpk` (same as Llama-8B run).
 
-**Workload name**: `ale-gemma4-e4b-mt-5` (`-mt-1` through `-mt-4` were earlier failed attempts — see "Iterations" below).
+**Workload name**: `<workload-name>` (`-mt-1` through `-mt-4` were earlier failed attempts — see "Iterations" below).
 
 **Submission** (run from `/mnt/disks/persist/maxtext-main` in the maxtext venv):
 
 ```bash
-W=ale-gemma4-e4b-mt-5
+W=<workload-name>
 RUN_NAME=$W
-OUTPUT_DIR=gs://tpu-pytorch-alekseyv-us-central2/maxtext/v6e8-20260425-02-gemma4-e4b
+OUTPUT_DIR=gs://<your-bucket>/maxtext/v6e8-20260425-02-gemma4-e4b
 LIBTPU_VAL=" --xla_tpu_scoped_vmem_limit_kib=98304"
 
 CMD=" echo 'using LIBTPU_INIT_ARGS' \
@@ -130,8 +130,8 @@ CMD=" echo 'using LIBTPU_INIT_ARGS' \
        run_name=${RUN_NAME}"
 
 python3 ~/xpk/xpk.py workload create \
-  --cluster=alekseyv-tpu-v6e8-spot-xpk \
-  --project=tpu-pytorch --zone=us-central2-b \
+  --cluster=<your-v6e8-cluster> \
+  --project=<your-project> --zone=<your-zone> \
   --device-type=v6e-8 --num-slices=1 \
   --command="$CMD" --base-docker-image=maxtext_base_image \
   --enable-debug-logs --workload=$W --priority=medium --max-restarts=0
@@ -169,7 +169,7 @@ What this run **does** provide: an absolute-throughput measurement of the dense-
 
 ## Results
 
-Per-step (from `kubectl logs ale-gemma4-e4b-mt-5-slice-job-0-0-lw4bn`):
+Per-step (from `kubectl logs <workload-pod>`):
 
 | step | s/step | TFLOP/s/device | Tokens/s/device | loss | notes |
 |---:|---:|---:|---:|---:|---|
@@ -214,7 +214,7 @@ Loss is essentially flat (12.974–12.982) across all 20 steps — synthetic dat
 ## Profile
 
 - **xprof browser URL**: `http://localhost:8791/?run=2026-04-25-maxtext-gemma4-e4b-v6e8-baseline` (after `xprof --logdir=raw/profiles --port=8791 &`).
-- **MaxText run name (in xprof)**: `ale-gemma4-e4b-mt-5`. Canonical GCS path: `gs://tpu-pytorch-alekseyv-us-central2/maxtext/v6e8-20260425-02-gemma4-e4b/ale-gemma4-e4b-mt-5/`.
+- **MaxText run name (in xprof)**: `<workload-name>`. Canonical GCS path: `gs://<your-bucket>/maxtext/v6e8-20260425-02-gemma4-e4b/<workload-name>/`.
 - **On-disk trace dir**: [raw/profiles/2026-04-25-maxtext-gemma4-e4b-v6e8-baseline/](../../../../../../raw/profiles/2026-04-25-maxtext-gemma4-e4b-v6e8-baseline/) (mirror via `gcloud storage cp -r`; ~133 MiB, 4× the size of the Llama-8B trace because Gemma 4's HLO has more attention-pattern variants — alternating SW+GLOBAL layers each compile to distinct kernels).
 - **Steps captured**: 11–15 (`profiler=xplane`, `skip_first_n_steps_for_profiler=10`, `profiler_steps=5`).
 - **Trace contents**: `tensorboard/plugins/profile/2026_04_25_17_37_27/{*.xplane.pb, *.trace.json.gz}`. Rank-0 only.
@@ -264,4 +264,4 @@ To be filed as separate hypothesis pages. In rough rank order:
 - `/mnt/disks/persist/maxtext-main/src/maxtext/configs/types.py:239` — local 1-line patch to Pydantic literal.
 - `raw/code/maxtext` @ `main` (`532c8b3d8`) — base MaxText sources.
 - HF [`google/gemma-4-E4B/config.json`](https://huggingface.co/google/gemma-4-E4B/blob/main/config.json) `text_config` — architectural spec source.
-- [raw/profiles/2026-04-25-maxtext-gemma4-e4b-v6e8-baseline/](../../../../../../raw/profiles/2026-04-25-maxtext-gemma4-e4b-v6e8-baseline/) (mirror; canonical at `gs://tpu-pytorch-alekseyv-us-central2/maxtext/v6e8-20260425-02-gemma4-e4b/`).
+- [raw/profiles/2026-04-25-maxtext-gemma4-e4b-v6e8-baseline/](../../../../../../raw/profiles/2026-04-25-maxtext-gemma4-e4b-v6e8-baseline/) (mirror; canonical at `gs://<your-bucket>/maxtext/v6e8-20260425-02-gemma4-e4b/`).

@@ -45,7 +45,7 @@ JAX_COMPILATION_CACHE_DIR=/tmp/jax_compile_cache \
 JAX_ATTENTION_IMPL=splash \
 JAX_CE_IMPL=levanter \
 LEVANTER_PALLAS_CE_AUTOTUNE_ON_MISS=0 \
-  /home/alekseyv_google_com/miniconda3/envs/gemma4_py313/bin/python -u -m train \
+  $HOME/miniconda3/envs/gemma4_py313/bin/python -u -m train \
     --steps 20 --batch_size 3 --seq_len 1024 \
     --profile_dir $PROFILE \
     --profile_steps 10 11 12 2>&1 | tee /tmp/gemma4_jax_exp47.log
@@ -115,7 +115,7 @@ None of these are kernel-quality issues — levanter's kernel is correct (parity
 
 **Directory**: [`raw/profiles/2026-04-24-gemma4-jax-exp47-levanter-ce/`](../../../../../raw/profiles/2026-04-24-gemma4-jax-exp47-levanter-ce/) (gitignored; ~328 MiB on disk).
 **Steps captured**: 10, 11, 12 (xprof trace + xplane.pb).
-**GCS mirror**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/2026-04-24-gemma4-jax-exp47-levanter-ce/` (326.6 MiB uploaded).
+**GCS mirror**: `gs://<your-bucket>/autoresearch/2026-04-24-gemma4-jax-exp47-levanter-ce/` (326.6 MiB uploaded).
 **What's inside**: trace of the native-JAX trainer at batch=3 seq=1024 fsdp=4 bf16 with `JAX_ATTENTION_IMPL=splash` and `JAX_CE_IMPL=levanter`; step-time 376.1 ms steady-state (mean steps 2–19). Used to verify the regression mechanism (custom-call boundary + w_hv all-gather) — not mirrored to the pax-on-cloud-tpu-project/xprof bucket because this account lacks write access there (same situation as other recent JAX-stack experiments).
 
 ## Verdict
@@ -158,7 +158,7 @@ Exp 36 remains the JAX-stack best at 34,614 TPS, 23.05 % MFU.
 - `/tmp/gemma4_jax_exp47.log` — full 20-step run log.
 - `/tmp/gemma4_jax_exp47_smoke.log` — 5-step smoke test.
 - Profile directory: [`raw/profiles/2026-04-24-gemma4-jax-exp47-levanter-ce/`](../../../../../raw/profiles/2026-04-24-gemma4-jax-exp47-levanter-ce/) — local xprof trace + xplane.pb.
-- GCS mirror: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/2026-04-24-gemma4-jax-exp47-levanter-ce/`
+- GCS mirror: `gs://<your-bucket>/autoresearch/2026-04-24-gemma4-jax-exp47-levanter-ce/`
 - [`raw/code/marin/lib/levanter/src/levanter/kernels/pallas/fused_cross_entropy_loss/api.py`](../../../../../raw/code/marin/lib/levanter/src/levanter/kernels/pallas/fused_cross_entropy_loss/api.py) — public API (750 lines).
 - [`raw/code/marin/lib/levanter/src/levanter/kernels/pallas/fused_cross_entropy_loss/pallas_tpu.py`](../../../../../raw/code/marin/lib/levanter/src/levanter/kernels/pallas/fused_cross_entropy_loss/pallas_tpu.py) — Mosaic TPU kernel (785 lines).
 - [`raw/code/marin/lib/levanter/src/levanter/kernels/pallas/fused_cross_entropy_loss/reference.py`](../../../../../raw/code/marin/lib/levanter/src/levanter/kernels/pallas/fused_cross_entropy_loss/reference.py) — reference impl confirming `_apply_logit_soft_cap(logits, cap) = tanh(logits/cap)*cap` at line 11.

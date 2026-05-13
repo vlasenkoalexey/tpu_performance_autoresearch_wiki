@@ -59,7 +59,7 @@ But the fit-but-slower result confirms **batch=3 is the sweet spot** on v6e-4 fo
 
 - **xprof browser URL**: [2026-04-23-gemma4-jax-exp39-splash-batch4](http://localhost:8791/?run=2026-04-23-gemma4-jax-exp39-splash-batch4) — opens the interactive trace viewer.
 - **Run name**: `2026-04-23-gemma4-jax-exp39-splash-batch4`
-- **On-disk directory**: [`raw/profiles/2026-04-23-gemma4-jax-exp39-splash-batch4/`](../../../../../raw/profiles/2026-04-23-gemma4-jax-exp39-splash-batch4/) (gitignored; mirrored at `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/2026-04-23-gemma4-jax-exp39-splash-batch4/`).
+- **On-disk directory**: [`raw/profiles/2026-04-23-gemma4-jax-exp39-splash-batch4/`](../../../../../raw/profiles/2026-04-23-gemma4-jax-exp39-splash-batch4/) (gitignored; mirrored at `gs://<your-bucket>/autoresearch/2026-04-23-gemma4-jax-exp39-splash-batch4/`).
 - **Steps captured**: 10, 11, 12.
 - **What's inside**: xprof trace of b=4 splash — use to see which op bucket grew most (expected: loop_fusion and memory-traffic ops).
 

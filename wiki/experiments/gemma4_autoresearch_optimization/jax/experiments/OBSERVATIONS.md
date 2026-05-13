@@ -79,7 +79,7 @@ See [2026-04-23-exp36-jax-splash-batch3-accepted.md](2026-04-23-exp36-jax-splash
 - Command diff from exp 35: `--batch_size 1` → `--batch_size 3`. No code change. `JAX_ATTENTION_IMPL=splash` unchanged.
 - Profile path: [`raw/profiles/2026-04-23-gemma4-jax-exp36-splash-batch3/`](../../../../../raw/profiles/2026-04-23-gemma4-jax-exp36-splash-batch3/) (321 MB, gitignored).
 - **Profile browser URL**: http://localhost:8791/?run=2026-04-23-gemma4-jax-exp36-splash-batch3
-- GCS mirror: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/2026-04-23-gemma4-jax-exp36-splash-batch3/`
+- GCS mirror: `gs://<your-bucket>/autoresearch/2026-04-23-gemma4-jax-exp36-splash-batch3/`
 
 **Hypothesis**: splash's per-call Pallas launch overhead is batch-independent (~0.13 ms × 42 layers × 3 calls/step ≈ 16 ms, mostly fixed), so bumping batch 1 → 3 amortizes it over 3× more tokens. Predicted +5–10 %, based on the torchax exp 15 → exp 18 arc (+7.0 % then +0.9 % additive on fused_bwd) where splash's marginal TPS value rose as batch grew.
 
@@ -136,7 +136,7 @@ See [2026-04-23-exp37-jax-splash-b3-bf16ce-potential.md](2026-04-23-exp37-jax-sp
 - Code diff: `jax/train.py` `forward_loss` gains a dtype gate; default path is a no-op vs exp 36.
 - Profile path: [`raw/profiles/2026-04-23-gemma4-jax-exp37-splash-b3-bf16ce/`](../../../../../raw/profiles/2026-04-23-gemma4-jax-exp37-splash-b3-bf16ce/)
 - **Profile browser URL**: http://localhost:8791/?run=2026-04-23-gemma4-jax-exp37-splash-b3-bf16ce
-- GCS mirror: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/2026-04-23-gemma4-jax-exp37-splash-b3-bf16ce/`
+- GCS mirror: `gs://<your-bucket>/autoresearch/2026-04-23-gemma4-jax-exp37-splash-b3-bf16ce/`
 
 **Hypothesis (as filed)**: replicate torchax exp 12's +3.0 % TPS / −1.5 GiB HBM win by dropping a fp32 upcast before `log_softmax`. Precondition assumed: such an upcast exists in the JAX port.
 
@@ -226,7 +226,7 @@ See [2026-04-24-exp47-jax-levanter-ce-rejected.md](2026-04-24-exp47-jax-levanter
 
 **Config**:
 - Command diff from exp 36: `JAX_CE_IMPL=levanter` + `LEVANTER_PALLAS_CE_AUTOTUNE_ON_MISS=0` env vars + new `jax/model/kernels/fused_ce/` import shim + wiring in `jax/train.py` `forward_loss` (`JAX_CE_IMPL=levanter` branch calls `Gemma4ForCausalLM.__call__(..., return_hidden=True)` to bypass lm_head + softcap in the model, then calls levanter's `fused_cross_entropy_loss_and_logsumexp_penalty` with `logit_soft_cap=30.0` inside a `jax.shard_map` wrapper) + a small `Gemma4ForCausalLM.lm_head_weight()` helper on the model + the `return_hidden` kwarg on `__call__`.
-- Profile path: [`raw/profiles/2026-04-24-gemma4-jax-exp47-levanter-ce/`](../../../../../raw/profiles/2026-04-24-gemma4-jax-exp47-levanter-ce/) (local) + `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/2026-04-24-gemma4-jax-exp47-levanter-ce/` (GCS mirror).
+- Profile path: [`raw/profiles/2026-04-24-gemma4-jax-exp47-levanter-ce/`](../../../../../raw/profiles/2026-04-24-gemma4-jax-exp47-levanter-ce/) (local) + `gs://<your-bucket>/autoresearch/2026-04-24-gemma4-jax-exp47-levanter-ce/` (GCS mirror).
 - Experiment page: `2026-04-24-exp47-jax-levanter-ce-rejected.md`.
 
 **Hypothesis**: Replace the JAX-stack CE sequence (`hidden @ W.T → softcap → bf16 log_softmax → NLL`) with levanter's fused Pallas Mosaic-TPU kernel that applies softcap **inline on each VMEM logits tile** before the streaming `log_softmax`. This is the only public TPU Pallas CE kernel with a `logit_soft_cap` kwarg — the exact gap that made exp 43 invalid against tokamax. Expected: ~1.3 GiB HBM freed + small TPS gain (≤ +3 %) from eliminating the `[B, S, V]` logits pass.
@@ -330,7 +330,7 @@ See [2026-04-24-exp50-jax-scan-tuned-potential.md](2026-04-24-exp50-jax-scan-tun
   2. Replaced exp 49's bare `@jax.checkpoint` on scan body with `jax.checkpoint(..., policy=checkpoint_dots_with_no_batch_dims)` matching exp 36's outer policy.
   3. In `train.py`: skip the outer `jax.checkpoint(forward_loss, policy=...)` wrap when `JAX_SCAN_LAYERS=1` (scan bodies already carry the policy per-iter; outer wrap was nested-remat'ing).
 - Profile path: [`raw/profiles/2026-04-24-gemma4-jax-exp50-scan-tuned/`](../../../../../raw/profiles/2026-04-24-gemma4-jax-exp50-scan-tuned/)
-- **Profile GCS mirror**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/2026-04-24-gemma4-jax-exp50-scan-tuned/`
+- **Profile GCS mirror**: `gs://<your-bucket>/autoresearch/2026-04-24-gemma4-jax-exp50-scan-tuned/`
 
 **Hypothesis**: Removing (1) zero-stub matmul waste on 18 shared layers and (2) the bare `jax.checkpoint` per-layer remat (replacing it with the policy-matched variant) should close most of exp 49's 21 pt TPS regression. Expected recoup: ~10-13 %. Target: ±0.5 % of exp 36 (34,441-34,787 TPS).
 
@@ -365,7 +365,7 @@ See [2026-04-24-exp50-jax-scan-tuned-potential.md](2026-04-24-exp50-jax-scan-tun
 - Command diff from prior keep (exp 36): `--dtype bf16` → `--weights-dtype fp32 --compute-dtype bf16`; seq_len 1024 → 2048; batch_size 3 → 1 (forced by the fp32-master memory ceiling); splash+fsdp=4 unchanged.
 - Run command: `JAX_COMPILATION_CACHE_DIR=/tmp/jax_compile_cache JAX_ATTENTION_IMPL=splash python -u -m train --steps 20 --batch_size 1 --seq_len 2048 --weights-dtype fp32 --compute-dtype bf16 --profile_dir $PROFILE_DIR --profile_steps 10 11 12`
 - Profile path: `raw/profiles/2026-04-24-gemma4-jax-exp52-baseline-seq2k-fp32master/` (on-disk, gitignored)
-- **Profile GCS mirror**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/2026-04-24-gemma4-jax-exp52-baseline-seq2k-fp32master/`
+- **Profile GCS mirror**: `gs://<your-bucket>/autoresearch/2026-04-24-gemma4-jax-exp52-baseline-seq2k-fp32master/`
 - **Profile browser URL**: `http://localhost:8791/?run=2026-04-24-gemma4-jax-exp52-baseline-seq2k-fp32master` (will resolve once xprof server is re-pointed at the autoresearch logdir — currently pointing at a different bucket).
 - Experiment page: [2026-04-24-exp52-jax-fp32master-seq2k-accepted.md](2026-04-24-exp52-jax-fp32master-seq2k-accepted.md)
 
@@ -399,7 +399,7 @@ See [2026-04-24-exp50-jax-scan-tuned-potential.md](2026-04-24-exp50-jax-scan-tun
 - MFU: not computed this session (would need the same matmul-FLOP accounting done for exp 36).
 
 **Profile signals**:
-- Did not run xprof MCP queries — the local xprof_mcp server was pointed at a different GCS logdir (`gs://tpu-pytorch-alekseyv-us-central2/jax-experiment`) than the autoresearch bucket where exp 52's profile was uploaded. GCS profile is uploaded and the direct URL `http://localhost:8791/?run=2026-04-24-gemma4-jax-exp52-baseline-seq2k-fp32master` will work once the xprof server is re-pointed. On-disk trace is complete and queryable via any xprof pointed at this folder.
+- Did not run xprof MCP queries — the local xprof_mcp server was pointed at a different GCS logdir (`gs://<your-bucket>/jax-experiment`) than the autoresearch bucket where exp 52's profile was uploaded. GCS profile is uploaded and the direct URL `http://localhost:8791/?run=2026-04-24-gemma4-jax-exp52-baseline-seq2k-fp32master` will work once the xprof server is re-pointed. On-disk trace is complete and queryable via any xprof pointed at this folder.
 - Sanity: loss trajectory 3.25 → 2.30 matches exp 40's early-step descent within noise. No NaN. No divergence from a typical bf16-splash run.
 
 **Analysis**:
@@ -424,7 +424,7 @@ See [2026-04-24-exp50-jax-scan-tuned-potential.md](2026-04-24-exp50-jax-scan-tun
 - **Variant A (block=2048)**: compile-time `CompileTimeScopedVmemOom` — splash_mha_fwd_residuals needs 32.14 MiB VMEM vs 32 MiB hard limit (144 KiB over). Not runnable.
 - **Variant B (block=512)**: TPS 26,807 — dead flat vs exp 52 (−0.0 %). Same step time median (305.6 ms).
 
-Writeup: [2026-04-24-exp53-jax-splash-block-sweep-fp32master-rejected.md](2026-04-24-exp53-jax-splash-block-sweep-fp32master-rejected.md). Profile GCS mirror: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/2026-04-24-gemma4-jax-exp53-splash-block512-seq2k-fp32master/`.
+Writeup: [2026-04-24-exp53-jax-splash-block-sweep-fp32master-rejected.md](2026-04-24-exp53-jax-splash-block-sweep-fp32master-rejected.md). Profile GCS mirror: `gs://<your-bucket>/autoresearch/2026-04-24-gemma4-jax-exp53-splash-block512-seq2k-fp32master/`.
 
 **Analysis**: Confirms the old-regime exp 48 plateau observation transfers to the new regime. Splash block size is not a TPS lever for Gemma 4 E4B on v6e-4 at any shape we've measured so far (old regime b=3 s=1024, new regime b=1 s=2048). **Durable heuristic** (promote to program.md Heuristics): "Splash block size is flat across all measured Gemma 4 E4B shapes on v6e-4 with the fused_bwd kernel + SEQ_MINOR layout — don't open a new block-size experiment unless the shape or kernel changes materially."
 

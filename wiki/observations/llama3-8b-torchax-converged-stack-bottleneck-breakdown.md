@@ -37,7 +37,7 @@ matmuls run).
 Profile artifacts in GCS:
 
 ```
-gs://tpu-pytorch-alekseyv-us-central2/autoresearch/profiles/llama3-8b-exp61b-profile-bs3/
+gs://<your-bucket>/autoresearch/profiles/llama3-8b-exp61b-profile-bs3/
 └── plugins/profile/2026_04_26_03_36_18/
     ├── gke-tpu-8861e1ea-jqvs.{trace.json.gz, xplane.pb}
     └── gke-tpu-8861e1ea-nbcm.{trace.json.gz, xplane.pb}
@@ -46,7 +46,7 @@ gs://tpu-pytorch-alekseyv-us-central2/autoresearch/profiles/llama3-8b-exp61b-pro
 Local browse with the canonical xprof OSS server:
 
 ```
-xprof --logdir=gs://tpu-pytorch-alekseyv-us-central2/autoresearch/profiles \
+xprof --logdir=gs://<your-bucket>/autoresearch/profiles \
       --port=<free-port>
 ```
 
@@ -118,4 +118,4 @@ To climb past 36.8 %, would need: (a) a custom Pallas matmul prologue that fuses
 
 ## Sources
 
-- `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/profiles/llama3-8b-exp61b-profile-bs3/` — xplane.pb + trace.json.gz from both v6e-8 worker hosts.
+- `gs://<your-bucket>/autoresearch/profiles/llama3-8b-exp61b-profile-bs3/` — xplane.pb + trace.json.gz from both v6e-8 worker hosts.

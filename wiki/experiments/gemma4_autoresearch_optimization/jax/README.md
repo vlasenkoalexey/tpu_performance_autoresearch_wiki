@@ -63,7 +63,7 @@ Confirmed against `transformers 5.x` Gemma 4 source:
 
 ## Running
 
-From this folder, with `/home/alekseyv_google_com/miniconda3/envs/gemma4_py313`
+From this folder, with `$HOME/miniconda3/envs/gemma4_py313`
 active:
 
 ```bash
