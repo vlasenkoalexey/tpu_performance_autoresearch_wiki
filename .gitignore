@@ -232,7 +232,15 @@ raw/profiles/*
 !raw/profiles/*-hlodump-*/**
 
 # Local agent / IDE state.
-.claude/
+# Note: use wildcard `.claude/*` (NOT `.claude/`) so the exceptions below for
+# tracked agent/skill definitions take effect; a bare `.claude/` ignores the
+# whole tree and cannot be re-included.
+.claude/*
+# ...but track the autoresearch agent + skill definitions.
+!.claude/agents/
+!.claude/agents/**
+!.claude/skills/
+!.claude/skills/**
 
 # Obsidian per-session UI state (open tabs, scroll positions, focused
 # pane). Changes every session and per-machine — pure conflict source.

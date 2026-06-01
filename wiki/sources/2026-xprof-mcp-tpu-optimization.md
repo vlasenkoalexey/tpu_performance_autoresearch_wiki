@@ -3,7 +3,7 @@ title: "TPU Performance Optimization Guide (xprof-mcp docs)"
 type: source
 tags: [docs, performance, optimization, tpu, roofline, rematerialization, fusion, kv-cache, quantization, sharding, xla]
 created: 2026-04-22
-updated: 2026-04-22
+updated: 2026-06-01
 ---
 
 Practical optimization guide shipped inside the `xprof-mcp` repository. Synthesizes TPU hardware fundamentals, the roofline diagnostic framework, a catalogue of common gotchas (dimension alignment, dtype, materialized broadcasts, dynamic shapes, remat, TP all-reduce, KV cache decode), training and inference playbooks, XLA compiler flags, and a decision tree for profile-driven debugging. This is the highest-density practical "what to check and why" document ingested so far.
@@ -52,10 +52,10 @@ The document is prescriptive and opinionated: it names specific thresholds (240 
 
 ### PyTorch/XLA deferred execution
 
-- torch_tpu default mode is `kDeferAndFuse`: ops accumulate until a "materialization trigger" forces device→host sync and potentially a new compile.
+- PyTorch/XLA lazy execution accumulates ops until a "materialization trigger" forces a sync and potentially a new compile.
 - Triggers: `.item()`, `.cpu()`, `print(tensor)`, data-dependent branches.
 - Shape-dependent branches on static shapes (`tensor.shape[0] == 1`) are fine; value-dependent branches (`tensor.sum() > 0`) break fusion.
-- `TPU_DEFER_NEVER=1` gives one-op-at-a-time dispatch for debugging — errors then point at the offending op, not the materialization site.
+- Forcing eager / one-op-at-a-time dispatch (where the backend supports it) helps debugging — errors then point at the offending op, not the materialization site.
 
 ### Dynamic shapes and StaticCache
 
@@ -193,7 +193,6 @@ The document is prescriptive and opinionated: it names specific thresholds (240 
 | `XLA_FLAGS="--xla_dump_to=/tmp/hlo_dumps --xla_dump_hlo_as_text --xla_dump_hlo_pass_re=.*"` | Dump HLO at every pass — prereq for `diff_hlo_stages` |
 | `TPU_PREMAPPED_BUFFER_SIZE=8589934592` | 8 GB pre-mapped DMA buffer (raise if RESOURCE_EXHAUSTED on DMA) |
 | `unset LD_PRELOAD` | Disable tcmalloc for DLRM-style large-embedding workloads |
-| `TPU_DEFER_NEVER=1` | One-op-at-a-time dispatch for PyTorch/XLA debugging |
 
 ### Named rules-of-thumb
 
@@ -249,7 +248,7 @@ The document is prescriptive and opinionated: it names specific thresholds (240 
 - **Latency-hiding scheduler** (`--xla_tpu_enable_latency_hiding_scheduler`)
 - **Megacore fusion** (`--xla_tpu_megacore_fusion_allow_ags`)
 - **HLO dumping + diffing** (`XLA_FLAGS`, `diff_hlo_stages`, `get_hlo_dump_neighborhood`)
-- **Deferred execution / kDeferAndFuse** (PyTorch/XLA materialization triggers; `TPU_DEFER_NEVER`)
+- **Deferred execution** (PyTorch/XLA lazy-tensor materialization triggers)
 - **Pre-mapped DMA buffer tuning** (`TPU_PREMAPPED_BUFFER_SIZE`)
 - **tcmalloc on/off** for DLRM-style embeddings
 - **Warmup / shape pre-compilation** for serving (one compile per shape)
@@ -268,7 +267,6 @@ The document is prescriptive and opinionated: it names specific thresholds (240 
 - **Scan backward + sharding OOM** is flagged with `shard_as` as the fix but no worked example.
 - **No profile examples.** The decision tree references xprof tabs ("HLO Op Stats", "Memory Viewer") without screenshots or example numeric signatures.
 - **No negative space on XLA flags.** The four recommended flags are not benchmarked; unclear when `--xla_tpu_enable_async_collective_fusion` regresses, or how it interacts with the latency-hiding scheduler.
-- **`kDeferAndFuse` is torch_tpu-specific** terminology; how it maps to PyTorch/XLA's `LazyTensor` mainline or to `torchax` / `torchprime` is not spelled out.
 - **FSDP AllGather on ICI** is the recipe, but how to actually place axes with `jax.sharding.Mesh` vs `torch_xla.distributed.spmd` is omitted.
 - **No discussion of pipeline parallelism depth / microbatch trade-offs** beyond "PP across pod boundaries only".
 - **No coverage of embedding tables, MoE routing/all-to-all, or speculative decoding** — all increasingly relevant.
@@ -299,7 +297,7 @@ Concept pages this source informs (to be stubbed / created later):
 - `continuous-batching` / `paged-attention` — inference throughput
 - `async-collectives` — overlapping all-reduce / all-gather with compute via XLA flags
 - `latency-hiding-scheduler` — XLA scheduling pass
-- `deferred-execution-xla` — kDeferAndFuse, materialization triggers, `TPU_DEFER_NEVER`
+- `deferred-execution-xla` — lazy-tensor materialization triggers
 - `dynamic-shape-recompiles` — why XLA recompiles per shape; warmup discipline
 - `xla-flags-reference` — canonical list of perf-relevant flags
 - `hlo-dumping-and-diffing` — XLA_FLAGS dump + diff_hlo_stages workflow

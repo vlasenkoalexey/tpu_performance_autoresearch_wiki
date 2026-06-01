@@ -23,9 +23,10 @@ tpu_performance_autoresearch_wiki/     ← project root (agent CWD)
     sources/                           ← one page per ingested paper/article/doc/talk
     codebases/                         ← one page per ingested repo (plus subpages)
     concepts/                          ← techniques, abstractions, flags, kernels
-    models/                            ← each model under optimization (inputs + SOTA target)
+    models/                            ← one page per (architecture, lane); variant matrix + SOTA target
     hypotheses/                        ← ranked candidate optimizations, not yet run
-    experiments/                       ← runs: config, profile link, metrics, verdict
+    experiments/                       ← <model>_autoresearch_optimization/<lane>/experiments/<date>-<slug>.md
+                                          (+ per-model and per-lane program.md overrides)
     observations/                      ← reusable findings pulled from profiles/runs
     analyses/                          ← syntheses, comparisons, reports you're asked to write
   raw/
@@ -64,6 +65,24 @@ The loop is the reason this wiki exists. Everything else supports it.
 Every experiment either **supports**, **refutes**, or is **inconclusive** about the hypothesis it tests. A "supports" verdict requires: (a) measurable improvement on the target metric beyond noise, (b) no regression on other tracked metrics, (c) no semantic change to the model.
 
 A hypothesis stays on the ranked list until it is either tested or explicitly retired (with a reason).
+
+### Procedural complement — `program.md` hierarchy
+
+This file defines the **structural** spec (page types, wiki layout, links, file naming). The **procedural** spec — how to actually execute the loop step-by-step (fork, branch, build, launch, poll, file, decide) — lives in a hierarchy of `program.md` files:
+
+```
+wiki/experiments/program.md                                       ← generic loop methodology
+wiki/experiments/<model>_autoresearch_optimization/program.md     ← model-family overrides
+wiki/experiments/<model>_autoresearch_optimization/<lane>/program.md  ← lane-specific overrides
+```
+
+**Resolution**: read root → model → lane. For each H2 section, the most-specific file that defines it wins outright (replace-per-section, not merge). Child files omit sections they don't specialize.
+
+Read all three layers together with this SCHEMA.md before starting an experiment. Skills under `.claude/skills/` orchestrate the lifecycle:
+
+- **`/create-experiment`** — bootstrap a new model family: ask for slug, lanes, sizes, hardware, target seq; create `wiki/experiments/<slug>_autoresearch_optimization/` folder structure; scaffold model-level `program.md` and model page stubs.
+- **`/start-experiment`** — loads the program.md layers in order, prints the effective resolved program, runs hardware selection + cluster discovery + occupancy check, then starts `/loop` with parallel-tracks (default `--parallelism 1`).
+- **`/stop-experiment`** — performs cleanup: cancels background subagents, reaps orphan workloads, files missing pages, runs LINT, appends clean-shutdown marker.
 
 ---
 
@@ -120,16 +139,42 @@ An optimization technique, hardware feature, compiler pass, flag, kernel, or abs
 - H2: Definition, Why it matters for TPU perf, Mechanism, When it applies / when it doesn't, Known results, Connections.
 - If the concept has measured impact, include a results table with model × baseline × delta × source/experiment.
 
-### model  (`wiki/models/<slug>.md`)
-A model under optimization. This is a **live page** — it tracks the current best configuration and open questions.
-- H2: Target metrics, Hardware, How to run (verbatim command), Baseline, Current best, Known bottlenecks, Open hypotheses, Retired hypotheses, History.
-- `Baseline` and `Current best` are tables: step time, MFU, tokens/sec, peak HBM, config hash, date, link to experiment page.
-- Only this page and `hypotheses/*` track "open questions" — keep them consistent.
+### model  (`wiki/models/<architecture>-<lane>.md`)
+A model under optimization. This is a **live page** — it tracks every (size × hardware) variant of one model architecture on one execution lane.
+
+**One page per `(architecture, lane)` pair**, not per individual `(size, hardware)` deployment:
+- The **lane axis** is fundamental: different framework, different code path, different debugging context, different launch command. Separating lanes is the whole point of multi-stack optimization (e.g. torchax vs JAX vs MaxText reference).
+- The **size axis** (e.g. 3B / 8B) and **hardware axis** (v6e-4 / v6e-8 / …) are combinatorial accidents over the same code; most techniques transfer across the matrix with at most some retuning. The *iteration order* (small → big) is itself part of what the page tracks.
+
+Required frontmatter additions:
+```yaml
+type: model
+architecture: <slug>                          # e.g. gemma4-e4b, llama3-8b
+lane: tpu | torchax | jax | maxtext | ...     # execution lane
+sizes: [<size1>, ...]                         # e.g. ["8B"]
+hardwares: [<hw1>, ...]                        # e.g. ["v6e-4", "v6e-8"]
+```
+
+Required H2 sections:
+- **Target metrics** — what we're optimizing (step time, MFU, tokens/sec, peak HBM) and how each is measured.
+- **How to run** — verbatim launch command template parameterized by size and hardware; one canonical form, not one per variant.
+- **Variant matrix** — single source of truth for per-variant status:
+  | Size | Hardware | Status | Baseline (step / TPS / MFU) | Current best (step / TPS / MFU) | Open hyps | Frontier exp |
+  |------|----------|--------|------------------------------|----------------------------------|-----------|--------------|
+
+  Status values: `live` (actively iterating), `open` (not yet measured), `blocked` (OOM / hang / infra), `parked` (deferred but reachable). Each row is keyed by the `Size/Hardware` join string (e.g. `"8B/v6e-8"`) — that string is what experiments cite in their `variant:` frontmatter.
+- **Cross-variant open hypotheses** — apply to most or all variants. **Variant-specific open hypotheses** — bound to a single row. **Retired hypotheses** — note the variant they were retired against (a hypothesis may be retired for one variant, still open for another).
+- **Knobs translation matrix** — which optimization techniques transfer cleanly across the matrix and which need re-tuning per variant; updated after every cross-variant validation. Lean on it before proposing a new hypothesis — if a technique is already proven universal, the next experiment only verifies the transfer.
+- **Iteration ladder** — the ordered roadmap (typically smallest size on smallest hardware first, then scale, ending at the production target).
+
+Only this page and `hypotheses/*` track "open questions" — keep them consistent. Cross-lane comparison is first-class: an `analysis` page can cite *Current best* rows from multiple lane pages of the same architecture to compute the per-lane gap (e.g. JAX vs torchax).
 
 ### hypothesis  (`wiki/hypotheses/<slug>.md`)
 A candidate optimization, pre-experiment. Frontmatter adds:
 ```yaml
-model: <model-slug>
+model: <architecture-lane>                    # the model lane page, e.g. llama3-8b-jax
+variants: ["<size>/<hw>", ...]                # OPTIONAL — restrict to specific rows of the
+                                              # model page's Variant matrix; omit ⇒ all variants on the lane
 status: open | in_progress | supported | refuted | inconclusive | retired
 expected_gain: "<e.g. 5-15% step time>"
 confidence: low | medium | high
@@ -137,17 +182,24 @@ effort: S | M | L
 origin: <source-slug or observation-slug or human>
 ```
 - H2: Statement (one sentence, falsifiable), Rationale (why you believe this; cite sources/observations), Proposed experiment (what to change, what to measure, expected delta), Risks (semantic changes, regressions), Dependencies.
-- The **ranked hypothesis list** for a model lives in that model's page, derived from these — keep them in sync.
+- The **ranked hypothesis list** for a model lives in that model's page (split into *Cross-variant* and *Variant-specific* sections per the model template), derived from these — keep them in sync.
+- A hypothesis stays valid across the variant matrix unless explicitly retired for a row. If a small-scale-supported finding needs verification at larger scale, that's a new experiment on a different `variant:` of the same hypothesis — not a new hypothesis.
 
-### experiment  (`wiki/experiments/<YYYY-MM-DD>-<slug>.md`)
-A single run (or minimal set of comparable runs) testing a hypothesis. Frontmatter adds:
+### experiment  (`wiki/experiments/<model>_autoresearch_optimization/<lane>/experiments/<YYYY-MM-DD>-<slug>.md`)
+A single run (or minimal set of comparable runs) testing a hypothesis on **one variant** of one model. Experiments nest under their model family and execution lane:
+- `<model>_autoresearch_optimization/` parent collects every run of one architecture.
+- `<lane>/experiments/` partitions by execution stack (`jax`, `tpu`, `torchax`, `maxtext`, …).
+- The filename keeps the `<YYYY-MM-DD>-<slug>` form. The lane and the outcome are commonly encoded in the slug (e.g. `2026-04-27-jax-exp20-splash-accepted.md`), and the slug may carry a per-lane attempt counter (`exp<NN>`); these are conventions of the slug, not separate path segments.
+
+Frontmatter adds:
 ```yaml
 hypothesis: <hypothesis-slug>
-model: <model-slug>
+model: <architecture-lane>                   # the model lane page, e.g. llama3-8b-jax
+variant: "<size>/<hardware>"                 # the matrix row this run targets, e.g. "8B/v6e-8"
 commit: <model-repo-sha>
 verdict: supported | refuted | inconclusive | invalid
 ```
-- H2: Hypothesis under test, Setup (hardware, env, conda env, exact command — copy from model page and diff the changed flags), Baseline comparison, Results (table: metric × baseline × this run × delta × noise band), **Profile** (see below), Observations (links to observation pages produced), Verdict + reasoning, **Next hypotheses** (see below).
+- H2: Hypothesis under test, Setup (hardware, env, conda env, exact command — copy from the model page's "How to run" template and diff the changed flags), Baseline comparison (against the same variant row's baseline), Results (table: metric × baseline × this run × delta × noise band), **Profile** (see below), Observations (links to observation pages produced), Verdict + reasoning, **Next hypotheses** (see below).
 - **Next hypotheses section is mandatory.** Every experiment ends with `## Next hypotheses` enumerating the follow-up candidates this run motivates. This is what keeps the queue refilling — the experiment that just landed is the cheapest moment to capture the next move while the context is fresh. Format:
   - One bullet per candidate. Each bullet is a markdown link to a `../hypotheses/<slug>.md` page followed by ` — ` and a one-line description focused on *what differs from the run that just landed*.
   - Every linked hypothesis page must exist — file stubs in the same change as the experiment, with `origin: <experiment-slug>` in their frontmatter and `status: open`. A link to a non-existent file fails LINT.
@@ -216,14 +268,14 @@ Trigger: human asks you to propose optimizations, or an observation suggests a n
 
 Trigger: human approves a hypothesis for testing (or asks "run the top hypothesis").
 
-1. Read the hypothesis and the model page. Resolve any ambiguity **before running**.
+1. Read the hypothesis and the model page. Resolve any ambiguity **before running**. Confirm the target **variant** (size + hardware) — if unspecified, default to the next `live` row on the Iteration ladder, but ask if there's any doubt.
    - **1b. (Optional) AOT screening.** Before committing to a full 20-step TPU run, AOT-compile the modified function via `jax.jit(fn).lower(*args).compile()` and call `.cost_analysis()`. This catches compilation errors (OOM, shape mismatches) on CPU and provides a first-order prediction of whether the change will move the metric. Compare `flops`, `bytes accessed`, and `optimal_seconds` against the baseline's cost analysis. If the cost model shows no improvement or a regression, reconsider the hypothesis before burning TPU time. See [AOT Compilation](wiki/concepts/aot-compilation.md).
-2. Prepare the run: copy the model's baseline command, diff only the flags/code paths the hypothesis changes. Record the diff in the experiment page.
+2. Prepare the run: take the model page's "How to run" template, fill in the variant's size + hardware, then diff only the flags/code paths the hypothesis changes. Record the full launch command in the experiment page.
 3. Execute. Capture profile to `raw/profiles/<YYYY-MM-DD>-<exp-slug>/`.
 4. **Validate the model still computes the same thing** — check loss trajectory vs baseline over the profiled steps. If it diverges, verdict is `invalid`.
-5. Write `wiki/experiments/<YYYY-MM-DD>-<slug>.md` with full results table.
+5. Write `wiki/experiments/<model>_autoresearch_optimization/<lane>/experiments/<YYYY-MM-DD>-<slug>.md` (per-model + per-lane folder) with full results table, the `variant:` field pinned, and `commit:` set to the model-repo SHA used.
 6. Extract `observation` pages for any finding that may recur.
-7. Update the hypothesis (`status:`, link to experiment), update the model page (`Current best` if this wins, ranked list if new hypotheses were generated).
+7. Update the hypothesis (`status:`, link to experiment). Update the model page: the **target variant's matrix row** (`Current best` cell if this wins; `Open hyps` count; `Frontier exp` link). If the finding has cross-variant implications, also update the **Knobs translation matrix** row for the technique.
 8. **File next-hypothesis stubs.** Every bullet in the experiment's `## Next hypotheses` section must resolve to an existing `wiki/hypotheses/<slug>.md` page. File the stubs concurrently with the experiment, with `status: open`, `origin: <experiment-slug>`, and at minimum a one-sentence falsifiable Statement and a Rationale citing this experiment. They can be lightweight — ranking and full Proposed-experiment detail can come later under FORMULATE-HYPOTHESIS — but they must exist so the queue is real, not aspirational.
 9. Update `index.md` and `log.md`.
 
@@ -254,7 +306,8 @@ Check and report:
 - Experiments without profile artifacts in `raw/profiles/`.
 - Experiments missing a `## Next hypotheses` section, with an empty body, or with a hypothesis link that targets a non-existent file. (`None — <reason>` is acceptable; bare absence is not.)
 - Hypothesis pages whose `origin:` references an experiment slug that has no corresponding experiment page.
-- Model pages where `Current best` does not match the latest `supported` experiment.
+- Model pages where a variant row's `Current best` does not match the latest `supported` experiment for that variant.
+- Experiments whose `variant:` field (when present) doesn't appear in the parent model page's Variant matrix; hypotheses whose `variants:` list rows that aren't in the matrix.
 - Orphan pages (no inbound links).
 - Broken markdown links (target `.md` does not exist).
 - Concept/entity names mentioned in prose but not linked to an existing page.
@@ -272,7 +325,8 @@ Fix mechanical issues automatically; flag judgment calls for the human.
 *Last updated: YYYY-MM-DD — N pages*
 
 ## Models (N)
-- [<model>](models/<slug>.md) — one-line status: "baseline 420ms/step, current best 310ms/step, 3 open hypotheses"
+*One row per `(architecture, lane)` page. Summarize across the page's variants in the one-line status.*
+- [<architecture> — <lane>](models/<architecture>-<lane>.md) — variants: 8B/v6e-8 live (best 96 ms/step, 3 open hyps), 8B/v6e-32 blocked (OOM at seq=8192)
 
 ## Hypotheses — ranked, open only (N)
 | # | Hypothesis | Model | Expected | Confidence | Effort |
@@ -280,7 +334,7 @@ Fix mechanical issues automatically; flag judgment calls for the human.
 | 1 | [<slug>](hypotheses/<slug>.md) | ... | 10-20% | high | M |
 
 ## Experiments (N)
-- [YYYY-MM-DD <slug>](experiments/YYYY-MM-DD-<slug>.md) — verdict — one-line delta
+- [YYYY-MM-DD <slug>](experiments/<model>_autoresearch_optimization/<lane>/experiments/YYYY-MM-DD-<slug>.md) — variant — verdict — one-line delta
 
 ## Sources (N)
 - [<title>](sources/<slug>.md) — one-line takeaway
@@ -325,9 +379,10 @@ Grepping the log: `grep "^## \[" wiki/log.md | head -20` → last 20 events.
 | Source pages | `<year>-<slug>.md` | `2022-flash-attention.md` |
 | Codebase pages | `<slug>.md` (+ `<slug>/<subpage>.md`) | `torchtitan.md`, `torchtitan/fsdp.md` |
 | Concept pages | `<slug>.md` | `rematerialization.md` |
-| Model pages | `<slug>.md` | `llama3-8b-torchtitan-jax.md` |
+| Model pages | `<architecture>-<lane>.md` | `llama3-8b-jax.md`, `gemma4-e4b-torchax.md` |
+| Variant identifiers (experiment/hypothesis frontmatter) | `<size>/<hardware>` | `"8B/v6e-8"`, `"3B/v6e-32"` |
 | Hypothesis pages | `<slug>.md` | `flash-attention-block-2048.md` |
-| Experiment pages | `<YYYY-MM-DD>-<slug>.md` | `2026-04-22-remat-offload-query.md` |
+| Experiment pages | `<model>_autoresearch_optimization/<lane>/experiments/<YYYY-MM-DD>-<slug>.md` | `llama3_8B_autoresearch_optimization/jax/experiments/2026-04-27-jax-exp20-splash-accepted.md` |
 | Observation pages | `<slug>.md` | `fsdp-allgather-overlap-gap.md` |
 | Analysis pages | `<YYYY-MM-DD>-<slug>.md` | `2026-04-22-v6e-vs-v5p-llama.md` |
 | Raw sources | `raw/sources/<year>-<slug>.<ext>` | `raw/sources/2022-flash-attention.pdf` |
@@ -352,3 +407,4 @@ Grepping the log: `grep "^## \[" wiki/log.md | head -20` → last 20 events.
 12. **Read `index.md` first** on any query — do not guess which pages exist.
 13. **One entity/concept/model per page.** Split when a page exceeds ~500 lines.
 14. **No cross-wiki links.** This wiki does not reference `tpu_wiki` or any sibling.
+15. **One model page per `(architecture, lane)`** — do not split by size or hardware. Track per-variant state in the model page's Variant matrix. The lane axis is fundamental (different framework, different code path); the size/hardware axes are combinatorial accidents over the same code. Experiments pin exactly one `variant:` row.
