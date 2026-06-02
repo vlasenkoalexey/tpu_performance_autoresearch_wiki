@@ -1,5 +1,13 @@
 # Log
 
+## [2026-06-02] run-experiment | Qwen3-8B jax: MaxText T5X custom_vjp CE CRACKS the seq8192 batch wall — NEW frontier 34.4% / 5,992 (gap to MaxText 81%→86%)
+
+**Op**: run-experiment (v033 bs1 parity, v034 bs2 wall-test) — user directive "use same approach as maxtext for CE".
+**Pages created**: hypotheses/qwen3-jax-maxtext-ce.md; experiments v033/v034/v035.
+**Pages updated**: models/qwen3-cc-jax.md (new seq8192 frontier v034, hard-wall note superseded + [!warning], Knobs CE row, variant matrix); analyses/2026-06-02-qwen3-cc-jax-maxtext-closing.md ([!warning] contradiction — hard-wall conclusion refuted); index; jax lane log.
+**Key result**: MaxText's CE is the T5X `@jax.custom_vjp cross_entropy_with_logits` (full logits + one-hot + fused `softmax−onehot` backward, z_loss=0) — NOT a vocab-tiled kernel, NOT the tokamax streamed CE. Ported verbatim as `--use_maxtext_ce` (CPU bit-identical to `_ce`). **v033 bs1 = parity** (5,656 ≈ v028 5,632 — CE swap clean). **v034 bs2 = 34.4% / 5,992 — WALL CRACKED**: beats v028 bs1 (5,632, +6.4%) and v031 plain-CE bs2 (5,553, +7.9%). Batch now amortizes at seq8192 — the only change vs v031 is the CE path, so the prior "documented hard wall" (bs1>bs2>bs3) was the **tokamax/autodiff CE-backward transient**, not structural. The 2026-06-02 closing analysis's hard-wall conclusion is REFUTED. Climb toward MaxText (6,942) reopened; v035 (maxtext-CE bs3, no offload) in flight.
+**Notes**: launch gotcha recorded — 2 scheduler flags use `xla_` not `xla_tpu_` (1 wasted dispatch). Honest correction: the loop declared a hard wall prematurely; the user's CE directive proved the wall was a kernel artifact.
+
 ## [2026-06-02] analyze + run-experiment | Qwen3-8B jax MaxText-gap arc CLOSED — scan+overlap won seq8192 +6.2%; full parity is a documented hard wall
 
 **Op**: run-experiment (v031, v032) + analyze (closing synthesis).

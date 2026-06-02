@@ -3,9 +3,9 @@ title: "Qwen3-jax: MaxText/T5X custom_vjp cross-entropy"
 type: hypothesis
 model: qwen3-cc-jax
 variants: ["8B/v6e-8"]
-status: in_progress
-expected_gain: "0-3% step time @ bs1; possibly breaks the bs>1 seq8192 wall"
-confidence: medium
+status: supported
+expected_gain: "breaks the bs>1 seq8192 wall: +6.4% (v034 bs2 vs v028 bs1)"
+confidence: high
 effort: S
 origin: human
 hlo_prefilter: n/a

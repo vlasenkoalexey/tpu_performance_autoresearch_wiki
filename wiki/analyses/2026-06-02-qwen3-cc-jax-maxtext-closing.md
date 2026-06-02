@@ -9,6 +9,18 @@ updated: 2026-06-02
 
 # Closing the MaxText gap on the Qwen3-8B jax lane (v6e-8)
 
+> [!warning] Contradicted by [v034 (maxtext-CE bs2)](../experiments/qwen3_cc_autoresearch_optimization/jax/experiments/2026-06-02-v034-maxtext-ce-s8k-bs2.md) on 2026-06-02
+> The "documented hard wall" conclusion below (seq8192 batch anti-amortizes; the gap is MaxText's
+> bs3 kernel-pipeline efficiency, not a config lever) is **WRONG**. Porting MaxText's exact CE — the
+> T5X `@jax.custom_vjp cross_entropy_with_logits` (`--use_maxtext_ce`) — made batch **amortize**:
+> v034 bs2 = **34.4% / 5,992 tok/s/chip > v028 bs1 (5,632)**, reversing the bs1>bs2>bs3 series this
+> page treated as a structural wall. The wall was **CE-backward-transient-bound** (the tokamax/autodiff
+> CE backward), not collective/attention-bound. The climb toward MaxText (6,942) is **reopened** —
+> seq8192 frontier moved v028 → v034, gap 81% → 86.3%, with bs3 (v035) in flight. See the
+> [maxtext-CE hypothesis](../hypotheses/qwen3-jax-maxtext-ce.md) and the new closing analysis (filed when
+> the maxtext-CE arc concludes). The scan+overlap findings below remain valid; only the "hard wall"
+> framing is superseded.
+
 Final synthesis of the autoresearch arc that ran from "implement the missing MaxText optimizations"
 (scan-over-layers + named host-offload + collective-overlap flags) through the directive
 **"meet MaxText performance or document a hard wall."** This page records what the implementation

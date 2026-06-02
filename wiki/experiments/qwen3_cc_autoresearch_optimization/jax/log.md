@@ -1,3 +1,9 @@
+## [2026-06-02] loop-iteration | v033 + v034: MaxText T5X custom_vjp CE CRACKS the seq8192 batch "wall" (NEW frontier 34.4% / 5,992)
+
+User directive "use same approach as maxtext for CE". MaxText's CE is NOT a vocab-tiled kernel — it's the T5X `@jax.custom_vjp cross_entropy_with_logits` over full logits with one-hot targets + explicit fused `softmax−onehot` backward, z_loss=0 (NOT the tokamax streamed kernel). Ported verbatim into train.py as `--use_maxtext_ce` (CPU bit-identical to `_ce`: |Δloss|=0, |Δgrad|=0). Image v033-maxtext-ce (FROM v030-scan-full, train.py swap only).
+- **v033** (bs1) = **PARITY** 5,656 vs v028 5,632 (within noise) → CE swap clean, semantics preserved on TPU. (First dispatch crashed on libtpu flag names — 2 flags need `xla_` not `xla_tpu_`; fixed, re-ran as v033b.)
+- **v034** (bs2) = **5,992 tok/s/chip / 34.4% MFU — WALL CRACKED.** Beats v028 bs1 (5,632) by +6.4% AND v031 plain-CE bs2 (5,553) by +7.9%. **Batch now amortizes at seq8192** — only change vs v031 is the CE path. So the prior "documented hard wall" (bs1>bs2>bs3) was the **tokamax/autodiff CE-backward transient**, NOT structural/collective. NEW seq8192 frontier v028→v034. Gap to MaxText 6,942 narrowed 81%→86.3%. The closing analysis's hard-wall conclusion is now [!warning]-contradicted. Climb reopened: v035 (maxtext-CE bs3, no offload) dispatched.
+
 ## [2026-06-02] loop-iteration + CLOSING | v031 refuted + v032 refuted → MaxText-gap arc closed (documented hard wall)
 
 **v031** (scan+CE, bs2, NO offload @ seq8192) = 5,553 tok/s/chip < v028 bs1 5,632 → **refuted**. The clean control: with offload *removed*, bs2 still < bs1, so the v030 bs3 regression is NOT the offload — **batch genuinely anti-amortizes at seq8192** (monotone bs1 5,632 > bs2 5,553 > bs3 4,595). v028 bs1 is the achieved seq8192 frontier.
