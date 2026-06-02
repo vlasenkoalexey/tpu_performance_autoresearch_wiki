@@ -24,10 +24,10 @@ The `/start-experiment` skill orchestrates resolution at session start (prints w
 
 **Serial per cluster, parallel across clusters via independent tracks.**
 
-- *Within* one cluster: experiments run **serially**. One workload at a time. The cluster-runner subagent's launch + poll + capture lifecycle blocks the cluster until done.
+- *Within* one cluster: experiments run **serially**. One workload at a time. The gke-cluster-runner subagent's launch + poll + capture lifecycle blocks the cluster until done.
 - *Across* clusters: each cluster is an **independent track**. Tracks proceed at their own pace; there is **no iteration-wide synchronization point** — track A doesn't wait for track B to finish before track A's next experiment dispatches. The `/start-experiment` skill's `--parallelism N` selects how many tracks run concurrently (default 1).
 
-The master orchestrates by dispatching cluster-runner subagents with `run_in_background=true` (one per idle cluster per iteration), processing completed-subagent notifications as they arrive, and re-dispatching on now-idle clusters. No "wait for slowest cluster" anywhere.
+The master orchestrates by dispatching gke-cluster-runner subagents with `run_in_background=true` (one per idle cluster per iteration), processing completed-subagent notifications as they arrive, and re-dispatching on now-idle clusters. No "wait for slowest cluster" anywhere.
 
 Each parallel experiment must operate on its own forked copy of the model code repository to avoid stepping on others' branches, in-progress edits, and docker build contexts. The fork mechanism in **Branching model** below provides that isolation.
 
@@ -52,7 +52,7 @@ Common edit targets inside the fork:
 - **Sharding** — FSDP/TP/DDP split, mesh shape.
 - **Existing Pallas kernels** — splash attention, segment_matmul, fused linear+CE loss. Encouraged where a profile signal supports it.
 - **New Pallas kernels** — when profile evidence shows a memory-bound or poorly-fused op dominating step time. Encouraged — Pallas kernels that keep tiled intermediates in VMEM and avoid HBM round-trips are a primary optimization lever on TPU.
-- **Framework internals** — torch_tpu kernels, torchax bridge, JAX runtime knobs — via the appropriate per-experiment image build (which may include a fresh wheel build for C++/MLIR changes).
+- **Framework internals** — torchax bridge, JAX runtime knobs — via the appropriate per-experiment image build (which may include a fresh wheel build for C++/MLIR changes).
 - **Upstream library monkey-patches** — when the fix is small and semantics-preserving (e.g. TAMM dispatcher patches in `train_minimal.py`).
 - **Optimizer / precision mix / activation checkpointing** strategy.
 
@@ -66,7 +66,7 @@ The boundary is **the per-experiment fork**. Inside the fork: broad latitude. Ou
 - **Some math changes are acceptable with human approval.** Examples: switching to a numerically-equivalent attention kernel; using a fused linear+CE loss kernel; changing a RoPE implementation to a mathematically identical one. Ask first if unsure.
 - **Do NOT write to the model-code-repo trunk during a run.** The shared trunk (`raw/code/<repo>/`) is read-only during steps 3–10 of the loop. Only step 11 (Decision, `supported` only) merges from fork into trunk.
 - **Do NOT write to the wiki repo from the model-code-repo side**, and vice versa. The two are separate per `SCHEMA.md` — wiki holds narrative, model code holds code. Cross-edits create drift.
-- **Do NOT modify `raw/`** other than via the controlled `raw/code/<repo>/` trunk merge above (and `raw/profiles/` writes by the cluster-runner). `raw/sources/`, `raw/assets/`, and the rest are immutable.
+- **Do NOT modify `raw/`** other than via the controlled `raw/code/<repo>/` trunk merge above (and `raw/profiles/` writes by the gke-cluster-runner). `raw/sources/`, `raw/assets/`, and the rest are immutable.
 - **Do NOT touch other model families' folders** from this experiment's fork. If a fix is needed in shared infra used by another model, that's a separate cross-model change — surface to the user.
 - **Do NOT quantize weights below bf16.**
 
@@ -130,23 +130,38 @@ Every workload submitted to a shared cluster (GKE / XPK or any multi-tenant envi
 | `<RETRY_SUFFIX>` (optional) | single letter `b`, `c`, … on resubmission of the same v-id | `b` |
 
 Full examples:
-- `<USER_PREFIX>-<MODEL_NAME>-<lane>-v<NNN>-<slug>` (first attempt, 43 chars)
-- `<USER_PREFIX>-<MODEL_NAME>-<lane>-v<NNN>-<slug>-b` (retry after the first failed due to e.g. wrong-cluster landing)
+- `<USER_PREFIX>-gemma4-tpu-v541-gate-up-fusion` (first attempt, 43 chars)
+- `<USER_PREFIX>-gemma4-tpu-v541-gate-up-fusion-b` (retry after the first failed due to e.g. wrong-cluster landing)
 - `<USER_PREFIX>-gemma4-jax-v021-rope-fix` (33 chars)
 
-### Length limit (HARD)
+### Length limit (HARD — enforced by XPK at submission)
 
-GKE workload names map to k8s JobSet → Job → Pod resources, each of which has a 63-char DNS label limit. JobSet/Pod creation **appends suffixes** like `-slice-job-0-0-0-<rand>` to the workload name, consuming ~18–25 chars. The safe ceiling on the user-supplied workload name is therefore:
+GKE workload names map to k8s JobSet → Job → Pod resources, each of which has a 63-char DNS label limit. **XPK enforces its own stricter cap** because it appends suffixes like `-slice-job-0-0-0-<rand>` (~24 chars) on top of the user-supplied name:
 
 ```
-len(workload_name) ≤ 50   → HARD limit. Refuse to submit if exceeded.
-len(workload_name) ≤ 40   → recommended. Comfortable headroom.
+len(workload_name) < 40    → HARD limit. XPK rejects at parse time with:
+                             "Name must be less than 40 characters and match
+                              the pattern '[a-z]([-a-z0-9]*[a-z0-9])?'"
+len(workload_name) ≤ 30    → recommended. Comfortable headroom for retry suffixes.
 ```
 
-The `cluster-runner` subagent MUST validate `len(workload_name) ≤ 50` before submitting and refuse otherwise. The master agent (in `/start-experiment`'s loop prompt, step 4) MUST validate at construction time and shorten the slug if over the limit.
+The `gke-cluster-runner` subagent MUST validate `len(workload_name) < 40` before submitting and refuse otherwise (the subagent does not mutate attribution-bearing segments — it returns to the master for regeneration). The master agent (in `/start-experiment`'s loop prompt, step 4) MUST validate at construction time and shorten the slug if at or over the limit.
+
+**Budget breakdown** for typical Gemma 4 workload names (use as a planning aid):
+
+| Segment | Example value | Chars |
+|---|---|---|
+| `<USER_PREFIX>-` | `<USER_PREFIX>-` | 9 |
+| `<MODEL_NAME>-` | `gemma4-` | 7 |
+| `<LANE>-` | `jax-` / `tpu-` / `torchax-` | 4 / 4 / 8 |
+| `v<NNN>-` | `v316-` | 5 |
+| `<SLUG>` | (e.g. `ds-stack`) | budget = `39 - prefix_total` |
+| Optional `-<RETRY>` | `-b` | 2 |
+
+For `gemma4` on JAX with a typical 8-char `USER_PREFIX` (`<USER_PREFIX>-gemma4-jax-v<NNN>-`), fixed prefix ≈ 25 chars → **slug budget ≈ 14 chars** (or 12 if reserving room for a retry suffix). For the `torchax` lane, slug budget shrinks to ≈ 10 chars. (A longer `USER_PREFIX` or `MODEL_NAME` shrinks the slug budget further — recompute against the `< 40` hard limit.)
 
 **Recovery when too long**:
-1. Shorten the `<SLUG>` — drop articles, abbreviate ("fusion" → "fus", "attention" → "attn"). Slug under 12 chars is usually achievable.
+1. Shorten the `<SLUG>` — drop articles, abbreviate. Standard abbreviations: `deepseek`→`ds`, `sparsecore`→`sc`, `attention`→`attn`, `fusion`→`fus`, `tensor-parallel`→`tp`, `expert-parallel`→`ep`, `track-parallel`→`pt`, `host-offload`→`ho`, `megablox`→`mblx`, `selective`→`sel`. Slug under 10 chars is usually achievable.
 2. If shortening the slug still doesn't fit, the issue is upstream: `<USER_PREFIX>` or `<MODEL_NAME>` is too long. Either set an explicit shorter `USER_PREFIX` in the model-level `program.md`, or revisit the `MODEL_NAME` derivation (e.g. `llama3-8b` instead of `llama3-8b-instruct-something`).
 3. Never strip required segments (`USER_PREFIX`, `MODEL_NAME`, `LANE`, `v<NNN>`) to fit — those are the attribution-critical fields.
 
@@ -165,7 +180,7 @@ This convention powers cluster-occupancy attribution: any workload not starting 
 
 Each experiment = one wiki page + one run (or minimal set of comparable runs).
 
-Page location: `wiki/experiments/<model>_autoresearch_optimization/<lane>/<YYYY-MM-DD>-v<NNN>-<slug>.md` where `v<NNN>` is per-lane chronological (zero-padded 3 digits).
+Page location: `wiki/experiments/<model>_autoresearch_optimization/<lane>/experiments/<YYYY-MM-DD>-v<NNN>-<slug>.md` where `v<NNN>` is per-lane chronological (zero-padded 3 digits).
 
 Every experiment page must include:
 - YAML frontmatter: title, type, hypothesis, model, variant, commit, verdict, tags, created, updated.
@@ -187,29 +202,61 @@ LOOP until the user interrupts:
 
 1. **Read context.** Re-read all three `program.md` layers (root, model, lane). Check the model page's variant matrix for the current frontier. Read the last 2–3 experiment pages in your lane. Read the lane README for known bugs and operational notes.
 
-2. **Generate a hypothesis.** Priority order:
+2. **Generate a hypothesis via [`/formulate-hypothesis`](../../.claude/skills/formulate-hypothesis/SKILL.md).** The skill reads the shared knowledge layers ([`model-optimization-index.md`](../model-optimization-index.md) + [`model-optimization-blueprint.md`](../model-optimization-blueprint.md) + per-model `refuted-patterns.md` + model page + last 3 experiments + most recent retrospective) and emits a structured proposal with refuted-pattern checks. It supports four modes — `frontier` (default), `exploration` (hunches + stalled variants + novel directions), `bootstrap` (new models with thin state), `user-override` (validate a caller-specified candidate). NEVER skip this skill — v391y (200× regression) came from proposing without the wiki-precedent check.
+
+   Priority order for which candidate to invoke the skill with (this is judgment, not procedure):
    - **Biggest wins first** — prioritize optimizations addressing critical bottlenecks.
    - **Profile-driven** — the highest-signal gap in the most recent profile (top slow op, collective wait, missing fusion, HBM-bound op below ridge point).
-   - **Wiki-driven** — consult accumulated wiki knowledge; check existing observations, sources, concepts; check the internet for ideas if needed.
    - **Follow-up** — an idea from a previous experiment's "Next hypotheses" section.
    - **Cross-lane gap** (if multi-lane) — if another lane achieves higher MFU on the same hardware, what does it do differently?
    - **Pallas kernel opportunity** — an op that's memory-bound, poorly fused by XLA, with no existing Pallas coverage. Profile first, then propose.
+   - **Novel direction** — a hypothesis that doesn't fit any cataloged topic or blueprint phase. Allowed; invoke the skill with `<mode>=exploration` (or accept `Topic: novel-mechanism` / `Phase: novel` in frontier mode with first-principles justification).
+
+   Maintain the knowledge layers incrementally: cross-model lessons land in [`model-optimization-index.md`](../model-optimization-index.md) as generic principles; per-model refuted experiments land in `wiki/experiments/<model>_autoresearch_optimization/refuted-patterns.md` as entries.
 
 3. **Fork the codebase.** Create a per-experiment fork per the **Branching model** snippet. All code edits commit to the fork's branch; the shared trunk is never touched until step 11.
 
-4. **Implement.** Make the code/config change inside the fork. Commit. Keep it minimal — one hypothesis per experiment.
+4. **Implement.** Invoke [`/edit-model-code`](../../.claude/skills/edit-model-code/SKILL.md) BEFORE opening any file in the fork — it loads the surgical-edit discipline (one mechanism per experiment, no semantics drift, no kernel fallbacks, no while-I'm-here cleanups). Then make the code/config change inside the fork and commit. Commit message MUST carry the `exp: wiki/experiments/<...>.md` footer per the **Branching model** "link between repos" section. Keep it minimal — one hypothesis per experiment.
 
 5. **Build and push.** Build docker image from the fork, tag with the branch name, push to artifact registry.
 
-6. **Run.** For GKE/XPK launches, **always dispatch the launch + poll + capture via the `cluster-runner` subagent** (see `.claude/agents/cluster-runner.md`). Do not run XPK launches directly from the master session. Non-GKE single-host runs (e.g. on the local TPU VM) are still done from the master session.
+   **For layered Python-only patches** (the common case — `FROM <previous-image> + COPY changed.py`): the file you COPY MUST be derived from the image's bundled version, not from current trunk. Trunk may have diverged from the image's commit (shared dataclasses change shape, config-parser annotations evolve, module paths move), and overlaying current-trunk files onto an older image causes config-parse crashes at startup — a 10-second pre-compile failure that wastes cluster dispatch time.
+
+   The exact crash signature varies by stack:
+   - **torchtitan**: tyro CLI parser raises on mismatched dataclass shape
+   - **MaxText**: pyconfig / ml_collections asserts on missing or extra fields
+   - **Paxml / Praxis**: Fiddle config-tree resolution fails on type mismatch
+   - **JAX / Flax NNX trainers**: pydantic-style validation fails on config schema mismatch
+   - **General**: import-time `TypeError` / `AttributeError` when shared modules diverged
+
+   Workflow (stack-agnostic — substitute `<MODEL_REPO>` and `<entry-module>` per stack):
+
+   ```bash
+   # 1. Extract the image's bundled version of the file
+   #    <MODEL_REPO> e.g. torchtitan / MaxText / paxml / flax — whatever the image bundles
+   docker run --rm <BASE_IMAGE> cat /<MODEL_REPO>/<path>/<file>.py > /tmp/build/<file>.py
+
+   # 2. Apply your patch on top (Edit tool, sed, or diff/patch). Validate AST:
+   python -m py_compile /tmp/build/<file>.py
+
+   # 3. Smoke-test the rebuilt image BEFORE pushing:
+   #    <entry-module> e.g. torchtitan.train / MaxText.train / your_trainer.main
+   docker build -t <new_tag> .
+   docker run --rm <new_tag> python -m <entry-module> --help 2>&1 | head -3
+   # If --help / config-load fails, the parser is broken — fix the rebase before pushing.
+   ```
+
+6. **Run.** For GKE/XPK launches, **always dispatch the launch + poll + capture via the `gke-cluster-runner` subagent** (see `.claude/agents/gke-gke-cluster-runner.md`). Do not run XPK launches directly from the master session. Non-GKE single-host runs (e.g. on the local TPU VM) are still done from the master session.
 
    Before launching, check that no other workload occupies the target cluster (see `/start-experiment` skill for the discovery + occupancy check). Always include profiling flags + HLO dump — both write to the same experiment-slug folder on GCS (path defined in lane-level `program.md`).
 
-   **GKE polling discipline** (per cluster-runner agent): poll pod status every 30 s. Use the layered hang heuristic (5 min idle log → check CPU + HLO module generation; declare hung only if both indicate inactive). Hard ceiling 60 min wall time unless explicitly authorized for a long run.
+   **GKE polling discipline** (per gke-cluster-runner agent): poll pod status every 30 s. Use the layered hang heuristic (5 min idle log → check CPU + HLO module generation; declare hung only if both indicate inactive). Hard ceiling 60 min wall time unless explicitly authorized for a long run.
 
 7. **Measure.** Extract metrics from the trainer log + xprof. Compare against the baseline for the same variant.
 
 8. **ANALYZE PROFILE + HLO DUMP (MANDATORY — NON-NEGOTIABLE).** Every experiment that runs to completion MUST have BOTH its xprof trace AND its HLO dump analyzed. An experiment without both analyses is incomplete. Do NOT dispatch the next experiment until both are analyzed and the findings recorded.
+
+   **Mechanism**: in the orchestrated loop (`/start-experiment`), this analysis is performed by the [`profile-analyzer`](../../.claude/agents/profile-analyzer.md) subagent, dispatched **synchronously** when a `gke-cluster-runner` completes — it returns the `## Profile` + `## HLO Dump` sections that get pasted into the experiment page. For local single-host runs (no subagent), the master performs the steps below directly. Either way, both artifacts must be analyzed before the verdict is assigned. The tool references below document what that analysis covers.
 
    **(a) xprof analysis** — use the xprof MCP tools directly against GCS (no local mirror needed): `list_runs`, `get_overview`, `get_top_hlo_ops`, `get_memory_profile`, `get_op_profile`, etc.
 
@@ -305,7 +352,7 @@ Pallas kernels are a primary optimization lever on TPU. The decision framework:
 - `SCHEMA.md` — wiki structure and schema rules.
 - `wiki/experiments/<model>_autoresearch_optimization/program.md` — model-family overrides.
 - `wiki/experiments/<model>_autoresearch_optimization/<lane>/program.md` — lane-specific overrides.
-- `.claude/agents/cluster-runner.md` — subagent definition for GKE workload launches.
+- `.claude/agents/gke-gke-cluster-runner.md` — subagent definition for GKE workload launches.
 - `.claude/skills/create-experiment/` — bootstrap a new model family's folder structure and program.md stubs.
 - `.claude/skills/start-experiment/` — loop entry: hardware selection, cluster discovery, occupancy check, parallel-tracks dispatch.
 - `.claude/skills/stop-experiment/` — clean shutdown: orphan reaping, missing-page filing, lint.

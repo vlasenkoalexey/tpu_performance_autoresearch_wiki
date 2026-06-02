@@ -11,15 +11,15 @@ Ask these questions in order (some may be combined into a single AskUserQuestion
 
 **Question 1**: "Model folder slug?" (free-text input expected)
 - This becomes the folder name under `wiki/experiments/`. Convention: lowercase, underscores, no spaces.
-- Examples: `gemma5`, `qwen3_8B`, `llama4_70B`.
+- Examples: `gemma4`, `gemma5`, `qwen3_8B`, `llama4_70B`.
 - The full folder will be `wiki/experiments/<slug>_autoresearch_optimization/`.
 
 **Question 2**: "Model display name?" (free-text)
 - Human-readable name for documentation. Used in the model-level program.md title.
-- Examples: "Gemma 5", "Qwen3 8B", "Llama 4 70B".
+- Examples: "Gemma 4", "Gemma 5", "Qwen3 8B", "Llama 4 70B".
 
 **Question 3**: "Which lanes?" (multi-select)
-- Options: `tpu (PyTorch + TorchTPU)`, `jax (JAX + Flax NNX)`, `torchax (torchax bridge)`, `maxtext (MaxText)`. User can also type a custom lane name.
+- Options: `tpu (PyTorch eager on TPU)`, `jax (JAX + Flax NNX)`, `torchax (torchax bridge)`, `maxtext (MaxText)`. User can also type a custom lane name.
 - The lane folders will be created under `wiki/experiments/<slug>_autoresearch_optimization/`.
 
 **Question 4**: "Model sizes?" (free-text, comma-separated)

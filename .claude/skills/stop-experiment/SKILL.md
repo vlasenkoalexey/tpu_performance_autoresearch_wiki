@@ -7,7 +7,17 @@ You are stopping the autoresearch loop cleanly. Follow this sequence — do not 
 
 ## Step 1 — Stop the loop
 
-Cancel any pending `ScheduleWakeup` so no further iterations fire. If `/loop` is running, the way to stop it depends on the harness:
+**First, remove the never-stop marker** (no-op if absent):
+
+```bash
+rm -f .claude/.loop_active.json
+```
+
+This MUST happen before any action that could end the agent's turn. The Stop hook (if wired in `.claude/settings.local.json`) checks for this marker; with it present, `/stop-experiment`'s own natural turn-end would be blocked. Removing it first ensures `/stop-experiment` can complete cleanly.
+
+(If the marker was never written — never-stop wasn't opted in for this session — this `rm -f` is a silent no-op; harmless.)
+
+Then cancel any pending `ScheduleWakeup` so no further iterations fire. If `/loop` is running, the way to stop it depends on the harness:
 - If self-paced: omit the next `ScheduleWakeup` call. The loop naturally ends after this iteration.
 - If interval-based: tell the user they need to use the harness's loop-stop mechanism (typically `/loop --stop` or interrupting the session).
 
@@ -30,7 +40,7 @@ The `USER_PREFIX` is required for the orphan-workload attribution in step 3.
 
 ## Step 2b — Cancel in-flight background subagents
 
-Before reaping workloads on clusters, cancel any cluster-runner subagents the master dispatched in background mode (`run_in_background=true`) that are still polling.
+Before reaping workloads on clusters, cancel any gke-cluster-runner subagents the master dispatched in background mode (`run_in_background=true`) that are still polling.
 
 Background subagents own their own polling loop and would keep going past the loop's intended end. Stopping the loop without cancelling them means they continue consuming tokens and could re-trigger notifications after the user thinks the loop has stopped.
 
@@ -68,12 +78,12 @@ For each orphan attributable to this model:
 
 For each killed workload, the experiment page filing follows SCHEMA.md `experiment` page template — frontmatter, hypothesis (recover from prior subagent dispatch context if available), Setup (recover from the launch command), Results (whatever was captured), Profile section (whatever made it to GCS), Verdict + reasoning.
 
-## Step 4 — Cross-reference: every cluster-runner dispatch has a wiki page
+## Step 4 — Cross-reference: every gke-cluster-runner dispatch has a wiki page
 
-Walk back through the recent session's transcript (or the most recent `wiki/log.md` entries) for `cluster-runner` subagent invocations. For each one, verify a corresponding experiment page exists at:
+Walk back through the recent session's transcript (or the most recent `wiki/log.md` entries) for `gke-cluster-runner` subagent invocations. For each one, verify a corresponding experiment page exists at:
 
 ```
-wiki/experiments/<model>_autoresearch_optimization/<lane>/<YYYY-MM-DD>-v<NNN>-<slug>.md
+wiki/experiments/<model>_autoresearch_optimization/<lane>/experiments/<YYYY-MM-DD>-v<NNN>-<slug>.md
 ```
 
 For any subagent run that returned a structured report but **does not** have a wiki page:
@@ -82,39 +92,59 @@ For any subagent run that returned a structured report but **does not** have a w
 
 This catches the failure mode where the main agent crashed between receiving a subagent report and writing the page.
 
+## Step 4.5 — Resolve stuck `status: in_progress` stubs
+
+LINT (Step 5) reports stuck stubs (`status: in_progress` > 24h per SCHEMA), but reporting is not resolution. Leaving stuck stubs after a clean shutdown is unsatisfying — at minimum, every stub the session left behind should be either re-resolved or explicitly closed.
+
+Walk the lane's experiment directory:
+
+```bash
+grep -l "^status: in_progress" wiki/experiments/<model>_autoresearch_optimization/<lane>/experiments/*.md
+```
+
+For each stub returned:
+
+1. **Determine the workload's actual state** (from step 3's reaping):
+   - Workload completed → results are on GCS; the analyzer just never ran.
+   - Workload still running → either killed in step 3, or marked "let it finish".
+   - Workload crashed → results unavailable.
+
+2. **Decide the resolution** (in priority order):
+
+   - **If the workload completed AND the GCS profile + HLO paths exist**: re-dispatch `profile-analyzer` SYNC with the same fields the loop would have passed. Once it returns, paste the `## Profile` + `## HLO Dump` sections in, assign verdict from metrics + hypothesis-firing audit, flip `status: in_progress → filed`. The stub is now a normal completed experiment.
+   - **If the workload completed BUT GCS paths are gone** (cleanup ran, retention expired): mark `verdict: inconclusive` with reason "stuck stub at /stop-experiment — workload completed but profile + HLO artifacts unavailable for re-analysis". Flip `status: in_progress → filed`. Add `backfilled: true` frontmatter so LINT's missing-Profile-section check skips it.
+   - **If the workload was killed in step 3**: the user already picked the verdict in step 3's `AskUserQuestion` (`inconclusive` or `killed_by_master`); just verify the stub has that verdict and flip status.
+   - **If the workload crashed**: `verdict: invalid` with reason from crash logs.
+   - **If the workload is still running** (user chose "let it finish" in step 3): leave stub `in_progress`. Note in the shutdown marker that N stubs are intentionally left for in-flight workloads. The next `/start-experiment` invocation will process these on its first iteration's step 2(a) — but only if the new session uses the same model+lane and the workload's notification reaches it. If the user starts a different model, these stubs orphan until manually resolved.
+
+Surface to user: "Resolved N stuck stubs: K via re-analysis, M as inconclusive (artifacts gone), P as invalid (crashed). Q stubs left in_progress for in-flight workloads."
+
 ## Step 5 — Run LINT
 
-Execute the LINT operation per `SCHEMA.md`. Check and report (don't auto-fix judgment calls):
-
-- Unresolved `[!warning]` contradictions.
-- Hypotheses `open` with no activity > 14 days.
-- Experiments without profile artifacts in `raw/profiles/`.
-- Experiments missing a `variant:` field, or whose `variant:` doesn't appear in the parent model page's matrix.
-- Model pages where any variant row's `Current best` doesn't match the latest `supported` experiment.
-- Hypothesis `variants:` lists referencing rows not in the model page's matrix.
-- Experiment commit messages on the model-code-repo side missing the `exp:` footer.
-- Experiment artifacts accidentally duplicated into the model code repo.
-- Orphan pages (no inbound links).
-- Broken markdown links.
-- Stale codebase pages whose `commit:` is far behind the current checkout.
+Execute the LINT operation per `SCHEMA.md`. Check and report (don't auto-fix judgment calls). The canonical list is in SCHEMA's LINT section — use that as the source of truth. Step 4.5 already resolved most stuck-stub cases, so this step's stuck-stub check should typically report 0 or only the intentionally-left-in_progress stubs.
 
 Surface findings as a punch list. Fix mechanical issues automatically; flag judgment calls for the user.
 
 ## Step 6 — Append clean-shutdown marker
 
-Append to `wiki/log.md`:
+Append a `stop` marker to the **lane's** log (per SCHEMA's two-tier convention — the clean-shutdown marker is a lane-lifecycle event, not a cross-cutting one):
 
 ```markdown
-## [YYYY-MM-DD] manual | /stop-experiment
+## [YYYY-MM-DD] stop | /stop-experiment session end
 
-**Op**: manual
+**Op**: stop
 **Pages created**: <list of any missing-page files filed in step 4>
-**Pages updated**: log.md
+**Pages updated**: <lane log path>
 **Notes**: Clean shutdown via /stop-experiment. Reaped orphan workloads: <list>.
 Outstanding lint items: <count> (see report above).
+Session metrics: <N experiments run, verdict counts, frontier shifts>.
 ```
 
-This lets a subsequent `/start-experiment` distinguish "loop ended cleanly" from "session crashed mid-iteration."
+Path: `wiki/experiments/<model>_autoresearch_optimization/<lane>/log.md`. Insert at the top (newest-first).
+
+This lets a subsequent `/start-experiment` distinguish "loop ended cleanly" from "session crashed mid-iteration" by reading the most recent marker in the lane's log (Step 7 of /start-experiment).
+
+If `/stop-experiment` is being run for a session that touched MULTIPLE lanes (rare — typically each /loop is single-lane), append the `stop` marker to each lane's log. The global `wiki/log.md` does NOT get a `stop` marker — that file is for cross-cutting ops only.
 
 ## Step 7 — Summary to user
 
