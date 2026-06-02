@@ -3,12 +3,12 @@ title: "Qwen3 jax — tokamax streamed cross-entropy"
 type: hypothesis
 model: qwen3-cc-jax
 variants: ["8B/v6e-8"]
-status: open
+status: supported
 expected_gain: "HBM unlock at seq 8192 (~2.5 GiB/chip logits saved)"
 confidence: medium
 effort: M
 origin: 2026-06-02-qwen3-jax-v6e8-baseline
-hlo_prefilter: pending
+hlo_prefilter: passed
 created: 2026-06-02
 updated: 2026-06-02
 ---

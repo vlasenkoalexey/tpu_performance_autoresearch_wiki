@@ -1,0 +1,1 @@
+can you run latest qwen3 jax experiment on v6e8

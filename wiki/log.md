@@ -1,5 +1,36 @@
 # Log
 
+## [2026-06-02] run-experiment | Qwen3-8B jax (Flax NNX) v036 SparseCore collective offloads refuted
+
+**Op**: run-experiment (GKE/XPK).
+**Pages created**:
+- [experiment: 2026-06-02-qwen3-jax-v036-sc-bs3](experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-02-qwen3-jax-v036-sc-bs3.md)
+- [hypothesis: qwen3-jax-selective-sparsecore-offload](hypotheses/qwen3-jax-selective-sparsecore-offload.md)
+**Pages updated**:
+- [qwen3-cc-jax model page](models/qwen3-cc-jax.md) (variant matrix updated, open hypotheses updated, retired hypotheses updated)
+- [index.md](index.md) (jax model status, experiment listing, total page count)
+- [hypothesis: qwen3-jax-sparsecore-offload](hypotheses/qwen3-jax-sparsecore-offload.md) (status to refuted)
+**Key result**: **verdict refuted** — Offloading all three FSDP collectives (all-reduce, reduce-scatter, all-gather) to SparseCore at `bs=3`, `seqlen=8192` slightly degraded performance:
+- **v035 (Baseline)**: **4077.5 ms** step time, **48,218 tok/s** (6,027 tok/s/chip), **34.6% MFU**.
+- **v036 (SparseCore Offload)**: **4100.8 ms** step time, **47,944 tok/s** (5,993 tok/s/chip), **34.4% MFU** (+23.3 ms / +0.6% step time regression).
+**Notes**: Moving all FSDP collectives to SparseCore introduces PCIe/SC-TC transfer and synchronization latency that outweighs any TensorCore cycle savings on this shape. JAX's default async collective pipelining is already highly efficient at overlapping TC matmuls with HBM collectives. Formulated a selective offload follow-up hypothesis.
+
+## [2026-06-02] run-experiment | Qwen3-8B jax (Flax NNX) v033b, v034, v035 optimizations up to 34.6% MFU at seq=8192
+
+**Op**: run-experiment (GKE/XPK).
+**Pages created**:
+- [experiment: 2026-06-02-qwen3-jax-v033b-maxtext-ce-s8k-bs1](experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-02-qwen3-jax-v033b-maxtext-ce-s8k-bs1.md)
+- [experiment: 2026-06-02-qwen3-jax-v034-maxtext-ce-s8k-bs2](experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-02-qwen3-jax-v034-maxtext-ce-s8k-bs2.md)
+- [experiment: 2026-06-02-qwen3-jax-v035-maxtext-ce-s8k-bs3](experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-02-qwen3-jax-v035-maxtext-ce-s8k-bs3.md)
+- [hypothesis: qwen3-jax-sparsecore-offload](hypotheses/qwen3-jax-sparsecore-offload.md)
+- profile pointers: `raw/profiles/2026-06-02-qwen3-jax-v033b-maxtext-ce-s8k-bs1/GCS_LOCATION.txt`, `raw/profiles/2026-06-02-qwen3-jax-v034-maxtext-ce-s8k-bs2/GCS_LOCATION.txt`, `raw/profiles/2026-06-02-qwen3-jax-v035-maxtext-ce-s8k-bs3/GCS_LOCATION.txt`
+**Pages updated**: [qwen3-cc-jax model page](models/qwen3-cc-jax.md) (variant matrix updated, open hypotheses updated), [index.md](index.md) (jax model status, experiment listing, total page count), [hypotheses: qwen3-jax-splash-attention](hypotheses/qwen3-jax-splash-attention.md) (status to supported, prefilter passed), [hypotheses: qwen3-jax-tokamax-ce](hypotheses/qwen3-jax-tokamax-ce.md) (status to supported, prefilter passed).
+**Key result**: **verdict supported** — Successful execution of three optimization and scaling runs on TPU v6e-8.
+- **v033b (Splash+Scan+Remat+CE @ bs=1, seq=8192)**: Unlocked sequence length 8192 (baseline OOM'd) at **45,245 TPS (5,656/chip), 32.4% MFU** (+41.6% throughput over baseline).
+- **v034 (Batch scaling @ bs=2, seq=8192)**: Amortized communication/dispatch overhead, raising performance to **47,937 TPS (5,992/chip), 34.4% MFU** (+6.0% throughput over v033b).
+- **v035 (Batch scaling @ bs=3, seq=8192)**: Achieved **48,218 TPS (6,027/chip), 34.6% MFU** (+0.6% throughput over v034) without running out of memory.
+**Notes**: Renamed the experiment directory to `qwen3_ag_autoresearch_optimization` to align with the agent environment preference. Discovered that the optimized stack successfully closed the baseline gap (which had only 20.5% MFU) and pushed efficiency to 34.6% MFU, representing a major optimization milestone on v6e-8. Collective offloads (SparseCore) identified as the next logical frontier.
+
 ## [2026-06-02] run-experiment | Qwen3-8B jax (Flax NNX) v6e-8 BASELINE + cross-lane win
 
 **Op**: run-experiment (GKE/XPK via gke-cluster-runner agent).

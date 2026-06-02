@@ -3,12 +3,12 @@ title: "Qwen3 jax — splash attention"
 type: hypothesis
 model: qwen3-cc-jax
 variants: ["8B/v6e-8"]
-status: open
+status: supported
 expected_gain: "15-40% on attention; unlocks seq 8192"
 confidence: high
 effort: M
 origin: 2026-06-02-qwen3-jax-v6e8-baseline
-hlo_prefilter: pending
+hlo_prefilter: passed
 created: 2026-06-02
 updated: 2026-06-02
 ---
