@@ -1,5 +1,12 @@
 # Log
 
+## [2026-06-02] analyze | qwen3_cc-jax retrospective #4 — lane NOT exhausted; #3's "pivot to torchax" overturned by the maxtext-CE arc
+
+**Op**: analyze (lane retrospective, INCREMENTAL +13 exp v025–v037; triggered by never-stop gate before a hold).
+**Pages created**: `wiki/analyses/2026-06-02-qwen3_cc-jax-retrospective-4.md`.
+**Pages updated**: index.
+**Key result**: retrospective #3 had declared the jax lane done (seq2048 ceiling; #1 action = torchax pivot). **Overturned** — the post-#3 maxtext-CE arc moved the seq8192 frontier 30.4%→34.6% (+13.7% tok/s/chip) and cracked the "hard wall." The never-stop retrospective gate caught a real premature-exhaustion miss (CE-kernel choice was a frontier-moving axis #3 hadn't surfaced). Lane is NOT exhausted: top remaining in-scope levers = MXU/logical-axis tile alignment (+3-4%, profile-attributed, sharding rewrite — needs user opt-in) and norm-inclusive selective-save remat (+2-4%). Surfaced both to the (present) user rather than auto-dispatching the sharding rewrite. Out-of-scope: pipelined offload (kernel-authoring). Anti-recs: named-offload (refuted ×2), maxtext-CE/scan @ seq2048, bs4+.
+
 ## [2026-06-02] analyze + run-experiment | Qwen3-8B jax MaxText-CE climb CLOSED — CE was the missing lever; seq8192 81%→86.9% of MaxText
 
 **Op**: run-experiment (v036 offload refuted, v037 seq2048 refuted) + analyze (climb closing).
