@@ -1,5 +1,13 @@
 # Log
 
+## [2026-06-02] analyze + run-experiment | Qwen3-8B jax MaxText-gap arc CLOSED — scan+overlap won seq8192 +6.2%; full parity is a documented hard wall
+
+**Op**: run-experiment (v031, v032) + analyze (closing synthesis).
+**Pages created**: `wiki/analyses/2026-06-02-qwen3-cc-jax-maxtext-closing.md`.
+**Pages updated**: v031 + v032 experiment pages (verdicts: both refuted); `models/qwen3-cc-jax.md` (seq8192 frontier v028, batch-wall + scan-seq-specificity notes, Knobs matrix populated, scan-layers hyp resolved); `index.md` (jax status line + closing analysis); jax lane log.
+**Key result**: the user-directed 3-lever MaxText package (scan-over-layers + named host-offload + collective-overlap flags) **moved the seq8192 frontier +6.2%** (v009 30.4% → v028 32.3% MFU / 5,632 tok/s/chip, bs1) — semantics-preserving (HF equivalence PASS). But full MaxText seq8192 parity (45.3% / 6,942, bs3) is a **DOCUMENTED HARD WALL**: v031 (bs2 no-offload, 5,553) and v030 (bs3, 4,595) prove **batch anti-amortizes** on our stack (monotone bs1>bs2>bs3); MaxText's bs3 advantage is kernel-pipeline per-token efficiency (<0.1% host-copy pipelined offload + its own fused CE avoiding the tokamax f32 lm_head-weight all-gather), not a config lever. v032 showed scan+overlap is **seq8192-specific** (regresses −3.4% at seq2048; seq2048 stays at v018 = 97.9% MaxText parity). Per the directive "meet MaxText or document a hard wall," this is the allowed stop. Only remaining high-prior lever = a hand-written fused CE (kernel-authoring, out of scope).
+**Notes**: arc v025–v032 complete. Trainer code (scan refactor + named-offload + f32-CE) lives in image qwen3-8b-jax:v030-scan-full; the scan+overlap config is the banked seq8192 frontier.
+
 ## [2026-06-02] analyze | MaxText vs jax Qwen3-8B MFU-gap teardown — gap = collective-overlap + MXU-occupancy, enabled by scan + named-offload
 
 **Op**: analyze (code + profile teardown; user request "explore maxtext code and profile to see what gets it to 45 mfu").
