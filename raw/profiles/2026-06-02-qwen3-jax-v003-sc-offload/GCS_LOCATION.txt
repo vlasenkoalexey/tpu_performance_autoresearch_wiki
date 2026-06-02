@@ -1,0 +1,8 @@
+GCS-resident profile + HLO for the v003 SparseCore-offload run (refuted, -4.0pp MFU).
+
+Profile (xprof, 2 hosts):
+  gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v003-sc-offload/plugins/profile/2026_06_02_05_37_47/
+HLO (1602 files):
+  gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v003-sc-offload/hlo/
+xprof run: 2026-06-02-qwen3-jax-v003-sc-offload/2026_06_02_05_37_47
+xprof URL: http://localhost:8791/?run=2026-06-02-qwen3-jax-v003-sc-offload

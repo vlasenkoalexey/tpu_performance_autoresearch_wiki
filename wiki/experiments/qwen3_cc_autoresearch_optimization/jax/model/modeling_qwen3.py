@@ -24,6 +24,7 @@ trainer is built), kept out of here so the baseline stays simple and CPU-runnabl
 from __future__ import annotations
 
 import math
+import os
 from typing import Optional
 
 import jax
@@ -71,6 +72,27 @@ def _attn_xla_sdpa(q, k, v, *, num_key_value_groups, scaling, attention_mask=Non
     aw = jax.nn.softmax(aw.astype(jnp.float32), axis=-1).astype(q.dtype)
     out = jnp.einsum("bhqk,bhkd->bhqd", aw, v_rep)  # (B, H, T, Dh)
     return jnp.transpose(out, (0, 2, 1, 3))          # (B, T, Hq, Dh)
+
+
+# Splash attention (TPU Pallas, GQA-native). The trainer registers the mesh via
+# set_splash_mesh(mesh) before forward; selected by JAX_ATTENTION_IMPL=splash.
+_SPLASH_MESH = None
+
+
+def set_splash_mesh(mesh) -> None:
+    global _SPLASH_MESH
+    _SPLASH_MESH = mesh
+
+
+def _attn_splash(q, k, v):
+    """Dispatch into the splash kernel (sibling splash_attn.py). GQA-native —
+    do NOT _repeat_kv. q/k/v are (B, H, T, Dh); returns (B, T, Hq, Dh)."""
+    import splash_attn  # trainer dir is on sys.path
+    if _SPLASH_MESH is None:
+        raise RuntimeError("splash needs a mesh — call set_splash_mesh(mesh) at startup.")
+    from jax.sharding import PartitionSpec as P
+    q_sharding = P("fsdp", "tp", None, None)
+    return splash_attn.tpu_splash_attention(_SPLASH_MESH, q_sharding, True, q, k, v, None)
 
 
 # -----------------------------------------------------------------------------
@@ -199,9 +221,12 @@ class Qwen3Attention(nnx.Module):
         v = self.v_proj(hidden_states).reshape(B, T, self.num_kv_heads, self.head_dim)
         v = jnp.transpose(v, (0, 2, 1, 3))
         q, k = apply_rotary_pos_emb(q, k, cos, sin, unsqueeze_dim=1)
-        attn_out = _attn_xla_sdpa(
-            q, k, v, num_key_value_groups=self.num_key_value_groups,
-            scaling=self.scaling, attention_mask=attention_mask)
+        if os.environ.get("JAX_ATTENTION_IMPL", "xla").lower() == "splash":
+            attn_out = _attn_splash(q, k, v)              # GQA-native; no N² scores
+        else:
+            attn_out = _attn_xla_sdpa(
+                q, k, v, num_key_value_groups=self.num_key_value_groups,
+                scaling=self.scaling, attention_mask=attention_mask)
         attn_out = attn_out.reshape(B, T, self.num_heads * self.head_dim)
         return self.o_proj(attn_out)
 
@@ -226,8 +251,10 @@ class Qwen3DecoderLayer(nnx.Module):
 
 
 class Qwen3Model(nnx.Module):
-    def __init__(self, config, *, weights_dtype=jnp.bfloat16, compute_dtype=jnp.bfloat16, rngs):
+    def __init__(self, config, *, weights_dtype=jnp.bfloat16, compute_dtype=jnp.bfloat16,
+                 rngs, use_remat: bool = False):
         self.config = config
+        self.use_remat = use_remat  # per-layer jax.checkpoint (nothing_saveable)
         kw = dict(weights_dtype=weights_dtype, compute_dtype=compute_dtype, rngs=rngs)
         self.embed_tokens = Qwen3Embedding(config.vocab_size, config.hidden_size, **kw)
         self.layers = nnx.data([Qwen3DecoderLayer(config, i, **kw)
@@ -241,8 +268,18 @@ class Qwen3Model(nnx.Module):
         if position_ids is None:
             position_ids = jnp.broadcast_to(jnp.arange(T, dtype=jnp.int32), (B, T))
         cos, sin = self.rotary_emb(position_ids, hidden_states.dtype)
-        for layer in self.layers:
-            hidden_states = layer(hidden_states, (cos, sin), attention_mask=None)
+        if self.use_remat:
+            # Per-layer gradient checkpoint: only one layer's activations are
+            # live during backward recompute (vs all 36 saved). Cuts the HLO-temp
+            # that OOM'd the no-remat batch experiments (v001/v002).
+            _policy = jax.checkpoint_policies.nothing_saveable
+            for layer in self.layers:
+                def _call(h, c, s, _layer=layer):
+                    return _layer(h, (c, s), attention_mask=None)
+                hidden_states = jax.checkpoint(_call, policy=_policy)(hidden_states, cos, sin)
+        else:
+            for layer in self.layers:
+                hidden_states = layer(hidden_states, (cos, sin), attention_mask=None)
         return self.norm(hidden_states)
 
 
@@ -250,10 +287,11 @@ class Qwen3ForCausalLM(nnx.Module):
     """Qwen3 head: model + (untied) lm_head. `skip_lm_head=True` returns the
     pre-projection hidden states (for fused-CE paths later)."""
 
-    def __init__(self, config, *, weights_dtype=jnp.bfloat16, compute_dtype=jnp.bfloat16, rngs):
+    def __init__(self, config, *, weights_dtype=jnp.bfloat16, compute_dtype=jnp.bfloat16,
+                 rngs, use_remat: bool = False):
         self.config = config
         kw = dict(weights_dtype=weights_dtype, compute_dtype=compute_dtype, rngs=rngs)
-        self.model = Qwen3Model(config, **kw)
+        self.model = Qwen3Model(config, use_remat=use_remat, **kw)
         self.lm_head = Linear(config.hidden_size, config.vocab_size, bias=False, **kw)
         self.skip_lm_head = False
 
@@ -270,5 +308,5 @@ class Qwen3ForCausalLM(nnx.Module):
 __all__ = [
     "Qwen3RMSNorm", "Qwen3Embedding", "Qwen3RotaryEmbedding", "Qwen3MLP",
     "Qwen3Attention", "Qwen3DecoderLayer", "Qwen3Model", "Qwen3ForCausalLM",
-    "apply_rotary_pos_emb",
+    "apply_rotary_pos_emb", "set_splash_mesh",
 ]

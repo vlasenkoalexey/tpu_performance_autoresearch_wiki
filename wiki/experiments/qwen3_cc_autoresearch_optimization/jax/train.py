@@ -17,6 +17,7 @@ Run (from this folder):
 """
 from __future__ import annotations
 
+import os
 import sys
 import time
 from pathlib import Path
@@ -47,6 +48,8 @@ def main(
     learning_rate: float = 1e-5,
     weight_decay: float = 0.0,
     weights_dtype: str = "bf16",
+    use_remat: bool = False,        # per-layer jax.checkpoint (cuts activation HBM)
+    use_splash: bool = False,       # GQA-native splash attention (no N² scores)
     use_real_data: bool = False,    # False = synthetic tokens (perf baseline)
     # --- profiling (all CLI flags) ---
     profile_dir: Optional[str] = None,
@@ -80,7 +83,15 @@ def main(
 
     model = Qwen3ForCausalLM(
         config, weights_dtype=wdtype, compute_dtype=wdtype, rngs=nnx.Rngs(0),
+        use_remat=use_remat,
     )
+    if use_remat:
+        print("[remat] per-layer jax.checkpoint (nothing_saveable) ON", flush=True)
+    if use_splash:
+        os.environ["JAX_ATTENTION_IMPL"] = "splash"
+        from model import set_splash_mesh
+        set_splash_mesh(mesh)
+        print("[attn] splash kernel ON (JAX_ATTENTION_IMPL=splash)", flush=True)
     n_params = sum(int(p.value.size) for _, p in _iter_params(model))
     print(f"[load] Qwen3 has {n_params/1e9:.2f} B parameters (NNX-side), random init",
           flush=True)
