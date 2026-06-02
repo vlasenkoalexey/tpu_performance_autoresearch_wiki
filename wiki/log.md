@@ -1,5 +1,13 @@
 # Log
 
+## [2026-06-02] analyze + run-experiment | Qwen3-8B jax MaxText-CE climb CLOSED — CE was the missing lever; seq8192 81%→86.9% of MaxText
+
+**Op**: run-experiment (v036 offload refuted, v037 seq2048 refuted) + analyze (climb closing).
+**Pages created**: experiments v036/v037; analyses/2026-06-02-qwen3-cc-jax-maxtext-ce-climb.md.
+**Pages updated**: models/qwen3-cc-jax.md (Knobs maxtext-CE row = seq8192-win/seq2048-regress, named-offload refuted, open-hyps); hypotheses qwen3-jax-seq8192-kernel-gap (refuted — offload) + qwen3-jax-maxtext-ce-seq2048 (refuted); old hard-wall closing (forward-pointer); index; jax lane log.
+**Key result**: the maxtext-CE arc (v033→v037) is complete. **maxtext-CE (T5X custom_vjp) was the missing lever** — cracked the seq8192 batch wall, frontier v028 5,632 → **v035 6,030 = 86.9% of MaxText** (was 81%), bs3 fits w/o offload. v036 refuted named-offload (−18.6%; our pinned_host offload not pipelined, tags proj/mlpwi not the recomputing norms). v037 refuted maxtext-CE @ seq2048 (−6.9%; seq8192-specific, like scan). Residual ~13% to MaxText = remat-recompute (needs pipelined offload = kernel-authoring) + MXU 53.6% vs 61.2% (logical-axis, +3-4%, deferred). Honest: I'd prematurely declared a "hard wall" last arc; the user's CE directive corrected it.
+**Notes**: practical jax frontier = v035 (seq8192, --use_maxtext_ce) + v018 (seq2048, plain _ce). Remaining levers are out-of-scope kernel-authoring (pipelined offload) + an uncertain sharding rewrite (MXU). Climb stops here unless the user wants the MXU lever.
+
 ## [2026-06-02] run-experiment | Qwen3-8B jax: MaxText T5X custom_vjp CE CRACKS the seq8192 batch wall — NEW frontier 34.4% / 5,992 (gap to MaxText 81%→86%)
 
 **Op**: run-experiment (v033 bs1 parity, v034 bs2 wall-test) — user directive "use same approach as maxtext for CE".

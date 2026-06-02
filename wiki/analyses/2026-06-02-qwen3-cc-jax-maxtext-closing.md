@@ -17,9 +17,9 @@ updated: 2026-06-02
 > page treated as a structural wall. The wall was **CE-backward-transient-bound** (the tokamax/autodiff
 > CE backward), not collective/attention-bound. The climb toward MaxText (6,942) is **reopened** —
 > seq8192 frontier moved v028 → v034, gap 81% → 86.3%, with bs3 (v035) in flight. See the
-> [maxtext-CE hypothesis](../hypotheses/qwen3-jax-maxtext-ce.md) and the new closing analysis (filed when
-> the maxtext-CE arc concludes). The scan+overlap findings below remain valid; only the "hard wall"
-> framing is superseded.
+> [maxtext-CE hypothesis](../hypotheses/qwen3-jax-maxtext-ce.md) and the **[MaxText-CE climb closing analysis](2026-06-02-qwen3-cc-jax-maxtext-ce-climb.md)**
+> (the arc's final writeup — seq8192 frontier now v035 34.6% / 6,030 = 86.9% of MaxText). The scan+overlap
+> findings below remain valid; only the "hard wall" framing is superseded.
 
 Final synthesis of the autoresearch arc that ran from "implement the missing MaxText optimizations"
 (scan-over-layers + named host-offload + collective-overlap flags) through the directive

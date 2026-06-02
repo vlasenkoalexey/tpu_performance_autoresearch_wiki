@@ -3,8 +3,8 @@ title: "Qwen3-jax: MaxText custom_vjp CE at seq2048"
 type: hypothesis
 model: qwen3-cc-jax
 variants: ["8B/v6e-8"]
-status: open
-expected_gain: "0-2% step time @ seq2048 (likely neutral)"
+status: refuted
+expected_gain: "REFUTED — maxtext-CE regresses −6.9% at seq2048 (v037)"
 confidence: low
 effort: S
 origin: 2026-06-02-v035-maxtext-ce-s8k-bs3
