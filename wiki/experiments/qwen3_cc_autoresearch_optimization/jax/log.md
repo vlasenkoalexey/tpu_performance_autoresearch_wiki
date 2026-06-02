@@ -2,9 +2,13 @@
 
 tokamax streamed CE (mosaic_tpu) on the absl-guarded image RUNS and is numerically correct: loss 12.098→12.085 with variation, exit 0. MFU 21.0% at bs=2 (vs remat-bs2 22.0%) — CE is a MEMORY lever, ~neutral/slightly-slower at a shape that fits; its value is the batch unlock (v014). Note: mosaic_tpu CE autotunes on first call (step0/1 = 135s each, now cached) — that was the long-compile cause. CE is now a validated tool. Batch-unlock value settled by v014.
 
-## [2026-06-02] loop-iteration | v009-splash-s8k on 8B/v6e-8: IN PROGRESS (first attempt preempted; runner re-submitted)
+## [2026-06-02] loop-iteration | v014-splash-ce-bs6 on 8B/v6e-8: refuted (30.5% < 32.4% — CE not repaid at seq2048)
 
-splash @ seq8192: first attempt lost to spot preemption (no artifacts); the runner agent re-submitted v009 (pods ContainerCreating). NOT backfilled — the agent is live and owns the result. (I briefly mis-filed this as inconclusive during a transient NotFound gap; reverted to in_progress. Do not duplicate-dispatch seq8192.)
+remat+splash+CE bs6 (global 48): fits + sane loss (12.10→12.07), but 30.5% MFU / 5,929 tok/s/chip < v008 splash-bs4 32.4% / 6,299. CE confirmed a MEMORY-enabler, not a throughput lever at seq2048 — bs4 is the occupancy sweet spot; CE's streaming overhead isn't repaid where logits already fit. seq2048 frontier stays v008. CE's value is at seq8192 (bigger logits).
+
+## [2026-06-02] loop-iteration | v009-splash-s8k on 8B/v6e-8: **SUPPORTED — SEQ-8192 TARGET REACHED** (30.4% MFU)
+
+splash+remat @ seq8192 bs1 (global 8) = **30.4% MFU / 5,305 tok/s/chip**, loss 12.094→12.068 stable. The PROGRAM-TARGET seq, unreachable on the dense path (N² scores OOM). Best-for-target-seq frontier. (First attempt spot-preempted; re-submitted cleanly.) seq2048 throughput frontier remains v008 (32.4% @ bs4). Next: seq8192+CE+bs2 (CE's real value — bigger logits at seq8192).
 
 ## [2026-06-02] loop-iteration | v011 + v012 on 8B/v6e-8: invalid (tokamax CE absl-flags collision — fixed in train.py)
 
