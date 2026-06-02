@@ -176,17 +176,13 @@ def main(
         B, L, H = hidden.shape
         BL = B * L
         l_flat = labels.reshape(BL)
-        if tokamax_ce_impl == "mosaic_tpu":
-            # mosaic tiles V and accumulates the logsumexp in f32 internally, so pass
-            # the lm_head weight (and hidden) in their native bf16 — this AVOIDS
-            # materializing the full f32[H,V] weight (the bs3@seq8192 HBM wall, v027)
-            # and matches the plain-CE path, which also does the lm_head matmul in
-            # bf16 (f32 only for the softmax). The fp32 cast below is for xla/chunked.
-            h_ce = hidden.reshape(BL, H)
-            w_ce = lm_head_w.T
-        else:
-            h_ce = hidden.reshape(BL, H).astype(jnp.float32)
-            w_ce = lm_head_w.T.astype(jnp.float32)  # (V,H) -> (H,V)
+        # f32 hidden + weight: REQUIRED — the tokamax mosaic_tpu CE backward kernel
+        # allocates an f32 scratch and rejects a bf16 weight (v029 trace crash:
+        # "Invalid dtype for swap: Ref=f32, Value=bf16"). Also needed for chunked_xla
+        # lse accumulation. The f32[H,V] weight is the bs3 HBM wall — addressed by
+        # scan's smaller program footprint, not by weight dtype.
+        h_ce = hidden.reshape(BL, H).astype(jnp.float32)
+        w_ce = lm_head_w.T.astype(jnp.float32)  # (V,H) -> (H,V)
         def _ce_local(h, l, w):
             s = tokamax.linear_softmax_cross_entropy_loss(
                 h, l, w, reduction="sum", implementation=tokamax_ce_impl)
