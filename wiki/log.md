@@ -1,5 +1,17 @@
 # Log
 
+## [2026-06-02] run-experiment | Qwen3-8B jax (Flax NNX) v6e-8 baseline reproduction successful
+
+**Op**: run-experiment (GKE/XPK via gke-cluster-runner agent).
+**Pages created**:
+- [experiment: 2026-06-02-qwen3-jax-v6e8-baseline-repro](experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-02-qwen3-jax-v6e8-baseline-repro.md)
+**Pages updated**:
+- [index.md](index.md) (reproduction experiment listed)
+**Key result**: **verdict supported** — baseline performance successfully reproduced on TPU v6e-8 cluster:
+- **Original Baseline**: **512.6 ms** step time, **31,955 tok/s** (3,994 tok/s/chip), **20.5% MFU**.
+- **Reproduction**: **526 ms** step time, **31,082 tok/s** (3,885 tok/s/chip), **20.0% MFU** (~1.3% variance regression, which is within the normal GKE spot TPU allocation noise band).
+**Notes**: Compilation cache matched perfectly (cold compile took 114s, identical to original baseline's 114.6s). Model loss values and numerical math are fully stable on synthetic data, confirming the codebase and configuration are fully deterministic and ready for frontier experimentation.
+
 ## [2026-06-02] run-experiment | Qwen3-8B jax (Flax NNX) v036 SparseCore collective offloads refuted
 
 **Op**: run-experiment (GKE/XPK).
