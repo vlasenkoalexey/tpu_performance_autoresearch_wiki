@@ -1,5 +1,12 @@
 # Log
 
+## [2026-06-02] manual + start | qwen3_cc maxtext reference lane bootstrapped; first run dispatched
+
+**Op**: manual (lane bootstrap) + start (reference run).
+**Pages created**: model `wiki/models/qwen3-cc-maxtext.md`; observation `wiki/observations/qwen3-maxtext-config-exists.md`; experiment stub `.../maxtext/experiments/2026-06-02-maxtext-qwen3-8b-v6e8-ref-seq8192.md`; lane log `.../maxtext/log.md`.
+**Pages updated**: index (added maxtext model line); jax model page See-also.
+**Key result**: Confirmed MaxText ships `configs/models/qwen3-8b.yml` matching our architecture EXACTLY (4096 hidden, 32q/8kv, hd128, 36 layers, mlp 12288, QK-norm, SwiGLU, vocab 151936, rope 1e6) — so a true MaxText reference ceiling is runnable (no published MFU exists for qwen3-8b; tpu-recipes covers only Qwen3-235B). Added benchmark configs `qwen3_8b_8192_ref` + `qwen3_8b_2048_ref` to the worktree (mirror the llama3 no-collective-matmul recipe tuning). Rebuilt `maxtext_base_image`, dispatched seq8192 run via `benchmark_runner xpk` → workload `ale-qwen3-8b-8-1-060213-9sh` (running). MFU result pending. Reference targets for context: jax 30.4% @ seq8192 / 35.8% @ seq2048, torchax 19.2%, llama3-maxtext 44.6%.
+
 ## [2026-06-02] analyze | qwen3-cc/jax retrospective #3 (FULL --full-redo audit) — confirms #2, zero discrepancies
 
 **Op**: analyze (FULL `--full-redo` retrospective; independent full-disk re-read of all 24 experiment pages via a reader subagent, not inherited from #2's in-memory ledger).

@@ -86,6 +86,7 @@ Also catalogued (not yet filed as pages): scan-over-layers (compile-HBM), fused 
 
 ## See also
 
+- [Qwen3 8B — maxtext](qwen3-cc-maxtext.md) — reference-ceiling lane (MaxText `qwen3-8b.yml`; reference run dispatched 2026-06-02).
 - [Qwen3 8B — torchax](qwen3-cc-torchax.md) — primary lane (live frontier).
 - Program: [`../experiments/qwen3_cc_autoresearch_optimization/program.md`](../experiments/qwen3_cc_autoresearch_optimization/program.md)
 - Lane README: [`../experiments/qwen3_cc_autoresearch_optimization/jax/README.md`](../experiments/qwen3_cc_autoresearch_optimization/jax/README.md)
