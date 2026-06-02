@@ -1,5 +1,12 @@
 # Log
 
+## [2026-06-02] run-experiment | MaxText Qwen3-8B v6e-8 reference @ seq2048 = 38.0% MFU / 7,116 tok/s/chip — jax at PARITY (seq2048 ceiling confirmed)
+
+**Op**: run-experiment (MaxText reference, lane=maxtext, seq2048).
+**Pages created**: experiment `.../maxtext/experiments/2026-06-02-maxtext-qwen3-8b-v6e8-ref-seq2048.md` (supported); GCS pointer.
+**Pages updated**: maxtext model page (added seq2048 row + parity note); maxtext + global logs; index.
+**Key result**: MaxText Qwen3-8B @ seq2048 bs4 = **38.0% MFU / 7,116 tok/s/chip** (workload ale-qwen3-8b-2-1-060214-lgr, clean). **Our jax v018 (35.8% / 6,964) is at 97.9% of it — near parity.** EXTERNALLY CONFIRMS the jax seq2048 frontier is at its practical ceiling (~2% residual within noise + MaxText's heavier offload recipe). Combined with the seq8192 finding (jax at 76.4% of MaxText), the picture is crisp: **jax seq2048 = closed at parity; jax seq8192 = ~31% headroom via offload-enabled bs3**. The MaxText reference lane baseline is now complete (seq8192 45.3% + seq2048 38.0%).
+
 ## [2026-06-02] run-experiment | MaxText Qwen3-8B v6e-8 reference: **45.3% MFU / 6,942 tok/s/chip @ seq8192** (CEILING) — reopens jax seq8192 frontier
 
 **Op**: run-experiment (MaxText reference, lane=maxtext).
