@@ -52,6 +52,47 @@ def _to_jnp_dtype(name: str) -> jnp.dtype:
     return jnp.bfloat16 if name == "bf16" else jnp.float32
 
 
+# CE with a stable custom gradient, ported verbatim from MaxText
+# (MaxText/max_utils.py:cross_entropy_with_logits, itself from T5X). The
+# custom_vjp hands XLA an explicit fused backward (softmax - onehot) instead of
+# letting autodiff differentiate through log_softmax — a lighter, single-pass
+# backward graph over the [B,L,V] logits.
+@jax.custom_vjp
+def cross_entropy_with_logits(logits, targets, z_loss):
+    logits_sum = jax.scipy.special.logsumexp(logits, axis=-1, keepdims=True)
+    log_softmax = logits - logits_sum
+    loss = -jnp.sum(targets * log_softmax, axis=-1)
+    log_z = jnp.squeeze(logits_sum, axis=-1)
+    total_z_loss = z_loss * jax.lax.square(log_z)
+    loss += total_z_loss
+    return loss, total_z_loss
+
+
+def _cross_entropy_with_logits_fwd(logits, targets, z_loss=0.0):
+    max_logit = logits.max(axis=-1, keepdims=True)
+    shifted = logits - max_logit
+    exp_shifted = jnp.exp(shifted)
+    sum_exp = jnp.sum(exp_shifted, axis=-1, keepdims=True)
+    log_softmax = shifted - jnp.log(sum_exp)
+    loss = -jnp.sum(targets * log_softmax, axis=-1)
+    log_z = jnp.squeeze(jnp.log(sum_exp) + max_logit, axis=-1)
+    total_z_loss = z_loss * jax.lax.square(log_z)
+    loss += total_z_loss
+    return (loss, total_z_loss), (logits, targets, z_loss, exp_shifted, sum_exp, log_softmax, log_z)
+
+
+def _cross_entropy_with_logits_bwd(res, g):
+    g = g[0]
+    logits, targets, z_loss, exp_shifted, sum_exp, log_softmax, log_z = res
+    deriv = jnp.expand_dims(1 + 2 * z_loss * log_z, -1) * exp_shifted / sum_exp - targets
+    g_logits = jnp.expand_dims(g, axis=-1) * deriv
+    g_targets = -jnp.expand_dims(g, axis=-1) * log_softmax
+    return (jnp.asarray(g_logits, logits.dtype), jnp.asarray(g_targets, targets.dtype), jnp.array(0.0))
+
+
+cross_entropy_with_logits.defvjp(_cross_entropy_with_logits_fwd, _cross_entropy_with_logits_bwd)
+
+
 def main(
     model_id: str = "Qwen/Qwen3-8B",
     batch_size: int = 1,            # per-fsdp-shard batch; global = batch × fsdp
@@ -69,6 +110,7 @@ def main(
     tokamax_ce_impl: str = "mosaic_tpu",  # mosaic_tpu | xla (this tokamax build's
                                           # valid impls; chunked_xla is NOT available
                                           # here — it crashed v010, see that exp page)
+    use_maxtext_ce: bool = False,   # MaxText/T5X custom_vjp CE over full logits (no kernel)
     use_real_data: bool = False,    # False = synthetic tokens (perf baseline)
     # --- profiling (all CLI flags) ---
     profile_dir: Optional[str] = None,
@@ -115,6 +157,8 @@ def main(
         from model import set_splash_mesh
         set_splash_mesh(mesh)
         print("[attn] splash kernel ON (JAX_ATTENTION_IMPL=splash)", flush=True)
+    if use_maxtext_ce:
+        print("[ce] MaxText/T5X custom_vjp cross_entropy_with_logits (z_loss=0) ON", flush=True)
     n_params = sum(int(p.value.size) for _, p in _iter_params(model))
     print(f"[load] Qwen3 has {n_params/1e9:.2f} B parameters (NNX-side), random init",
           flush=True)
@@ -192,11 +236,19 @@ def main(
                            out_specs=P(), check_rep=False)
         return ce_sm(h_ce, l_flat, w_ce) / float(BL)
 
+    def _ce_maxtext(logits, labels):
+        v = logits.shape[-1]
+        one_hot = jax.nn.one_hot(labels, v, dtype=jnp.float32)
+        xent, _ = cross_entropy_with_logits(logits.astype(jnp.float32), one_hot, 0.0)
+        return xent.mean()
+
     def loss_fn(params, input_ids, labels):
         m = nnx.merge(graphdef, params, rest)
         if use_tokamax_ce:
             hidden = m(input_ids, return_hidden=True)
             return _ce_tokamax(hidden, labels, m.lm_head_weight()).astype(jnp.float32)
+        if use_maxtext_ce:
+            return _ce_maxtext(m(input_ids), labels).astype(jnp.float32)
         return _ce(m(input_ids), labels).astype(jnp.float32)
 
     grad_fn = jax.value_and_grad(loss_fn)
