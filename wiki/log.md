@@ -1,5 +1,12 @@
 # Log
 
+## [2026-06-02] analyze | MaxText vs jax Qwen3-8B MFU-gap teardown — gap = collective-overlap + MXU-occupancy, enabled by scan + named-offload
+
+**Op**: analyze (code + profile teardown; user request "explore maxtext code and profile to see what gets it to 45 mfu").
+**Pages created**: `wiki/analyses/2026-06-02-maxtext-vs-jax-qwen3-8b-mfu-gap.md`.
+**Pages updated**: maxtext seq8192 experiment (deep profile + MXU 61.2%); scan-layers hypothesis (re-prioritized → structural enabler); index.
+**Key result**: profile-analyzer teardown of the MaxText 45.3% run + source read of MaxText (`9f1820b47`). The gap is **seq-specific** — at seq2048 (both bs4) we're at PARITY (97.9%); the whole gap is seq8192 (MaxText bs3 vs our bs1). Two profile-confirmed drivers: (1) **collective overlap** — MaxText RS 4.0% async-overlapped vs our 12.9% SYNCHRONOUS (~+9pp); (2) **MXU occupancy** — 61.2% vs 48.3% (hardware counter, gap is REAL not FLOP-normalization), from fewer/larger tiled dots. Code: what we lack = **scan-over-layers** (`decoders.py:425`), **named-offload remat** (`save_and_offload_only_these_names`, decoder_layer_input on-device + projs→pinned_host — exactly the bs3 lever v026 was 2.34G short of), rich logical_axis_rules, custom-vjp CE. Confirmed NOT the gap: fused_qkv/fused_mlp (OFF for qwen3), splash blocks (match). **REVISES** prior reads: async-collective-fusion (v023 −3.5%) regressed only because it ran on the *unrolled* graph — it needs scan; and the "seq8192 structural ceiling" read is wrong — the gap is the bs1-vs-bs3 + sync-vs-async regime, closable via a 3-lever package (named-offload + scan + overlap-flags, must land together, effort L). seq2048 parity conclusion stands.
+
 ## [2026-06-02] run-experiment | MaxText Qwen3-8B v6e-8 reference @ seq2048 = 38.0% MFU / 7,116 tok/s/chip — jax at PARITY (seq2048 ceiling confirmed)
 
 **Op**: run-experiment (MaxText reference, lane=maxtext, seq2048).

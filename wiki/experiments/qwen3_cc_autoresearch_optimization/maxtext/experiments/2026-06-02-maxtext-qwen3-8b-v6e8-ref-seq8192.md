@@ -85,6 +85,22 @@ Steady-state (steps 15–19, post-profile, clean — `seconds` 3.533–3.541, Δ
 - **Steps captured**: 10–14 (`skip_first_n_steps_for_profiler=10`, `profiler_steps=5`).
 - No HLO dump (recipe doesn't set `--xla_dump_to`).
 
+### Deep bucket attribution (profile-analyzer, 2026-06-02)
+
+**MXU utilization 61.2%** (vs our jax v018 48.3% — +12.9 pp, hardware counter) · TC idle 0.3% · HBM peak **25.83/31.25 GB = 82.7%** (bs3 fits w/ headroom via host-offload) · HBM BW util 23% (compute-bound).
+
+| Bucket | % step | note |
+|--------|--------|------|
+| matmul (conv fusion) | 48.3% | AI 1,757 ≫ ridge 560; fewer/larger tiled dots (`fusion.684` 1,733 TF/call ×35/step) |
+| splash attention | 33.2% | seq8192 O(seq²); bq=bkv=2048, fused_bwd; fwd 9.41ms/dkv 13.87ms per call |
+| loop-fusion norms/acts | 7.2% | RMSNorm/SiLU, HBM-bound |
+| **FSDP reduce-scatter** | **4.0% (async-overlapped)** | vs our 12.9% SYNCHRONOUS — `async-collective-start/done` pairs |
+| all-gather (fwd) | 1.9% (overlapped) | |
+| data-formatting | 1.8% | |
+| host-offload copies | **<0.1% (free)** | 13.6k async-copy events fully pipelined behind compute |
+
+Full cross-stack teardown: [2026-06-02-maxtext-vs-jax-qwen3-8b-mfu-gap.md](../../../../analyses/2026-06-02-maxtext-vs-jax-qwen3-8b-mfu-gap.md). The +14.9 pp MFU gap = collective overlap (RS 12.9%→4.0%, ~+9pp) + MXU occupancy (48.3%→61.2%), both downstream of **scan-over-layers** + **named-offload** (fits bs3).
+
 ## Verdict
 
 **Supported** — reference baseline established. MaxText Qwen3-8B on v6e-8 at seq8192 runs clean at **45.3% MFU / 6,942 tok/s/chip**, on par with the llama3-8b MaxText reference (44.6%), confirming the recipe transfers to qwen3-8b (QK-norm included). This is the **true achievable ceiling** for this architecture/hardware and **reframes the jax-lane "ceiling"**: our jax seq8192 frontier (30.4% / 5,305 tok/s/chip, bs1) is **~15 pp / −31% tok/s/chip below** what MaxText achieves — the jax lane is NOT at the achievable ceiling, it's at the ceiling *of the levers we tried*. The decisive difference MaxText exploits and we didn't: **offload-enabled batch scaling at seq8192** — `decoder_layer_input=offload` + the four `*_proj=offload` (host-DRAM offload of layer inputs + QKV/out projections) let MaxText fit **bs3** at seq8192, where our jax lane was stuck at bs1 (remat alone insufficient; CE enabled bs2 but didn't help throughput). That offload recipe is a concrete, untried jax lever.

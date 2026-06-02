@@ -51,3 +51,16 @@ whether it unlocks a denser shape.
 ## Dependencies
 
 Trainer/model edit + image build + equivalence re-verification.
+
+## Re-prioritized by the MaxText teardown (2026-06-02)
+
+The [MaxText vs jax MFU-gap analysis](../analyses/2026-06-02-maxtext-vs-jax-qwen3-8b-mfu-gap.md) upgrades scan
+from "low-prior, non-dominant" to **the structural enabler** of the seq8192 gap-closing package. The MaxText
+profile (45.3% MFU) shows its advantage is (a) MXU occupancy 61.2% vs our 48.3% — fewer/larger tiled dots
+from scan-compiled layers — and (b) reduce-scatter overlapped to 4.0% vs our synchronous 12.9%. Scan is the
+graph structure on which BOTH land: it produces the larger dots AND the schedule the async-collective-fusion
+flags need (our v023 async-fusion regressed precisely because it ran on the *unrolled* graph).
+
+**Scan is necessary but not sufficient alone** — it is lever #2 of a 3-part package (named-offload to fit
+bs3 + scan + collective-overlap flags), which must land together. Effort L (real NNX `nn.scan` refactor +
+equivalence re-verification + named-offload composition). See the analysis page for the ranked plan.
