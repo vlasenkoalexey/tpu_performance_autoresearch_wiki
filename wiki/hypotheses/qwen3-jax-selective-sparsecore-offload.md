@@ -3,7 +3,7 @@ title: "Qwen3 jax — Selective SparseCore offload"
 type: hypothesis
 model: qwen3-cc-jax
 variants: ["8B/v6e-8"]
-status: open
+status: refuted
 expected_gain: "1-3% throughput / MFU"
 confidence: medium
 effort: S

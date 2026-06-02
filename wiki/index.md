@@ -1,5 +1,6 @@
 # TPU Model Performance Auto-optimization — Index
-*Last updated: 2026-06-02 — 198 pages (27 codebases + 45 sources + 98 concepts + 2 model-programs + 4 analyses + 6 analysis subpages + 5 jax-qwen3 experiments + 1 new hypothesis + jax-exp47 rejected page + 2 maxtext baseline experiments + 1 torchax llama3-8b baseline + 1 torchax llama3-8b splash kernel-only autotune + 1 jax-llama3-8b SparseCore-offload frontier)*
+*Last updated: 2026-06-02 — 199 pages (27 codebases + 45 sources + 98 concepts + 2 model-programs + 5 analyses + 6 analysis subpages + 5 jax-qwen3 experiments + 1 new hypothesis + jax-exp47 rejected page + 2 maxtext baseline experiments + 1 torchax llama3-8b baseline + 1 torchax llama3-8b splash kernel-only autotune + 1 jax-llama3-8b SparseCore-offload frontier)*
+
 
 *Methodology: autoresearch (see [README](../README.md) + [SCHEMA](../SCHEMA.md)).*
 
@@ -322,3 +323,5 @@ These were the candidates expected to recover the 9.2 % loop-fusion line in the 
 - [2026-04-23 Pallas kernel source survey](analyses/2026-04-23-pallas-kernel-source-survey.md) — web-research inventory of every public source of Pallas kernel code. Identifies 5 top ingest candidates (maxtext, tpu-inference, maxdiffusion, axlearn, sglang-jax) and updates 3 open hypothesis candidates on the Ultra-Scale Playbook page with reference implementations found in the wild.
 - [2026-04-23 Gemma 4 E4B on v6e-4 — optimization ceiling (exp 1–33, torchax stack)](analyses/2026-04-23-gemma4-v6e4-optimization-ceiling.md) — synthesis of the 33-experiment torchax-stack loop. Best = exp 25 (33,372 TPS, +9.2% over baseline). Loop at diminishing returns; identifies Pallas-fuses-into-matmul lesson from exp 33 and proposes next levers (scan-over-layers Option B, compile cache, hardware scale-up).
 - [2026-04-24 Gemma 4 E4B — JAX-stack ceiling + process retrospective (exp 34–42)](analyses/2026-04-24-gemma4-jax-ceiling-and-process-retrospective.md) — JAX-stack analog. Best = exp 36 (34,614 TPS / 23.05 % MFU, **+3.7 % over torchax session-best**). Explains why JAX beats torchax on same hardware (compile-time HBM ~1.25 GiB lower; no torchax dispatch overhead). Includes cross-stack generalizable lessons + **process retrospective** with concrete `program.md` / `SCHEMA.md` rule additions.
+- [2026-06-02 Retrospective — qwen3_ag / jax as of 2026-06-02](analyses/2026-06-02-qwen3_ag-jax-retrospective.md) — Retrospective on the 8B/v6e-8 variant batch scaling experiments. Analyzes the HBM OOM blockages at batch size 2, highlighting the selective rematerialization footprint reduction of 9.38 GB (v003), and outlines ranked next directions including Splash attention and Tensor Parallelism.
+

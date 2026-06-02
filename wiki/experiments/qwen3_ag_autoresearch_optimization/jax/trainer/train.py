@@ -48,6 +48,7 @@ def main(
     weight_decay: float = 0.0,
     weights_dtype: str = "bf16",
     use_real_data: bool = False,    # False = synthetic tokens (perf baseline)
+    use_splash: bool = False,       # Splash attention
     # --- profiling (all CLI flags) ---
     profile_dir: Optional[str] = None,
     profile_gcs_dir: Optional[str] = None,
@@ -75,8 +76,18 @@ def main(
     print(f"[load] config from {model_id} ...", flush=True)
     config = AutoConfig.from_pretrained(model_id)
 
-    from model import Qwen3ForCausalLM
+    from model import Qwen3ForCausalLM, set_splash_mesh
     from model.sharding import build_plan, apply_sharding, input_sharding, _iter_params
+
+    if use_splash:
+        import os
+        os.environ["JAX_ATTENTION_IMPL"] = "splash"
+        set_splash_mesh(mesh)
+        print("[attn] splash kernel selected (JAX_ATTENTION_IMPL=splash); mesh registered", flush=True)
+    else:
+        import os
+        os.environ["JAX_ATTENTION_IMPL"] = "xla"
+        print("[attn] XLA SDPA (JAX_ATTENTION_IMPL=xla)", flush=True)
 
     model = Qwen3ForCausalLM(
         config, weights_dtype=wdtype, compute_dtype=wdtype, rngs=nnx.Rngs(0),

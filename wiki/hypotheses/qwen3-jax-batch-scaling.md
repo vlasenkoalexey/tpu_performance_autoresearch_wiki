@@ -3,7 +3,7 @@ title: "Qwen3 jax — per-chip batch scaling"
 type: hypothesis
 model: qwen3-cc-jax
 variants: ["8B/v6e-8"]
-status: open
+status: refuted
 expected_gain: "1.5-2.5x throughput / MFU"
 confidence: high
 effort: S

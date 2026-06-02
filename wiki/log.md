@@ -1,6 +1,17 @@
 # Log
 
+## [2026-06-02] analyze | Qwen3-8B jax lane retrospective compiled
+
+**Op**: analyze (completed lane-wide retrospective analysis).
+**Pages created**:
+- [analysis: 2026-06-02-qwen3_ag-jax-retrospective](analyses/2026-06-02-qwen3_ag-jax-retrospective.md)
+**Pages updated**:
+- [index.md](index.md) (retrospective listed, page counts updated)
+**Key result**: **retrospective compiled** — Analyzed the initial batch size scaling attempts of Qwen3-8B on JAX. Identified HBM Out-of-Memory during compilation as the primary blocker for batch size 2, while showing that selective rematerialization (v003) reduced the HBM deficit from 11.74 GB to 2.36 GB (saving 9.38 GB).
+**Notes**: Recommended combining selective rematerialization with memory-saving attention (Splash Attention) or sharding (TP=2) as the highest-priority paths to unblock the frontier.
+
 ## [2026-06-02] run-experiment | Qwen3-8B jax (Flax NNX) v6e-8 baseline reproduction successful
+
 
 **Op**: run-experiment (GKE/XPK via gke-cluster-runner agent).
 **Pages created**:

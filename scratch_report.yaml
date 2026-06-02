@@ -1,0 +1,14 @@
+state:           crashed
+exit_code:       1
+phase_at_end:    crash
+wall_time_s:     5
+steps_seen:      0
+last_step_logged: null
+profile_gcs:     missing
+hlo_gcs:         missing
+last_log_lines:  |
+  XPK Start: Tue Jun 2 21:02:59 UTC 2026
+  F0602 21:03:02.305320     315 parse_flags_from_env.cc:234] Unknown flag in XLA_FLAGS: --xla_tpu_enable_sparse_core_collective_offload_reduce_scatter=true
+  XPK End: Tue Jun 2 21:03:04 UTC 2026
+  EXIT_CODE=1
+headline:        Crashed immediately due to unknown XLA_FLAGS: --xla_tpu_enable_sparse_core_collective_offload_reduce_scatter=true
