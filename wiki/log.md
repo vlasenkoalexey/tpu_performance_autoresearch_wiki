@@ -1,5 +1,11 @@
 # Log
 
+## [2026-06-02] analyze | qwen3-cc/jax retrospective #3 (FULL --full-redo audit) — confirms #2, zero discrepancies
+
+**Op**: analyze (FULL `--full-redo` retrospective; independent full-disk re-read of all 24 experiment pages via a reader subagent, not inherited from #2's in-memory ledger).
+**Pages created**: `wiki/analyses/2026-06-02-qwen3_cc-jax-retrospective-3.md`.
+**Key result**: Independent audit reproduces #2 exactly — **zero discrepancies**. All 24 verdicts consistent with their own MFU numbers; frontier lineage 20.5%→22.0%→25.1%→32.4%→35.8% intact; model page Current best = v018 35.8% matches; LINT clean (all 19 non-invalid experiments have Profile sections, all 24 have Next-hypotheses, all 13 referenced hypothesis files exist, no broken links); v015 correctly absent. Two immaterial categorization refinements noted (v005 remat-vs-batch label; v020 tokamax-kernel-swap-vs-block-tuning label) — neither changes a verdict or conclusion. Frontier re-confirmed: seq2048 v018 35.8% / 6,964 tok/s/chip, seq8192 v009 30.4%. Lane at ceiling; **torchax pivot is rec #1**.
+
 ## [2026-06-02] analyze | qwen3-cc/jax retrospective #2 — v018 +3.4pp then 5 non-wins; seq2048 near practical ceiling
 
 **Op**: analyze (INCREMENTAL lane retrospective, post-v018 arc).
