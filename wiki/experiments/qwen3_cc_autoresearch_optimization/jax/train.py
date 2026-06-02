@@ -63,6 +63,7 @@ def main(
     weights_dtype: str = "bf16",
     use_remat: bool = False,        # per-layer jax.checkpoint (cuts activation HBM)
     offload_remat: bool = False,    # remat to host DRAM (pinned_host) instead of recompute
+    use_scan: bool = False,         # lax.scan over the stacked decoder layer (1 compiled body)
     use_splash: bool = False,       # GQA-native splash attention (no N² scores)
     use_tokamax_ce: bool = False,   # streamed CE at lm_head (drops [B,L,V] logits)
     tokamax_ce_impl: str = "mosaic_tpu",  # mosaic_tpu | xla (this tokamax build's
@@ -101,10 +102,12 @@ def main(
 
     model = Qwen3ForCausalLM(
         config, weights_dtype=wdtype, compute_dtype=wdtype, rngs=nnx.Rngs(0),
-        use_remat=use_remat, offload_remat=offload_remat,
+        use_remat=use_remat, offload_remat=offload_remat, use_scan=use_scan,
     )
+    if use_scan:
+        print("[scan] lax.scan over stacked decoder layer (1 compiled body) ON", flush=True)
     if use_remat:
-        _policy_name = ("offload_dot_with_no_batch_dims (pinned_host)" if offload_remat
+        _policy_name = ("save_and_offload(proj+mlpwi → pinned_host)" if offload_remat
                         else "nothing_saveable")
         print(f"[remat] per-layer jax.checkpoint ({_policy_name}) ON", flush=True)
     if use_splash:

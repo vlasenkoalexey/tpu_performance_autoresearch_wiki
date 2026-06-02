@@ -257,14 +257,25 @@ class Qwen3DecoderLayer(nnx.Module):
 
 class Qwen3Model(nnx.Module):
     def __init__(self, config, *, weights_dtype=jnp.bfloat16, compute_dtype=jnp.bfloat16,
-                 rngs, use_remat: bool = False, offload_remat: bool = False):
+                 rngs, use_remat: bool = False, offload_remat: bool = False,
+                 use_scan: bool = False):
         self.config = config
-        self.use_remat = use_remat  # per-layer jax.checkpoint
-        self.offload_remat = offload_remat  # offload activations to host DRAM vs recompute
+        self.use_remat = use_remat        # per-layer jax.checkpoint
+        self.offload_remat = offload_remat  # offload named activations to host DRAM vs recompute
+        self.use_scan = use_scan          # lax.scan over the stacked layer (1 compiled body)
+        self.num_layers = int(config.num_hidden_layers)
         kw = dict(weights_dtype=weights_dtype, compute_dtype=compute_dtype, rngs=rngs)
         self.embed_tokens = Qwen3Embedding(config.vocab_size, config.hidden_size, **kw)
-        self.layers = nnx.data([Qwen3DecoderLayer(config, i, **kw)
-                                for i in range(config.num_hidden_layers)])
+        # Stacked decoder layers: ONE Qwen3DecoderLayer whose params carry a leading
+        # [num_layers] axis (vmap-init with split rngs → N independent inits). This is
+        # the scan-native layout — nnx.split yields stacked state directly, so lax.scan
+        # iterates it with NO runtime weight copy. HF layer i ↔ stacked[i].
+        @nnx.split_rngs(splits=self.num_layers)
+        @nnx.vmap(in_axes=(0,), out_axes=0)
+        def _make_stacked(r):
+            return Qwen3DecoderLayer(config, 0, weights_dtype=weights_dtype,
+                                     compute_dtype=compute_dtype, rngs=r)
+        self.layers = _make_stacked(rngs)
         self.norm = Qwen3RMSNorm(config.hidden_size, eps=config.rms_norm_eps, weights_dtype=weights_dtype)
         self.rotary_emb = Qwen3RotaryEmbedding(config)
 
@@ -274,28 +285,32 @@ class Qwen3Model(nnx.Module):
         if position_ids is None:
             position_ids = jnp.broadcast_to(jnp.arange(T, dtype=jnp.int32), (B, T))
         cos, sin = self.rotary_emb(position_ids, hidden_states.dtype)
-        if self.use_remat:
-            # Per-layer gradient checkpoint: only one layer's activations are
-            # live during backward recompute (vs all 36 saved). Cuts the HLO-temp
-            # that OOM'd the no-remat batch experiments (v001/v002).
-            # offload_remat: park the named projection / MLP-input activations in
-            # host DRAM instead of recomputing them (frees HBM for a larger batch
-            # at seq8192 — the MaxText `*_proj`/mlpwi=offload recipe).
-            _policy = (
-                jax.checkpoint_policies.save_and_offload_only_these_names(
-                    names_which_can_be_saved=(),
-                    names_which_can_be_offloaded=(
-                        "query_proj", "key_proj", "value_proj", "out_proj", "mlpwi"),
-                    offload_src="device", offload_dst="pinned_host")
-                if self.offload_remat
-                else jax.checkpoint_policies.nothing_saveable)
-            for layer in self.layers:
-                def _call(h, c, s, _layer=layer):
-                    return _layer(h, (c, s), attention_mask=None)
-                hidden_states = jax.checkpoint(_call, policy=_policy)(hidden_states, cos, sin)
+        # remat policy: nothing_saveable (recompute) or offload named proj/mlpwi to host.
+        _policy = (
+            (jax.checkpoint_policies.save_and_offload_only_these_names(
+                names_which_can_be_saved=(),
+                names_which_can_be_offloaded=(
+                    "query_proj", "key_proj", "value_proj", "out_proj", "mlpwi"),
+                offload_src="device", offload_dst="pinned_host")
+             if self.offload_remat
+             else jax.checkpoint_policies.nothing_saveable)
+            if self.use_remat else None)
+        gdef, state = nnx.split(self.layers)  # state leaves carry the leading [N] layer axis
+        if self.use_scan:
+            # One compiled layer body, looped over the [N] axis (MaxText scan_layers).
+            def _body(h, layer_state):
+                return nnx.merge(gdef, layer_state)(h, (cos, sin), attention_mask=None), None
+            if self.use_remat:
+                _body = jax.checkpoint(_body, policy=_policy)
+            hidden_states, _ = jax.lax.scan(_body, hidden_states, state)
         else:
-            for layer in self.layers:
-                hidden_states = layer(hidden_states, (cos, sin), attention_mask=None)
+            # Unrolled over stacked-state slices (numerically identical to scan).
+            for i in range(self.num_layers):
+                layer_state = jax.tree.map(lambda x, i=i: x[i], state)
+                def _call(h, _ls=layer_state):
+                    return nnx.merge(gdef, _ls)(h, (cos, sin), attention_mask=None)
+                hidden_states = (jax.checkpoint(_call, policy=_policy)(hidden_states)
+                                 if self.use_remat else _call(hidden_states))
         return self.norm(hidden_states)
 
 
@@ -304,10 +319,12 @@ class Qwen3ForCausalLM(nnx.Module):
     pre-projection hidden states (for fused-CE paths later)."""
 
     def __init__(self, config, *, weights_dtype=jnp.bfloat16, compute_dtype=jnp.bfloat16,
-                 rngs, use_remat: bool = False, offload_remat: bool = False):
+                 rngs, use_remat: bool = False, offload_remat: bool = False,
+                 use_scan: bool = False):
         self.config = config
         kw = dict(weights_dtype=weights_dtype, compute_dtype=compute_dtype, rngs=rngs)
-        self.model = Qwen3Model(config, use_remat=use_remat, offload_remat=offload_remat, **kw)
+        self.model = Qwen3Model(config, use_remat=use_remat, offload_remat=offload_remat,
+                                use_scan=use_scan, **kw)
         self.lm_head = Linear(config.hidden_size, config.vocab_size, bias=False, **kw)
         self.skip_lm_head = False
 

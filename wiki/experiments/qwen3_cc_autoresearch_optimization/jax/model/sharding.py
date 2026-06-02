@@ -107,6 +107,13 @@ def build_plan(model: nnx.Module, mesh: Mesh) -> ShardingPlan:
     notes: List[str] = []
     for path, _ in _iter_params(model):
         spec = SHARDING_PLAN.get(_process_sharding_name(path))
+        # Stacked decoder layers: params are stored as ONE layer with a leading
+        # [num_layers] axis, so the path is "model.layers.<rest>" (no per-layer
+        # index). Map to the per-layer rule and prepend None (layer axis replicated).
+        if spec is None and path.startswith("model.layers."):
+            base = SHARDING_PLAN.get("model.layers.*." + path[len("model.layers."):])
+            if base is not None:
+                spec = (None,) + base
         if spec is None:
             shardings[path] = NamedSharding(mesh, P())
             buckets["replicated"].append(path)
