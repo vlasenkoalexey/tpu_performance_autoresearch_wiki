@@ -33,7 +33,9 @@ TODO: native-JAX trainer not yet written.
 
 | Size | Hardware | Status | Baseline (step / TPS / MFU) | Current best (step / TPS / MFU) | Open hyps | Frontier exp |
 |------|----------|--------|-----------------------------|----------------------------------|-----------|--------------|
-| 8B | v6e-8 | live | 512 ms / 31,955 TPS / 20.5% MFU @ seq2048 bs8 | **957 ms / 34,243 TPS / 22.0% MFU @ seq2048 bs16 (remat)** | 2 | [v004 remat bs2](../experiments/qwen3_cc_autoresearch_optimization/jax/experiments/2026-06-02-v004-remat-bs2.md) |
+| 8B | v6e-8 | live | 512 ms / 31,955 TPS / 20.5% MFU @ seq2048 bs8 | **1,261 ms / 38,995 TPS / 25.1% MFU @ seq2048 bs24 (remat bs=3)** | 2 | [v005 remat bs3](../experiments/qwen3_cc_autoresearch_optimization/jax/experiments/2026-06-02-v005-remat-bs3.md) |
+
+*Climb: baseline 20.5% → remat bs2 22.0% (v004) → remat bs3 **25.1%** (v005), +4.6 pp / +22% tok/s/chip. Next: splash (clears HBM for bs≥4 / seq8192) — v006 splash cleared the HBM wall but hit a tunable splash-backward VMEM limit (fix in progress).*
 
 *Baseline captured at seq 2048 (global batch 8). **Cross-lane: jax 20.5% MFU /
 3,994 tok/s/chip beats torchax 19.2% / 3,724 (+7.3% tok/s/chip, +1.3 pp)** at the

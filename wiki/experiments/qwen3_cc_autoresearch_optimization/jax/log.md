@@ -1,3 +1,11 @@
+## [2026-06-02] loop-iteration | v006-splash-bs4 on 8B/v6e-8: invalid (splash-backward scoped-VMEM OOM, +2.15M over — tunable)
+
+splash+remat+bs=4: both gates ON, compiled through forward INTO backward — **cleared the v002 HBM wall** (91.7G no longer the blocker). Crashed in the splash backward Pallas kernel `splash_mha_dkv_no_residuals`: scoped vmem 34.15M vs 32M limit, over by just 2.15M (block_q_dkv/block_kv_dkv=2048). NOT HBM-OOM, NOT a kernel NaN — a tunable VMEM-stack overrun. Fix: `--xla_tpu_scoped_vmem_limit_kib=98304` (flag-only). Re-dispatched as v008. No steps/profile; HLO dumped.
+
+## [2026-06-02] loop-iteration | v005-remat-bs3 on 8B/v6e-8: **SUPPORTED — NEW FRONTIER 25.1% MFU** (+3.1pp vs v004)
+
+remat+bs=3 (global 24) fits and beats v004 bs=2: 25.1% MFU, 4,874 tok/s/chip (vs 4,280), MXU 32.7%, loss 12.07 stable, exit 0. bs=2 was NOT the remat ceiling — batch keeps paying. Cumulative climb 20.5%→22.0%→**25.1%** (+22% tok/s/chip over baseline). Frontier config = `--use_remat --batch_size=3` on qwen3-8b-jax:v004-remat. Model page updated. Profile + 51 HLO files in GCS.
+
 ## [2026-06-02] loop-iteration | v004-remat-bs2 on 8B/v6e-8: **SUPPORTED — NEW FRONTIER 22.0% MFU** (+1.5pp / +7.3% vs baseline)
 
 Gradient remat (`--use_remat`, per-layer jax.checkpoint) UNLOCKS bs=2 (which OOM'd without it at 43.12G) and lifts effective MFU 20.5% → **22.0%** (4,280 tok/s/chip vs 3,994). xprof: MXU 19.9%→27.8%, matmul share 37.6%→49.7%, collective 21.7%→14.2%. Remat's ~1.3× recompute is outweighed by the bs=2 occupancy gain. **grad-remat hypothesis SUPPORTED.** Committed remat code to TRAINER_DIR; stable lane image = qwen3-8b-jax:v004-remat; remat now default for subsequent experiments. Splash wired into the model (compile-checked, ready for v006). Model page Current best updated. Profile + 28 HLO files in GCS.
