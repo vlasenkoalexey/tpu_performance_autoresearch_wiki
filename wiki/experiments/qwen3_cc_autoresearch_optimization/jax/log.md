@@ -1,3 +1,7 @@
+## [2026-06-02] loop-iteration | v011 + v012 on 8B/v6e-8: invalid (tokamax CE absl-flags collision — fixed in train.py)
+
+Both CE runs (v011 canary mosaic_tpu, v012 stacked remat+splash+CE bs6) crashed at trace time with `UnrecognizedFlagError: Unknown command line flag 'model_id'` — tokamax's mosaic_tpu CE op lazily calls `flags.FLAGS(sys.argv)`, colliding with fire's argv. NOT OOM, NOT a CE/splash numerics bug (v012's splash compiled fine). The qwen3 trainer was missing the absl pre-parse guard the llama3 trainers carry. **Fixed**: added the guard to train.py (pre-parse absl with argv[0]). Rebuilding image → v013-ce; re-dispatch v013 (CE canary) + v014 (stacked bs6). Frontier unchanged (v008 splash bs4 = 32.4%).
+
 ## [2026-06-02] loop-iteration | v010-ce-bs2 on 8B/v6e-8: invalid (tokamax impl name — chunked_xla unsupported)
 
 CE canary crashed at compile: `ValueError: Unsupported implementation: chunked_xla`. The image's tokamax accepts only `mosaic_tpu`|`xla` (chunked_xla was the llama3 local-source impl). Not a wiring/numerics issue. Fix: re-dispatch with --tokamax_ce_impl=mosaic_tpu (flag override, no rebuild) → v011. No profile (pre-step-0).

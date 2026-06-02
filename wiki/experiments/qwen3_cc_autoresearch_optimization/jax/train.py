@@ -23,6 +23,19 @@ import time
 from pathlib import Path
 from typing import Optional
 
+# tokamax's config resolves lazily via `flags.FLAGS(sys.argv)` on first
+# config-option access (e.g. inside the mosaic_tpu CE op). This trainer uses
+# fire.Fire, so sys.argv carries `--model_id=...` etc., which tokamax's absl
+# parser doesn't recognize → UnrecognizedFlagError at trace time. Pre-parse absl
+# with only argv[0] so tokamax's `is_parsed()` short-circuits. (Mirrors the
+# llama3 jax/torchax trainers; required for any tokamax CE run — see v011.)
+try:
+    from absl import flags as _absl_flags
+    if not _absl_flags.FLAGS.is_parsed():
+        _absl_flags.FLAGS([sys.argv[0]])
+except Exception:
+    pass
+
 import fire
 import jax
 import jax.numpy as jnp
@@ -51,7 +64,9 @@ def main(
     use_remat: bool = False,        # per-layer jax.checkpoint (cuts activation HBM)
     use_splash: bool = False,       # GQA-native splash attention (no N² scores)
     use_tokamax_ce: bool = False,   # streamed CE at lm_head (drops [B,L,V] logits)
-    tokamax_ce_impl: str = "chunked_xla",  # chunked_xla | mosaic_tpu | xla
+    tokamax_ce_impl: str = "mosaic_tpu",  # mosaic_tpu | xla (this tokamax build's
+                                          # valid impls; chunked_xla is NOT available
+                                          # here — it crashed v010, see that exp page)
     use_real_data: bool = False,    # False = synthetic tokens (perf baseline)
     # --- profiling (all CLI flags) ---
     profile_dir: Optional[str] = None,
