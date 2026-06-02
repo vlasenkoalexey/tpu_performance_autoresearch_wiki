@@ -29,6 +29,7 @@ from typing import Optional
 
 import jax
 import jax.numpy as jnp
+from jax.ad_checkpoint import checkpoint_name
 from flax import nnx
 
 from transformers import Qwen3Config
@@ -184,7 +185,10 @@ class Qwen3MLP(nnx.Module):
         self.down_proj = Linear(config.intermediate_size, config.hidden_size, bias=bias, **lin)
 
     def __call__(self, x):
-        return self.down_proj(jax.nn.silu(self.gate_proj(x)) * self.up_proj(x))
+        cn = checkpoint_name
+        g = cn(self.gate_proj(x), "mlpwi")
+        u = cn(self.up_proj(x), "mlpwi")
+        return self.down_proj(jax.nn.silu(g) * u)
 
 
 class Qwen3Attention(nnx.Module):
@@ -213,12 +217,13 @@ class Qwen3Attention(nnx.Module):
     def __call__(self, hidden_states, position_embeddings, attention_mask=None):
         B, T, _ = hidden_states.shape
         cos, sin = position_embeddings
+        cn = checkpoint_name
         # proj -> (B, T, H, Dh) -> QK-norm over Dh -> transpose -> (B, H, T, Dh)
-        q = self.q_norm(self.q_proj(hidden_states).reshape(B, T, self.num_heads, self.head_dim))
+        q = self.q_norm(cn(self.q_proj(hidden_states), "query_proj").reshape(B, T, self.num_heads, self.head_dim))
         q = jnp.transpose(q, (0, 2, 1, 3))
-        k = self.k_norm(self.k_proj(hidden_states).reshape(B, T, self.num_kv_heads, self.head_dim))
+        k = self.k_norm(cn(self.k_proj(hidden_states), "key_proj").reshape(B, T, self.num_kv_heads, self.head_dim))
         k = jnp.transpose(k, (0, 2, 1, 3))
-        v = self.v_proj(hidden_states).reshape(B, T, self.num_kv_heads, self.head_dim)
+        v = cn(self.v_proj(hidden_states), "value_proj").reshape(B, T, self.num_kv_heads, self.head_dim)
         v = jnp.transpose(v, (0, 2, 1, 3))
         q, k = apply_rotary_pos_emb(q, k, cos, sin, unsqueeze_dim=1)
         if os.environ.get("JAX_ATTENTION_IMPL", "xla").lower() == "splash":
@@ -228,7 +233,7 @@ class Qwen3Attention(nnx.Module):
                 q, k, v, num_key_value_groups=self.num_key_value_groups,
                 scaling=self.scaling, attention_mask=attention_mask)
         attn_out = attn_out.reshape(B, T, self.num_heads * self.head_dim)
-        return self.o_proj(attn_out)
+        return cn(self.o_proj(attn_out), "out_proj")
 
 
 class Qwen3DecoderLayer(nnx.Module):
@@ -273,10 +278,14 @@ class Qwen3Model(nnx.Module):
             # Per-layer gradient checkpoint: only one layer's activations are
             # live during backward recompute (vs all 36 saved). Cuts the HLO-temp
             # that OOM'd the no-remat batch experiments (v001/v002).
-            # offload_remat: park matmul activations in host DRAM instead of
-            # recomputing (frees HBM for larger batch at seq8192 — MaxText recipe).
+            # offload_remat: park the named projection / MLP-input activations in
+            # host DRAM instead of recomputing them (frees HBM for a larger batch
+            # at seq8192 — the MaxText `*_proj`/mlpwi=offload recipe).
             _policy = (
-                jax.checkpoint_policies.offload_dot_with_no_batch_dims(
+                jax.checkpoint_policies.save_and_offload_only_these_names(
+                    names_which_can_be_saved=(),
+                    names_which_can_be_offloaded=(
+                        "query_proj", "key_proj", "value_proj", "out_proj", "mlpwi"),
                     offload_src="device", offload_dst="pinned_host")
                 if self.offload_remat
                 else jax.checkpoint_policies.nothing_saveable)
