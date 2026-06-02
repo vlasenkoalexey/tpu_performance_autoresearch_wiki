@@ -9,18 +9,18 @@ You are running on the Gemini/Antigravity platform. While the repository is desi
 ### 1. Slash Command & Skill Execution Engine
 Whenever the user refers to, invokes, or implies a slash command or "skill" or background "agent", do **not** expect the platform to intercept, execute, or handle it natively. Instead, you must **review and remember** the Claude skills and agents specified in the repository, and emulate their logic verbatim.
 
-#### Claude Skills (.claude/skills/)
+#### Native Skills (.agents/skills/)
 You should be able to run this flow by locating, reading, and executing the protocols in the following `SKILL.md` files:
-1. **`/scan-gke-clusters`** (`.claude/skills/scan-gke-clusters/SKILL.md`): Discovers and inventories TPU clusters in GCP, checking node statuses, zones, shapes, and occupancy, and writing them to `.env/`.
-2. **`/create-experiment`** (`.claude/skills/create-experiment/SKILL.md`): Bootstraps a new model family, scaffolds directory structures under `wiki/experiments/`, and sets up program and model page stubs.
-3. **`/start-experiment`** (`.claude/skills/start-experiment/SKILL.md`): Resolves layered `program.md` files (root → model → lane), performs hardware discovery and cluster occupancy verification, and kicks off the active loop with the `.claude/.loop_active.json` marker.
-4. **`/stop-experiment`** (`.claude/skills/stop-experiment/SKILL.md`): Performs clean loop teardown: kills background subagents, reaps GKE/XPK orphan workloads, files missing wiki pages, runs `/lint`, and appends the shutdown marker.
-5. **`/create-retrospective`** (`.claude/skills/create-retrospective/SKILL.md`): Compiles a comprehensive lane-specific and variant-specific retrospective in `wiki/analyses/` summarizing experimental outcomes and revising priors before the stop hook permits ending the loop.
-6. **`/formulate-hypothesis`** (`.claude/skills/formulate-hypothesis/SKILL.md`): Drafts new falsifiable candidate optimizations with expected gain, confidence, and effort, enforcing a mandatory HLO pre-filter check for kernel-replacement hypotheses.
-7. **`/edit-model-code`** (`.claude/skills/edit-model-code/SKILL.md`): Performs AST-aware, highly focused edits to the target model repository under `raw/code/`, validating imports, class definitions, and code syntax before staging.
-8. **`/extract-ast`** (`.claude/skills/extract-ast/SKILL.md`): Inspects the target repository codebase to map and extract structural abstractions, class hierarchies, and performance-relevant surfaces.
-9. **`/ingest-source`** (`.claude/skills/ingest-source/SKILL.md`): Fully ingests research papers, documentation, or articles, creates corresponding source wiki pages, maps techniques to concept stubs, and connects them to open hypotheses.
-10. **`/lint`** (`.claude/skills/lint/SKILL.md`): Syntactically and structurally validates the wiki, verifying links, variant matrices, mandatory profiles, next-hypotheses stubs, frontmatter, and orphan pages.
+1. **`/scan-gke-clusters`** (`.agents/skills/scan-gke-clusters/SKILL.md`): Discovers and inventories TPU clusters in GCP, checking node statuses, zones, shapes, and occupancy, and writing them to `.env/`.
+2. **`/create-experiment`** (`.agents/skills/create-experiment/SKILL.md`): Bootstraps a new model family, scaffolds directory structures under `wiki/experiments/`, and sets up program and model page stubs.
+3. **`/start-experiment`** (`.agents/skills/start-experiment/SKILL.md`): Resolves layered `program.md` files (root → model → lane), performs hardware discovery and cluster occupancy verification, and kicks off the active loop with the `.claude/.loop_active.json` marker.
+4. **`/stop-experiment`** (`.agents/skills/stop-experiment/SKILL.md`): Performs clean loop teardown: kills background subagents, reaps GKE/XPK orphan workloads, files missing wiki pages, runs `/lint`, and appends the shutdown marker.
+5. **`/create-retrospective`** (`.agents/skills/create-retrospective/SKILL.md`): Compiles a comprehensive lane-specific and variant-specific retrospective in `wiki/analyses/` summarizing experimental outcomes and revising priors before the stop hook permits ending the loop.
+6. **`/formulate-hypothesis`** (`.agents/skills/formulate-hypothesis/SKILL.md`): Drafts new falsifiable candidate optimizations with expected gain, confidence, and effort, enforcing a mandatory HLO pre-filter check for kernel-replacement hypotheses.
+7. **`/edit-model-code`** (`.agents/skills/edit-model-code/SKILL.md`): Performs AST-aware, highly focused edits to the target model repository under `raw/code/`, validating imports, class definitions, and code syntax before staging.
+8. **`/extract-ast`** (`.agents/skills/extract-ast/SKILL.md`): Inspects the target repository codebase to map and extract structural abstractions, class hierarchies, and performance-relevant surfaces.
+9. **`/ingest-source`** (`.agents/skills/ingest-source/SKILL.md`): Fully ingests research papers, documentation, or articles, creates corresponding source wiki pages, maps techniques to concept stubs, and connects them to open hypotheses.
+10. **`/lint`** (`.agents/skills/lint/SKILL.md`): Syntactically and structurally validates the wiki, verifying links, variant matrices, mandatory profiles, next-hypotheses stubs, frontmatter, and orphan pages.
 
 #### Claude Agents (.claude/agents/)
 To handle complex, specialized tasks in the background, you must review and utilize the agent definitions:
@@ -28,7 +28,7 @@ To handle complex, specialized tasks in the background, you must review and util
 2. **`profile-analyzer`** (`.claude/agents/profile-analyzer.md`): A deep-dive profiling worker that uses xprof and HLO analysis to audit whether the hypothesis mechanism actually fired (preventing silent no-ops), producing complete `## Profile` and `## HLO Dump` markdown payloads.
 
 #### Operational Instructions for Gemini:
-* **Protocol Emulation**: Always locate the corresponding skill folder `.claude/skills/<skill-name>/` or agent file `.claude/agents/<agent-name>.md` first, read the guidelines in full, and map them to your native tools (`view_file`, `run_command`, `schedule`, `ask_question`, etc.).
+* **Protocol Emulation**: The Antigravity platform will natively expose skills from `.agents/skills/` in your system prompt. For skills, use the `view_file` tool to read the corresponding `SKILL.md` and follow it exactly. For agents, locate the corresponding `.claude/agents/<agent-name>.md` file first, read the guidelines, and map them to your native tools.
 * **Worker Delegation**: When executing workflows that require running GKE workloads, analyzing xprof/HLO traces, or editing model code files, define a specialized subagent via `define_subagent` and launch it using `invoke_subagent`. Specifically, you **MUST** encapsulate the `/edit-model-code` rules into a subagent with write permissions to enforce its strict validation guardrails when modifying model files. Do not modify model files natively.
 * **Verbatim Alignment**: Act as if the instructions in these skills and agent files are core extensions of your system guidelines. Do not skip steps, ignore constraints, or bypass verification rules.
 
