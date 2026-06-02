@@ -106,6 +106,23 @@ timestamp subdir, e.g. `2026-06-02-qwen3-torchax-smoke/2026_06_02_03_48_35`).
   to a tied size, `lm_head.weight` simply won't appear in the state_dict and the
   sharding map skips it.)
 
+## Equivalence test (CPU, no TPU)
+
+`test_equivalence.py` checks the autoresearch invariant — the torchax+JAX path
+the trainer uses produces the same **forward logits and backward gradients** as
+plain HF PyTorch, given identical weights. It uses a tiny Qwen3 config (GQA +
+QK-norm + SwiGLU + untied lm_head) and the trainer's exact mechanisms
+(`JittableModule.functional_call` for forward, `jax_value_and_grad` for backward).
+
+```bash
+TORCH_DEVICE_BACKEND_AUTOLOAD=0 JAX_PLATFORMS=cpu \
+    python test_equivalence.py    # exit 0 = all within tolerance
+```
+
+VERIFIED 2026-06-02: forward logits max|Δ|≈2.7e-7, all 25 parameter grads
+≤6e-8 (float32 reduction-order noise) → **PASS**. Run it after any change to the
+model wrapper, sharding, or trainer that could perturb numerics.
+
 ## Recent issues / debugging notes
 
 - **2026-06-02 — first smoke VERIFIED on v6e-4 (py312).** `Qwen3-8B`, fake data,
