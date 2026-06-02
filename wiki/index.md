@@ -52,7 +52,11 @@ Companion document: [Pallas kernel source survey](analyses/2026-04-23-pallas-ker
 
 These were the candidates expected to recover the 9.2 % loop-fusion line in the [exp 28b profile](experiments/llama3_8B_autoresearch_optimization/jax/experiments/2026-04-26-jax-exp27-28-sparsecore-rs-ag-offload-frontier.md#profile); since both are already done by the XLA fuser, the loop-fusion bytes must come from other ops (residual scratchpads, embedding-grad, FSDP all-gather staging, etc.) where Pallas-replacing the XLA fusion is unlikely to help. **Only int8/AQT remains as a meaningful per-chip throughput lever**; the bf16-MXU regime is saturated.
 
-## Observations (1)
+## Observations (5)
+- [qwen3-jax-sharding-matches-maxtext](observations/qwen3-jax-sharding-matches-maxtext.md) — our FSDP sharding already equals MaxText's `logical_axis_rules` (embed/D on fsdp, pure 1D fsdp=8 in both); the MXU occupancy gap (53.6% vs 61.2%) is NOT a sharding lever but recompute-downstream. Closed the "MXU/logical-axis" lever without a dispatch.
+- [qwen3-jax-fsdp-rs-not-overlapped](observations/qwen3-jax-fsdp-rs-not-overlapped.md) — FSDP grad reduce-scatter ran synchronous on the unrolled graph (the #1 non-matmul cost at v018); overlap needs scan (v028).
+- [qwen3-jax-qkv-splash-transpose-intrinsic](observations/qwen3-jax-qkv-splash-transpose-intrinsic.md) — the QKV→splash layout transpose is intrinsic (investigated + closed).
+- [qwen3-maxtext-config-exists](observations/qwen3-maxtext-config-exists.md) — MaxText ships a qwen3-8b model config (reference lane enabler).
 - [llama3-8b-torchax-converged-stack-bottleneck-breakdown](observations/llama3-8b-torchax-converged-stack-bottleneck-breakdown.md) — xprof breakdown of the 2026-04-26 program-target frontier. Captured twice: (a) exp 56 mosaic_tpu CE stack via exp 61b — conv fusion 46.0 %, splash 24.4 %, CE 7.5 %, loop fusion 13.6 %, MXU util 51.9 %, MFU 34.8 %; (b) exp 74b chunked_xla + tokamax-splash final frontier via exp 79 — conv fusion **54.4 %**, splash 21.8 %, **CE collapsed to ~0 %**, loop fusion 15.2 %, MXU util **55.0 %**, MFU **36.8 %**. Matmul achieves 73.9 % MXU efficiency when running; the gap to MaxText 44.6 % MFU is matmul time-share, not matmul-tile efficiency.
 
 ## Analyses (5 +)

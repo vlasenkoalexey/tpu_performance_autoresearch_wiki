@@ -47,12 +47,18 @@ alignment — harder sharding work, deferred. Reduce-scatter is already better t
   recompute cost; (2) our pinned_host offload is **not pipelined** — the host round-trip lands on the critical
   path (+22% step), opposite of MaxText's <0.1% overlapped copy. Named-offload as-implemented cannot close the gap.
 
-## Status / remaining sub-lever
+## Status — both sub-levers closed
 
-The named-offload mechanism is **refuted**. The v035 profile's **secondary** lever — MXU occupancy 53.6% vs
-MaxText 61.2% (+156 ms, ~+3-4%), via `logical_axis_rules` tile alignment — remains untested. It is a
-sharding-layout rewrite (medium-high effort, uncertain payoff) and is **deferred/catalogued**, not the CE
-directive's scope. Closing the rest would need a *pipelined* host offload (XLA/kernel-authoring, out of scope).
+The named-offload mechanism is **refuted** (v030/v036). The secondary **MXU/logical-axis** sub-lever was
+**investigated and refuted as a non-lever** (2026-06-02): a source read of MaxText's `base.yml`
+`logical_axis_rules` + the qwen3-8b reference-run config (`ici_fsdp_parallelism: -1`, no tensor, no
+fsdp_transpose) shows MaxText ran **pure 1D FSDP=8 — identical to our sharding**
+([observation](../observations/qwen3-jax-sharding-matches-maxtext.md)). So there is no config-level tiling
+change; the MXU gap is **downstream of the remat recompute** (norms), the same root cause as the +85%
+bucket. The residual to MaxText therefore collapses to ONE lever — reduce the norm recompute — which needs
+either norm-inclusive selective-save remat (HBM-constrained at bs3, feasible only at bs2) or a pipelined
+host offload (kernel-authoring, out of scope). **Hypothesis closed as refuted; the practical config/refactor
+ceiling is v035 (6,030 = 86.9% of MaxText).**
 
 ## See also
 
