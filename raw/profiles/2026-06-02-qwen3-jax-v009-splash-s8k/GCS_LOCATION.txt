@@ -1,0 +1,4 @@
+GCS-resident profile + HLO for v009 splash @ seq8192 (SUPPORTED, seq-8192 target, 30.4% MFU).
+Profile: gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v009-splash-s8k/plugins/profile/
+HLO:     gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v009-splash-s8k/hlo/
+xprof URL: http://localhost:8791/?run=2026-06-02-qwen3-jax-v009-splash-s8k
