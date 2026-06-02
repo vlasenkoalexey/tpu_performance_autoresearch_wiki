@@ -118,5 +118,5 @@ analyzed via xprof-mcp. Sets the `8B/v6e-8` jax matrix row at
 
 - Profile + HLO (GCS): `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v6e8-baseline/`
 - Local pointer: `raw/profiles/2026-06-02-qwen3-jax-v6e8-baseline/GCS_LOCATION.txt`
-- Trainer: `wiki/experiments/qwen3_cc_autoresearch_optimization/jax/` (train.py, model/, sharding.py).
+- Trainer: `wiki/experiments/qwen3_ag_autoresearch_optimization/jax/` (train.py, model/, sharding.py).
 - Sibling: [torchax baseline](../../torchax/experiments/2026-06-02-qwen3-torchax-v6e8-baseline.md).

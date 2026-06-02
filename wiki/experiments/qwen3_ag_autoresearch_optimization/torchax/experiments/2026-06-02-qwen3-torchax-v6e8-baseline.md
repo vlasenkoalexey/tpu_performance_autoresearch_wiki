@@ -128,4 +128,4 @@ hypothesis test; it sets the `8B/v6e-8` matrix row's `Baseline` cell at
 
 - Profile + HLO (GCS): `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-02-qwen3-torchax-v6e8-baseline/`
 - Local pointer: `raw/profiles/2026-06-02-qwen3-torchax-v6e8-baseline/GCS_LOCATION.txt`
-- Trainer: `wiki/experiments/qwen3_cc_autoresearch_optimization/torchax/` (train.py, model/, profiling.py).
+- Trainer: `wiki/experiments/qwen3_ag_autoresearch_optimization/torchax/` (train.py, model/, profiling.py).

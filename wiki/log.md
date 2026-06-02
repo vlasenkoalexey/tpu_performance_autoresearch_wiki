@@ -35,7 +35,7 @@
 
 **Op**: run-experiment (GKE/XPK via gke-cluster-runner agent).
 **Pages created**:
-- [experiment: 2026-06-02-qwen3-jax-v6e8-baseline](experiments/qwen3_cc_autoresearch_optimization/jax/experiments/2026-06-02-qwen3-jax-v6e8-baseline.md)
+- [experiment: 2026-06-02-qwen3-jax-v6e8-baseline](experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-02-qwen3-jax-v6e8-baseline.md)
 - jax model + trainer: `jax/model/{modeling_qwen3,weight_loader,sharding,__init__}.py` (Flax NNX Qwen3 w/ QK-norm; equivalence-verified vs HF — fwd max|Δ|2.7e-7, all grads ≤8e-8), `jax/{train.py,data.py,profiling.py,upload_dir.py,Dockerfile,test_equivalence.py}`.
 - hypothesis stubs: [batch-scaling](hypotheses/qwen3-jax-batch-scaling.md), [splash-attention](hypotheses/qwen3-jax-splash-attention.md), [tokamax-ce](hypotheses/qwen3-jax-tokamax-ce.md)
 - profile pointer: `raw/profiles/2026-06-02-qwen3-jax-v6e8-baseline/GCS_LOCATION.txt`
@@ -47,7 +47,7 @@
 
 **Op**: run-experiment (GKE/XPK via gke-cluster-runner agent).
 **Pages created**:
-- [experiment: 2026-06-02-qwen3-torchax-v6e8-baseline](experiments/qwen3_cc_autoresearch_optimization/torchax/experiments/2026-06-02-qwen3-torchax-v6e8-baseline.md)
+- [experiment: 2026-06-02-qwen3-torchax-v6e8-baseline](experiments/qwen3_ag_autoresearch_optimization/torchax/experiments/2026-06-02-qwen3-torchax-v6e8-baseline.md)
 - hypothesis stubs: [batch-scaling](hypotheses/qwen3-torchax-batch-scaling.md), [splash-attention](hypotheses/qwen3-torchax-splash-attention.md), [tokamax-ce](hypotheses/qwen3-torchax-tokamax-ce.md)
 - profile pointer: `raw/profiles/2026-06-02-qwen3-torchax-v6e8-baseline/GCS_LOCATION.txt`
 - trainer infra: `torchax/Dockerfile`, `torchax/upload_dir.py` (image build context)
@@ -59,13 +59,13 @@
 
 **Op**: create-experiment (new model family bootstrap).
 **Pages created**:
-- `wiki/experiments/qwen3_cc_autoresearch_optimization/program.md` — model-level program (architecture invariants incl. Qwen3 QK-norm, consolidated per-lane operational details, branch/profile conventions; conda env `py312`, hardware v6e-8).
-- `wiki/experiments/qwen3_cc_autoresearch_optimization/torchax/` — **minimal baseline trainer**: `train.py` (meta-init + per-shard weights + FSDP mesh + plain cross-entropy + timing/MFU summary; deliberately no splash/scan/tokamax/AMP/remat knobs), `model/__init__.py`, `model/sharding.py` (Llama3-style FSDP/TP map + Qwen3 `q_norm`/`k_norm` entries), `data.py`, `helper.py`, `config.yaml`, `requirements.txt`, `README.md`, `experiments/.gitkeep`.
-- `wiki/experiments/qwen3_cc_autoresearch_optimization/jax/` — scaffold only (`README.md`, `experiments/.gitkeep`); lane not yet implemented.
+- `wiki/experiments/qwen3_ag_autoresearch_optimization/program.md` — model-level program (architecture invariants incl. Qwen3 QK-norm, consolidated per-lane operational details, branch/profile conventions; conda env `py312`, hardware v6e-8).
+- `wiki/experiments/qwen3_ag_autoresearch_optimization/torchax/` — **minimal baseline trainer**: `train.py` (meta-init + per-shard weights + FSDP mesh + plain cross-entropy + timing/MFU summary; deliberately no splash/scan/tokamax/AMP/remat knobs), `model/__init__.py`, `model/sharding.py` (Llama3-style FSDP/TP map + Qwen3 `q_norm`/`k_norm` entries), `data.py`, `helper.py`, `config.yaml`, `requirements.txt`, `README.md`, `experiments/.gitkeep`.
+- `wiki/experiments/qwen3_ag_autoresearch_optimization/jax/` — scaffold only (`README.md`, `experiments/.gitkeep`); lane not yet implemented.
 - `wiki/models/qwen3-cc-torchax.md`, `wiki/models/qwen3-cc-jax.md` — model pages with variant matrix (8B/v6e-8 open), target metrics, iteration ladder, 4 open optimization hypotheses listed (torchax).
 **Pages updated**: `wiki/index.md` (Models 2 → 4; added the two qwen3 lane rows).
 **Key result**: scaffolding + a runnable minimal torchax trainer for Qwen3-8B, adapted from the llama3 torchax lane but stripped to a clean baseline. Qwen3-specific handling: QK-norm RMSNorm (`q_norm`/`k_norm`) added to the sharding plan (replicated), no QKV bias, `tie_word_embeddings=False`, `rope_theta=1e6`, 36 layers.
-**Notes**: user directives — folder `qwen3_cc_autoresearch_optimization`; torchax + jax lanes, start with torchax; "minimal trainer, don't reuse everything llama3 has"; hardware **v6e-8**; conda env **py312**. TODOs left in program.md: confirm `Qwen3Config` values on-box, trunk branch name, docker image base, GCS bucket. Next: capture the 8B/v6e-8 baseline (`/start-experiment qwen3_cc torchax`), then add splash/CE/scan as attributable experiments. transformers not importable in wiki base env, so architecture table needs on-box confirmation.
+**Notes**: user directives — folder `qwen3_ag_autoresearch_optimization`; torchax + jax lanes, start with torchax; "minimal trainer, don't reuse everything llama3 has"; hardware **v6e-8**; conda env **py312**. TODOs left in program.md: confirm `Qwen3Config` values on-box, trunk branch name, docker image base, GCS bucket. Next: capture the 8B/v6e-8 baseline (`/start-experiment qwen3_cc torchax`), then add splash/CE/scan as attributable experiments. transformers not importable in wiki base env, so architecture table needs on-box confirmation.
 
 ## [2026-05-06] manual | AOT analysis capability — concept page, HLO-dumping expansion, SCHEMA + program template updates
 

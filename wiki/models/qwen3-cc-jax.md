@@ -67,9 +67,9 @@ Ranked after the [2026-06-02 v036](../experiments/qwen3_ag_autoresearch_optimiza
 ## See also
 
 - [Qwen3 8B — torchax](qwen3-cc-torchax.md) — primary lane (live frontier).
-- Program: [`../experiments/qwen3_cc_autoresearch_optimization/program.md`](../experiments/qwen3_cc_autoresearch_optimization/program.md)
-- Lane README: [`../experiments/qwen3_cc_autoresearch_optimization/jax/README.md`](../experiments/qwen3_cc_autoresearch_optimization/jax/README.md)
+- Program: [`../experiments/qwen3_ag_autoresearch_optimization/program.md`](../experiments/qwen3_ag_autoresearch_optimization/program.md)
+- Lane README: [`../experiments/qwen3_ag_autoresearch_optimization/jax/README.md`](../experiments/qwen3_ag_autoresearch_optimization/jax/README.md)
 
 ## Sources
 
-- `wiki/experiments/qwen3_cc_autoresearch_optimization/jax/` (scaffold).
+- `wiki/experiments/qwen3_ag_autoresearch_optimization/jax/` (scaffold).

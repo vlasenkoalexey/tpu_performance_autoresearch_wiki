@@ -27,7 +27,7 @@ qwen3_cc program. A minimal baseline trainer is in place; optimization is the wo
 
 ```bash
 conda activate py312
-cd wiki/experiments/qwen3_cc_autoresearch_optimization/torchax
+cd wiki/experiments/qwen3_ag_autoresearch_optimization/torchax
 python -m train --steps 20 --batch_size <B> --seqlen <L> \
     --tp_parallelism 1 --weights_dtype bf16 \
     --profile_dir $PROFILE_DIR --profile_step 10
@@ -40,15 +40,15 @@ python -m train --steps 20 --batch_size <B> --seqlen <L> \
 
 | Size | Hardware | Status | Baseline (step / TPS / MFU) | Current best (step / TPS / MFU) | Open hyps | Frontier exp |
 |------|----------|--------|-----------------------------|----------------------------------|-----------|--------------|
-| 8B | v6e-8 | live | 519 ms / 29,795 TPS / 19.2% MFU @ seq2048 bs8 | = baseline | 3 | [2026-06-02 baseline](../experiments/qwen3_cc_autoresearch_optimization/torchax/experiments/2026-06-02-qwen3-torchax-v6e8-baseline.md) |
+| 8B | v6e-8 | live | 519 ms / 29,795 TPS / 19.2% MFU @ seq2048 bs8 | = baseline | 3 | [2026-06-02 baseline](../experiments/qwen3_ag_autoresearch_optimization/torchax/experiments/2026-06-02-qwen3-torchax-v6e8-baseline.md) |
 
 *Baseline captured at seq 2048 (global batch 8) — the minimal trainer OOMs at the
 seq-8192 target without splash/CE. Profile shows **66% TC idle** (under-occupancy,
-not compute-bound): large headroom. See the [baseline experiment](../experiments/qwen3_cc_autoresearch_optimization/torchax/experiments/2026-06-02-qwen3-torchax-v6e8-baseline.md).*
+not compute-bound): large headroom. See the [baseline experiment](../experiments/qwen3_ag_autoresearch_optimization/torchax/experiments/2026-06-02-qwen3-torchax-v6e8-baseline.md).*
 
 ## Cross-variant open hypotheses
 
-Ranked after the [2026-06-02 baseline](../experiments/qwen3_cc_autoresearch_optimization/torchax/experiments/2026-06-02-qwen3-torchax-v6e8-baseline.md)
+Ranked after the [2026-06-02 baseline](../experiments/qwen3_ag_autoresearch_optimization/torchax/experiments/2026-06-02-qwen3-torchax-v6e8-baseline.md)
 (66% TC idle → win occupancy/memory first):
 
 1. [Per-chip batch scaling](../hypotheses/qwen3-torchax-batch-scaling.md) — raise batch to fill the 66% idle. Effort S, confidence high — **cheapest first move**.
@@ -84,9 +84,9 @@ Not yet filed (file under `wiki/hypotheses/` when promoted):
 ## See also
 
 - [Qwen3 8B — jax](qwen3-cc-jax.md) — sibling lane (reference ceiling, not yet built).
-- Program: [`../experiments/qwen3_cc_autoresearch_optimization/program.md`](../experiments/qwen3_cc_autoresearch_optimization/program.md)
-- Lane README: [`../experiments/qwen3_cc_autoresearch_optimization/torchax/README.md`](../experiments/qwen3_cc_autoresearch_optimization/torchax/README.md)
+- Program: [`../experiments/qwen3_ag_autoresearch_optimization/program.md`](../experiments/qwen3_ag_autoresearch_optimization/program.md)
+- Lane README: [`../experiments/qwen3_ag_autoresearch_optimization/torchax/README.md`](../experiments/qwen3_ag_autoresearch_optimization/torchax/README.md)
 
 ## Sources
 
-- `wiki/experiments/qwen3_cc_autoresearch_optimization/torchax/` (trainer code).
+- `wiki/experiments/qwen3_ag_autoresearch_optimization/torchax/` (trainer code).

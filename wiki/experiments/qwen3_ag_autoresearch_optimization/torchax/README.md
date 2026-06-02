@@ -39,7 +39,7 @@ torchax/
 ```bash
 # conda env: py312  (Python 3.12)
 conda activate py312
-cd wiki/experiments/qwen3_cc_autoresearch_optimization/torchax
+cd wiki/experiments/qwen3_ag_autoresearch_optimization/torchax
 
 # perf-only smoke (random tokens, no HF weight download) — VERIFIED on v6e-4:
 TORCH_DEVICE_BACKEND_AUTOLOAD=0 python train.py \
