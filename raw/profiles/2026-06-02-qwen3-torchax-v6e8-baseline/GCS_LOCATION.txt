@@ -1,0 +1,14 @@
+This GKE v6e-8 run's profile + HLO are GCS-resident (multi-host run, written
+direct to GCS by the trainer/XLA — not staged on local disk).
+
+Profile (xprof, 2 hosts):
+  gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-02-qwen3-torchax-v6e8-baseline/plugins/profile/2026_06_02_04_20_28/
+
+HLO dump (1274 files, text + proto):
+  gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-02-qwen3-torchax-v6e8-baseline/hlo/
+
+xprof run name : 2026-06-02-qwen3-torchax-v6e8-baseline/2026_06_02_04_20_28
+xprof URL      : http://localhost:8791/?run=2026-06-02-qwen3-torchax-v6e8-baseline
+
+Browse via xprof-mcp: start `xprof --logdir=gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc --port=8791`
+and the xprof-mcp HTTP server on 8792 (env xprof_mcp_py312). See the torchax lane README.
