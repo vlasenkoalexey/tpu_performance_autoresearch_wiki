@@ -1,5 +1,17 @@
 # Log
 
+## [2026-06-02] run-experiment | Qwen3-8B jax (Flax NNX) v6e-8 BASELINE + cross-lane win
+
+**Op**: run-experiment (GKE/XPK via gke-cluster-runner agent).
+**Pages created**:
+- [experiment: 2026-06-02-qwen3-jax-v6e8-baseline](experiments/qwen3_cc_autoresearch_optimization/jax/experiments/2026-06-02-qwen3-jax-v6e8-baseline.md)
+- jax model + trainer: `jax/model/{modeling_qwen3,weight_loader,sharding,__init__}.py` (Flax NNX Qwen3 w/ QK-norm; equivalence-verified vs HF — fwd max|Δ|2.7e-7, all grads ≤8e-8), `jax/{train.py,data.py,profiling.py,upload_dir.py,Dockerfile,test_equivalence.py}`.
+- hypothesis stubs: [batch-scaling](hypotheses/qwen3-jax-batch-scaling.md), [splash-attention](hypotheses/qwen3-jax-splash-attention.md), [tokamax-ce](hypotheses/qwen3-jax-tokamax-ce.md)
+- profile pointer: `raw/profiles/2026-06-02-qwen3-jax-v6e8-baseline/GCS_LOCATION.txt`
+**Pages updated**: [qwen3-cc-jax model page](models/qwen3-cc-jax.md) (8B/v6e-8 → live, baseline + cross-lane note + ranked hyps); [index.md](index.md) (jax model status).
+**Key result**: **verdict baseline** — Qwen3-8B native-JAX (Flax NNX) on v6e-8 (fsdp=8), bs1/seq2048/bf16, synthetic: **512 ms/step, 31,955 tok/s (3,994/chip), 20.5% MFU** (xprof MXU 19.9%). **Cross-lane WIN: jax beats torchax (+7.3% tok/s/chip, +1.3 pp MFU)** at the identical shape (torchax 519 ms/3,724/19.2%). Op profile shows lower collective share (21.7% vs 31.3%) — the native-JAX path's lower dispatch/collective overhead, consistent with the llama3 torchax→jax finding. Cold compile ~2 min, `EXIT_CODE=0`. Profile (2-host) + 967 HLO modules + cache in GCS; analyzed via xprof-mcp.
+**Notes**: jax image built `FROM` the torchax image (already had flax/optax/transformers) + jax code only → fast build, tiny push. Image `…/torchtitan-images/qwen3-8b-jax:latest`. Flax model split Params-only for grad (RoPE inv_freq not differentiated). Trainer smoke-validated on local v6e-4 first (16.9% MFU @ seq1024). Both lanes far below compute-bound (~20% MXU) → same headroom levers (batch, splash, CE).
+
 ## [2026-06-02] run-experiment | Qwen3-8B torchax v6e-8 BASELINE
 
 **Op**: run-experiment (GKE/XPK via gke-cluster-runner agent).

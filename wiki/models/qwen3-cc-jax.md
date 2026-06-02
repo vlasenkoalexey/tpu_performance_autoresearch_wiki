@@ -33,11 +33,22 @@ TODO: native-JAX trainer not yet written.
 
 | Size | Hardware | Status | Baseline (step / TPS / MFU) | Current best (step / TPS / MFU) | Open hyps | Frontier exp |
 |------|----------|--------|-----------------------------|----------------------------------|-----------|--------------|
-| 8B | v6e-8 | open | — (lane not yet implemented) | — | 0 | — |
+| 8B | v6e-8 | live | 512 ms / 31,955 TPS / 20.5% MFU @ seq2048 bs8 | = baseline | 3 | [2026-06-02 baseline](../experiments/qwen3_cc_autoresearch_optimization/jax/experiments/2026-06-02-qwen3-jax-v6e8-baseline.md) |
+
+*Baseline captured at seq 2048 (global batch 8). **Cross-lane: jax 20.5% MFU /
+3,994 tok/s/chip beats torchax 19.2% / 3,724 (+7.3% tok/s/chip, +1.3 pp)** at the
+identical shape — the native-JAX path has lower collective/dispatch overhead
+(profile: 21.7% collective vs torchax 31.3%). See the
+[jax baseline](../experiments/qwen3_cc_autoresearch_optimization/jax/experiments/2026-06-02-qwen3-jax-v6e8-baseline.md)
+and [torchax baseline](../experiments/qwen3_cc_autoresearch_optimization/torchax/experiments/2026-06-02-qwen3-torchax-v6e8-baseline.md).*
 
 ## Cross-variant open hypotheses
 
-(none yet — lane not implemented; the first "hypothesis" is the port itself)
+Ranked after the [2026-06-02 baseline](../experiments/qwen3_cc_autoresearch_optimization/jax/experiments/2026-06-02-qwen3-jax-v6e8-baseline.md) (~20% MXU → win occupancy/memory first):
+
+1. [Per-chip batch scaling](../hypotheses/qwen3-jax-batch-scaling.md) — fill MXU occupancy. Effort S — cheapest first move.
+2. [Splash attention](../hypotheses/qwen3-jax-splash-attention.md) — GQA-native kernel; avoids `[B,H,S,S]`; prerequisite for seq 8192. Effort M.
+3. [tokamax streamed cross-entropy](../hypotheses/qwen3-jax-tokamax-ce.md) — drop `[B,L,V]` logits at the lm_head; unlocks seq 8192. Effort M.
 
 ## Variant-specific open hypotheses
 
