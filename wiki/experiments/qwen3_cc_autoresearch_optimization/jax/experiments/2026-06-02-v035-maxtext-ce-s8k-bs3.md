@@ -55,11 +55,31 @@ The seq8192 batch sweet spot is ~bs2–bs3; pushing batch further won't close th
 
 ## Profile
 
-- **Run name**: `2026-06-02-qwen3-jax-v035-maxtext-ce-s8k-bs3` · xprof [`http://localhost:8791/?run=2026-06-02-qwen3-jax-v035-maxtext-ce-s8k-bs3`](http://localhost:8791/?run=2026-06-02-qwen3-jax-v035-maxtext-ce-s8k-bs3) · GCS `.../plugins/profile/2026_06_02_18_05_52/` (steps 12–14). On-disk: [`raw/profiles/2026-06-02-qwen3-jax-v035-maxtext-ce-s8k-bs3/`](../../../../../raw/profiles/2026-06-02-qwen3-jax-v035-maxtext-ce-s8k-bs3/). Profile-analyzer dispatched to attribute the residual MaxText gap (MXU occupancy / reduce-scatter overlap / splash block sizing) — enriched below on return.
+- **Run name**: `2026-06-02-qwen3-jax-v035-maxtext-ce-s8k-bs3` · xprof [`http://localhost:8791/?run=2026-06-02-qwen3-jax-v035-maxtext-ce-s8k-bs3`](http://localhost:8791/?run=2026-06-02-qwen3-jax-v035-maxtext-ce-s8k-bs3) · GCS `.../plugins/profile/2026_06_02_18_05_52/` (steps 12–14, 2 hosts × 4 chips). On-disk: [`raw/profiles/2026-06-02-qwen3-jax-v035-maxtext-ce-s8k-bs3/`](../../../../../raw/profiles/2026-06-02-qwen3-jax-v035-maxtext-ce-s8k-bs3/). xprof trace (TPU v6e device+host), GQA splash fwd+bwd, windowed-einsum FSDP, scan, maxtext-CE, nothing_saveable remat.
+
+**Bucket attribution** (all-hosts op_profile, steady step 4,075 ms):
+
+| Bucket | % step | / step | notes |
+|---|---|---|---|
+| convolution fusion (matmul) | 45.8% | 1,866 ms | FSDP-sharded QKV/MLP dots; windowed-einsum pipelined |
+| custom-call (splash) | 26.6% | 1,084 ms | 2× splash fwd + 1× dkv bwd; bq=2048 bkv=1024; **92 ms faster than MaxText** at this shape |
+| loop fusion (norms/acts) | **17.4%** | **709 ms** | RMSNorm ×3/layer ×36 + SiLU; **recomputed by `nothing_saveable` — 2.78× MaxText's 7.2%** |
+| data formatting | 3.8% | 155 ms | FSDP↔splash QKV layout bridge (MaxText 1.8% via logical-axis-rules) |
+| collective-permute (windowed RS/AG) | 2.3% | 94 ms | overlapped with matmul |
+| all-gather (FSDP fwd) | 0.9% | 37 ms | async-collective-fusion active |
+| reduce/broadcast/RS-fusion/elemwise | ~2.0% | ~82 ms | embedding-grad RS 0.3% |
+
+- **MXU utilization**: **53.6%** (vs MaxText 61.2% — 7.6 pp gap) · **MFU 34.6%** · **HBM peak 28.33/31.25 GB = 90.7%** (stack 22.5 GB = the scan's `[36,...]` weight stacks held on-device).
 
 ## HLO Dump
 
-- **GCS**: `.../2026-06-02-qwen3-jax-v035-maxtext-ce-s8k-bs3/hlo/`. Profile-analyzer to confirm scan 1-body + splash + custom_vjp CE fusion.
+- **GCS**: `.../2026-06-02-qwen3-jax-v035-maxtext-ce-s8k-bs3/hlo/`. **1 module** `module_0109.jit_train_step` (1.34 MB, `num_partitions=8`, is_scheduled). **Fusion verification (all PASS)**: scan = single `while` body with `dynamic_slice` over `bf16[36,...]` weight stacks; splash fwd (`splash_mha_fwd_residuals` ×2) + bwd (`splash_mha_dkv_no_residuals`) as `tpu_custom_call`; **maxtext-CE = `_cross_entropy_with_logits_fwd` in the function table, NO tokamax `LinearSoftmaxCrossEntropyLoss` target** (confirms the custom_vjp fired, not the kernel); FSDP fwd all-gather wrapped in `AsyncCollectiveStart/Done` ×14; weight-grad RS via windowed-einsum (`windowed_dot_general_body_rs`), no bare synchronous reduce-scatter. Hypothesis-firing audit: **CONFIRMED** (bs3 tokens `s32[3,8192]`, all four mechanisms present, predicted signal met marginally).
+
+## Gap attribution (vs MaxText bs3 3,541 ms / 45.3%) — 534 ms / 15.1% slower
+
+1. **Remat policy = ~85% of the gap (+454 ms).** `nothing_saveable` recomputes every activation → loop-fusion (norms) 17.4% vs MaxText 7.2% (per-layer norm 19.7 ms vs 7.1 ms). MaxText uses **named-offload** (decoder input on-device, Q/K/V→pinned host) so the backward is cheap. **We already have this — `--offload_remat` (`save_and_offload_only_these_names`)** — it only regressed in [v030](2026-06-02-v030-scan-offload-ce-s8k-bs3.md) because tokamax-CE's f32[H,V] weight-gather confounded it. With maxtext-CE the gather is gone → retest offload clean. **Top lever.**
+2. **MXU occupancy 53.6% vs 61.2% (+156 ms, ~29%).** Per-matmul tile alignment — MaxText's `logical_axis_rules` produce larger/better-aligned GeMM tiles. Secondary, harder (sharding-layout work).
+3. **Reduce-scatter is NOT the gap** — ours (windowed-einsum, 2.6%) is already *better* than MaxText's 4.0% async RS. Do not pursue.
 
 ## Verdict
 
