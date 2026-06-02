@@ -64,3 +64,19 @@ flags need (our v023 async-fusion regressed precisely because it ran on the *unr
 **Scan is necessary but not sufficient alone** — it is lever #2 of a 3-part package (named-offload to fit
 bs3 + scan + collective-overlap flags), which must land together. Effort L (real NNX `nn.scan` refactor +
 equivalence re-verification + named-offload composition). See the analysis page for the ranked plan.
+
+## Scoping finding (2026-06-02) — scan needs stacked-param STORAGE, not a forward shim
+
+Validated that `nnx.split` each layer → `jnp.stack` states → `jax.lax.scan` one body is numerically exact
+(toy: max|unrolled−scan| = 0.0). BUT this "stack at forward" shortcut is **infeasible for perf**: stacking
+the 36 layers' weights into a `[36,…]` array at runtime materializes a **full ~16 GB second copy** of all
+layer params (alongside the optimizer's originals) → OOM. So scan **cannot** be a low-blast-radius forward
+shim; it requires **storing** params stacked (leading layer axis), i.e. the full refactor:
+- `modeling_qwen3.py`: build ONE decoder layer with `[36,…]` params (nnx.vmap-init) + `nnx.scan` forward.
+- `weight_loader.py`: HF `model.layers.{i}.*` → `stacked_layer.*[i]` (rework navigation).
+- `sharding.py`: prepend a (replicated) layer axis to every per-layer rule.
+- `test_equivalence.py`: rework the per-layer grad-by-HF-name comparison.
+
+Multi-hour, high-risk, 4-file, equivalence-gated. Payoff at the bs1 shape that fits is **modest/uncertain**
+(scan's clear benefit is enabling collective-overlap, ~+a few pp on the RS bucket; the big MXU/bs3 gains are
+confounded with batch + blocked by the CE-weight wall, [v027](../experiments/qwen3_cc_autoresearch_optimization/jax/experiments/2026-06-02-v027-named-offload-ce-s8k-bs3.md)).
