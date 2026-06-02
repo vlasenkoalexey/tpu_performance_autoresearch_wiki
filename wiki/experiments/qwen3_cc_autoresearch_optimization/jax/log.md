@@ -1,3 +1,7 @@
+## [2026-06-02] loop-iteration | v035: maxtext-CE bs3 fits w/o offload = 34.6% / 6,030 (marginal frontier; batch plateaued; residual MaxText gap is kernel-config)
+
+maxtext-CE bs3 NO offload: **6,030 tok/s/chip / 34.6% MFU**, fits clean (maxtext-CE dropped the ~4.6G tokamax f32[H,V] weight-gather that forced v030's offload — beats v030's offloaded bs3 4,595 by +31%). +0.6% over v034 bs2 (5,992) — **batch amortization PLATEAUED** (near-linear bs2→bs3 step scaling 2,732→4,075ms). seq8192 batch sweet spot = bs2–bs3. NEW frontier v034→v035. Gap to MaxText 6,942 = **86.9%**; residual ~13% is NOT memory (bs3 fits) but scheduling/fusion/kernel-config — profile-analyzer dispatched to attribute the bucket (MXU occupancy / reduce-scatter overlap / splash block size for bs3). Filed 2 follow-up hyps: qwen3-jax-seq8192-kernel-gap (top lever, profile-driven) + qwen3-jax-maxtext-ce-seq2048. bs4 deprioritized (amortization saturated).
+
 ## [2026-06-02] loop-iteration | v033 + v034: MaxText T5X custom_vjp CE CRACKS the seq8192 batch "wall" (NEW frontier 34.4% / 5,992)
 
 User directive "use same approach as maxtext for CE". MaxText's CE is NOT a vocab-tiled kernel — it's the T5X `@jax.custom_vjp cross_entropy_with_logits` over full logits with one-hot targets + explicit fused `softmax−onehot` backward, z_loss=0 (NOT the tokamax streamed kernel). Ported verbatim into train.py as `--use_maxtext_ce` (CPU bit-identical to `_ce`: |Δloss|=0, |Δgrad|=0). Image v033-maxtext-ce (FROM v030-scan-full, train.py swap only).
