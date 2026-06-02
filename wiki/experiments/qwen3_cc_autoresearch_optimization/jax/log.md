@@ -1,3 +1,11 @@
+## [2026-06-02] loop-iteration | v010-ce-bs2 on 8B/v6e-8: invalid (tokamax impl name — chunked_xla unsupported)
+
+CE canary crashed at compile: `ValueError: Unsupported implementation: chunked_xla`. The image's tokamax accepts only `mosaic_tpu`|`xla` (chunked_xla was the llama3 local-source impl). Not a wiring/numerics issue. Fix: re-dispatch with --tokamax_ce_impl=mosaic_tpu (flag override, no rebuild) → v011. No profile (pre-step-0).
+
+## [2026-06-02] loop-iteration | v008-splash-vmem-bs4 on 8B/v6e-8: **SUPPORTED — NEW FRONTIER 32.4% MFU** (+7.3pp vs v005)
+
+splash+remat+bs=4 (with --xla_tpu_scoped_vmem_limit_kib=98304 clearing the v006 VMEM overrun) WORKS: 32.4% MFU, **6,299 tok/s/chip** (vs v005 4,874), MXU util **44.6%** (≈ MaxText-reference regime), loss 12.095→12.069 stable (splash numerically correct). xprof: matmul 49.3%, splash custom-call 11.0% (replaces N²-score path), collective 6.3%. **qwen3-jax-splash-attention SUPPORTED.** Climb 20.5%→22.0%→25.1%→**32.4%** (+58% tok/s/chip over baseline). Stable config = --use_remat --use_splash --batch_size=4 + vmem flag on qwen3-8b-jax:v006-splash. Model page updated. Profile + 871 HLO in GCS.
+
 ## [2026-06-02] loop-iteration | v007-splash-s8k on 8B/v6e-8: invalid (splash-backward VMEM OOM, default 32M limit — flag omitted)
 
 splash+remat @ seq8192 bs1 crashed in the splash backward dkv kernel: 32.96M vs 32M, over by 988K — because I omitted the scoped_vmem flag on this run (only v008 had it). seq8192 target number NOT obtained. Re-dispatched as v009 with `--xla_tpu_scoped_vmem_limit_kib=98304`. tokamax confirmed importable in the splash image (CE port feasible without a special build).
