@@ -285,12 +285,14 @@ class Qwen3Model(nnx.Module):
         if position_ids is None:
             position_ids = jnp.broadcast_to(jnp.arange(T, dtype=jnp.int32), (B, T))
         cos, sin = self.rotary_emb(position_ids, hidden_states.dtype)
-        # remat policy: nothing_saveable (recompute) or offload named proj/mlpwi to host.
+        # remat policy: nothing_saveable (recompute) or offload named activations to host.
+        # Offload set mirrors MaxText's qwen3-8b reference recipe: the decoder layer input
+        # (residual checkpoint boundary) + attention projections; mlpwi stays recomputed.
         _policy = (
             (jax.checkpoint_policies.save_and_offload_only_these_names(
                 names_which_can_be_saved=(),
                 names_which_can_be_offloaded=(
-                    "query_proj", "key_proj", "value_proj", "out_proj", "mlpwi"),
+                    "decoder_layer_input", "query_proj", "key_proj", "value_proj", "out_proj"),
                 offload_src="device", offload_dst="pinned_host")
              if self.offload_remat
              else jax.checkpoint_policies.nothing_saveable)
@@ -299,6 +301,7 @@ class Qwen3Model(nnx.Module):
         if self.use_scan:
             # One compiled layer body, looped over the [N] axis (MaxText scan_layers).
             def _body(h, layer_state):
+                h = checkpoint_name(h, "decoder_layer_input")
                 return nnx.merge(gdef, layer_state)(h, (cos, sin), attention_mask=None), None
             if self.use_remat:
                 _body = jax.checkpoint(_body, policy=_policy)
@@ -308,6 +311,7 @@ class Qwen3Model(nnx.Module):
             for i in range(self.num_layers):
                 layer_state = jax.tree.map(lambda x, i=i: x[i], state)
                 def _call(h, _ls=layer_state):
+                    h = checkpoint_name(h, "decoder_layer_input")
                     return nnx.merge(gdef, _ls)(h, (cos, sin), attention_mask=None)
                 hidden_states = (jax.checkpoint(_call, policy=_policy)(hidden_states)
                                  if self.use_remat else _call(hidden_states))
