@@ -3,7 +3,7 @@ title: "Qwen3 jax — host-offload of decoder-input + projections to fit bs3 @ s
 type: hypothesis
 model: qwen3-cc-jax
 variants: ["8B/v6e-8"]
-status: open
+status: inconclusive
 expected_gain: "+20-30% tok/s/chip @ seq8192 (close the gap to MaxText 6,942)"
 confidence: medium-high
 effort: M
@@ -55,3 +55,12 @@ at seq8192 bs2 then bs3. Measure tok/s/chip vs v009 (5,305) and the MaxText ceil
 
 Trainer/model edit + image build + equivalence re-verification. Supersedes the earlier "jax at ceiling"
 read for the seq8192 frontier.
+
+## Outcome — INCONCLUSIVE (bs3 not reached; throughput thesis undermined) — 2026-06-02
+
+Explored via v025 (offload-only, bs2) and v026 (offload + tokamax-CE, bs3):
+- **offload_remat mechanism VALIDATED**: `offload_dot_with_no_batch_dims(pinned_host)` activates and frees no-batch-dim activation HBM; CPU equivalence test passes; default-off `--offload_remat` flag committed to TRAINER_DIR.
+- **bs3 NOT fitted**: v025 (offload, bs2) OOM'd +7.55G (LM-head logit wall); v026 (offload+CE, bs3) OOM'd by only **+2.34G** — CE removed the logit wall, offload freed no-batch dots; the last blocker is the batch-dim layer/projection activations (`bf16[B,8192,4096]`), which need MaxText's *named* offload (`decoder_layer_input`+`*_proj=offload`) — not yet ported (invasive).
+- **Throughput thesis undermined**: even if bs3 fit, [v016](../experiments/qwen3_cc_autoresearch_optimization/jax/experiments/2026-06-02-v016-s8k-ce-bs2.md) shows bs2 (29.5%) < bs1 (30.4%) at seq8192 — our stack does NOT amortize batch there (CE-streaming + splash-backward costs). MaxText's bs3=45.3% reflects its per-token efficiency, not batch-fitting. So the ~31% gap is **structural** (MaxText's integrated pipeline), not closable by porting offload to enable a bigger batch.
+
+**Verdict**: seq8192 frontier stays [v009](../experiments/qwen3_cc_autoresearch_optimization/jax/experiments/2026-06-02-v009-splash-s8k-vmem.md) (30.4%). Remaining test if revisited: named-offload to actually fit + measure bs3 (low payoff-prior given the amortization evidence).

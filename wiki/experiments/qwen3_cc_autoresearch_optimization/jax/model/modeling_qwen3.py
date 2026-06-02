@@ -252,9 +252,10 @@ class Qwen3DecoderLayer(nnx.Module):
 
 class Qwen3Model(nnx.Module):
     def __init__(self, config, *, weights_dtype=jnp.bfloat16, compute_dtype=jnp.bfloat16,
-                 rngs, use_remat: bool = False):
+                 rngs, use_remat: bool = False, offload_remat: bool = False):
         self.config = config
-        self.use_remat = use_remat  # per-layer jax.checkpoint (nothing_saveable)
+        self.use_remat = use_remat  # per-layer jax.checkpoint
+        self.offload_remat = offload_remat  # offload activations to host DRAM vs recompute
         kw = dict(weights_dtype=weights_dtype, compute_dtype=compute_dtype, rngs=rngs)
         self.embed_tokens = Qwen3Embedding(config.vocab_size, config.hidden_size, **kw)
         self.layers = nnx.data([Qwen3DecoderLayer(config, i, **kw)
@@ -272,7 +273,13 @@ class Qwen3Model(nnx.Module):
             # Per-layer gradient checkpoint: only one layer's activations are
             # live during backward recompute (vs all 36 saved). Cuts the HLO-temp
             # that OOM'd the no-remat batch experiments (v001/v002).
-            _policy = jax.checkpoint_policies.nothing_saveable
+            # offload_remat: park matmul activations in host DRAM instead of
+            # recomputing (frees HBM for larger batch at seq8192 — MaxText recipe).
+            _policy = (
+                jax.checkpoint_policies.offload_dot_with_no_batch_dims(
+                    offload_src="device", offload_dst="pinned_host")
+                if self.offload_remat
+                else jax.checkpoint_policies.nothing_saveable)
             for layer in self.layers:
                 def _call(h, c, s, _layer=layer):
                     return _layer(h, (c, s), attention_mask=None)
@@ -288,10 +295,10 @@ class Qwen3ForCausalLM(nnx.Module):
     pre-projection hidden states (for fused-CE paths later)."""
 
     def __init__(self, config, *, weights_dtype=jnp.bfloat16, compute_dtype=jnp.bfloat16,
-                 rngs, use_remat: bool = False):
+                 rngs, use_remat: bool = False, offload_remat: bool = False):
         self.config = config
         kw = dict(weights_dtype=weights_dtype, compute_dtype=compute_dtype, rngs=rngs)
-        self.model = Qwen3Model(config, use_remat=use_remat, **kw)
+        self.model = Qwen3Model(config, use_remat=use_remat, offload_remat=offload_remat, **kw)
         self.lm_head = Linear(config.hidden_size, config.vocab_size, bias=False, **kw)
         self.skip_lm_head = False
 

@@ -62,6 +62,7 @@ def main(
     weight_decay: float = 0.0,
     weights_dtype: str = "bf16",
     use_remat: bool = False,        # per-layer jax.checkpoint (cuts activation HBM)
+    offload_remat: bool = False,    # remat to host DRAM (pinned_host) instead of recompute
     use_splash: bool = False,       # GQA-native splash attention (no N² scores)
     use_tokamax_ce: bool = False,   # streamed CE at lm_head (drops [B,L,V] logits)
     tokamax_ce_impl: str = "mosaic_tpu",  # mosaic_tpu | xla (this tokamax build's
@@ -100,10 +101,12 @@ def main(
 
     model = Qwen3ForCausalLM(
         config, weights_dtype=wdtype, compute_dtype=wdtype, rngs=nnx.Rngs(0),
-        use_remat=use_remat,
+        use_remat=use_remat, offload_remat=offload_remat,
     )
     if use_remat:
-        print("[remat] per-layer jax.checkpoint (nothing_saveable) ON", flush=True)
+        _policy_name = ("offload_dot_with_no_batch_dims (pinned_host)" if offload_remat
+                        else "nothing_saveable")
+        print(f"[remat] per-layer jax.checkpoint ({_policy_name}) ON", flush=True)
     if use_splash:
         os.environ["JAX_ATTENTION_IMPL"] = "splash"
         from model import set_splash_mesh
