@@ -1,3 +1,7 @@
+## [2026-06-02] loop-iteration | v007-splash-s8k on 8B/v6e-8: invalid (splash-backward VMEM OOM, default 32M limit — flag omitted)
+
+splash+remat @ seq8192 bs1 crashed in the splash backward dkv kernel: 32.96M vs 32M, over by 988K — because I omitted the scoped_vmem flag on this run (only v008 had it). seq8192 target number NOT obtained. Re-dispatched as v009 with `--xla_tpu_scoped_vmem_limit_kib=98304`. tokamax confirmed importable in the splash image (CE port feasible without a special build).
+
 ## [2026-06-02] loop-iteration | v006-splash-bs4 on 8B/v6e-8: invalid (splash-backward scoped-VMEM OOM, +2.15M over — tunable)
 
 splash+remat+bs=4: both gates ON, compiled through forward INTO backward — **cleared the v002 HBM wall** (91.7G no longer the blocker). Crashed in the splash backward Pallas kernel `splash_mha_dkv_no_residuals`: scoped vmem 34.15M vs 32M limit, over by just 2.15M (block_q_dkv/block_kv_dkv=2048). NOT HBM-OOM, NOT a kernel NaN — a tunable VMEM-stack overrun. Fix: `--xla_tpu_scoped_vmem_limit_kib=98304` (flag-only). Re-dispatched as v008. No steps/profile; HLO dumped.

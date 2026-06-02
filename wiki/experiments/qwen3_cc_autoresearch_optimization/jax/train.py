@@ -50,6 +50,8 @@ def main(
     weights_dtype: str = "bf16",
     use_remat: bool = False,        # per-layer jax.checkpoint (cuts activation HBM)
     use_splash: bool = False,       # GQA-native splash attention (no N² scores)
+    use_tokamax_ce: bool = False,   # streamed CE at lm_head (drops [B,L,V] logits)
+    tokamax_ce_impl: str = "chunked_xla",  # chunked_xla | mosaic_tpu | xla
     use_real_data: bool = False,    # False = synthetic tokens (perf baseline)
     # --- profiling (all CLI flags) ---
     profile_dir: Optional[str] = None,
@@ -143,8 +145,32 @@ def main(
         picked = jnp.take_along_axis(logp, labels.reshape(-1)[:, None], axis=-1).squeeze(-1)
         return -picked.mean()
 
+    def _ce_tokamax(hidden, labels, lm_head_w):
+        # Streamed cross-entropy over V via tokamax (Pallas) under a shard_map —
+        # never materializes [B,L,V] logits. Mirrors the llama3 jax sibling.
+        # fp32 boundary cast is REQUIRED for chunked_xla (else lse accumulates in
+        # bf16 and the loss collapses to bf16 quantization).
+        import tokamax
+        from jax.experimental.shard_map import shard_map as _shard_map
+        B, L, H = hidden.shape
+        BL = B * L
+        h32 = hidden.reshape(BL, H).astype(jnp.float32)
+        l_flat = labels.reshape(BL)
+        w32 = lm_head_w.T.astype(jnp.float32)  # (V,H) -> (H,V)
+        def _ce_local(h, l, w):
+            s = tokamax.linear_softmax_cross_entropy_loss(
+                h, l, w, reduction="sum", implementation=tokamax_ce_impl)
+            return jax.lax.psum(s, axis_name="fsdp")
+        ce_sm = _shard_map(_ce_local, mesh=mesh,
+                           in_specs=(P("fsdp", None), P("fsdp"), P()),
+                           out_specs=P(), check_rep=False)
+        return ce_sm(h32, l_flat, w32) / float(BL)
+
     def loss_fn(params, input_ids, labels):
         m = nnx.merge(graphdef, params, rest)
+        if use_tokamax_ce:
+            hidden = m(input_ids, return_hidden=True)
+            return _ce_tokamax(hidden, labels, m.lm_head_weight()).astype(jnp.float32)
         return _ce(m(input_ids), labels).astype(jnp.float32)
 
     grad_fn = jax.value_and_grad(loss_fn)
