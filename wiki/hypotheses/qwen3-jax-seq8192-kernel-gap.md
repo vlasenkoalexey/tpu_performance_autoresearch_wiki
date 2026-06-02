@@ -3,8 +3,8 @@ title: "Qwen3-jax: close the residual seq8192 gap to MaxText (kernel/scheduling)
 type: hypothesis
 model: qwen3-cc-jax
 variants: ["8B/v6e-8"]
-status: in_progress
-expected_gain: "~+400 ms / up to ~+7% (named-offload cuts loop-fusion 17.4%→~7%)"
+status: refuted
+expected_gain: "named-offload sub-lever refuted (v036 −18.6%); MXU/logical-axis sub-lever (~+3-4%) deferred"
 confidence: medium
 effort: S
 origin: 2026-06-02-v035-maxtext-ce-s8k-bs3
@@ -42,9 +42,17 @@ alignment — harder sharding work, deferred. Reduce-scatter is already better t
 ## Proposed experiment
 
 - [v036](../experiments/qwen3_cc_autoresearch_optimization/jax/experiments/2026-06-02-v036-maxtext-ce-offload-s8k-bs3.md):
-  maxtext-CE + `--offload_remat` + bs3 seq8192 vs v035 (6,030). Support: > 6,030 toward 6,942 (offload cuts
-  the norm recompute). Refute: ≤ 6,030 (the host round-trip isn't repaid even without the tokamax gather →
-  named-offload as-tagged doesn't help; the recompute is in norms not the offloaded proj/mlpwi).
+  maxtext-CE + `--offload_remat` + bs3 seq8192 vs v035 (6,030). **RESULT: REFUTED** — v036 = 4,908 (−18.6%).
+  Two reasons: (1) the offload tags proj/mlpwi outputs, not the norm outputs that the profile flagged as the
+  recompute cost; (2) our pinned_host offload is **not pipelined** — the host round-trip lands on the critical
+  path (+22% step), opposite of MaxText's <0.1% overlapped copy. Named-offload as-implemented cannot close the gap.
+
+## Status / remaining sub-lever
+
+The named-offload mechanism is **refuted**. The v035 profile's **secondary** lever — MXU occupancy 53.6% vs
+MaxText 61.2% (+156 ms, ~+3-4%), via `logical_axis_rules` tile alignment — remains untested. It is a
+sharding-layout rewrite (medium-high effort, uncertain payoff) and is **deferred/catalogued**, not the CE
+directive's scope. Closing the rest would need a *pipelined* host offload (XLA/kernel-authoring, out of scope).
 
 ## See also
 

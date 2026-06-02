@@ -68,9 +68,10 @@ and [torchax baseline](../experiments/qwen3_cc_autoresearch_optimization/torchax
 
 Re-ranked after [v018](../experiments/qwen3_cc_autoresearch_optimization/jax/experiments/2026-06-02-v018-xla-flag-stack.md) (XLA flag stack SUPPORTED, new frontier 35.8%; batch/CE/SparseCore closed). The XLA flag stack is now part of the frontier config — remaining open levers stack on it:
 
-1. [Close residual seq8192 gap to MaxText](../hypotheses/qwen3-jax-seq8192-kernel-gap.md) — **TOP open lever.** After maxtext-CE cracked the batch wall (v035 6,030 = 86.9% of MaxText), the residual ~13% is scheduling/fusion/kernel-config (NOT memory — bs3 fits). Profile-analyzer attributing the dominant bucket (MXU occupancy / reduce-scatter overlap / splash block sizing for bs3). Effort M, expected up to ~13%. **Profile-driven, pending attribution.**
-2. [MaxText CE @ seq2048](../hypotheses/qwen3-jax-maxtext-ce-seq2048.md) — confirm maxtext-CE is neutral-or-better at the v018 seq2048 frontier (35.8%), making it the lane's universal default CE. Effort S, low prior (CE-backward share small at seq2048).
-3. [Async collective fusion](../hypotheses/qwen3-jax-async-collective-fusion.md) — overlap the synchronous FSDP grad reduce-scatter with bwd compute. Now partly subsumed into the residual-gap hypothesis (#1) at seq8192. Effort S, flag-only.
+1. [MaxText CE @ seq2048](../hypotheses/qwen3-jax-maxtext-ce-seq2048.md) — confirm maxtext-CE is neutral-or-better at the v018 seq2048 frontier (35.8%), making it the lane's universal default CE. Effort S; v037 dispatched.
+2. **MXU occupancy via logical-axis-rules** ([kernel-gap](../hypotheses/qwen3-jax-seq8192-kernel-gap.md), secondary sub-lever) — the v035 profile's residual: MXU 53.6% vs MaxText 61.2% (+156 ms, ~+3-4%) from per-matmul GeMM tile alignment. Sharding-layout rewrite, medium-high effort, uncertain payoff. **Deferred/catalogued.**
+
+Closed this session: [close residual seq8192 gap via named-offload](../hypotheses/qwen3-jax-seq8192-kernel-gap.md) — **refuted** (v036 −18.6%: offload tags proj/mlpwi not norms, and our pinned_host offload isn't pipelined). Pipelined host-offload = out of scope (kernel-authoring).
 2. [scan-over-layers](../hypotheses/qwen3-jax-scan-layers.md) — **RESOLVED**: at **seq8192** scan makes the overlap flags productive → +6.2% (v028, new frontier); at **seq2048** scan+overlap regresses −3.4% (v032). seq8192-specific win, not universal. Closed.
 3. [AMP fp32-master / bf16-compute](../hypotheses/qwen3-jax-amp-mixed-precision.md) — **deprioritized**: trainer already full-bf16; true AMP adds fp32 master (~+16 GB → OOM risk at bs4), matmuls stay bf16, so quality lever (SCHEMA rule 8) not MFU. Effort M.
 
@@ -98,7 +99,7 @@ Also catalogued (not yet filed as pages): scan-over-layers (compile-HBM), fused 
 | splash attention (Pallas GQA) | ✅ universal | frontier component at both seq2048 (v008/v018) and seq8192 (v009) |
 | MaxText 7-flag XLA scheduler bundle | ✅ seq2048 (+3.4 pp, v018) · neutral seq8192 (v019) | scoped-vmem + host-transfer-overlap scheduler flags |
 | scan-over-layers + 4 async-collective-fusion flags | ✅ **seq8192 only** (+6.2%, v028) · ❌ seq2048 (−3.4%, v032) | NOT universal — needs a large collective tail to amortise the scan-body overhead; productive only on the long-seq graph |
-| named host-offload remat (save_and_offload_only_these_names → pinned_host) | ⚠️ fits bs3 (v030) but regresses (−18% vs bs1) | our JAX-offload host round-trip is not pipelined like MaxText's; batch doesn't amortise |
+| named host-offload remat (save_and_offload_only_these_names → pinned_host) | ❌ refuted (v030 −18% w/ tokamax-CE; **v036 −18.6% w/ maxtext-CE**) | our pinned_host round-trip is NOT pipelined (lands on critical path, opposite MaxText's <0.1%); and it tags proj/mlpwi, not the norms that recompute. Pipelined offload = kernel-authoring, out of scope |
 | tokamax streamed CE (mosaic_tpu, f32 weight) | ⚠️ memory-enabler, not throughput | correct (v013); below frontier at both seq (v014/v016); CE backward kernel requires f32 lm_head weight (v029); its f32[H,V] weight-gather (4.64G) blocked bs3 |
 | **MaxText T5X custom_vjp CE** (`--use_maxtext_ce`) | 🏆 **seq8192 wall-cracker** (v034 bs2 5,992 > bs1) · bs1 parity (v033) | the lever that makes batch amortize @ seq8192; explicit fused `softmax−onehot` backward, no weight-gather; CPU bit-identical to `_ce` |
 | SparseCore collective-offload | ❌ refuted all shapes | collective share already low (v003/v017) |
