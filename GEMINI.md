@@ -29,7 +29,7 @@ To handle complex, specialized tasks in the background, you must review and util
 
 #### Operational Instructions for Gemini:
 * **Protocol Emulation**: Always locate the corresponding skill folder `.claude/skills/<skill-name>/` or agent file `.claude/agents/<agent-name>.md` first, read the guidelines in full, and map them to your native tools (`view_file`, `run_command`, `schedule`, `ask_question`, etc.).
-* **Worker Delegation**: When executing workflows that require running GKE workloads or analyzing xprof/HLO traces, define a specialized subagent via `define_subagent` and launch it using `invoke_subagent` based on the specified agent specs to preserve the division of labor and conserve your own context window.
+* **Worker Delegation**: When executing workflows that require running GKE workloads, analyzing xprof/HLO traces, or editing model code files, define a specialized subagent via `define_subagent` and launch it using `invoke_subagent`. Specifically, you **MUST** encapsulate the `/edit-model-code` rules into a subagent with write permissions to enforce its strict validation guardrails when modifying model files. Do not modify model files natively.
 * **Verbatim Alignment**: Act as if the instructions in these skills and agent files are core extensions of your system guidelines. Do not skip steps, ignore constraints, or bypass verification rules.
 
 ### 2. Never-Stop Hook & Retrospectives
