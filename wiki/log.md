@@ -1,5 +1,12 @@
 # Log
 
+## [2026-06-02] analyze | qwen3_cc-jax retrospective #5 (MaxText config delta) — RE-OPENS the offload lever; loop resumed
+
+**Op**: analyze (user directive: "do another retrospective covering maxtext findings, identify what's unexplored, keep the loop running").
+**Pages created**: `wiki/analyses/2026-06-02-qwen3_cc-jax-retrospective-5-maxtext-delta.md`; hypothesis `qwen3-jax-maxtext-offload-recipe.md`.
+**Pages updated**: model page (reopened open-hyps), index.
+**Key result**: diffed our v035 frontier against MaxText's EXACT qwen3-8b reference config. **The v036 offload was mis-tested, not refuted** — MaxText offloads `decoder_layer_input + q/k/v/o proj` and RECOMPUTES mlpwi; v036 did the opposite (offloaded the giant mlpwi, missed decoder_layer_input). Also found ~9 XLA flags we lack — notably `--xla_should_allow_loop_variant_parameter_in_chain` / `--xla_should_add_loop_invariant_op_in_chain` (host-offload-inside-loops = the scan-offload pipelining I'd speculated we lacked), plus LAYOUT_RS / DATA_PARALLEL_OVERLAP / CF extras; plus splash bkv 1024→2048 and a DISABLE_COLLECTIVE_MATMUL MXU candidate (jf_spmd form crashed v019, needs alternate). This overturns the "remaining gap is out-of-scope kernel-authoring" call. **Loop resumed**: v038 = flags-only probe (validate the flags on our build), v039 = the corrected MaxText offload recipe.
+
 ## [2026-06-02] analyze | qwen3_cc-jax retrospective #4 — lane NOT exhausted; #3's "pivot to torchax" overturned by the maxtext-CE arc
 
 **Op**: analyze (lane retrospective, INCREMENTAL +13 exp v025–v037; triggered by never-stop gate before a hold).
