@@ -124,12 +124,13 @@ def _attn_splash(
     # The kernel expects 4D tensors with kv heads. Qwen3 has Hq>Hkv.
     # Splash internally handles the broadcast when q has more heads
     # than k/v. Sharding pattern: replicate seq + head_dim, shard fsdp/tp on
-    # the (B, H) axes. This matches the torchax sibling.
+    # the (B, H) axes. Layout is (B, H, T, D).
     from jax.sharding import PartitionSpec as P
     q_sharding = P("fsdp", "tp", None, None)
-    return splash_attn.tpu_splash_attention(
+    out = splash_attn.tpu_splash_attention(
         _SPLASH_MESH, q_sharding, True, q, k, v, None,
     )
+    return jnp.transpose(out, (0, 2, 1, 3))
 
 
 # -----------------------------------------------------------------------------
@@ -251,11 +252,14 @@ class Qwen3Attention(nnx.Module):
         B, T, _ = hidden_states.shape
         cos, sin = position_embeddings
         # proj -> (B, T, H, Dh) -> QK-norm over Dh -> transpose -> (B, H, T, Dh)
-        q = self.q_norm(self.q_proj(hidden_states).reshape(B, T, self.num_heads, self.head_dim))
-        q = jnp.transpose(q, (0, 2, 1, 3))
-        k = self.k_norm(self.k_proj(hidden_states).reshape(B, T, self.num_kv_heads, self.head_dim))
-        k = jnp.transpose(k, (0, 2, 1, 3))
+        q = self.q_proj(hidden_states).reshape(B, T, self.num_heads, self.head_dim)
+        k = self.k_proj(hidden_states).reshape(B, T, self.num_kv_heads, self.head_dim)
         v = self.v_proj(hidden_states).reshape(B, T, self.num_kv_heads, self.head_dim)
+        q = self.q_norm(q)
+        k = self.k_norm(k)
+        
+        q = jnp.transpose(q, (0, 2, 1, 3))
+        k = jnp.transpose(k, (0, 2, 1, 3))
         v = jnp.transpose(v, (0, 2, 1, 3))
         q, k = apply_rotary_pos_emb(q, k, cos, sin, unsqueeze_dim=1)
         
