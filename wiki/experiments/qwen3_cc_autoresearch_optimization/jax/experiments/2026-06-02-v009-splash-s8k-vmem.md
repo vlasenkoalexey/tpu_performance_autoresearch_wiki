@@ -6,7 +6,7 @@ model: qwen3-cc-jax
 variant: "8B/v6e-8"
 commit: jax-splash-2026-06-02
 status: in_progress
-tags: [qwen3-cc, jax, splash, remat, seq8192, vmem, v6e-8]
+tags: [qwen3-cc, jax, splash, remat, seq8192, v6e-8]
 created: 2026-06-02
 updated: 2026-06-02
 ---
@@ -15,18 +15,18 @@ updated: 2026-06-02
 
 ## Hypothesis under test
 
-**Hypothesis**: With the scoped-VMEM cap raised (the v007 fix), splash+remat reaches
-the **program-target seq 8192** (bs=1) that the dense path can't, at sane loss and
-MFU > the 25.1% seq2048 frontier.
+**Hypothesis**: With the scoped-VMEM cap raised, splash+remat reaches the
+program-target seq 8192 (bs=1) — the seq the dense path can't — at MFU > the
+seq2048 frontier (25.1%/32.4%). Splash is validated at seq2048/bs4 ([v008](2026-06-02-v008-splash-vmem-bs4.md), 32.4%).
 
-**Mechanism**: v007 config + `LIBTPU_INIT_ARGS=--xla_tpu_scoped_vmem_limit_kib=98304`
-(clears the 988 K splash-backward overrun). `--use_remat --use_splash --batch_size=1
---seqlen=8192`, image `qwen3-8b-jax:v006-splash`.
+**Mechanism**: `--use_remat --use_splash --batch_size=1 --seqlen=8192` +
+`--xla_tpu_scoped_vmem_limit_kib=98304`, image `qwen3-8b-jax:v006-splash`.
 
-**Predicted signal**: no VMEM OOM; loss ~12 stable (splash correctness at long seq);
-MFU at seq8192 > 25.1%.
+**Predicted signal**: no OOM/VMEM at seq8192; loss ~12 stable; MFU > 32.4% (target-shape number).
 
-**Falsification criterion**: still VMEM-OOM (shrink dkv blocks next), NaN loss, or MFU ≤ 25.1%.
+**Falsification criterion**: OOM/VMEM at seq8192, NaN loss, or MFU ≤ 32.4%.
+
+*(First attempt lost to spot preemption; runner re-submitted — run in progress, ContainerCreating.)*
 
 ## Setup
 (populated on completion)

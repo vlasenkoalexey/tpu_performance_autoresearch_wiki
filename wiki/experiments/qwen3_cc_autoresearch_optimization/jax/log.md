@@ -1,3 +1,11 @@
+## [2026-06-02] loop-iteration | v013-ce-bs2 on 8B/v6e-8: supported (CE-correctness canary PASSED; not a frontier move)
+
+tokamax streamed CE (mosaic_tpu) on the absl-guarded image RUNS and is numerically correct: loss 12.098→12.085 with variation, exit 0. MFU 21.0% at bs=2 (vs remat-bs2 22.0%) — CE is a MEMORY lever, ~neutral/slightly-slower at a shape that fits; its value is the batch unlock (v014). Note: mosaic_tpu CE autotunes on first call (step0/1 = 135s each, now cached) — that was the long-compile cause. CE is now a validated tool. Batch-unlock value settled by v014.
+
+## [2026-06-02] loop-iteration | v009-splash-s8k on 8B/v6e-8: IN PROGRESS (first attempt preempted; runner re-submitted)
+
+splash @ seq8192: first attempt lost to spot preemption (no artifacts); the runner agent re-submitted v009 (pods ContainerCreating). NOT backfilled — the agent is live and owns the result. (I briefly mis-filed this as inconclusive during a transient NotFound gap; reverted to in_progress. Do not duplicate-dispatch seq8192.)
+
 ## [2026-06-02] loop-iteration | v011 + v012 on 8B/v6e-8: invalid (tokamax CE absl-flags collision — fixed in train.py)
 
 Both CE runs (v011 canary mosaic_tpu, v012 stacked remat+splash+CE bs6) crashed at trace time with `UnrecognizedFlagError: Unknown command line flag 'model_id'` — tokamax's mosaic_tpu CE op lazily calls `flags.FLAGS(sys.argv)`, colliding with fire's argv. NOT OOM, NOT a CE/splash numerics bug (v012's splash compiled fine). The qwen3 trainer was missing the absl pre-parse guard the llama3 trainers carry. **Fixed**: added the guard to train.py (pre-parse absl with argv[0]). Rebuilding image → v013-ce; re-dispatch v013 (CE canary) + v014 (stacked bs6). Frontier unchanged (v008 splash bs4 = 32.4%).
