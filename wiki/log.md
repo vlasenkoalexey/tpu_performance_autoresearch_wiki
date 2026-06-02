@@ -1,5 +1,24 @@
 # Log
 
+## [2026-06-02] analyze | qwen3-cc/jax retrospective #2 — v018 +3.4pp then 5 non-wins; seq2048 near practical ceiling
+
+**Op**: analyze (INCREMENTAL lane retrospective, post-v018 arc).
+**Pages created**: `wiki/analyses/2026-06-02-qwen3_cc-jax-retrospective-2.md`.
+**Key result**: After the prior retrospective's #1 rec landed v018 (XLA scheduler flags, +3.4 pp → **35.8% MFU** seq2048 frontier), 5 consecutive non-wins followed (v019–v023). profile-analyzer on v018: NOT matmul-bound (MXU 48.3%, 48.6% non-matmul); #1 cost = synchronous FSDP reduce-scatter (12.9%) — but async-collective-fusion to overlap it BACKFIRED (−3.5 pp, v023: over-subscribes the already-overlap-tuned v018 scheduler). Refined law: compiler/scheduler levers transfer to qwen3 (XLA flags ✅) but kernel-swap/offload don't (tokamax-splash, SparseCore, block-tuning ❌), and a 2nd overlap mechanism is non-additive. **Verdict: seq2048 frontier near practical ceiling for non-deep-kernel levers.** Best remaining = QKV→splash GQA layout opt (data-formatting 4.5% bucket, medium prior, code-change); then scan (low prior), fused QK-norm+RoPE kernel (low, HLO-prefilter first), flag-ablation (attribution → torchax transfer). Next: pursue the layout lever via /edit-model-code.
+
+## [2026-06-02] run-experiment | qwen3-cc/jax v018 XLA flag stack: **SUPPORTED — NEW FRONTIER 35.8% MFU** (+3.4pp)
+
+**Op**: run-experiment (GKE/XPK, flag-only).
+**Pages updated**: experiment v018 (supported); model `qwen3-cc-jax.md` (Current best → 35.8% MFU / 6,964 tok/s/chip, frontier exp → v018); hypothesis `qwen3-jax-xla-flag-stack` → supported; lane log; GCS pointer.
+**Key result**: The retrospective's #1 lever — MaxText HOST_OFFLOAD XLA scheduler flag bundle (8 flags, all accepted) on the v008 seq2048 frontier — landed **35.8% MFU / 6,964 tok/s/chip** vs v008 32.4% / 6,299: **+3.4 pp / +10.6%**, step time −11.3%, loss parity, exit 0. llama3-jax's +10% transfers cleanly to qwen3 (zero semantic change). Climb 20.5%→…→**35.8%** (+74% tok/s/chip over baseline); gap to llama3-jax 43.3% now ~7.5 pp. Validates the retrospective discipline (acting on rec #1 yielded the biggest single qwen3-jax win to date). Next: v019 tests transfer to seq8192; then AMP + splash-block + flag-ablation.
+
+## [2026-06-02] analyze + run-experiment | qwen3-cc/jax FULL retrospective + v016/v017 refuted; dispatching XLA flag stack (v018)
+
+**Op**: analyze (lane retrospective) + run-experiment (2 verdicts processed).
+**Pages created**: `wiki/analyses/2026-06-02-qwen3_cc-jax-retrospective.md`; hypotheses `qwen3-jax-xla-flag-stack.md`, `qwen3-jax-amp-mixed-precision.md`, `qwen3-jax-splash-block-tuning.md`.
+**Pages updated**: experiments v016 (refuted, 29.5% < 30.4%), v017 (refuted, 31.7% < 32.4%); model page `qwen3-cc-jax.md` (open hyps 2→3, retired list += CE/SparseCore, ranked queue re-headed by XLA flag stack); hypotheses CE→refuted, SparseCore outcome appended; lane log.
+**Key result**: qwen3-cc/jax frontier holds (seq2048 32.4% v008, seq8192 30.4% v009). **tokamax-CE and SparseCore-offload topics both CLOSED** (CE = memory enabler not throughput lever at either seq; SC-offload regresses at every shape — qwen3 collective share already low 6.3%). Retrospective verdict: lane YOUNG/climbing, not exhausted; top unexplored lever = **MaxText HOST_OFFLOAD XLA flag stack** (flag-only, llama3-jax's +10% single win → ~11 pp headroom to llama3-jax 43.3%). Dispatching as v018.
+
 ## [2026-06-02] run-experiment | Qwen3-8B jax (Flax NNX) v6e-8 BASELINE + cross-lane win
 
 **Op**: run-experiment (GKE/XPK via gke-cluster-runner agent).

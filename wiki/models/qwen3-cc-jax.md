@@ -33,9 +33,9 @@ TODO: native-JAX trainer not yet written.
 
 | Size | Hardware | Status | Baseline (step / TPS / MFU) | Current best (step / TPS / MFU) | Open hyps | Frontier exp |
 |------|----------|--------|-----------------------------|----------------------------------|-----------|--------------|
-| 8B | v6e-8 | live | 512 ms / 31,955 TPS / 20.5% MFU @ seq2048 bs8 | **1,301 ms / 50,389 TPS / 32.4% MFU @ seq2048 bs32 (remat+splash bs=4)** | 2 | [v008 splash bs4](../experiments/qwen3_cc_autoresearch_optimization/jax/experiments/2026-06-02-v008-splash-vmem-bs4.md) |
+| 8B | v6e-8 | live | 512 ms / 31,955 TPS / 20.5% MFU @ seq2048 bs8 | **1,154 ms / 56,782 TPS / 35.8% MFU @ seq2048 bs32 (remat+splash+XLA-flag-stack bs=4)** | 3 | [v018 XLA flag stack](../experiments/qwen3_cc_autoresearch_optimization/jax/experiments/2026-06-02-v018-xla-flag-stack.md) |
 
-*Climb (seq2048): baseline 20.5% → remat bs2 22.0% (v004) → remat bs3 25.1% (v005) → **remat+splash bs4 32.4%** (v008), **+11.9 pp / +58% tok/s/chip**; MXU 44.6% (≈ MaxText-reference regime). Stable seq2048 config: `--use_remat --use_splash --batch_size=4` + `--xla_tpu_scoped_vmem_limit_kib=98304` on qwen3-8b-jax:v006-splash.*
+*Climb (seq2048): baseline 20.5% → remat bs2 22.0% (v004) → remat bs3 25.1% (v005) → remat+splash bs4 32.4% (v008) → **+MaxText HOST_OFFLOAD XLA flag stack 35.8%** (v018), **+15.3 pp / +74% tok/s/chip**. Stable seq2048 config: `--use_remat --use_splash --batch_size=4` + `LIBTPU_INIT_ARGS` = scoped-vmem(98304) + the 7-flag scheduler bundle (all_experimental_scheduler_features, scheduler_memory_pressure_tracking, ag_backward_pipelining, host_transfer_overlap_limit=24, scheduler_percent_shared_memory_limit=100, latency_hiding_scheduler_rerun=2, max_concurrent_host_send_recv=100), on qwen3-8b-jax:v006-splash. (Note: `xla_jf_spmd_threshold_for_windowed_einsum_mib` is invalid on this XLA build — v019 — and is NOT part of the config; the +3.4 pp is from the 7 scheduler flags.) Remaining gap to llama3-jax sibling (43.3%): ~7.5 pp.*
 
 ***Seq-8192 target reached** (v009): splash+remat bs1 seq8192 = **30.4% MFU / 5,305 tok/s/chip** — the program-target seq, which the dense path can't run at all. Best-for-target-seq.*
 
@@ -50,11 +50,17 @@ and [torchax baseline](../experiments/qwen3_cc_autoresearch_optimization/torchax
 
 ## Cross-variant open hypotheses
 
-Ranked after the [2026-06-02 baseline](../experiments/qwen3_cc_autoresearch_optimization/jax/experiments/2026-06-02-qwen3-jax-v6e8-baseline.md) (~20% MXU → win occupancy/memory first):
+Re-ranked after [v018](../experiments/qwen3_cc_autoresearch_optimization/jax/experiments/2026-06-02-v018-xla-flag-stack.md) (XLA flag stack SUPPORTED, new frontier 35.8%; batch/CE/SparseCore closed). The XLA flag stack is now part of the frontier config — remaining open levers stack on it:
 
-1. [Per-chip batch scaling](../hypotheses/qwen3-jax-batch-scaling.md) — fill MXU occupancy. Effort S — cheapest first move.
-2. [Splash attention](../hypotheses/qwen3-jax-splash-attention.md) — GQA-native kernel; avoids `[B,H,S,S]`; prerequisite for seq 8192. Effort M.
-3. [tokamax streamed cross-entropy](../hypotheses/qwen3-jax-tokamax-ce.md) — drop `[B,L,V]` logits at the lm_head; unlocks seq 8192. Effort M.
+1. [Async collective fusion](../hypotheses/qwen3-jax-async-collective-fusion.md) — overlap the synchronous FSDP grad reduce-scatter (v018 profile: 12.9% of step, the #1 non-matmul cost) with bwd compute. Analyzer estimate **+7–13 pp**. Effort S, flag-only. Overlap (transferable category), not offload. **In flight (v023).**
+2. [scan-over-layers](../hypotheses/qwen3-jax-scan-layers.md) — structural/compiler lever; **profile says NOT the dominant bottleneck** (train step fully unrolled, but the cost is runtime collective/kernel/HBM). Worth testing as a compile-time/scheduling lever; low MFU prior. Effort M.
+3. [AMP fp32-master / bf16-compute](../hypotheses/qwen3-jax-amp-mixed-precision.md) — **deprioritized**: trainer already full-bf16; true AMP adds fp32 master (~+16 GB → OOM risk at bs4), matmuls stay bf16, so quality lever (SCHEMA rule 8) not MFU. Effort M.
+
+Profile-driven (v018 frontier, profile-analyzer): NOT matmul-bound (MXU 48.3%, 48.6% non-matmul). Top non-matmul = grad reduce-scatter 12.9% (→ async fusion, #1), splash 12.3%, loop-fusion/norms 11.0% (HBM-bound). QK-norm+RoPE already XLA-fused (custom kernel → xla-already-fuses; deprioritized).
+
+Validated this lane: [XLA flag stack](../hypotheses/qwen3-jax-xla-flag-stack.md) (**supported** seq2048 +3.4 pp / v018; **neutral seq8192** / v019). Retired kernel-swap levers: tokamax-splash (v020 −8.5%), splash-block-tuning (v021/v022 neutral). Catalogued: fused QK-norm+RoPE kernel (deprioritized), seq16384, XLA flag-ablation.
+
+Also catalogued (not yet filed as pages): scan-over-layers (compile-HBM), fused QK-norm+RoPE Pallas kernel (Qwen3-specific), seq16384 (splash scale).
 
 ## Variant-specific open hypotheses
 
@@ -62,7 +68,9 @@ Ranked after the [2026-06-02 baseline](../experiments/qwen3_cc_autoresearch_opti
 
 ## Retired hypotheses
 
-(none yet)
+- [Per-chip batch scaling](../hypotheses/qwen3-jax-batch-scaling.md) — **refuted** for 8B/v6e-8 (v001/v002 compile-OOM on the dense path; subsumed by remat, which is now the baseline).
+- [tokamax streamed cross-entropy](../hypotheses/qwen3-jax-tokamax-ce.md) — **refuted** for 8B/v6e-8 (v013 correct, but v014 seq2048 = 30.5% and v016 seq8192 = 29.5%, both below the splash frontier; memory enabler, not a throughput lever).
+- [SparseCore collective-offload](../hypotheses/qwen3-jax-sparsecore-offload.md) — **refuted** for 8B/v6e-8 at every shape (v003 bs1 −4 pp, v017 bs4 −0.7 pp; collective share already low at 6.3%).
 
 ## Knobs translation matrix
 

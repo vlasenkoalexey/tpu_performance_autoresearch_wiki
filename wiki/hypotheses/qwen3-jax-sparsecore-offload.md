@@ -28,3 +28,10 @@ few percent; MXU util rises slightly.
 
 *Falsification criterion*: no throughput change beyond noise (flag inert on this
 libtpu/shape) or a regression → refuted.
+
+## Outcome — REFUTED at every shape (2026-06-02)
+
+- [v003](../experiments/qwen3_cc_autoresearch_optimization/jax/experiments/2026-06-02-v003-sc-offload.md) bs1: −4.0 pp (16.5% vs 20.5%).
+- [v017](../experiments/qwen3_cc_autoresearch_optimization/jax/experiments/2026-06-02-v017-sc-bs4.md) bs4 frontier shape: 31.7% < 32.4% (−0.7 pp). All 3 offload flags accepted/active in HLO; async overhead still > TC relief.
+
+**Verdict**: the llama3-jax +3.4% does not transfer — qwen3's collective share is already low (v008: 6.3%), so there is little to offload. Topic closed for this lane.
