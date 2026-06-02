@@ -175,9 +175,18 @@ def main(
         from jax.experimental.shard_map import shard_map as _shard_map
         B, L, H = hidden.shape
         BL = B * L
-        h32 = hidden.reshape(BL, H).astype(jnp.float32)
         l_flat = labels.reshape(BL)
-        w32 = lm_head_w.T.astype(jnp.float32)  # (V,H) -> (H,V)
+        if tokamax_ce_impl == "mosaic_tpu":
+            # mosaic tiles V and accumulates the logsumexp in f32 internally, so pass
+            # the lm_head weight (and hidden) in their native bf16 — this AVOIDS
+            # materializing the full f32[H,V] weight (the bs3@seq8192 HBM wall, v027)
+            # and matches the plain-CE path, which also does the lm_head matmul in
+            # bf16 (f32 only for the softmax). The fp32 cast below is for xla/chunked.
+            h_ce = hidden.reshape(BL, H)
+            w_ce = lm_head_w.T
+        else:
+            h_ce = hidden.reshape(BL, H).astype(jnp.float32)
+            w_ce = lm_head_w.T.astype(jnp.float32)  # (V,H) -> (H,V)
         def _ce_local(h, l, w):
             s = tokamax.linear_softmax_cross_entropy_loss(
                 h, l, w, reduction="sum", implementation=tokamax_ce_impl)
@@ -185,7 +194,7 @@ def main(
         ce_sm = _shard_map(_ce_local, mesh=mesh,
                            in_specs=(P("fsdp", None), P("fsdp"), P()),
                            out_specs=P(), check_rep=False)
-        return ce_sm(h32, l_flat, w32) / float(BL)
+        return ce_sm(h_ce, l_flat, w_ce) / float(BL)
 
     def loss_fn(params, input_ids, labels):
         m = nnx.merge(graphdef, params, rest)
