@@ -1,3 +1,7 @@
+## [2026-06-02] reference-result | qwen3-8b MaxText @ seq8192 = 45.3% MFU / 6,942 tok/s/chip (CEILING established)
+
+Workload ale-qwen3-8b-8-1-060213-9sh Completed clean (20 steps, loss 2.96->2.29 synthetic). Steady-state (steps 15-19): 415.8 TFLOP/s/device -> **45.3% MFU**, 6,942 tok/s/chip, 3.540s/step. On par with llama3-8b MaxText (44.6%) -> recipe transfers to qwen3-8b incl. QK-norm. **This is the achievable ceiling.** Cross-stack @ seq8192: MaxText 6,942 vs jax v009 5,305 = **+31% tok/s/chip** (jax ~15pp below). Gap = MaxText's offload-enabled bs3 (decoder_layer_input + 4 proj offloads) — UNTRIED on jax. REOPENS the jax seq8192 frontier (new hyp qwen3-jax-host-offload-bs3-seq8192). Profile in GCS (no HLO; recipe doesn't dump). Next: seq2048 reference (qwen3_8b_2048_ref) for the direct vs-v018 comparison.
+
 ## [2026-06-02] start | maxtext reference lane — first run dispatching
 
 **Op**: start (reference-ceiling lane for qwen3_cc).

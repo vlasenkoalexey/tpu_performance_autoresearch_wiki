@@ -39,6 +39,9 @@ TODO: native-JAX trainer not yet written.
 
 ***Seq-8192 target reached** (v009): splash+remat bs1 seq8192 = **30.4% MFU / 5,305 tok/s/chip** — the program-target seq, which the dense path can't run at all. Best-for-target-seq.*
 
+> [!warning] Seq8192 frontier REOPENED by the MaxText reference (2026-06-02)
+> The [MaxText Qwen3-8B reference](qwen3-cc-maxtext.md) measured **45.3% MFU / 6,942 tok/s/chip @ seq8192 bs3** — **+31% tok/s/chip** over v009. The jax seq8192 frontier (30.4%, bs1) is **~15 pp below the achievable ceiling**. MaxText fits bs3 via **host-offload of the decoder-layer input + QKV/out projections** (`decoder_layer_input`+`*_proj=offload`) — a lever the jax lane never tried (remat alone capped us at bs1; CE enabled bs2 without throughput gain). New open hyp: [host-offload bs3 @ seq8192](../hypotheses/qwen3-jax-host-offload-bs3-seq8192.md). The "jax at ceiling" conclusion holds for **seq2048** but is **superseded for seq8192**.
+
 *tokamax CE: validated numerically correct (v013) but **not** a seq2048 frontier-mover — CE+splash bs6 (v014) = 30.5% < 32.4% (bs4 is the seq2048 occupancy sweet spot; CE is a memory-enabler, overhead not repaid where logits already fit). CE's live value is at seq8192 (larger logits) → next: seq8192+CE+bs2.*
 
 *Baseline captured at seq 2048 (global batch 8). **Cross-lane: jax 20.5% MFU /

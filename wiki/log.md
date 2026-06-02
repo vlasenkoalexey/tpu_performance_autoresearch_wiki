@@ -1,5 +1,11 @@
 # Log
 
+## [2026-06-02] run-experiment | MaxText Qwen3-8B v6e-8 reference: **45.3% MFU / 6,942 tok/s/chip @ seq8192** (CEILING) — reopens jax seq8192 frontier
+
+**Op**: run-experiment (MaxText reference, lane=maxtext).
+**Pages updated**: maxtext experiment page (supported, full results); maxtext model page (Current best = 45.3%); jax model page (seq8192 frontier REOPENED warning); maxtext + global logs; index. **Created**: hypothesis `qwen3-jax-host-offload-bs3-seq8192.md`; GCS pointer.
+**Key result**: MaxText Qwen3-8B @ seq8192 bs3 = **45.3% MFU / 6,942 tok/s/chip / 3.540 s/step** (clean, loss 2.96→2.29), on par with llama3-8b MaxText (44.6%) → recipe transfers incl. QK-norm. **This is the achievable ceiling.** Cross-stack @ seq8192: MaxText 6,942 vs our jax v009 5,305 = **+31% tok/s/chip** — the jax lane is ~15 pp below ceiling, NOT at the true ceiling. The gap is MaxText's **offload-enabled bs3** (`decoder_layer_input` + 4 `*_proj=offload`), which the jax lane never tried (remat capped bs1; CE enabled bs2 w/o gain). **Reopens the jax seq8192 frontier** with a concrete, reference-proven lever (host-offload → bs3). Next: MaxText seq2048 reference for the direct vs-v018 (35.8%) comparison; then port the offload recipe to jax.
+
 ## [2026-06-02] manual + start | qwen3_cc maxtext reference lane bootstrapped; first run dispatched
 
 **Op**: manual (lane bootstrap) + start (reference run).

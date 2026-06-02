@@ -54,11 +54,14 @@ SparseCore-offload + DISABLE_COLLECTIVE_MATMUL XLA flag stack).
 
 | Size | Hardware | Status | Baseline (step / TPS / MFU) | Current best | Open hyps | Frontier exp |
 |------|----------|--------|------------------------------|--------------|-----------|--------------|
-| 8B | v6e-8 | open | — (reference run in progress) | — | 0 | — |
+| 8B | v6e-8 | live | **3.540 s / 6,942 tok/s/chip / 45.3% MFU @ seq8192 bs3** | same (reference baseline) | 1 | [seq8192 ref](../experiments/qwen3_cc_autoresearch_optimization/maxtext/experiments/2026-06-02-maxtext-qwen3-8b-v6e8-ref-seq8192.md) |
 
-*First reference run dispatching 2026-06-02 (seq8192 `qwen3_8b_8192_ref`, then seq2048 `qwen3_8b_2048_ref`).
-The MaxText Llama-3.1-8B reference on the same cluster was 44.6% MFU; Qwen3-8B is the same architecture
-class (+QK-norm), so a similar regime is expected — to be measured, not assumed.*
+***Reference ceiling measured 2026-06-02**: MaxText Qwen3-8B @ seq8192 bs3 = **45.3% MFU / 6,942 tok/s/chip** —
+on par with the llama3-8b MaxText reference (44.6%), confirming the recipe transfers (incl. QK-norm). This
+is the achievable ceiling. **Cross-stack at seq8192**: MaxText 6,942 vs our jax 5,305 (v009) = **+31%
+tok/s/chip** — the jax lane is ~15 pp below ceiling, the gap being MaxText's offload-enabled bs3
+(`decoder_layer_input` + 4 proj offloads) that the jax lane never tried. seq2048 reference (`qwen3_8b_2048_ref`)
+pending for the direct comparison to the jax v018 35.8% / 6,964 tok/s/chip frontier.*
 
 ## Cross-variant open hypotheses
 
