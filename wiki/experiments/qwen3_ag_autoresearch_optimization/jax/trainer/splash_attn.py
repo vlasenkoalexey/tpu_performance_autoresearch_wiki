@@ -115,10 +115,10 @@ def tpu_splash_attention(
       sa_config = tokamax_splash_kernel.SplashConfig(
         block_q=min(global_block_q, query.shape[2]),
         block_kv=min(global_block_kv, key.shape[2]),
-        block_kv_compute=min(global_block_kv_compute, key.shape[2]),
+        block_kv_compute=max(128, min(global_block_kv_compute, key.shape[2])),
         block_q_dkv=min(global_block_q_dkv, query.shape[2]),
         block_kv_dkv=min(global_block_kv_dkv, key.shape[2]),
-        block_kv_dkv_compute=min(global_block_kv_dkv_compute, query.shape[2]),
+        block_kv_dkv_compute=max(128, min(global_block_kv_dkv_compute, query.shape[2])),
         use_fused_bwd_kernel=True,  # tokamax only supports fused bwd
         q_layout=tokamax_splash_kernel.QKVLayout[global_q_layout],
         k_layout=tokamax_splash_kernel.QKVLayout[global_k_layout],

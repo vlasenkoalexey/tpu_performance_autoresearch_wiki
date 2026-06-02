@@ -82,6 +82,8 @@ def main(
     if use_splash:
         import os
         os.environ["JAX_ATTENTION_IMPL"] = "splash"
+        os.environ["USE_TOKAMAX_SPLASH"] = "1"
+        os.environ["TOKAMAX_USE_EXP_SCHED"] = "1"
         set_splash_mesh(mesh)
         print("[attn] splash kernel selected (JAX_ATTENTION_IMPL=splash); mesh registered", flush=True)
     else:
