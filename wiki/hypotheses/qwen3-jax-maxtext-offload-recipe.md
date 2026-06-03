@@ -3,8 +3,8 @@ title: "Qwen3-jax: replicate MaxText's exact offload recipe (decoder_layer_input
 type: hypothesis
 model: qwen3-cc-jax
 variants: ["8B/v6e-8"]
-status: open
-expected_gain: "up to ~13% (the whole residual seq8192 gap to MaxText)"
+status: refuted
+expected_gain: "REFUTED — v039 (exact MaxText recipe) −6.6% vs no-offload; host-offload doesn't pipeline on our stack"
 confidence: medium
 effort: M
 origin: 2026-06-02-qwen3_cc-jax-retrospective-5-maxtext-delta
