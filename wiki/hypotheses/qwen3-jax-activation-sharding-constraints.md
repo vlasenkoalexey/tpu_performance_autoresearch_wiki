@@ -3,8 +3,8 @@ title: "Qwen3-jax: activation sharding constraints (MaxText with_logical_constra
 type: hypothesis
 model: qwen3-cc-jax
 variants: ["8B/v6e-8"]
-status: in_progress
-expected_gain: "up to ~10% (cut loop-fusion 17.4%→~7% + data-formatting 3.8%→~1.8%)"
+status: refuted
+expected_gain: "REFUTED — v041 parity (+0.15%); no-op in pure FSDP (XLA already infers the layout)"
 confidence: medium
 effort: M
 origin: human
