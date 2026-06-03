@@ -3,8 +3,8 @@ title: "Qwen3-jax: splash bkv=2048 (MaxText value) at the maxtext-CE frontier"
 type: hypothesis
 model: qwen3-cc-jax
 variants: ["8B/v6e-8"]
-status: in_progress
-expected_gain: "0-2% step time @ seq8192"
+status: refuted
+expected_gain: "REFUTED — v040 parity (+0.05%); bkv=1024 already optimal"
 confidence: low-medium
 effort: S
 origin: 2026-06-02-qwen3_cc-jax-retrospective-5-maxtext-delta

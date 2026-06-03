@@ -72,6 +72,24 @@ Flags MaxText uses that we should NOT blindly copy:
 out-of-scope.** Plan: dispatch #2 (cheap flags-only probe) immediately; implement #1 (the real offload-recipe
 fix) in parallel; then #3/#4.
 
+## Outcome (2026-06-03) — config delta fully explored
+
+All four directions ran; **the config/flag search space vs MaxText is now exhausted**:
+
+| # | Direction | Result |
+|---|---|---|
+| 1 | MaxText exact offload recipe ([v039](../experiments/qwen3_cc_autoresearch_optimization/jax/experiments/2026-06-02-v039-maxtext-offload-recipe-s8k-bs3.md)) | **REFUTED** −6.6% — correct set (decoder_input+qkvo) beats the wrong-set v036 (4,908→5,630) but still < v035 no-offload (6,030). Host-offload doesn't pipeline on our scan/libtpu even with MaxText's exact tensors + `*_in_chain` flags. **Runtime/build wall.** |
+| 2 | MaxText XLA flag superset ([v038](../experiments/qwen3_cc_autoresearch_optimization/jax/experiments/2026-06-02-v038-maxtext-flags-s8k-bs3.md)) | **PARITY** — all 25 flags valid, neutral without offload. |
+| 3 | Splash bkv 1024→2048 ([v040](../experiments/qwen3_cc_autoresearch_optimization/jax/experiments/2026-06-02-v040-splash-bkv2048-s8k-bs3.md)) | **PARITY** +0.05% — bkv=1024 already optimal; splash isn't the bottleneck. |
+| 4 | DISABLE_COLLECTIVE_MATMUL (MXU 54→61) | **Blocked** — the `jf_spmd_threshold` form crashes our libtpu (v019); no working alternate found. Catalogued. |
+
+**Conclusion**: the seq8192 frontier stays **v035 (34.6% / 6,030 = 86.9% of MaxText)**. After matching MaxText
+on CE (the +7% win), sharding, flags, splash blocks, and batch, the **only** remaining difference is MaxText's
+**host-offload pipelining** (<0.1% host-copy) — which v039 proved our JAX/scan/libtpu stack does not reproduce
+even given MaxText's exact recipe and flags. That is a runtime/build-level capability, **out of config/refactor
+scope** (would need XLA/kernel-level work on the host-DMA scheduling, or a different scan↔remat integration).
+The lane is at its genuine practical ceiling.
+
 ## Anti-recommendations (unchanged)
 
 named-offload **as v036 tagged it** (mlpwi-offloaded) — refuted, but that was the wrong tensor set (see above).
