@@ -85,6 +85,26 @@ def set_splash_mesh(mesh) -> None:
     _SPLASH_MESH = mesh
 
 
+# Activation sharding constraints, mirroring MaxText's nn.with_logical_constraint
+# (activation_batch/length/embed): pin every layer-boundary activation to the FSDP
+# data-parallel layout (batch sharded on fsdp, length/embed/mlp replicated) so the
+# SPMD partitioner can't insert relayout copies or reshard the residual stream.
+_SHARD_ACTS = False
+
+
+def set_shard_acts(enabled: bool) -> None:
+    global _SHARD_ACTS
+    _SHARD_ACTS = bool(enabled)
+
+
+def _sac(x):
+    if _SHARD_ACTS and _SPLASH_MESH is not None:
+        from jax.sharding import NamedSharding, PartitionSpec
+        spec = PartitionSpec("fsdp", *((None,) * (x.ndim - 1)))
+        return jax.lax.with_sharding_constraint(x, NamedSharding(_SPLASH_MESH, spec))
+    return x
+
+
 def _attn_splash(q, k, v):
     """Dispatch into the splash kernel (sibling splash_attn.py). GQA-native —
     do NOT _repeat_kv. q/k/v are (B, H, T, Dh); returns (B, T, Hq, Dh)."""
@@ -188,7 +208,7 @@ class Qwen3MLP(nnx.Module):
         cn = checkpoint_name
         g = cn(self.gate_proj(x), "mlpwi")
         u = cn(self.up_proj(x), "mlpwi")
-        return self.down_proj(jax.nn.silu(g) * u)
+        return self.down_proj(_sac(jax.nn.silu(g) * u))
 
 
 class Qwen3Attention(nnx.Module):
@@ -247,11 +267,12 @@ class Qwen3DecoderLayer(nnx.Module):
         self.post_attention_layernorm = Qwen3RMSNorm(config.hidden_size, eps=eps, weights_dtype=weights_dtype)
 
     def __call__(self, hidden_states, position_embeddings, attention_mask=None):
+        hidden_states = _sac(hidden_states)
         residual = hidden_states
-        x = self.self_attn(self.input_layernorm(hidden_states), position_embeddings, attention_mask)
+        x = _sac(self.self_attn(_sac(self.input_layernorm(hidden_states)), position_embeddings, attention_mask))
         hidden_states = residual + x
         residual = hidden_states
-        x = self.mlp(self.post_attention_layernorm(hidden_states))
+        x = self.mlp(_sac(self.post_attention_layernorm(hidden_states)))
         return residual + x
 
 

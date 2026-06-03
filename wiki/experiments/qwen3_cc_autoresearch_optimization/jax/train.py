@@ -111,6 +111,7 @@ def main(
                                           # valid impls; chunked_xla is NOT available
                                           # here — it crashed v010, see that exp page)
     use_maxtext_ce: bool = False,   # MaxText/T5X custom_vjp CE over full logits (no kernel)
+    shard_acts: bool = False,       # pin activation layouts (MaxText with_logical_constraint)
     use_real_data: bool = False,    # False = synthetic tokens (perf baseline)
     # --- profiling (all CLI flags) ---
     profile_dir: Optional[str] = None,
@@ -159,6 +160,11 @@ def main(
         print("[attn] splash kernel ON (JAX_ATTENTION_IMPL=splash)", flush=True)
     if use_maxtext_ce:
         print("[ce] MaxText/T5X custom_vjp cross_entropy_with_logits (z_loss=0) ON", flush=True)
+    if shard_acts:
+        from model import set_shard_acts, set_splash_mesh
+        set_splash_mesh(mesh)  # _sac reuses the splash mesh global; ensure it's set
+        set_shard_acts(True)
+        print("[shard] activation sharding constraints ON (P(fsdp, ...) at layer boundaries)", flush=True)
     n_params = sum(int(p.value.size) for _, p in _iter_params(model))
     print(f"[load] Qwen3 has {n_params/1e9:.2f} B parameters (NNX-side), random init",
           flush=True)

@@ -9,11 +9,12 @@ from .modeling_qwen3 import (
     Qwen3RotaryEmbedding,
     apply_rotary_pos_emb,
     set_splash_mesh,
+    set_shard_acts,
 )
 from .weight_loader import load_hf_state_dict, get_param
 
 __all__ = [
     "Qwen3ForCausalLM", "Qwen3Model", "Qwen3DecoderLayer", "Qwen3Attention",
     "Qwen3MLP", "Qwen3RMSNorm", "Qwen3RotaryEmbedding", "apply_rotary_pos_emb",
-    "set_splash_mesh", "load_hf_state_dict", "get_param",
+    "set_splash_mesh", "set_shard_acts", "load_hf_state_dict", "get_param",
 ]
