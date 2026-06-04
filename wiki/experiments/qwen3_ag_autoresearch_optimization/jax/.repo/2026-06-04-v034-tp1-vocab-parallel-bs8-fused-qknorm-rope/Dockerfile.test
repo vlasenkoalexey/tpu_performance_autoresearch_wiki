@@ -1,0 +1,2 @@
+FROM us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260604-v034-tp1-vocab-parallel-bs8-fused-qknorm-rope-v12
+COPY test_custom_vjp.py /app/test_custom_vjp.py

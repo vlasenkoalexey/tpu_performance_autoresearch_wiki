@@ -1,50 +1,16 @@
 import jax
 import jax.numpy as jnp
 from jax.experimental import pallas as pl
+from jax import custom_vjp
+from jax.sharding import PartitionSpec as P
 
 @jax.custom_vjp
 def fused_qknorm_rope(x, weight, cos, sin, eps=1e-6):
-    """
-    Applies RMSNorm followed by RoPE in a single Pallas kernel.
-    x: [B, H, T, D]
-    weight: [D]
-    cos: [B, T, D]
-    sin: [B, T, D]
-    out: [B, H, T, D]
-    """
+    def _fused_qknorm_rope_kernel(x_ref, w_ref, cos_ref, sin_ref, eps_ref, out_ref):
+        pass
+
     B, H, T, D = x.shape
     block_size = min(256, T)
-    if T % block_size != 0:
-        raise ValueError(f"T ({T}) must be divisible by block_size ({block_size})")
-
-    def _fused_qknorm_rope_kernel(x_ref, w_ref, cos_ref, sin_ref, eps_ref, out_ref):
-        # x_ref: [1, 1, block_size, D]
-        # w_ref: [D]
-        # cos_ref: [1, block_size, D]
-        # sin_ref: [1, block_size, D]
-        # eps_ref: [1]
-        # out_ref: [1, 1, block_size, D]
-        x_val = x_ref[0, 0, :, :]
-        w = w_ref[:]
-        c = cos_ref[0, :, :]
-        s = sin_ref[0, :, :]
-        eps_val = eps_ref[0]
-        
-        # QK-norm
-        x32 = x_val.astype(jnp.float32)
-        var = jnp.mean(x32 * x32, axis=-1, keepdims=True)
-        rsqrt = jax.lax.rsqrt(var + eps_val)
-        x_norm = (x32 * rsqrt).astype(x_val.dtype)
-        x_norm = x_norm * w
-        
-        # RoPE
-        d = x_val.shape[-1]
-        half_d = d // 2
-        x_rot = jnp.concatenate([-x_norm[:, half_d:], x_norm[:, :half_d]], axis=-1)
-        
-        out_val = (x_norm * c) + (x_rot * s)
-        out_ref[0, 0, :, :] = out_val.astype(out_ref.dtype)
-
     eps_arr = jnp.array([eps], dtype=jnp.float32)
     out = pl.pallas_call(
         _fused_qknorm_rope_kernel,
@@ -61,16 +27,11 @@ def fused_qknorm_rope(x, weight, cos, sin, eps=1e-6):
     )(x, weight, cos, sin, eps_arr)
     return out
 
-def fused_qknorm_rope_fwd(x, weight, cos, sin, eps=1e-6):
+def fwd(x, weight, cos, sin, eps=1e-6):
     return fused_qknorm_rope(x, weight, cos, sin, eps=eps), (x, weight, cos, sin, eps)
 
-def fused_qknorm_rope_bwd(res, g):
+def bwd(res, g):
     x, weight, cos, sin, eps = res
-    # VERY IMPORTANT: Since the forward kernel isn't automatically differentiable,
-    # and writing a custom bwd Pallas kernel is extremely error-prone and time-consuming,
-    # we just fall back to standard XLA ops for the backward pass!
-    # The hypothesis is about HBM footprint reduction on the FORWARD pass anyway,
-    # so we still get the memory savings where we need it without the autodiff headache.
     
     # QK-norm standard
     x32 = x.astype(jnp.float32)
@@ -108,4 +69,44 @@ def fused_qknorm_rope_bwd(res, g):
     # Return None for the eps gradient
     return dx, dweight, dcos, dsin, None
 
-fused_qknorm_rope.defvjp(fused_qknorm_rope_fwd, fused_qknorm_rope_bwd)
+fused_qknorm_rope.defvjp(fwd, bwd)
+
+x = jnp.ones((8, 256, 128))
+q_proj = jnp.ones((128, 2*128))
+q_norm = jnp.ones((128,))
+cos = jnp.ones((8, 256, 128))
+sin = jnp.ones((8, 256, 128))
+
+def loss_fn(x, q_proj, q_norm, cos, sin):
+    q = jnp.dot(x, q_proj)
+    B, T, _ = q.shape
+    q = q.reshape(B, T, 2, 128)
+    q = jnp.transpose(q, (0, 2, 1, 3))
+    out = fused_qknorm_rope(q, q_norm, cos, sin)
+    return jnp.sum(out)
+
+from jax.experimental import mesh_utils
+from jax.sharding import Mesh, NamedSharding
+
+mesh = Mesh(mesh_utils.create_device_mesh((8,)), axis_names=('fsdp',))
+sharding_x = NamedSharding(mesh, P('fsdp', None, None))
+sharding_q_proj = NamedSharding(mesh, P(None, 'fsdp'))
+sharding_q_norm = NamedSharding(mesh, P())
+sharding_cos = NamedSharding(mesh, P(None, None, None)) # replicated? Actually cos is (B, T, D) but how is it sharded?
+# wait, cos is generated from position_ids. position_ids is P('fsdp', None). So cos is P('fsdp', None, None)
+sharding_cos = NamedSharding(mesh, P('fsdp', None, None)) 
+sharding_sin = NamedSharding(mesh, P('fsdp', None, None)) 
+
+@jax.jit
+def train_step(x, q_proj, q_norm, cos, sin):
+    return jax.grad(loss_fn, argnums=(0, 1, 2, 3, 4))(x, q_proj, q_norm, cos, sin)
+
+with mesh:
+    x_sharded = jax.device_put(x, sharding_x)
+    q_proj_sharded = jax.device_put(q_proj, sharding_q_proj)
+    q_norm_sharded = jax.device_put(q_norm, sharding_q_norm)
+    cos_sharded = jax.device_put(cos, sharding_cos)
+    sin_sharded = jax.device_put(sin, sharding_sin)
+    print('Testing regular jit lowering:')
+    train_step.lower(x_sharded, q_proj_sharded, q_norm_sharded, cos_sharded, sin_sharded)
+    print('success')
