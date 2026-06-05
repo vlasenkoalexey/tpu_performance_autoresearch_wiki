@@ -136,7 +136,13 @@ class Qwen3RMSNorm(nnx.Module):
         in_dtype = x.dtype
         x32 = x.astype(jnp.float32)
         rsqrt = jax.lax.rsqrt(jnp.mean(x32 * x32, axis=-1, keepdims=True) + jnp.float32(self.eps))
-        return (x32 * rsqrt * self.weight.value.astype(jnp.float32)).astype(in_dtype)
+        # Downcast the normalized activation to compute dtype BEFORE the weight
+        # scale (matches MaxText layers/normalizations.py rms_norm), so the (B,T,D)
+        # weight-multiply runs in bf16 not fp32 — halves bytes on the norm's
+        # dominant elementwise and on its recompute under nothing_saveable. In fp32
+        # (the equivalence test path) this is identical to the fp32-throughout form.
+        y = (x32 * rsqrt).astype(in_dtype)
+        return y * self.weight.value.astype(in_dtype)
 
 
 class Linear(nnx.Module):
