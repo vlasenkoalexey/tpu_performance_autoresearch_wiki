@@ -1,8 +1,0 @@
-GCS-resident profile + HLO for v004 remat+bs=2 (SUPPORTED, new frontier 22.0% MFU).
-
-Profile (xprof, 2 hosts):
-  gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v004-remat-bs2/plugins/profile/2026_06_02_05_47_08/
-HLO (28 files):
-  gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v004-remat-bs2/hlo/
-xprof run: 2026-06-02-qwen3-jax-v004-remat-bs2/2026_06_02_05_47_08
-xprof URL: http://localhost:8791/?run=2026-06-02-qwen3-jax-v004-remat-bs2

@@ -1,8 +1,0 @@
-GCS-resident profile + HLO for v008 remat+splash+bs=4 (SUPPORTED, frontier 32.4% MFU, MXU 44.6%).
-
-Profile (xprof, 2 hosts):
-  gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v008-splash-vmem-bs4/plugins/profile/2026_06_02_06_09_24/
-HLO (871 files):
-  gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v008-splash-vmem-bs4/hlo/
-xprof run: 2026-06-02-qwen3-jax-v008-splash-vmem-bs4
-xprof URL: http://localhost:8791/?run=2026-06-02-qwen3-jax-v008-splash-vmem-bs4

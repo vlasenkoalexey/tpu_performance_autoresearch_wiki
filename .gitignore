@@ -258,3 +258,9 @@ raw/profiles/*
 # pages and OBSERVATIONS.md (both tracked); RESULTS.tsv is just a working
 # ledger that's regenerable from the experiment pages.
 wiki/experiments/*/RESULTS.tsv
+
+.repo/
+
+ejkernel/
+
+profiles/
