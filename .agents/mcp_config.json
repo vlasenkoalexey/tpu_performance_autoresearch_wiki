@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "xprof": {
+      "serverUrl": "http://localhost:8792/mcp"
+    }
+  }
+}
