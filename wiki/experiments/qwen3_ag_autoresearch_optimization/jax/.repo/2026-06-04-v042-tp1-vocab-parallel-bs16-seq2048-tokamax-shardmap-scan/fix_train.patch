@@ -1,0 +1,15 @@
+--- train.py	2026-06-04 18:51:22.000000000 +0000
++++ train.py.new	2026-06-04 19:05:00.000000000 +0000
+@@ -107,6 +107,13 @@
+     print(f"[sharding] matched={len(plan.buckets['matched'])} "
+           f"replicated={len(plan.buckets['replicated'])}", flush=True)
+     apply_sharding(model, plan)
++    
++    import tokamax
++    from tokamax._src.ops.attention.pallas_mosaic_tpu_vjp import PallasMosaicTpuFlashAttentionVjp
++    
++    # Patch Tokamax VJP to clear out any memory constraints and layout
++    # We want it to use the proper memory spaces in the XLA backend
+ 
+     # Optimizer.
+     optimizer = optax.adamw(learning_rate=learning_rate, weight_decay=weight_decay)

@@ -4,7 +4,7 @@ type: experiment
 model: qwen3-cc-jax
 variant: 8B/v6e-8
 hypothesis: "Fusing RMSNorm and RoPE into a single Pallas kernel reduces HBM traffic and improves MFU."
-status: in_progress
+status: completed
 created: 2026-06-15
 origin: 2026-06-15-qwen3-jax-v054-fused-qknorm-rope
 ---
@@ -25,16 +25,16 @@ origin: 2026-06-15-qwen3-jax-v054-fused-qknorm-rope
 Rerun of `v054-d` with `train.py` updated to unconditionally call `set_splash_mesh()`.
 
 ## Results
-The workload crashed because `_SPLASH_MESH` was imported statically before `set_splash_mesh` was called, so it remained `None`.
 
 ## Profile
+
 missing
 
 ## HLO Dump
+
 missing
 
 ## Verdict
 **invalid**
 
-Crashed with `ValueError: fused_qknorm_rope requires a registered mesh via set_splash_mesh` due to a Python import bug.
-
+The workload crashed with an Out Of Memory (OOM) error during the first `jitted_step`: `jax.errors.JaxRuntimeError: RESOURCE_EXHAUSTED: Allocation (size=34359738368) would exceed memory (size=33822867456) :: #allocation6476 [shape = 'f32[4,32,8192,8192]...`. The size of the allocation (~32GB) and shape (`4x32x8192x8192`) indicates that it is trying to materialize the full attention matrix in HBM. This suggests that inserting the `shard_map` `custom_call` right before XLA SDPA somehow breaks XLA's ability to fuse the SDPA kernel or triggers a memory-intensive rewrite.

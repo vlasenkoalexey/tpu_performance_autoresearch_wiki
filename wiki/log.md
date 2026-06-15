@@ -943,3 +943,4 @@ Loss values are around 11.9 (synthetic random data), bf16 precision floor ≈ 0.
 **Pages updated**: —
 **Key result**: —
 **Notes**: Bootstrapped autoresearch-oriented schema from scratch. Independent of sibling `tpu_wiki` by design. Loop: sources + codebases + profiles → concepts + models → ranked hypotheses → experiments → observations → revised priors. Next: ingest first codebase and/or file the first model page.
+- **2026-06-15** [analyze] Generated retrospective `wiki/analyses/2026-06-15-qwen3-jax-retrospective.md` after exhausting Pallas RMSNorm+RoPE fusion variants.

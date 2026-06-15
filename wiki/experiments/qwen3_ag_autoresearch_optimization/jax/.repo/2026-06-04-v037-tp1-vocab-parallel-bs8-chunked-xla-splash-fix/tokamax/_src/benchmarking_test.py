@@ -1,0 +1,242 @@
+# Copyright 2025 DeepMind Technologies Limited. All Rights Reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# ==============================================================================
+import time
+
+from absl.testing import absltest
+from absl.testing import parameterized
+import chex
+import jax
+import jax.numpy as jnp
+from tokamax._src import batching
+from tokamax._src import benchmarking
+from tokamax._src import numerics
+
+
+class BenchmarkingTest(parameterized.TestCase):
+
+  def test_standardize_function(self):
+    seed = 123
+
+    def f_orig(x, *, y, z, square=True):
+      if square:
+        return {'out': x**2 + y[0] * y[1] + z}
+      else:
+        return {'out': x + jnp.sin(y[0]) * y[1] ** 2 + z}
+
+    shape, dtype = ((2, 2), jnp.float32)
+    square = False
+    y = (jax.ShapeDtypeStruct(shape, dtype),) * 2
+    x = jax.ShapeDtypeStruct(shape, dtype)
+    x, y = numerics.random_initialize((x, y))
+
+    initable = numerics.RangedArrayInitializer(shape, jnp.int32, -10, 10)
+    kwargs = {'square': square, 'y': y, 'x': x, 'z': initable}
+    kwargs_init = numerics.random_initialize(kwargs, seed=seed)
+    out_orig = f_orig(**kwargs_init)
+
+    with self.subTest('Forward mode correctness.'):
+      f_eval, x_eval = benchmarking.standardize_function(
+          f_orig, kwargs=kwargs, mode='forward', seed=seed
+      )
+      out_eval = f_eval(x_eval)
+      f_res, x_res = benchmarking.standardize_function(
+          f_orig, kwargs=kwargs, mode='forward_res', seed=seed
+      )
+      out_res = f_res(x_res)
+
+      chex.assert_trees_all_equal(x_eval, x_res)
+      chex.assert_trees_all_close(out_eval, out_orig)
+      chex.assert_trees_all_close(out_res, out_orig)
+
+    with self.subTest('Equivalent positional and keyword args.'):
+      f_std, x_std = benchmarking.standardize_function(f_orig, kwargs=kwargs)
+      out_kwargs = f_std(x_std)
+      f_std, x_std = benchmarking.standardize_function(
+          f_orig, x, kwargs=dict(y=y, square=square, z=initable)
+      )
+      chex.assert_trees_all_equal(f_std(x_std), out_kwargs)
+
+    with self.subTest('Idempotency.'):
+      f_std_1, x_std_1 = benchmarking.standardize_function(
+          f_orig, kwargs=kwargs
+      )
+      out_1 = f_std_1(x_std_1)
+      f_std_2, x_std_2 = benchmarking.standardize_function(f_std_1, x_std_1)
+      chex.assert_trees_all_close(out_1, f_std_2(x_std_2))
+      chex.assert_trees_all_equal(x_std_1, x_std_2)
+
+    with self.subTest('VJP correctness.'):
+      f_fwd_vjp, args_fwd_vjp = benchmarking.standardize_function(
+          f_orig, kwargs=kwargs, mode='forward_and_vjp', seed=seed
+      )
+      out_fwd_vjp, (dargs_fwd_vjp,) = f_fwd_vjp(args_fwd_vjp)
+
+      golden_out = {
+          'out': jnp.array(
+              [[11.864799, -3.979468], [-10.16194, 5.627968]],
+              dtype=jnp.float32,
+          )
+      }
+      golden_vjp = [
+          jnp.array(
+              [[11.864799, -3.979468], [-10.16194, 5.627968]],
+              dtype=jnp.float32,
+          ),
+          jnp.array(
+              [[2.639511, 0.486031], [-1.788208, 0.031229]],
+              dtype=jnp.float32,
+          ),
+          jnp.array(
+              [[19.885725, 5.087355], [-6.428973, 0.18801]],
+              dtype=jnp.float32,
+          ),
+      ]
+      # Tests against goldens ensures that initialization is constant over
+      # time. Tests both forward and backward consistency.
+      chex.assert_trees_all_close(out_fwd_vjp, golden_out, rtol=1e-4)
+      chex.assert_trees_all_close(dargs_fwd_vjp[:3], golden_vjp, rtol=1e-4)
+      chex.assert_trees_all_close(out_fwd_vjp, out_orig)
+
+      f_vjp, args_vjp = benchmarking.standardize_function(
+          f_orig, kwargs=kwargs, mode='vjp', seed=seed
+      )
+      chex.assert_trees_all_close(dargs_fwd_vjp[:3], f_vjp(args_vjp)[0][:3])
+
+  def test_standardize_function_with_batching(self):
+    seed = 123
+
+    def f_orig(x, y):
+      return x + jnp.sin(y[0]) * y[1] ** 2
+
+    x = batching.BatchedShapeDtype(
+        (4,), jnp.float32, vmap_axes=((0, 2), (0, 3))
+    )
+    y = (
+        batching.BatchedShapeDtype((4,), jnp.float32, vmap_axes=((1, 2), None)),
+        batching.BatchedShapeDtype((4,), jnp.float32, vmap_axes=(None, (0, 3))),
+    )
+    f, args = benchmarking.standardize_function(f_orig, x, y, seed=seed)
+
+    f_vmap = jax.vmap(f_orig, in_axes=(0, (None, 0)))
+    f_vmap = jax.vmap(f_vmap, in_axes=(0, (1, None)))
+    x_init, y_init = numerics.random_initialize((x, y), seed=seed)
+    chex.assert_trees_all_equal(f_vmap(x_init, y_init), f(args))
+
+    _, args_abstract = benchmarking.standardize_function(
+        f_orig, x, y, seed=None
+    )
+    self.assertEqual(args_abstract[0].__class__, jax.ShapeDtypeStruct)
+    out_shape = jax.eval_shape(f, args_abstract)
+    chex.assert_trees_all_equal_shapes(out_shape, f(args))
+
+  @parameterized.parameters(benchmarking._TIMERS.keys())
+  def test_compile_benchmark(self, method):
+    if jax.default_backend() != 'gpu' and method == 'cupti':
+      self.skipTest('CUDA timers are only supported on GPU.')
+
+    @jax.jit
+    def f(x):
+      return jnp.sin(x) ** 2 + 10.0
+
+    num_iters = 11
+    kwargs = {'x': jnp.ones((512, 512))}
+    f, x = benchmarking.standardize_function(f, kwargs=kwargs)
+    run = benchmarking.compile_benchmark(f, x)
+    bench = run(x)
+    self.assertGreater(bench.median_evaluation_time_ms, 0.0)
+    bench = run(x)
+    self.assertGreater(bench.median_evaluation_time_ms, 0.0)
+    bench = run(x, iterations=num_iters, method=method)
+    self.assertGreater(bench.median_evaluation_time_ms, 0.0)
+    self.assertGreater(bench.compile_time_ms, 0.0)
+    self.assertGreater(bench.lower_time_ms, 0.0)
+    self.assertLen(bench.evaluation_times_ms, num_iters)
+
+  def test_benchmark_function_known_time(self):
+    time_sleep_s = 0.5
+
+    def f_python(x):
+      time.sleep(time_sleep_s)
+      return x
+
+    def f(x):
+      x = jnp.sin(x) ** 2
+      return jax.pure_callback(
+          f_python, jax.ShapeDtypeStruct(shape=x.shape, dtype=x.dtype), x
+      )
+
+    kwargs = {'x': jnp.ones((512, 512))}
+    f, x = benchmarking.standardize_function(f, kwargs=kwargs)
+    bench = benchmarking.benchmark(
+        f, x, method='wallclock', iterations=1
+    )
+    time_sleep_ms = time_sleep_s * 1000
+    self.assertGreaterEqual(bench.median_evaluation_time_ms, time_sleep_ms)
+    self.assertLen(bench.evaluation_times_ms, 1)
+
+  def test_xprof_profile_session(self):
+    def f(x):
+      return jnp.sum(x @ x)
+
+    x = jnp.ones((512, 512))
+    f = jax.jit(f)
+
+    with self.subTest('Non-zero time.'):
+      with benchmarking.XprofProfileSession() as profile:
+        jax.block_until_ready(f(x))
+
+      self.assertGreater(profile.total_op_time.total_seconds(), 0)
+
+    with self.subTest('Hermetic mode.'):
+      with benchmarking.XprofProfileSession(hermetic=True) as profile:
+        jax.block_until_ready(f(x))
+      assert profile.total_op_time.total_seconds() > 0  # check is nonzero
+      self.assertIsNone(profile.xprof_url)
+
+    with self.subTest('Non-hermetic mode.'):
+      with benchmarking.XprofProfileSession(hermetic=False) as profile:
+        jax.block_until_ready(f(x))
+      assert profile.total_op_time.total_seconds() > 0  # check is nonzero
+
+    with self.subTest('JAX profiler mode.'):
+      with benchmarking.XprofProfileSession(use_jax_profiler=True) as profile:
+        jax.block_until_ready(f(x))
+      assert profile.total_op_time.total_seconds() > 0  # check is nonzero
+      self.assertIsNone(profile.xprof_url)
+
+    with self.subTest('Include only all.'):
+      with benchmarking.XprofProfileSession(
+          hermetic=True, event_filter_regex='.*'
+      ) as profile:
+        jax.block_until_ready(f(x))
+      self.assertGreater(profile.total_op_time.total_seconds(), 0)
+
+    with self.subTest('Include only none.'):
+      with benchmarking.XprofProfileSession(
+          hermetic=True, event_filter_regex='non_existent_regex'
+      ) as profile:
+        jax.block_until_ready(f(x))
+      with self.assertRaises(ValueError):
+        _ = profile.total_op_time
+
+  def test_xprof_profile_session_exception(self):
+    with benchmarking.XprofProfileSession(hermetic=True) as profile:
+      _ = 1 + 1
+    with self.assertRaises(ValueError):
+      _ = profile.total_op_time
+
+
+if __name__ == '__main__':
+  absltest.main()

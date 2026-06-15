@@ -1,0 +1,14 @@
+--- train.py	2026-06-04 19:40:00.000000000 +0000
++++ train.py.new	2026-06-04 19:45:00.000000000 +0000
+@@ -107,6 +107,11 @@
+     print(f"[sharding] matched={len(plan.buckets['matched'])} "
+           f"replicated={len(plan.buckets['replicated'])}", flush=True)
+     apply_sharding(model, plan)
++    
++    import os
++    if "JAX_COMPILATION_CACHE_DIR" in os.environ:
++        os.environ["JAX_COMPILATION_CACHE_DIR"] = ""
++    print(f"JAX_COMPILATION_CACHE_DIR is {os.environ.get('JAX_COMPILATION_CACHE_DIR')}")
+ 
+     # Optimizer.
+     optimizer = optax.adamw(learning_rate=learning_rate, weight_decay=weight_decay)

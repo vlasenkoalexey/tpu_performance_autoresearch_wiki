@@ -33,3 +33,17 @@
 **Experiment**: [2026-06-15-qwen3-jax-v054-fused-qknorm-rope-d.md](file:///mnt/disks/persist/torch-tpu/tpu_performance_autoresearch_wiki_ag/wiki/experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-15-qwen3-jax-v054-fused-qknorm-rope-d.md)
 **Verdict**: invalid
 **Notes**: The workload crashed during setup with `ValueError: fused_qknorm_rope requires a registered mesh via set_splash_mesh` because `set_splash_mesh()` was only called when `use_splash=True`. I have fixed `train.py` to call it unconditionally and will retry.
+
+## [2026-06-15] loop-iteration | v054-e fused-qknorm-rope crashed (OOM)
+
+**Op**: loop-iteration
+**Experiment**: [2026-06-15-qwen3-jax-v054-fused-qknorm-rope-e.md](file:///mnt/disks/persist/torch-tpu/tpu_performance_autoresearch_wiki_ag/wiki/experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-15-qwen3-jax-v054-fused-qknorm-rope-e.md)
+**Verdict**: invalid
+**Notes**: The workload crashed with an OOM error during the first jitted_step: `RESOURCE_EXHAUSTED: Allocation (size=34359738368) would exceed memory`. The shape mentioned is `f32[4,32,8192,8192]`, which is a materialized attention matrix. The fusion must be allocating too much memory or disabling an optimization that saves memory.
+
+## [2026-06-15] formulate-hypothesis | v055 selective-remat
+
+**Op**: formulate-hypothesis
+**Experiment**: [2026-06-15-qwen3-jax-v055-ac-selective-remat.md](file:///mnt/disks/persist/torch-tpu/tpu_performance_autoresearch_wiki_ag/wiki/experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-15-qwen3-jax-v055-ac-selective-remat.md)
+**Status**: in_progress
+**Notes**: Formulated hypothesis to address HBM limits via Activation Checkpointing.

@@ -1,0 +1,536 @@
+# Copyright 2025 The EasyDeL/ejKernel Author @erfanzar (Erfan Zare Chavoshi).
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+"""Ragged Decode Attention forward pass using XLA/JAX.
+
+This module provides the forward pass for decode attention with variable-length
+(ragged) sequences packed into a single batch for efficient processing.
+
+Key Components:
+    - create_attention_mask: Generate masks for variable-length sequences
+    - _ragged_decode_attention_fwd: Main forward function
+
+Algorithm:
+    Ragged decode attention for packed sequences:
+    1. Pack multiple variable-length sequences into contiguous memory
+    2. Use sequence_start/sequence_end to track boundaries
+    3. Create attention masks that respect sequence boundaries
+    4. Compute attention efficiently over packed representation
+
+Features:
+    - Packed sequence representation for batch efficiency
+    - Dynamic sequence lengths within a batch
+    - Proper masking to prevent cross-sequence attention
+    - GQA/MQA support with head broadcasting
+    - Optional logit soft capping
+
+Memory Layout:
+    - Queries/Keys/Values packed as [total_tokens, num_heads, head_dim]
+    - sequence_start: [batch] start indices in packed representation
+    - sequence_end: [batch] end indices in packed representation
+
+Note:
+    Ragged batching improves GPU/TPU utilization by eliminating
+    padding waste when sequences have varying lengths.
+"""
+
+import chex
+import jax
+import jax.numpy as jnp
+from jax import Array, lax
+from jaxtyping import Float, Int
+
+from ejkernel.callib import ejit
+from ejkernel.ops import FwdParams
+
+
+def create_attention_mask(
+    batch_size: int,
+    q_len: int,
+    kv_len: int,
+    sequence_start: Int[Array, "batch"],
+    sequence_end: Int[Array, "batch"],
+    sliding_window: tuple[int, int] | None = None,
+) -> Float[Array, "batch q_len 1 kv_len"]:
+    """Creates an attention mask with ragged sequences and an optional sliding window.
+
+    Args:
+        batch_size: Batch size
+        q_len: Query sequence length
+        kv_len: Key/value sequence length
+        sequence_start: Start indices for each sequence
+        sequence_end: End indices for each sequence
+        sliding_window: Optional (left, right) window size for local attention
+
+    Returns:
+        Boolean mask of shape [batch, q_len, 1, kv_len]
+    """
+
+    kv_positions = jnp.arange(kv_len, dtype=jnp.int32)[None, None, :]  # (1,1,K)
+    start = jnp.asarray(sequence_start, jnp.int32)[:, None, None]  # (B,1,1)
+    end = jnp.asarray(sequence_end, jnp.int32)[:, None, None]  # (B,1,1)
+
+    kv_valid = (kv_positions >= start) & (kv_positions < end)  # (B,1,K)
+    kv_valid = jnp.broadcast_to(kv_valid, (batch_size, q_len, kv_len))  # (B,Q,K)
+
+    mask = kv_valid
+
+    if sliding_window is not None:
+        window_left, window_right = sliding_window
+        if q_len == 1:
+            q_pos = (end - 1).astype(jnp.int32)  # (B,1,1)
+        else:
+            q_pos = (jnp.arange(q_len, dtype=jnp.int32)[None, :, None] + start).astype(jnp.int32)  # (B,Q,1)
+
+        window_mask = (kv_positions >= (q_pos - window_left)) & (kv_positions <= (q_pos + window_right))  # (B,Q,K)
+        mask = mask & window_mask
+
+    return mask[:, :, None, :]
+
+
+def apply_logits_soft_cap(scores: Float[Array, "... seq_len"], logits_soft_cap: float) -> Float[Array, "... seq_len"]:
+    """Applies soft capping to attention logits.
+
+    Args:
+        scores: Attention scores
+        logits_soft_cap: Soft capping value
+
+    Returns:
+        Soft-capped scores
+    """
+    return jnp.tanh(scores / logits_soft_cap) * logits_soft_cap
+
+
+def apply_attention_sinks_block(
+    scores: Float[Array, "batch q_len heads block_size"],
+    sink_scores: Float[Array, "heads num_sinks"] | None = None,
+    num_sinks: int = 0,
+    block_offset: int = 0,
+) -> Float[Array, "batch q_len heads block_size"]:
+    """Applies attention sink biases to scores for a specific block.
+
+    Args:
+        scores: Attention scores for this block [B, Q, H, block_size]
+        sink_scores: Optional learned biases for sink tokens [H, num_sinks] or [num_sinks]
+        num_sinks: Number of sink tokens
+        block_offset: Offset of this block in the full sequence
+
+    Returns:
+        Scores with sink biases applied if this block contains sinks
+    """
+    if num_sinks == 0 or sink_scores is None:
+        return scores
+
+    _batch_size, _q_len, heads, block_size_val = scores.shape
+
+    if sink_scores.ndim == 1:
+        sink_scores = jnp.broadcast_to(sink_scores[None, :], (heads, num_sinks))
+
+    block_positions = jnp.arange(block_size_val) + block_offset
+
+    is_sink_position = block_positions < num_sinks
+    sink_indices = jnp.minimum(block_positions, num_sinks - 1)
+
+    block_sink_biases = sink_scores[:, sink_indices]
+
+    block_sink_biases = jnp.where(is_sink_position[None, :], block_sink_biases, 0.0)
+
+    block_sink_biases = block_sink_biases[None, None, :, :]
+
+    return scores + block_sink_biases
+
+
+def flash_attention_block(
+    carry: tuple[Array, Array, Array],
+    block_inputs: tuple[Array, Array, Array, Array],
+    softmax_scale: float,
+    logits_soft_cap: float | None = None,
+) -> tuple[tuple[Array, Array, Array], None]:
+    """Enhanced flash attention block with soft cap.
+
+    Args:
+        carry: Tuple of (output, max_logits, normalizer)
+        block_inputs: Tuple of (queries, keys_block, values_block, mask_block)
+        softmax_scale: Scaling factor for attention
+        logits_soft_cap: Optional soft capping value
+
+    Returns:
+        Updated carry tuple
+    """
+    o_prev, m_prev, l_prev = carry
+    q, k_block, v_block, mask_block = block_inputs
+
+    _batch_size, _q_len, q_heads, _head_dim = q.shape
+    _, _block_size, kv_heads, _ = k_block.shape
+
+    if kv_heads < q_heads:
+        assert q_heads % kv_heads == 0, f"Query heads {q_heads} must be divisible by KV heads {kv_heads}"
+        repeat_factor = q_heads // kv_heads
+        k_block = jnp.repeat(k_block, repeat_factor, axis=2)
+        v_block = jnp.repeat(v_block, repeat_factor, axis=2)
+
+    scores = jnp.einsum("...qhd,...khd->...qhk", q * softmax_scale, k_block)
+
+    if logits_soft_cap is not None:
+        scores = apply_logits_soft_cap(scores, logits_soft_cap)
+
+    mask_expanded = jnp.broadcast_to(mask_block, scores.shape)
+
+    # Use a large finite negative instead of -inf so completely-masked blocks
+    # don't produce NaNs via (-inf - -inf) in the blockwise softmax update.
+    min_score = jnp.finfo(scores.dtype).min
+    scores = jnp.where(mask_expanded, scores, min_score)
+
+    m_curr = jnp.max(scores, axis=-1, keepdims=True)
+    m_new = jnp.maximum(m_prev, m_curr)
+
+    exp_scores = jnp.exp(scores - m_new)
+    exp_scores = jnp.where(mask_expanded, exp_scores, 0.0)
+
+    l_curr = jnp.sum(exp_scores, axis=-1, keepdims=True)
+    correction_prev = jnp.exp(m_prev - m_new)
+    l_new = correction_prev * l_prev + l_curr
+
+    l_new_safe = jnp.where(l_new == 0, 1.0, l_new)
+
+    # `exp_scores` are *unnormalized* attention weights already scaled into the
+    # global max-logit frame (`m_new`). Accumulate the weighted values directly
+    # and normalize once with `l_new_safe`.
+    o_curr_times_l_curr = jnp.einsum("...qhk,...khd->...qhd", exp_scores, v_block)
+    o_new = (correction_prev * l_prev * o_prev + o_curr_times_l_curr) / l_new_safe
+
+    o_new = o_new.astype(o_prev.dtype)
+    m_new = m_new.astype(m_prev.dtype)
+    l_new = l_new.astype(l_prev.dtype)
+
+    return (o_new, m_new, l_new), None
+
+
+def ragged_flash_attention_xla(
+    query: Float[Array, "batch q_len num_heads head_dim"],
+    key: Float[Array, "batch kv_len num_heads head_dim"],
+    value: Float[Array, "batch kv_len num_heads head_dim"],
+    sequence_start: Int[Array, "batch"],
+    sequence_end: Int[Array, "batch"],
+    softmax_scale: float | None = None,
+    block_size: int = 256,
+    sliding_window: tuple[int, int] | None = None,
+    logits_soft_cap: float | None = None,
+    softmax_aux: Float[Array, "..."] | None = None,
+) -> Float[Array, "batch q_len num_heads head_dim"]:
+    """Enhanced XLA-compatible ragged flash attention with sliding window, soft cap, and sinks.
+
+    Args:
+        query: Query tensor [B, Q, H, D]
+        key: Key tensor [B, K, H, D]
+        value: Value tensor [B, K, H, D]
+        sequence_start: Start indices for each sequence
+        sequence_end: End indices for each sequence
+        softmax_scale: Optional scaling factor for attention
+        block_size: Size of blocks for chunked computation
+        sliding_window: Optional (left, right) window for local attention
+        logits_soft_cap: Optional soft capping for logits
+        softmax_aux: Optional attention sink logits of shape [num_sinks] or [num_heads, num_sinks].
+            These logits participate in softmax normalization but do not contribute to the output values.
+
+    Returns:
+        Attention output [B, Q, H, D]
+    """
+    batch_size, q_len, num_heads, head_dim = query.shape
+    _, kv_len, kv_heads, _ = key.shape
+
+    if softmax_scale is None:
+        softmax_scale = 1.0 / jnp.sqrt(head_dim)
+
+    sink_logits = None
+    if softmax_aux is not None:
+        aux = jnp.asarray(softmax_aux, dtype=jnp.float32)
+        if aux.ndim == 1:
+            sink_logits = aux.reshape(1, 1, 1, -1)
+        elif aux.ndim == 2:
+            if aux.shape[0] == 1:
+                sink_logits = aux.reshape(1, 1, 1, -1)
+            elif aux.shape[0] == num_heads:
+                sink_logits = aux.reshape(1, 1, num_heads, -1)
+            else:
+                raise ValueError(f"softmax_aux first dim must be 1 or num_heads ({num_heads}); got {aux.shape[0]}")
+        else:
+            raise ValueError(f"softmax_aux must be 1D or 2D, got shape {aux.shape}")
+        sink_logits = jnp.broadcast_to(sink_logits, (batch_size, q_len, num_heads, sink_logits.shape[-1]))
+
+    mask = create_attention_mask(batch_size, q_len, kv_len, sequence_start, sequence_end, sliding_window=sliding_window)
+
+    num_blocks = (kv_len + block_size - 1) // block_size
+
+    output_init = jnp.zeros_like(query, dtype=query.dtype)
+    if sink_logits is None:
+        max_logits_init = jnp.full((batch_size, q_len, num_heads, 1), -jnp.inf, dtype=jnp.float32)
+        normalizer_init = jnp.zeros((batch_size, q_len, num_heads, 1), dtype=jnp.float32)
+    else:
+        max_logits_init = jnp.max(sink_logits, axis=-1, keepdims=True)
+        normalizer_init = jnp.sum(jnp.exp(sink_logits - max_logits_init), axis=-1, keepdims=True)
+
+    pad_len = num_blocks * block_size - kv_len
+    if pad_len > 0:
+        key = jnp.pad(key, ((0, 0), (0, pad_len), (0, 0), (0, 0)), mode="constant")
+        value = jnp.pad(value, ((0, 0), (0, pad_len), (0, 0), (0, 0)), mode="constant")
+
+        if mask.ndim == 4:
+            mask = jnp.pad(mask, ((0, 0), (0, 0), (0, 0), (0, pad_len)), mode="constant")
+        elif mask.ndim == 5:
+            mask = jnp.pad(mask, ((0, 0), (0, 0), (0, 0), (0, 0), (0, pad_len)), mode="constant")
+
+    key_blocks = key.reshape(batch_size, num_blocks, block_size, kv_heads, head_dim)
+    value_blocks = value.reshape(batch_size, num_blocks, block_size, kv_heads, head_dim)
+
+    if mask.ndim == 4:
+        mask_blocks = mask.reshape(batch_size, q_len, 1, num_blocks, block_size)
+    else:
+        mask_blocks = mask.reshape(batch_size, q_len, mask.shape[2], num_blocks, block_size)
+    mask_blocks = jnp.transpose(mask_blocks, (0, 3, 1, 2, 4))
+
+    def scan_fn(carry, inputs):
+        """Process one KV block in the flash attention scan.
+
+        Loads the key, value, and mask blocks for the current index
+        and delegates to the flash attention block computation.
+
+        Args:
+            carry: Online softmax state (output, max_logits, normalizer).
+            inputs: Tuple containing the block index.
+
+        Returns:
+            Updated carry and None (no per-step output).
+        """
+        (block_idx,) = inputs
+        k_block = key_blocks[:, block_idx]
+        v_block = value_blocks[:, block_idx]
+        m_block = mask_blocks[:, block_idx]
+
+        return flash_attention_block(
+            carry,
+            (query, k_block, v_block, m_block),
+            softmax_scale,
+            logits_soft_cap=logits_soft_cap,
+        )
+
+    (output, _, _), _ = lax.scan(scan_fn, (output_init, max_logits_init, normalizer_init), (jnp.arange(num_blocks),))
+
+    return output
+
+
+def ragged_decode_mqa_xla(
+    query: Float[Array, "batch num_q_heads head_dim"],
+    key: Float[Array, "batch seq_len num_kv_heads head_dim"],
+    value: Float[Array, "batch seq_len num_kv_heads head_dim"],
+    sequence_start: Int[Array, "batch"],
+    sequence_end: Int[Array, "batch"],
+    softmax_scale: float | None = None,
+    fwd_params: FwdParams | None = None,
+    sliding_window: tuple[int, int] | None = None,
+    logits_soft_cap: float | None = None,
+    softmax_aux: Float[Array, "..."] | None = None,
+) -> Float[Array, "batch num_q_heads head_dim"]:
+    """Enhanced XLA-compatible ragged MQA decoding.
+
+    Args:
+        query: Query tensor [B, H_q, D]
+        key: Key tensor [B, S, H_kv, D]
+        value: Value tensor [B, S, H_kv, D]
+        sequence_start: Start indices for each sequence
+        sequence_end: End indices for each sequence
+        softmax_scale: Optional scaling factor
+        block_size: Block size for computation
+        sliding_window: Optional sliding window parameters
+        logits_soft_cap: Optional soft capping for logits
+        softmax_aux: Optional attention sink biases
+
+    Returns:
+        Output tensor [B, H_q, D]
+    """
+    batch_size, num_heads_q, head_dim = query.shape
+    _, kv_len, num_heads_kv, _ = key.shape
+
+    if softmax_scale is None:
+        softmax_scale = 1.0 / jnp.sqrt(head_dim)
+
+    if fwd_params is None:
+        fwd_params = FwdParams()
+    block_size = 256 if fwd_params.kv_blocksize is None else int(fwd_params.kv_blocksize)
+    block_size = max(1, min(block_size, kv_len))
+
+    group_size = num_heads_q // num_heads_kv
+    query = query.reshape(batch_size, num_heads_kv, group_size, head_dim)
+
+    query = jnp.transpose(query, (1, 0, 2, 3))
+    key = jnp.transpose(key, (2, 0, 1, 3))
+    value = jnp.transpose(value, (2, 0, 1, 3))
+
+    aux = softmax_aux
+    if aux is not None and aux.ndim == 2:
+        if aux.shape[0] == num_heads_kv:
+            # Per-KV-head sinks: feed a per-head 1D bias so it broadcasts over the grouped query heads.
+            aux = aux  # (num_kv_heads, num_sinks)
+        elif aux.shape[0] == num_heads_q:
+            # Per-query-head sinks: reshape into KV-head groups so each group receives (group_size, num_sinks).
+            aux = aux.reshape(num_heads_kv, group_size, aux.shape[1])  # (num_kv_heads, group_size, num_sinks)
+        else:
+            raise ValueError(
+                "softmax_aux must have shape (num_sinks,), (num_kv_heads, num_sinks) or (num_q_heads, num_sinks); "
+                f"got shape {aux.shape} for num_q_heads={num_heads_q}, num_kv_heads={num_heads_kv}."
+            )
+
+    def process_kv_head(q_group, k_head, v_head, aux_i):
+        """Compute attention for one KV head group against its query heads.
+
+        Reshapes the single KV head into a broadcastable form and runs
+        flash attention with the query group for this KV head.
+
+        Args:
+            q_group: Query group for this KV head [batch, group_size, head_dim].
+            k_head: Key for this KV head [batch, kv_len, head_dim].
+            v_head: Value for this KV head [batch, kv_len, head_dim].
+            aux_i: Attention sink auxiliary logits for this head or None.
+
+        Returns:
+            Attention output for this head group [batch, group_size, head_dim].
+        """
+        k_head = k_head[:, :, None, :]
+        v_head = v_head[:, :, None, :]
+        q_group = q_group[:, None, :, :]
+
+        output = ragged_flash_attention_xla(
+            q_group,
+            k_head,
+            v_head,
+            sequence_start,
+            sequence_end,
+            softmax_scale=softmax_scale,
+            block_size=block_size,
+            sliding_window=sliding_window,
+            logits_soft_cap=logits_soft_cap,
+            softmax_aux=aux_i,
+        )
+
+        return output[:, 0, :, :]
+
+    if aux is None or aux.ndim == 1:
+        outputs = jax.vmap(process_kv_head, in_axes=(0, 0, 0, None))(query, key, value, aux)
+    else:
+        outputs = jax.vmap(process_kv_head, in_axes=(0, 0, 0, 0))(query, key, value, aux)
+
+    outputs = jnp.transpose(outputs, (1, 0, 2, 3))
+    return outputs.reshape(batch_size, num_heads_q, head_dim)
+
+
+@ejit(static_argnames=["block_size", "softmax_scale", "logits_soft_cap", "sliding_window"])
+def inner_decode_xla(
+    query: Float[Array, "batch num_q_heads head_dim"],
+    key: Float[Array, "batch seq_len num_kv_heads head_dim"],
+    value: Float[Array, "batch seq_len num_kv_heads head_dim"],
+    sequence_start: Int[Array, "batch"],
+    sequence_end: Int[Array, "batch"],
+    softmax_scale: float | None = None,
+    block_size: int = 256,
+    sliding_window: tuple[int, int] | None = None,
+    logits_soft_cap: float | None = None,
+    softmax_aux: Float[Array, "..."] | None = None,
+) -> chex.Array:
+    """Enhanced JIT-compiled XLA implementation of ragged MQA Flash Attention.
+
+    Args:
+        query: Query tensor, optionally with leading singleton dimension
+        key: Key tensor [B, S, H_kv, D]
+        value: Value tensor [B, S, H_kv, D]
+        sequence_start: Sequence start indices
+        sequence_end: Sequence end indices
+        softmax_scale: Scaling factor for attention logits
+        block_size: Block size for attention computation
+        sliding_window: Optional (left, right) window for local attention
+        logits_soft_cap: Optional soft capping for logits (e.g., 50.0)
+        softmax_aux: Optional attention sink biases [H, num_sinks] or [num_sinks]
+                     First few tokens become "attention sinks" with learnable biases
+
+    Returns:
+        Output tensor with same batch/head structure as query
+
+    Examples:
+
+        output = inner_decode_xla(query, key, value, start, end)
+
+
+        output = inner_decode_xla(
+            query, key, value, start, end,
+            sliding_window=(128, 0)
+        )
+
+
+        output = inner_decode_xla(
+            query, key, value, start, end,
+            logits_soft_cap=50.0
+        )
+
+
+        sink_biases = jnp.ones(4) * 0.1
+        output = inner_decode_xla(
+            query, key, value, start, end,
+            softmax_aux=sink_biases
+        )
+    """
+    batch_size = query.shape[0]
+    num_heads_q = query.shape[-2]
+    head_dim = query.shape[-1]
+
+    out_shape = (batch_size, 1, num_heads_q, head_dim)
+    if query.ndim == 3:
+        query = jnp.expand_dims(query, 1)
+        out_shape = (batch_size, num_heads_q, head_dim)
+
+    if query.shape[1] == 1:
+        query = query[:, 0]
+        output = ragged_decode_mqa_xla(
+            query,
+            key,
+            value,
+            sequence_start,
+            sequence_end,
+            softmax_scale=softmax_scale,
+            block_size=block_size,
+            sliding_window=sliding_window,
+            logits_soft_cap=logits_soft_cap,
+            softmax_aux=softmax_aux,
+        )
+    else:
+        _, _seq_len_q, _, _ = query.shape
+        _, _seq_len_kv, num_heads_kv, _ = key.shape
+
+        if num_heads_kv != num_heads_q:
+            repeat_factor = num_heads_q // num_heads_kv
+            key = jnp.repeat(key, repeat_factor, axis=2)
+            value = jnp.repeat(value, repeat_factor, axis=2)
+
+        output = ragged_flash_attention_xla(
+            query,
+            key,
+            value,
+            sequence_start,
+            sequence_end,
+            softmax_scale=softmax_scale,
+            block_size=block_size,
+            sliding_window=sliding_window,
+            logits_soft_cap=logits_soft_cap,
+            softmax_aux=softmax_aux,
+        )
+
+    return jnp.reshape(output, out_shape)
