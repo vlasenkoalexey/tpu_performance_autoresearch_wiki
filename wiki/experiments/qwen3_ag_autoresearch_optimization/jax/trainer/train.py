@@ -151,7 +151,8 @@ def main(
         return _ce(m(input_ids), labels).astype(jnp.float32)
 
     from jax import checkpoint_policies as _ckpt_policies
-    loss_fn = jax.checkpoint(loss_fn, policy=_ckpt_policies.checkpoint_dots_with_no_batch_dims)
+    # REMOVED outer jax.checkpoint policy to avoid 40GB HBM OOM with Tokamax CE recomputation.
+    loss_fn = jax.checkpoint(loss_fn)
     grad_fn = jax.value_and_grad(loss_fn)
 
     def train_step(params, opt_state, input_ids, labels):
