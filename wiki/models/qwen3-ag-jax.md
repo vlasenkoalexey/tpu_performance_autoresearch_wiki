@@ -33,9 +33,9 @@ TODO: native-JAX trainer not yet written.
 
 | Size | Hardware | Status | Baseline (step / TPS / MFU) | Current best (step / TPS / MFU) | Open hyps | Frontier exp |
 |------|----------|--------|-----------------------------|----------------------------------|-----------|--------------|
-| 8B | v6e-8 | live | 512 ms / 31,955 TPS / 20.5% MFU @ seq2048 bs8 | 5116.1 ms / 51,287 TPS / 33.0% MFU @ seq2048 bs16 | 2 | [2026-06-05 v042](../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-05-qwen3-jax-v042-gate-up-fusion.md) |
+| 8B | v6e-8 | live | 512 ms / 31,955 TPS / 20.5% MFU @ seq2048 bs8 | 4077.5 ms / 48,218 TPS / 34.6% MFU @ seq8192 bs24 | 2 | [2026-06-02 v036](../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-02-qwen3-jax-v036-sc-bs3.md) |
 
-*Baseline captured at seq 2048 (global batch 8). **Current frontier runs at seq 2048 (global batch 128) on v6e-8, climbing to 33.0% MFU / 6,411 tok/s/chip** via Splash attention, Tokamax CE, and gate_up_proj fusion. Device initialization OOMs are fixed, unlocking further batch size scaling. See [v042](../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-05-qwen3-jax-v042-gate-up-fusion.md).*
+*Baseline captured at seq 2048 (global batch 8). **Current frontier runs at seq 8192 (global batch 24) on v6e-8, climbing to 34.6% MFU / 6,027 tok/s/chip** via Splash attention, layer-scan, selective remat, and custom cross-entropy. See [v033b](../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-02-qwen3-jax-v033b-maxtext-ce-s8k-bs1.md), [v034](../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-02-qwen3-jax-v034-maxtext-ce-s8k-bs2.md), [v035](../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-02-qwen3-jax-v035-maxtext-ce-s8k-bs3.md), and [v036](../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-02-qwen3-jax-v036-sc-bs3.md).*
 
 ## Cross-variant open hypotheses
 

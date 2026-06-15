@@ -58,7 +58,7 @@ python -u train.py --model_id=Qwen/Qwen3-8B --use_real_data=False \
 
 | Size | Hardware | Status | Baseline (step / TPS / MFU) | Current best (step / TPS / MFU) | Open hyps | Frontier exp |
 |------|----------|--------|-----------------------------|----------------------------------|-----------|--------------|
-| 8B | v6e-8 | live | 512 ms / 31,955 TPS / 20.5% MFU @ seq2048 bs8 | **2,354.4 ms / 55,671 TPS (6,959/chip) / 39.9% MFU @ TARGET seq8192 bs2 — ≥ MaxText 6,953 (v050/v051, 50-step certified: scan + save_qkv_ctx_hbm + context checkpointing + (in,out) weight layout + splash + chunked CE f32-x + 21-flag stack); peak HBM 22.03 GiB (70.5%)**; prior: save_qkv 6,265 ([v043](../experiments/qwen3_cc5_autoresearch_optimization/jax/experiments/2026-06-12-v043-bs2-svqkv-val.md)), save_attn 6,221 ([v038](../experiments/qwen3_cc5_autoresearch_optimization/jax/experiments/2026-06-12-v038-bs2-saveattn-val.md)), bs4+offload 6,040 ([v027](../experiments/qwen3_cc5_autoresearch_optimization/jax/experiments/2026-06-12-v027-bs4-mtfl.md)); seq-2048 best 31.4% ([v007](../experiments/qwen3_cc5_autoresearch_optimization/jax/experiments/2026-06-12-v007-bs2-vmem.md)) | 3 | [2026-06-12 v051-wioval](../experiments/qwen3_cc5_autoresearch_optimization/jax/experiments/2026-06-12-v051-wioval.md) |
+| 8B | v6e-8 | live | 512 ms / 31,955 TPS / 20.5% MFU @ seq2048 bs8 | **2,354.4 ms / 55,671 TPS (6,959/chip) / 39.9% MFU @ TARGET seq8192 bs2 — ≥ MaxText 6,953 (v050/v051, 50-step certified: scan + save_qkv_ctx_hbm + context checkpointing + (in,out) weight layout + splash + chunked CE f32-x + 21-flag stack); peak HBM 22.03 GiB (70.5%)**; prior: save_qkv 6,265 ([v043](../experiments/qwen3_cc5_autoresearch_optimization/jax/experiments/2026-06-12-v043-bs2-svqkv-val.md)), save_attn 6,221 ([v038](../experiments/qwen3_cc5_autoresearch_optimization/jax/experiments/2026-06-12-v038-bs2-saveattn-val.md)), bs4+offload 6,040 ([v027](../experiments/qwen3_cc5_autoresearch_optimization/jax/experiments/2026-06-12-v027-bs4-mtfl.md)); **seq-2048 best (charles-v6e phase): 1,301 ms / 62,971 TPS / 7,871 tok/s/chip / 40.5% MFU @ bs5 — 50-step CERTIFIED ([v058](../experiments/qwen3_cc5_autoresearch_optimization/jax/experiments/2026-06-12-v058-2kbs5.md)/[v060](../experiments/qwen3_cc5_autoresearch_optimization/jax/experiments/2026-06-12-v060-2kbs5val.md); recipe = bs5 + scan + save_qkv_ctx_hbm + context + plain CE + 21-flag stack; plain-CE batch ceiling measured at bs5 [v059](../experiments/qwen3_cc5_autoresearch_optimization/jax/experiments/2026-06-12-v059-2kbs6.md); prior rung bs4 7,479 [v057](../experiments/qwen3_cc5_autoresearch_optimization/jax/experiments/2026-06-12-v057-2kbs4.md))**; prior 2k: 31.4% ([v007](../experiments/qwen3_cc5_autoresearch_optimization/jax/experiments/2026-06-12-v007-bs2-vmem.md)) | 3 | [2026-06-12 v051-wioval](../experiments/qwen3_cc5_autoresearch_optimization/jax/experiments/2026-06-12-v051-wioval.md) |
 
 *Baseline captured at seq 2048 (global batch 8). **Cross-lane: jax 20.5% MFU /
 3,994 tok/s/chip beats torchax 19.2% / 3,724 (+7.3% tok/s/chip, +1.3 pp)** at the
@@ -106,7 +106,32 @@ Retired this phase: [Host-offload remat](../hypotheses/qwen3-jax-host-offload-re
 
 ## Variant-specific open hypotheses
 
-(none yet)
+**seq-2048 phase (opened 2026-06-12, user-directed; cluster = charles-v6e,
+project `cienet-cmcs`, europe-west4-a, 3× v6e-8 on-demand — 1 slice usable,
+2 held by foreign zombie Kueue reservations).** seq-2048 best on record:
+31.4% MFU ([v007](../experiments/qwen3_cc5_autoresearch_optimization/jax/experiments/2026-06-12-v007-bs2-vmem.md)) —
+predates every seq-8192 frontier lever. Dispatch uses a dedicated kubeconfig
+(`~/.kube/config-charles-v6e`; shared kubeconfig is clobbered by other users)
+and literal `--project=cienet-cmcs --zone=europe-west4-a`.
+
+**Phase extension CLOSED (2026-06-13)**: best-vs-best at 2k =
+**statistical tie** ([analysis](../analyses/2026-06-13-qwen3-2k-stack-vs-maxtext.md)):
+MaxText 7,915 (bs12 optimum; bs20 −16.6%, bs24 OOM on their bf16-logits
+wall) vs our certified 7,871 (−0.56%). [Scan unroll=2](../hypotheses/qwen3-jax-2k-scan-unroll2.md)
+refuted (v063: ARS flat — XLA schedules the body atomically; S(5) bug
+confirmed offload-specific). S-effort space exhausted; remaining levers all
+L / numerics-gated / quota-blocked (see the analysis ledger).
+
+**Phase result (2026-06-13): batch arc complete at 40.5% MFU certified** — 11
+experiments (v052–v062): continuity ✅ (v052) → flags/io shape-gated at bs2
+(v053–v056) → **batch rescale on the remat substrate = the phase win**
+(v057/v058, certified v060: **bs5, 7,871 tok/s/chip, 40.5% MFU, +28.3%**) →
+bs6 OOM measured (v059) → chunked-CE unlock invalid on numerics (v061/v062,
+⚠️ escalated). Resolved: [continuity](../hypotheses/qwen3-jax-2k-cluster-continuity.md)
+supported; [frontier port](../hypotheses/qwen3-jax-2k-frontier-port.md)
+refuted-at-bs2/subsumed-at-bs5; [batch rescale](../hypotheses/qwen3-jax-2k-batch-rescale.md)
+supported+certified; [chunked-CE unlock](../hypotheses/qwen3-jax-2k-chunked-ce-batch-unlock.md)
+retired.
 
 ## Retired hypotheses
 
@@ -137,6 +162,10 @@ Retired this phase: [Host-offload remat](../hypotheses/qwen3-jax-host-offload-re
 | Batch scaling bs3→bs4 (on scan+offload+25-flag stack) | ✅ supported (v027): +1.8% tok/s/chip; actual HBM 23.72 GiB (75.9% cap) | RS-fusion bucket near fixed-cost (1.01x scale); conv+splash buckets linear with tokens; async-done trending super-linear (1.36x). Diminishing returns band confirmed; bs5 probe is low-confidence |
 | Splash block config sweep (sym-1024 vs all-2048 vs hybrid) | ❌ refuted (v028) — third flat result (v016, v022, v028) | bq=2048 > bq=1024 by 142 ms/step (+2.6%); bkv=1024 stays optimal; splash cost is arithmetic not scheduling. Hybrid v027 config (bq=2048, bkv=1024, dkv=2048) confirmed optimal. Direction closed. |
 | **Splash context checkpointing (SPLASH_RESIDUAL_CKPT_NAME=context + save_qkv_ctx)** | **✅ supported (v044/v045): +7.3% step, +6.7% tok/s/chip, −5 GiB HBM** | HLO confirmed: splash bwd uses `splash_mha_dkv_no_residuals` (saved out+lse from S(5) host); no `splash_mha_fwd_no_residuals` re-run; async-done +25 ms (DMA not fully hidden — refinement target). Frontier 6,265→6,715/chip (50-step certified); MaxText gap −9.9%→−3.3%. Merging to trunk. |
+| (in,out) weight layout (JAX_WEIGHT_LAYOUT=io) at seq2048 | ❌ refuted ([v056](../experiments/qwen3_cc5_autoresearch_optimization/jax/experiments/2026-06-12-v056-2kio.md)): −0.18%, within noise | **Per-shape knob**: +2.8% at seq8192 (v050/v051) does NOT transfer to 2k — [2,2048,·] activations don't pay the transpose toll. ON at 8192, OFF below. |
+| Batch rescale at seq2048 on scan+save_qkv_ctx_hbm+context (bs2→bs4→bs5) | ✅ **supported, CERTIFIED ([v057](../experiments/qwen3_cc5_autoresearch_optimization/jax/experiments/2026-06-12-v057-2kbs4.md)/[v058](../experiments/qwen3_cc5_autoresearch_optimization/jax/experiments/2026-06-12-v058-2kbs5.md)/[v060](../experiments/qwen3_cc5_autoresearch_optimization/jax/experiments/2026-06-12-v060-2kbs5val.md)): bs5 = 7,871/chip / 40.5% MFU, +28.3% over the v052 baseline** | The fixed ~190 ms collective floor amortizes (27.3% → ~15%); MXU 32.9% → 51.9%; HBM slope ~3.5–4.1 GiB/bs; bs6 OOM measured ([v059](../experiments/qwen3_cc5_autoresearch_optimization/jax/experiments/2026-06-12-v059-2kbs6.md): wall = f32 CE logit pair). The remat tax that froze the 2k ladder pre-context-checkpointing is gone. |
+| chunked_xla CE at seq2048 (as batch unlock) | ⛔ **invalid/retired ([v061](../experiments/qwen3_cc5_autoresearch_optimization/jax/experiments/2026-06-12-v061-2kce8.md)/[v062](../experiments/qwen3_cc5_autoresearch_optimization/jax/experiments/2026-06-12-v062-2kce5par.md))** | Memory unlock REAL (bs8 fits, +1.5% gross) but same-data parity FAILED: **systematic +0.006 loss offset** (padded-vocab phantom mass, ≈0.99× CE-grad scaling — [observation](../observations/chunked-ce-padded-vocab-loss-offset.md)) + 4.1% CE cost at bs5. ⚠️ same kernel is in the certified 8k frontier — human review requested. |
+| 21-flag stack at seq2048 (on scan+remat carrier) | ❌ net-refuted at bs2 ([v055](../experiments/qwen3_cc5_autoresearch_optimization/jax/experiments/2026-06-12-v055-2kstack.md)): −2.1%, but flags THEMSELVES fired (ring eliminated, −181.7 ms) | Carrier-coupled: scan+save_qkv_ctx_hbm adds +219 ms (exposed grad-ARS +143, MLP/norm recompute +57) at bs2. Peak HBM 15.61 GiB (49.9%) — reopens the batch ladder; batch amortization of the fixed 186 ms collective floor is the active hypothesis (v057). Unrolled+flags needs ≥120-min compile budget (scheduler flags × 36-layer graph). |
 
 ## Iteration ladder
 

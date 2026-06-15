@@ -183,8 +183,6 @@ class Qwen3Attention(nnx.Module):
         self.k_proj = Linear(hidden, self.num_kv_heads * self.head_dim, bias=bias, **lin)
         self.v_proj = Linear(hidden, self.num_kv_heads * self.head_dim, bias=bias, **lin)
         self.o_proj = Linear(self.num_heads * self.head_dim, hidden, bias=bias, **lin)
-        self.g_cmp_proj = Linear(hidden, self.num_heads, bias=False, **lin)
-        self.g_slc_proj = Linear(hidden, self.num_heads, bias=False, **lin)
         # Qwen3 QK-norm — RMSNorm over head_dim.
         eps = config.rms_norm_eps
         self.q_norm = Qwen3RMSNorm(self.head_dim, eps=eps, weights_dtype=weights_dtype)
@@ -201,32 +199,9 @@ class Qwen3Attention(nnx.Module):
         v = self.v_proj(hidden_states).reshape(B, T, self.num_kv_heads, self.head_dim)
         v = jnp.transpose(v, (0, 2, 1, 3))
         q, k = apply_rotary_pos_emb(q, k, cos, sin, unsqueeze_dim=1)
-
-        # Transpose back to (B, T, H, D) for NSA
-        q = jnp.transpose(q, (0, 2, 1, 3))
-        k = jnp.transpose(k, (0, 2, 1, 3))
-        v = jnp.transpose(v, (0, 2, 1, 3))
-
-        g_cmp = jax.nn.sigmoid(self.g_cmp_proj(hidden_states))
-        g_slc = jax.nn.sigmoid(self.g_slc_proj(hidden_states))
-
-        from ejkernel.modules.operations import native_sparse_attention
-        from ejkernel.modules.operations.configs import NativeSparseAttentionConfig
-
-        cfg = NativeSparseAttentionConfig(block_size=64, platform="xla", backend="any")
-
-        attn_out = native_sparse_attention(
-            q, k, v,
-            g_cmp,
-            g_slc,
-            None, # block_indices
-            16,   # block_counts (16 * 64 = 1024 tokens)
-            None, # cu_seqlens
-            softmax_scale=self.scaling,
-            platform="xla",
-            cfg=cfg
-        )
-
+        attn_out = _attn_xla_sdpa(
+            q, k, v, num_key_value_groups=self.num_key_value_groups,
+            scaling=self.scaling, attention_mask=attention_mask)
         attn_out = attn_out.reshape(B, T, self.num_heads * self.head_dim)
         return self.o_proj(attn_out)
 

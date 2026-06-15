@@ -1,22 +1,3 @@
-"""Minimal Qwen3 native-JAX (Flax NNX) trainer.
-
-Mirrors `../torchax/train.py` metric-for-metric (same MFU formula, same flags
-where they overlap) so the two lanes A/B directly. NO torch / torchax at run
-time — the model is the Flax NNX port in `model/modeling_qwen3.py`.
-
-Deliberately minimal: no tokamax CE, no splash, no scan, no AMP — random-init
-bf16 weights, FSDP sharding, optax AdamW, a single `jax.jit`'d train step
-(`value_and_grad` over the NNX param state), synthetic data, plain softmax CE.
-Each optimization lands later as its own attributable experiment.
-
-Run (from this folder):
-    python -u train.py --use_real_data False --seqlen 2048 --batch_size 1 \
-        --train_steps 20 \
-        --profile_dir gs://<bucket>/autoresearch/qwen3_cc/<run> \
-        --profile_start_step 12 --profile_steps 3
-"""
-from __future__ import annotations
-
 import sys
 import time
 from pathlib import Path
@@ -33,10 +14,8 @@ _THIS_DIR = Path(__file__).resolve().parent
 if str(_THIS_DIR) not in sys.path:
     sys.path.insert(0, str(_THIS_DIR))
 
-
 def _to_jnp_dtype(name: str) -> jnp.dtype:
     return jnp.bfloat16 if name == "bf16" else jnp.float32
-
 
 def main(
     model_id: str = "Qwen/Qwen3-8B",
@@ -49,6 +28,7 @@ def main(
     weights_dtype: str = "bf16",
     use_real_data: bool = False,    # False = synthetic tokens (perf baseline)
     use_splash: bool = False,       # Splash attention
+    use_tokamax_ce: bool = False,   # Tokamax CE loss
     # --- profiling (all CLI flags) ---
     profile_dir: Optional[str] = None,
     profile_gcs_dir: Optional[str] = None,
@@ -56,6 +36,9 @@ def main(
     profile_steps: int = 3,
     xprof_url_base: str = "http://localhost:8791",
 ):
+    import sys
+    sys.argv = sys.argv[:1]
+
     n_global = jax.device_count()
     n_local = jax.local_device_count()
     n_hosts = jax.process_count()
@@ -89,6 +72,7 @@ def main(
     else:
         import os
         os.environ["JAX_ATTENTION_IMPL"] = "xla"
+        set_splash_mesh(mesh) # Set it unconditionally so that fused_rope Pallas kernel can use it
         print("[attn] XLA SDPA (JAX_ATTENTION_IMPL=xla)", flush=True)
 
     model = Qwen3ForCausalLM(
@@ -147,10 +131,39 @@ def main(
 
     def loss_fn(params, input_ids, labels):
         m = nnx.merge(graphdef, params, rest)
-        return _ce(m(input_ids), labels).astype(jnp.float32)
+        
+        if use_tokamax_ce:
+            import tokamax
+            from jax.sharding import PartitionSpec as P
+            from jax.experimental.shard_map import shard_map
+            
+            # Cast inputs to float32 to prevent VJP type mismatch with tokamax's float32 bwd outputs
+            hidden = m(input_ids, return_hidden=True).astype(jnp.float32)
+            w = m.lm_head_weight()
+            w_t = w.T.astype(jnp.float32)
+            
+            def _sharded_ce(h, y, weight_t):
+                b, l, h_dim = h.shape
+                x = h.reshape(b * l, h_dim)
+                y_flat = y.reshape(b * l)
+                loss_sum = tokamax.linear_softmax_cross_entropy_loss(
+                    x, y_flat, weight_t, reduction='sum', implementation='mosaic_tpu'
+                )
+                return jax.lax.psum(loss_sum, 'fsdp')
 
-    from jax import checkpoint_policies as _ckpt_policies
-    loss_fn = jax.checkpoint(loss_fn, policy=_ckpt_policies.checkpoint_dots_with_no_batch_dims)
+            loss_sum = shard_map(
+                _sharded_ce,
+                mesh,
+                in_specs=(P('fsdp', None, None), P('fsdp', None), P(None, None)),
+                out_specs=P(),
+                check_rep=False
+            )(hidden, labels, w_t)
+            
+            b, l, _ = hidden.shape
+            return (loss_sum / (b * l)).astype(jnp.float32)
+        else:
+            return _ce(m(input_ids), labels).astype(jnp.float32)
+
     grad_fn = jax.value_and_grad(loss_fn)
 
     def train_step(params, opt_state, input_ids, labels):

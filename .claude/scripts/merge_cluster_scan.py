@@ -186,7 +186,7 @@ def sort_key(row: dict) -> tuple:
 TSV_COLUMNS = [
     "project", "cluster", "location", "status", "xpk",
     "tpu_ready", "tpu_total", "our_uses", "xpk_type", "topology",
-    "machine_type",
+    "machine_type", "gcsfuse", "spot",
 ]
 
 
@@ -213,8 +213,8 @@ def tsv_to_row(tsv_line: str) -> dict | None:
         "topology_md": render_topology(rec["topology"], rec["machine_type"]),
         "tpu_ready": rec["tpu_ready"],
         "xpk": rec["xpk"],
-        "gcsfuse": "?",   # not in TSV; new rows get "?"
-        "spot": "?",      # not in TSV; new rows get "?"
+        "gcsfuse": rec["gcsfuse"] if rec["gcsfuse"] not in ("-", "") else "?",
+        "spot": rec["spot"] if rec["spot"] not in ("-", "") else "?",
         "_family": _topology_family(rec["xpk_type"], rec["machine_type"]),
     }
 

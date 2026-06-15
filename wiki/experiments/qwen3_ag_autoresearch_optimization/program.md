@@ -20,9 +20,8 @@ The repo contains 2 execution lanes for the same model architecture:
 |------|-------|---------------------|
 | torchax | HuggingFace PyTorch wrapped via torchax (PyTorch-on-JAX) | `python -m train` from `qwen3_ag_autoresearch_optimization/torchax/` |
 | jax | from-scratch Flax NNX port (not yet implemented) | TODO — `python -m train` from `.../jax/` once written |
-| maxtext | MaxText (native JAX) | `python src/maxtext/trainers/pre_train/train.py` from `raw/code/maxtext/` |
 
-Model code lives directly in the lane folder (tracked in the wiki repo, not a submodule) for torchax and jax, but for maxtext it lives in `raw/code/maxtext/`.
+Model code lives directly in the lane folder (tracked in the wiki repo, not a submodule):
 `wiki/experiments/qwen3_ag_autoresearch_optimization/<lane>/`.
 
 **Model sizes**: 8B (`Qwen/Qwen3-8B`). The trainer's `--model_id` can point at the
@@ -182,37 +181,10 @@ attention / tokamax CE / fused QK-norm+RoPE are open hypotheses, not wired yet.
 **Trainer entry**: TODO — port not written. Lit up once the torchax baseline is
 stable and a native-JAX port becomes a ranked hypothesis.
 
-### maxtext — Native JAX
-
-**Conda env**: Uses Docker image or `setup.sh` on standard TPU VMs.
-
-**Trainer entry**: `python src/maxtext/trainers/pre_train/train.py` from `raw/code/maxtext/`.
-
-**Baseline command**:
-```bash
-cd raw/code/maxtext
-bash src/dependencies/scripts/setup.sh
-python src/maxtext/trainers/pre_train/train.py src/maxtext/configs/base.yml \
-  run_name=<run_name> \
-  base_output_directory=gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/ \
-  model_name=qwen3-8b \
-  dataset_type=synthetic \
-  per_device_batch_size=1 \
-  max_target_length=8192 \
-  enable_checkpointing=false \
-  steps=12 \
-  profiler=xplane
-```
-
-**Quirks**:
-- Runs in `raw/code/maxtext/` rather than the `wiki/experiments/` folder.
-
-**Profiling**: Passes `profiler=xplane` to generate traces in `base_output_directory`.
-
 ## Sources
 
-- Model pages: `wiki/models/qwen3-cc-torchax.md`, `wiki/models/qwen3-cc-jax.md`, `wiki/models/qwen3-cc-maxtext.md`
-- Lane READMEs: `torchax/README.md`, `jax/README.md`, `maxtext/README.md`
+- Model pages: `wiki/models/qwen3-cc-torchax.md`, `wiki/models/qwen3-cc-jax.md`
+- Lane READMEs: `torchax/README.md`, `jax/README.md`
 - Cluster docs: `.env/` directory at repo root.
 - Wiki schema: `SCHEMA.md`.
 - Parent program: `../program.md`.

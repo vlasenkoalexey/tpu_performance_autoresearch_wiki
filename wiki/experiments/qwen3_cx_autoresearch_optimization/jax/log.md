@@ -1,3 +1,1341 @@
+## [2026-06-12] loop-iteration | cc5 v081 launched: 2k current-stack control on v6e-demo-hjajoo
+
+Launching workload `alekseyv-qwen3-jax-v081-2kctl` on cluster
+`v6e-demo-hjajoo` (`tpu-prod-env-one-vm/us-east5`) to establish the requested
+2k-context native-JAX baseline. Capacity check before launch found two Ready
+2x4 `tpu-v6e-slice` nodes in nodepool `v6e-demo-hjajoo-np-0`, Kueue
+`multislice-queue` with zero pending/admitted workloads, and no active Qwen3
+workloads.
+
+The run reuses the carried explicit-SiLU shmem90 stack from image
+`qwen3-8b-jax:v067-explicit-silu`, changing the shape to
+`--seqlen=2048 --batch_size=4`. Runtime flags keep no-scan remat, activation
+sharding, Tokamax Splash max-logit 30, MaxText CE, scoped VMEM **100352 KiB**,
+latency-hiding scheduler rerun **3**, SparseCore reduce-scatter/all-reduce
+offload, SparseCore collective aggregator, RS latency multiplier **3**, AR
+latency multiplier **2**, selective resources, and shared-memory limit **90**.
+
+Run/cache paths:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v081-2k-bs4-current-control`
+and
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v081_2k_bs4ctl`.
+
+## [2026-06-12] loop-iteration | cc5 v081 2k current-stack control: supported (65,505 tok/s, 42.1% script MFU)
+
+Workload `alekseyv-qwen3-jax-v081-2kctl` completed cleanly on
+`v6e-demo-hjajoo` with both TPU hosts on nodepool `v6e-demo-hjajoo-np-0`.
+Worker summaries were:
+
+- `gke-tpu-77a6681c-wwzz`: **65,448 tok/s**, **8,181 tok/s/chip**,
+  **42.1%** script MFU, `EXIT_CODE=0`.
+- `gke-tpu-77a6681c-6221`: **65,505 tok/s**, **8,188 tok/s/chip**,
+  **42.1%** script MFU, `EXIT_CODE=0`.
+
+XProf run
+`2026-06-12-qwen3-jax-v081-2k-bs4-current-control/2026_06_12_22_27_48`
+reported **1008.1 ms** step time, **0.1 ms** stddev, **56.5% MXU**, about
+**1.0%** op-profile idle, and peak HBM **18.95 GiB / 31.25 GiB** with
+**12.296 GiB** free. The train-step profile remains matmul-heavy but with more
+short-context overhead than the 8k frontier: `convolution fusion` was
+**7525.467 ms / 62.0%**, `custom-call` **1503.348 ms / 12.4%**, `loop fusion`
+**1486.835 ms / 12.3%**, `custom fusion` **804.665 ms / 6.6%**, and
+`data formatting` **449.972 ms / 3.7%**.
+
+Train-step HLO modules `module_0264` and `module_0267` were byte-identical:
+SHA256 `c6b001141eb5b66b941054abd357bc8683e8e95bece3fb3b6d74b494348ff786`,
+**19,968,324 bytes / 121,278 lines**, compile memory **16.00 GiB**, and
+preallocated temp **10.25 GiB**. Counts: `all-gather=4595`,
+`all-reduce=154`, `reduce-scatter=1780`, `async-start=802`,
+`async-done=802`, `convolution=2100`, `custom-call=2514`, `copy=10614`,
+`fusion=22515`, `dot_general=7035`, `splash=1778`, `tokamax=2`,
+`jvp_jit_silu__=0`, `exponential=183`, `dynamic-slice=150`,
+`dynamic-update-slice=216`.
+
+Verdict: supported as the 2k current-stack control, not yet optimized. The next
+2k-specific probe should increase batch size before touching scheduler flags:
+v081 leaves **12.296 GiB** runtime HBM free and shows only **56.5% MXU**, so
+`--batch_size=6` / global batch **48** is the conservative next experiment.
+
+## [2026-06-12] loop-iteration | cc5 v082 launched: 2k batch6 scale
+
+Launching workload `alekseyv-qwen3-jax-v082-2kbs6` on `v6e-demo-hjajoo` to
+test the first 2k-specific optimization after v081. The only intended shape
+change is `--batch_size=6` at `--seqlen=2048`, increasing global batch from
+**32** to **48**. Runtime stack remains v081's explicit-SiLU shmem90 stack:
+no-scan remat, activation sharding, Tokamax Splash max-logit 30, MaxText CE,
+scoped VMEM **100352 KiB**, latency-hiding scheduler rerun **3**, SparseCore
+reduce-scatter/all-reduce offload, SparseCore collective aggregator, RS latency
+multiplier **3**, AR latency multiplier **2**, selective resources, and
+shared-memory limit **90**.
+
+Support requires clean finite loss plus throughput above v081's **65,505
+tok/s** and ideally higher MXU than **56.5%**. Compile OOM, profile step time
+that cancels the larger token batch, or a larger custom-call/loop-fusion share
+refutes direct 2k batch scaling.
+
+Run/cache paths:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v082-2k-bs6-batch-scale`
+and
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v082_2k_bs6`.
+
+## [2026-06-12] loop-iteration | cc5 v082 2k batch6 scale: supported (67,987 tok/s, 43.7% script MFU)
+
+Workload `alekseyv-qwen3-jax-v082-2kbs6` completed cleanly on
+`v6e-demo-hjajoo` with normal finite loss, improving the v081 2k current-stack
+control from **65,505 tok/s** to **67,987 tok/s** best-worker average. Worker0
+reported **67,987 tok/s**, **8,498 tok/s/chip**, **43.7% script MFU**; worker1
+reported **67,980 tok/s**, **8,498 tok/s/chip**, **43.7% script MFU**. XProf
+run
+`2026-06-12-qwen3-jax-v082-2k-bs6-batch-scale/2026_06_12_22_43_08`
+shows **1456.5 ms** average step time, **0.3 ms** standard deviation,
+**61.6% MXU**, and **0.4%** op-profile idle. Peak runtime HBM was
+**21.28 GiB / 31.25 GiB**, leaving **9.9688 GiB** free.
+
+Top HLO buckets by time were convolution fusion **22,487.957 ms / 64.4%**,
+custom-call **4,523.430 ms / 13.0%**, loop fusion **4,195.456 ms / 12.0%**,
+custom fusion **1,589.972 ms / 4.6%**, and data formatting
+**1,354.823 ms / 3.9%**. Fresh train-step HLO
+`module_0267.jit_train_step.cl_854318611.after_optimizations.txt` was
+**19,958,402 bytes**, **120,868 lines**, SHA256
+`d32ddad1763f328ce81a016e475f5abc412fbeacba26d865ad31b93448b10f9d`, with
+compiled memory total **18.14 GiB** and preallocated temp **12.39 GiB**. Verdict:
+supported; continue direct 2k batch scaling to per-chip **batch_size=8** before
+touching scheduler/kernel flags.
+
+## [2026-06-12] loop-iteration | cc5 v083 launched: 2k batch8 scale
+
+Launching workload `alekseyv-qwen3-jax-v083-2kbs8` on `v6e-demo-hjajoo`.
+This is a one-axis continuation from v082: only `--batch_size` changes from
+**6** to **8** at sequence length **2048**, increasing global batch from **48**
+to **64**. Runtime stack remains the v081/v082 explicit-SiLU shmem90 stack:
+Tokamax Splash, MaxText CE, no-scan remat, activation sharding, scoped VMEM
+**100352 KiB**, selective-resource latency-hiding rerun **3**, SparseCore
+reduce-scatter/all-reduce offload, SparseCore collective aggregator, and
+collective-matmul modes disabled.
+
+Support requires clean finite loss plus throughput above v082's **67,987
+tok/s** and ideally MXU above **61.6%**. OOM or a step-time increase that
+overwhelms the token batch refutes further direct batch scaling.
+
+Run dir:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v083-2k-bs8-batch-scale`
+
+Compile cache:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v083_2k_bs8`.
+
+## [2026-06-12] loop-iteration | cc5 v083 2k batch8 scale: supported/tie (68,184 tok/s, 43.8% script MFU)
+
+Workload `alekseyv-qwen3-jax-v083-2kbs8` completed cleanly on
+`v6e-demo-hjajoo` with normal finite loss, reaching worker0 **68,184 tok/s** /
+**8,523 tok/s/chip** / **43.8% script MFU** and worker1 **68,182 tok/s** /
+**8,523 tok/s/chip** / **43.8% script MFU**. This is only **+0.3%** over v082's
+**67,987 tok/s**. Profile-window steps were noisy and included **67,321-68,028
+tok/s**, so the apparent gain is marginal.
+
+XProf run
+`2026-06-12-qwen3-jax-v083-2k-bs8-batch-scale/2026_06_12_22_58_59`
+shows **1945.0 ms** average step time, **15.2 ms** standard deviation,
+**63.2% MXU**, and **0.3%** op-profile idle. Peak runtime HBM was
+**22.54 GiB / 31.25 GiB**, leaving **8.7082 GiB** free. Top HLO buckets by time
+were convolution fusion **30,476.399 ms / 65.5%**, custom-call
+**6,051.219 ms / 13.0%**, loop fusion **5,595.362 ms / 12.0%**, custom fusion
+**1,835.653 ms / 3.9%**, and data formatting **1,794.640 ms / 3.9%**.
+
+Fresh train-step HLO
+`module_0267.jit_train_step.cl_854318611.after_optimizations.txt` was
+**19,739,913 bytes**, **118,334 lines**, SHA256
+`c7523344a6b91d9bed5f7fea0d9b968120459e8be511db1b727b78226b7f202a`, with
+compiled memory total **19.51 GiB** and preallocated temp **13.75 GiB**. Verdict:
+supported/tie; it is the best script MFU so far by a tiny margin, but not enough
+to declare batch scaling healthy. Run one larger batch jump before pivoting.
+
+## [2026-06-12] loop-iteration | cc5 v084 launched: 2k batch12 saturation check
+
+Launching workload `alekseyv-qwen3-jax-v084-2kbs12` on `v6e-demo-hjajoo`.
+This is a one-axis continuation from v083: only `--batch_size` changes from
+**8** to **12** at sequence length **2048**, increasing global batch from **64**
+to **96**. Runtime stack remains the v081-v083 explicit-SiLU shmem90 stack:
+Tokamax Splash, MaxText CE, no-scan remat, activation sharding, scoped VMEM
+**100352 KiB**, selective-resource latency-hiding rerun **3**, SparseCore
+reduce-scatter/all-reduce offload, SparseCore collective aggregator, and
+collective-matmul modes disabled.
+
+Support requires clean finite loss plus throughput meaningfully above v083's
+**68,184 tok/s**. A near-flat result around **68k tok/s**, OOM, or higher
+non-matmul overhead refutes further direct 2k batch scaling and should pivot the
+lane to scheduler/kernel-shape changes.
+
+Run dir:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v084-2k-bs12-batch-scale`
+
+Compile cache:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v084_2k_bs12`.
+
+## [2026-06-12] loop-iteration | cc5 v084 2k batch12 scale: supported (69,547 tok/s, 44.7% script MFU)
+
+Workload `alekseyv-qwen3-jax-v084-2kbs12` completed cleanly on
+`v6e-demo-hjajoo` with normal finite loss, reaching worker0 **69,517 tok/s** /
+**8,690 tok/s/chip** / **44.7% script MFU** and worker1 **69,547 tok/s** /
+**8,693 tok/s/chip** / **44.7% script MFU**. This is a real improvement over
+v083's **68,184 tok/s**. XProf run
+`2026-06-12-qwen3-jax-v084-2k-bs12-batch-scale/2026_06_12_23_12_45`
+shows **2844.7 ms** average step time, **3.0 ms** standard deviation,
+**65.5% MXU**, and **0.3%** op-profile idle. Peak runtime HBM was
+**26.22 GiB / 31.25 GiB**, leaving **5.0216 GiB** free.
+
+Top HLO buckets by time were convolution fusion **45,384.405 ms / 66.5%**,
+custom-call **9,100.467 ms / 13.3%**, loop fusion **8,366.298 ms / 12.3%**,
+data formatting **2,762.872 ms / 4.0%**, and custom fusion
+**1,709.908 ms / 2.5%**. Fresh train-step HLO
+`module_0267.jit_train_step.cl_854318611.after_optimizations.txt` was
+**19,758,199 bytes**, **118,066 lines**, SHA256
+`3402ba6fae40990de244b278f7fa74e6e39a937d5b8a537be73d51e51a0cf0c9`, with
+compiled memory total **23.04 GiB** and preallocated temp **17.29 GiB**.
+Verdict: supported and current 2k frontier; batch scaling is still improving,
+but memory headroom is now only about **5 GiB**.
+
+## [2026-06-12] loop-iteration | cc5 v085 launched: 2k batch16 near-ceiling probe
+
+Launching workload `alekseyv-qwen3-jax-v085-2kbs16` on `v6e-demo-hjajoo`.
+This is a one-axis continuation from v084: only `--batch_size` changes from
+**12** to **16** at sequence length **2048**, increasing global batch from
+**96** to **128**. Runtime stack remains the v081-v084 explicit-SiLU shmem90
+stack: Tokamax Splash, MaxText CE, no-scan remat, activation sharding, scoped
+VMEM **100352 KiB**, selective-resource latency-hiding rerun **3**, SparseCore
+reduce-scatter/all-reduce offload, SparseCore collective aggregator, and
+collective-matmul modes disabled.
+
+Support requires clean finite loss plus throughput above v084's **69,547
+tok/s**. OOM, severe variance, or near-flat/lower throughput closes direct 2k
+batch scaling and should pivot the lane to scheduler/kernel-shape changes.
+
+Run dir:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v085-2k-bs16-batch-scale`
+
+Compile cache:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v085_2k_bs16`.
+
+## [2026-06-12] loop-iteration | cc5 v085 2k batch16 scale: supported (70,184 tok/s, 45.1% script MFU)
+
+Workload `alekseyv-qwen3-jax-v085-2kbs16` completed cleanly on
+`v6e-demo-hjajoo` with normal finite loss, reaching worker0 **70,184 tok/s** /
+**8,773 tok/s/chip** / **45.1% script MFU** and worker1 **70,173 tok/s** /
+**8,772 tok/s/chip** / **45.1% script MFU**. This is the current best 2k result.
+XProf run
+`2026-06-12-qwen3-jax-v085-2k-bs16-batch-scale/2026_06_12_23_26_32`
+shows **3765.2 ms** average step time, **0.5 ms** standard deviation,
+**66.8% MXU**, and **0.2%** op-profile idle. Peak runtime HBM was
+**29.25 GiB / 31.25 GiB**, leaving only **1.9936 GiB** free.
+
+Top HLO buckets by time were convolution fusion **60,183.943 ms / 66.7%**,
+custom-call **12,220.286 ms / 13.5%**, loop fusion **11,255.317 ms / 12.5%**,
+data formatting **3,598.883 ms / 4.0%**, and custom fusion
+**1,912.212 ms / 2.1%**. Fresh train-step HLO
+`module_0267.jit_train_step.cl_854318611.after_optimizations.txt` was
+**19,785,942 bytes**, **118,485 lines**, SHA256
+`6aa440aba434018b4f22849e8064082c66b383914de899ee6186c180937043f2`, with
+compiled memory total **27.89 GiB** and preallocated temp **22.14 GiB**.
+Verdict: supported and current frontier; raw batch scaling is now close to the
+HBM ceiling.
+
+## [2026-06-12] loop-iteration | cc5 v086 launched: 2k batch16 scoped-VMEM 98304
+
+Launching workload `alekseyv-qwen3-jax-v086-2kbs16vmem` on
+`v6e-demo-hjajoo`. This keeps v085's per-chip **batch_size=16**, global batch
+**128**, and sequence length **2048**, changing only
+`--xla_tpu_scoped_vmem_limit_kib` from **100352** to **98304**. Runtime stack
+otherwise remains Tokamax Splash, MaxText CE, no-scan remat, activation
+sharding, selective-resource latency-hiding rerun **3**, SparseCore
+reduce-scatter/all-reduce offload, SparseCore collective aggregator, and
+collective-matmul modes disabled.
+
+Support requires matching or beating v085's **70,184 tok/s** with lower memory
+pressure or lower variance. If throughput drops with no memory benefit, keep
+the v085 **100352 KiB** schedule and pivot away from local VMEM.
+
+Run dir:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v086-2k-bs16-vmem98304`
+
+Compile cache:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v086_2k_bs16_vmem98304`.
+
+## [2026-06-12] loop-iteration | cc5 v086 2k batch16 VMEM 98304: supported (70,564 tok/s, 45.4% script MFU)
+
+Workload `alekseyv-qwen3-jax-v086-2kbs16vmem` completed cleanly on
+`v6e-demo-hjajoo` with finite loss and `EXIT_CODE=0` on both workers. Worker0
+reported **70,562 tok/s**, **8,820 tok/s/chip**, **45.4% script MFU**; worker1
+reported **70,564 tok/s**, **8,820 tok/s/chip**, **45.4% script MFU**. This is
+a small but valid improvement over v085's **70,184 tok/s** / **45.1%** at the
+same batch16 and 2k context shape.
+
+XProf run
+`2026-06-12-qwen3-jax-v086-2k-bs16-vmem98304/2026_06_12_23_40_02` shows
+**3743.6 ms** average step time, **2.5 ms** standard deviation, **67.4% MXU**,
+and **0.2%** op-profile idle. Peak runtime HBM remained **29.25 GiB / 31.25
+GiB**, with **1.9934 GiB** free, so the lower scoped-VMEM setting improved
+schedule quality but did not create memory headroom. Top HLO buckets by time
+were convolution fusion **60,205.877 ms / 67.1%**, custom-call
+**12,148.863 ms / 13.5%**, loop fusion **10,919.887 ms / 12.2%**, data
+formatting **3,537.343 ms / 3.9%**, and custom fusion **1,818.442 ms / 2.0%**.
+
+Fresh train-step HLO
+`module_0267.jit_train_step.cl_854318611.after_optimizations.txt` was
+**19,710,086 bytes / 117,857 lines**, SHA256
+`2b5d503bed2876282591e25458d1515c3d63f1a1ad371f4c6c9cb0d9a020218c`, with
+compiled memory **27.89 GiB** and preallocated temp **22.13 GiB**. Verdict:
+carry **98304 KiB** as the current 2k batch16 frontier, but do not continue
+blind local VMEM sweeps because memory usage did not improve. Next probe should
+target scheduler/codegen quality at the same shape, or rerun v086 if a
+confirmation run is needed before a riskier change.
+
+## [2026-06-12] loop-iteration | cc5 v087 launched: 2k batch16 scheduler rerun4
+
+Launching workload `alekseyv-qwen3-jax-v087-2kbs16r4` on `v6e-demo-hjajoo`.
+This keeps the v086 2k frontier fixed: per-chip **batch_size=16**, global batch
+**128**, sequence length **2048**, scoped VMEM **98304 KiB**, Tokamax Splash,
+MaxText CE, no-scan remat, activation sharding, SparseCore reduce-scatter and
+all-reduce offload, SparseCore collective aggregator, and shared-memory limit
+**90**. The only intended runtime flag change is:
+
+```bash
+--xla_latency_hiding_scheduler_rerun=4
+```
+
+Support requires beating v086's **70,564 tok/s** / **45.4% script MFU**, or
+matching throughput with lower XProf step-time variance. If rerun4 slows down
+or gives identical performance, keep v086's rerun3 frontier and pivot to a
+different scheduler/codegen axis.
+
+Run dir:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v087-2k-bs16-rerun4`
+
+Compile cache:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v087_2k_bs16_rerun4`.
+
+## [2026-06-12] loop-iteration | cc5 v087 2k batch16 scheduler rerun4: refuted/tie (70,554 tok/s, 45.4% script MFU)
+
+Workload `alekseyv-qwen3-jax-v087-2kbs16r4` completed cleanly on
+`v6e-demo-hjajoo` with finite loss and `EXIT_CODE=0` on both workers. Worker0
+reported **70,554 tok/s**, **8,819 tok/s/chip**, **45.4% script MFU**; worker1
+reported **70,541 tok/s**, **8,818 tok/s/chip**, **45.4% script MFU**. This is
+slightly below v086's **70,564 tok/s** at the same 2k batch16 shape.
+
+XProf run
+`2026-06-12-qwen3-jax-v087-2k-bs16-rerun4/2026_06_12_23_55_46` shows
+**3746.5 ms** average step time, **3.3 ms** standard deviation, **67.2% MXU**,
+and **0.2%** op-profile idle. Peak runtime HBM was unchanged at **29.25 GiB /
+31.25 GiB**, with **1.9934 GiB** free. Top HLO buckets by time were convolution
+fusion **60,182.900 ms / 67.0%**, custom-call **12,145.678 ms / 13.5%**, loop
+fusion **10,946.289 ms / 12.2%**, data formatting **3,538.512 ms / 3.9%**, and
+custom fusion **1,967.148 ms / 2.2%**.
+
+Fresh train-step HLO was byte-identical to v086: **19,710,086 bytes / 117,857
+lines**, SHA256
+`2b5d503bed2876282591e25458d1515c3d63f1a1ad371f4c6c9cb0d9a020218c`, compiled
+memory **27.89 GiB**, preallocated temp **22.13 GiB**. Verdict: do not carry
+`--xla_latency_hiding_scheduler_rerun=4`; keep v086's rerun3 / VMEM98304 as the
+current 2k batch16 frontier.
+
+## [2026-06-12] loop-iteration | cc5 v088 launched: 2k batch16 VMEM 97280
+
+Launching workload `alekseyv-qwen3-jax-v088-2kbs16vm97` on
+`v6e-demo-hjajoo`. This keeps the v086 2k frontier fixed: per-chip
+**batch_size=16**, global batch **128**, sequence length **2048**, scheduler
+rerun **3**, Tokamax Splash, MaxText CE, no-scan remat, activation sharding,
+SparseCore reduce-scatter/all-reduce offload, SparseCore collective aggregator,
+and shared-memory limit **90**. The only intended runtime flag change is:
+
+```bash
+--xla_tpu_scoped_vmem_limit_kib=97280
+```
+
+Support requires beating v086's **70,564 tok/s** / **45.4% script MFU**, or
+improving XProf step time below **3743.6 ms**. If lower VMEM slows down or
+keeps memory/profile unchanged, keep **98304 KiB** as the lower-side VMEM
+frontier and pivot away from local VMEM.
+
+Run dir:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v088-2k-bs16-vmem97280`
+
+Compile cache:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v088_2k_bs16_vmem97280`.
+
+## [2026-06-13] loop-iteration | cc5 v088 2k batch16 VMEM 97280: refuted (70,549 tok/s, 45.4% script MFU)
+
+Workload `alekseyv-qwen3-jax-v088-2kbs16vm97` completed cleanly on
+`v6e-demo-hjajoo` with finite loss and `EXIT_CODE=0` on both workers. Worker0
+reported **70,546 tok/s**, **8,818 tok/s/chip**, **45.4% script MFU**; worker1
+reported **70,549 tok/s**, **8,819 tok/s/chip**, **45.4% script MFU**. This is
+below v086's **70,564 tok/s** at the same 2k batch16 shape.
+
+XProf run
+`2026-06-12-qwen3-jax-v088-2k-bs16-vmem97280/2026_06_13_00_09_42` shows
+**3748.9 ms** average step time, **3.5 ms** standard deviation, **67.4% MXU**,
+and peak runtime HBM **29.26 GiB / 31.25 GiB**, with **1.9883 GiB** free. Top
+HLO buckets by time were convolution fusion **60,274.105 ms / 67.1%**,
+custom-call **12,131.671 ms / 13.5%**, loop fusion **10,938.990 ms / 12.2%**,
+data formatting **3,540.592 ms / 3.9%**, and custom fusion **1,884.894 ms /
+2.1%**.
+
+Fresh train-step HLO was distinct from v086: **19,719,421 bytes / 117,767
+lines**, SHA256
+`5ec20392283b09491d01e672599a13e450a608f3e30dbd73bfb74b6404d530d1`, compiled
+memory **27.89 GiB**. Verdict: do not carry **97280 KiB**; keep v086's
+**98304 KiB** as the current 2k batch16 VMEM frontier and pivot away from local
+VMEM bracketing.
+
+## [2026-06-13] loop-iteration | cc5 v089 launched: 2k batch18 on VMEM98304 frontier
+
+Launching workload `alekseyv-qwen3-jax-v089-2kbs18` on `v6e-demo-hjajoo`.
+This keeps the v086 runtime frontier fixed: sequence length **2048**, scoped
+VMEM **98304 KiB**, scheduler rerun **3**, Tokamax Splash, MaxText CE, no-scan
+remat, activation sharding, SparseCore reduce-scatter/all-reduce offload,
+SparseCore collective aggregator, and shared-memory limit **90**. The only
+intended shape change is:
+
+```bash
+--batch_size=18
+```
+
+Rationale: v086 still had about **1.99 GiB** runtime HBM free at batch16, while
+v087/v088 scheduler/VMEM probes did not improve throughput. Batch18 is higher
+OOM risk, but it is the direct remaining path to higher 2k MFU if the HBM
+margin is sufficient.
+
+Support requires beating v086's **70,564 tok/s** / **45.4% script MFU** without
+severe XProf variance. OOM or flat/slower throughput closes raw batch scaling
+above batch16 for this 2k frontier.
+
+Run dir:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v089-2k-bs18-vmem98304`
+
+Compile cache:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v089_2k_bs18_vmem98304`.
+
+## [2026-06-13] loop-iteration | cc5 v089 2k batch18 VMEM98304: invalid/refuted (program-load HBM exhaustion)
+
+Workload `alekseyv-qwen3-jax-v089-2kbs18` reached train-step compile but failed
+before step 0 on both workers with `EXIT_CODE=1`. The runtime error was:
+
+```text
+RESOURCE_EXHAUSTED: Error loading program 'jit_train_step': Attempting to reserve 26.25G at the bottom of memory. That was not possible. There are 25.52G free, 0B reserved, and 25.52G reservable.
+```
+
+No XProf profile window was produced. Fresh optimized train-step HLO was
+**18,234,233 bytes / 110,093 lines**, SHA256
+`9e5ee3a2862cc0ce435db1cbd5cba9ab323c16a23b8abead397d1a68aad3bc60`, with HLO
+memory report total **30.84 GiB** and preallocated temp **25.08 GiB**. Verdict:
+batch18 is invalid at the v086 VMEM98304 frontier. Since the load failure missed
+by roughly **0.73 GiB**, the next direct batch-scaling probe should test
+**batch17**.
+
+## [2026-06-13] loop-iteration | cc5 v090 launched: 2k batch17 on VMEM98304 frontier
+
+Launching workload `alekseyv-qwen3-jax-v090-2kbs17` on `v6e-demo-hjajoo`.
+This keeps the v086 runtime frontier fixed and changes only:
+
+```bash
+--batch_size=17
+```
+
+Rationale: v089 batch18 compiled but failed program load by about **0.73 GiB**
+of bottom-of-memory reservation. Batch17 is the narrow fit check between the
+supported batch16 frontier and the invalid batch18 upper bound.
+
+Support requires beating v086's **70,564 tok/s** / **45.4% script MFU**. OOM or
+flat/slower throughput closes direct batch scaling above batch16.
+
+Run dir:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v090-2k-bs17-vmem98304`
+
+Compile cache:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v090_2k_bs17_vmem98304`.
+
+## [2026-06-13] loop-iteration | cc5 v090 2k batch17 VMEM98304: supported tie / provisional frontier (70,570 tok/s, 45.4% script MFU)
+
+Workload `alekseyv-qwen3-jax-v090-2kbs17` completed cleanly on
+`v6e-demo-hjajoo` with finite loss and `EXIT_CODE=0` on both workers. Worker0
+reported **70,568 tok/s**, **8,821 tok/s/chip**, **45.4% script MFU**; worker1
+reported **70,570 tok/s**, **8,821 tok/s/chip**, **45.4% script MFU**. This is
+only **6 tok/s** above v086's **70,564 tok/s** batch16 result, so it is a
+best-by-script result but not a durable frontier until rerun.
+
+XProf run
+`2026-06-13-qwen3-jax-v090-2k-bs17-vmem98304/2026_06_13_01_44_57` shows
+**3978.0 ms** average step time, **2.4 ms** standard deviation, **67.5% MXU**,
+and peak runtime HBM **30.14 GiB / 31.25 GiB**, with only **1.1031 GiB** free.
+Top HLO buckets by time were convolution fusion **63,923.412 ms / 67.0%**,
+custom-call **12,930.844 ms / 13.6%**, loop fusion **11,695.853 ms / 12.3%**,
+data formatting **3,741.159 ms / 3.9%**, and custom fusion **1,928.880 ms /
+2.0%**.
+
+Fresh optimized train-step HLO was **19,715,571 bytes / 117,956 lines**, SHA256
+`46f4d60dd591bf2ee06acbb8dfaeb1fc91bcd20f8e684fe35035079358d51acd`, with HLO
+memory report total **28.78 GiB** and preallocated temp **23.03 GiB**. Verdict:
+carry v090 only as provisional best-by-script; rerun batch17 exactly before
+banking it, and do not probe batch18 further without a separate memory-reduction
+mechanism.
+
+## [2026-06-13] loop-iteration | cc5 v091 launched: exact 2k batch17 VMEM98304 rerun
+
+Launching workload `alekseyv-qwen3-jax-v091-2kbs17r` on `v6e-demo-hjajoo`.
+This is an exact v090 rerun except for workload identity, fresh compile cache,
+and fresh profile/HLO output directory. The model/runtime shape remains:
+sequence length **2048**, `--batch_size=17`, scoped VMEM **98304 KiB**,
+scheduler rerun **3**, Tokamax Splash, MaxText CE, no-scan remat, activation
+sharding, SparseCore reduce-scatter/all-reduce offload, SparseCore collective
+aggregator, and shared-memory limit **90**.
+
+Rationale: v090 beat v086 by only **6 tok/s** while using much tighter HBM
+headroom. The loop needs an exact repeat before treating batch17 as a true
+frontier.
+
+Support requires another clean finite-loss run in the v090 band. A result near
+v086/v087/v088 makes batch17 a noise-band tie rather than a durable improvement.
+
+Run dir:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v091-2k-bs17-vmem98304-rerun`
+
+Compile cache:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v091_2k_bs17_vmem98304_rerun`.
+
+## [2026-06-13] loop-iteration | cc5 v091 2k batch17 VMEM98304 rerun: refuted as confirmation (70,557 tok/s, 45.4% script MFU)
+
+Workload `alekseyv-qwen3-jax-v091-2kbs17r` exactly reran v090 with fresh cache
+and profile/HLO output. It completed cleanly on `v6e-demo-hjajoo` with finite
+loss and `EXIT_CODE=0` on both workers. Worker0 reported **70,550 tok/s**,
+**8,819 tok/s/chip**, **45.4% script MFU**; worker1 reported **70,557 tok/s**,
+**8,820 tok/s/chip**, **45.4% script MFU**. This does not confirm v090's
+**70,570 tok/s** high-water mark and is slightly below v086's stable
+**70,564 tok/s** batch16 frontier.
+
+XProf run
+`2026-06-13-qwen3-jax-v091-2k-bs17-vmem98304-rerun/2026_06_13_01_59_26` shows
+**3979.0 ms** average step time, **1.6 ms** standard deviation, **67.5% MXU**,
+and the same profile shape as v090. Top HLO buckets by time were convolution
+fusion **63,975.526 ms / 67.1%**, custom-call **12,932.782 ms / 13.6%**, loop
+fusion **11,696.227 ms / 12.3%**, data formatting **3,737.899 ms / 3.9%**, and
+custom fusion **1,937.624 ms / 2.0%**.
+
+Fresh optimized train-step HLO was byte-identical to v090: **19,715,571 bytes /
+117,956 lines**, SHA256
+`46f4d60dd591bf2ee06acbb8dfaeb1fc91bcd20f8e684fe35035079358d51acd`, with HLO
+memory report total **28.78 GiB** and preallocated temp **23.03 GiB**. Verdict:
+batch17 is a noise-band tie/slight regression, not a durable frontier. Keep v086
+batch16 VMEM98304 as the supported 2k frontier and return to one-axis
+scheduler/codegen probes at that shape.
+
+## [2026-06-13] loop-iteration | cc5 v092 launched: 2k batch16 VMEM98304 shmem100
+
+Launching workload `alekseyv-qwen3-jax-v092-2kbs16shm100` on
+`v6e-demo-hjajoo`. This returns to the supported v086 shape and changes only:
+
+```bash
+--xla_tpu_scheduler_percent_shared_memory_limit=100
+```
+
+Rationale: v090/v091 close direct batch scaling above batch16. The profile is
+still dominated by convolution fusion/codegen buckets, so the next 2k-specific
+probe should test whether the scheduler benefits from full shared-memory budget
+at batch16. The longer-context shmem100 branch was too tight and not durable,
+but the 2k batch16 frontier has about **1.99 GiB** runtime HBM free and has not
+tested this exact combination with VMEM98304.
+
+Support requires beating v086's **70,564 tok/s** / **45.4% script MFU** or XProf
+step time below **3743.6 ms**, without unsafe HBM headroom.
+
+Run dir:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v092-2k-bs16-vmem98304-shmem100`
+
+Compile cache:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v092_2k_bs16_vmem98304_shmem100`.
+
+## [2026-06-13] loop-iteration | cc5 v092 2k batch16 VMEM98304 shmem100: supported provisional (70,606 tok/s, 45.4% script MFU)
+
+Workload `alekseyv-qwen3-jax-v092-2kbs16shm100` completed cleanly on
+`v6e-demo-hjajoo` with finite loss and `EXIT_CODE=0` on both workers. Worker0
+reported **70,606 tok/s**, **8,826 tok/s/chip**, **45.4% script MFU**; worker1
+reported **70,591 tok/s**, **8,824 tok/s/chip**, **45.4% script MFU**. This is
+the new best observed script throughput for the 2k lane.
+
+XProf run
+`2026-06-13-qwen3-jax-v092-2k-bs16-vmem98304-shmem100/2026_06_13_02_13_35`
+shows **3743.2 ms** average step time, **3.1 ms** standard deviation, and
+**67.4% MXU**, versus v086's **3743.6 ms** and **67.4% MXU**. Top HLO buckets by
+time were convolution fusion **60,181.248 ms / 67.1%**, custom-call
+**12,133.557 ms / 13.5%**, loop fusion **10,918.561 ms / 12.2%**, data
+formatting **3,538.545 ms / 3.9%**, and custom fusion **1,842.162 ms / 2.1%**.
+
+Fresh optimized train-step HLO was byte-identical to v086/v087: **19,710,086
+bytes / 117,857 lines**, SHA256
+`2b5d503bed2876282591e25458d1515c3d63f1a1ad371f4c6c9cb0d9a020218c`, with HLO
+memory report total **27.89 GiB** and preallocated temp **22.13 GiB**. Verdict:
+carry v092 only provisionally because the HLO is unchanged; launch an exact
+rerun before banking shmem100.
+
+## [2026-06-13] loop-iteration | cc5 v093 launched: exact 2k batch16 VMEM98304 shmem100 rerun
+
+Launching workload `alekseyv-qwen3-jax-v093-2kbs16shm100r` on
+`v6e-demo-hjajoo`. This is an exact v092 rerun except for workload identity,
+fresh compile cache, and fresh profile/HLO output directory.
+
+Rationale: v092 set a new high-water mark, but its optimized HLO is byte-
+identical to v086, so the lane needs a confirmation run before treating
+`--xla_tpu_scheduler_percent_shared_memory_limit=100` as a real improvement.
+
+Support requires another clean finite-loss run near **70,606 tok/s** or a
+matching XProf step time near **3743.2 ms**. A result in the v086/v087 band
+refutes shmem100 as a durable 2k improvement.
+
+Run dir:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v093-2k-bs16-vmem98304-shmem100-rerun`
+
+Compile cache:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v093_2k_bs16_vmem98304_shmem100_rerun`.
+
+## [2026-06-13] loop-iteration | cc5 v093 2k batch16 VMEM98304 shmem100 rerun: supported (70,603 tok/s, 45.4% script MFU)
+
+Workload `alekseyv-qwen3-jax-v093-2kbs16shm100r` exactly reran v092 with fresh
+cache and profile/HLO output. It completed cleanly on `v6e-demo-hjajoo` with
+finite loss and `EXIT_CODE=0` on both workers. Worker0 reported **70,599
+tok/s**, **8,825 tok/s/chip**, **45.4% script MFU**; worker1 reported
+**70,603 tok/s**, **8,825 tok/s/chip**, **45.4% script MFU**. This confirms the
+v092/v093 shmem100 batch16 band and keeps v092's **70,606 tok/s** as the best
+observed result.
+
+XProf run
+`2026-06-13-qwen3-jax-v093-2k-bs16-vmem98304-shmem100-rerun/2026_06_13_02_27_06`
+shows **3741.4 ms** average step time, **3.8 ms** standard deviation, and
+**67.5% MXU**, better than v086's **3743.6 ms**. Top HLO buckets by time were
+convolution fusion **60,206.935 ms / 67.2%**, custom-call **12,133.267 ms /
+13.5%**, loop fusion **10,917.732 ms / 12.2%**, data formatting **3,538.837 ms
+/ 3.9%**, and custom fusion **1,789.932 ms / 2.0%**.
+
+Fresh optimized train-step HLO remained byte-identical to v086/v092:
+**19,710,086 bytes / 117,857 lines**, SHA256
+`2b5d503bed2876282591e25458d1515c3d63f1a1ad371f4c6c9cb0d9a020218c`, with HLO
+memory report total **27.89 GiB** and preallocated temp **22.13 GiB**. Verdict:
+carry shmem100 as the current supported 2k batch16 runtime frontier, while
+noting that it did not alter optimized HLO.
+
+## [2026-06-13] loop-iteration | cc5 v094 launched: 2k batch17 VMEM98304 shmem100
+
+Launching workload `alekseyv-qwen3-jax-v094-2kbs17shm100` on
+`v6e-demo-hjajoo`. This keeps the supported v093 shmem100 runtime frontier and
+changes only:
+
+```bash
+--batch_size=17
+```
+
+Rationale: batch17 with shmem90 was a noise-band tie/slight regression, but
+v092/v093 confirmed a small shmem100 runtime improvement at batch16. This tests
+whether the same runtime branch makes the adjacent batch17 shape worthwhile.
+
+Support requires beating v092's **70,606 tok/s** high-water mark or clearly
+improving the v090/v091 batch17 profile. OOM, tight-memory instability, or a
+result in the prior **70.55k** batch17 band refutes further batch17 retries.
+
+Run dir:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v094-2k-bs17-vmem98304-shmem100`
+
+Compile cache:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v094_2k_bs17_vmem98304_shmem100`.
+
+## [2026-06-13] loop-iteration | cc5 v094 2k batch17 VMEM98304 shmem100: invalid/OOM before step 0
+
+Workload `alekseyv-qwen3-jax-v094-2kbs17shm100` failed during the first
+`jit_train_step` program load on both workers. The runtime error was:
+
+```text
+RESOURCE_EXHAUSTED: Error loading program 'jit_train_step': Attempting to
+allocate 2.10G. That was not possible. There are 1.02G free.
+```
+
+No valid throughput summary or XProf profile was produced. This closes direct
+batch scaling above batch16 on the v092/v093 shmem100 branch: batch18 failed at
+program load, batch17 at shmem90 was a noise-band tie/slight regression, and
+batch17 at shmem100 leaves too little HBM for runtime allocation. Keep v092's
+**70,606 tok/s / 45.4% script MFU** as the 2k high-water mark and return to
+2k-specific codegen/layout probes at batch16.
+
+## [2026-06-13] loop-iteration | cc5 v095 launched: 2k batch16 shmem100 Splash BKV2048
+
+Launching workload `alekseyv-qwen3-jax-v095-2kbs16sp2048` on
+`v6e-demo-hjajoo`. This reuses the confirmed v093 batch16 shmem100 frontier and
+changes only the forward Splash KV tile:
+
+```bash
+SPLASH_BKV=2048
+SPLASH_BKV_COMPUTE=2048
+```
+
+Rationale: the v092/v093 profile still spends about **13.5%** in
+Splash/custom-call and the current logs show `bq=2048 bkv=1024` at seqlen
+**2048**. Matching BKV to the full sequence length may reduce short-context
+forward attention tiling overhead. Support requires beating v092's **70,606
+tok/s** or showing a same-band run with lower custom-call/data-formatting time
+and no HBM regression.
+
+Run dir:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v095-2k-bs16-vmem98304-shmem100-splash2048`
+
+Compile cache:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v095_2k_bs16_vmem98304_shmem100_splash2048`.
+
+## [2026-06-13] loop-iteration | cc5 v095 2k batch16 shmem100 Splash BKV2048: supported provisional (70,976 tok/s, 45.6% script MFU)
+
+Workload `alekseyv-qwen3-jax-v095-2kbs16sp2048` completed cleanly on
+`v6e-demo-hjajoo` with `EXIT_CODE=0` on both workers. It changed only
+`SPLASH_BKV=2048 SPLASH_BKV_COMPUTE=2048` from the v092/v093 batch16 shmem100
+frontier. The logs confirmed:
+
+```text
+bq=2048 bkv=2048 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True
+```
+
+Worker0 reported **70,976 tok/s / 8,872 tok/s/chip / 45.6% script MFU**.
+Worker1 reported **70,970 tok/s / 8,871 tok/s/chip / 45.6% script MFU**. Loss
+ended finite at **12.0467**.
+
+XProf run
+`2026-06-13-qwen3-jax-v095-2k-bs16-vmem98304-shmem100-splash2048/2026_06_13_02_54_18`
+shows **3720.2 ms** average step time, **67.9% MXU**, and **0.2% idle**. Top
+buckets: convolution fusion **60,158.769 ms / 67.5%**, custom-call
+**11,695.131 ms / 13.1%**, loop fusion **10,908.781 ms / 12.2%**, data
+formatting **3,539.631 ms / 4.0%**, custom fusion **1,793.108 ms / 2.0%**.
+Compared with v093, custom-call drops from **12,133.267 ms** to **11,695.131
+ms**, and profile step time improves from **3741.4 ms** to **3720.2 ms**.
+
+Memory is the risk: XProf peak HBM is **31.14 GiB / 31.25 GiB**, with only
+**0.1018 GiB** free. The optimized train-step HLO changed to **19,375,297 bytes
+/ 115,424 lines**, SHA256
+`a8b0c4b3833fb22bb72597d9e68cdf28fd70e18ba0a695e247b2ebf56ed69bd2`, with HLO
+memory total **27.88 GiB** and preallocated temp **22.12 GiB**. Text counts vs
+the v086/v092/v093 family: `copy` **20415 -> 17231**, `fusion` **30778 ->
+30274**, `splash` **2428 -> 1880**, `tokamax` **2 -> 1**; `custom-call`,
+`convolution`, and collectives remain same-count.
+
+Verdict: supported provisional new 2k high-water mark. Carry BKV2048 only if an
+exact rerun confirms the gain despite the very tight HBM margin. Next: v096
+fresh-cache/profile exact rerun.
+
+## [2026-06-13] loop-iteration | cc5 v096 launched: exact 2k batch16 shmem100 Splash BKV2048 rerun
+
+Launching workload `alekseyv-qwen3-jax-v096-2ksp2048r` on `v6e-demo-hjajoo`.
+This is an exact v095 rerun except for workload identity, compile cache, and
+profile/HLO output path.
+
+Rationale: v095 moved the observed 2k high-water mark to **70,976 tok/s /
+45.6% script MFU** and improved profile step time to **3720.2 ms**, but it left
+only **0.1018 GiB** free HBM. A clean rerun near the same band is required
+before carrying `SPLASH_BKV=2048 SPLASH_BKV_COMPUTE=2048` as the durable 2k
+frontier.
+
+Run dir:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v096-2k-bs16-vmem98304-shmem100-splash2048-rerun`
+
+Compile cache:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v096_2k_bs16_vmem98304_shmem100_splash2048_rerun`.
+
+## [2026-06-13] loop-iteration | cc5 v096 exact Splash BKV2048 rerun: supported (70,959 tok/s, 45.6% script MFU)
+
+Workload `alekseyv-qwen3-jax-v096-2ksp2048r` completed cleanly on
+`v6e-demo-hjajoo` with normal finite loss ending at **12.0467**. Worker1
+reported **70,959 tok/s**, **8,870 tok/s/chip**, and **45.6% script MFU**;
+worker0 reported **70,957 tok/s**, **8,870 tok/s/chip**, and **45.6% script
+MFU**.
+
+XProf run
+`2026-06-13-qwen3-jax-v096-2k-bs16-vmem98304-shmem100-splash2048-rerun/2026_06_13_03_10_13`
+reported **3723.7 ms** average step time and **67.8% MXU**. Buckets remain in
+the v095 shape: convolution fusion **60,179.211 ms / 67.4%**, custom-call
+**11,696.061 ms / 13.1%**, loop fusion **10,928.655 ms / 12.2%**, data
+formatting **3,543.761 ms / 4.0%**, and custom fusion **1,830.332 ms / 2.1%**.
+Memory is still tight at **31.14 GiB / 31.25 GiB** peak HBM, with only
+**0.1018 GiB** free.
+
+The optimized train-step HLO is byte-identical to v095: **19,375,297 bytes /
+115,424 lines**, SHA256
+`a8b0c4b3833fb22bb72597d9e68cdf28fd70e18ba0a695e247b2ebf56ed69bd2`, HLO memory
+total **27.88 GiB**, preallocated temp **22.12 GiB**.
+
+Verdict: supported / confirmed 2k frontier. Carry
+`SPLASH_BKV=2048 SPLASH_BKV_COMPUTE=2048` as the current best 2k stack.
+
+## [2026-06-13] loop-iteration | cc5 v097 launched: 2k batch16 Splash BKV2048 shmem95 robustness probe
+
+Launching workload `alekseyv-qwen3-jax-v097-2ksp2048sh95` on
+`v6e-demo-hjajoo`. This changes only
+`--xla_tpu_scheduler_percent_shared_memory_limit=100` to **95** from the
+confirmed v095/v096 frontier. Shape, image, compile-cache isolation, profile
+window, scoped VMEM **98304 KiB**, `SPLASH_BKV=2048`, and
+`SPLASH_BKV_COMPUTE=2048` remain fixed.
+
+Rationale: v095/v096 confirm the BKV2048 throughput gain, but runtime HBM leaves
+only **0.1018 GiB** free. A slightly lower scheduler shared-memory cap may
+produce a more robust schedule without giving back the BKV2048 throughput gain.
+Support requires clean finite loss plus throughput near the confirmed
+**70.95k tok/s** band, ideally with more HBM margin or no profile regression.
+OOM, a return to the v092/v093 **70.60k tok/s** band, or a worse profile refutes
+carrying shmem95.
+
+Run dir:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v097-2k-bs16-vmem98304-splash2048-shmem95`
+
+Compile cache:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v097_2k_bs16_vmem98304_splash2048_shmem95`.
+
+## [2026-06-13] loop-iteration | cc5 v097 2k batch16 Splash BKV2048 shmem95: refuted/tie (70,965 tok/s, 45.6% script MFU)
+
+Workload `alekseyv-qwen3-jax-v097-2ksp2048sh95` completed cleanly on
+`v6e-demo-hjajoo` with normal finite loss ending at **12.0467**. Worker1
+reported **70,965 tok/s**, **8,871 tok/s/chip**, and **45.6% script MFU**;
+worker0 reported **70,958 tok/s**, **8,870 tok/s/chip**, and **45.6% script
+MFU**.
+
+XProf run
+`2026-06-13-qwen3-jax-v097-2k-bs16-vmem98304-splash2048-shmem95/2026_06_13_03_26_34`
+reported **3722.8 ms** average step time, **67.9% MXU**, and **0.2% idle**.
+Memory did not improve versus v095/v096: peak HBM remains **31.14 GiB /
+31.25 GiB**, with only **0.1018 GiB** free.
+
+The optimized train-step HLO is byte-identical to v095/v096:
+**19,375,297 bytes / 115,424 lines**, SHA256
+`a8b0c4b3833fb22bb72597d9e68cdf28fd70e18ba0a695e247b2ebf56ed69bd2`, HLO memory
+total **27.88 GiB**, preallocated temp **22.12 GiB**.
+
+Verdict: refuted/tie. shmem95 is valid and remains in the BKV2048 performance
+band, but it does not beat v095's **70,976 tok/s** high-water mark and gives no
+HBM relief. Do not carry shmem95; keep shmem100 on the frontier.
+
+## [2026-06-13] loop-iteration | cc5 v098 launched: 2k batch16 Splash BKV2048 VMEM100352 bracket
+
+Launching workload `alekseyv-qwen3-jax-v098-2ksp2048vm100` on
+`v6e-demo-hjajoo`. This changes only scoped VMEM from **98304 KiB** to
+**100352 KiB** on the confirmed v095/v096 BKV2048 shmem100 frontier.
+
+Rationale: the pre-BKV2048 batch16 VMEM sweep favored **98304 KiB**, but
+BKV2048 changed the train-step HLO and raised runtime HBM from the v086/v092
+~29.25 GiB band to **31.14 GiB**. A single high-side VMEM retest checks whether
+the new attention tiling shifted the scheduler optimum. Support requires clean
+finite loss plus throughput above the confirmed **70.95k tok/s** band or a
+profile/memory improvement without throughput loss. OOM, a lower-profile
+throughput band, or unchanged HLO/profile refutes carrying VMEM100352.
+
+Run dir:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v098-2k-bs16-vmem100352-splash2048-shmem100`
+
+Compile cache:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v098_2k_bs16_vmem100352_splash2048_shmem100`.
+
+## [2026-06-13] loop-iteration | cc5 v098 2k batch16 Splash BKV2048 VMEM100352: refuted (70,561 tok/s, 45.4% script MFU)
+
+Workload `alekseyv-qwen3-jax-v098-2ksp2048vm100` completed cleanly on
+`v6e-demo-hjajoo` with normal finite loss ending at **12.0464**. Worker0
+reported **70,561 tok/s**, **8,820 tok/s/chip**, and **45.4% script MFU**;
+worker1 reported **70,552 tok/s**, **8,819 tok/s/chip**, and **45.4% script
+MFU**.
+
+XProf run
+`2026-06-13-qwen3-jax-v098-2k-bs16-vmem100352-splash2048-shmem100/2026_06_13_03_41_20`
+reported **3745.7 ms** average step time and **67.3% MXU**, worse than the
+confirmed v095/v096 frontier. Runtime memory also worsened: peak HBM
+**31.17 GiB / 31.25 GiB**, only **0.0775 GiB** free, **2.52%** fragmentation.
+
+Fresh optimized train-step HLO changed from the v095/v096/v097 family:
+**19,451,153 bytes / 116,052 lines**, SHA256
+`ed70db95bbdffbae13742257ec59811d04e4feb7fe8a5f2493f2a02cb020d9de`, HLO memory
+total **27.88 GiB**, preallocated temp **22.13 GiB**. Notable count changes:
+`copy` **17231 -> 19182**, `all-gather` **7072 -> 6999**, `fusion`
+**30274 -> 30259**; `custom-call`, `convolution`, `splash`, and `tokamax`
+counts are unchanged.
+
+Verdict: refuted. Do not carry VMEM100352; it is slower and tighter on HBM.
+
+## [2026-06-13] loop-iteration | cc5 v099 launched: 2k batch16 Splash BKV2048 VMEM97280 low-side bracket
+
+Launching workload `alekseyv-qwen3-jax-v099-2ksp2048vm97` on
+`v6e-demo-hjajoo`. This changes only scoped VMEM from **98304 KiB** to
+**97280 KiB** on the confirmed v095/v096 BKV2048 shmem100 frontier.
+
+Rationale: v098 showed the high-side VMEM100352 schedule is distinct but slower
+and more memory constrained. A low-side VMEM97280 retest checks whether the
+BKV2048 stack can recover HBM headroom or a faster schedule below the current
+98304 KiB point. Support requires clean finite loss plus throughput above the
+confirmed **70.95k tok/s** band or materially better memory/profile with no
+throughput loss. OOM, lower throughput, or no memory benefit refutes carrying
+VMEM97280 and closes the immediate VMEM bracket.
+
+Run dir:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v099-2k-bs16-vmem97280-splash2048-shmem100`
+
+Compile cache:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v099_2k_bs16_vmem97280_splash2048_shmem100`.
+
+## [2026-06-13] loop-iteration | cc5 v099 2k batch16 Splash BKV2048 VMEM97280: refuted/memory-only tie (70,899 tok/s, 45.6% script MFU)
+
+Workload `alekseyv-qwen3-jax-v099-2ksp2048vm97` completed cleanly on
+`v6e-demo-hjajoo` with normal finite loss ending at **12.0469**. Worker1
+reported **70,899 tok/s**, **8,862 tok/s/chip**, and **45.6% script MFU**;
+worker0 reported **70,889 tok/s**, **8,861 tok/s/chip**, and **45.6% script
+MFU**.
+
+XProf run
+`2026-06-13-qwen3-jax-v099-2k-bs16-vmem97280-splash2048-shmem100/2026_06_13_03_55_34`
+reported **3727.5 ms** average step time and **67.7% MXU**. Runtime memory
+improved only slightly: peak HBM **31.13 GiB / 31.25 GiB**, **0.1139 GiB** free,
+**1.71%** fragmentation.
+
+Fresh optimized train-step HLO changed from the v095/v096/v097 family:
+**19,384,632 bytes / 115,334 lines**, SHA256
+`144caf5989b6207f46d0d69929f6adc8b030da0c96b98e066d92098a9dfca227`, HLO memory
+total **27.88 GiB**, preallocated temp **22.12 GiB**. Counts:
+`all-gather=7071`, `all-reduce=165`, `reduce-scatter=2774`,
+`async-start=391`, `async-done=391`, `convolution=3071`,
+`custom-call=3846`, `copy=17356`, `fusion=30295`, `dot_general=7337`,
+`splash=1880`, `tokamax=1`.
+
+Verdict: refuted / memory-only tie. VMEM97280 gives a tiny HBM margin gain but
+regresses throughput and step time. Do not carry it for performance. The
+immediate BKV2048 VMEM bracket is closed; keep **98304 KiB**.
+
+## [2026-06-13] loop-iteration | cc5 v100 launched: 2k batch16 Splash BKV2048 DQ reduction steps 3
+
+Launching workload `alekseyv-qwen3-jax-v100-2ksp2048dq3` on
+`v6e-demo-hjajoo`. This returns to the confirmed v095/v096 frontier
+(VMEM **98304 KiB**, shmem100, BKV2048) and changes only
+`TOKAMAX_DQ_REDUCTION_STEPS=3`.
+
+Rationale: VMEM and shmem scalar probes did not beat the frontier. The profile
+still spends about **13.1%** in custom-call/Splash, and prior long-context
+DQ-reduction probes changed the train-step HLO and reduced DKV custom-call time
+but regressed convolution time. At 2k context with full-sequence BKV2048, the
+same mechanism may have a different balance. Support requires clean finite loss
+plus throughput above the confirmed **70.95k tok/s** band or a profile win in
+custom-call/attention without wall-time loss. A changed HLO with lower
+throughput or worse convolution refutes carrying DQ reduction steps.
+
+Run dir:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v100-2k-bs16-vmem98304-splash2048-dqsteps3`
+
+Compile cache:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v100_2k_bs16_vmem98304_splash2048_dqsteps3`.
+
+## [2026-06-13] loop-iteration | cc5 v100 2k batch16 Splash BKV2048 DQ reduction steps 3: failed compile OOM
+
+Workload `alekseyv-qwen3-jax-v100-2ksp2048dq3` failed before measured
+throughput with an XLA TPU compile-time HBM OOM. The runtime error reported
+**32.62 GiB** used against **31.25 GiB** capacity, exceeding HBM by
+**1.38 GiB**; total HBM usage was at least **32.88 GiB** with program
+**26.90 GiB** and arguments **5.72 GiB**.
+
+The optimized train-step HLO was still dumped and copied to
+`/tmp/qwen3-v100-hlo/`. HLO SHA is
+`9b4f56aa346c8eff4ba2826cbd834efbfeb3db1fe51d3a8541a6916b0cda0c0d`
+(**19,559,653 bytes**, **116,098 lines**). The HLO memory report shows
+**32.56 GiB** total bytes and **26.80 GiB** preallocated temp, far above the
+v095/v096 frontier. Counts also shifted upward versus v096/v097:
+`custom-call=3924`, `convolution=3138`, `async-start=397`, `async-done=397`.
+
+Additional diagnostic: the runtime Splash config line continued to show
+`bq_dq=None bkv_dq=None`, so `TOKAMAX_DQ_REDUCTION_STEPS=3` did not express as
+the explicit DQ tile knobs. Do not carry this reduction-steps knob on the 2k
+BKV2048 frontier. If DQ tuning is retried, use the explicit DQ tile env knobs
+or pair it with a memory-reducing mechanism.
+
+## [2026-06-13] loop-iteration | cc5 v101 launched: 2k batch16 Splash BKV2048 shmem90
+
+Launching workload `alekseyv-qwen3-jax-v101-2ksp2048sh90` on
+`v6e-demo-hjajoo`. This keeps the confirmed v095/v096 BKV2048 frontier fixed
+(batch16, seqlen2048, scoped VMEM **98304 KiB**, Tokamax Splash, MaxText CE,
+SparseCore RS/AR offload plus aggregator) and changes only
+`--xla_tpu_scheduler_percent_shared_memory_limit=100` to **90**.
+
+Rationale: v097 showed shmem95 was byte-identical to the frontier and tied
+throughput, while v100 showed DQ-reduction HLO growth immediately OOMs. A
+stronger shared-memory cap is a low-risk scheduler probe that may change async
+collective/Splash staging or improve HBM headroom. Support requires throughput
+above the confirmed **70.95k tok/s** band, or same-band throughput with clear
+runtime memory improvement.
+
+Run dir:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v101-2k-bs16-vmem98304-splash2048-shmem90`
+
+Compile cache:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v101_2k_bs16_vmem98304_splash2048_shmem90`.
+
+## [2026-06-13] loop-iteration | cc5 v101 2k batch16 Splash BKV2048 shmem90: refuted for speed, useful headroom branch
+
+Workload `alekseyv-qwen3-jax-v101-2ksp2048sh90` completed cleanly on
+`v6e-demo-hjajoo`. Worker0 reported **70,918 tok/s** and worker1
+**70,913 tok/s**, both **45.6% script MFU** with finite loss ending at
+**12.0467**. This is below the v095/v096 best band (**70,959-70,976 tok/s**),
+so shmem90 is not a speed replacement.
+
+XProf run
+`2026-06-13-qwen3-jax-v101-2k-bs16-vmem98304-splash2048-shmem90/2026_06_13_04_23_40`
+shows **3723.2 ms**, **67.7% MXU**, and **0.2% idle**. Top buckets are
+convolution fusion **60,203.978 ms / 67.5%**, custom-call
+**11,697.219 ms / 13.1%**, and loop fusion **10,928.690 ms / 12.2%**.
+
+The key positive signal is runtime HBM: **29.24 GiB / 31.25 GiB** with
+**2.0020 GiB free**, versus roughly **0.10 GiB free** on the v095/v096/v097
+BKV2048 shmem100/95 branch. The train-step HLO is byte-identical to the speed
+frontier: SHA
+`a8b0c4b3833fb22bb72597d9e68cdf28fd70e18ba0a695e247b2ebf56ed69bd2`,
+**19,375,297 bytes / 115,424 lines**, HLO memory **27.88 GiB** with
+**22.12 GiB** preallocated temp. Counts:
+`all-gather=7072`, `all-reduce=165`, `reduce-scatter=2774`,
+`custom-call=3846`, `convolution=3071`, `copy=17231`.
+
+Verdict: do not carry shmem90 for best batch16 throughput, but use it as a
+headroom branch. Next: v102 tests whether that headroom lets **batch17 +
+BKV2048** fit and beat the batch16 speed frontier.
+
+## [2026-06-13] loop-iteration | cc5 v102 launched: 2k batch17 Splash BKV2048 shmem90
+
+Launching workload `alekseyv-qwen3-jax-v102-2kbs17sp2048sh90` on
+`v6e-demo-hjajoo`. This reuses the v101 BKV2048 shmem90 headroom branch and
+changes only `--batch_size=16` to `--batch_size=17`.
+
+Rationale: v101 does not beat batch16 speed, but it leaves **2.0020 GiB** free
+at runtime, much more than the **~0.10 GiB** free v095/v096 speed branch.
+Earlier direct batch17 probes without BKV2048 were only a noise-band tie, and
+batch17 on shmem100 failed allocation. This run tests whether BKV2048 plus the
+shmem90 headroom is enough for batch17 to fit and lift tokens/sec above the
+confirmed **70.95k tok/s** band.
+
+Run dir:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v102-2k-bs17-vmem98304-splash2048-shmem90`
+
+Compile cache:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v102_2k_bs17_vmem98304_splash2048_shmem90`.
+
+## [2026-06-13] loop-iteration | cc5 v102 2k batch17 Splash BKV2048 shmem90: refuted (70,882 tok/s, 45.6% script MFU)
+
+Workload `alekseyv-qwen3-jax-v102-2kbs17sp2048sh90` completed cleanly on
+`v6e-demo-hjajoo`. Worker0 reported **70,875 tok/s** and worker1 **70,882
+tok/s**, both **45.6% script MFU**, with finite loss ending at **12.0464**.
+This fits, but it is below both the v101 shmem90 batch16 headroom branch and
+the v095/v096 speed frontier.
+
+XProf run
+`2026-06-13-qwen3-jax-v102-2k-bs17-vmem98304-splash2048-shmem90/2026_06_13_04_38_38`
+shows **3963.8 ms**, **67.8% MXU**, and **0.2% idle**. Top buckets are
+convolution fusion **64,000.513 ms / 67.4%**, custom-call
+**12,442.653 ms / 13.1%**, and loop fusion **11,702.587 ms / 12.3%**.
+Runtime HBM was **30.13 GiB / 31.25 GiB** with **1.1117 GiB free**.
+
+The train-step HLO is a distinct batch17 program:
+`53bb713300fc39dad07b7869e6cfed54010b2a7bcfd9db57e16b037f9e393610`,
+**19,380,811 bytes / 115,523 lines**, HLO memory **28.77 GiB** with
+**23.02 GiB** preallocated temp. Counts:
+`all-gather=7069`, `all-reduce=165`, `reduce-scatter=2774`,
+`custom-call=3842`, `convolution=3071`, `copy=17669`.
+
+Verdict: refuted. shmem90 creates enough headroom to fit batch17+BKV2048, but
+step time rises too much and tokens/sec regresses. Close batch17+BKV2048. Next:
+probe an intermediate shared-memory cap between shmem95 (speed tie, no headroom
+relief) and shmem90 (headroom win, speed loss).
+
+## [2026-06-13] loop-iteration | cc5 v103 launched: 2k batch16 Splash BKV2048 shmem92
+
+Launching workload `alekseyv-qwen3-jax-v103-2ksp2048sh92` on
+`v6e-demo-hjajoo`. This returns to batch16 BKV2048 and changes only
+`--xla_tpu_scheduler_percent_shared_memory_limit=100` to **92**.
+
+Rationale: shmem95 tied the speed frontier but did not improve HBM; shmem90
+created **2.0020 GiB** free HBM but regressed throughput by about **58-63
+tok/s**. shmem92 tests whether the threshold can provide useful headroom while
+keeping throughput near or above the confirmed **70.95k tok/s** band.
+
+Run dir:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v103-2k-bs16-vmem98304-splash2048-shmem92`
+
+Compile cache:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v103_2k_bs16_vmem98304_splash2048_shmem92`.
+
+## [2026-06-13] loop-iteration | cc5 v103 2k batch16 Splash BKV2048 shmem92: refuted for speed, useful headroom bracket
+
+Workload `alekseyv-qwen3-jax-v103-2ksp2048sh92` completed cleanly on
+`v6e-demo-hjajoo` with `EXIT_CODE=0` on both workers. It reached worker0
+**70,928 tok/s** / **8,866/chip** / **45.6%** script MFU and worker1
+**70,929 tok/s** / **8,866/chip** / **45.6%**, with normal loss ending at
+**12.0467**. This is below the confirmed v095/v096 frontier
+(**70,959-70,976 tok/s**), so shmem92 is not a speed improvement.
+
+XProf run
+`2026-06-13-qwen3-jax-v103-2k-bs16-vmem98304-splash2048-shmem92/2026_06_13_04_53_02`
+shows **3722.8 ms** average step time, **67.7%** MXU, and **0.2%** idle.
+Op profile remains the same shape as the shmem90 branch: convolution fusion
+**60,201.382 ms / 67.5%**, custom-call **11,697.155 ms / 13.1%**, loop fusion
+**10,932.819 ms / 12.3%**, Splash fwd residuals **5,905.514 ms / 6.6%**, and
+Splash DKV **5,789.964 ms / 6.5%**. Memory profile is the useful part:
+**29.24 / 31.25 GiB** peak HBM with **2.0020 GiB** free, stack reservation
+**23.2933 GiB**, heap **5.9508 GiB**. The optimized train-step HLO is
+byte-identical to v101:
+`a8b0c4b3833fb22bb72597d9e68cdf28fd70e18ba0a695e247b2ebf56ed69bd2`,
+**19,375,297 bytes / 115,424 lines**, compiled memory **27.88 GiB**, prealloc
+temp **22.12 GiB**, counts `all-gather=7072`, `all-reduce=165`,
+`reduce-scatter=2774`, `async-start=391`, `async-done=391`,
+`convolution=3071`, `custom-call=3846`, `copy=17231`, `fusion=30274`,
+`dot_general=7301`, `tokamax=1`.
+
+Verdict: refuted for speed, but it brackets the shared-memory threshold.
+Next: v104 tests shmem93, the last midpoint between HBM-tight shmem95 and the
+headroom-but-slower shmem92/shmem90 branch.
+
+## [2026-06-13] loop-iteration | cc5 v104 launched: 2k batch16 Splash BKV2048 shmem93
+
+Launching workload `alekseyv-qwen3-jax-v104-2ksp2048sh93` on
+`v6e-demo-hjajoo`. This reuses v095/v096 exactly except
+`--xla_tpu_scheduler_percent_shared_memory_limit=93`, keeping batch16,
+seqlen2048, VMEM98304, BKV2048/BKV_COMPUTE2048, no-scan remat, activation
+sharding, Tokamax Splash, MaxText CE, SparseCore RS/AR offload + aggregator,
+and collective-matmul modes none.
+
+Run dir:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v104-2k-bs16-vmem98304-splash2048-shmem93`
+
+Compile cache:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v104_2k_bs16_vmem98304_splash2048_shmem93`.
+
+## [2026-06-13] loop-iteration | cc5 v104 2k batch16 Splash BKV2048 shmem93: refuted, tight-HBM side of threshold
+
+Workload `alekseyv-qwen3-jax-v104-2ksp2048sh93` completed cleanly on
+`v6e-demo-hjajoo` with `EXIT_CODE=0` on both workers. It reached worker0
+**70,946 tok/s** / **8,868/chip** / **45.6%** script MFU and worker1
+**70,949 tok/s** / **8,869/chip** / **45.6%**, with normal loss ending at
+**12.0467**. This is slightly faster than shmem92 but still below the confirmed
+v095/v096 frontier (**70,959-70,976 tok/s**).
+
+XProf run
+`2026-06-13-qwen3-jax-v104-2k-bs16-vmem98304-splash2048-shmem93/2026_06_13_05_08_43`
+shows **3725.4 ms** average step time, **67.8%** MXU, and **0.2%** idle. Op
+profile remains frontier-shaped: convolution fusion **60,203.395 ms / 67.4%**,
+custom-call **11,695.673 ms / 13.1%**, loop fusion **10,925.321 ms / 12.2%**,
+Splash fwd residuals **5,905.679 ms / 6.6%**, and Splash DKV **5,788.313 ms /
+6.5%**. Memory profile is tight again: **31.14 / 31.25 GiB** peak HBM, only
+**0.1018 GiB** free, stack reservation **23.2933 GiB**, heap **7.8510 GiB**.
+The optimized train-step HLO is byte-identical to v095/v096/v097/v101/v103:
+`a8b0c4b3833fb22bb72597d9e68cdf28fd70e18ba0a695e247b2ebf56ed69bd2`,
+**19,375,297 bytes / 115,424 lines**, compiled memory **27.88 GiB**, prealloc
+temp **22.12 GiB**, counts `all-gather=7072`, `all-reduce=165`,
+`reduce-scatter=2774`, `async-start=391`, `async-done=391`,
+`convolution=3071`, `custom-call=3846`, `copy=17231`, `fusion=30274`,
+`dot_general=7301`, `tokamax=1`.
+
+Verdict: shmem93 is refuted. The runtime HBM transition sits between shmem92
+and shmem93: shmem92/90 give about **2.0 GiB** free but slower runtime, while
+shmem93/95/100 are tight-HBM and faster. Pivot away from shmem bracketing.
+
+## [2026-06-13] loop-iteration | cc5 v105 launched: 2k batch16 Splash BKV2048 all scheduler features true
+
+Launching workload `alekseyv-qwen3-jax-v105-2ksp2048allsched` on
+`v6e-demo-hjajoo`. This reuses the confirmed v095/v096 BKV2048 frontier and
+changes only `--xla_tpu_enable_all_experimental_scheduler_features=false` to
+`true`. The intent is to test whether the broad scheduler bundle helps the
+current attention/custom-call schedule, where older qseq runs suggested `true`
+could be marginally better but later simplified stacks tolerated `false`.
+
+Run dir:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v105-2k-bs16-vmem98304-splash2048-allsched`
+
+Compile cache:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v105_2k_bs16_vmem98304_splash2048_allsched`.
+
+## [2026-06-13] loop-iteration | cc5 v105 2k batch16 Splash BKV2048 all scheduler features true: refuted (70,943 tok/s, 45.6% script MFU)
+
+Workload `alekseyv-qwen3-jax-v105-2ksp2048allsched` completed cleanly on
+`v6e-demo-hjajoo` with normal finite loss, reaching worker0 **70,932 tok/s**
+and worker1 **70,943 tok/s**, both **45.6%** script MFU. This does not beat
+the confirmed v095/v096 frontier (**70,959-70,976 tok/s**).
+
+XProf run
+`2026-06-13-qwen3-jax-v105-2k-bs16-vmem98304-splash2048-allsched/2026_06_13_05_24_05`
+reported **3725.5 ms** average step time, **67.8%** MXU, and **0.2%** idle.
+The op-profile shape remained in-family: convolution fusion
+**60,171.262 ms / 67.4%**, custom-call **11,695.170 ms / 13.1%**, loop fusion
+**10,931.714 ms / 12.2%**, forward residuals **5,905.176 ms**, and DKV total
+**5,788.314 ms**. Peak HBM was still tight at **31.14 GiB / 31.25 GiB** with
+only **0.1018 GiB** free.
+
+Fresh optimized train-step HLO under `/tmp/qwen3-v105-hlo/` was byte-identical
+to v095/v096/v103/v104: SHA256
+`a8b0c4b3833fb22bb72597d9e68cdf28fd70e18ba0a695e247b2ebf56ed69bd2`,
+**19,375,297 bytes / 115,424 lines**, compiled memory **27.88 GiB**, and
+preallocated temp **22.12 GiB**. Counts remained `all-gather=7072`,
+`all-reduce=165`, `reduce-scatter=2774`, `async-start=391`,
+`async-done=391`, `convolution=3071`, `custom-call=3846`, `copy=17231`,
+`fusion=30274`, `dot_general=7301`, `tokamax=1`.
+
+Verdict: refuted for speed. Keep
+`--xla_tpu_enable_all_experimental_scheduler_features=false` on the BKV2048
+frontier and pivot to narrower collective-fusion probes.
+
+## [2026-06-13] loop-iteration | cc5 v106 launched: 2k batch16 Splash BKV2048 no reduce-scatter ACF
+
+Launching workload `alekseyv-qwen3-jax-v106-2ksp2048noacfrs` on
+`v6e-demo-hjajoo`. This reuses v095/v096 exactly and changes only
+`--xla_tpu_enable_async_collective_fusion_fuse_reduce_scatter=true` to
+`false`, while leaving base ACF, all-gather ACF, multi-step ACF, shmem100,
+VMEM **98304 KiB**, SparseCore reduce-scatter/all-reduce offload, and
+`SPLASH_BKV=2048` / `SPLASH_BKV_COMPUTE=2048` unchanged.
+
+Support requires beating the v095/v096 **70,959-70,976 tok/s** band, or at
+least matching it with lower XProf step time or less custom-call/loop-fusion
+time. A same-HLO in-band runtime refutes this reduce-scatter ACF ablation.
+
+Run dir:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v106-2k-bs16-vmem98304-splash2048-noacfrs`
+
+Compile cache:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v106_2k_bs16_vmem98304_splash2048_noacfrs`.
+
+## [2026-06-13] loop-iteration | cc5 v106 2k batch16 Splash BKV2048 no reduce-scatter ACF: refuted (70,945 tok/s, 45.6% script MFU)
+
+Workload `alekseyv-qwen3-jax-v106-2ksp2048noacfrs` completed cleanly on
+`v6e-demo-hjajoo` with normal finite loss, reaching worker0 **70,945 tok/s** /
+**8,868 tok/s/chip** / **45.6%** script MFU and worker1 **70,941 tok/s** /
+**8,868 tok/s/chip** / **45.6%** script MFU. This is below the confirmed
+v095/v096 frontier (**70,959-70,976 tok/s**).
+
+XProf run
+`2026-06-13-qwen3-jax-v106-2k-bs16-vmem98304-splash2048-noacfrs/2026_06_13_05_41_03`
+reported **3726.5 ms** average step time, **67.8%** MXU, and **0.2%** idle.
+Memory remained tight at **31.14 GiB / 31.25 GiB**, **0.1018 GiB** free,
+with **23.2933 GiB** stack and **7.8510 GiB** heap. Op profile stayed
+in-family: convolution fusion **60,202.129 ms / 67.4%** and data formatting
+**3,541.861 ms / 4.0%** in the top-op extract, with the other major buckets
+matching the prior BKV2048 profile shape.
+
+Fresh optimized train-step HLO under `/tmp/qwen3-v106-hlo/` had SHA256
+`a44dcef073d4f52793299c1a64717bbcf09fce4d2b8a3d73b21248f137cc6226`,
+**19,375,306 bytes / 115,424 lines**, compiled memory **27.88 GiB**, and
+preallocated temp **22.12 GiB**. Counts were unchanged from the frontier:
+`all-gather=7072`, `all-reduce=165`, `reduce-scatter=2774`,
+`async-start=391`, `async-done=391`, `convolution=3071`,
+`custom-call=3846`, `copy=17231`, `fusion=30274`, `dot_general=7301`,
+`tokamax=1`. Diff versus v105 shows instruction renumbering rather than a
+meaningful structural change.
+
+Verdict: refuted. Keep reduce-scatter ACF enabled on the BKV2048 frontier.
+
+## [2026-06-13] loop-iteration | cc5 v107 launched: 2k batch16 Splash BKV2048 all-reduce ACF
+
+Launching workload `alekseyv-qwen3-jax-v107-2ksp2048acf-ar` on
+`v6e-demo-hjajoo`. This reuses v095/v096 exactly and changes only
+`--xla_tpu_enable_async_collective_fusion_fuse_all_reduce=false` to `true`.
+All-gather ACF, reduce-scatter ACF, multi-step ACF, shmem100, VMEM
+**98304 KiB**, SparseCore reduce-scatter/all-reduce offload, and
+`SPLASH_BKV=2048` / `SPLASH_BKV_COMPUTE=2048` remain unchanged.
+
+Support requires beating the v095/v096 **70,959-70,976 tok/s** band, or at
+least matching it with lower XProf step time. Same-HLO in-band runtime means
+all-reduce ACF is inert on this frontier.
+
+Run dir:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v107-2k-bs16-vmem98304-splash2048-acf-ar`
+
+Compile cache:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v107_2k_bs16_vmem98304_splash2048_acf_ar`.
+
+## [2026-06-13] loop-iteration | cc5 v107 2k batch16 Splash BKV2048 all-reduce ACF: refuted/inert (70,945 tok/s, 45.6% script MFU)
+
+Workload `alekseyv-qwen3-jax-v107-2ksp2048acf-ar` completed cleanly on
+`v6e-demo-hjajoo` with normal finite loss, reaching worker0 **70,943 tok/s** /
+**8,868 tok/s/chip** / **45.6%** script MFU and worker1 **70,945 tok/s** /
+**8,868 tok/s/chip** / **45.6%** script MFU. This does not beat the confirmed
+v095/v096 frontier (**70,959-70,976 tok/s**).
+
+XProf run
+`2026-06-13-qwen3-jax-v107-2k-bs16-vmem98304-splash2048-acf-ar/2026_06_13_05_56_10`
+reported **3725.1 ms** average step time, **67.8%** MXU, and **0.2%** idle.
+Memory stayed unchanged at **31.14 GiB / 31.25 GiB** peak with only
+**0.1018 GiB** free. Op profile remained matched to the BKV2048 frontier:
+convolution fusion **60,190.155 ms / 67.4%**, custom-call
+**11,695.236 ms / 13.1%**, loop fusion **10,921.098 ms / 12.2%**, forward
+residuals **5,905.228 ms**, and DKV total **5,788.328 ms**.
+
+Fresh optimized train-step HLO under `/tmp/qwen3-v107-hlo/` was byte-identical
+to v095/v096/v105: SHA256
+`a8b0c4b3833fb22bb72597d9e68cdf28fd70e18ba0a695e247b2ebf56ed69bd2`,
+**19,375,297 bytes / 115,424 lines**, compiled memory **27.88 GiB**, and
+preallocated temp **22.12 GiB**. Counts stayed `all-gather=7072`,
+`all-reduce=165`, `reduce-scatter=2774`, `async-start=391`,
+`async-done=391`, `convolution=3071`, `custom-call=3846`, `copy=17231`,
+`fusion=30274`, `dot_general=7301`, `tokamax=1`.
+
+Verdict: refuted/inert. Keep all-reduce ACF disabled on the BKV2048 frontier.
+
+## [2026-06-13] loop-iteration | cc5 v108 launched: 2k batch16 Splash BKV2048 async all-gather cap1
+
+Launching workload `alekseyv-qwen3-jax-v108-2ksp2048ag1` on
+`v6e-demo-hjajoo`. This reuses v095/v096 exactly and adds only
+`--xla_max_concurrent_async_all_gathers=1`. The prior long-seq cap1 runs were
+mostly same-HLO ties while cap2 exposed direct all-gather and regressed; the
+current check is whether cap1 helps the tight-HBM 2k BKV2048 schedule.
+
+Support requires beating the v095/v096 **70,959-70,976 tok/s** band, or at
+least matching it with lower XProf step time or lower all-gather/convolution
+fusion tail. Same-HLO in-band runtime refutes the cap.
+
+Run dir:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v108-2k-bs16-vmem98304-splash2048-ag1`
+
+Compile cache:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v108_2k_bs16_vmem98304_splash2048_ag1`.
+
+## [2026-06-13] loop-iteration | cc5 v108 2k batch16 Splash BKV2048 async all-gather cap1: refuted/default (70,939 tok/s, 45.6% script MFU)
+
+Workload `alekseyv-qwen3-jax-v108-2ksp2048ag1` completed cleanly on
+`v6e-demo-hjajoo` with normal finite loss, reaching worker0 **70,935 tok/s** /
+**8,867 tok/s/chip** / **45.6%** script MFU and worker1 **70,939 tok/s** /
+**8,867 tok/s/chip** / **45.6%** script MFU. This is below the confirmed
+v095/v096 frontier (**70,959-70,976 tok/s**).
+
+XProf run
+`2026-06-13-qwen3-jax-v108-2k-bs16-vmem98304-splash2048-ag1/2026_06_13_06_11_14`
+reported **3726.6 ms** average step time, **67.8%** MXU, and **0.2%** idle.
+Memory was unchanged at **31.14 GiB / 31.25 GiB** peak with only
+**0.1018 GiB** free. Op profile remained matched to the BKV2048 frontier:
+convolution fusion **60,194.825 ms / 67.4%**, custom-call
+**11,695.335 ms / 13.1%**, loop fusion **10,922.114 ms / 12.2%**, forward
+residuals **5,905.324 ms**, and DKV total **5,788.331 ms**.
+
+Fresh optimized train-step HLO under `/tmp/qwen3-v108-hlo/` was byte-identical
+to v095/v096/v105/v107: SHA256
+`a8b0c4b3833fb22bb72597d9e68cdf28fd70e18ba0a695e247b2ebf56ed69bd2`,
+**19,375,297 bytes / 115,424 lines**, compiled memory **27.88 GiB**, and
+preallocated temp **22.12 GiB**. Counts stayed `all-gather=7072`,
+`all-reduce=165`, `reduce-scatter=2774`, `async-start=391`,
+`async-done=391`, `convolution=3071`, `custom-call=3846`, `copy=17231`,
+`fusion=30274`, `dot_general=7301`, `tokamax=1`.
+
+Flagfile inspection showed v095 already resolved
+`--xla_max_concurrent_async_all_gathers=1`, so v108 made an existing default
+explicit. Verdict: refuted/default. Do not carry any change.
+
+## [2026-06-13] loop-iteration | cc5 v109 launched: 2k batch16 Splash BKV2048 async reduce-scatter cap1
+
+Launching workload `alekseyv-qwen3-jax-v109-2ksp2048rs1` on
+`v6e-demo-hjajoo`. This reuses v095/v096 exactly and adds only
+`--xla_max_concurrent_async_reduce_scatters=1`. The current flagfile leaves
+this axis at `auto`, unlike all-gather concurrency which already resolves to
+1. This tests whether constraining reduce-scatter async concurrency helps the
+SparseCore reduce-scatter offload schedule or is a no-op.
+
+Support requires beating the v095/v096 **70,959-70,976 tok/s** band, or at
+least matching it with lower XProf step time. Same-HLO in-band runtime refutes
+the cap.
+
+Run dir:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v109-2k-bs16-vmem98304-splash2048-rs1`
+
+Compile cache:
+`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v109_2k_bs16_vmem98304_splash2048_rs1`.
+
 ## [2026-06-12] stop | /stop-experiment session end
 
 **Op**: stop
@@ -5456,3 +6794,473 @@ Fresh HLO was emitted (`783,982` bytes,
 `5be74e908e49455d08150bed79701690304fc72bae18460845d1ecba43d994eb`), and
 metadata confirms DKV `block_kv_dkv=1024`. The DKV custom-call scratch includes
 a 4.12 GiB preallocated temp, so keep default DKV tiling.
+## [2026-06-13] loop-iteration | v109-2k-batch16-splash2048-async-rs-cap1 on 8B/v6e-8: refuted/inert (70,963 tok/s, 45.6% MFU; byte-identical HLO)
+
+Workload `alekseyv-qwen3-jax-v109-2ksp2048rs1` forced
+`--xla_max_concurrent_async_reduce_scatters=1` on top of the confirmed
+v095/v096 BKV2048 frontier. It completed cleanly with worker0 70,946 tok/s and
+worker1 70,963 tok/s, both 45.6% MFU. XProf
+`2026-06-13-qwen3-jax-v109-2k-bs16-vmem98304-splash2048-rs1/2026_06_13_06_27_55`
+reported 3724.2 ms step time, 67.8% MXU utilization, and 0.2% idle. The fresh
+optimized train-step HLO is byte-identical to v095/v096/v105/v107/v108:
+`a8b0c4b3833fb22bb72597d9e68cdf28fd70e18ba0a695e247b2ebf56ed69bd2`,
+19,375,297 bytes / 115,424 lines, with the same collective and fusion counts.
+Do not carry the explicit reduce-scatter cap; `auto` is already equivalent for
+this frontier.
+## [2026-06-13] loop-iteration | v110-2k-batch16-splash2048-layerlhs on 8B/v6e-8: hard refuted (compile OOM; 78.08 GiB HBM requirement)
+
+Workload `alekseyv-qwen3-jax-v110-2ksp2048layerlhs` forced
+`--xla_tpu_enable_latency_hiding_layer_scheduler=true` on top of the confirmed
+v095/v096 BKV2048 frontier. It failed during train-step compilation with
+`RESOURCE_EXHAUSTED`, requiring 78.08 GiB HBM on a 31.25 GiB v6e device. The
+fresh optimized train-step HLO changed to
+`a93471451b4a2868f507f4eb56fea29378d5e5742242c338bfa3d9934abe21d9`,
+15,893,236 bytes / 94,891 lines, with `all-gather=4928`, `async-start=253`,
+`custom-call=2220`, and `copy=22493`. The memory report shows 83.76 GiB total
+bytes used and 78.01 GiB preallocated temp; OOM artifacts identify repeated
+768 MiB remat dot/fusion temps fed by all-gather producers. Do not carry the
+explicit layer scheduler.
+## [2026-06-13] loop-iteration | v111-2k-batch16-splash2048-async-ar-cap1 on 8B/v6e-8: refuted/inert (70,941 tok/s, 45.6% MFU; byte-identical HLO)
+
+Workload `alekseyv-qwen3-jax-v111-2ksp2048ar1` forced
+`--xla_max_concurrent_async_all_reduces=1` on top of the confirmed v095/v096
+BKV2048 frontier. It completed cleanly with worker0 70,935 tok/s and worker1
+70,941 tok/s, both 45.6% MFU. XProf run `2026_06_13_06_56_24` reported
+3724.4 ms step time, 67.8% MXU utilization, and 0.2% idle. The optimized
+train-step HLO is byte-identical to v095/v096/v105/v107/v108/v109:
+`a8b0c4b3833fb22bb72597d9e68cdf28fd70e18ba0a695e247b2ebf56ed69bd2`,
+19,375,297 bytes / 115,424 lines, with the same collective and fusion counts
+and 27.88 GiB compiled memory. Do not carry the all-reduce cap.
+## [2026-06-13] loop-iteration | v112-2k-batch16-splash2048-no-allreduce-offload on 8B/v6e-8: refuted (70,804 tok/s, 45.5% MFU; changed HLO but slower)
+
+Workload `alekseyv-qwen3-jax-v112-2ksp2048noaroff` disabled
+SparseCore all-reduce offload on top of the confirmed v095/v096 BKV2048
+frontier. It completed cleanly with worker0 70,795 tok/s and worker1
+70,804 tok/s, both 45.5% MFU. XProf run `2026_06_13_07_14_38` reported
+3730.0 ms step time, 67.5% MXU utilization, and 0.2% idle. Runtime memory
+improved to 30.60 GiB peak with 0.6493 GiB free, but throughput regressed. The
+optimized train-step HLO changed to
+`557078060d617d27e02f09218d4a1c240d9ac4e16ff60824bb3919a5877b55ff`,
+19,386,544 bytes / 115,563 lines, with fewer all-reduces but more copies
+(`copy=17906` vs frontier `copy=17231`) and higher compiled memory
+28.49 GiB. Keep SparseCore all-reduce offload enabled.
+## [2026-06-13] loop-iteration | v113-2k-batch16-splash2048-rs-lat2 on 8B/v6e-8: refuted (70,934 tok/s, 45.6% MFU; lower temp but slower)
+
+Workload `alekseyv-qwen3-jax-v113-2ksp2048rslat2` lowered
+`--xla_tpu_sparse_core_reduce_scatter_latency_multiplier` from 3 to 2 on the
+confirmed v095/v096 BKV2048 frontier. It completed cleanly with worker0
+70,934 tok/s and worker1 70,921 tok/s, both 45.6% MFU. XProf
+`2026_06_13_07_30_10` reported 3728.0 ms step time, 67.7% MXU utilization, and
+0.2% idle. The HLO changed to
+`9a9241ee079ef0e18347ced2a070cb4d77a6fd8826e22f42d49b9243665bc4e5`, with
+compiled memory down to 27.65 GiB and preallocated temp 21.90 GiB, but the
+profile window slowed. Do not carry reduce-scatter latency multiplier 2.
+## [2026-06-13] loop-iteration | v114-2k-batch16-splash2048-rs-lat4 on 8B/v6e-8: tentative frontier (71,037 tok/s, 45.7% MFU; scheduler-only change)
+
+Workload `alekseyv-qwen3-jax-v114-2ksp2048rslat4` raised
+`--xla_tpu_sparse_core_reduce_scatter_latency_multiplier` from 3 to 4 on the
+confirmed v095/v096 BKV2048 frontier. It completed cleanly with worker0
+71,035 tok/s and worker1 71,037 tok/s, both 45.7% MFU. XProf
+`2026_06_13_07_44_15` reported 3721.2 ms step time, 68.0% MXU utilization, and
+0.2% idle. The HLO changed to
+`b03d411afe24c9ff0ed55829979aa76f3b9d3b8de4932139e8d398f29a54eff3`,
+19,351,131 bytes / 115,235 lines, with compiled memory unchanged at 27.88 GiB
+and 22.12 GiB preallocated temp. The gain is small and XProf step time is
+effectively tied with v095, but both workers agree and the scheduler change is
+real, so promote v114 tentatively and continue the latency multiplier bracket
+with multiplier 5.
+## [2026-06-13] loop-iteration | v115-2k-batch16-splash2048-rs-lat5 on 8B/v6e-8: hard refuted (runtime load OOM; 28.25 GiB compiled memory)
+
+Workload `alekseyv-qwen3-jax-v115-2ksp2048rslat5` tests
+`--xla_tpu_sparse_core_reduce_scatter_latency_multiplier=5` on top of v114. All
+other flags, mesh, batch, Splash settings, profile window, and compile cache
+policy are fixed. It failed before step 0 with `RESOURCE_EXHAUSTED` while
+loading `jit_train_step`: a 2.12 GiB allocation could not be satisfied with
+1.86 GiB free. The optimized train-step HLO changed to
+`9a8061f2a54e1bb193b8ed78b21a5818cc65184cae7600e21d81c6053b39b350`,
+19,345,298 bytes / 115,222 lines, with compiled memory up to 28.25 GiB and
+22.50 GiB preallocated temp. This crosses the runtime headroom boundary. Do not
+carry reduce-scatter latency multiplier 5; keep v114's multiplier 4.
+## [2026-06-13] loop-iteration | v116-2k-batch16-splash2048-rs-lat4-ar-lat1 on 8B/v6e-8: refuted (70,960 tok/s, 45.6% MFU; slower profile)
+
+Workload `alekseyv-qwen3-v116-2krsl4ar1` tests
+`--xla_tpu_sparse_core_all_reduce_latency_multiplier=1` on the tentative v114
+frontier with reduce-scatter latency multiplier 4. All other flags, mesh,
+batch, Splash settings, and profile window remain fixed. It completed cleanly
+with worker0 70,960 tok/s and worker1 70,952 tok/s, both 45.6% MFU. XProf
+`2026_06_13_08_09_47` reported 3726.8 ms step time, 67.7% MXU utilization, and
+0.2% idle. HLO changed to
+`ce008beb94648c98bd92a7bacb2f70a5ce8d00a633f1e4540be0a4a4b180d1a8`,
+19,354,349 bytes / 115,268 lines, with memory unchanged at 27.88 GiB total and
+22.12 GiB preallocated temp. Do not carry all-reduce latency multiplier 1.
+## [2026-06-13] loop-iteration | v117-2k-batch16-splash2048-rs-lat4-ar-lat3 on 8B/v6e-8: not promoted (70,989 tok/s, 45.6% MFU; better memory headroom)
+
+Workload `alekseyv-qwen3-v117-2krsl4ar3` tests
+`--xla_tpu_sparse_core_all_reduce_latency_multiplier=3` on the tentative v114
+frontier with reduce-scatter latency multiplier 4. All other flags, mesh,
+batch, Splash settings, and profile window remain fixed. It completed cleanly
+with worker0 70,978 tok/s and worker1 70,989 tok/s, both 45.6% MFU. XProf
+`2026_06_13_08_23_46` reported 3717.8 ms step time, 67.9% MXU utilization, and
+0.2% idle. HLO changed to
+`50046481b1b469d9ac0e642de7648eb4bdea368996f787f4224ba64a90fd9ab3`,
+19,353,411 bytes / 115,256 lines, with compiled memory down to 27.65 GiB and
+21.90 GiB preallocated temp. Do not promote over v114 by harness throughput,
+but use the extra memory headroom to retry reduce-scatter latency multiplier 5
+combined with all-reduce latency multiplier 3.
+## [2026-06-13] loop-iteration | v118-2k-batch16-splash2048-rs-lat5-ar-lat3 on 8B/v6e-8: hard refuted (runtime load OOM; RS5 memory shape persists)
+
+Workload `alekseyv-qwen3-v118-2krsl5ar3` combines
+`--xla_tpu_sparse_core_reduce_scatter_latency_multiplier=5` with
+`--xla_tpu_sparse_core_all_reduce_latency_multiplier=3`. This tests whether
+v117's memory relief can make the v115 reduce-scatter multiplier 5 schedule fit
+and improve over v114. All other flags, mesh, batch, Splash settings, and
+profile window remain fixed. It failed before step 0 with `RESOURCE_EXHAUSTED`
+while loading `jit_train_step`: a 2.12 GiB allocation could not be satisfied
+with 1.86 GiB free. The optimized train-step HLO changed to
+`d4897181619cde937837186d2856d72e08a9af32e11930f41e5824f5412c8e53`,
+19,345,317 bytes / 115,222 lines, with compiled memory 28.25 GiB and
+22.50 GiB preallocated temp. This matches the v115 bad RS5 memory shape; close
+the reduce-scatter latency multiplier 5 path.
+## [2026-06-13] loop-iteration | v119-2k-batch16-splash2048-rs-lat4-rerun4 on 8B/v6e-8: measurement frontier (71,053 tok/s, 45.7% MFU; byte-identical HLO)
+
+Workload `alekseyv-qwen3-v119-2krsl4rer4` tests
+`--xla_latency_hiding_scheduler_rerun=4` on the tentative v114 frontier. The
+collective latency multipliers remain at v114 values: reduce-scatter 4 and
+all-reduce 2. All other flags, mesh, batch, Splash settings, and profile window
+remain fixed. It completed cleanly with worker0 71,047 tok/s and worker1
+71,053 tok/s, both 45.7% MFU. XProf `2026_06_13_08_48_33` reported 3718.9 ms
+step time, 67.9% MXU utilization, and 0.2% idle. The optimized train-step HLO
+is byte-identical to v114:
+`b03d411afe24c9ff0ed55829979aa76f3b9d3b8de4932139e8d398f29a54eff3`,
+19,351,131 bytes / 115,235 lines, with the same 27.88 GiB compiled memory and
+22.12 GiB preallocated temp. Promote as the current measurement best, but do
+not treat scheduler rerun 4 as a distinct graph improvement.
+## [2026-06-13] loop-iteration | v120-2k-batch16-splash2048-rs-lat4-agoff on 8B/v6e-8: hard refuted (load OOM; async/copy explosion)
+
+Workload `alekseyv-qwen3-v120-2krsl4agoff` tests
+`--xla_tpu_enable_sparse_core_collective_offload_all_gather=true` on the
+v114/v119 graph while keeping the SparseCore collective aggregator enabled. All
+other flags, mesh, batch, Splash settings, and profile window remain fixed. It
+failed before step 0 with `RESOURCE_EXHAUSTED` while loading `jit_train_step`:
+a 2.23 GiB allocation could not be satisfied with 1.60 GiB free. The optimized
+train-step HLO changed to
+`0283d250de511c60f43462edf47712f5996549a9130b9d562cd3108b729d2a01`,
+16,475,320 bytes / 94,949 lines, with `async-start=1426`, `copy=22253`, and
+compiled memory 28.50 GiB / 22.75 GiB preallocated temp. Keep SparseCore
+all-gather offload disabled.
+## [2026-06-13] loop-iteration | v121-2k-batch16-splash2048-rs-lat4-noagg on 8B/v6e-8: started
+
+Workload `alekseyv-qwen3-v121-2krsl4noagg` tests
+`--xla_tpu_enable_sparse_core_collective_aggregator=false` while keeping
+SparseCore all-gather offload disabled. All other v114/v119 graph settings,
+mesh, batch, Splash settings, and profile window remain fixed.
+
+## [2026-06-13] loop-iteration | v121-2k-batch16-splash2048-rs-lat4-noagg on 8B/v6e-8: refuted (71,044 tok/s, byte-identical HLO)
+
+Workload `alekseyv-qwen3-v121-2krsl4noagg` completed cleanly with worker0
+71,035 tok/s and worker1 71,044 tok/s, both about 45.7% MFU. XProf
+`2026_06_13_09_14_12` reported 3720.7 ms step time, 67.9% MXU utilization,
+and 0.2% idle. The optimized train-step HLO was byte-identical to v114/v119:
+`b03d411afe24c9ff0ed55829979aa76f3b9d3b8de4932139e8d398f29a54eff3`,
+19,351,131 bytes / 115,235 lines, with the same 27.88 GiB compiled memory and
+22.12 GiB preallocated temp. Treat the SparseCore aggregator flag as inert for
+this graph and keep the v114/v119 settings.
+
+## [2026-06-13] loop-iteration | v122-2k-batch16-splash2048-rs-lat4-shmem99 on 8B/v6e-8: started
+
+Workload `alekseyv-qwen3-v122-2krsl4sh99` tests a close shared-memory
+scheduler bracket on the v114/v119 graph:
+`--xla_tpu_scheduler_percent_shared_memory_limit=99` instead of 100. All other
+frontier settings remain fixed, including batch 16, sequence 2048, Splash
+BKV/BKV_COMPUTE 2048, scoped VMEM 98304 KiB, reduce-scatter latency multiplier
+4, all-reduce latency multiplier 2, SparseCore all-gather offload disabled, and
+the SparseCore collective aggregator enabled.
+
+## [2026-06-13] loop-iteration | v122-2k-batch16-splash2048-rs-lat4-shmem99 on 8B/v6e-8: refuted/tie (71,054 tok/s, byte-identical HLO)
+
+Workload `alekseyv-qwen3-v122-2krsl4sh99` completed cleanly with worker0
+71,043 tok/s and worker1 71,054 tok/s, both about 45.7% MFU. XProf
+`2026_06_13_09_29_38` reported 3721.5 ms step time, 68.0% MXU utilization,
+and 0.2% idle. The optimized train-step HLO remained byte-identical to
+v114/v119/v121:
+`b03d411afe24c9ff0ed55829979aa76f3b9d3b8de4932139e8d398f29a54eff3`,
+19,351,131 bytes / 115,235 lines, with 27.88 GiB compiled memory and 22.12
+GiB preallocated temp. Treat shmem99 as a measurement tie/no-op rather than a
+new frontier.
+
+## [2026-06-13] loop-iteration | v123-2k-batch16-splash2048-rs-lat4-vmem98816 on 8B/v6e-8: started
+
+Workload `alekseyv-qwen3-v123-2krsl4vm98816` tests a close high-side scoped
+VMEM midpoint, `--xla_tpu_scoped_vmem_limit_kib=98816`, after v098 showed the
+farther high-side VMEM100352 point selected a distinct but slower schedule.
+All other v114/v119 settings remain fixed, including shmem100, reduce-scatter
+latency multiplier 4, all-reduce latency multiplier 2, SparseCore all-gather
+offload disabled, SparseCore collective aggregator enabled, batch 16, sequence
+2048, and Splash BKV/BKV_COMPUTE 2048.
+
+## [2026-06-13] loop-iteration | v123-2k-batch16-splash2048-rs-lat4-vmem98816 on 8B/v6e-8: refuted (70,851 tok/s, copy-heavy HLO)
+
+Workload `alekseyv-qwen3-v123-2krsl4vm98816` completed cleanly with both
+workers at 70,851 tok/s, about 45.6% MFU. XProf `2026_06_13_09_44_15`
+reported 3731.5 ms step time, 67.8% MXU utilization, and 0.2% idle. Runtime
+memory improved to 31.11/31.25 GiB with 0.1312 GiB free, but the optimized
+train-step HLO changed to
+`f2b99e5a7776ed4888130702cfee553e065b85fd62d518083c6fbcecd1efedb3`,
+19,427,455 bytes / 115,867 lines, with `copy=19248` and `all-gather=6990`.
+This is a copy-heavy high-VMEM schedule and is slower; close the immediate
+high-side VMEM branch and keep 98304 KiB.
+
+## [2026-06-13] loop-iteration | v124-2k-batch16-splash-bq1024-bkv2048-rs-lat4 on 8B/v6e-8: started
+
+Workload `alekseyv-qwen3-v124-2kbq1024` keeps the v114/v119 collectives stack
+and successful forward `SPLASH_BKV=2048`, but sets `SPLASH_BQ=1024`. This tests
+whether the smaller forward query tile favored in related Llama Splash kernel
+tuning helps the Qwen3 2k custom-call bucket without reverting to the slower
+BKV1024 graph.
+
+## [2026-06-13] loop-iteration | v124-2k-batch16-splash-bq1024-bkv2048-rs-lat4 on 8B/v6e-8: refuted (70,821 tok/s, copy-heavy Splash HLO)
+
+Workload `alekseyv-qwen3-v124-2kbq1024` completed cleanly with worker0
+70,821 tok/s and worker1 70,817 tok/s, about 45.5% MFU. XProf
+`2026_06_13_09_58_46` reported 3731.0 ms step time, 67.8% MXU utilization,
+and 0.2% idle. Runtime memory improved to 31.11/31.25 GiB with 0.1355 GiB
+free, but the optimized train-step HLO changed to
+`4345f4d975386a13c760a2f10c5500db2f482fd82c455815d79abf92bbcf05af`,
+19,686,144 bytes / 117,638 lines, with `copy=20234`, `fusion=30791`, and
+`tokamax=2`. Smaller forward query blocks are worse here; keep
+`SPLASH_BQ=2048 SPLASH_BKV=2048`.
+
+## [2026-06-13] loop-iteration | v125-2k-batch16-splash2048-rs-lat4-noacfg on 8B/v6e-8: started
+
+Workload `alekseyv-qwen3-v125-2knoacfg` reuses the v114/v119 frontier graph and
+changes only `--xla_tpu_enable_async_collective_fusion_fuse_all_gather=false`.
+This isolates all-gather ACF on the current 2k BKV2048/RS-lat4 graph while
+leaving base ACF, reduce-scatter ACF, multiple-step ACF, SparseCore offload
+policy, VMEM, shmem, batch, sequence length, and Splash tiles fixed.
+
+## [2026-06-13] loop-iteration | v125-2k-batch16-splash2048-rs-lat4-noacfg on 8B/v6e-8: refuted (69,485 tok/s, memory-only win)
+
+Workload `alekseyv-qwen3-v125-2knoacfg` completed cleanly with worker0
+69,485 tok/s and worker1 69,482 tok/s, about 44.7% MFU. XProf
+`2026_06_13_10_12_32` reported 3798.8 ms step time, 66.1% MXU utilization, and
+0.2% idle. Memory improved materially to 30.55/31.25 GiB with 0.6985 GiB free,
+and HLO shrank to
+`081ebafd20724172c5037e15c8977080cf21b68d680098b342240d8a0e95982b`,
+13,005,762 bytes / 76,725 lines, compiled memory 27.32 GiB. The speed loss is
+too large; keep all-gather ACF enabled.
+
+## [2026-06-13] loop-iteration | v126-2k-batch16-splash2048-rs-lat4-noacfms on 8B/v6e-8: started
+
+Workload `alekseyv-qwen3-v126-2knoacfms` reuses the v114/v119 frontier graph
+and changes only `--xla_tpu_enable_async_collective_fusion_multiple_steps=false`.
+This preserves all-gather and reduce-scatter ACF while testing whether the
+multiple-step subtype is adding harmful schedule pressure on the current 2k
+BKV2048/RS-lat4 graph.
+
+## [2026-06-13] loop-iteration | v126-2k-batch16-splash2048-rs-lat4-noacfms on 8B/v6e-8: refuted (70,858 tok/s, lower profile quality)
+
+Workload `alekseyv-qwen3-v126-2knoacfms` completed cleanly but stayed below the
+v119 frontier. Worker0 reached **70,838 tok/s / 8,855 tok/s/chip / 45.5% MFU**;
+worker1 reached **70,858 tok/s / 8,857 tok/s/chip / 45.6% MFU**. XProf run
+`2026_06_13_10_25_56` reported **3727.6 ms** average step time, **67.8% MXU**,
+**0.3%** idle in op profile, and **31.05 GiB / 31.25 GiB** peak HBM.
+Fresh train-step HLO hash
+`4c515807306666ee46948268f8732ca0362e6a729e2d96fea81424de6ee33518` is
+13,345,898 bytes / 76,638 lines with compile memory 27.85 GiB. Keep ACF
+multiple-steps enabled.
+
+## [2026-06-13] loop-iteration | v127-2k-batch16-splash2048-rs-lat4-noacf on 8B/v6e-8: started
+
+Launching workload `alekseyv-qwen3-v127-2knoacf` from the v119 named frontier,
+changing only `--xla_tpu_enable_async_collective_fusion=false`. The run keeps
+batch16, sequence 2048, Splash BKV/BKV_COMPUTE 2048, VMEM 98304, shmem100,
+scheduler rerun 4, RS latency multiplier 4, AR latency multiplier 2, and the
+SparseCore offload/aggregator settings fixed. This closes the current ACF sweep
+after v125 and v126 both regressed.
+
+## [2026-06-13] loop-iteration | v127-2k-batch16-splash2048-rs-lat4-noacf on 8B/v6e-8: refuted (69,472 tok/s, same HLO as no all-gather ACF)
+
+Workload `alekseyv-qwen3-v127-2knoacf` completed cleanly but regressed hard:
+worker0 reached **69,472 tok/s / 8,684 tok/s/chip / 44.7% MFU**, and worker1
+reached **69,470 tok/s / 8,684 tok/s/chip / 44.7% MFU**. The optimized HLO hash
+is `081ebafd20724172c5037e15c8977080cf21b68d680098b342240d8a0e95982b`, exactly
+matching v125's no-all-gather-ACF program: 13,005,762 bytes / 76,725 lines,
+compile memory 27.32 GiB, all-gather=2694, reduce-scatter=2774, copy=16336.
+This confirms the base ACF gate is required and collapses to the same slower
+schedule family as disabling all-gather ACF.
+
+## [2026-06-13] loop-iteration | v128-2k-batch16-splash2048-rs-lat4-nomemtrack on 8B/v6e-8: started
+
+Launching workload `alekseyv-qwen3-v128-2knomem` from the v119 named frontier,
+adding only `--xla_tpu_enable_scheduler_memory_pressure_tracking=false`. This
+tests whether TPU scheduler memory-pressure tracking is costing schedule
+quality or runtime overhead on the HBM-tight 2k batch16 graph while all known
+frontier-critical ACF and SparseCore settings remain enabled.
+
+## [2026-06-13] loop-iteration | v128-2k-batch16-splash2048-rs-lat4-nomemtrack on 8B/v6e-8: refuted/tie (70,985 tok/s, byte-identical HLO)
+
+Workload `alekseyv-qwen3-v128-2knomem` completed cleanly with worker0
+**70,985 tok/s / 8,873 tok/s/chip / 45.6% MFU** and worker1 **70,983 tok/s /
+8,873 tok/s/chip / 45.6% MFU**. XProf run `2026_06_13_10_53_48` reported
+**3723.8 ms** average step time, **67.9% MXU**, **0.2%** idle, and **31.14 GiB
+/ 31.25 GiB** peak HBM with **0.1016 GiB** free. The optimized HLO remained
+byte-identical to v114/v119/v121/v122:
+`b03d411afe24c9ff0ed55829979aa76f3b9d3b8de4932139e8d398f29a54eff3`.
+Disabling TPU scheduler memory-pressure tracking does not improve the 2k
+frontier; keep the default.
+
+## [2026-06-13] loop-iteration | v129-2k-batch16-splash2048-rs-lat4-dkvc512 on 8B/v6e-8: started
+
+Launching workload `alekseyv-qwen3-v129-2kdkvc512` from the v119 named
+frontier, changing only `SPLASH_BKV_DKV_COMPUTE=512`. This is a targeted
+Tokamax Splash backward-tile probe against the remaining DKV custom-call
+profile bucket, while keeping batch16, sequence 2048, forward Splash
+BQ/BKV/BKV_COMPUTE 2048, backward BQ_DKV/BKV_DKV 2048, VMEM 98304, shmem100,
+scheduler rerun 4, RS latency multiplier 4, AR latency multiplier 2, and the
+frontier ACF/SparseCore settings fixed.
+
+## [2026-06-13] loop-iteration | v129-2k-batch16-splash2048-rs-lat4-dkvc512 on 8B/v6e-8: refuted (70,986 tok/s, changed HLO but no gain)
+
+Workload `alekseyv-qwen3-v129-2kdkvc512` completed cleanly but did not improve
+the frontier. Worker0 reached **70,986 tok/s / 8,873 tok/s/chip / 45.6% MFU**;
+worker1 reached **70,973 tok/s / 8,872 tok/s/chip / 45.6% MFU**. XProf run
+`2026_06_13_11_10_06` reported **3722.4 ms** average step time, **67.6% MXU**,
+**0.2%** idle, and **31.14 GiB / 31.25 GiB** peak HBM with **0.1011 GiB** free.
+The optimized HLO changed to
+`a75fe20ce6532c3f2758037ee0ca96090351cc2fc6d6a2583475c3465d7d8043` but kept the
+same high-level op-token counts as v119/v128. Do not carry
+`SPLASH_BKV_DKV_COMPUTE=512`.
+
+## [2026-06-13] loop-iteration | v130-2k-batch16-splash2048-rs-lat4-seqminor on 8B/v6e-8: started
+
+Launching workload `alekseyv-qwen3-v130-2kseqminor` from the v119 named
+frontier using thin image `qwen3-8b-jax:v130-splash-layout-env`, which only
+exposes Tokamax Splash Q/K/V layout selection through env vars. The run sets
+`TOKAMAX_Q_LAYOUT=SEQ_MINOR TOKAMAX_K_LAYOUT=SEQ_MINOR TOKAMAX_V_LAYOUT=SEQ_MINOR`
+to probe whether the attention data-formatting copy/reshape bucket can be
+reduced while leaving batch, sequence length, Splash block sizes, VMEM, shmem,
+collective flags, and SparseCore settings fixed.
+
+## [2026-06-13] loop-iteration | v130-2k-batch16-splash2048-rs-lat4-seqminor on 8B/v6e-8: supported (73,582 tok/s, 47.3% MFU)
+
+Workload `alekseyv-qwen3-v130-2kseqminor` completed cleanly and established a
+new 2k frontier. Worker0 reached **73,576 tok/s / 9,197 tok/s/chip / 47.3%
+MFU**; worker1 reached **73,582 tok/s / 9,198 tok/s/chip / 47.3% MFU**. The
+patched image confirmed `layouts=(SEQ_MINOR,SEQ_MINOR,SEQ_MINOR)` in the
+Tokamax Splash config. Optimized HLO hash
+`66462ca89d8bad5075122542dab49ce88a47ad9923e87107e81746cc4d23d831` is
+19,377,734 bytes / 115,099 lines. HLO copy-token count dropped from
+17,285 in v119/v128 to **15,956** while collective counts stayed aligned with
+the frontier family. Carry the v130 layout-env image and all-`SEQ_MINOR`
+Tokamax Splash layout as the current frontier.
+
+## [2026-06-13] loop-iteration | v131-2k-batch16-splash2048-rs-lat4-qseqminor on 8B/v6e-8: started
+
+Launching workload `alekseyv-qwen3-v131-2kqseq` to isolate v130's gain. It uses
+the same v130 layout-env image and v119 frontier settings, but sets only
+`TOKAMAX_Q_LAYOUT=SEQ_MINOR`; K/V remain at the default `HEAD_DIM_MINOR`.
+
+## [2026-06-13] loop-iteration | v131-2k-batch16-splash2048-rs-lat4-qseqminor on 8B/v6e-8: refuted versus v130 (72,890 tok/s, 46.9% MFU)
+
+Workload `alekseyv-qwen3-v131-2kqseq` completed cleanly with worker0
+**72,883 tok/s / 9,110 tok/s/chip / 46.9% MFU** and worker1 **72,890 tok/s /
+9,111 tok/s/chip / 46.9% MFU**. This beats the old v119 frontier but falls
+short of v130's 73,582 tok/s. HLO hash
+`8445702d8654166be7694a400e695e916eaabc75774b189b0d81eef82514c570` has
+17,861 copy tokens, worse than both v119 and v130. Q-only `SEQ_MINOR` is not
+the right carry setting.
+
+## [2026-06-13] loop-iteration | v132-2k-batch16-splash2048-rs-lat4-kvseqminor on 8B/v6e-8: started
+
+Launching workload `alekseyv-qwen3-v132-2kkvseq` as the complementary isolation
+probe: K/V use `SEQ_MINOR`, Q remains at the default `HEAD_DIM_MINOR`.
+
+## [2026-06-13] loop-iteration | v132-2k-batch16-splash2048-rs-lat4-kvseqminor on 8B/v6e-8: refuted versus v130 (71,601 tok/s, 46.0% MFU)
+
+Workload `alekseyv-qwen3-v132-2kkvseq` completed cleanly with both workers at
+**71,601 tok/s / 8,950 tok/s/chip / 46.0% MFU**. The run confirmed
+`layouts=(HEAD_DIM_MINOR,SEQ_MINOR,SEQ_MINOR)` but did not reproduce v130's
+all-`SEQ_MINOR` improvement. HLO hash
+`3028daac1b565bb7860390679ec90ff208b2ba9670bb7f3a32a57166b97c2338` has
+17,107 copy tokens, still far above v130's 15,956. Keep v130 all-Q/K/V
+`SEQ_MINOR` as the frontier; K/V-only is not useful.
+
+## [2026-06-13] loop-iteration | v133-2k-batch16-splash2048-rs-lat4-kseqminor on 8B/v6e-8: started
+
+Launching workload `alekseyv-qwen3-v133-2kkseq` to isolate the K operand after
+v131 and v132. It uses the same v130 layout-env image and frontier settings,
+but sets only `TOKAMAX_K_LAYOUT=SEQ_MINOR`; Q/V remain at the default
+`HEAD_DIM_MINOR`.
+
+## [2026-06-13] loop-iteration | v133-2k-batch16-splash2048-rs-lat4-kseqminor on 8B/v6e-8: refuted versus v130 (71,531 tok/s, 46.0% MFU)
+
+Workload `alekseyv-qwen3-v133-2kkseq` completed cleanly with worker0
+**71,531 tok/s / 8,941 tok/s/chip / 46.0% MFU** and worker1 **71,529 tok/s /
+8,941 tok/s/chip / 46.0% MFU**. The run confirmed
+`layouts=(HEAD_DIM_MINOR,SEQ_MINOR,HEAD_DIM_MINOR)` but stayed well below v130.
+HLO hash `ac1cd1d2831f6b34fd97710d35a3a87a275586960475b5d7d638c59271560757`
+has 17,215 copy tokens, so K-only does not reproduce the v130 formatting
+improvement.
+
+## [2026-06-13] loop-iteration | v134-2k-batch16-splash2048-rs-lat4-vseqminor on 8B/v6e-8: started
+
+Launching workload `alekseyv-qwen3-v134-2kvseq` as the final single-operand
+layout isolation. It uses the same v130 layout-env image and frontier settings,
+but sets only `TOKAMAX_V_LAYOUT=SEQ_MINOR`; Q/K remain at the default
+`HEAD_DIM_MINOR`.
+
+## [2026-06-13] loop-iteration | v134-2k-batch16-splash2048-rs-lat4-vseqminor on 8B/v6e-8: refuted versus v130 (71,129 tok/s, 45.7% MFU)
+
+Workload `alekseyv-qwen3-v134-2kvseq` completed cleanly with worker0
+**71,119 tok/s / 8,890 tok/s/chip / 45.7% MFU** and worker1 **71,129 tok/s /
+8,891 tok/s/chip / 45.7% MFU**. The run confirmed
+`layouts=(HEAD_DIM_MINOR,HEAD_DIM_MINOR,SEQ_MINOR)` but stayed below even the
+old v119 frontier. HLO hash
+`4bdade7017b817c11c17ca3cd95c66ae51d327e60b10ae1efe1cbfbf52b0d9b4` has
+17,165 copy tokens. The single-operand/subset layout sweep is closed: carry
+v130's all-Q/K/V `SEQ_MINOR` layout.
+
+## [2026-06-13] loop-iteration | v135-2k-batch17-splash2048-rs-lat4-seqminor-shmem90 on 8B/v6e-8: started
+
+Launching workload `alekseyv-qwen3-v135-2kbs17seqsh90` to test whether v130's
+all-Q/K/V `SEQ_MINOR` graph combines with the previously memory-fitting
+batch17/shmem90 branch. This changes only `--batch_size=17` and
+`--xla_tpu_scheduler_percent_shared_memory_limit=90` relative to v130; all
+layout, Splash, VMEM, scheduler rerun, RS latency, ACF, and SparseCore settings
+remain on the v130 frontier.
+
+## [2026-06-13] loop-iteration | v135-2k-batch17-splash2048-rs-lat4-seqminor-shmem90 on 8B/v6e-8: refuted/tie versus v130 (73,579 tok/s, 47.3% MFU)
+
+Workload `alekseyv-qwen3-v135-2kbs17seqsh90` completed cleanly and proved the
+batch17 all-`SEQ_MINOR` shape fits at shmem90. Worker0 reached **73,579 tok/s /
+9,197 tok/s/chip / 47.3% MFU**; worker1 reached **73,577 tok/s / 9,197
+tok/s/chip / 47.3% MFU**. This nearly ties but does not beat v130's **73,582
+tok/s**. HLO hash
+`bede1203771f2043f4fd05ce4850c14dedd2e6c9fa5e588866a10c19c8ebbd8a` has 16,174
+copy tokens and 28.77 GiB compiled memory. The next useful bracket is batch17
+all-`SEQ_MINOR` with shmem95, because v135 appears schedule-limited by shmem90
+while direct batch17/shmem100 was previously over the memory edge.
+
+## [2026-06-13] loop-iteration | v136-2k-batch17-splash2048-rs-lat4-seqminor-shmem95 on 8B/v6e-8: started
+
+Launching workload `alekseyv-qwen3-v136-2kbs17seqsh95` from v135, changing only
+`--xla_tpu_scheduler_percent_shared_memory_limit=95`. The goal is to recover
+schedule quality versus shmem90 while checking whether the all-`SEQ_MINOR`
+batch17 graph still fits below the runtime memory edge.
+
+## [2026-06-13] loop-iteration | v136-2k-batch17-splash2048-rs-lat4-seqminor-shmem95 on 8B/v6e-8: provisionally supported (73,587 tok/s, 47.3% MFU)
+
+Workload `alekseyv-qwen3-v136-2kbs17seqsh95` completed cleanly with worker0
+**73,587 tok/s / 9,198 tok/s/chip / 47.3% MFU** and worker1 **73,580 tok/s /
+9,198 tok/s/chip / 47.3% MFU**. This is only **+5 tok/s** over v130 but is the
+current raw-throughput high-water mark. HLO hash
+`b78961298603163ac732723bbbd718731d73864426456267aa9a0df5db37f8be` has 16,157
+copy tokens and 29.08 GiB compiled memory. Treat v136 as a provisional frontier
+candidate and bracket the shmem limit upward before trusting the small gain.
+
+## [2026-06-13] loop-iteration | v137-2k-batch17-splash2048-rs-lat4-seqminor-shmem97 on 8B/v6e-8: started
+
+Launching workload `alekseyv-qwen3-v137-2kbs17seqsh97` from v136, changing only
+`--xla_tpu_scheduler_percent_shared_memory_limit=97`. This tests whether the
+batch17 all-`SEQ_MINOR` branch has a real schedule-quality optimum above
+shmem95 before it hits the known batch17/shmem100 memory boundary.

@@ -16,11 +16,8 @@ FROM us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-torchax:l
 RUN rm -rf /app/trainer
 WORKDIR /app/trainer
 COPY trainer /app/trainer
-COPY ejkernel /app/ejkernel
-
-RUN pip install beartype einops typing_extensions optax
 
 ENV PYTHONUNBUFFERED=1 \
-    PYTHONPATH=/app/trainer:/app/ejkernel
+    PYTHONPATH=/app/trainer
 
 CMD ["python", "-u", "train.py", "--help"]

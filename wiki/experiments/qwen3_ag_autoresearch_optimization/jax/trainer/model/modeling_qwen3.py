@@ -243,8 +243,6 @@ class Qwen3Attention(nnx.Module):
         self.k_proj = Linear(hidden, self.num_kv_heads * self.head_dim, bias=bias, **lin)
         self.v_proj = Linear(hidden, self.num_kv_heads * self.head_dim, bias=bias, **lin)
         self.o_proj = Linear(self.num_heads * self.head_dim, hidden, bias=bias, **lin)
-        self.g_cmp_proj = Linear(hidden, self.num_heads, bias=False, **lin)
-        self.g_slc_proj = Linear(hidden, self.num_heads, bias=False, **lin)
         # Qwen3 QK-norm — RMSNorm over head_dim.
         eps = config.rms_norm_eps
         self.q_norm = Qwen3RMSNorm(self.head_dim, eps=eps, weights_dtype=weights_dtype)
@@ -257,50 +255,19 @@ class Qwen3Attention(nnx.Module):
         q = self.q_proj(hidden_states).reshape(B, T, self.num_heads, self.head_dim)
         k = self.k_proj(hidden_states).reshape(B, T, self.num_kv_heads, self.head_dim)
         v = self.v_proj(hidden_states).reshape(B, T, self.num_kv_heads, self.head_dim)
-        q = self.q_norm(q)
-        k = self.k_norm(k)
-        
         q = jnp.transpose(q, (0, 2, 1, 3))
         k = jnp.transpose(k, (0, 2, 1, 3))
         v = jnp.transpose(v, (0, 2, 1, 3))
-        q, k = apply_rotary_pos_emb(q, k, cos, sin, unsqueeze_dim=1)
+        
+        from .fused_rope import fused_qknorm_rope
+        q = fused_qknorm_rope(q, self.q_norm.weight.value, cos, sin, eps=self.q_norm.eps)
+        k = fused_qknorm_rope(k, self.k_norm.weight.value, cos, sin, eps=self.k_norm.eps)
         
         impl = os.environ.get("JAX_ATTENTION_IMPL", "xla").lower()
         if impl == "splash":
             attn_out = _attn_splash(
                 q, k, v, num_key_value_groups=self.num_key_value_groups,
             )
-        elif impl == "nsa" or impl == "nsa_xla":
-            # Transpose back to (B, T, H, D) for NSA
-            q_nsa = jnp.transpose(q, (0, 2, 1, 3))
-            k_nsa = jnp.transpose(k, (0, 2, 1, 3))
-            v_nsa = jnp.transpose(v, (0, 2, 1, 3))
-
-            g_cmp = jax.nn.sigmoid(self.g_cmp_proj(hidden_states))
-            g_slc = jax.nn.sigmoid(self.g_slc_proj(hidden_states))
-
-            from ejkernel.modules.operations import native_sparse_attention
-            from ejkernel.modules.operations.configs import NativeSparseAttentionConfig
-
-            # Default to pallas, unless nsa_xla is explicitly requested
-            platform = "xla" if impl == "nsa_xla" else "pallas"
-            backend = "any" if impl == "nsa_xla" else "tpu"
-
-            cfg = NativeSparseAttentionConfig(block_size=64, platform=platform, backend=backend)
-
-            attn_out = native_sparse_attention(
-                q_nsa, k_nsa, v_nsa,
-                g_cmp,
-                g_slc,
-                None, # block_indices
-                16,   # block_counts (16 * 64 = 1024 tokens)
-                None, # cu_seqlens
-                softmax_scale=self.scaling,
-                platform=platform,
-                cfg=cfg
-            )
-            attn_out = attn_out.reshape(B, T, self.num_heads * self.head_dim)
-            return self.o_proj(attn_out)
         else:
             attn_out = _attn_xla_sdpa(
                 q, k, v, num_key_value_groups=self.num_key_value_groups,
@@ -320,6 +287,12 @@ class Qwen3DecoderLayer(nnx.Module):
         self.post_attention_layernorm = Qwen3RMSNorm(config.hidden_size, eps=eps, weights_dtype=weights_dtype)
 
     def __call__(self, hidden_states, position_embeddings, attention_mask=None):
+        if not hasattr(self, '_ckpt_call'):
+            import jax
+            self._ckpt_call = jax.checkpoint(self._call_impl)
+        return self._ckpt_call(hidden_states, position_embeddings, attention_mask)
+
+    def _call_impl(self, hidden_states, position_embeddings, attention_mask=None):
         residual = hidden_states
         x = self.self_attn(self.input_layernorm(hidden_states), position_embeddings, attention_mask)
         hidden_states = residual + x
