@@ -26,9 +26,13 @@ origin: 2026-06-13-qwen3-jax-v053-block-remat-bs64
 Rerun of v053-b with the correct `launch_cmd` that omits the `cd wiki/.../jax` instruction since the container `WORKDIR` is already `/app/trainer`.
 
 ## Results
+The workload crashed on launch with `bash: line 5: conda: command not found`. The container image uses a standard `/opt/venv/bin/python` environment, not conda. The launch command was malformed.
 
 ## Profile
+missing
 
 ## HLO Dump
+missing
 
 ## Verdict
+**Refuted (Crash)**. The launch command was malformed for the container environment.
