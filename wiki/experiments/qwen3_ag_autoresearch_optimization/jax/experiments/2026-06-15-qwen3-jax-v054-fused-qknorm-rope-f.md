@@ -25,9 +25,15 @@ origin: 2026-06-15-qwen3-jax-v054-fused-qknorm-rope
 Rerun of v054-e with fixed import of `_SPLASH_MESH` inside `fused_rope.py`.
 
 ## Results
+The workload was rejected by the cluster webhook with `follower pod node selector for topology domain not found`.
 
 ## Profile
+missing
 
 ## HLO Dump
+missing
 
 ## Verdict
+**invalid**
+
+Crashed due to a cluster admission error, not related to the code.
