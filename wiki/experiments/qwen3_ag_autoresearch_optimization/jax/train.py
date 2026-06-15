@@ -12,7 +12,7 @@ Each optimization lands later as its own attributable experiment.
 Run (from this folder):
     python -u train.py --use_real_data False --seqlen 2048 --batch_size 1 \
         --train_steps 20 \
-        --profile_dir gs://<bucket>/autoresearch/qwen3_cc/<run> \
+        --profile_dir gs://<bucket>/autoresearch/qwen3_ag/<run> \
         --profile_start_step 12 --profile_steps 3
 """
 from __future__ import annotations

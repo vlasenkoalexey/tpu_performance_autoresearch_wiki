@@ -1,7 +1,7 @@
 ---
 title: "Qwen3 torchax — per-chip batch scaling"
 type: hypothesis
-model: qwen3-cc-torchax
+model: qwen3-ag-torchax
 variants: ["8B/v6e-8"]
 status: open
 expected_gain: "1.5-2.5x throughput / MFU"

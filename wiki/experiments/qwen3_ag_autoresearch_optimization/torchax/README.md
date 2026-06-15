@@ -2,7 +2,7 @@
 
 Minimal torchax (PyTorch-on-JAX) baseline trainer for **Qwen3 8B** (`Qwen/Qwen3-8B`)
 on **TPU v6e-8**, fine-tuning `wikitext-2-raw-v1` packed at a fixed seq_len.
-This is the **primary** lane for the qwen3_cc program; the [`../jax/`](../jax/README.md)
+This is the **primary** lane for the qwen3_ag program; the [`../jax/`](../jax/README.md)
 lane is scaffolded but not yet lit up.
 
 The trainer is intentionally minimal — it establishes the baseline number.
@@ -39,7 +39,7 @@ torchax/
 ```bash
 # conda env: py312  (Python 3.12)
 conda activate py312
-cd wiki/experiments/qwen3_cc_autoresearch_optimization/torchax
+cd wiki/experiments/qwen3_ag_autoresearch_optimization/torchax
 
 # perf-only smoke (random tokens, no HF weight download) — VERIFIED on v6e-4:
 TORCH_DEVICE_BACKEND_AUTOLOAD=0 python train.py \
@@ -51,7 +51,7 @@ RUN=$(date +%Y-%m-%d)-qwen3-torchax-baseline
 TORCH_DEVICE_BACKEND_AUTOLOAD=0 \
 JAX_COMPILATION_CACHE_DIR=/tmp/qwen3_jax_cache \
 python train.py --steps 20 --batch_size 1 --seqlen 8192 \
-    --profile_dir gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/$RUN \
+    --profile_dir gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_ag/$RUN \
     --profile_start_step 8 --profile_steps 3
 ```
 
@@ -75,18 +75,18 @@ profiler (see `profiling.py`). `--profile_dir` may be:
   rsync it up afterward (falls back to `gsutil`, which needs `unset CLOUDSDK_PYTHON`
   on this box — see project memory).
 
-Canonical GCS layout: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/<run-name>/plugins/profile/<ts>/<host>.xplane.pb`.
+Canonical GCS layout: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_ag/<run-name>/plugins/profile/<ts>/<host>.xplane.pb`.
 
 To browse/analyze a captured run:
 ```bash
-# xprof server (has the binary in py312), logdir = the qwen3_cc parent:
+# xprof server (has the binary in py312), logdir = the qwen3_ag parent:
 ~/miniconda3/envs/py312/bin/xprof \
-    --logdir=gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc --port=8791 &
+    --logdir=gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_ag --port=8791 &
 
 # xprof-mcp HTTP server (env xprof_mcp_py312) so the MCP tools can query it:
 PYTHONPATH=/mnt/disks/persist/torch-tpu \
 XPROF_URL=http://localhost:8791 \
-XPROF_LOGDIR=gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc \
+XPROF_LOGDIR=gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_ag \
 MCP_PORT=8792 \
 ~/miniconda3/envs/xprof_mcp_py312/bin/python \
     -m xprof_mcp.server.xprof_mcp_server --transport http &
@@ -129,7 +129,7 @@ model wrapper, sharding, or trainer that could perturb numerics.
   seq=1024, bs=1, fsdp=4, 8 steps. Cold compile ~84 s; ~312 ms/step; loss stable
   at 11.94 (= `ln(151936)`, correct for uniform-random tokens → pipeline sound).
   Profile (steps 4–6) streamed straight to
-  `gs://…/autoresearch/qwen3_cc/2026-06-02-qwen3-torchax-smoke` (xplane.pb 106 MB)
+  `gs://…/autoresearch/qwen3_ag/2026-06-02-qwen3-torchax-smoke` (xplane.pb 106 MB)
   and loaded/analyzed via xprof-mcp. Op profile: `all-reduce-scatter fusion` =
   31 % of step (FSDP collective dominates at this tiny untuned shape; tc_idle
   212 ms/312 ms — communication-bound; expected, not the real baseline).

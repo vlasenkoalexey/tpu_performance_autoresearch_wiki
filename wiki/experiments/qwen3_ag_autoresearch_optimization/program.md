@@ -1,7 +1,7 @@
 ---
 title: "autoresearch — Qwen3 8B (model-family overrides)"
 type: program
-model: qwen3_cc
+model: qwen3_ag
 created: 2026-06-02
 updated: 2026-06-02
 ---
@@ -18,11 +18,11 @@ The repo contains 2 execution lanes for the same model architecture:
 
 | Lane | Stack | Trainer entry point |
 |------|-------|---------------------|
-| torchax | HuggingFace PyTorch wrapped via torchax (PyTorch-on-JAX) | `python -m train` from `qwen3_cc_autoresearch_optimization/torchax/` |
+| torchax | HuggingFace PyTorch wrapped via torchax (PyTorch-on-JAX) | `python -m train` from `qwen3_ag_autoresearch_optimization/torchax/` |
 | jax | from-scratch Flax NNX port (not yet implemented) | TODO — `python -m train` from `.../jax/` once written |
 
 Model code lives directly in the lane folder (tracked in the wiki repo, not a submodule):
-`wiki/experiments/qwen3_cc_autoresearch_optimization/<lane>/`.
+`wiki/experiments/qwen3_ag_autoresearch_optimization/<lane>/`.
 
 **Model sizes**: 8B (`Qwen/Qwen3-8B`). The trainer's `--model_id` can point at the
 smaller tied-embedding sizes for fast smoke tests.
@@ -50,14 +50,14 @@ trained-model identity):
 Before starting:
 - Read this file (model-level) and the root `../program.md`.
 - Read the lane `<lane>/README.md` (hardware/operational notes).
-- Read the model page: `wiki/models/qwen3-cc-<lane>.md`.
+- Read the model page: `wiki/models/qwen3-ag-<lane>.md`.
 - Read the last 2–3 experiment pages in your lane.
 
 ## Qwen3-specific CAN additions
 
 (Additive on top of root `program.md`'s "What you CAN do". Root section still applies.)
 
-- **Preferred edit target**: `qwen3_cc_autoresearch_optimization/<lane>/` —
+- **Preferred edit target**: `qwen3_ag_autoresearch_optimization/<lane>/` —
   `train.py`, `model/sharding.py`, `data.py`, `helper.py`, `config.yaml`.
 - The minimal baseline deliberately ships WITHOUT splash attention, scan, tokamax
   CE, AMP master weights, or per-layer remat — each is an open optimization to add
@@ -105,18 +105,18 @@ The path includes the model name to avoid collisions with other model families
 sharing the bucket:
 
 ```
-gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/<run-name>/
+gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_ag/<run-name>/
 ├── plugins/profile/<ts>/<host>.xplane.pb    ← written by jax.profiler (xprof-mcp reads this)
 └── hlo/module_NNNN.*.{txt,pb}               ← from XLA_FLAGS=--xla_dump_to=...
 ```
 
 `<run-name>` convention: `<YYYY-MM-DD>-qwen3-<lane>-exp<NNN>-<slug>`. The xprof
-server is launched with `--logdir=gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc`
+server is launched with `--logdir=gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_ag`
 so each `<run-name>` shows up as a run. On-disk HLO dumps (gitignored) still go to
 `raw/profiles/<YYYY-MM-DD>-<exp-slug>/`.
 
 **Bucket confirmed writable** (2026-06-02): smoke profile streamed direct to
-`…/qwen3_cc/2026-06-02-qwen3-torchax-smoke` and loaded via xprof-mcp.
+`…/qwen3_ag/2026-06-02-qwen3-torchax-smoke` and loaded via xprof-mcp.
 
 ## Per-lane operational details
 
@@ -127,12 +127,12 @@ All selected lanes are covered in this file (consolidated; no per-lane `program.
 **Conda env**: `py312` (Python 3.12). Activate before any run.
 
 **Trainer entry**: `python -m train` from
-`wiki/experiments/qwen3_cc_autoresearch_optimization/torchax/`.
+`wiki/experiments/qwen3_ag_autoresearch_optimization/torchax/`.
 
 **Baseline command**:
 ```bash
 conda activate py312
-cd wiki/experiments/qwen3_cc_autoresearch_optimization/torchax
+cd wiki/experiments/qwen3_ag_autoresearch_optimization/torchax
 python -m train --steps 20 --batch_size 1 --seqlen 8192 \
     --profile_dir $PROFILE_DIR --profile_step 10
 ```
@@ -183,7 +183,7 @@ stable and a native-JAX port becomes a ranked hypothesis.
 
 ## Sources
 
-- Model pages: `wiki/models/qwen3-cc-torchax.md`, `wiki/models/qwen3-cc-jax.md`
+- Model pages: `wiki/models/qwen3-ag-torchax.md`, `wiki/models/qwen3-ag-jax.md`
 - Lane READMEs: `torchax/README.md`, `jax/README.md`
 - Cluster docs: `.env/` directory at repo root.
 - Wiki schema: `SCHEMA.md`.

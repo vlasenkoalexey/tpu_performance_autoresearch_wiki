@@ -1,7 +1,7 @@
 ---
 title: "Qwen3 torchax — splash attention"
 type: hypothesis
-model: qwen3-cc-torchax
+model: qwen3-ag-torchax
 variants: ["8B/v6e-8"]
 status: open
 expected_gain: "15-40% on attention; unlocks seq 8192"
@@ -26,7 +26,7 @@ removing the OOM that blocks seq 8192 on the minimal trainer.
 before RoPE; the kernel sees post-norm post-RoPE Q/K, so no kernel change needed.
 
 *Predicted signal*: attention's share of the step drops; the 66% TC idle in the
-[baseline](../experiments/qwen3_cc_autoresearch_optimization/torchax/experiments/2026-06-02-qwen3-torchax-v6e8-baseline.md)
+[baseline](../experiments/qwen3_ag_autoresearch_optimization/torchax/experiments/2026-06-02-qwen3-torchax-v6e8-baseline.md)
 shrinks; seq 4096/8192 become runnable without OOM.
 
 *Falsification criterion*: no measurable step-time improvement at seq 2048 **and**

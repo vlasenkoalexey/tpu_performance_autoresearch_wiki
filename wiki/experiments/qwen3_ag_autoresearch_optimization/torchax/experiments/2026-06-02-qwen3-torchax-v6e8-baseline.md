@@ -2,11 +2,11 @@
 title: "Qwen3-8B torchax v6e-8 baseline"
 type: experiment
 hypothesis: baseline
-model: qwen3-cc-torchax
+model: qwen3-ag-torchax
 variant: "8B/v6e-8"
 commit: minimal-trainer-2026-06-02
 verdict: baseline
-tags: [qwen3-cc, torchax, baseline, v6e-8]
+tags: [qwen3-ag, torchax, baseline, v6e-8]
 created: 2026-06-02
 updated: 2026-06-02
 ---
@@ -35,7 +35,7 @@ starting `step / TPS / MFU` for the `8B/v6e-8` variant row.
   (digest `sha256:1ade963e…`). Base `jax-ai-image/tpu:jax0.9.0-rev1` + torchax
   (from `raw/code/torchax`) + HF transformers 5.3 + the minimal trainer.
 - **Env**: `TORCH_DEVICE_BACKEND_AUTOLOAD=0` (required — torch_tpu vs torchax
-  privateuse1 conflict), `JAX_COMPILATION_CACHE_DIR=gs://…/qwen3_cc/jax_cache`,
+  privateuse1 conflict), `JAX_COMPILATION_CACHE_DIR=gs://…/qwen3_ag/jax_cache`,
   `XLA_FLAGS=--xla_dump_to=…/hlo --xla_dump_hlo_as_text --xla_dump_hlo_as_proto`.
 - **Data**: `use_real_data=False` — synthetic random tokens (perf baseline;
   weights are random meta-init, so loss is not a convergence signal either way).
@@ -44,7 +44,7 @@ starting `step / TPS / MFU` for the `8B/v6e-8` variant row.
   python -u train.py --model_id=Qwen/Qwen3-8B --use_real_data=False \
     --batch_size=1 --seqlen=2048 --tp_parallelism=1 \
     --train_steps=20 --weights_dtype=bf16 \
-    --profile_dir=gs://…/qwen3_cc/2026-06-02-qwen3-torchax-v6e8-baseline \
+    --profile_dir=gs://…/qwen3_ag/2026-06-02-qwen3-torchax-v6e8-baseline \
     --profile_start_step=12 --profile_steps=3
   ```
   global_batch = batch_size × fsdp = 1 × 8 = 8; tokens/step = 8 × 2048 = 16,384.
@@ -68,7 +68,7 @@ reference for every subsequent `8B/v6e-8` experiment.
 | Throughput | **29,795 tok/s** (3,724 / chip) | 18 steps measured (post-warmup) |
 | MFU | **19.2%** (trainer est) / MXU util 19.4% (xprof) | v6e bf16 peak 918 TFLOPS/chip |
 | TC idle | **66%** (352 / 531 ms) | device idle ~⅔ of the step |
-| Cold compile | 112.5 s | cache now warm at `…/qwen3_cc/jax_cache` |
+| Cold compile | 112.5 s | cache now warm at `…/qwen3_ag/jax_cache` |
 | HBM BW util | ~41% (program) / 30% (conv-fusion) | not memory-bandwidth-bound |
 | Exit code | 0 | clean 20-step run |
 
@@ -81,7 +81,7 @@ step and the rest is FSDP-collective stalls + framework dispatch. This is a
 
 - **xprof URL**: `http://localhost:8791/?run=2026-06-02-qwen3-torchax-v6e8-baseline`
   (run name `2026-06-02-qwen3-torchax-v6e8-baseline/2026_06_02_04_20_28`).
-- **GCS run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-02-qwen3-torchax-v6e8-baseline/plugins/profile/2026_06_02_04_20_28/`
+- **GCS run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_ag/2026-06-02-qwen3-torchax-v6e8-baseline/plugins/profile/2026_06_02_04_20_28/`
   (two hosts: `gke-tpu-46dd3e54-g30s.xplane.pb`, `…-rkr2.xplane.pb` + `.trace.json.gz`).
 - **Local pointer**: [`raw/profiles/2026-06-02-qwen3-torchax-v6e8-baseline/`](../../../../../raw/profiles/2026-06-02-qwen3-torchax-v6e8-baseline/GCS_LOCATION.txt)
   (GKE runs are GCS-resident; this pointer file records the gs:// location).
@@ -92,7 +92,7 @@ step and the rest is FSDP-collective stalls + framework dispatch. This is a
 
 ### HLO Dump
 
-- **GCS**: `gs://…/qwen3_cc/2026-06-02-qwen3-torchax-v6e8-baseline/hlo/` — **1274
+- **GCS**: `gs://…/qwen3_ag/2026-06-02-qwen3-torchax-v6e8-baseline/hlo/` — **1274
   files** (`--xla_dump_hlo_as_text --xla_dump_hlo_as_proto`, dumped direct to GCS
   during compile). The post-optimization module is the main train-step jit.
 - Use for fusion verification before any kernel-replacement hypothesis (per the
@@ -126,6 +126,6 @@ hypothesis test; it sets the `8B/v6e-8` matrix row's `Baseline` cell at
 
 ## Sources
 
-- Profile + HLO (GCS): `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-02-qwen3-torchax-v6e8-baseline/`
+- Profile + HLO (GCS): `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_ag/2026-06-02-qwen3-torchax-v6e8-baseline/`
 - Local pointer: `raw/profiles/2026-06-02-qwen3-torchax-v6e8-baseline/GCS_LOCATION.txt`
-- Trainer: `wiki/experiments/qwen3_cc_autoresearch_optimization/torchax/` (train.py, model/, profiling.py).
+- Trainer: `wiki/experiments/qwen3_ag_autoresearch_optimization/torchax/` (train.py, model/, profiling.py).

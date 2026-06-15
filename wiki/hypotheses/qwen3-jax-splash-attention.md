@@ -1,7 +1,7 @@
 ---
 title: "Qwen3 jax — splash attention"
 type: hypothesis
-model: qwen3-cc-jax
+model: qwen3-ag-jax
 variants: ["8B/v6e-8"]
 status: open
 expected_gain: "15-40% on attention; unlocks seq 8192"

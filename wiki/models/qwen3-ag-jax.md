@@ -1,11 +1,11 @@
 ---
 title: "Qwen3 8B — jax"
 type: model
-architecture: qwen3-cc
+architecture: qwen3-ag
 lane: jax
 sizes: ["8B"]
 hardwares: ["v6e-8"]
-tags: [qwen3-cc, jax]
+tags: [qwen3-ag, jax]
 created: 2026-06-02
 updated: 2026-06-02
 ---
@@ -14,7 +14,7 @@ updated: 2026-06-02
 
 Qwen3 8B (`Qwen/Qwen3-8B`) as a native-JAX (Flax NNX) port on **TPU v6e-8**.
 **Scaffold only** — the trainer is not yet written. This lane lights up once the
-[torchax](qwen3-cc-torchax.md) baseline is stable and a from-scratch JAX port
+[torchax](qwen3-ag-torchax.md) baseline is stable and a from-scratch JAX port
 becomes a ranked hypothesis; it then serves as the reference ceiling for
 cross-lane comparison.
 
@@ -33,18 +33,18 @@ TODO: native-JAX trainer not yet written.
 
 | Size | Hardware | Status | Baseline (step / TPS / MFU) | Current best (step / TPS / MFU) | Open hyps | Frontier exp |
 |------|----------|--------|-----------------------------|----------------------------------|-----------|--------------|
-| 8B | v6e-8 | live | 512 ms / 31,955 TPS / 20.5% MFU @ seq2048 bs8 | = baseline | 3 | [2026-06-02 baseline](../experiments/qwen3_cc_autoresearch_optimization/jax/experiments/2026-06-02-qwen3-jax-v6e8-baseline.md) |
+| 8B | v6e-8 | live | 512 ms / 31,955 TPS / 20.5% MFU @ seq2048 bs8 | = baseline | 3 | [2026-06-02 baseline](../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-02-qwen3-jax-v6e8-baseline.md) |
 
 *Baseline captured at seq 2048 (global batch 8). **Cross-lane: jax 20.5% MFU /
 3,994 tok/s/chip beats torchax 19.2% / 3,724 (+7.3% tok/s/chip, +1.3 pp)** at the
 identical shape — the native-JAX path has lower collective/dispatch overhead
 (profile: 21.7% collective vs torchax 31.3%). See the
-[jax baseline](../experiments/qwen3_cc_autoresearch_optimization/jax/experiments/2026-06-02-qwen3-jax-v6e8-baseline.md)
-and [torchax baseline](../experiments/qwen3_cc_autoresearch_optimization/torchax/experiments/2026-06-02-qwen3-torchax-v6e8-baseline.md).*
+[jax baseline](../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-02-qwen3-jax-v6e8-baseline.md)
+and [torchax baseline](../experiments/qwen3_ag_autoresearch_optimization/torchax/experiments/2026-06-02-qwen3-torchax-v6e8-baseline.md).*
 
 ## Cross-variant open hypotheses
 
-Ranked after the [2026-06-02 baseline](../experiments/qwen3_cc_autoresearch_optimization/jax/experiments/2026-06-02-qwen3-jax-v6e8-baseline.md) (~20% MXU → win occupancy/memory first):
+Ranked after the [2026-06-02 baseline](../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-02-qwen3-jax-v6e8-baseline.md) (~20% MXU → win occupancy/memory first):
 
 1. [Per-chip batch scaling](../hypotheses/qwen3-jax-batch-scaling.md) — fill MXU occupancy. Effort S — cheapest first move.
 2. [Splash attention](../hypotheses/qwen3-jax-splash-attention.md) — GQA-native kernel; avoids `[B,H,S,S]`; prerequisite for seq 8192. Effort M.
@@ -72,10 +72,10 @@ Ranked after the [2026-06-02 baseline](../experiments/qwen3_cc_autoresearch_opti
 
 ## See also
 
-- [Qwen3 8B — torchax](qwen3-cc-torchax.md) — primary lane (live frontier).
-- Program: [`../experiments/qwen3_cc_autoresearch_optimization/program.md`](../experiments/qwen3_cc_autoresearch_optimization/program.md)
-- Lane README: [`../experiments/qwen3_cc_autoresearch_optimization/jax/README.md`](../experiments/qwen3_cc_autoresearch_optimization/jax/README.md)
+- [Qwen3 8B — torchax](qwen3-ag-torchax.md) — primary lane (live frontier).
+- Program: [`../experiments/qwen3_ag_autoresearch_optimization/program.md`](../experiments/qwen3_ag_autoresearch_optimization/program.md)
+- Lane README: [`../experiments/qwen3_ag_autoresearch_optimization/jax/README.md`](../experiments/qwen3_ag_autoresearch_optimization/jax/README.md)
 
 ## Sources
 
-- `wiki/experiments/qwen3_cc_autoresearch_optimization/jax/` (scaffold).
+- `wiki/experiments/qwen3_ag_autoresearch_optimization/jax/` (scaffold).

@@ -1,7 +1,7 @@
 ---
 title: "Qwen3 torchax — tokamax streamed cross-entropy"
 type: hypothesis
-model: qwen3-cc-torchax
+model: qwen3-ag-torchax
 variants: ["8B/v6e-8"]
 status: open
 expected_gain: "HBM unlock at seq 8192 (~2.5 GiB/chip logits saved)"

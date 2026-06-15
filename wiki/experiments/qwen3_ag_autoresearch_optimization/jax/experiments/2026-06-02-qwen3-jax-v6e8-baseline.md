@@ -2,11 +2,11 @@
 title: "Qwen3-8B jax (Flax NNX) v6e-8 baseline"
 type: experiment
 hypothesis: baseline
-model: qwen3-cc-jax
+model: qwen3-ag-jax
 variant: "8B/v6e-8"
 commit: minimal-jax-trainer-2026-06-02
 verdict: baseline
-tags: [qwen3-cc, jax, flax-nnx, baseline, v6e-8]
+tags: [qwen3-ag, jax, flax-nnx, baseline, v6e-8]
 created: 2026-06-02
 updated: 2026-06-02
 ---
@@ -35,7 +35,7 @@ None — reference baseline for the `8B/v6e-8` variant of the jax lane.
   — built `FROM` the torchax lane image (which already carries flax/optax/
   transformers) with only the jax trainer code swapped in. **No torch/torchax at
   run time** (pure JAX).
-- **Env**: `JAX_COMPILATION_CACHE_DIR=gs://…/qwen3_cc/jax_lane_cache`,
+- **Env**: `JAX_COMPILATION_CACHE_DIR=gs://…/qwen3_ag/jax_lane_cache`,
   `XLA_FLAGS=--xla_dump_to=…/hlo --xla_dump_hlo_as_text --xla_dump_hlo_as_proto`.
 - **Data**: synthetic random tokens (`use_real_data=False`); random-init weights
   → loss not a convergence signal (perf baseline).
@@ -44,7 +44,7 @@ None — reference baseline for the `8B/v6e-8` variant of the jax lane.
   python -u train.py --model_id=Qwen/Qwen3-8B --use_real_data=False \
     --batch_size=1 --seqlen=2048 --tp_parallelism=1 \
     --train_steps=20 --weights_dtype=bf16 \
-    --profile_dir=gs://…/qwen3_cc/2026-06-02-qwen3-jax-v6e8-baseline \
+    --profile_dir=gs://…/qwen3_ag/2026-06-02-qwen3-jax-v6e8-baseline \
     --profile_start_step=12 --profile_steps=3
   ```
   global_batch = 1 × 8 = 8; tokens/step = 8 × 2048 = 16,384.
@@ -72,14 +72,14 @@ spends **21.7%** on the FSDP collective vs torchax's **31.3%**.
 | Steady step time | **512.6 ms** | step 0 cold (114.6 s) excluded |
 | Throughput | **31,955 tok/s** (3,994 / chip) | 18 steps measured |
 | MFU | **20.5%** (trainer) / MXU util 19.9% (xprof) | v6e bf16 peak 918 TFLOPS/chip |
-| Cold compile | ~2 min (step 0 = 114.6 s) | cache now warm at `…/qwen3_cc/jax_lane_cache` |
+| Cold compile | ~2 min (step 0 = 114.6 s) | cache now warm at `…/qwen3_ag/jax_lane_cache` |
 | Exit code | 0 | clean 20-step run |
 
 ## Profile
 
 - **xprof URL**: `http://localhost:8791/?run=2026-06-02-qwen3-jax-v6e8-baseline`
   (run `2026-06-02-qwen3-jax-v6e8-baseline/2026_06_02_05_07_29`).
-- **GCS run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v6e8-baseline/plugins/profile/2026_06_02_05_07_29/`
+- **GCS run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_ag/2026-06-02-qwen3-jax-v6e8-baseline/plugins/profile/2026_06_02_05_07_29/`
   (2 hosts: `gke-tpu-32cb1c36-gs53.xplane.pb`, `…-jj8f.xplane.pb`).
 - **Local pointer**: [`raw/profiles/2026-06-02-qwen3-jax-v6e8-baseline/`](../../../../../raw/profiles/2026-06-02-qwen3-jax-v6e8-baseline/GCS_LOCATION.txt).
 - **Profiled steps**: 12–14.
@@ -89,7 +89,7 @@ spends **21.7%** on the FSDP collective vs torchax's **31.3%**.
 
 ### HLO Dump
 
-- **GCS**: `gs://…/qwen3_cc/2026-06-02-qwen3-jax-v6e8-baseline/hlo/` — **967
+- **GCS**: `gs://…/qwen3_ag/2026-06-02-qwen3-jax-v6e8-baseline/hlo/` — **967
   module files** (text + proto, dumped direct to GCS during compile).
 
 ## Observations
@@ -116,7 +116,7 @@ analyzed via xprof-mcp. Sets the `8B/v6e-8` jax matrix row at
 
 ## Sources
 
-- Profile + HLO (GCS): `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v6e8-baseline/`
+- Profile + HLO (GCS): `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_ag/2026-06-02-qwen3-jax-v6e8-baseline/`
 - Local pointer: `raw/profiles/2026-06-02-qwen3-jax-v6e8-baseline/GCS_LOCATION.txt`
-- Trainer: `wiki/experiments/qwen3_cc_autoresearch_optimization/jax/` (train.py, model/, sharding.py).
+- Trainer: `wiki/experiments/qwen3_ag_autoresearch_optimization/jax/` (train.py, model/, sharding.py).
 - Sibling: [torchax baseline](../../torchax/experiments/2026-06-02-qwen3-torchax-v6e8-baseline.md).

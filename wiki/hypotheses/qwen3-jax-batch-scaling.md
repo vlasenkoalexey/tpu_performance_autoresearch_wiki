@@ -1,7 +1,7 @@
 ---
 title: "Qwen3 jax — per-chip batch scaling"
 type: hypothesis
-model: qwen3-cc-jax
+model: qwen3-ag-jax
 variants: ["8B/v6e-8"]
 status: open
 expected_gain: "1.5-2.5x throughput / MFU"
@@ -18,7 +18,7 @@ updated: 2026-06-02
 above the baseline 19.9% with no code change, until HBM (Adam state +
 activations + `[B,L,V]` logits) binds.
 
-*Mechanism*: The [baseline](../experiments/qwen3_cc_autoresearch_optimization/jax/experiments/2026-06-02-qwen3-jax-v6e8-baseline.md)
+*Mechanism*: The [baseline](../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-02-qwen3-jax-v6e8-baseline.md)
 ran per-chip batch 1 (global 8 on fsdp=8) at ~20% MXU. More work per step
 amortizes fixed per-step overhead (collectives + dispatch).
 

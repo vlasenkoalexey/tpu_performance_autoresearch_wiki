@@ -2,7 +2,7 @@
 
 A deliberately small baseline trainer — the canonical torchax + torchtitan
 pattern adapted to HF `transformers.Qwen3ForCausalLM` and real WikiText data.
-It establishes the *baseline* number for the qwen3_cc autoresearch lane; the
+It establishes the *baseline* number for the qwen3_ag autoresearch lane; the
 optimization knobs (splash attention, scan-over-layers, tokamax CE, AMP master
 weights, per-layer remat) are intentionally NOT here yet — each one lands later
 as its own experiment so the win is attributable.
