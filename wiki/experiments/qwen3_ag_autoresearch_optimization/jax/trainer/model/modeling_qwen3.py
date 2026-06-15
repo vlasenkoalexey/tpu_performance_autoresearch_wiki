@@ -255,13 +255,13 @@ class Qwen3Attention(nnx.Module):
         q = self.q_proj(hidden_states).reshape(B, T, self.num_heads, self.head_dim)
         k = self.k_proj(hidden_states).reshape(B, T, self.num_kv_heads, self.head_dim)
         v = self.v_proj(hidden_states).reshape(B, T, self.num_kv_heads, self.head_dim)
-        q = self.q_norm(q)
-        k = self.k_norm(k)
-        
         q = jnp.transpose(q, (0, 2, 1, 3))
         k = jnp.transpose(k, (0, 2, 1, 3))
         v = jnp.transpose(v, (0, 2, 1, 3))
-        q, k = apply_rotary_pos_emb(q, k, cos, sin, unsqueeze_dim=1)
+        
+        from .fused_rope import fused_qknorm_rope
+        q = fused_qknorm_rope(q, self.q_norm.weight.value, cos, sin, eps=self.q_norm.eps)
+        k = fused_qknorm_rope(k, self.k_norm.weight.value, cos, sin, eps=self.k_norm.eps)
         
         impl = os.environ.get("JAX_ATTENTION_IMPL", "xla").lower()
         if impl == "splash":
