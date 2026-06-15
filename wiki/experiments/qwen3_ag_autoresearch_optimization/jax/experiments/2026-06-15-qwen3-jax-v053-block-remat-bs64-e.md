@@ -27,8 +27,37 @@ Fork from v053-d. Add explicit `shard_map` encapsulation around the `nnx.scan` b
 
 ## Results
 
+The experiment crashed with an Out-of-Memory (OOM) error during the execution of an `allgather` within the nested remat scan configuration:
+```python
+    File "/opt/venv/lib/python3.12/site-packages/jax/experimental/multihost_utils.py", line 134, in _handle_array_process_allgather
+      out = jax.jit(_identity_fn, out_shardings=P())(global_arr)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  jax.errors.JaxRuntimeError: RESOURCE_EXHAUSTED: Error loading program 'jit__identity_fn': Attempting to reserve 13.50G at the bottom of memory. That was not possible. There are 7.48G free, 0B reserved, and 7.48G reservable.
+```
+
 ## Profile
+
+- **Phase 1 unavailable**: xprof trace not found at `gs://tpu-pytorch-alekseyv-asia-northeast1/autoresearch/qwen3-jax-v053-block-remat-bs64-e/plugins/profile`.
 
 ## HLO Dump
 
+**Source**: `gs://tpu-pytorch-alekseyv-asia-northeast1/autoresearch/qwen3-jax-v053-block-remat-bs64-e/hlo`
+**Modules**: 200+ total, top by size: `jit__normal`, `jit__uniform`, `jit_threefry_fold_in`
+
+**Inspected modules** (top by size, fallback due to missing xprof):
+- `jit__normal` (~29 KB): Eager dispatch of Python-level op.
+- `jit__uniform` (~26 KB): Eager dispatch of Python-level op.
+
+**Fusion verification**:
+- N/A — eager execution detected (100+ generic `module_XXXX` ops). No `train_step` to verify.
+
+**Hypothesis-firing audit** (Phase 3 — silent-noop check vs the hypothesis's predicted mechanism):
+- SKIPPED — no hypothesis on file (setup error: experiment page missing).
+- Result: **SKIPPED — no hypothesis on file**
+
+**Notable patterns**:
+- **Eager execution detected**: The HLO module count fingerprint indicates eager execution (100+ small, generic-named modules like `jit_broadcast_in_dim`, `jit_convert_element_type`). No fused `train_step` module is present.
+
 ## Verdict
+
+`invalid` — OOM crash during eager compilation step due to excessive allgather buffering for block-wise parameters. Wrapping the block-wise scan in a `shard_map` solved the custom call partitioning but resulted in an insurmountable memory penalty on V6e nodes (out of HBM budget when preparing intermediate tensors across multiple outer blocks).
