@@ -4,7 +4,7 @@ type: experiment
 model: qwen3-cc-jax
 variant: 8B/v6e-8
 hypothesis: "Fusing RMSNorm and RoPE into a single Pallas kernel reduces HBM traffic and improves MFU."
-status: in_progress
+status: completed
 created: 2026-06-15
 origin: 2026-06-15-qwen3-jax-v054-fused-qknorm-rope
 ---
@@ -28,6 +28,17 @@ Rerun of v054-b with the correct `launch_cmd` that omits the `conda run -n py312
 
 ## Profile
 
+missing
+
 ## HLO Dump
 
+missing
+
 ## Verdict
+**invalid**
+
+The workload crashed during compilation:
+```
+NotImplementedError: Mosaic kernels cannot be automatically partitioned. Please wrap the call in a shard_map.
+```
+The error originated from the Pallas kernel `fused_qknorm_rope` call within `Qwen3Attention.__call__` because it was not wrapped in a `shard_map`. Will wrap it in `shard_map` using `_SPLASH_MESH` and retry.

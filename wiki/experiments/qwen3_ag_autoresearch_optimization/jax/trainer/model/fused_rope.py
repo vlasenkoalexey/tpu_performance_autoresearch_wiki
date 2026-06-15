@@ -46,19 +46,42 @@ def fused_qknorm_rope(x, weight, cos, sin, eps=1e-6):
         out_ref[0, 0, :, :] = out_val.astype(out_ref.dtype)
 
     eps_arr = jnp.array([eps], dtype=jnp.float32)
-    out = pl.pallas_call(
-        _fused_qknorm_rope_kernel,
-        out_shape=jax.ShapeDtypeStruct(x.shape, x.dtype),
-        grid=(B, H, T // block_size),
-        in_specs=[
-            pl.BlockSpec((1, 1, block_size, D), lambda b, h, t: (b, h, t, 0)),
-            pl.BlockSpec((D,), lambda b, h, t: (0,)),
-            pl.BlockSpec((1, block_size, D), lambda b, h, t: (b, t, 0)),
-            pl.BlockSpec((1, block_size, D), lambda b, h, t: (b, t, 0)),
-            pl.BlockSpec((1,), lambda b, h, t: (0,)),
-        ],
-        out_specs=pl.BlockSpec((1, 1, block_size, D), lambda b, h, t: (b, h, t, 0)),
-    )(x, weight, cos, sin, eps_arr)
+    
+    from jax.experimental.shard_map import shard_map
+    from jax.sharding import PartitionSpec as P
+    from .modeling_qwen3 import _SPLASH_MESH
+
+    mesh = _SPLASH_MESH
+    if mesh is None:
+        raise ValueError("fused_qknorm_rope requires a registered mesh via set_splash_mesh")
+
+    def _sharded_pallas_call(x_local, w_local, cos_local, sin_local, eps_local):
+        B_local = x_local.shape[0]
+        H_local = x_local.shape[1]
+        T_local = x_local.shape[2]
+        return pl.pallas_call(
+            _fused_qknorm_rope_kernel,
+            out_shape=jax.ShapeDtypeStruct(x_local.shape, x_local.dtype),
+            grid=(B_local, H_local, T_local // block_size),
+            in_specs=[
+                pl.BlockSpec((1, 1, block_size, D), lambda b, h, t: (b, h, t, 0)),
+                pl.BlockSpec((D,), lambda b, h, t: (0,)),
+                pl.BlockSpec((1, block_size, D), lambda b, h, t: (b, t, 0)),
+                pl.BlockSpec((1, block_size, D), lambda b, h, t: (b, t, 0)),
+                pl.BlockSpec((1,), lambda b, h, t: (0,)),
+            ],
+            out_specs=pl.BlockSpec((1, 1, block_size, D), lambda b, h, t: (b, h, t, 0)),
+        )(x_local, w_local, cos_local, sin_local, eps_local)
+
+    sharded_fn = shard_map(
+        _sharded_pallas_call,
+        mesh=mesh,
+        in_specs=(P("fsdp", "tp", None, None), P(), P("fsdp", None, None), P("fsdp", None, None), P()),
+        out_specs=P("fsdp", "tp", None, None),
+        check_rep=False
+    )
+    
+    out = sharded_fn(x, weight, cos, sin, eps_arr)
     return out
 
 def fused_qknorm_rope_fwd(x, weight, cos, sin, eps=1e-6):
