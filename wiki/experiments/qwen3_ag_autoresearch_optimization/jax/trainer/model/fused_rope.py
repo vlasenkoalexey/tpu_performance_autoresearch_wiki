@@ -49,9 +49,9 @@ def fused_qknorm_rope(x, weight, cos, sin, eps=1e-6):
     
     from jax.experimental.shard_map import shard_map
     from jax.sharding import PartitionSpec as P
-    from .modeling_qwen3 import _SPLASH_MESH
+    from . import modeling_qwen3
 
-    mesh = _SPLASH_MESH
+    mesh = modeling_qwen3._SPLASH_MESH
     if mesh is None:
         raise ValueError("fused_qknorm_rope requires a registered mesh via set_splash_mesh")
 

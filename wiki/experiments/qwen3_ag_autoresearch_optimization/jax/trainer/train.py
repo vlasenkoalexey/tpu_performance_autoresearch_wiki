@@ -89,6 +89,7 @@ def main(
     else:
         import os
         os.environ["JAX_ATTENTION_IMPL"] = "xla"
+        set_splash_mesh(mesh) # Set it unconditionally so that fused_rope Pallas kernel can use it
         print("[attn] XLA SDPA (JAX_ATTENTION_IMPL=xla)", flush=True)
 
     model = Qwen3ForCausalLM(

@@ -26,3 +26,10 @@
 **Experiment**: [2026-06-15-qwen3-jax-v054-fused-qknorm-rope-c.md](file:///mnt/disks/persist/torch-tpu/tpu_performance_autoresearch_wiki_ag/wiki/experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-15-qwen3-jax-v054-fused-qknorm-rope-c.md)
 **Verdict**: invalid
 **Notes**: The workload crashed during JAX compilation because the `fused_qknorm_rope` Pallas kernel was not wrapped in a `shard_map`. We will wrap the kernel call in a `shard_map` using `_SPLASH_MESH` and retry.
+
+## [2026-06-15] loop-iteration | v054-d fused-qknorm-rope crashed
+
+**Op**: loop-iteration
+**Experiment**: [2026-06-15-qwen3-jax-v054-fused-qknorm-rope-d.md](file:///mnt/disks/persist/torch-tpu/tpu_performance_autoresearch_wiki_ag/wiki/experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-15-qwen3-jax-v054-fused-qknorm-rope-d.md)
+**Verdict**: invalid
+**Notes**: The workload crashed during setup with `ValueError: fused_qknorm_rope requires a registered mesh via set_splash_mesh` because `set_splash_mesh()` was only called when `use_splash=True`. I have fixed `train.py` to call it unconditionally and will retry.
