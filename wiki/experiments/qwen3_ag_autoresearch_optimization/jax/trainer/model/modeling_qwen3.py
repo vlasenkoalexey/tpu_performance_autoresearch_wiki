@@ -287,6 +287,12 @@ class Qwen3DecoderLayer(nnx.Module):
         self.post_attention_layernorm = Qwen3RMSNorm(config.hidden_size, eps=eps, weights_dtype=weights_dtype)
 
     def __call__(self, hidden_states, position_embeddings, attention_mask=None):
+        if not hasattr(self, '_ckpt_call'):
+            import jax
+            self._ckpt_call = jax.checkpoint(self._call_impl)
+        return self._ckpt_call(hidden_states, position_embeddings, attention_mask)
+
+    def _call_impl(self, hidden_states, position_embeddings, attention_mask=None):
         residual = hidden_states
         x = self.self_attn(self.input_layernorm(hidden_states), position_embeddings, attention_mask)
         hidden_states = residual + x
