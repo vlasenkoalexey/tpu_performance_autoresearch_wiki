@@ -8,7 +8,7 @@ tags: [qwen3-cx, jax, mfu, tps, data]
 
 # Qwen3-cx jax — per-experiment MFU/TPS data
 
-Best-effort per-experiment extraction for the **cx** lane, in experiment order. **cx** reports MFU on the causal basis directly — **no ÷ adjustment**. Its inflated "MaxText-style" (non-causal) figure (e.g. 49.2% @8k) is discarded in favour of the causal value (verified: 2k 47.3% / 8k 43.2%). Frontiers are clamped to the verified model-page best. MaxText MFU targets: 2k = 38.0%, 8k = 45.3% (native — **different FLOP basis, so compare to MaxText on TPS**). `—` = not recoverable (crash / no metric / unparsed). Regenerate: `python wiki/analyses/qwen3/build_explorer.py`.
+Best-effort per-experiment extraction for the **cx** lane, in experiment order. **cx** reports MFU on the causal basis directly — **no ÷ adjustment**. Its inflated "MaxText-style" (non-causal) figure (e.g. 49.2% @8k) is discarded in favour of the causal value (verified: 2k 47.3% / 8k 43.2%). Frontiers are clamped to the verified model-page best. MaxText MFU targets **causal-adjusted**: 2k = 36.6%, 8k = 39.8% (the tpu-recipes-v0.1.4 figures 38.0/45.3% are non-causal; the lanes count attention causally). TPS is convention-free. `—` = not recoverable (crash / no metric / unparsed). Regenerate: `python wiki/analyses/qwen3/build_explorer.py`.
 
 **Frontier:** 2k = 47.3% MFU / 9,198 tok/s/chip · 8k = 43.2% MFU / 7,542 tok/s/chip.
 

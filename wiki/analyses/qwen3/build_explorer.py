@@ -17,7 +17,9 @@ import explorer_lib as lib
 LANES = ["cc", "ag", "cx", "cc5"]
 LANE_NAME = {"cc": "cc (Claude)", "ag": "ag (Antigravity)", "cx": "cx (Codex)", "cc5": "cc5 (Fable5)"}
 COLORS = {"cc": "#1f77b4", "ag": "#ff7f0e", "cx": "#2ca02c", "cc5": "#d62728"}
-MAXTEXT = {"mfu": {"2048": 38.0, "8192": 45.3}, "tps": {"2048": 7116, "8192": 6942}}
+# MaxText MFU causal-adjusted (the tpu-recipes-v0.1.4 figures 38.0/45.3% are non-causal;
+# current MaxText applies the causal ÷2 — same finding as llama3). TPS is convention-free.
+MAXTEXT = {"mfu": {"2048": 36.6, "8192": 39.8}, "tps": {"2048": 7116, "8192": 6942}}
 CX_ADJ = {}   # cx reports causal MFU directly; the VERIFIED clamp drops its non-causal figure
 VERIFIED = {"cc": {2048: 35.8, 8192: 34.8}, "ag": {2048: 33.0, 8192: 30.6},
             "cx": {2048: 47.3, 8192: 43.2}, "cc5": {2048: 40.5, 8192: 39.9}}
@@ -90,10 +92,12 @@ def extract():
 
 CFG = {
     "title": "Qwen3-8B v6e-8",
-    "subnote": ("Pick MFU or TPS · MFU on causal basis (cx uses its causal value, not its inflated "
-                "MaxText-style number) · line = running-best frontier · ○ 8k / △ 2k · dashed = MaxText · "
-                "dotted = MaxText onset · click a point to open its experiment page · drag to zoom"),
+    "subnote": ("Pick MFU or TPS · all MFU on the causal basis (÷2 attention) · line = running-best "
+                "frontier · ○ 8k / △ 2k · dashed = MaxText (MFU causal-adjusted: 8k 39.8% / 2k 36.6%; "
+                "the tpu-recipes-v0.1.4 figures 45.3/38.0% are non-causal) · dotted = MaxText onset · "
+                "click a point to open its experiment page · drag to zoom"),
     "lanes": LANES, "lane_name": LANE_NAME, "colors": COLORS, "maxtext": MAXTEXT,
+    "mtnote": {"mfu": " (causal-adj.)", "tps": ""},
     "seqs": [{"key": "2048", "label": "2k", "sym": "triangle-up"},
              {"key": "8192", "label": "8k", "sym": "circle"}],
     "mfu_range": [8, 52], "tps_range": [1500, 10000],
@@ -105,8 +109,9 @@ CFG = {
                            'inflated "MaxText-style" (non-causal) figure (e.g. 49.2% @8k) is discarded in '
                            'favour of the causal value (verified: 2k 47.3% / 8k 43.2%).'
                            if L == "cx" else "MFU is on the causal (MaxText-comparable) basis."),
-        "intro": ("Frontiers are clamped to the verified model-page best. MaxText MFU targets: 2k = 38.0%, "
-                  "8k = 45.3% (native — **different FLOP basis, so compare to MaxText on TPS**)."),
+        "intro": ("Frontiers are clamped to the verified model-page best. MaxText MFU targets **causal-"
+                  "adjusted**: 2k = 36.6%, 8k = 39.8% (the tpu-recipes-v0.1.4 figures 38.0/45.3% are "
+                  "non-causal; the lanes count attention causally). TPS is convention-free."),
         "regen": "python wiki/analyses/qwen3/build_explorer.py",
         "seealso": lambda L: ["- [Interactive explorer](qwen3/mfu-explorer.html) · [progression plot](qwen3/mfu-progression.png)",
                               f"- [Qwen3 {L} — jax model page](../models/qwen3-{L}-jax.md)"],
