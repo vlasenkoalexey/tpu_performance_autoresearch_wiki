@@ -12,7 +12,7 @@ Best-effort per-experiment extraction for the **cx** lane, in experiment order. 
 
 **Frontier:** 2k = 47.3% MFU / 9,198 tok/s/chip · 8k = 43.2% MFU / 7,542 tok/s/chip.
 
-| # | Experiment | seq | verdict | MFU (causal) | tok/s/chip |
+| # | Experiment | seq | verdict | MFU | tok/s/chip |
 |---|---|---|---|---|---|
 | 1 | 2026-06-02-qwen3-jax-v6e8-baseline | 2k | baseline | 20.5% | — |
 | 2 | 2026-06-03-v011-splash-tp2-remat-dots-bs8 | 2k | invalid | — | — |

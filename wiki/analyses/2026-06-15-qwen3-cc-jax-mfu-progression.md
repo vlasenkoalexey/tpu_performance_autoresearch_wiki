@@ -12,7 +12,7 @@ Best-effort per-experiment extraction for the **cc** lane, in experiment order. 
 
 **Frontier:** 2k = 35.8% MFU / 6,964 tok/s/chip · 8k = 34.6% MFU / 5,992 tok/s/chip.
 
-| # | Experiment | seq | verdict | MFU (causal) | tok/s/chip |
+| # | Experiment | seq | verdict | MFU | tok/s/chip |
 |---|---|---|---|---|---|
 | 1 | 2026-06-02-v001-batch-bs2 | 2k | invalid | 20.5% | — |
 | 2 | 2026-06-02-v002-batch-bs4 | 2k | invalid | — | — |

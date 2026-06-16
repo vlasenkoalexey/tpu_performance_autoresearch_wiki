@@ -12,7 +12,7 @@ Best-effort per-experiment extraction for the **ag** lane, in experiment order. 
 
 **Frontier:** 2k = 33.0% MFU / 4,515 tok/s/chip · 8k = 30.6% MFU / 5,329 tok/s/chip.
 
-| # | Experiment | seq | verdict | MFU (causal) | tok/s/chip |
+| # | Experiment | seq | verdict | MFU | tok/s/chip |
 |---|---|---|---|---|---|
 | 1 | 2026-06-02-qwen3-jax-v001-batch-scaling | 2k | refuted | — | — |
 | 2 | 2026-06-02-qwen3-jax-v002-selective-sc-offload | 2k | invalid | — | — |

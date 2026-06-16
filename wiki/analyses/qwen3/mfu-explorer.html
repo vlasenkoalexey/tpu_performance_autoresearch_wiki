@@ -22,8 +22,8 @@
 </head>
 <body>
 <header>
-  <h1>Qwen3-8B v6e-8 — adjusted MFU &amp; throughput per experiment</h1>
-  <div class="sub">Pick MFU or TPS · MFU on causal basis (cx uses its causal value, not its inflated MaxText-style number) · line = running-best frontier · ○ 8k / △ 2k · dashed = MaxText · click a point to open its experiment page · drag to zoom</div>
+  <h1>Qwen3-8B v6e-8 — MFU &amp; throughput per experiment</h1>
+  <div class="sub">Pick MFU or TPS · MFU on causal basis (cx uses its causal value, not its inflated MaxText-style number) · line = running-best frontier · ○ 8k / △ 2k · dashed = MaxText · dotted = MaxText onset · click a point to open its experiment page · drag to zoom</div>
 </header>
 <div id="controls"></div>
 <div class="hint" id="count"></div>
@@ -33,18 +33,23 @@ const DATA = [{"lane": "cc", "slug": "2026-06-02-v001-batch-bs2", "vnum": 1, "or
 const COLORS = {"cc": "#1f77b4", "ag": "#ff7f0e", "cx": "#2ca02c", "cc5": "#d62728"};
 const MAXTEXT = {"mfu": {"2048": 38.0, "8192": 45.3}, "tps": {"2048": 7116, "8192": 6942}};
 const LANE_NAME = {"cc": "cc (Claude)", "ag": "ag (Antigravity)", "cx": "cx (Codex)", "cc5": "cc5 (Fable5)"};
-const LANES = ["cc","ag","cx","cc5"];
+const LANES = ["cc", "ag", "cx", "cc5"];
+const SEQS = [{"key": "2048", "label": "2k", "sym": "triangle-up"}, {"key": "8192", "label": "8k", "sym": "circle"}];                                   // [{key,label,sym}]
+const SEQKEYS = SEQS.map(s=>s.key);
+const SYM = {"null":"square"}; SEQS.forEach(s=>SYM[s.key]=s.sym);
+const SEQLABEL = {}; SEQS.forEach(s=>SEQLABEL[s.key]=s.label);
+const MFURANGE = [8, 52], TPSRANGE = [1500, 10000];
 const MTMARK = {};   // lane -> order of the first experiment that engaged MaxText
 for(const r of DATA){ if(r.maxtext && (!(r.lane in MTMARK) || r.order<MTMARK[r.lane])) MTMARK[r.lane]=r.order; }
 
 const state = {
-  lane: {cc:true, ag:true, cx:true, cc5:true},
-  seq: {"2048":true, "8192":true},
-  metric: "mfu",            // radio: "mfu" | "tps"
-  showUnsuccessful: true,   // refuted / invalid / inconclusive / unverdicted, WITH a metric
-  showCrashed: false,       // no metric at all (crash / OOM) — drawn as ✕ at the floor
-  showMtMark: true,         // dotted vertical line where each lane first engaged MaxText
-  dark: false,              // color scheme
+  lane: Object.fromEntries(LANES.map(L=>[L,true])),
+  seq:  Object.fromEntries(SEQKEYS.map(k=>[k,true])),
+  metric: "mfu",
+  showUnsuccessful: true,
+  showCrashed: false,
+  showMtMark: true,
+  dark: false,
 };
 
 // ---- controls ----
@@ -64,7 +69,7 @@ LANES.forEach(L=>{const {l,b}=chk("lane:"+L,state.lane[L],LANE_NAME[L],COLORS[L]
 C.appendChild(gLane);
 
 const gSeq=group("Context");
-[["2048","2k"],["8192","8k"]].forEach(([k,lab])=>{const {l,b}=chk("seq:"+k,state.seq[k],lab); b.onchange=()=>{state.seq[k]=b.checked;render();}; gSeq.appendChild(l);});
+SEQS.forEach(s=>{const {l,b}=chk("seq:"+s.key,state.seq[s.key],s.label); b.onchange=()=>{state.seq[s.key]=b.checked;render();}; gSeq.appendChild(l);});
 C.appendChild(gSeq);
 
 const gMetric=group("Metric");
@@ -90,11 +95,10 @@ themeBtn.onclick=()=>{ state.dark=!state.dark; document.body.classList.toggle("d
 C.appendChild(themeBtn);
 
 // ---- filtering + trace building ----
-const SYM = {"2048":"triangle-up", "8192":"circle", "null":"square"};
 const METRIC = {
-  mfu: {field:"mfu", title:"adjusted MFU (%)", range:[8,52], floor:9,
+  mfu: {field:"mfu", title:"MFU (%)", range:MFURANGE, floor:MFURANGE[0]+1,
         fmt:v=>v+"%", ulabel:"", mt:MAXTEXT.mfu, unit:"MFU"},
-  tps: {field:"tps", title:"tok/s/chip", range:[1500,10000], floor:1700,
+  tps: {field:"tps", title:"tok/s/chip", range:TPSRANGE, floor:TPSRANGE[0]+200,
         fmt:v=>Number(v).toLocaleString(), ulabel:" tok/s/chip", mt:MAXTEXT.tps, unit:"TPS"},
 };
 const FAIL = {refuted:1, invalid:1, inconclusive:1};   // the "unsuccessful" verdicts
@@ -102,21 +106,18 @@ function visible(d){
   if(!state.lane[d.lane]) return false;
   const sk = d.seq===null ? null : String(d.seq);
   if(sk!==null && !state.seq[sk]) return false;
-  if(sk===null && !(state.seq["2048"]||state.seq["8192"])) return false;
-  if(!d.has_metric) return state.showCrashed;                  // crashed / no-metric → its own toggle
-  if(FAIL[d.verdict] && !state.showUnsuccessful) return false; // hide ONLY explicitly-failed runs
-  return true;                                                 // unverdicted / supported / baseline → always shown
+  if(sk===null && !SEQKEYS.some(k=>state.seq[k])) return false;
+  if(!d.has_metric) return state.showCrashed;
+  if(FAIL[d.verdict] && !state.showUnsuccessful) return false;
+  return true;
 }
 function hover(d, label){
-  const seq = d.seq===null?"?":(d.seq===2048?"2k":"8k");
+  const seq = d.seq===null?"?":(SEQLABEL[String(d.seq)]||String(d.seq));
   const v = d.verdict||"—";
   return `<b>${d.slug}</b><br>${LANE_NAME[d.lane]} · seq ${seq} · ${v}`
        + `<br>${label}<br><i>click → open page</i>`;
 }
 function frontierLine(L, s, F){
-  // running-best of the active metric over (lane, seqlen); monotonic non-decreasing;
-  // excludes invalid runs so a bogus value can never raise the line. Independent of the
-  // unsuccessful/crashed toggles so the frontier stays stable.
   const rows = DATA.filter(d=>d.lane===L && d.seq===s && d[F]!==null && d.verdict!=="invalid")
                    .sort((a,b)=>a.order-b.order);
   let m=-1, xs=[], ys=[];
@@ -128,7 +129,6 @@ function buildTraces(){
   for(const L of LANES){
     if(!state.lane[L]) continue;
     const rows = DATA.filter(d=>d.lane===L && visible(d));
-    // markers for the active metric — every visible run, no connecting line
     const pts = rows.filter(d=>d[F]!==null);
     if(pts.length) traces.push({
       x:pts.map(d=>d.order), y:pts.map(d=>d[F]), customdata:pts.map(d=>d.link),
@@ -136,16 +136,14 @@ function buildTraces(){
       mode:"markers", name:LANE_NAME[L], legendgroup:L, yaxis:"y",
       marker:{color:COLORS[L],size:7,symbol:pts.map(d=>SYM[String(d.seq)]),line:{width:0}},
     });
-    // running-best frontier line per seqlen (only ever rises — over the best results)
-    for(const s of [2048,8192]){
-      if(!state.seq[String(s)]) continue;
-      const fr=frontierLine(L,s,F);
+    for(const sq of SEQS){
+      if(!state.seq[sq.key]) continue;
+      const fr=frontierLine(L, Number(sq.key), F);
       if(fr.xs.length>1) traces.push({
         x:fr.xs, y:fr.ys, mode:"lines", yaxis:"y", legendgroup:L, showlegend:false,
         line:{color:COLORS[L],width:2.4,shape:"hv"}, hoverinfo:"skip",
       });
     }
-    // crashed / no-metric — floor markers
     if(state.showCrashed){
       const cpts = rows.filter(d=>!d.has_metric);
       if(cpts.length) traces.push({
@@ -163,10 +161,10 @@ function theme(){ return state.dark
   : {paper:"#fff",plot:"#fff",font:"#222",grid:"#eee",mt:"#555",line:"#555"}; }
 function shapes(){
   const M=METRIC[state.metric], T=theme(), s=[];
-  for(const seq of ["2048","8192"]){
-    if(!state.seq[seq]) continue;
-    s.push({type:"line",xref:"paper",x0:0,x1:1,yref:"y",y0:M.mt[seq],y1:M.mt[seq],
-            line:{color:T.line,width:1,dash:"dash"}});
+  for(const sq of SEQS){
+    if(!state.seq[sq.key]) continue;
+    const y=M.mt[sq.key]; if(y==null) continue;
+    s.push({type:"line",xref:"paper",x0:0,x1:1,yref:"y",y0:y,y1:y,line:{color:T.line,width:1,dash:"dash"}});
   }
   if(state.showMtMark) for(const L of LANES){
     if(!state.lane[L] || !(L in MTMARK)) continue;
@@ -177,16 +175,15 @@ function shapes(){
 }
 function annotations(){
   const M=METRIC[state.metric], T=theme(), a=[];
-  for(const seq of ["2048","8192"]){
-    if(!state.seq[seq]) continue;
-    a.push({xref:"paper",x:0.005,yref:"y",y:M.mt[seq],yanchor:"bottom",showarrow:false,
-            text:`MaxText ${seq==="2048"?"2k":"8k"} ${M.fmt(M.mt[seq])}${M.ulabel}`,font:{size:10,color:T.mt}});
+  for(const sq of SEQS){
+    if(!state.seq[sq.key]) continue;
+    const y=M.mt[sq.key]; if(y==null) continue;
+    a.push({xref:"paper",x:0.005,yref:"y",y:y,yanchor:"bottom",showarrow:false,
+            text:`MaxText ${sq.label} ${M.fmt(y)}${M.ulabel}`,font:{size:10,color:T.mt}});
   }
   return a;
 }
 function xMax(){
-  // stable x-extent based on the SELECTED LANES only (not the metric / filters), so
-  // switching MFU<->TPS — which changes how many points have a value — never rescales x.
   let mx=10;
   for(const L of LANES){
     if(!state.lane[L]) continue;
