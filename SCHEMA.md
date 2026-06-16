@@ -78,7 +78,7 @@ wiki/experiments/<model>_autoresearch_optimization/<lane>/program.md  ← lane-s
 
 **Resolution**: read root → model → lane. For each H2 section, the most-specific file that defines it wins outright (replace-per-section, not merge). Child files omit sections they don't specialize.
 
-Read all three layers together with this SCHEMA.md before starting an experiment. Skills under `.claude/skills/` (symlinked as `.antigravity/skills/` for Gemini/Antigravity) orchestrate the lifecycle:
+Read all three layers together with this SCHEMA.md before starting an experiment. Skills under `.claude/skills/` are the canonical shared workflow definitions, exposed to Gemini/Antigravity and Codex through the `.agents/skills` compatibility symlink. These skills orchestrate the lifecycle:
 
 - **`/create-experiment`** — bootstrap a new model family: ask for slug, lanes, sizes, hardware, target seq; create `wiki/experiments/<slug>_autoresearch_optimization/` folder structure; scaffold model-level `program.md` and model page stubs.
 - **`/start-experiment`** — loads the program.md layers in order, prints the effective resolved program, runs hardware selection + cluster discovery + occupancy check, then starts `/loop` with parallel-tracks (default `--parallelism 1`).

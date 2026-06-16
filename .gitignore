@@ -264,3 +264,6 @@ wiki/experiments/*/RESULTS.tsv
 ejkernel/
 
 profiles/
+
+# Codex runtime jobset manifests
+.codex/run_manifests/

@@ -1,0 +1,15 @@
+# Project-local Codex adapters for the TPU autoresearch wiki.
+#
+# This file is additive. Shared workflow definitions stay under `.claude/` and
+# are exposed to Codex through `.agents/skills`.
+
+[mcp_servers.xprof]
+url = "http://localhost:8792/mcp"
+enabled = true
+required = false
+startup_timeout_sec = 20
+tool_timeout_sec = 300
+
+[agents]
+max_threads = 6
+max_depth = 1

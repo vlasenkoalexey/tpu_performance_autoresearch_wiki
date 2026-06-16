@@ -134,6 +134,10 @@ Point it at a model and act as reviewer — you approve hypotheses, arbitrate co
 SCHEMA.md           single source of truth — page types, operations, rules.
 CLAUDE.md           @SCHEMA.md pointer for Claude Code.
 GEMINI.md           @SCHEMA.md pointer for Gemini CLI.
+AGENTS.md           Codex project instructions; points Codex at SCHEMA.md and shared skills.
+.claude/            canonical shared agent skills, scripts, Claude subagents, Claude hook.
+.agents/skills      Codex + Antigravity/Gemini skill-discovery symlink to .claude/skills.
+.codex/             Codex-only adapters: MCP config, custom-agent wrappers, hook wiring.
 sample-program.md   template program.md — copy to wiki/experiments/<slug>/program.md and fill in placeholders.
 wiki/               LLM-owned markdown (index, log, page types per schema).
   index.md          cross-section — updated on every write.
@@ -170,7 +174,9 @@ Or on an existing clone:
 git submodule update --init --recursive
 ```
 
-Start an LLM agent session (Claude Code, Gemini CLI, etc.) in this directory. The agent reads [`SCHEMA.md`](SCHEMA.md) and [`wiki/index.md`](wiki/index.md) on first turn and knows how to operate the wiki.
+Start an LLM agent session (Claude Code, Gemini CLI, Codex, etc.) in this directory. The agent reads [`SCHEMA.md`](SCHEMA.md) and [`wiki/index.md`](wiki/index.md) on first turn and knows how to operate the wiki.
+
+For Codex specifically, the repo includes additive compatibility adapters: [`AGENTS.md`](AGENTS.md) for project instructions, `.agents/skills` as a symlink to the canonical `.claude/skills`, `.codex/agents/` wrappers for the two Claude subagents, and `.codex/config.toml` with an optional local XProf MCP endpoint at `http://localhost:8792/mcp`. Keep `.claude/` as the canonical shared source so Claude Code and Antigravity remain compatible.
 
 To run the optimization loop against your own model:
 
