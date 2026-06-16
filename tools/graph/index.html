@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<title>TPU Autoresearch Wiki — Graph</title>
+<!--
+  Force-directed graph of the wiki, modeled on vasturiano/force-graph's "highlight"
+  example (https://github.com/vasturiano/force-graph). Hover a node to light up the
+  node, its neighbors, and the connecting links. Click a node to open the .md page.
+
+  Data comes from graph.json — regenerate with:  python3 tools/graph/build_graph.py
+  Serve from the repo root so the .md links resolve, e.g.:
+      python3 -m http.server 8000      # then open http://localhost:8000/tools/graph/
+-->
+<style>
+  :root { --bg:#0d1117; --fg:#c9d1d9; --panel:rgba(22,27,34,.92); --border:#30363d;
+          --muted:#8b949e; --faint:#6e7681; --hover:#21262d; --input:#0d1117; }
+  body.light { --bg:#f6f8fa; --fg:#1f2328; --panel:rgba(255,255,255,.93); --border:#d0d7de;
+               --muted:#57606a; --faint:#6e7681; --hover:#eaeef2; --input:#ffffff; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--fg);
+               font: 13px/1.4 -apple-system, system-ui, sans-serif; overflow: hidden; }
+  #graph { position: absolute; inset: 0; }
+  #panel { position: absolute; top: 12px; left: 12px; z-index: 10; width: 240px;
+           background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
+           padding: 12px; backdrop-filter: blur(4px); }
+  #head { display: flex; align-items: center; margin: 0 0 8px; }
+  #head h1 { font-size: 14px; margin: 0; }
+  #theme { margin-left: auto; cursor: pointer; background: var(--input); color: var(--fg);
+           border: 1px solid var(--border); border-radius: 6px; padding: 3px 8px; font-size: 12px; }
+  #theme:hover { background: var(--hover); }
+  #stats { color: var(--muted); margin-bottom: 8px; }
+  #search { width: 100%; box-sizing: border-box; background: var(--input); color: var(--fg);
+            border: 1px solid var(--border); border-radius: 6px; padding: 6px 8px; margin-bottom: 10px; }
+  #legend { display: flex; flex-direction: column; gap: 3px; max-height: 46vh; overflow:auto; }
+  .leg { display: flex; align-items: center; gap: 7px; cursor: pointer; padding: 2px 3px;
+         border-radius: 4px; user-select: none; }
+  .leg:hover { background: var(--hover); }
+  .leg.off { opacity: .35; }
+  .dot { width: 11px; height: 11px; border-radius: 50%; flex: none; }
+  .leg .n { color: var(--faint); margin-left: auto; }
+  #hint { position: absolute; bottom: 10px; left: 12px; z-index: 10; color: var(--faint); }
+  #tip { position: absolute; z-index: 20; pointer-events: none; background: var(--panel);
+         border: 1px solid var(--border); border-radius: 6px; padding: 5px 8px; max-width: 320px;
+         display: none; color: var(--fg); }
+  #tip .p { color: var(--faint); font-size: 11px; }
+</style>
+
+<div id="graph"></div>
+<div id="panel">
+  <div id="head"><h1>Wiki Graph</h1><button id="theme">☀ light</button></div>
+  <div id="stats">loading…</div>
+  <input id="search" placeholder="filter nodes by title…" autocomplete="off" />
+  <div id="legend"></div>
+</div>
+<div id="hint">hover: highlight neighbors · click: open page · search + Enter: zoom to matches · Esc: clear selection · scroll: zoom · click legend: toggle group</div>
+<div id="tip"></div>
+
+<script src="https://unpkg.com/force-graph"></script>
+<script>
+const PALETTE = {
+  concepts:     '#58a6ff', sources:      '#d2a8ff', codebases:    '#f778ba',
+  models:       '#3fb950', hypotheses:   '#e3b341', observations: '#ff7b72',
+  analyses:     '#39c5cf', meta:         '#8b949e',
+  'exp:qwen3_cx':   '#ffa657', 'exp:qwen3_ag':  '#ff9bce', 'exp:qwen3_cc':  '#a5d6ff',
+  'exp:qwen3_cc5':  '#7ee787', 'exp:llama3_8B': '#ffdf5d', 'exp:gemma4':    '#bc8cff',
+};
+const fallback = ['#8ddb8c','#f0883e','#db61a2','#6cb6ff','#c297ff','#ec775c'];
+const colorOf = g => PALETTE[g] || (PALETTE[g] = fallback[Object.keys(PALETTE).length % fallback.length]);
+
+// canvas-rendered colors per theme (CSS vars handle the HTML panel separately)
+const THEMES = {
+  dark:  { bg:'#0d1117', link:'rgba(120,130,140,.18)', linkHi:'#ffffff', label:'#e6edf3', ring:'#ffffff', nodeStroke:null },
+  light: { bg:'#f6f8fa', link:'rgba(80,90,100,.22)',  linkHi:'#1f2328', label:'#1f2328', ring:'#1f2328', nodeStroke:'rgba(31,35,40,.35)' },
+};
+let theme = 'dark', T = THEMES.dark;
+
+fetch('graph.json').then(r => r.json()).then(data => {
+  const byId = new Map(data.nodes.map(n => [n.id, n]));
+  data.nodes.forEach(n => { n.neighbors = []; n.links = []; });
+  // links arrive with string endpoints; force-graph rewrites source/target to node refs.
+  data.links.forEach(l => {
+    const a = byId.get(l.source), b = byId.get(l.target);
+    if (!a || !b) return;
+    a.neighbors.push(b); b.neighbors.push(a);
+    a.links.push(l);     b.links.push(l);
+  });
+
+  const groups = {};
+  data.nodes.forEach(n => groups[n.group] = (groups[n.group] || 0) + 1);
+  const hidden = new Set();          // groups toggled off
+  const statsBase = `${data.nodes.length} pages · ${data.links.length} links`;
+  const statsEl = document.getElementById('stats');
+  statsEl.textContent = statsBase;
+
+  // legend
+  const legend = document.getElementById('legend');
+  Object.entries(groups).sort((a,b) => b[1]-a[1]).forEach(([g, n]) => {
+    const row = document.createElement('div'); row.className = 'leg';
+    row.innerHTML = `<span class="dot" style="background:${colorOf(g)}"></span>` +
+                    `<span>${g}</span><span class="n">${n}</span>`;
+    row.onclick = () => {
+      hidden.has(g) ? hidden.delete(g) : hidden.add(g);
+      row.classList.toggle('off');
+      Graph.nodeVisibility(nodeVisible).linkVisibility(linkVisible);
+    };
+    legend.appendChild(row);
+  });
+  const nodeVisible = n => !hidden.has(n.group);
+  const linkVisible = l => nodeVisible(l.source) && nodeVisible(l.target);
+
+  const hlNodes = new Set(), hlLinks = new Set();
+  let hoverNode = null, query = '', dragging = false;
+  const tip = document.getElementById('tip');
+  // search matches title OR path, case-insensitive
+  const matchNode = n => !!query &&
+    (n.title.toLowerCase().includes(query) || n.id.toLowerCase().includes(query));
+
+  const Graph = ForceGraph()(document.getElementById('graph'))
+    .graphData(data)
+    .backgroundColor(T.bg)
+    .nodeId('id')
+    .nodeRelSize(3)
+    .nodeVal(n => 1 + n.deg)                                   // area ~ degree
+    .nodeVisibility(nodeVisible).linkVisibility(linkVisible)
+    .linkColor(l => hlLinks.has(l) ? T.linkHi : T.link)
+    .linkWidth(l => hlLinks.has(l) ? 2 : 1)
+    .linkDirectionalParticles(l => hlLinks.has(l) ? 3 : 0)
+    .linkDirectionalParticleWidth(2)
+    .nodeCanvasObject((node, ctx, scale) => {
+      const r = Math.sqrt(1 + node.deg) * 1.6;
+      const isMatch = query && matchNode(node);
+      const dim = (hoverNode && !hlNodes.has(node)) || (query && !isMatch);
+      ctx.beginPath();
+      ctx.arc(node.x, node.y, r, 0, 2 * Math.PI);
+      ctx.fillStyle = colorOf(node.group);
+      ctx.globalAlpha = dim ? 0.12 : 1;
+      ctx.fill();
+      if (T.nodeStroke) { ctx.lineWidth = 0.6; ctx.strokeStyle = T.nodeStroke; ctx.stroke(); }
+      if (node === hoverNode) { ctx.lineWidth = 1.5; ctx.strokeStyle = T.ring; ctx.stroke(); }
+      else if (isMatch) { ctx.lineWidth = 1.5; ctx.strokeStyle = '#ffd33d'; ctx.stroke(); }
+      // labels: hovered neighborhood, search hits, or big hubs when zoomed in
+      const showLabel = hlNodes.has(node) || isMatch ||
+                        (scale > 1.6 && node.deg > 8);
+      if (showLabel) {
+        ctx.globalAlpha = 1;
+        ctx.font = `${Math.max(3.5, 11/scale)}px sans-serif`;
+        ctx.fillStyle = T.label; ctx.textBaseline = 'middle';
+        ctx.fillText('  ' + node.title, node.x + r, node.y);
+      }
+      ctx.globalAlpha = 1;
+    })
+    .onNodeHover(node => {
+      hlNodes.clear(); hlLinks.clear();
+      if (node) {
+        hlNodes.add(node);
+        node.neighbors.forEach(o => hlNodes.add(o));
+        node.links.forEach(l => hlLinks.add(l));
+      }
+      hoverNode = node || null;
+      document.getElementById('graph').style.cursor = node ? 'pointer' : '';
+      if (node) {
+        tip.style.display = 'block';
+        tip.innerHTML = `<b>${node.title}</b><div class="p">${node.id} · ` +
+                        `${node.group} · ${node.deg} links</div>`;
+      } else tip.style.display = 'none';
+    })
+    .onNodeClick(node => window.open('../../wiki/' + node.id, '_blank'))
+    .onNodeDrag(() => { dragging = true; })
+    .onNodeDragEnd(() => { dragging = false; })
+    .onBackgroundClick(() => clearSelection());
+
+  // Spread clusters apart (mirrors the vault's Obsidian config: high repel +
+  // long links), then keep a gentle perpetual drift so the graph never freezes
+  // when idle. force-graph normally stops ticking once the layout settles; we
+  // keep it warm and inject a tiny random velocity each tick instead.
+  Graph.d3Force('charge').strength(-75);
+  Graph.d3Force('link').distance(36);
+  Graph.d3VelocityDecay(0.6);     // some momentum so motion glides, not jitters
+  Graph.cooldownTime(Infinity);   // never auto-stop → idle drift continues
+  // Smooth, slow "floating": each node follows a slowly-rotating sine vector with
+  // a per-node phase offset (i) so they desync. A continuous function of time —
+  // not per-tick random noise — is what makes it glide instead of shake.
+  // Amplitude is divided by the current zoom so the *on-screen* drift stays the
+  // same whether you're zoomed way out (global view) or in on a cluster.
+  let driftT = 0;
+  const driftForce = () => {
+    if (dragging) return;         // pause only while you're actively dragging
+    driftT += 0.01;               // ↑ = faster drift
+    const amp = 0.025 / Math.max(Graph.zoom() || 1, 0.04);  // screen-space drift
+    data.nodes.forEach((n, i) => {
+      if (n.fx != null) return;   // don't fight a node being dragged
+      n.vx += Math.cos(driftT + i * 1.7) * amp;
+      n.vy += Math.sin(driftT * 0.9 + i * 2.3) * amp;
+    });
+  };
+  driftForce.initialize = () => {};
+  Graph.d3Force('drift', driftForce);
+
+  addEventListener('mousemove', e => { tip.style.left = (e.clientX+14)+'px';
+                                       tip.style.top = (e.clientY+14)+'px'; });
+  const searchEl = document.getElementById('search');
+  const applySearch = () => {
+    query = searchEl.value.trim().toLowerCase();
+    if (!query) { statsEl.textContent = statsBase; return; }
+    const n = data.nodes.filter(matchNode).length;
+    statsEl.textContent = `${n} match${n === 1 ? '' : 'es'} · Enter to zoom`;
+  };
+  searchEl.addEventListener('input', applySearch);
+  searchEl.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && data.nodes.some(matchNode)) Graph.zoomToFit(600, 60, matchNode);
+  });
+
+  // Esc clears the current selection (hover highlight + search) from anywhere,
+  // returning the graph to its resting drift.
+  const clearSelection = () => {
+    hlNodes.clear(); hlLinks.clear(); hoverNode = null;
+    tip.style.display = 'none';
+    searchEl.value = ''; applySearch(); searchEl.blur();
+  };
+  addEventListener('keydown', e => { if (e.key === 'Escape') clearSelection(); });
+
+  // dark/light toggle — CSS vars retheme the panel; T retheme the canvas
+  const themeBtn = document.getElementById('theme');
+  const applyTheme = name => {
+    theme = name; T = THEMES[name];
+    document.body.classList.toggle('light', name === 'light');
+    Graph.backgroundColor(T.bg);
+    themeBtn.textContent = name === 'dark' ? '☀ light' : '☾ dark';
+    try { localStorage.setItem('wikiGraphTheme', name); } catch (e) {}
+  };
+  themeBtn.onclick = () => applyTheme(theme === 'dark' ? 'light' : 'dark');
+  let saved = 'dark';
+  try { if (localStorage.getItem('wikiGraphTheme') === 'light') saved = 'light'; } catch (e) {}
+  applyTheme(saved);
+});
+</script>
