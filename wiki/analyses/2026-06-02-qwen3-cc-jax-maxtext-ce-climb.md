@@ -9,6 +9,8 @@ updated: 2026-06-02
 
 # MaxText-CE climb — the cross-entropy was the missing lever (Qwen3-8B jax, v6e-8)
 
+> [!note] (2026-06-16) The MaxText MFU target referenced here (45.3% / 38.0%) is **non-causal** and overstates the gap — causal-adjusted it's **39.8% / 36.6%**. See the [qwen3-cc-maxtext caveat](../models/qwen3-cc-maxtext.md).
+
 Closing synthesis of the arc that ran from the user directive **"use the same approach as MaxText for CE."**
 It supersedes the [hard-wall closing](2026-06-02-qwen3-cc-jax-maxtext-closing.md): that page declared the
 seq8192 batch a structural hard wall — **wrong**. Porting MaxText's exact cross-entropy proved the wall was a

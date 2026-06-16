@@ -14,6 +14,8 @@ updated: 2026-06-02
 
 # MaxText Qwen3-8B v6e-8 reference @ seq2048
 
+> [!note] The **38.0% MFU is non-causal** — `tpu-recipes-v0.1.4` predates MaxText's causal-mask `/2` fix (commit `6288c233`, 2026-04-11). Causal-adjusted = **36.6% MFU** (same 7,116 tok/s/chip), the basis the jax/torchax lanes use. See the [qwen3-cc-maxtext model-page caveat](../../../../models/qwen3-cc-maxtext.md). Numbers below are left as-recorded (immutable).
+
 ## Hypothesis under test
 
 **Hypothesis**: MaxText Qwen3-8B at **seq2048 bs4** (the exact shape of the jax v018 frontier) establishes

@@ -9,6 +9,8 @@ updated: 2026-06-02
 
 # Closing the MaxText gap on the Qwen3-8B jax lane (v6e-8)
 
+> [!note] (2026-06-16) The MaxText MFU target referenced here (45.3% / 38.0%) is **non-causal** and overstates the gap — causal-adjusted it's **39.8% / 36.6%**. See the [qwen3-cc-maxtext caveat](../models/qwen3-cc-maxtext.md).
+
 > [!warning] Contradicted by [v034 (maxtext-CE bs2)](../experiments/qwen3_cc_autoresearch_optimization/jax/experiments/2026-06-02-v034-maxtext-ce-s8k-bs2.md) on 2026-06-02
 > The "documented hard wall" conclusion below (seq8192 batch anti-amortizes; the gap is MaxText's
 > bs3 kernel-pipeline efficiency, not a config lever) is **WRONG**. Porting MaxText's exact CE — the

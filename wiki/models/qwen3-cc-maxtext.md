@@ -65,6 +65,9 @@ tok/s/chip** — the jax lane is ~15 pp below ceiling, the gap being MaxText's o
 parity → the jax seq2048 optimization is externally confirmed complete. Net: the jax actionable headroom is
 seq8192-only (offload-enabled bs3), not seq2048.*
 
+> [!warning] MaxText MFU above is **non-causal** — causal-adjusted ceiling is **39.8% @ seq8192 / 36.6% @ seq2048** (updated 2026-06-16)
+> Both reference numbers came from `tpu-recipes-v0.1.4` (`9f1820b`), which **predates MaxText's causal-mask `/2` fix** (commit `6288c233`, 2026-04-11) and so counts attention **non-causally** (full attention). Verified numerically against the qwen3-8b config: `45.3%` = non-causal at 6,942 tok/s/chip *exactly* (causal = **39.8%**); `38.0%` = non-causal at 7,116 (causal = **36.6%**). **All jax/torchax lanes count attention causally (`÷2`)**, so the lane MFU and this reference MFU are **not on the same basis** — MFU-vs-MaxText must use the causal-adjusted figures, and **TPS (convention-free) is the comparison to trust**. On the causal basis the jax frontier (cx 43.2% / cc5 39.9% @8k) **meets-or-beats** this ceiling — consistent with TPS (cx 7,543 / cc5 6,959 vs MaxText 6,942). The measured 45.3/38.0% on the reference *experiment* pages are left as-recorded (immutable); this is the adjustment. Same finding + mechanism as [llama3-8b](../experiments/llama3_8B_autoresearch_optimization/README.md#maxtext-mfu-is-reported-on-a-stale-non-causal-basis).
+
 ## Cross-variant open hypotheses
 
 (none yet — the reference baseline must land first)

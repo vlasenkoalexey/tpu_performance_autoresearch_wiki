@@ -9,6 +9,9 @@ updated: 2026-06-02
 
 # Why MaxText reaches 45% MFU and our jax lane 30% (Qwen3-8B, v6e-8)
 
+> [!warning] Re-framing (2026-06-16): the "45% MaxText" figure is **non-causal** and inflates the gap
+> The MaxText `45.3%` here came from `tpu-recipes-v0.1.4`, which **predates MaxText's causal-mask `/2` fix** (commit `6288c233`, 2026-04-11) and counts attention non-causally. On the **causal** basis every lane uses, MaxText Qwen3-8B @8k is **39.8%**, not 45.3% — and the later jax frontier (cx 43.2% / cc5 39.9%) **meets-or-beats** it (consistent with throughput: cx 7,543 / cc5 6,959 vs MaxText 6,942). So most of the "MFU gap" analysed below is a **FLOP-accounting artifact**, not a real utilization deficit; the genuine residual is MaxText's offload-enabled bs3 throughput. See the [qwen3-cc-maxtext caveat](../models/qwen3-cc-maxtext.md) and the [llama3-8b finding](../experiments/llama3_8B_autoresearch_optimization/README.md#maxtext-mfu-is-reported-on-a-stale-non-causal-basis).
+
 Teardown of the **measured** MaxText Qwen3-8B reference (seq8192 bs3 = **45.3% MFU / 6,942 tok/s/chip**)
 against our hand-tuned native-JAX lane (seq8192 v009 = **30.4% / 5,305**; seq2048 v018 = **35.8% / 6,964**),
 combining an xprof profile teardown of the MaxText run with a source read of the MaxText training path
