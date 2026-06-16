@@ -49,9 +49,9 @@ adds memory/collective cost without a throughput gain.
 
 GKE workload `alekseyv-qwen3-v218-sc-agrs`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
 - **Run dir**:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v218-no-scan-sparsecore-ag-rs-only`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v218-no-scan-sparsecore-ag-rs-only`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **Command shape**: `--use_scan=False --use_remat=True --offload_remat=False
@@ -87,8 +87,8 @@ runtime throughput regression.
 
 Profile capture completed on both hosts:
 
-- `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v218-no-scan-sparsecore-ag-rs-only/plugins/profile/2026_06_05_04_39_11/gke-tpu-964065d9-9vh8.{trace.json.gz,xplane.pb}`
-- `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v218-no-scan-sparsecore-ag-rs-only/plugins/profile/2026_06_05_04_39_11/gke-tpu-964065d9-c180.{trace.json.gz,xplane.pb}`
+- `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v218-no-scan-sparsecore-ag-rs-only/plugins/profile/2026_06_05_04_39_11/gke-tpu-964065d9-9vh8.{trace.json.gz,xplane.pb}`
+- `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v218-no-scan-sparsecore-ag-rs-only/plugins/profile/2026_06_05_04_39_11/gke-tpu-964065d9-c180.{trace.json.gz,xplane.pb}`
 
 XProf run:
 
@@ -112,7 +112,7 @@ runtime headroom but not useful wall time.
 
 Fresh train-step HLO was emitted:
 
-- `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v218-no-scan-sparsecore-ag-rs-only/hlo/xla-dump/module_0294.jit_train_step.cl_854318611.after_optimizations.txt`
+- `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v218-no-scan-sparsecore-ag-rs-only/hlo/xla-dump/module_0294.jit_train_step.cl_854318611.after_optimizations.txt`
 - SHA256:
   `eeb040b12d05e32196f22516547a22d84a9343d6681871d4ee7962c1a63308df`
 - Size: **94,154 lines / 16,537,770 bytes**

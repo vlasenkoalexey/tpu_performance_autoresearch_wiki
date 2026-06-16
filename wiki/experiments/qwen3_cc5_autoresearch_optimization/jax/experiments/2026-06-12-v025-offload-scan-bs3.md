@@ -43,7 +43,7 @@ this substrate; residual MaxText gap documented as stack-structural.
 
 ## Setup
 
-- Hardware: v6e-8, fsdp=8, tp=1, 1 slice of `alekseyv-tpu-v6e8-spot-xpk`.
+- Hardware: v6e-8, fsdp=8, tp=1, 1 slice of `<your-cluster>`.
 - Image: `qwen3-8b-jax:v6e8-qwen3-8b-jax-20260612-v024-offload` (reused).
 - Workload: `alekseyv-qwen3-cc5-jax-v025-off3s`.
 - Phases (both seq8192, splash + chunked CE f32-x + offload_attn remat +
@@ -79,7 +79,7 @@ fitting it.
 
 - **xprof URL**: http://localhost:8791/?run=2026-06-12-qwen3-jax-v025-off3s/2026_06_12_06_58_27
 - **Run name**: `2026-06-12-qwen3-jax-v025-off3s/2026_06_12_06_58_27`
-- **On-disk/GCS**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v025-off3s/plugins/profile/2026_06_12_06_58_27/`
+- **On-disk/GCS**: `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v025-off3s/plugins/profile/2026_06_12_06_58_27/`
 - **Steps captured**: 12–14 (profiling overhead ~+42 ms on step 12)
 - **Contents**: xprof trace (8 chips, 2 hosts) + HLO dump (separate dir below)
 
@@ -110,7 +110,7 @@ unrolled, same seq) as reference:
 
 ## HLO Dump
 
-- **GCS**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v025-off3s/hlo/`
+- **GCS**: `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v025-off3s/hlo/`
   (main module `module_0766.jit_train_step`, 4,680 instructions, scheduled).
 - **Mechanism fully confirmed**: stacked scan-carry saves in host space —
   `bf16[36,3,32,8192,128]{…S(5)}` (Q), `bf16[36,3,8,8192,128]{…S(5)}` (K,V),
@@ -159,5 +159,5 @@ What this run *established* despite the verdict:
 
 ## Sources
 
-- Profile + HLO (GCS): `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v025-off3s/`
+- Profile + HLO (GCS): `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v025-off3s/`
 - Prior: [v024 (unrolled OOM + mechanism proof)](2026-06-12-v024-offload-bs3.md), [v020 (scan, −8 GiB live-set)](2026-06-12-v020-scan.md), [mt-v001 (the reference)](../../maxtext/experiments/2026-06-12-mt-v001-base.md)

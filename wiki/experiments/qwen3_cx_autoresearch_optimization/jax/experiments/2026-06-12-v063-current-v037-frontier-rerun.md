@@ -38,9 +38,9 @@ environment is no longer reproducing the carried frontier.
 ## Setup
 
 - Workload: `alekseyv-qwen3-cc5-jax-v063-v037rerun`
-- Image: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v258-mlp-up-first`
+- Image: `<your-registry>/torchtitan-images/qwen3-8b-jax:v258-mlp-up-first`
 - Image digest: `sha256:3a08bd533913355b79d8d9c27243646bf8dd76809878cf41372fee0c6407071e`
-- Run dir: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v063-v037-frontier-rerun`
+- Run dir: `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v063-v037-frontier-rerun`
 - Mesh: `fsdp=8,tp=1`; global batch 32; profile window steps 12-14.
 
 ## Result

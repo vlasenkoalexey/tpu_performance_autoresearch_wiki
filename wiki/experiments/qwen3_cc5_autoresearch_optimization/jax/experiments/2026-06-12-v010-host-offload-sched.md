@@ -49,7 +49,7 @@ op-point.
 
 ## Setup
 
-- Hardware: v6e-8, fsdp=8, tp=1, 1 slice of `alekseyv-tpu-v6e8-spot-xpk`.
+- Hardware: v6e-8, fsdp=8, tp=1, 1 slice of `<your-cluster>`.
 - Image: `qwen3-8b-jax:latest` (trunk `3ef2b1e`).
 - Workload: `alekseyv-qwen3-cc5-jax-v010-hosch`.
 - Command: identical to v007 + the bundle in `LIBTPU_INIT_ARGS`.
@@ -69,13 +69,13 @@ trajectory normal.
 
 - **xprof URL**: `http://localhost:8791/?run=2026-06-12-qwen3-jax-v010-hosch`
   (run `…/2026_06_12_02_47_05`); profiled steps 12–14.
-- **GCS run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v010-hosch/plugins/profile/2026_06_12_02_47_05/`
+- **GCS run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v010-hosch/plugins/profile/2026_06_12_02_47_05/`
 - Flat step time at identical shape is the complete signal — the scheduler
   found no additional overlap to exploit at this scale.
 
 ## HLO Dump
 
-- **GCS**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v010-hosch/hlo/` — 1058 files.
+- **GCS**: `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v010-hosch/hlo/` — 1058 files.
 
 ## Verdict
 
@@ -94,6 +94,6 @@ once it lands. Only cost: +40% compile time.
 
 ## Sources
 
-- Profile + HLO (GCS): `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v010-hosch/`
+- Profile + HLO (GCS): `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v010-hosch/`
 - Flag source: `raw/code/maxtext/benchmarks/xla_flags_library.py` (HOST_OFFLOAD_FLAGS)
 - Prior: [v007 (frontier)](2026-06-12-v007-bs2-vmem.md), [v009 (SC offload refuted)](2026-06-12-v009-sc-offload.md)

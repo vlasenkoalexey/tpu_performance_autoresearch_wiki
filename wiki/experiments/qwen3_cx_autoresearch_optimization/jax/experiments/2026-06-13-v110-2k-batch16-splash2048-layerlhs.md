@@ -47,11 +47,11 @@ same-HLO in-band runtime refutes the explicit layer-scheduler setting.
 
 - Workload: `alekseyv-qwen3-jax-v110-2ksp2048layerlhs`
 - Image:
-  `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v067-explicit-silu`
+  `<your-registry>/torchtitan-images/qwen3-8b-jax:v067-explicit-silu`
 - Run dir:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v110-2k-bs16-vmem98304-splash2048-layerlhs`
+  `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v110-2k-bs16-vmem98304-splash2048-layerlhs`
 - Compile cache:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v110_2k_bs16_vmem98304_splash2048_layerlhs`
+  `gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v110_2k_bs16_vmem98304_splash2048_layerlhs`
 - Placement: cluster `v6e-demo-hjajoo`, nodepool `v6e-demo-hjajoo-np-0`
 - Mesh: `fsdp=8,tp=1`; per-chip batch 16 / global batch 128; sequence length
   **2048**; profile window steps 12-14.

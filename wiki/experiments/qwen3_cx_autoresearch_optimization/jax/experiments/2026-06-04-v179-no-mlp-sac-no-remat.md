@@ -38,8 +38,8 @@ completion at/below the confirmed frontier.
 
 GKE workload `alekseyv-qwen3-v179-noremat-mlpsac`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v179-no-mlp-sac-no-remat`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v179-no-mlp-sac-no-remat`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flags**: v170 stack with `--xla_tpu_scoped_vmem_limit_kib=100352`.
@@ -75,11 +75,11 @@ No runtime profile. The program failed during train-step compilation.
 
 OOM HLO artifacts were emitted under:
 
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v179-no-mlp-sac-no-remat/hlo/`
+`gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v179-no-mlp-sac-no-remat/hlo/`
 
 Fresh optimized train-step HLO:
 
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v179-no-mlp-sac-no-remat/hlo/module_0109.jit_train_step.cl_854318611.after_optimizations.txt`
+`gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v179-no-mlp-sac-no-remat/hlo/module_0109.jit_train_step.cl_854318611.after_optimizations.txt`
 
 - Size: 701,833 bytes
 - SHA256: `f4dd4b1813a5c635e443c93d58e1ee927ceaa819615757aa52e253be51d73950`

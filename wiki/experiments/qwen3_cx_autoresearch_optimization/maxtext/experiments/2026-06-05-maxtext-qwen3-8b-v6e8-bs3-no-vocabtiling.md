@@ -30,11 +30,11 @@ Expected outcomes:
 
 ## Setup
 
-- **Cluster**: `alekseyv-tpu-v6e8-spot-xpk` (`us-central2`, project
-  `tpu-pytorch`, v6e-8, 2 hosts x 4 chips)
+- **Cluster**: `<your-cluster>` (`<your-region>`, project
+  `<your-project>`, v6e-8, 2 hosts x 4 chips)
 - **Workload**: `alekseyv-qwen3-maxtext-v006-bs3`
-- **Image**: `gcr.io/tpu-pytorch/alekseyv_google_com-runner:tsij-2026-06-02-14-00-13`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_maxtext/2026-06-05-qwen3-8b-v6e8-recipe-v006-bs3`
+- **Image**: `<your-registry>/alekseyv_google_com-runner:tsij-2026-06-02-14-00-13`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_maxtext/2026-06-05-qwen3-8b-v6e8-recipe-v006-bs3`
 - **Mesh**: `ici_fsdp_parallelism=-1` (v6e-8 -> fsdp=8)
 - **Global tokens/step**: `3 * 8 * 8192 = 196,608`
 - **Changed from v005**: `per_device_batch_size=3`
@@ -45,7 +45,7 @@ Expected outcomes:
 cd /app
 LIBTPU_INIT_ARGS='<dense Trillium recipe flags plus disabled collective matmul>' \
 PYTHONPATH=/app python3 -u -m MaxText.train MaxText/configs/base.yml \
-  base_output_directory=gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_maxtext/2026-06-05-qwen3-8b-v6e8-recipe-v006-bs3 \
+  base_output_directory=gs://<your-bucket>/autoresearch/qwen3_maxtext/2026-06-05-qwen3-8b-v6e8-recipe-v006-bs3 \
   run_name=alekseyv-qwen3-maxtext-v006-bs3 \
   model_name=qwen3-8b \
   tokenizer_path=Qwen/Qwen3-8B \
@@ -128,13 +128,13 @@ successful execution.
 
 ## Profile
 
-- `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_maxtext/2026-06-05-qwen3-8b-v6e8-recipe-v006-bs3/alekseyv-qwen3-maxtext-v006-bs3/tensorboard/plugins/profile/2026_06_05_02_39_21/`
+- `gs://<your-bucket>/autoresearch/qwen3_maxtext/2026-06-05-qwen3-8b-v6e8-recipe-v006-bs3/alekseyv-qwen3-maxtext-v006-bs3/tensorboard/plugins/profile/2026_06_05_02_39_21/`
 - Files: two `.xplane.pb` and two `.trace.json.gz`, one per host.
 - Total profile payload: **126.16 MiB**.
 
 ## HLO Dump
 
-- `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_maxtext/2026-06-05-qwen3-8b-v6e8-recipe-v006-bs3/alekseyv-qwen3-maxtext-v006-bs3/xla_dump/`
+- `gs://<your-bucket>/autoresearch/qwen3_maxtext/2026-06-05-qwen3-8b-v6e8-recipe-v006-bs3/alekseyv-qwen3-maxtext-v006-bs3/xla_dump/`
 - Host dirs: `gke-tpu-964065d9-9vh8/`, `gke-tpu-964065d9-c180/`
 - Optimized train-step HLO: `module_0103.jit_train_step.cl_759148519.after_optimizations.txt`
 - Size: **1,498,186 bytes**, 8,013 lines

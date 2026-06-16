@@ -42,8 +42,8 @@ win.
 
 GKE workload `alekseyv-qwen3-v167-repnorm-vmem100864`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v165-replicate-rmsnorm`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v167-replicate-rmsnorm-vmem100864`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v165-replicate-rmsnorm`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v167-replicate-rmsnorm-vmem100864`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flags**: v154 stack, but `--xla_tpu_scoped_vmem_limit_kib=100864`.
@@ -68,7 +68,7 @@ replicated-RMSNorm HLO family.
 
 Profile captured successfully:
 
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v167-replicate-rmsnorm-vmem100864/plugins/profile/2026_06_04_19_16_42/`
+`gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v167-replicate-rmsnorm-vmem100864/plugins/profile/2026_06_04_19_16_42/`
 
 Artifacts:
 

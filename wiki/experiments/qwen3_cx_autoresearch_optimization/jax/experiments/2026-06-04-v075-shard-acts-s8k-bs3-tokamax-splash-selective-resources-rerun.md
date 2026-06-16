@@ -33,8 +33,8 @@ trajectory, or clean completion back in the 50.78k tok/s v072/v073 band.
 
 Planned GKE workload `alekseyv-qwen3-v075-selective-rerun`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v075-shard-acts-s8k-bs3-tokamax-splash-selective-resources-rerun`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v075-shard-acts-s8k-bs3-tokamax-splash-selective-resources-rerun`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flags**: exact v074 bundle, including
@@ -48,7 +48,7 @@ Planned GKE workload `alekseyv-qwen3-v075-selective-rerun`.
 ## Results
 
 Workload `alekseyv-qwen3-v075-selective-rerun` completed cleanly on
-`alekseyv-tpu-v6e8-spot-xpk`.
+`<your-cluster>`.
 
 | Worker | Avg step | Avg throughput | Tok/s/chip | MFU | Loss end |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -81,7 +81,7 @@ gain.
 No new HLO dump objects were written for this exact rerun, consistent with a
 persistent compilation-cache hit. Use the v074 HLO dump for the compiled
 configuration:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v074-shard-acts-s8k-bs3-tokamax-splash-selective-resources/hlo/`.
+`gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v074-shard-acts-s8k-bs3-tokamax-splash-selective-resources/hlo/`.
 
 ## Verdict
 

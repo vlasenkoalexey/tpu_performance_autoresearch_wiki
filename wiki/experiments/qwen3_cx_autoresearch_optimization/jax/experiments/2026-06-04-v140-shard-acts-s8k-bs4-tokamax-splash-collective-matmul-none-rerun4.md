@@ -41,8 +41,8 @@ tok/s frontier band.
 
 GKE workload `alekseyv-qwen3-v140-bs4-rerun4`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v140-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-rerun4`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v140-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-rerun4`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flags**: v127 simplified stack plus `--xla_latency_hiding_scheduler_rerun=4`.

@@ -43,8 +43,8 @@ v153/v154 noise band without a memory/profile win.
 
 GKE workload `alekseyv-qwen3-v162-bs4-lmheadvocabr`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v161-lmhead-vocab-fsdp`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v162-shard-acts-s8k-bs4-lmhead-vocab-fsdp-rerun`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v161-lmhead-vocab-fsdp`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v162-shard-acts-s8k-bs4-lmhead-vocab-fsdp-rerun`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flags**: confirmed v154 stack with `--xla_tpu_scoped_vmem_limit_kib=100352`.
@@ -70,7 +70,7 @@ provisional 57,765 tok/s average / 57,908 best observed.
 
 Profile captured successfully:
 
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v162-shard-acts-s8k-bs4-lmhead-vocab-fsdp-rerun/plugins/profile/2026_06_04_18_42_10/`
+`gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v162-shard-acts-s8k-bs4-lmhead-vocab-fsdp-rerun/plugins/profile/2026_06_04_18_42_10/`
 
 Artifacts:
 

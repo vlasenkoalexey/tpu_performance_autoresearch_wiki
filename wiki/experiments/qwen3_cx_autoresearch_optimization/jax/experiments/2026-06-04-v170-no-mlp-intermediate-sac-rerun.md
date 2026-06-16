@@ -41,9 +41,9 @@ without a profile win.
 
 GKE workload `alekseyv-qwen3-v170-mlpsacr`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
 - **Image digest**: `sha256:21a390217fc38d05a8638d2ae681f00ece3d255d57ed88a0651e4054304f6854`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v170-no-mlp-intermediate-sac-rerun`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v170-no-mlp-intermediate-sac-rerun`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flags**: confirmed v154 stack with `--xla_tpu_scoped_vmem_limit_kib=100352`.
@@ -67,7 +67,7 @@ This confirms v169's gain over the prior v153/v154 frontier band
 
 Profile captured successfully:
 
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v170-no-mlp-intermediate-sac-rerun/plugins/profile/2026_06_04_19_39_56/`
+`gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v170-no-mlp-intermediate-sac-rerun/plugins/profile/2026_06_04_19_39_56/`
 
 Artifacts:
 

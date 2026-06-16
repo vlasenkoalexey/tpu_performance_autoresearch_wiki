@@ -17,13 +17,13 @@
 - **Seq Length**: 2048
 - **Remat Policy**: `checkpoint_dots_with_no_batch_dims`
 - **Attention**: Splash Attention
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260602-v006-tokamax-ce-b`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260602-v006-tokamax-ce-b`
 
 ## Setup
 - Created fork directory: `.repo/2026-06-02-v006-tokamax-ce/`
 - Extracted `train.py` from base image.
 - Modified `loss_fn` in `train.py` to use `tokamax.linear_softmax_cross_entropy_loss` wrapped in `jax.experimental.shard_map.shard_map` with `psum('fsdp')` reduction, bypassing the model's `lm_head` projection to apply the fused CE kernel on the pre-projection hidden states directly.
 - Wrapped the `tokamax` import in `train.py` with `sys.argv[:1]` to prevent `absl.flags.FLAGS` initialization from crashing due to unrecognized command line flags before `fire.Fire` runs.
-- Built and pushed image: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260602-v006-tokamax-ce-b`
+- Built and pushed image: `<your-registry>/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260602-v006-tokamax-ce-b`
 ## Results
 (To be populated)

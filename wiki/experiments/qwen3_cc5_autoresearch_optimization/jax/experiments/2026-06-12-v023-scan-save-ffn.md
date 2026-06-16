@@ -38,7 +38,7 @@ scan remains a special-purpose tool.
 
 ## Setup
 
-- Hardware: v6e-8, fsdp=8, tp=1, 1 slice of `alekseyv-tpu-v6e8-spot-xpk`.
+- Hardware: v6e-8, fsdp=8, tp=1, 1 slice of `<your-cluster>`.
 - Image: `qwen3-8b-jax:v6e8-qwen3-8b-jax-20260612-v023-sffn`.
 - Workload: `alekseyv-qwen3-cc5-jax-v023-sffn`.
 - Phases (both: bs1/seq8192, splash + chunked CE f32-x + scan + save_attn):
@@ -61,12 +61,12 @@ PASS bar (<1419 ms) not approached.
 
 - **xprof URL**: `http://localhost:8791/?run=2026-06-12-qwen3-jax-v023-sffn`
   (run `…/2026_06_12_05_46_26`); profiled steps 12–14.
-- **GCS run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v023-sffn/plugins/profile/2026_06_12_05_46_26/`
+- **GCS run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v023-sffn/plugins/profile/2026_06_12_05_46_26/`
 - The flat A/B is the complete signal.
 
 ## HLO Dump
 
-- **GCS**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v023-sffn/hlo/`
+- **GCS**: `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v023-sffn/hlo/`
 
 ## Verdict
 
@@ -95,5 +95,5 @@ maintenance/holding pending new ideas, ingests, or user direction.
 
 ## Sources
 
-- Profile + HLO (GCS): `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v023-sffn/`
+- Profile + HLO (GCS): `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v023-sffn/`
 - Prior: [v020 (scan)](2026-06-12-v020-scan.md), [v019 (frontier)](2026-06-12-v019-val50.md), [v021 (bs2-scan refuted)](2026-06-12-v021-bs2-s8k-scan.md)

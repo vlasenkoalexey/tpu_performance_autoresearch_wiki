@@ -36,11 +36,11 @@ settings fixed.
 
 - Workload: `alekseyv-qwen3-v135-2kbs17seqsh90`
 - Image:
-  `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v130-splash-layout-env`
+  `<your-registry>/torchtitan-images/qwen3-8b-jax:v130-splash-layout-env`
 - Run dir:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v135-2k-bs17-splash2048-rslat4-seqminor-sh90`
+  `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v135-2k-bs17-splash2048-rslat4-seqminor-sh90`
 - Compile cache:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v135_2k_bs17_splash2048_rslat4_seqminor_sh90`
+  `gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v135_2k_bs17_splash2048_rslat4_seqminor_sh90`
 - Placement: cluster `v6e-demo-hjajoo`, nodepool `v6e-demo-hjajoo-np-0`.
 - Mesh: `fsdp=8,tp=1`; per-chip batch 17 / global batch 136; sequence length
   2048.

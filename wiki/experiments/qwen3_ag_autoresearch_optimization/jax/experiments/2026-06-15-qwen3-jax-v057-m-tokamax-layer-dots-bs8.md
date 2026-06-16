@@ -28,7 +28,7 @@ Applying the `jax.checkpoint_policies.checkpoint_dots_with_no_batch_dims` policy
 **Falsification criterion**: HBM OOM, VMEM OOM, or compiler hang.
 
 ## Setup
-Image: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/v6e8-qwen3-8b-jax-20260615-exp057-d-tokamax-layer-ckpt:latest` (with dynamic archive layering over it for `v057_c/trainer`).
+Image: `<your-registry>/torchtitan-images/v6e8-qwen3-8b-jax-20260615-exp057-d-tokamax-layer-ckpt:latest` (with dynamic archive layering over it for `v057_c/trainer`).
 
 ## Results
 ## Results

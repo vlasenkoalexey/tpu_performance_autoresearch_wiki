@@ -14,7 +14,7 @@ Selective remat (v003) saved 9.38 GB of HBM but `bs=2` was still OOM by 2.36 GB.
 - **Seq Length**: 2048
 - **Remat Policy**: `checkpoint_dots_with_no_batch_dims`
 - **Attention**: Splash Attention (imported from `llama3_8b` experiment)
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260602-v004-splash-attention`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260602-v004-splash-attention`
 
 ## Results
 - **Status**: Completed
@@ -26,7 +26,7 @@ We see a slight drop in MFU initially calculated at 23.2% but xprof reports ~25.
 
 ## Profile
 
-**Source**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v004-splash-bs2/plugins/profile/`
+**Source**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v004-splash-bs2/plugins/profile/`
 **xprof URL**: http://localhost:8791/?run=2026-06-02-qwen3-jax-v004-splash-bs2/2026_06_02_21_50_30
 **Run name**: 2026-06-02-qwen3-jax-v004-splash-bs2/2026_06_02_21_50_30
 **Steps captured**: ~55 steps (from step time 393.1 ms and total trace 21.8 s)
@@ -53,7 +53,7 @@ We see a slight drop in MFU initially calculated at 23.2% but xprof reports ~25.
 
 ## HLO Dump
 
-**Source**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v004-splash-bs2/hlo/`
+**Source**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v004-splash-bs2/hlo/`
 - HLO dump not available for this run — Phase 2 skipped.
 
 **Hypothesis-firing audit** (Phase 3 — silent-noop check vs the hypothesis's predicted mechanism):

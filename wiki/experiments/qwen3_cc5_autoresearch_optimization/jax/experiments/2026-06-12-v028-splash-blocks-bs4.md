@@ -34,7 +34,7 @@ direction closed).
 
 ## Setup
 
-- Hardware: v6e-8, fsdp=8, tp=1, 1 slice of `alekseyv-tpu-v6e8-spot-xpk`.
+- Hardware: v6e-8, fsdp=8, tp=1, 1 slice of `<your-cluster>`.
 - Image: `qwen3-8b-jax:v6e8-qwen3-8b-jax-20260612-v024-offload` (= latest).
 - Workload: `alekseyv-qwen3-cc5-jax-v028-spblk`.
 - Both phases: bs4 seq8192, scan + offload_attn + splash + chunked CE f32-x + 25-flag stack; 20 steps each; phase B profiled steps 12–14 + HLO.
@@ -99,7 +99,7 @@ Loss sanity: Phase A step-0 loss = 12.1033 → 12.0480 (step 19); Phase B 12.103
 **xprof URL**: http://localhost:8791/?run=2026-06-12-qwen3-jax-v028-spblk
 **Run name**: `2026-06-12-qwen3-jax-v028-spblk` (Phase B captured at `2026_06_12_07_51_46`)
 **xprof direct URL**: http://localhost:8791/?run=2026-06-12-qwen3-jax-v028-spblk/2026_06_12_07_51_46
-**GCS path**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v028-spblk/plugins/profile/2026_06_12_07_51_46/` (4 files)
+**GCS path**: `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v028-spblk/plugins/profile/2026_06_12_07_51_46/` (4 files)
 **Local path**: [`raw/profiles/2026-06-12-v028-spblk/`](../../../../../raw/profiles/2026-06-12-v028-spblk/)
 **Steps captured**: 12–14 (Phase B, steady-state steps)
 **Contents**: xprof trace (TPU v6 Lite, Phase B all-2048 config), 2 hosts × 4 chips = 8 chips.
@@ -121,7 +121,7 @@ v027).
 
 ## HLO Dump
 
-**GCS path**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v028-spblk/hlo/` (50 files)
+**GCS path**: `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v028-spblk/hlo/` (50 files)
 
 Main module `module_0145.jit_train_step` (~1.36 MB). **Block config
 verified in kernel metadata** (the env took effect):
@@ -153,6 +153,6 @@ This is the **third flat splash block-config result** on this stack:
 
 ## Sources
 
-- Profile (GCS): `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v028-spblk/plugins/profile/2026_06_12_07_51_46/`
-- HLO (GCS): `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v028-spblk/hlo/`
+- Profile (GCS): `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v028-spblk/plugins/profile/2026_06_12_07_51_46/`
+- HLO (GCS): `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v028-spblk/hlo/`
 - Prior: [v027 (frontier baseline)](2026-06-12-v027-bs4-mtfl.md), [v016 (bkv2048 flat at bs1)](2026-06-12-v016-splash-bkv2048.md), [v022 (tokamax knobs neutral)](2026-06-12-v022-tokamax-splash.md)

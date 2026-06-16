@@ -37,8 +37,8 @@ completion that does not beat v118 total throughput.
 
 GKE workload `alekseyv-qwen3-v119-bs5-cmnone`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v119-shard-acts-s8k-bs5-tokamax-splash-layeragg-collective-matmul-none`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v119-shard-acts-s8k-bs5-tokamax-splash-layeragg-collective-matmul-none`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flags**: confirmed collective-matmul-none stack from v116-v118.

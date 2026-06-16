@@ -35,8 +35,8 @@ commit `9f1820b47`) in the maxtext venv (`/mnt/disks/persist/venv-maxtext-v0.1.4
 BASEIMAGE=us-docker.pkg.dev/cloud-tpu-images/jax-ai-image/tpu:jax0.6.1-rev1`):
 
 ```bash
-export PROJECT=tpu-pytorch ZONE=us-central2-b CLUSTER_NAME=alekseyv-tpu-v6e8-spot-xpk
-export OUTPUT_DIR=gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/maxtext/<run>
+export PROJECT=<your-project> ZONE=<your-zone> CLUSTER_NAME=<your-cluster>
+export OUTPUT_DIR=gs://<your-bucket>/autoresearch/qwen3_cc/maxtext/<run>
 python3 -m benchmarks.benchmark_runner xpk \
   --project=$PROJECT --zone=$ZONE --device_type=v6e-8 --num_slices=1 \
   --cluster_name=$CLUSTER_NAME --base_output_directory=$OUTPUT_DIR \

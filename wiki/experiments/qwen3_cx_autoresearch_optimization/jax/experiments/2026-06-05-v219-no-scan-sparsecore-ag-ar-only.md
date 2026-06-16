@@ -46,9 +46,9 @@ adds memory/collective cost without a throughput gain.
 
 GKE workload `alekseyv-qwen3-v219-sc-agar`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
 - **Run dir**:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v219-no-scan-sparsecore-ag-ar-only`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v219-no-scan-sparsecore-ag-ar-only`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **Command shape**: `--use_scan=False --use_remat=True --offload_remat=False
@@ -65,7 +65,7 @@ and preserves model math.
 ## Result
 
 Launched as `alekseyv-qwen3-v219-sc-agar` on
-`alekseyv-tpu-v6e8-spot-xpk` at 2026-06-05 04:47 UTC and completed cleanly
+`<your-cluster>` at 2026-06-05 04:47 UTC and completed cleanly
 with `EXIT_CODE=0` on both workers.
 
 Pods:
@@ -88,8 +88,8 @@ part of the carried v210 bundle.
 
 Profile capture completed on both hosts:
 
-- `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v219-no-scan-sparsecore-ag-ar-only/plugins/profile/2026_06_05_04_52_42/gke-tpu-46dd3e54-rkr2.{trace.json.gz,xplane.pb}`
-- `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v219-no-scan-sparsecore-ag-ar-only/plugins/profile/2026_06_05_04_52_42/gke-tpu-46dd3e54-g30s.{trace.json.gz,xplane.pb}`
+- `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v219-no-scan-sparsecore-ag-ar-only/plugins/profile/2026_06_05_04_52_42/gke-tpu-46dd3e54-rkr2.{trace.json.gz,xplane.pb}`
+- `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v219-no-scan-sparsecore-ag-ar-only/plugins/profile/2026_06_05_04_52_42/gke-tpu-46dd3e54-g30s.{trace.json.gz,xplane.pb}`
 
 XProf run:
 
@@ -113,7 +113,7 @@ schedule: the profile exposes new all-reduce-containing fusion buckets such as
 
 Fresh train-step HLO was emitted:
 
-- `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v219-no-scan-sparsecore-ag-ar-only/hlo/xla-dump/module_0294.jit_train_step.cl_854318611.after_optimizations.txt`
+- `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v219-no-scan-sparsecore-ag-ar-only/hlo/xla-dump/module_0294.jit_train_step.cl_854318611.after_optimizations.txt`
 - SHA256:
   `5c28221460c5446a0888b89db036f6bc11f47e9cacce9c8416766009bb9555ca`
 - Size: **90,801 lines / 15,650,659 bytes**

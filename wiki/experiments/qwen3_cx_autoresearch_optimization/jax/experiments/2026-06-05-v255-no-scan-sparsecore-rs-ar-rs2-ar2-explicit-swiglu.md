@@ -44,10 +44,10 @@ HLO, or clean completion below the v230/v236 frontier.
 
 GKE workload: `alekseyv-q3-v255-expl-swiglu`.
 
-- **Base image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v255-explicit-swiglu`
+- **Base image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v255-explicit-swiglu`
 - **Image digest**: `sha256:ddeb45016ae9cb45926d097c35461533042c68beaf160ab08d19e65326049d3d`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v255-no-scan-sparsecore-rs-ar-rs2-ar2-explicit-swiglu`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v255-no-scan-sparsecore-rs-ar-rs2-ar2-explicit-swiglu`
 - **Mesh**: `fsdp=8,tp=1`
 - **Command shape**: `--use_scan=False --use_remat=True --offload_remat=False --use_splash=True --use_maxtext_ce=True --shard_acts=True --batch_size=4 --seqlen=8192 --tp_parallelism=1`
 - **Global batch**: 32
@@ -89,7 +89,7 @@ Splash env restored.
 ## HLO Dump
 
 - Optimized train-step HLO:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v255-no-scan-sparsecore-rs-ar-rs2-ar2-explicit-swiglu/hlo/xla-dump/module_0267.jit_train_step.cl_854318611.after_optimizations.txt`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v255-no-scan-sparsecore-rs-ar-rs2-ar2-explicit-swiglu/hlo/xla-dump/module_0267.jit_train_step.cl_854318611.after_optimizations.txt`
 - Local copy:
   `/tmp/qwen3-v255-hlo/module_0267.jit_train_step.cl_854318611.after_optimizations.txt`
 - SHA256:

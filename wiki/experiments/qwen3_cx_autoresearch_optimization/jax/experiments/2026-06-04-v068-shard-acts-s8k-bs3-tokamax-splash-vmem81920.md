@@ -37,8 +37,8 @@ with unchanged profile shape.
 
 Planned GKE workload `alekseyv-qwen3-v068-vmem81920`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v068-shard-acts-s8k-bs3-tokamax-splash-vmem81920`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v068-shard-acts-s8k-bs3-tokamax-splash-vmem81920`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flag change**: `--xla_tpu_scoped_vmem_limit_kib=81920` instead of
@@ -84,7 +84,7 @@ semantic/model-code change.
 ## HLO Dump
 
 - **Path**:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v068-shard-acts-s8k-bs3-tokamax-splash-vmem81920/hlo/`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v068-shard-acts-s8k-bs3-tokamax-splash-vmem81920/hlo/`
 - **Size**: 30.47 MiB
 - **Object count**: 1619
 - **Dominant module**:

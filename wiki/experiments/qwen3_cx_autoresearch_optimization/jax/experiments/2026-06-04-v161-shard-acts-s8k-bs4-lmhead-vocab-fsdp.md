@@ -45,9 +45,9 @@ HLO/profile with no throughput gain, or a clean regression versus v154.
 
 GKE workload `alekseyv-qwen3-v161-bs4-lmheadvocab`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v161-lmhead-vocab-fsdp`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v161-lmhead-vocab-fsdp`
 - **Base image**: `qwen3-8b-jax:v041-shard-acts`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v161-shard-acts-s8k-bs4-lmhead-vocab-fsdp`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v161-shard-acts-s8k-bs4-lmhead-vocab-fsdp`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flags**: confirmed v154 stack with `--xla_tpu_scoped_vmem_limit_kib=100352`.
@@ -74,7 +74,7 @@ rerun confirms it.
 Profile files were written under:
 
 ```text
-gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v161-shard-acts-s8k-bs4-lmhead-vocab-fsdp/plugins/profile/2026_06_04_18_35_40/
+gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v161-shard-acts-s8k-bs4-lmhead-vocab-fsdp/plugins/profile/2026_06_04_18_35_40/
 ```
 
 Both TPU hosts produced `.xplane.pb` and trace JSON files. Local XProf indexing
@@ -86,7 +86,7 @@ HLO identity, and compiled-memory reports.
 Fresh train-step HLO:
 
 ```text
-gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v161-shard-acts-s8k-bs4-lmhead-vocab-fsdp/hlo/module_0105.jit_train_step.cl_854318611.after_optimizations.txt
+gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v161-shard-acts-s8k-bs4-lmhead-vocab-fsdp/hlo/module_0105.jit_train_step.cl_854318611.after_optimizations.txt
 ```
 
 - Optimized HLO size: 785,947 bytes.

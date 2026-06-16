@@ -36,12 +36,12 @@ trajectory, or clean completion at or below v056's 50,383 tok/s / 36.1% MFU.
 
 GKE workload `alekseyv-qwen3-v064`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v064-qseq2-sharded-mask`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v064-qseq2-sharded-mask`
 - **Base image**: `v041-shard-acts`
 - **Code change**: in `/app/trainer/splash_attn.py`, construct Tokamax
   `CausalMask(shape=..., shard_count=_q_seq_shards)` instead of leaving
   `shard_count=1`.
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v064-shard-acts-s8k-bs3-tokamax-splash-qseq2-sharded-mask`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v064-shard-acts-s8k-bs3-tokamax-splash-qseq2-sharded-mask`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment change**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_Q_SEQ_SHARDS=2 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flag**: keep v056's `--xla_latency_hiding_scheduler_rerun=3`
@@ -84,7 +84,7 @@ valid v056 frontier. DKV remains 13.3%, slightly above v056's 12.3%.
 ## HLO Dump
 
 - **Path**:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v064-shard-acts-s8k-bs3-tokamax-splash-qseq2-sharded-mask/hlo/`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v064-shard-acts-s8k-bs3-tokamax-splash-qseq2-sharded-mask/hlo/`
 - **Size**: 17.55 MiB
 - **Object count**: 24 objects plus two empty JIT subdirectories.
 

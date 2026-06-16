@@ -59,8 +59,8 @@ with regression, or clean completion below the confirmed v123/v127 band.
 
 GKE workload `alekseyv-qwen3-v134-bs4-noacfms`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v134-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-no-acf-multistep`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v134-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-no-acf-multistep`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flags**: v127 stack with only ACF multiple-steps disabled.
@@ -78,7 +78,7 @@ workers with normal loss ending at 12.0461.
 - **Worker 1**: 56,269 tok/s avg, 7,034 tok/s/chip, 40.3% MFU; best steady
   step 56,424 tok/s.
 - **Profile dir**:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v134-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-no-acf-multistep`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v134-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-no-acf-multistep`
 
 This is below the v127 best-worker average (56,453 tok/s) and below the v123
 best-observed steady step (56,599 tok/s).
@@ -106,7 +106,7 @@ Top train-step buckets:
 ## HLO Dump
 
 - **HLO prefix**:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v134-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-no-acf-multistep/hlo/`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v134-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-no-acf-multistep/hlo/`
 - **Optimized train-step**:
   `module_0267.jit_train_step.cl_854318611.after_optimizations.txt`
 - **HLO bytes**: 641,277

@@ -775,7 +775,7 @@ LIBTPU_INIT_ARGS=
 - `LAYOUT_FOR_ALL_REDUCE_SCATTER` / `REDUCE_SCATTER_FUSION` — layout pin for RS
 - `HOST_OFFLOAD_FLAGS` — host-offload friendly scheduler features
 - `DISABLE_COLLECTIVE_MATMUL` — V2 enum mode=none on both AG and RS
-- `DISABLE_BUNDLE_AWARE_COST_MODEL` — fixed a 3× backward regression in MoE (b/357103386)
+- `DISABLE_BUNDLE_AWARE_COST_MODEL` — fixed a 3× backward regression in MoE (<internal-bug>)
 - `ENHANCED_LAUNCH_BARRIER` — Pathways error propagation; **inverse** of this project's default (we set `false`)
 
 **Generic principles**:

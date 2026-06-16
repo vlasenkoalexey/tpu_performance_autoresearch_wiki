@@ -26,7 +26,7 @@ origin: 2026-06-15-qwen3-jax-v057-g-tokamax-layer-ckpt-fix-splash
 **Falsification criterion**: HBM OOM due to excessive activation materialization during the block's backward pass.
 
 ## Setup
-Image: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/v6e8-qwen3-8b-jax-20260615-exp057-d-tokamax-layer-ckpt:latest` (with dynamic archive layering over it).
+Image: `<your-registry>/torchtitan-images/v6e8-qwen3-8b-jax-20260615-exp057-d-tokamax-layer-ckpt:latest` (with dynamic archive layering over it).
 
 ## Results
 ## Results

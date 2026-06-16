@@ -50,11 +50,11 @@ intermediate never changes values → equivalence holds by construction).
 
 ## Profile
 
-- **Run name**: `2026-06-05-qwen3-jax-v045-rsqrt` · xprof [`http://localhost:8791/?run=2026-06-05-qwen3-jax-v045-rsqrt`](http://localhost:8791/?run=2026-06-05-qwen3-jax-v045-rsqrt) · GCS `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v045-rsqrt/plugins/profile/2026_06_05_06_08_55/` (2 hosts, steps 12–14). On-disk: [`raw/profiles/2026-06-05-qwen3-jax-v045-rsqrt/`](../../../../../raw/profiles/2026-06-05-qwen3-jax-v045-rsqrt/). The −26 ms is the skipped f32 mean-square reduction recompute in the backward (the saved `norm_rsqrt` stat replaces the recomputed `add_rsqrt_fusion`/QK-norm `reduce_sum`).
+- **Run name**: `2026-06-05-qwen3-jax-v045-rsqrt` · xprof [`http://localhost:8791/?run=2026-06-05-qwen3-jax-v045-rsqrt`](http://localhost:8791/?run=2026-06-05-qwen3-jax-v045-rsqrt) · GCS `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v045-rsqrt/plugins/profile/2026_06_05_06_08_55/` (2 hosts, steps 12–14). On-disk: [`raw/profiles/2026-06-05-qwen3-jax-v045-rsqrt/`](../../../../../raw/profiles/2026-06-05-qwen3-jax-v045-rsqrt/). The −26 ms is the skipped f32 mean-square reduction recompute in the backward (the saved `norm_rsqrt` stat replaces the recomputed `add_rsqrt_fusion`/QK-norm `reduce_sum`).
 
 ## HLO Dump
 
-- **GCS**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v045-rsqrt/hlo/` (29 files incl. `module_0109.jit_train_step.*`). Backward should show the saved `norm_rsqrt` value reused instead of a recomputed reduction.
+- **GCS**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v045-rsqrt/hlo/` (29 files incl. `module_0109.jit_train_step.*`). Backward should show the saved `norm_rsqrt` value reused instead of a recomputed reduction.
 
 ## Verdict
 

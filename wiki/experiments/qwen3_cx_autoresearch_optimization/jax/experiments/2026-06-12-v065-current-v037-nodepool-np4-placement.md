@@ -24,8 +24,8 @@ same-HLO runtime gap.
 **Mechanism**: Reuse `qwen3-8b-jax:v258-mlp-up-first` with the v064/v037 flags,
 fresh compile-cache isolation, and an added node selector:
 
-- `cloud.google.com/gke-nodepool=alekseyv-tpu-v6e8-spot-xpk-np-4`
-- `JAX_COMPILATION_CACHE_DIR=gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v065_np4`
+- `cloud.google.com/gke-nodepool=<your-cluster>-np-4`
+- `JAX_COMPILATION_CACHE_DIR=gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v065_np4`
 
 No model code, math, shape, runtime scheduler flags, profile window, or HLO
 dump settings change otherwise.
@@ -38,8 +38,8 @@ baseline.
 ## Setup
 
 - Workload: `alekseyv-qwen3-cc5-jax-v065-np4`
-- Image: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v258-mlp-up-first`
-- Run dir: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v065-v037-np4-placement`
+- Image: `<your-registry>/torchtitan-images/qwen3-8b-jax:v258-mlp-up-first`
+- Run dir: `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v065-v037-np4-placement`
 - Mesh: `fsdp=8,tp=1`; global batch 32; profile window steps 12-14.
 
 ## Result

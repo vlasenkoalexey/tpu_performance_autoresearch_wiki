@@ -99,7 +99,7 @@ bs=5 is the throughput sweet spot.
 ## Stack composition (frontier exp 13b / exp 15)
 
 ```
-# Container: us-central1-docker.pkg.dev/.../llama3-8b-jax-container:jax-v4
+# Container: <your-registry>/.../llama3-8b-jax-container:jax-v4
 # Trainer flags:
 python -m train \
     --model_id=meta-llama/Meta-Llama-3-8B \

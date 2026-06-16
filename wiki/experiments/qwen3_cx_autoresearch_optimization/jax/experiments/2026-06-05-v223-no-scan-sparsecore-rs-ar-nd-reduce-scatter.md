@@ -36,9 +36,9 @@ throughput, or regression below v220/v221.
 
 GKE workload `alekseyv-qwen3-v223-sc-rsar-ndrs`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
 - **Run dir**:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v223-no-scan-sparsecore-rs-ar-nd-reduce-scatter`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v223-no-scan-sparsecore-rs-ar-nd-reduce-scatter`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **Command shape**: `--use_scan=False --use_remat=True --offload_remat=False
@@ -88,10 +88,10 @@ step 0.
 Partial HLO artifacts were uploaded:
 
 - Prefix:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v223-no-scan-sparsecore-rs-ar-nd-reduce-scatter/hlo/xla-dump/`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v223-no-scan-sparsecore-rs-ar-nd-reduce-scatter/hlo/xla-dump/`
 - Size: **19.53 MiB**
 - Train-step MLIR directory example:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v223-no-scan-sparsecore-rs-ar-nd-reduce-scatter/hlo/xla-dump/jit_train_step_1780638109683/`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v223-no-scan-sparsecore-rs-ar-nd-reduce-scatter/hlo/xla-dump/jit_train_step_1780638109683/`
 
 No optimized train-step HLO text was produced because the compiler aborted in
 the reduce-scatter legalizer.

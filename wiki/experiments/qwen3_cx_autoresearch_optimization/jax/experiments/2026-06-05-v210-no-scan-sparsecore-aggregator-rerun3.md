@@ -38,8 +38,8 @@ compile/runtime failure.
 
 GKE workload `alekseyv-qwen3-v210-noscan-scagg-r3`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v210-no-scan-sparsecore-aggregator-rerun3`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v210-no-scan-sparsecore-aggregator-rerun3`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **Command shape**: `--use_scan=False --use_remat=True --offload_remat=False --use_splash=True --use_maxtext_ce=True --shard_acts=True --batch_size=4 --seqlen=8192 --tp_parallelism=1`
@@ -74,14 +74,14 @@ floor of 59,351 tok/s / 42.6% MFU.
 
 Profile capture completed on both hosts:
 
-- `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v210-no-scan-sparsecore-aggregator-rerun3/plugins/profile/2026_06_05_02_15_12/gke-tpu-964065d9-9vh8.{trace.json.gz,xplane.pb}`
-- `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v210-no-scan-sparsecore-aggregator-rerun3/plugins/profile/2026_06_05_02_15_12/gke-tpu-964065d9-c180.{trace.json.gz,xplane.pb}`
+- `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v210-no-scan-sparsecore-aggregator-rerun3/plugins/profile/2026_06_05_02_15_12/gke-tpu-964065d9-9vh8.{trace.json.gz,xplane.pb}`
+- `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v210-no-scan-sparsecore-aggregator-rerun3/plugins/profile/2026_06_05_02_15_12/gke-tpu-964065d9-c180.{trace.json.gz,xplane.pb}`
 
 ## HLO Dump
 
 Fresh train-step HLO was emitted:
 
-- `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v210-no-scan-sparsecore-aggregator-rerun3/hlo/module_0294.jit_train_step.cl_854318611.after_optimizations.txt`
+- `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v210-no-scan-sparsecore-aggregator-rerun3/hlo/module_0294.jit_train_step.cl_854318611.after_optimizations.txt`
 - SHA256:
   `d67433daa35f81edbfbd0fb25d79bd4cd210fc9697bd39133cd50dfe11da9573`
 - Compiled memory: `29700367320` bytes / **27.66 GiB**.

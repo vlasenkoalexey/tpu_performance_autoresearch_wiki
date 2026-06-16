@@ -48,8 +48,8 @@ win.
 
 GKE workload `alekseyv-qwen3-v163-ce-logits-fsdp`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v163-ce-logits-fsdp`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v163-maxtext-ce-logits-fsdp-constraint`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v163-ce-logits-fsdp`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v163-maxtext-ce-logits-fsdp-constraint`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flags**: confirmed v154 stack with `--xla_tpu_scoped_vmem_limit_kib=100352`.
@@ -75,7 +75,7 @@ than a persistent-cache replay. The steady-state result is below v153/v154's
 
 Profile captured successfully:
 
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v163-maxtext-ce-logits-fsdp-constraint/plugins/profile/2026_06_04_18_50_07/`
+`gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v163-maxtext-ce-logits-fsdp-constraint/plugins/profile/2026_06_04_18_50_07/`
 
 Artifacts:
 

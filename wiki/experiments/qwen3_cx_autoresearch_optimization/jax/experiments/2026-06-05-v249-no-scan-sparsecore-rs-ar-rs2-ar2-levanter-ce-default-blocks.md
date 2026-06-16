@@ -26,7 +26,7 @@ bad kernel-family choice.
 **Mechanism**: Reuse the v248 image and change only the Levanter CE block sizes:
 
 - Image:
-  `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v248-levanter-ce`
+  `<your-registry>/torchtitan-images/qwen3-8b-jax:v248-levanter-ce`
 - CE path: `--use_levanter_ce=True --use_maxtext_ce=False`
 - Levanter block sizes: `b=1024,h=512,v=1024`
 - Keep the v230 RS2+AR2 runtime stack, VMEM 100352, no-scan, remat,
@@ -46,7 +46,7 @@ retuning as insufficient and move to a different structural CE/lm-head strategy.
 GKE workload `alekseyv-q3-v249-levce-def`.
 
 - **Run dir**:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v249-no-scan-sparsecore-rs-ar-rs2-ar2-levanter-ce-default-blocks`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v249-no-scan-sparsecore-rs-ar-rs2-ar2-levanter-ce-default-blocks`
 - **Mesh**: `fsdp=8,tp=1`
 - **Global batch**: 32
 - **Profile window**: steps 12-14

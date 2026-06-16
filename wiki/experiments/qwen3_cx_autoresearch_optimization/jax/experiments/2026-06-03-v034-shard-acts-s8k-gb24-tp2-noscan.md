@@ -34,8 +34,8 @@ below v041's 48,312 tok/s / 34.6% MFU.
 
 GKE workload `alekseyv-qwen3-v034`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v034-shard-acts-s8k-gb24-tp2-noscan`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v034-shard-acts-s8k-gb24-tp2-noscan`
 - **Mesh**: `fsdp=4,tp=2`
 - **Command shape**: `--use_scan=False --use_remat=True --use_splash=True --use_maxtext_ce=True --shard_acts=True --batch_size=6 --seqlen=8192 --tp_parallelism=2`
 - **Global batch**: 24
@@ -70,7 +70,7 @@ No runtime profile: compile failed before training steps.
 ## HLO Dump
 
 - **Path**:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v034-shard-acts-s8k-gb24-tp2-noscan/hlo/`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v034-shard-acts-s8k-gb24-tp2-noscan/hlo/`
 - **Size**: 341.9 MiB
 - **Object count**: 32
 

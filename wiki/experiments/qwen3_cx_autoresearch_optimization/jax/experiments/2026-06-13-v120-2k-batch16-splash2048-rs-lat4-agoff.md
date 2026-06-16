@@ -34,9 +34,9 @@ aggregator enabled.
 
 - Workload: `alekseyv-qwen3-v120-2krsl4agoff`
 - Run dir:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v120-2k-bs16-vmem98304-splash2048-rslat4-agoff`
+  `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v120-2k-bs16-vmem98304-splash2048-rslat4-agoff`
 - Compile cache:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v120_2k_bs16_vmem98304_splash2048_rslat4_agoff`
+  `gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v120_2k_bs16_vmem98304_splash2048_rslat4_agoff`
 - Placement: cluster `v6e-demo-hjajoo`, nodepool `v6e-demo-hjajoo-np-0`.
 
 ## Results

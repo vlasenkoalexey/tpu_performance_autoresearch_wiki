@@ -105,13 +105,13 @@ The path includes the model name to avoid collisions with other model families
 sharing the bucket:
 
 ```
-gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/<run-name>/
+gs://<your-bucket>/autoresearch/qwen3_cc/<run-name>/
 ├── plugins/profile/<ts>/<host>.xplane.pb    ← written by jax.profiler (xprof-mcp reads this)
 └── hlo/module_NNNN.*.{txt,pb}               ← from XLA_FLAGS=--xla_dump_to=...
 ```
 
 `<run-name>` convention: `<YYYY-MM-DD>-qwen3-<lane>-exp<NNN>-<slug>`. The xprof
-server is launched with `--logdir=gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc`
+server is launched with `--logdir=gs://<your-bucket>/autoresearch/qwen3_cc`
 so each `<run-name>` shows up as a run. On-disk HLO dumps (gitignored) still go to
 `raw/profiles/<YYYY-MM-DD>-<exp-slug>/`.
 

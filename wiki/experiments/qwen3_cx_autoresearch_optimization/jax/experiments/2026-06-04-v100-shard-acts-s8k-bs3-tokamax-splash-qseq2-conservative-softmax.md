@@ -36,8 +36,8 @@ frontier.
 
 Planned GKE workload `alekseyv-qwen3-v100-qseqsafe`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v100-shard-acts-s8k-bs3-tokamax-splash-qseq2-conservative-softmax`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v100-shard-acts-s8k-bs3-tokamax-splash-qseq2-conservative-softmax`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_Q_SEQ_SHARDS=2 TOKAMAX_MAX_LOGIT_CONST=30.0 TOKAMAX_USE_BASE2_EXP=0 TOKAMAX_FUSE_RECIPROCAL=0`
 - **XLA flags**: v090 scheduler frontier with scoped VMEM 81920, custom-call
@@ -86,7 +86,7 @@ the profile window.
 ## HLO Dump
 
 HLO dump:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v100-shard-acts-s8k-bs3-tokamax-splash-qseq2-conservative-softmax/hlo/`
+`gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v100-shard-acts-s8k-bs3-tokamax-splash-qseq2-conservative-softmax/hlo/`
 
 - Train-step optimized HLO:
   `module_0109.jit_train_step.cl_854318611.after_optimizations.txt`

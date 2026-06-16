@@ -39,8 +39,8 @@ average falling back into the 56.43k-56.46k frontier band.
 
 GKE workload `alekseyv-qwen3-v145-bs4-vmem86016r`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v145-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-vmem86016-rerun`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v145-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-vmem86016-rerun`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flags**: v144 exact stack with `--xla_tpu_scoped_vmem_limit_kib=86016`.

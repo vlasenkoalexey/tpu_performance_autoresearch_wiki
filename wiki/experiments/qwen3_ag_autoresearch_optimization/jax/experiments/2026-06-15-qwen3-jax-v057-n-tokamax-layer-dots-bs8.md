@@ -3,7 +3,7 @@ title: "qwen3-jax-v057-n-tokamax-layer-dots-bs8"
 type: experiment
 model: qwen3-cc-jax
 variant: 8B/v6e-8
-hypothesis: "This is a re-run of `v057-m` because `alekseyv-tpu-v6e8-spot-xpk` became occupied by a Ray job. The exact same configuration (layer-wise `checkpoint_dots` policy) will be run on `charles-v6e`."
+hypothesis: "This is a re-run of `v057-m` because `<your-cluster>` became occupied by a Ray job. The exact same configuration (layer-wise `checkpoint_dots` policy) will be run on `charles-v6e`."
 status: filed
 created: 2026-06-15
 origin: 2026-06-15-qwen3-jax-v057-m-tokamax-layer-dots-bs8
@@ -26,7 +26,7 @@ origin: 2026-06-15-qwen3-jax-v057-m-tokamax-layer-dots-bs8
 **Falsification criterion**: HBM OOM, VMEM OOM, or compiler hang.
 
 ## Setup
-Image: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/v6e8-qwen3-8b-jax-20260615-exp057-d-tokamax-layer-ckpt:latest` (with dynamic archive layering over it for `v057_c/trainer`).
+Image: `<your-registry>/torchtitan-images/v6e8-qwen3-8b-jax-20260615-exp057-d-tokamax-layer-ckpt:latest` (with dynamic archive layering over it for `v057_c/trainer`).
 Cluster: `charles-v6e`
 
 ## Results

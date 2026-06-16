@@ -66,9 +66,9 @@ HBM peak by 7.7 GiB).
 
 ## Sources
 
-- MaxText trace: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-maxtext-v001-base/mt-v001-base-b/tensorboard/plugins/profile/2026_06_12_06_18_19/`
-- jax v026 trace: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v026-mtfl/plugins/profile/2026_06_12_07_21_13/`
-- jax v027 HLO (AG audit): `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v027-bs4/hlo/`
+- MaxText trace: `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-maxtext-v001-base/mt-v001-base-b/tensorboard/plugins/profile/2026_06_12_06_18_19/`
+- jax v026 trace: `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v026-mtfl/plugins/profile/2026_06_12_07_21_13/`
+- jax v027 HLO (AG audit): `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v027-bs4/hlo/`
 
 ## See also
 

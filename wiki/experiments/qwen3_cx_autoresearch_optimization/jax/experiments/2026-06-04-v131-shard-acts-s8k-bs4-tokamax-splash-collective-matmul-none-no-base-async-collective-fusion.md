@@ -52,8 +52,8 @@ with regression, or clean completion below the confirmed v123/v127 band.
 
 GKE workload `alekseyv-qwen3-v131-bs4-noacf`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v131-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-no-base-async-collective-fusion`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v131-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-no-base-async-collective-fusion`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flags**: v127 stack with base async collective fusion disabled.
@@ -71,7 +71,7 @@ workers.
 - **Worker 1**: 55,459 tok/s avg over 18 measured steps, 6,932 tok/s/chip,
   39.8% MFU; best observed steady step 55,533 tok/s; final loss 12.0462.
 - **Profile dir**:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v131-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-no-base-async-collective-fusion`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v131-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-no-base-async-collective-fusion`
 
 ## Profile
 

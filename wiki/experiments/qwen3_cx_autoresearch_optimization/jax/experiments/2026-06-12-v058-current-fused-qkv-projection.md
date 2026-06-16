@@ -47,10 +47,10 @@ without a useful HLO/profile reduction.
 ## Setup
 
 - Workload: `alekseyv-qwen3-cc5-jax-v058-qkv`
-- Image: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v058-fused-qkv-proj`
+- Image: `<your-registry>/torchtitan-images/qwen3-8b-jax:v058-fused-qkv-proj`
 - Image digest: `sha256:ac966dd97b52f72295baf87ff049aa4b94fe0119d40f83e9e540cf59e91d2a83`
 - Base image: `qwen3-8b-jax:v258-mlp-up-first`
-- Run dir: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v058-v037-fused-qkv-proj`
+- Run dir: `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v058-v037-fused-qkv-proj`
 - Mesh: `fsdp=8,tp=1`; global batch 32; profile window steps 12-14.
 - Runtime stack: v037 frontier flags, including no-scan/remat, activation
   sharding, Tokamax Splash max-logit 30, MaxText/T5X CE, scoped VMEM 100352,

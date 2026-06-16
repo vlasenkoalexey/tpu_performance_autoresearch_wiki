@@ -18,7 +18,7 @@ verdict: supported
 - Shape: bs=3 seq=8192
 - Compute: bf16 + AMP (fp32 master weights, fp32 adamw mu/nu)
 - Stack: scan-over-layers + tokamax CE (chunked_xla, autotune) + tokamax-splash with `base2/fuse_recip/mlc=30` (unless noted) + full MaxText XLA flag stack + SparseCore offload of all 3 FSDP collectives + `nothing_saveable` remat
-- Image: `us-central1-docker.pkg.dev/<your-project>/test/llama3-8b-jax-container:precast-1`
+- Image: `<your-registry>/test/llama3-8b-jax-container:precast-1`
 - Submission script: `/tmp/llama3_run/xpk/exp_jax_maxtext_flags.sh` (or `exp_jax_minimal.sh` for the minimal-flags-baseline variants)
 
 ## Results

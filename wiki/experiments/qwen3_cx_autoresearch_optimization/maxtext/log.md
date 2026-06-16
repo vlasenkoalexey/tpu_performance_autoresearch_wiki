@@ -2,7 +2,7 @@
 
 Workload `alekseyv-qwen3-cc5-maxtext-v001-base-b` ran another bs3 MaxText
 variant under the `qwen3_cc5` GCS root:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-maxtext-v001-base/mt-v001-base-b/`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-maxtext-v001-base/mt-v001-base-b/`.
 It completed with `EXIT_CODE=0`. Differences from v007 include
 `use_iota_embed=False`, no HLO upload, and `upload_all_profiler_results=False`;
 XLA memory report dropped device temp from **13.1 GiB** to **10.8 GiB**.
@@ -20,7 +20,7 @@ steady steps are used. Profile path:
 
 Reran the efficient bs3 recipe as `alekseyv-qwen3-maxtext-v007-bs3r` to collect
 a fresh profile and HLO. The run completed with `EXIT_CODE=0`. Output root:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_maxtext/2026-06-12-qwen3-8b-v6e8-recipe-v007-bs3-rerun/alekseyv-qwen3-maxtext-v007-bs3r/`.
+`gs://<your-bucket>/autoresearch/qwen3_maxtext/2026-06-12-qwen3-8b-v6e8-recipe-v007-bs3-rerun/alekseyv-qwen3-maxtext-v007-bs3r/`.
 Profile landed at `tensorboard/plugins/profile/2026_06_12_06_07_07/`.
 
 XProf summary: **3611.7 ms**, **62.2% MXU**, **0.3% idle**. Op profile is
@@ -46,7 +46,7 @@ Valid run `alekseyv-qwen3-maxtext-v003` completed 20 steps and proved artifact
 capture. Median steady-state over steps 3-9 and 16-19: 1.3893 s/step,
 353.22 TFLOP/s/device, 5,896.46 tok/s/device, 47,171.65 aggregate tok/s,
 38.48% MFU. Final loss 0.2334. Profile landed at
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_maxtext/2026-06-05-qwen3-8b-v6e8-baseline-v003/alekseyv-qwen3-maxtext-v003/tensorboard/plugins/profile/2026_06_05_01_13_31/`
+`gs://<your-bucket>/autoresearch/qwen3_maxtext/2026-06-05-qwen3-8b-v6e8-baseline-v003/alekseyv-qwen3-maxtext-v003/tensorboard/plugins/profile/2026_06_05_01_13_31/`
 with two xplane protos and two trace JSONs. HLO landed under the matching
 `xla_dump/` directory for both hosts; optimized train-step HLO is 1,507,976
 bytes with SHA256 `3ea3f8e823438e2c7617af3e5a2881083f1a7a8ee30786e6f0fa3520d8b6d365`.
@@ -83,8 +83,8 @@ worker 1.
 3-9 and 16-19: 3.571 s/step, 412.32 TFLOP/s/device, 6,883.00 tok/s/device,
 55,064 aggregate tok/s, **44.92% MFU**. This effectively reproduces the
 suspected ~45% MaxText recipe level for Qwen3-8B on v6e-8. Profile landed at
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_maxtext/2026-06-05-qwen3-8b-v6e8-recipe-v006-bs3/alekseyv-qwen3-maxtext-v006-bs3/tensorboard/plugins/profile/2026_06_05_02_39_21/`.
+`gs://<your-bucket>/autoresearch/qwen3_maxtext/2026-06-05-qwen3-8b-v6e8-recipe-v006-bs3/alekseyv-qwen3-maxtext-v006-bs3/tensorboard/plugins/profile/2026_06_05_02_39_21/`.
 HLO landed under the matching `xla_dump/` directory; optimized train-step HLO
 SHA256 is `598fe616e4031e66c7a0709c0e0dfd04bec2566041590378c0a4fb1ea931cf84`.
 For comparison, v005 profile landed at
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_maxtext/2026-06-05-qwen3-8b-v6e8-recipe-v005-bs2/alekseyv-qwen3-maxtext-v005-bs2/tensorboard/plugins/profile/2026_06_05_02_30_49/`.
+`gs://<your-bucket>/autoresearch/qwen3_maxtext/2026-06-05-qwen3-8b-v6e8-recipe-v005-bs2/alekseyv-qwen3-maxtext-v005-bs2/tensorboard/plugins/profile/2026_06_05_02_30_49/`.

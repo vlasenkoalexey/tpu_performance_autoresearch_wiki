@@ -29,23 +29,23 @@ The training run still crashes with HBM OOM at batch size 2, or the step-time ov
 
 ## Setup
 
-- **Hardware**: TPU v6e-8 — 2 hosts × 4 chips, fsdp=8, tp=1. Cluster `alekseyv-tpu-v6e8-spot-xpk` (`tpu-pytorch`, zone `us-central2`), 1 slice.
+- **Hardware**: TPU v6e-8 — 2 hosts × 4 chips, fsdp=8, tp=1. Cluster `<your-cluster>` (`<your-project>`, zone `<your-region>`), 1 slice.
 - **Dispatch**: GKE/XPK via the gke-cluster-runner agent. Workload `alekseyv-qwen3-jax-v003-remat`.
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260602-exp03-selective-remat`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260602-exp03-selective-remat`
 - **Env**:
   - `LIBTPU_INIT_ARGS='--xla_tpu_scoped_vmem_limit_kib=98304'`
-  - `JAX_COMPILATION_CACHE_DIR=gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/jax_lane_cache`
-  - `XLA_FLAGS='--xla_dump_to=gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v003-selective-remat/hlo --xla_dump_hlo_as_text --xla_dump_hlo_as_proto'`
+  - `JAX_COMPILATION_CACHE_DIR=gs://<your-bucket>/autoresearch/qwen3_cc/jax_lane_cache`
+  - `XLA_FLAGS='--xla_dump_to=gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v003-selective-remat/hlo --xla_dump_hlo_as_text --xla_dump_hlo_as_proto'`
 - **Command**:
   ```bash
   cd /app/trainer && LIBTPU_INIT_ARGS='--xla_tpu_scoped_vmem_limit_kib=98304' \
-    JAX_COMPILATION_CACHE_DIR=gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/jax_lane_cache \
+    JAX_COMPILATION_CACHE_DIR=gs://<your-bucket>/autoresearch/qwen3_cc/jax_lane_cache \
     JAX_PERSISTENT_CACHE_MIN_COMPILE_TIME_SECS=1 JAX_PERSISTENT_CACHE_MIN_ENTRY_SIZE_BYTES=0 \
-    XLA_FLAGS='--xla_dump_to=gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v003-selective-remat/hlo --xla_dump_hlo_as_text --xla_dump_hlo_as_proto' \
+    XLA_FLAGS='--xla_dump_to=gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v003-selective-remat/hlo --xla_dump_hlo_as_text --xla_dump_hlo_as_proto' \
     python -u train.py --model_id=Qwen/Qwen3-8B --use_real_data=False \
     --batch_size=2 --seqlen=2048 --tp_parallelism=1 \
     --train_steps=20 --weights_dtype=bf16 \
-    --profile_dir=gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v003-selective-remat \
+    --profile_dir=gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v003-selective-remat \
     --profile_start_step=12 --profile_steps=3
   ```
 
@@ -67,11 +67,11 @@ The training run still crashes with HBM OOM at batch size 2, or the step-time ov
 
 No profile trace was generated because the training workload crashed during the compilation pass prior to executing step 0.
 
-- **GCS run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v003-selective-remat/`
+- **GCS run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v003-selective-remat/`
 
 ### HLO Dump
 
-- **GCS**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v003-selective-remat/hlo/`
+- **GCS**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v003-selective-remat/hlo/`
 
 ## Verdict
 

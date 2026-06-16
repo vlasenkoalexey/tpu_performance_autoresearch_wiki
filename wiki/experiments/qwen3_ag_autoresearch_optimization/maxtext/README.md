@@ -11,14 +11,14 @@ cd raw/code/maxtext
 
 # Set up variables
 export RUN_NAME="2026-06-05-qwen3-maxtext-v001-baseline"
-export BASE_OUTPUT_DIRECTORY="gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/"
+export BASE_OUTPUT_DIRECTORY="gs://<your-bucket>/autoresearch/qwen3_cc/"
 
 # Launch a workload via XPK
 xpk workload create \
   --workload="alekseyv-qwen3-maxtext-v001" \
-  --cluster="alekseyv-tpu-v6e8-spot-xpk" \
-  --project="tpu-pytorch" \
-  --zone="us-central2" \
+  --cluster="<your-cluster>" \
+  --project="<your-project>" \
+  --zone="<your-region>" \
   --tpu-type="v6e-8" \
   --base-docker-image="python:3.12" \
   --command="bash src/dependencies/scripts/setup.sh && python3 src/maxtext/trainers/pre_train/train.py src/maxtext/configs/base.yml run_name=$RUN_NAME base_output_directory=$BASE_OUTPUT_DIRECTORY model_name=qwen3-8b dataset_type=synthetic per_device_batch_size=1 max_target_length=8192 enable_checkpointing=false steps=12 profiler=xplane"

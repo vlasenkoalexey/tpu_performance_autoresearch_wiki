@@ -16,7 +16,7 @@ updated: 2026-06-12
 # seq-2048 baseline continuity on charles-v6e
 
 Phase-opening bring-up for the user-directed seq-2048 optimization phase on
-the **charles-v6e** cluster (project `cienet-cmcs`, europe-west4-a, 3× v6e-8
+the **charles-v6e** cluster (project `<your-project-2>`, <your-zone>, 3× v6e-8
 on-demand; confirmed v6e-8 = tpu-v6e-slice 2x4).
 
 ## Statement

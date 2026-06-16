@@ -17,7 +17,7 @@
 - **Seq Length**: 2048
 - **Remat Policy**: `checkpoint_dots_with_no_batch_dims`
 - **Attention**: Splash Attention Tuned
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260602-v005-splash-tuned`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260602-v005-splash-tuned`
 
 ## Results
 - **Step time**: 446.0ms

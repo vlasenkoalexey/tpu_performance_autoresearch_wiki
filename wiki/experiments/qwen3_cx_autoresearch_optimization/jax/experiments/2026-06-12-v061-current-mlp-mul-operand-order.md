@@ -45,11 +45,11 @@ evidence.
 ## Setup
 
 - Workload: `alekseyv-qwen3-cc5-jax-v061-mlpmul`
-- Image: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v061-mlp-mul-order`
+- Image: `<your-registry>/torchtitan-images/qwen3-8b-jax:v061-mlp-mul-order`
 - Image digest: `sha256:cf397f1bebed6bd46466e0c0cfa0f05e694db4e4ca6d7d519cd881f3b87c2813`
 - Base image: `qwen3-8b-jax:v258-mlp-up-first`
 - Base digest: `sha256:3a08bd533913355b79d8d9c27243646bf8dd76809878cf41372fee0c6407071e`
-- Run dir: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v061-v037-mlp-mul-order`
+- Run dir: `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v061-v037-mlp-mul-order`
 - Mesh: `fsdp=8,tp=1`; global batch 32; profile window steps 12-14.
 - Runtime stack: v037 frontier flags, including no-scan/remat, activation
   sharding, Tokamax Splash max-logit 30, MaxText CE entrypoint, scoped VMEM

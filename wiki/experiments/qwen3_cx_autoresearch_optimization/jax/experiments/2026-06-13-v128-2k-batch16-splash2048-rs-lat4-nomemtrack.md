@@ -35,9 +35,9 @@ reduce-scatter/all-reduce offload enabled, and aggregator enabled.
 
 - Workload: `alekseyv-qwen3-v128-2knomem`
 - Run dir:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v128-2k-bs16-splash2048-rslat4-nomem`
+  `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v128-2k-bs16-splash2048-rslat4-nomem`
 - Compile cache:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v128_2k_bs16_splash2048_rslat4_nomem`
+  `gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v128_2k_bs16_splash2048_rslat4_nomem`
 - Placement: cluster `v6e-demo-hjajoo`, nodepool `v6e-demo-hjajoo-np-0`.
 
 ## Results

@@ -36,8 +36,8 @@ completion back inside/below the v169/v170 frontier band.
 
 GKE workload `alekseyv-qwen3-v183-noscan-rerun`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v183-no-mlp-sac-no-scan-rerun`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v183-no-mlp-sac-no-scan-rerun`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flags**: v170 stack with `--xla_tpu_scoped_vmem_limit_kib=100352`.
@@ -88,8 +88,8 @@ observed step (58,051 tok/s). Treat the no-scan gain as confirmed.
 
 Profile files:
 
-- `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v183-no-mlp-sac-no-scan-rerun/plugins/profile/2026_06_04_21_37_36/gke-tpu-46dd3e54-g30s.trace.json.gz`
-- `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v183-no-mlp-sac-no-scan-rerun/plugins/profile/2026_06_04_21_37_36/gke-tpu-46dd3e54-rkr2.trace.json.gz`
+- `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v183-no-mlp-sac-no-scan-rerun/plugins/profile/2026_06_04_21_37_36/gke-tpu-46dd3e54-g30s.trace.json.gz`
+- `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v183-no-mlp-sac-no-scan-rerun/plugins/profile/2026_06_04_21_37_36/gke-tpu-46dd3e54-rkr2.trace.json.gz`
 - matching `.xplane.pb` files for both hosts.
 
 ## HLO Dump

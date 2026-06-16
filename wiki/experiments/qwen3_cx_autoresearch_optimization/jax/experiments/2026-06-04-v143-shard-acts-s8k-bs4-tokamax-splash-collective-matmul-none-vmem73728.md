@@ -44,8 +44,8 @@ frontier band. A regression like old v071 refutes the retest.
 
 GKE workload `alekseyv-qwen3-v143-bs4-vmem73728`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v143-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-vmem73728`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v143-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-vmem73728`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flags**: v127 simplified stack plus `--xla_tpu_scoped_vmem_limit_kib=73728`.

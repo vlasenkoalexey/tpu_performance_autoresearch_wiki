@@ -35,9 +35,9 @@ worse profile, or clean completion at or below the v230/v236 band.
 
 GKE workload `alekseyv-q3-v242-rerun4`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
 - **Run dir**:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v242-no-scan-sparsecore-rs-ar-rs2-ar2-rerun4`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v242-no-scan-sparsecore-rs-ar-rs2-ar2-rerun4`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **Command shape**: `--use_scan=False --use_remat=True --offload_remat=False

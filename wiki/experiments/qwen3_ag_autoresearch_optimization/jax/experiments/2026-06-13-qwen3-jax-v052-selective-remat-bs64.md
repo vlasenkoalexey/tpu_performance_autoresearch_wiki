@@ -14,12 +14,12 @@ created: 2026-06-13
 **Falsification criterion**: The compilation still OOMs despite selective remat, or the runtime MFU is worse than 30.6%.
 
 ## Setup
-- **Hardware**: TPU v6e-8 (GKE cluster `charles-v6e`, project `cienet-cmcs`, zone `europe-west4-b`)
+- **Hardware**: TPU v6e-8 (GKE cluster `charles-v6e`, project `<your-project-2>`, zone `<your-zone>`)
 - **Dispatch**: GKE/XPK via the gke-cluster-runner agent.
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260613-exp052-selective-remat`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260613-exp052-selective-remat`
 - **Command**:
   ```bash
-  python -u train.py --train_steps 20 --batch_size 8 --seqlen 8192 --use_splash True --use_real_data False --profile_gcs_dir gs://tpu-pytorch-alekseyv-asia-northeast1/autoresearch/qwen3-jax-v052-selective-remat/plugins/profile --profile_start_step 10
+  python -u train.py --train_steps 20 --batch_size 8 --seqlen 8192 --use_splash True --use_real_data False --profile_gcs_dir gs://<your-project>-alekseyv-asia-northeast1/autoresearch/qwen3-jax-v052-selective-remat/plugins/profile --profile_start_step 10
   ```
 
 ## Results

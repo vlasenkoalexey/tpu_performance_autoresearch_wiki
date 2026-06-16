@@ -41,7 +41,7 @@ hypothesis closes refuted; next = retrospective #3 (int8-AQT).
 
 ## Setup
 
-- Hardware: v6e-8, fsdp=8, tp=1, 1 slice of `alekseyv-tpu-v6e8-spot-xpk`.
+- Hardware: v6e-8, fsdp=8, tp=1, 1 slice of `<your-cluster>`.
 - Image: digest-pinned `qwen3-8b-jax@sha256:bc8d7950…`.
 - Workload: `alekseyv-qwen3-cc5-jax-v037-unsv2`.
 
@@ -72,7 +72,7 @@ bs4+offload. Validation dispatched as
 
 ## Profile
 
-- **Arm B**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v037-unsv2/plugins/profile/2026_06_12_12_28_30/`
+- **Arm B**: `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v037-unsv2/plugins/profile/2026_06_12_12_28_30/`
   (steps 12–14; xprof run `2026-06-12-qwen3-jax-v037-unsv2`,
   http://localhost:8791/?run=2026-06-12-qwen3-jax-v037-unsv2). Kept as the
   mechanism-refutation record; deep analysis superseded by the arm-A
@@ -83,7 +83,7 @@ bs4+offload. Validation dispatched as
 
 ## HLO Dump
 
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v037-unsv2/hlo_b/` (74 files, arm B).
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v037-unsv2/hlo_b/` (74 files, arm B).
 
 ## Verdict
 
@@ -103,5 +103,5 @@ before-opt HLO at `.../v034-unr/hlo_a/`).
 
 ## Sources
 
-- Profile + HLO (GCS): `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v037-unsv2/`
+- Profile + HLO (GCS): `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v037-unsv2/`
 - Prior: [v035 (ACF exoneration + bug isolation)](2026-06-12-v035-unroll-noacf.md), [v015 (save_attn numerics)](2026-06-12-v015-save-attn-remat.md)

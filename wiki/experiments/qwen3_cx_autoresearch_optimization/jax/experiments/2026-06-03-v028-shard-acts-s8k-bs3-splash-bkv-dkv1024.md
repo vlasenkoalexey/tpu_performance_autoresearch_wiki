@@ -34,8 +34,8 @@ below v041's 48,312 tok/s / 34.6% MFU.
 
 Planned GKE workload `alekseyv-qwen3-v028`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v028-shard-acts-s8k-bs3-splash-bkv-dkv1024`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v028-shard-acts-s8k-bs3-splash-bkv-dkv1024`
 - **Mesh**: `fsdp=8,tp=1`
 - **Command shape**: `SPLASH_BKV_DKV=1024 SPLASH_BKV_DKV_COMPUTE=1024 --use_scan=True --use_remat=True --use_splash=True --use_maxtext_ce=True --shard_acts=True --batch_size=3 --seqlen=8192 --tp_parallelism=1`
 - **Global batch**: 24
@@ -81,7 +81,7 @@ v041's 11.7%.
 
 HLO artifacts were dumped under:
 
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v028-shard-acts-s8k-bs3-splash-bkv-dkv1024/hlo/`
+`gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v028-shard-acts-s8k-bs3-splash-bkv-dkv1024/hlo/`
 
 The prefix contains 24 objects totaling 17.36 MiB.
 

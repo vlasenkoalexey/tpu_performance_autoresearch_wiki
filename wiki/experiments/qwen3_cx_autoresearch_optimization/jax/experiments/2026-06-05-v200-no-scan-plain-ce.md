@@ -43,8 +43,8 @@ improvement.
 
 GKE workload `alekseyv-qwen3-v200-noscan-plaince`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v200-no-scan-plain-ce`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v200-no-scan-plain-ce`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flags**: v183 stack with `--xla_tpu_scoped_vmem_limit_kib=100352`,
@@ -92,11 +92,11 @@ No runtime profile: compile failed before training steps.
 Fresh failed train-step HLO was emitted:
 
 - Optimized HLO:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v200-no-scan-plain-ce/hlo/module_0109.jit_train_step.cl_854318611.after_optimizations.txt`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v200-no-scan-plain-ce/hlo/module_0109.jit_train_step.cl_854318611.after_optimizations.txt`
 - OOM intermediate:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v200-no-scan-plain-ce/hlo/module_0109.jit_train_step.cl_854318611.oom_intermediate_module.txt`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v200-no-scan-plain-ce/hlo/module_0109.jit_train_step.cl_854318611.oom_intermediate_module.txt`
 - OOM top-memory report:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v200-no-scan-plain-ce/hlo/module_0109.jit_train_step.cl_854318611.oom_top_memory_consuming_instructions`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v200-no-scan-plain-ce/hlo/module_0109.jit_train_step.cl_854318611.oom_top_memory_consuming_instructions`
 - Optimized HLO size: 19,057,269 bytes
 - SHA256: `a5fdbd91bf3adfd6f99006e784753b2ffd6f15c79fa544c3d00c2d0ce40a8869`
 - Text counts: all-gather 4,655, all-reduce 960, collective-permute 3,

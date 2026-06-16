@@ -14,9 +14,9 @@ hardware: v6e-8
 Fresh MaxText rerun `alekseyv-qwen3-maxtext-v007-bs3r` reproduced the prior
 bs3 recipe. A follow-up MaxText `base-b` run under the `qwen3_cc5` root
 improved the runtime reference by reducing temp pressure. Both completed 20
-steps on `alekseyv-tpu-v6e8-spot-xpk`.
+steps on `<your-cluster>`.
 
-- Output root: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_maxtext/2026-06-12-qwen3-8b-v6e8-recipe-v007-bs3-rerun/alekseyv-qwen3-maxtext-v007-bs3r/`
+- Output root: `gs://<your-bucket>/autoresearch/qwen3_maxtext/2026-06-12-qwen3-8b-v6e8-recipe-v007-bs3-rerun/alekseyv-qwen3-maxtext-v007-bs3r/`
 - Profile: `tensorboard/plugins/profile/2026_06_12_06_07_07/`
 - XProf summary: **3611.7 ms** average step, **62.2% MXU**, **0.3% idle**.
 - Runtime: steady post-profile steps 15-19 at **409.2-410.0 TFLOP/s/device**,
@@ -34,7 +34,7 @@ steps on `alekseyv-tpu-v6e8-spot-xpk`.
 
 Follow-up `alekseyv-qwen3-cc5-maxtext-v001-base-b`:
 
-- Output root: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-maxtext-v001-base/mt-v001-base-b/`
+- Output root: `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-maxtext-v001-base/mt-v001-base-b/`
 - Profile: `tensorboard/plugins/profile/2026_06_12_06_18_19/`
 - Pre-profile steady steps 1-9: **417.7-419.2 TFLOP/s/device**,
   **6973-6998 tok/s/device**, about **45.5-45.7% MFU**.

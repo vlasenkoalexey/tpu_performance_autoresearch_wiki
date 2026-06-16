@@ -39,8 +39,8 @@ completion at or below the v182/v183 no-scan band.
 
 GKE workload `alekseyv-qwen3-v184-noscan-vmem100864`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v184-no-mlp-sac-no-scan-vmem100864`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v184-no-mlp-sac-no-scan-vmem100864`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flags**: v183 stack except `--xla_tpu_scoped_vmem_limit_kib=100864`.
@@ -81,8 +81,8 @@ tie, not a new frontier.
 
 Profile files:
 
-- `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v184-no-mlp-sac-no-scan-vmem100864/plugins/profile/2026_06_04_21_50_04/gke-tpu-46dd3e54-g30s.trace.json.gz`
-- `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v184-no-mlp-sac-no-scan-vmem100864/plugins/profile/2026_06_04_21_50_04/gke-tpu-46dd3e54-rkr2.trace.json.gz`
+- `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v184-no-mlp-sac-no-scan-vmem100864/plugins/profile/2026_06_04_21_50_04/gke-tpu-46dd3e54-g30s.trace.json.gz`
+- `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v184-no-mlp-sac-no-scan-vmem100864/plugins/profile/2026_06_04_21_50_04/gke-tpu-46dd3e54-rkr2.trace.json.gz`
 - matching `.xplane.pb` files for both hosts.
 
 Device-side `jit_train_step` spans:
@@ -101,7 +101,7 @@ improvement over v182/v183.
 Fresh optimized train-step HLO:
 
 - GCS:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v184-no-mlp-sac-no-scan-vmem100864/hlo/module_0109.jit_train_step.cl_854318611.after_optimizations.txt`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v184-no-mlp-sac-no-scan-vmem100864/hlo/module_0109.jit_train_step.cl_854318611.after_optimizations.txt`
 - Bytes: 19,043,156.
 - SHA256: `8997b4c6b68aa332204162465ff4801465786cb170952864b3614ad637fcf16b`.
 - Counts: all-gather 4,656, all-reduce 960, collective-permute 3,

@@ -30,14 +30,14 @@ Expected outcome:
 ## Setup
 
 - **Workload**: `alekseyv-qwen3-v214-remtiled-bs4`
-- **Cluster**: `alekseyv-tpu-v6e8-spot-xpk` (`us-central2`, project
-  `tpu-pytorch`, v6e-8, 2 hosts x 4 chips)
+- **Cluster**: `<your-cluster>` (`<your-region>`, project
+  `<your-project>`, v6e-8, 2 hosts x 4 chips)
 - **Image**:
-  `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v214-remat-tiled-ce`
+  `<your-registry>/torchtitan-images/qwen3-8b-jax:v214-remat-tiled-ce`
 - **Image push digest**:
   `sha256:6b31c89295cb9f207bfe2ac25b66b8660e29d72180e355d9ea08e9bc4c58fb0c`
 - **Run dir**:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v214-no-scan-remat-tiled-ce-bs4`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v214-no-scan-remat-tiled-ce-bs4`
 - **Base stack**: v210 no-scan, remat, Tokamax Splash, MaxText CE disabled,
   SparseCore offload for all-gather/reduce-scatter/all-reduce plus aggregator,
   collective-matmul modes `none`, scoped VMEM 100352 KiB.
@@ -99,7 +99,7 @@ a streaming CE.
 ## HLO Artifacts
 
 - Prefix:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v214-no-scan-remat-tiled-ce-bs4/hlo/xla-dump/`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v214-no-scan-remat-tiled-ce-bs4/hlo/xla-dump/`
 - Recursive object summary: **1220 objects, 122.93 MiB**.
 - Train-step optimized HLO:
   `module_0294.jit_train_step.cl_854318611.after_optimizations.txt`

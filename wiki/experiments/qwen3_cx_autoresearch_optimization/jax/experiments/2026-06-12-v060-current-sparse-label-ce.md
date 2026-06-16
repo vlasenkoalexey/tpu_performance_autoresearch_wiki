@@ -46,10 +46,10 @@ failure, or clean completion below v036/v037 without a useful CE/HLO reduction.
 ## Setup
 
 - Workload: `alekseyv-qwen3-cc5-jax-v060-sparsece`
-- Image: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v060-sparse-label-ce`
+- Image: `<your-registry>/torchtitan-images/qwen3-8b-jax:v060-sparse-label-ce`
 - Image digest: `sha256:1cd8855704ed9b72399bd9cd28775868a417999601258be5e0f19cf89a269b22`
 - Base image: `qwen3-8b-jax:v258-mlp-up-first`
-- Run dir: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v060-v037-sparse-label-ce`
+- Run dir: `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v060-v037-sparse-label-ce`
 - Mesh: `fsdp=8,tp=1`; global batch 32; profile window steps 12-14.
 - Runtime stack: v037 frontier flags plus `USE_SPARSE_LABEL_CE=1`, including
   no-scan/remat, activation sharding, Tokamax Splash max-logit 30, MaxText CE

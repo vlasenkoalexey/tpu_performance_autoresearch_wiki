@@ -36,8 +36,8 @@ below v041's 48,312 tok/s / 34.6% MFU.
 
 Planned GKE workload `alekseyv-qwen3-v033`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v033-shard-acts-s8k-gb24-tp2`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v033-shard-acts-s8k-gb24-tp2`
 - **Mesh**: `fsdp=4,tp=2`
 - **Command shape**: `--use_scan=True --use_remat=True --use_splash=True --use_maxtext_ce=True --shard_acts=True --batch_size=6 --seqlen=8192 --tp_parallelism=2`
 - **Global batch**: 24
@@ -69,7 +69,7 @@ No runtime profile; the workload failed before executing training steps.
 
 OOM artifacts were dumped under:
 
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v033-shard-acts-s8k-gb24-tp2/hlo/`
+`gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v033-shard-acts-s8k-gb24-tp2/hlo/`
 
 The prefix contains OOM dump artifacts totaling 17.63 MiB.
 

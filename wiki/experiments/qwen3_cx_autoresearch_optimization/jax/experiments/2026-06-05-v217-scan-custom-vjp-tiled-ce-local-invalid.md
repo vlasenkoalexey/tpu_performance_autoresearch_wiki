@@ -32,7 +32,7 @@ Expected outcome:
 - **Fork**:
   `wiki/experiments/qwen3_cx_autoresearch_optimization/jax/.repo/v217-scan-custom-vjp-tiled-ce`
 - **Base image**:
-  `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v216-custom-vjp-tiled-ce`
+  `<your-registry>/torchtitan-images/qwen3-8b-jax:v216-custom-vjp-tiled-ce`
 - **Intended runtime shape**: v210 stack, seq8192, per-chip batch 4/global
   batch 32, tiled CE chunk size 4096.
 - **TPU workload**: not launched.

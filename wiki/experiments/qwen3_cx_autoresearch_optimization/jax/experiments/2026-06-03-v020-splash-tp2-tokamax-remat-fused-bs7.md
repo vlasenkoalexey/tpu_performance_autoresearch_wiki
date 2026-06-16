@@ -36,8 +36,8 @@ Planned GKE workload `alekseyv-qwen3-v020`; first launch was interrupted with
 exit 143 before train-step compile finished, so the active retry uses workload
 `alekseyv-qwen3-v020b`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260602-v015-splash-tp2-tokamax-remat-fused-rope-bs8`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v020b-splash-tp2-tokamax-remat-fused-bs7`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260602-v015-splash-tp2-tokamax-remat-fused-rope-bs8`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v020b-splash-tp2-tokamax-remat-fused-bs7`
 - **Mesh**: `fsdp=4,tp=2`
 - **Command shape**: `--batch_size=7 --seqlen=2048 --tp_parallelism=2 --use_splash=True`
 - **Global batch**: 28
@@ -75,7 +75,7 @@ No runtime profile was produced because compile failed before step 0.
 
 The OOM dump is under:
 
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v020b-splash-tp2-tokamax-remat-fused-bs7/hlo/`
+`gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v020b-splash-tp2-tokamax-remat-fused-bs7/hlo/`
 
 It contains 947 objects totaling 315.32 MiB, including
 `module_0209.jit_train_step.cl_854318611.oom_intermediate_module.txt` and

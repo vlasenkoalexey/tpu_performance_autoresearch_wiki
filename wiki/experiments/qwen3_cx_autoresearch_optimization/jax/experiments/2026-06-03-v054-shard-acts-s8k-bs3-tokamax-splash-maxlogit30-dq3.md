@@ -33,8 +33,8 @@ trajectory, or clean completion at or below v052's 50,376 tok/s / 36.1% MFU.
 
 GKE workload `alekseyv-qwen3-v054`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v054-shard-acts-s8k-bs3-tokamax-splash-maxlogit30-dq3`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v054-shard-acts-s8k-bs3-tokamax-splash-maxlogit30-dq3`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment change**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0 TOKAMAX_DQ_REDUCTION_STEPS=3`
 - **Command shape**: `--use_scan=True --use_remat=True --use_splash=True --use_maxtext_ce=True --shard_acts=True --batch_size=3 --seqlen=8192 --tp_parallelism=1`
@@ -74,7 +74,7 @@ forward residuals around 11.0%, but the wall-clock result is still slower.
 ## HLO Dump
 
 - **Path**:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v054-shard-acts-s8k-bs3-tokamax-splash-maxlogit30-dq3/hlo/`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v054-shard-acts-s8k-bs3-tokamax-splash-maxlogit30-dq3/hlo/`
 - **Size**: 19.30 MiB
 - **Object count**: 26
 

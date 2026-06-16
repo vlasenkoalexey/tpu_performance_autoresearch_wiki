@@ -40,13 +40,13 @@ reduce-scatter/all-reduce offload enabled, and aggregator enabled.
 
 - Workload: `alekseyv-qwen3-v130-2kseqminor`
 - Image:
-  `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v130-splash-layout-env`
+  `<your-registry>/torchtitan-images/qwen3-8b-jax:v130-splash-layout-env`
 - Base image:
-  `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v067-explicit-silu`
+  `<your-registry>/torchtitan-images/qwen3-8b-jax:v067-explicit-silu`
 - Run dir:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v130-2k-bs16-splash2048-rslat4-seqminor`
+  `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v130-2k-bs16-splash2048-rslat4-seqminor`
 - Compile cache:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v130_2k_bs16_splash2048_rslat4_seqminor`
+  `gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v130_2k_bs16_splash2048_rslat4_seqminor`
 - Placement: cluster `v6e-demo-hjajoo`, nodepool `v6e-demo-hjajoo-np-0`.
 
 ## Results

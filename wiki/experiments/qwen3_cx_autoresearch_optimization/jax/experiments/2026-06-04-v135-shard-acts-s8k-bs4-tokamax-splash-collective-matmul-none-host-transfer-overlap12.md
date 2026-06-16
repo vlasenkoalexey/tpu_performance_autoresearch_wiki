@@ -62,8 +62,8 @@ with regression, or clean completion below the confirmed v123/v127 band.
 
 GKE workload `alekseyv-qwen3-v135-bs4-hto12`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v135-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-host-transfer-overlap12`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v135-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-host-transfer-overlap12`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flags**: v127 stack with only host-transfer overlap limit lowered from 24 to 12.
@@ -81,7 +81,7 @@ normal loss ending at 12.0461.
 - **Worker 1**: 56,412 tok/s avg, 7,052 tok/s/chip, 40.4% MFU; best steady
   step 56,558 tok/s.
 - **Profile dir**:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v135-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-host-transfer-overlap12`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v135-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-host-transfer-overlap12`
 
 This is in the normal v123/v127 band, but below v127's 56,453 tok/s best-worker
 average and below v123's 56,599 best-observed steady step.
@@ -109,7 +109,7 @@ Top train-step buckets:
 ## HLO Dump
 
 - **HLO prefix**:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v135-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-host-transfer-overlap12/hlo/`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v135-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-host-transfer-overlap12/hlo/`
 - **Optimized train-step**:
   `module_0267.jit_train_step.cl_854318611.after_optimizations.txt`
 - **HLO bytes**: 787,978

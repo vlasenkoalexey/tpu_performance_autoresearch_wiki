@@ -36,9 +36,9 @@ throughput, or regression below v220/v221.
 
 GKE workload `alekseyv-qwen3-v225-sc-rsar-rslat3`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
 - **Run dir**:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v225-no-scan-sparsecore-rs-ar-rs-latency3`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v225-no-scan-sparsecore-rs-ar-rs-latency3`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **Command shape**: `--use_scan=False --use_remat=True --offload_remat=False
@@ -110,7 +110,7 @@ bucket, while MXU remains comparable to v220.
 ## HLO Dump
 
 - Optimized train-step HLO:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v225-no-scan-sparsecore-rs-ar-rs-latency3/hlo/xla-dump/module_0267.jit_train_step.cl_854318611.after_optimizations.txt`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v225-no-scan-sparsecore-rs-ar-rs-latency3/hlo/xla-dump/module_0267.jit_train_step.cl_854318611.after_optimizations.txt`
 - Size: **19,909,611 bytes**
 - SHA256:
   `50dae614cf9c7f4cb48f50ed3bee40310a972e141d58476da21b951462d66b88`

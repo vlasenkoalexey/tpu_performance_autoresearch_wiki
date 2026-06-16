@@ -24,7 +24,7 @@ ordering with v236's RS3+AR2 schedule may produce a clearer primary-metric gain
 than either same-band change alone.
 
 **Mechanism**: Reuse the v258 image
-`us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v258-mlp-up-first`
+`<your-registry>/torchtitan-images/qwen3-8b-jax:v258-mlp-up-first`
 and change only the runtime flag
 `--xla_tpu_sparse_core_reduce_scatter_latency_multiplier` from `2` to `3`.
 Keep AR latency multiplier `2` and all other v258 flags/environment fixed.
@@ -42,9 +42,9 @@ profile-step improvement over v258.
 
 GKE workload: `alekseyv-q3-v259-mlp-up-rs3`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v258-mlp-up-first`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v258-mlp-up-first`
 - **Image digest**: `sha256:3a08bd533913355b79d8d9c27243646bf8dd76809878cf41372fee0c6407071e`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v259-no-scan-sparsecore-rs-ar-rs3-ar2-mlp-up-proj-first`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v259-no-scan-sparsecore-rs-ar-rs3-ar2-mlp-up-proj-first`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **Command shape**: `--use_scan=False --use_remat=True --offload_remat=False --use_splash=True --use_maxtext_ce=True --shard_acts=True --batch_size=4 --seqlen=8192 --tp_parallelism=1`

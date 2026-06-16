@@ -17,8 +17,8 @@ Established a clean baseline on `charles-v6e` for Qwen3-8B in JAX with `seqlen=8
 * **Approx MFU**: 30.6%
 
 ## Profiles
-* **Profile**: `gs://tpu-pytorch-alekseyv-asia-northeast1/autoresearch/qwen3-jax-v047-seq8k-baseline/plugins/profile`
-* **HLO**: `gs://tpu-pytorch-alekseyv-asia-northeast1/autoresearch/qwen3-jax-v047-seq8k-baseline/hlo/`
+* **Profile**: `gs://<your-project>-alekseyv-asia-northeast1/autoresearch/qwen3-jax-v047-seq8k-baseline/plugins/profile`
+* **HLO**: `gs://<your-project>-alekseyv-asia-northeast1/autoresearch/qwen3-jax-v047-seq8k-baseline/hlo/`
 
 ## Hypothesis under test
 
@@ -32,7 +32,7 @@ Established a clean baseline on `charles-v6e` for Qwen3-8B in JAX with `seqlen=8
 
 ## Profile
 
-**Source**: `gs://tpu-pytorch-alekseyv-asia-northeast1/autoresearch/qwen3-jax-v047-seq8k-baseline/plugins/profile`
+**Source**: `gs://<your-project>-alekseyv-asia-northeast1/autoresearch/qwen3-jax-v047-seq8k-baseline/plugins/profile`
 **xprof URL**: http://localhost:8791/?run=plugins/profile/2026_06_13_02_08_26
 **Run name**: plugins/profile/2026_06_13_02_08_26
 **Steps captured**: steady state
@@ -59,7 +59,7 @@ Established a clean baseline on `charles-v6e` for Qwen3-8B in JAX with `seqlen=8
 
 ## HLO Dump
 
-**Source**: `gs://tpu-pytorch-alekseyv-asia-northeast1/autoresearch/qwen3-jax-v047-seq8k-baseline/hlo`
+**Source**: `gs://<your-project>-alekseyv-asia-northeast1/autoresearch/qwen3-jax-v047-seq8k-baseline/hlo`
 **Modules**: ~316 total, top by size: `module_0316.jit_train_step`
 
 **Inspected modules** (top by self-time from Phase 1):

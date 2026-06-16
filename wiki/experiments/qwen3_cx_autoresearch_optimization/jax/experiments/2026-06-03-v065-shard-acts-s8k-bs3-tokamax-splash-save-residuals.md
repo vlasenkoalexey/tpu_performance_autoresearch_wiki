@@ -36,12 +36,12 @@ trajectory, or clean completion at or below v056's 50,383 tok/s / 36.1% MFU.
 
 GKE workload `alekseyv-qwen3-v065`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v065-save-residuals`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v065-save-residuals`
 - **Base image**: `v041-shard-acts`
 - **Code change**: in `/app/trainer/splash_attn.py`, add the
   `TOKAMAX_SAVE_RESIDUALS` env gate and pass `save_residuals=...` to
   Tokamax `make_splash_mha`.
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v065-shard-acts-s8k-bs3-tokamax-splash-save-residuals`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v065-shard-acts-s8k-bs3-tokamax-splash-save-residuals`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment change**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0 TOKAMAX_SAVE_RESIDUALS=1`
 - **XLA flag**: keep v056's `--xla_latency_hiding_scheduler_rerun=3`

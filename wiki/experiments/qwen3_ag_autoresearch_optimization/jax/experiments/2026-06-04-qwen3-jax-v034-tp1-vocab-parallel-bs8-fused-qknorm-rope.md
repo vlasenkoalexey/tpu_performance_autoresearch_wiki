@@ -18,7 +18,7 @@
 - **Attention**: Splash Attention
 - **Loss**: Tokamax XLA CE
 - **Parallelism**: TP=1 (FSDP only)
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260604-v034-tp1-vocab-parallel-bs8-fused-qknorm-rope`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260604-v034-tp1-vocab-parallel-bs8-fused-qknorm-rope`
 
 ## Setup
 Derived from `v027` (which already had FSDP TP=1 and removed outer ckpt).

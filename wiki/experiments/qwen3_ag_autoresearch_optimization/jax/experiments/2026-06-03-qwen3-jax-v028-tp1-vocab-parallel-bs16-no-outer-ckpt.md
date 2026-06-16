@@ -25,7 +25,7 @@ lane: "jax"
   - Vocab-Parallel FSDP CE
 
 ## Setup Steps
-1. Re-uses the codebase and Docker image from `v026`: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260603-v026-tp1-vocab-parallel-bs4-no-outer-ckpt`.
+1. Re-uses the codebase and Docker image from `v026`: `<your-registry>/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260603-v026-tp1-vocab-parallel-bs4-no-outer-ckpt`.
 2. Launched via `gke-cluster-runner` with `--batch_size=16`.
 
 ## Results

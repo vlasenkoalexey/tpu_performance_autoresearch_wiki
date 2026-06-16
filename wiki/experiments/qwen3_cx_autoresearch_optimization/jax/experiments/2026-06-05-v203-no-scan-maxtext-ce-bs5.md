@@ -39,8 +39,8 @@ clean completion below the frontier.
 
 GKE workload `alekseyv-qwen3-v203-noscan-maxtextce-bs5`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v203-no-scan-maxtext-ce-bs5`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v203-no-scan-maxtext-ce-bs5`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **Command shape**: `--use_scan=False --use_remat=True --offload_remat=False --use_splash=True --use_maxtext_ce=True --shard_acts=True --batch_size=5 --seqlen=8192 --tp_parallelism=1`
@@ -71,9 +71,9 @@ No profile was produced because compilation failed before step 0.
 Failed train-step HLO was emitted:
 
 - Optimized HLO:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v203-no-scan-maxtext-ce-bs5/hlo/module_0109.jit_train_step.cl_854318611.after_optimizations.txt`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v203-no-scan-maxtext-ce-bs5/hlo/module_0109.jit_train_step.cl_854318611.after_optimizations.txt`
 - OOM top-memory report:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v203-no-scan-maxtext-ce-bs5/hlo/module_0109.jit_train_step.cl_854318611.oom_top_memory_consuming_instructions`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v203-no-scan-maxtext-ce-bs5/hlo/module_0109.jit_train_step.cl_854318611.oom_top_memory_consuming_instructions`
 - Size: 18,965,922 bytes
 - SHA256: `741eb3be6ff0b4d55273479788cac32efc30cf51fd0e8cf6ceb36014c9bbcefd`
 - Memory report: 32.11 GiB total bytes used, with a 26.35 GiB preallocated

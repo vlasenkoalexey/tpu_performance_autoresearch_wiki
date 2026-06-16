@@ -44,10 +44,10 @@ gain, or a clean run at/below the confirmed frontier.
 
 GKE workload `alekseyv-qwen3-v177-lmrep-mlpsac`.
 
-- **Base image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v177-no-mlp-sac-lmhead-repl`
+- **Base image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v177-no-mlp-sac-lmhead-repl`
 - **Image digest**: `sha256:0daba85f04a6e002bc0862d9bf87a47a158bd1c5b33bbee9c90ecd33076825e0`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v177-no-mlp-sac-lmhead-repl`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v177-no-mlp-sac-lmhead-repl`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flags**: v170 stack with `--xla_tpu_scoped_vmem_limit_kib=100352`.
@@ -77,7 +77,7 @@ Completed cleanly on v6e-8 with normal loss and `EXIT_CODE=0`.
 
 Profile captured steps 12-14 under:
 
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v177-no-mlp-sac-lmhead-repl/plugins/profile/2026_06_04_20_49_44/`
+`gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v177-no-mlp-sac-lmhead-repl/plugins/profile/2026_06_04_20_49_44/`
 
 The profile contains both TPU hosts:
 
@@ -88,7 +88,7 @@ The profile contains both TPU hosts:
 
 Fresh optimized train-step HLO:
 
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v177-no-mlp-sac-lmhead-repl/hlo/module_0107.jit_train_step.cl_854318611.after_optimizations.txt`
+`gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v177-no-mlp-sac-lmhead-repl/hlo/module_0107.jit_train_step.cl_854318611.after_optimizations.txt`
 
 - Size: 780,640 bytes / 762.34 KiB
 - SHA256: `ac73f41c9703b91efddab337d55cbd99061bf718f14d92ec718904e7006de4ae`

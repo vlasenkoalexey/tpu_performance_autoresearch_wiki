@@ -30,7 +30,7 @@ custom-call scratch for the same fused-MLP image to load.
 **Mechanism**: Reuse the v252 image unchanged and alter only scoped VMEM.
 
 - Image:
-  `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v252-fused-mlp-gate-up`
+  `<your-registry>/torchtitan-images/qwen3-8b-jax:v252-fused-mlp-gate-up`
 - Digest:
   `sha256:a25d23bef428af724e29b708ecc6f1c547337a1354f2298535ffcffbb50466fb`
 - Runtime delta from v252: `--xla_tpu_scoped_vmem_limit_kib=98304`
@@ -46,7 +46,7 @@ without further memory sweeps.
 
 - Workload: `alekseyv-q3-v253-fusedmlp-vmem98`
 - Run dir:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v253-no-scan-sparsecore-rs-ar-rs2-ar2-fused-mlp-gate-up-vmem98304`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v253-no-scan-sparsecore-rs-ar-rs2-ar2-fused-mlp-gate-up-vmem98304`
 - Mesh: `fsdp=8,tp=1`; global batch 32; profile window steps 12-14.
 
 ## Result
@@ -71,7 +71,7 @@ No XProf trace was captured because the run failed before the profile window.
 Train-step HLO was emitted:
 
 - GCS:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v253-no-scan-sparsecore-rs-ar-rs2-ar2-fused-mlp-gate-up-vmem98304/hlo/xla-dump/module_0267.jit_train_step.cl_854318611.after_optimizations.txt`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v253-no-scan-sparsecore-rs-ar-rs2-ar2-fused-mlp-gate-up-vmem98304/hlo/xla-dump/module_0267.jit_train_step.cl_854318611.after_optimizations.txt`
 - Local analysis copy:
   `/tmp/qwen3-v253-hlo/module_0267.jit_train_step.cl_854318611.after_optimizations.txt`
 - SHA256:

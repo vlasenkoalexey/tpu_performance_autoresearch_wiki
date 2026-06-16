@@ -25,7 +25,7 @@ of the default tile's MXU recovery.
 **Mechanism**: Reuse the v248 image and change only the Levanter CE block sizes:
 
 - Image:
-  `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v248-levanter-ce`
+  `<your-registry>/torchtitan-images/qwen3-8b-jax:v248-levanter-ce`
 - CE path: `--use_levanter_ce=True --use_maxtext_ce=False`
 - Levanter block sizes: `b=1024,h=512,v=768`
 - Keep the v230 RS2+AR2 runtime stack, VMEM 100352, no-scan, remat,
@@ -47,7 +47,7 @@ to a different structural CE/lm-head path.
 GKE workload `alekseyv-q3-v250-levce-v768`.
 
 - **Run dir**:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v250-no-scan-sparsecore-rs-ar-rs2-ar2-levanter-ce-h512-v768`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v250-no-scan-sparsecore-rs-ar-rs2-ar2-levanter-ce-h512-v768`
 - **Mesh**: `fsdp=8,tp=1`
 - **Global batch**: 32
 - **Profile window**: steps 12-14
@@ -106,7 +106,7 @@ accessed rise to **14,104.6 GiB**, and `select_add_fusion.2` appears at
 Train-step HLO:
 
 - GCS:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v250-no-scan-sparsecore-rs-ar-rs2-ar2-levanter-ce-h512-v768/hlo/xla-dump/module_0267.jit_train_step.cl_854318611.after_optimizations.txt`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v250-no-scan-sparsecore-rs-ar-rs2-ar2-levanter-ce-h512-v768/hlo/xla-dump/module_0267.jit_train_step.cl_854318611.after_optimizations.txt`
 - Local analysis copy:
   `/tmp/qwen3-v250-hlo/module_0267.jit_train_step.cl_854318611.after_optimizations.txt`
 - SHA256:

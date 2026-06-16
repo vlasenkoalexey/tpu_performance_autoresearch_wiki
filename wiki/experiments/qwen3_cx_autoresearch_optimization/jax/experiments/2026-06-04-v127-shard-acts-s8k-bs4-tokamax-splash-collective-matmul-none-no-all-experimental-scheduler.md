@@ -48,8 +48,8 @@ band.
 
 GKE workload `alekseyv-qwen3-v127-bs4-noallsched`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v127-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-no-all-experimental-scheduler`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v127-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-no-all-experimental-scheduler`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flags**: v126 stack with the all-experimental scheduler bundle disabled.
@@ -111,7 +111,7 @@ jit_train_step(16296087512277873197)
 Fresh dumps were emitted under:
 
 ```text
-gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v127-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-no-all-experimental-scheduler/hlo/
+gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v127-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-no-all-experimental-scheduler/hlo/
 ```
 
 The final train-step module is `module_0267.jit_train_step.cl_854318611`.

@@ -43,12 +43,12 @@ same/slower profile refutes the probe.
 
 - Workload: `alekseyv-qwen3-cc5-jax-v075-norsacf`
 - Image:
-  `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v067-explicit-silu`
+  `<your-registry>/torchtitan-images/qwen3-8b-jax:v067-explicit-silu`
 - Run dir:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v075-v067-no-rs-acf`
+  `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v075-v067-no-rs-acf`
 - Compile cache:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v075_no_rs_acf`
-- Placement: nodepool `alekseyv-tpu-v6e8-spot-xpk-np-0`
+  `gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v075_no_rs_acf`
+- Placement: nodepool `<your-cluster>-np-0`
 - Mesh: `fsdp=8,tp=1`; global batch 32; profile window steps 12-14.
 
 ## Status

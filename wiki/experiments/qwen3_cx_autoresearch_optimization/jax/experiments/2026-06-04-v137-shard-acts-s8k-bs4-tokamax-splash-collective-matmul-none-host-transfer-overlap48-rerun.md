@@ -40,8 +40,8 @@ or clean completion that does not repeat v136's small average edge.
 
 GKE workload `alekseyv-qwen3-v137-bs4-hto48r`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v137-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-host-transfer-overlap48-rerun`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v137-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-host-transfer-overlap48-rerun`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flags**: v136 stack rerun.

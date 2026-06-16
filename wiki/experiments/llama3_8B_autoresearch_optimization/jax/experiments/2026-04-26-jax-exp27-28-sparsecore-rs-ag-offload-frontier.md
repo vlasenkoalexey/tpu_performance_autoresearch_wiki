@@ -77,7 +77,7 @@ bkv=2048 raising the kernel memory floor it now overflows by ~220 MiB).
 ## Stack composition (frontier exp 28b)
 
 ```
-# Container: us-central1-docker.pkg.dev/.../llama3-8b-jax-container:jax-v4
+# Container: <your-registry>/.../llama3-8b-jax-container:jax-v4
 # Trainer flags:
 python -u train.py \
     --model_id=meta-llama/Meta-Llama-3-8B \

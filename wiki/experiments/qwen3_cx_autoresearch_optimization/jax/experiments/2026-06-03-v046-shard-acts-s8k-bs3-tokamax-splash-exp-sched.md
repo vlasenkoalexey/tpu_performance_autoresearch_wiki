@@ -32,8 +32,8 @@ or clean completion at or below v045's 49,069 tok/s / 35.2% MFU.
 
 GKE workload `alekseyv-qwen3-v046`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v046-shard-acts-s8k-bs3-tokamax-splash-exp-sched`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v046-shard-acts-s8k-bs3-tokamax-splash-exp-sched`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment change**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_USE_EXP_SCHED=1`
 - **Command shape**: `--use_scan=True --use_remat=True --use_splash=True --use_maxtext_ce=True --shard_acts=True --batch_size=3 --seqlen=8192 --tp_parallelism=1`
@@ -65,7 +65,7 @@ about 867 tok/s and 0.6-0.7 MFU points.
 ## HLO Dump
 
 - **Path**:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v046-shard-acts-s8k-bs3-tokamax-splash-exp-sched/hlo/`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v046-shard-acts-s8k-bs3-tokamax-splash-exp-sched/hlo/`
 - **Size**: 18.16 MiB
 - **Object count**: 32
 

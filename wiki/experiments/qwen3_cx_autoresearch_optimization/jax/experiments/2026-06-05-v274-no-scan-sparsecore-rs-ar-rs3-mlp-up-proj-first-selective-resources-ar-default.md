@@ -40,8 +40,8 @@ results, or materially worse HBM headroom.
 
 GKE workload: `alekseyv-q3-v274-sr-rs3-ard`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v258-mlp-up-first`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v274-no-scan-sparsecore-rs-ar-rs3-mlp-up-proj-first-selective-resources-ar-default`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v258-mlp-up-first`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v274-no-scan-sparsecore-rs-ar-rs3-mlp-up-proj-first-selective-resources-ar-default`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **Command shape**: `--use_scan=False --use_remat=True --offload_remat=False --use_splash=True --use_maxtext_ce=True --shard_acts=True --batch_size=4 --seqlen=8192 --tp_parallelism=1`
@@ -70,7 +70,7 @@ v272's provisional **60,351 tok/s**. It also drops worker1 below the rounded
 
 ## Profile
 
-- **Source**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v274-no-scan-sparsecore-rs-ar-rs3-mlp-up-proj-first-selective-resources-ar-default`
+- **Source**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v274-no-scan-sparsecore-rs-ar-rs3-mlp-up-proj-first-selective-resources-ar-default`
 - **xprof run**: `2026-06-05-qwen3-jax-v274-no-scan-sparsecore-rs-ar-rs3-mlp-up-proj-first-selective-resources-ar-default/2026_06_05_17_07_37`
 - **Average step time**: **4359.4 ms**
 - **MXU utilization**: **68.1%**

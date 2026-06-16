@@ -35,8 +35,8 @@ trajectory, or clean completion at or below v056's 50,383 tok/s / 36.1% MFU.
 
 GKE workload `alekseyv-qwen3-v067`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v067-shard-acts-s8k-bs3-tokamax-splash-no-ag-bwd-pipeline`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v067-shard-acts-s8k-bs3-tokamax-splash-no-ag-bwd-pipeline`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment change**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flag change**: `--xla_tpu_enable_ag_backward_pipelining=false`
@@ -79,7 +79,7 @@ not translate into a wall-clock gain.
 ## HLO Dump
 
 - **Path**:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v067-shard-acts-s8k-bs3-tokamax-splash-no-ag-bwd-pipeline/hlo/`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v067-shard-acts-s8k-bs3-tokamax-splash-no-ag-bwd-pipeline/hlo/`
 - **Size**: 28.69 MiB
 - **Object count**: 1179
 

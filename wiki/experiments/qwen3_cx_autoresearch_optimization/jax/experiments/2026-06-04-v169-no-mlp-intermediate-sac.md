@@ -50,9 +50,9 @@ or a clean run at/below the confirmed frontier without a clear profile/HLO win.
 
 GKE workload `alekseyv-qwen3-v169-mlpsac`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
 - **Image digest**: `sha256:21a390217fc38d05a8638d2ae681f00ece3d255d57ed88a0651e4054304f6854`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v169-no-mlp-intermediate-sac`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v169-no-mlp-intermediate-sac`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flags**: confirmed v154 stack with `--xla_tpu_scoped_vmem_limit_kib=100352`.
@@ -63,7 +63,7 @@ GKE workload `alekseyv-qwen3-v169-mlpsac`.
 ## Equivalence
 
 CPU equivalence was rerun against image
-`us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
+`<your-registry>/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
 with `JAX_PLATFORMS=cpu python -u test_equivalence.py`.
 
 Result: `==== EQUIVALENCE PASS ====`.
@@ -90,7 +90,7 @@ provisional supported pending exact rerun before carrying.
 
 Profile captured successfully:
 
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v169-no-mlp-intermediate-sac/plugins/profile/2026_06_04_19_35_11/`
+`gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v169-no-mlp-intermediate-sac/plugins/profile/2026_06_04_19_35_11/`
 
 Artifacts:
 

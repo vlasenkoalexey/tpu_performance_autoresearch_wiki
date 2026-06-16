@@ -39,7 +39,7 @@ The experiment crashed with a `NotImplementedError` regarding Mosaic kernels lac
 
 ## Profile
 
-- xprof unavailable: The trace directory does not exist at `gs://tpu-pytorch-alekseyv-asia-northeast1/autoresearch/qwen3-jax-v053-block-remat-bs64-d/plugins/profile` (matched no objects). The run was not found, likely due to the experiment crashing before profiling could complete.
+- xprof unavailable: The trace directory does not exist at `gs://<your-project>-alekseyv-asia-northeast1/autoresearch/qwen3-jax-v053-block-remat-bs64-d/plugins/profile` (matched no objects). The run was not found, likely due to the experiment crashing before profiling could complete.
 
 ## HLO Dump
 

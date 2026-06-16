@@ -53,14 +53,14 @@ one-hot MaxText CE:
 
 - Workload: `alekseyv-qwen3-cc5-jax-v080-sparsece`
 - Base image:
-  `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v067-explicit-silu`
+  `<your-registry>/torchtitan-images/qwen3-8b-jax:v067-explicit-silu`
 - Experiment image:
-  `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v080-sparse-maxtext-ce`
+  `<your-registry>/torchtitan-images/qwen3-8b-jax:v080-sparse-maxtext-ce`
 - Run dir:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v080-v067-sparse-maxtext-ce`
+  `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v080-v067-sparse-maxtext-ce`
 - Compile cache:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v080_sparse_maxtext_ce`
-- Placement: nodepool `alekseyv-tpu-v6e8-spot-xpk-np-0`
+  `gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v080_sparse_maxtext_ce`
+- Placement: nodepool `<your-cluster>-np-0`
 - Mesh: `fsdp=8,tp=1`; global batch 32; profile window steps 12-14.
 
 ## Status

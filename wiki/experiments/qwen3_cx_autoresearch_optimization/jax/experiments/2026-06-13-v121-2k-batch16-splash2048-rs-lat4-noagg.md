@@ -32,9 +32,9 @@ Keep all-gather offload disabled and all other v114 settings fixed.
 
 - Workload: `alekseyv-qwen3-v121-2krsl4noagg`
 - Run dir:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v121-2k-bs16-vmem98304-splash2048-rslat4-noagg`
+  `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v121-2k-bs16-vmem98304-splash2048-rslat4-noagg`
 - Compile cache:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v121_2k_bs16_vmem98304_splash2048_rslat4_noagg`
+  `gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v121_2k_bs16_vmem98304_splash2048_rslat4_noagg`
 - Placement: cluster `v6e-demo-hjajoo`, nodepool `v6e-demo-hjajoo-np-0`.
 
 ## Results

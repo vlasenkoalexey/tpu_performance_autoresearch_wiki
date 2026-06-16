@@ -17,10 +17,10 @@
 - **Seq Length**: 2048
 - **Remat Policy**: `nnx.remat` (per-layer)
 - **Attention**: Splash Attention
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260602-v015-splash-tp2-tokamax-remat-fused-rope-bs8`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260602-v015-splash-tp2-tokamax-remat-fused-rope-bs8`
 - **Flags**: `--tp_parallelism=2 --batch_size=8 --use_splash=True`
 
 ## Setup
 Derived from `v014` (Splash + TP=2 + Tokamax CE + Per-Layer Remat bs=8).
 1. In `model/modeling_qwen3.py`, modified `Qwen3Attention.__call__` to apply `q_norm` and `k_norm` *after* the transpose `(0, 2, 1, 3)`, immediately before `apply_rotary_pos_emb`.
-2. Built new docker image `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260602-v015-splash-tp2-tokamax-remat-fused-rope-bs8` containing the modified model code.
+2. Built new docker image `<your-registry>/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260602-v015-splash-tp2-tokamax-remat-fused-rope-bs8` containing the modified model code.

@@ -91,7 +91,7 @@ Do **not** pursue named-offload *alone* to fit bs3 (the v026-followup) expecting
 
 ## Sources
 
-- MaxText profile (45.3%): `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/maxtext/2026-06-02-qwen3-8b-8192-ref/...` (profile-analyzer teardown, 2026-06-02).
+- MaxText profile (45.3%): `gs://<your-bucket>/autoresearch/qwen3_cc/maxtext/2026-06-02-qwen3-8b-8192-ref/...` (profile-analyzer teardown, 2026-06-02).
 - MaxText source: `/mnt/disks/persist/maxtext-tpu-recipes-v0.1.4/MaxText/` (`9f1820b47`) — `decoders.py:284,425`, `attentions.py`, `linears.py`, `base.yml`, `max_utils.py:557`.
 - Our jax profiles: [v018](../experiments/qwen3_cc_autoresearch_optimization/jax/experiments/2026-06-02-v018-xla-flag-stack.md) (seq2048), [v009](../experiments/qwen3_cc_autoresearch_optimization/jax/experiments/2026-06-02-v009-splash-s8k-vmem.md) (seq8192).
 - MaxText reference experiments: [seq8192](../experiments/qwen3_cc_autoresearch_optimization/maxtext/experiments/2026-06-02-maxtext-qwen3-8b-v6e8-ref-seq8192.md), [seq2048](../experiments/qwen3_cc_autoresearch_optimization/maxtext/experiments/2026-06-02-maxtext-qwen3-8b-v6e8-ref-seq2048.md).

@@ -48,10 +48,10 @@ confirmed frontier.
 
 GKE workload `alekseyv-qwen3-v174-nomlpnormsac`.
 
-- **Base image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v174-no-pre-mlp-norm-sac`
+- **Base image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v174-no-pre-mlp-norm-sac`
 - **Image digest**: `sha256:cae2e37808991266c5566a8bb0628abb14fb5606edefa8d24293d0e8671d09cf`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v174-no-pre-mlp-norm-sac`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v174-no-pre-mlp-norm-sac`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flags**: v170 stack with `--xla_tpu_scoped_vmem_limit_kib=100352`.
@@ -62,7 +62,7 @@ GKE workload `alekseyv-qwen3-v174-nomlpnormsac`.
 ## Equivalence
 
 CPU equivalence passed against image
-`us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v174-no-pre-mlp-norm-sac`
+`<your-registry>/torchtitan-images/qwen3-8b-jax:v174-no-pre-mlp-norm-sac`
 with `JAX_PLATFORMS=cpu python -u test_equivalence.py`.
 
 Result: `==== EQUIVALENCE PASS ====`.
@@ -90,13 +90,13 @@ This is below the confirmed v169/v170 frontier band:
 
 Profile landed under:
 
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v174-no-pre-mlp-norm-sac/plugins/profile/2026_06_04_20_24_26/`
+`gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v174-no-pre-mlp-norm-sac/plugins/profile/2026_06_04_20_24_26/`
 
 ## HLO Dump
 
 Optimized train-step HLO:
 
-- Path: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v174-no-pre-mlp-norm-sac/hlo/module_0109.jit_train_step.cl_854318611.after_optimizations.txt`
+- Path: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v174-no-pre-mlp-norm-sac/hlo/module_0109.jit_train_step.cl_854318611.after_optimizations.txt`
 - Size: 783,590 bytes
 - SHA256: `14ca3242bea4cc41c2897f6c5f5f3d7da24597980944a1863c85b98c495f905e`
 - Quick counts: all-gather 140, all-reduce 36, collective-permute 3, convolution 66, custom-call 41, copy 318, fusion 753.

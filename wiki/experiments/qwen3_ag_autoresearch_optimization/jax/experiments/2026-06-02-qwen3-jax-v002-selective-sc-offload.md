@@ -30,23 +30,23 @@ Step time does not decrease compared to the baseline reproduction (526 ms), or f
 
 ## Setup
 
-- **Hardware**: TPU v6e-8 — 2 hosts × 4 chips, fsdp=8, tp=1. Cluster `alekseyv-tpu-v6e8-spot-xpk` (`tpu-pytorch`, zone `us-central2`), 1 slice.
+- **Hardware**: TPU v6e-8 — 2 hosts × 4 chips, fsdp=8, tp=1. Cluster `<your-cluster>` (`<your-project>`, zone `<your-region>`), 1 slice.
 - **Dispatch**: GKE/XPK via the gke-cluster-runner agent. Workload `alekseyv-qwen3-jax-v002-sc-sel`.
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:latest`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:latest`
 - **Env**:
   - `LIBTPU_INIT_ARGS='--xla_tpu_scoped_vmem_limit_kib=98304'`
-  - `JAX_COMPILATION_CACHE_DIR=gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/jax_lane_cache`
-  - `XLA_FLAGS='--xla_tpu_enable_sparse_core_collective_offload_reduce_scatter=true --xla_dump_to=gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v002-selective-sc-offload/hlo --xla_dump_hlo_as_text --xla_dump_hlo_as_proto'`
+  - `JAX_COMPILATION_CACHE_DIR=gs://<your-bucket>/autoresearch/qwen3_cc/jax_lane_cache`
+  - `XLA_FLAGS='--xla_tpu_enable_sparse_core_collective_offload_reduce_scatter=true --xla_dump_to=gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v002-selective-sc-offload/hlo --xla_dump_hlo_as_text --xla_dump_hlo_as_proto'`
 - **Command**:
   ```bash
   cd /app/trainer && LIBTPU_INIT_ARGS='--xla_tpu_scoped_vmem_limit_kib=98304' \
-    JAX_COMPILATION_CACHE_DIR=gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/jax_lane_cache \
+    JAX_COMPILATION_CACHE_DIR=gs://<your-bucket>/autoresearch/qwen3_cc/jax_lane_cache \
     JAX_PERSISTENT_CACHE_MIN_COMPILE_TIME_SECS=1 JAX_PERSISTENT_CACHE_MIN_ENTRY_SIZE_BYTES=0 \
-    XLA_FLAGS='--xla_tpu_enable_sparse_core_collective_offload_reduce_scatter=true --xla_dump_to=gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v002-selective-sc-offload/hlo --xla_dump_hlo_as_text --xla_dump_hlo_as_proto' \
+    XLA_FLAGS='--xla_tpu_enable_sparse_core_collective_offload_reduce_scatter=true --xla_dump_to=gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v002-selective-sc-offload/hlo --xla_dump_hlo_as_text --xla_dump_hlo_as_proto' \
     python -u train.py --model_id=Qwen/Qwen3-8B --use_real_data=False \
     --batch_size=1 --seqlen=2048 --tp_parallelism=1 \
     --train_steps=20 --weights_dtype=bf16 \
-    --profile_dir=gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v002-selective-sc-offload \
+    --profile_dir=gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v002-selective-sc-offload \
     --profile_start_step=12 --profile_steps=3
   ```
 
@@ -66,20 +66,20 @@ The workload crashed immediately during startup due to environmental/flag incomp
 No profile trace was generated because the process crashed immediately on flag parsing.
 
 - **xprof URL**: N/A
-- **GCS run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v002-selective-sc-offload/`
+- **GCS run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v002-selective-sc-offload/`
 - **Local pointer**: `raw/profiles/2026-06-02-qwen3-jax-v002-selective-sc-offload/`
 
 ### HLO Dump
 
 No HLO dump was generated because the process crashed prior to any compilation pass.
 
-- **GCS**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v002-selective-sc-offload/hlo/`
+- **GCS**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v002-selective-sc-offload/hlo/`
 
 ## Verdict
 
 **Verdict**: invalid
 
-The flag `--xla_tpu_enable_sparse_core_collective_offload_reduce_scatter=true` is not recognized by the XLA compiler version packaged inside the current Docker image (`us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:latest`).
+The flag `--xla_tpu_enable_sparse_core_collective_offload_reduce_scatter=true` is not recognized by the XLA compiler version packaged inside the current Docker image (`<your-registry>/torchtitan-images/qwen3-8b-jax:latest`).
 
 ## Next hypotheses
 

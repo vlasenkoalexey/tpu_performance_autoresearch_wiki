@@ -56,7 +56,7 @@ semantics signal, or clean completion below the frontier.
 ## Setup
 
 - Image:
-  `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v252-fused-mlp-gate-up`
+  `<your-registry>/torchtitan-images/qwen3-8b-jax:v252-fused-mlp-gate-up`
 - Digest:
   `sha256:a25d23bef428af724e29b708ecc6f1c547337a1354f2298535ffcffbb50466fb`
 - Thin image patch: `Qwen3MLP.__call__` only, extracted from base image
@@ -64,9 +64,9 @@ semantics signal, or clean completion below the frontier.
 - Syntax check: `python -m py_compile /app/trainer/model/modeling_qwen3.py`
   passed in the base image.
 - Workload: pending launch as `alekseyv-q3-v252-fusedmlp` on
-  `alekseyv-tpu-v6e8-spot-xpk`.
+  `<your-cluster>`.
 - Run dir:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v252-no-scan-sparsecore-rs-ar-rs2-ar2-fused-mlp-gate-up`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v252-no-scan-sparsecore-rs-ar-rs2-ar2-fused-mlp-gate-up`
 - `XLA_FLAGS` uses a concrete GCS HLO dump path.
 - Mesh: `fsdp=8,tp=1`; global batch 32; profile window steps 12-14.
 
@@ -93,7 +93,7 @@ No XProf trace was captured because the run failed before the profile window.
 Train-step HLO was emitted despite the load-time failure:
 
 - GCS:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v252-no-scan-sparsecore-rs-ar-rs2-ar2-fused-mlp-gate-up/hlo/xla-dump/module_0267.jit_train_step.cl_854318611.after_optimizations.txt`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v252-no-scan-sparsecore-rs-ar-rs2-ar2-fused-mlp-gate-up/hlo/xla-dump/module_0267.jit_train_step.cl_854318611.after_optimizations.txt`
 - Local analysis copy:
   `/tmp/qwen3-v252-hlo/module_0267.jit_train_step.cl_854318611.after_optimizations.txt`
 - SHA256:

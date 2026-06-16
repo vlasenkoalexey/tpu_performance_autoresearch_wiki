@@ -33,8 +33,8 @@ command shape, or clean completion that does not repeat the v153 improvement.
 
 GKE workload `alekseyv-qwen3-v154-bs4-vmem100352r`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v154-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-vmem100352-rerun`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v154-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-vmem100352-rerun`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flags**: exact v153 stack, including `--xla_tpu_scoped_vmem_limit_kib=100352`.
@@ -58,7 +58,7 @@ frontier (v151: 57,572 tok/s).
 
 Profile files were written under:
 
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v154-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-vmem100352-rerun/plugins/profile/2026_06_04_17_29_23/`
+`gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v154-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-vmem100352-rerun/plugins/profile/2026_06_04_17_29_23/`
 
 Files present:
 

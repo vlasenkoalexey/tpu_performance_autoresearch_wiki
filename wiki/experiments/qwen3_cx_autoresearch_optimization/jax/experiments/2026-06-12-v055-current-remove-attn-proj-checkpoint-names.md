@@ -45,9 +45,9 @@ frontier.
 ## Setup
 
 - Workload: `alekseyv-qwen3-cc5-jax-v055-noattnnames`
-- Base image: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v258-mlp-up-first`
-- Image: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v055-remove-attn-proj-names`
-- Run dir: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v055-v037-remove-attn-proj-names`
+- Base image: `<your-registry>/torchtitan-images/qwen3-8b-jax:v258-mlp-up-first`
+- Image: `<your-registry>/torchtitan-images/qwen3-8b-jax:v055-remove-attn-proj-names`
+- Run dir: `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v055-v037-remove-attn-proj-names`
 - Mesh: `fsdp=8,tp=1`; global batch 32; profile window steps 12-14.
 
 ## Results

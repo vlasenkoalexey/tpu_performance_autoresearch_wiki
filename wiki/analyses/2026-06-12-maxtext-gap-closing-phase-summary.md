@@ -129,7 +129,7 @@ updates.
 ## Sources
 
 - All experiment pages above; profiles + HLO under
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v0{24..32}*/`
+  `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v0{24..32}*/`
   and `.../2026-06-12-qwen3-maxtext-v001-base/`.
 
 ## See also

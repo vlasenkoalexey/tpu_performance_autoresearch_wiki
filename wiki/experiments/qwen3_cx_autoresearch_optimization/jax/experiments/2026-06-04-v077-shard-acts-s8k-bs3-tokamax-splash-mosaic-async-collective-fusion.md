@@ -39,8 +39,8 @@ without a profile improvement.
 
 Planned GKE workload `alekseyv-qwen3-v077-mosaicacf`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v077-shard-acts-s8k-bs3-tokamax-splash-mosaic-async-collective-fusion`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v077-shard-acts-s8k-bs3-tokamax-splash-mosaic-async-collective-fusion`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flag change**: add
@@ -90,7 +90,7 @@ regressed.
 ## HLO Dump
 
 HLO dump exists under
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v077-shard-acts-s8k-bs3-tokamax-splash-mosaic-async-collective-fusion/hlo/`.
+`gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v077-shard-acts-s8k-bs3-tokamax-splash-mosaic-async-collective-fusion/hlo/`.
 
 - HLO object count: 1,611
 - Train-step after-optimization dump:

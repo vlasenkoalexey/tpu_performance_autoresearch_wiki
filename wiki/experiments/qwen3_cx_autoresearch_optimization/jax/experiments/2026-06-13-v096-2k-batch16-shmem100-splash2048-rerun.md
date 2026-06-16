@@ -38,11 +38,11 @@ band refutes carrying BKV2048 without more memory work.
 
 - Workload: `alekseyv-qwen3-jax-v096-2ksp2048r`
 - Image:
-  `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v067-explicit-silu`
+  `<your-registry>/torchtitan-images/qwen3-8b-jax:v067-explicit-silu`
 - Run dir:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v096-2k-bs16-vmem98304-shmem100-splash2048-rerun`
+  `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v096-2k-bs16-vmem98304-shmem100-splash2048-rerun`
 - Compile cache:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v096_2k_bs16_vmem98304_shmem100_splash2048_rerun`
+  `gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v096_2k_bs16_vmem98304_shmem100_splash2048_rerun`
 - Placement: cluster `v6e-demo-hjajoo`, nodepool `v6e-demo-hjajoo-np-0`
 - Mesh: `fsdp=8,tp=1`; per-chip batch 16 / global batch 128; sequence length
   **2048**; profile window steps 12-14.

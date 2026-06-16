@@ -34,9 +34,9 @@ settings fixed.
 
 - Workload: `alekseyv-qwen3-v118-2krsl5ar3`
 - Run dir:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v118-2k-bs16-vmem98304-splash2048-rslat5-arlat3`
+  `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v118-2k-bs16-vmem98304-splash2048-rslat5-arlat3`
 - Compile cache:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v118_2k_bs16_vmem98304_splash2048_rslat5_arlat3`
+  `gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v118_2k_bs16_vmem98304_splash2048_rslat5_arlat3`
 - Placement: cluster `v6e-demo-hjajoo`, nodepool `v6e-demo-hjajoo-np-0`.
 
 ## Results

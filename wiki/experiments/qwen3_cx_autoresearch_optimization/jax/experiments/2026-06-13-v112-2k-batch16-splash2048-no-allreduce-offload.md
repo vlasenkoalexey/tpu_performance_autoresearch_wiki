@@ -47,11 +47,11 @@ same-HLO or slower changed-HLO runtime refutes disabling all-reduce offload.
 
 - Workload: `alekseyv-qwen3-jax-v112-2ksp2048noaroff`
 - Image:
-  `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v067-explicit-silu`
+  `<your-registry>/torchtitan-images/qwen3-8b-jax:v067-explicit-silu`
 - Run dir:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v112-2k-bs16-vmem98304-splash2048-noaroff`
+  `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v112-2k-bs16-vmem98304-splash2048-noaroff`
 - Compile cache:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v112_2k_bs16_vmem98304_splash2048_noaroff`
+  `gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v112_2k_bs16_vmem98304_splash2048_noaroff`
 - Placement: cluster `v6e-demo-hjajoo`, nodepool `v6e-demo-hjajoo-np-0`
 - Mesh: `fsdp=8,tp=1`; per-chip batch 16 / global batch 128; sequence length
   **2048**; profile window steps 12-14.

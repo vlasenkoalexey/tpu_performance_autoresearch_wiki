@@ -39,8 +39,8 @@ completion below the frontier.
 
 GKE workload `alekseyv-qwen3-v202-noscan-tokamaxce-bs5`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v202-no-scan-tokamax-ce-bs5`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v202-no-scan-tokamax-ce-bs5`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flags**: v201 stack with `--xla_tpu_scoped_vmem_limit_kib=100352`,
@@ -75,7 +75,7 @@ MaxText CE no-scan frontier of 58,288-58,330 tok/s / 41.8% MFU.
 
 Profile files were written under:
 
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v202-no-scan-tokamax-ce-bs5/plugins/profile/2026_06_05_00_43_21/`
+`gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v202-no-scan-tokamax-ce-bs5/plugins/profile/2026_06_05_00_43_21/`
 
 - `gke-tpu-964065d9-9vh8.xplane.pb`
 - `gke-tpu-964065d9-c180.xplane.pb`
@@ -94,7 +94,7 @@ throughput:
 Fresh train-step HLO was emitted:
 
 - Optimized HLO:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v202-no-scan-tokamax-ce-bs5/hlo/module_0112.jit_train_step.cl_854318611.after_optimizations.txt`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v202-no-scan-tokamax-ce-bs5/hlo/module_0112.jit_train_step.cl_854318611.after_optimizations.txt`
 - Size: 19,048,795 bytes
 - SHA256: `e0dfbacf45659f1c3a07a30cd0736e4b80f16bcf7e401765015647d3341ccc7c`
 - Memory report: 25.62 GiB total bytes used, with a 19.87 GiB preallocated

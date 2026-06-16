@@ -11,7 +11,7 @@
 # Build context: this directory's trainer files staged under `trainer/`.
 
 # v008b layer = torchax base + dev tokamax (chunked_xla CE) — see exp v008.
-FROM us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260612-v008b-cxla
+FROM <your-registry>/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260612-v008b-cxla
 
 # Replace the torchax trainer code with the jax trainer code.
 RUN rm -rf /app/trainer

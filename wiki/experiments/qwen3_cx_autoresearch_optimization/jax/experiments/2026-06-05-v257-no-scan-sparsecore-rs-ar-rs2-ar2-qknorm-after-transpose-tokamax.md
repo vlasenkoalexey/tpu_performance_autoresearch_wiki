@@ -46,9 +46,9 @@ Tokamax HLO markers, or clean completion below the frontier.
 
 GKE workload: `alekseyv-q3-v257-qknorm-xpose`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v254-qknorm-after-transpose`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v254-qknorm-after-transpose`
 - **Image digest**: `sha256:53d1fd3f552af51368c14380109c4d7800578db5efffdd43ef5a11b755ec1ef5`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v257-no-scan-sparsecore-rs-ar-rs2-ar2-qknorm-after-transpose-tokamax`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v257-no-scan-sparsecore-rs-ar-rs2-ar2-qknorm-after-transpose-tokamax`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **Command shape**: `--use_scan=False --use_remat=True --offload_remat=False --use_splash=True --use_maxtext_ce=True --shard_acts=True --batch_size=4 --seqlen=8192 --tp_parallelism=1`
@@ -94,7 +94,7 @@ QK-norm+RoPE/Splash lowering.
 ## HLO Dump
 
 - Optimized train-step HLO:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v257-no-scan-sparsecore-rs-ar-rs2-ar2-qknorm-after-transpose-tokamax/hlo/xla-dump/module_0267.jit_train_step.cl_854318611.after_optimizations.txt`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v257-no-scan-sparsecore-rs-ar-rs2-ar2-qknorm-after-transpose-tokamax/hlo/xla-dump/module_0267.jit_train_step.cl_854318611.after_optimizations.txt`
 - Local copy:
   `/tmp/qwen3-v257-hlo/module_0267.jit_train_step.cl_854318611.after_optimizations.txt`
 - SHA256:

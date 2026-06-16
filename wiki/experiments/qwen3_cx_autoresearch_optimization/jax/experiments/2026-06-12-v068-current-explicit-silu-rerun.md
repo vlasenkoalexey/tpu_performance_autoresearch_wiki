@@ -34,14 +34,14 @@ change.
 
 - Workload: `alekseyv-qwen3-cc5-jax-v068-silur`
 - Image:
-  `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v067-explicit-silu`
+  `<your-registry>/torchtitan-images/qwen3-8b-jax:v067-explicit-silu`
 - Image digest:
   `sha256:d752d2d9720ddc54602c2476689a40c20d322386c47339f047dbf7efa60ede21`
 - Run dir:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v068-v067-explicit-silu-rerun`
+  `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v068-v067-explicit-silu-rerun`
 - Compile cache:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v068_silu_rerun`
-- Placement: nodepool `alekseyv-tpu-v6e8-spot-xpk-np-0`
+  `gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v068_silu_rerun`
+- Placement: nodepool `<your-cluster>-np-0`
 - Mesh: `fsdp=8,tp=1`; global batch 32; profile window steps 12-14.
 
 ## Status

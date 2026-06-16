@@ -61,7 +61,7 @@ are already at the local optimum and the autotune is a no-op (refuted).
   cross-rank coordination is needed — splash on a single device is what we're
   measuring; the other 7 chips sit idle). Both ranks' results are recorded
   for cross-validation.
-- Image: `us-central1-docker.pkg.dev/<your-project>/test/llama3-8b-torchax-container:tune-v2`
+- Image: `<your-registry>/test/llama3-8b-torchax-container:tune-v2`
   (base `jax-ai-image/tpu:jax0.9.0-rev1`, +`tune_splash.py`; same trainer
   image as `hf-v2` plus the new harness file). XLA flags via
   `LIBTPU_INIT_ARGS=--xla_tpu_scoped_vmem_limit_kib=65536` to match production
@@ -432,5 +432,5 @@ See "Next hypotheses" below.
   config to edit for exp 9).
 - [`Dockerfile`](../Dockerfile) and
   [`DEPLOY.md`](../DEPLOY.md) — image / submission flow (image tag
-  `tune-v2`, registry `us-central1-docker.pkg.dev/<your-project>/test/llama3-8b-torchax-container`).
+  `tune-v2`, registry `<your-registry>/test/llama3-8b-torchax-container`).
 - Workload name (XPK): `llama3-splash-tune-20260425-191044`.

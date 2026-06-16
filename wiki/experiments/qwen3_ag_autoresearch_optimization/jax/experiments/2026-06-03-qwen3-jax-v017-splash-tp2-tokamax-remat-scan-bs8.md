@@ -18,7 +18,7 @@ Currently, the `Qwen3Model.__call__` uses a Python `for` loop to apply the 36 de
 - **Seq Length**: 2048
 - **Remat Policy**: `nnx.scan(remat=True)`
 - **Attention**: Splash Attention
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260603-v017-splash-tp2-tokamax-remat-scan-bs8`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260603-v017-splash-tp2-tokamax-remat-scan-bs8`
 - **Flags**: `--tp_parallelism=2 --batch_size=8 --use_splash=True`
 
 ## Setup

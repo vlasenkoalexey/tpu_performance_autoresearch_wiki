@@ -38,8 +38,8 @@ compile/runtime failure.
 
 GKE workload `alekseyv-qwen3-v211-noscan-scconc`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v211-no-scan-sparsecore-concurrent-offload`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v211-no-scan-sparsecore-concurrent-offload`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **Command shape**: `--use_scan=False --use_remat=True --offload_remat=False --use_splash=True --use_maxtext_ce=True --shard_acts=True --batch_size=4 --seqlen=8192 --tp_parallelism=1`
@@ -75,8 +75,8 @@ This is below the v210 confirmed best-worker band of 59,370-59,372 tok/s.
 
 Profile capture completed on both hosts:
 
-- `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v211-no-scan-sparsecore-concurrent-offload/plugins/profile/2026_06_05_03_04_57/gke-tpu-964065d9-9vh8.{trace.json.gz,xplane.pb}`
-- `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v211-no-scan-sparsecore-concurrent-offload/plugins/profile/2026_06_05_03_04_57/gke-tpu-964065d9-c180.{trace.json.gz,xplane.pb}`
+- `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v211-no-scan-sparsecore-concurrent-offload/plugins/profile/2026_06_05_03_04_57/gke-tpu-964065d9-9vh8.{trace.json.gz,xplane.pb}`
+- `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v211-no-scan-sparsecore-concurrent-offload/plugins/profile/2026_06_05_03_04_57/gke-tpu-964065d9-c180.{trace.json.gz,xplane.pb}`
 
 XProf run:
 `2026-06-05-qwen3-jax-v211-no-scan-sparsecore-concurrent-offload/2026_06_05_03_04_57`.
@@ -102,7 +102,7 @@ convolution bucket and slightly increased async-done plus data-formatting time.
 
 Fresh train-step HLO was emitted:
 
-- `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v211-no-scan-sparsecore-concurrent-offload/hlo/module_0294.jit_train_step.cl_854318611.after_optimizations.txt`
+- `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v211-no-scan-sparsecore-concurrent-offload/hlo/module_0294.jit_train_step.cl_854318611.after_optimizations.txt`
 - SHA256:
   `ba6e2d7aa46de6265678865f1dc30d9645926b402ed667d8453b15a22ac75a41`
 - HLO size: **94,199 lines**, **16,545,183 bytes**.

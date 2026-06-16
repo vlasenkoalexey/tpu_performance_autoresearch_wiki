@@ -50,16 +50,16 @@ replacement for MaxText CE.
 
 ## Setup
 
-- Image: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v251-levanter-xla-ce`
+- Image: `<your-registry>/torchtitan-images/qwen3-8b-jax:v251-levanter-xla-ce`
 - Digest: `sha256:d6f17afc476f1c8e741cf705217d6cb8b474d5a786e67e164a3b5f7f26ad7819`
 - Thin image patch: add `--levanter_ce_impl` and pass it directly to
   Levanter fused CE instead of hard-coding `implementation="pallas_tpu"`.
 - Syntax check: `python -m py_compile /app/trainer/train.py` passed in the
   v248 Levanter CE image.
 - Workload: pending launch as `alekseyv-q3-v251-levxla-ce` on
-  `alekseyv-tpu-v6e8-spot-xpk`.
+  `<your-cluster>`.
 - Run dir:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v251-no-scan-sparsecore-rs-ar-rs2-ar2-levanter-xla-ce`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v251-no-scan-sparsecore-rs-ar-rs2-ar2-levanter-xla-ce`
 - `XLA_FLAGS` used a concrete GCS HLO dump path.
 - Mesh: `fsdp=8,tp=1`; global batch 32; profile window steps 12-14.
 
@@ -118,7 +118,7 @@ capacity is not the limiting signal.
 Train-step HLO:
 
 - GCS:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v251-no-scan-sparsecore-rs-ar-rs2-ar2-levanter-xla-ce/hlo/xla-dump/module_0267.jit_train_step.cl_854318611.after_optimizations.txt`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v251-no-scan-sparsecore-rs-ar-rs2-ar2-levanter-xla-ce/hlo/xla-dump/module_0267.jit_train_step.cl_854318611.after_optimizations.txt`
 - Local analysis copy:
   `/tmp/qwen3-v251-hlo/module_0267.jit_train_step.cl_854318611.after_optimizations.txt`
 - SHA256:

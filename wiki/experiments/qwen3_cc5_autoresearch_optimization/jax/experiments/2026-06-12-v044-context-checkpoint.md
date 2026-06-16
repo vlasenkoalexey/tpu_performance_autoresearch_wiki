@@ -33,25 +33,25 @@ S(5) unroll×offload bug (unroll=1 = default scan = safe).
 
 ## Setup
 
-- **Hardware**: v6e-8, fsdp=8, tp=1, 1 slice of `alekseyv-tpu-v6e8-spot-xpk`
-  (project `tpu-pytorch`, zone `us-central2-b`).
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260612-v044-ctx` (fresh tag, digest 5acf9bbb).
+- **Hardware**: v6e-8, fsdp=8, tp=1, 1 slice of `<your-cluster>`
+  (project `<your-project>`, zone `<your-zone>`).
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260612-v044-ctx` (fresh tag, digest 5acf9bbb).
 - **Workload**: `alekseyv-qwen3-cc5-jax-v044-ctx` (31 chars < 40 limit).
 - **Single arm**: bs2 seq8192 + scan + save_qkv_ctx + splash + chunked CE
   f32-x + 21-flag stack; 20 steps, profiled steps 12–14, HLO dump.
 
 ```bash
-export JAX_COMPILATION_CACHE_DIR=gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache
+export JAX_COMPILATION_CACHE_DIR=gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache
 export LIBTPU_INIT_ARGS="--xla_tpu_scoped_vmem_limit_kib=98304 --xla_tpu_use_minor_sharding_for_major_trivial_input=true --xla_tpu_relayout_group_size_threshold_for_reduce_scatter=1 --xla_tpu_assign_all_reduce_scatter_layout=true --xla_tpu_enable_data_parallel_all_reduce_opt=true --xla_tpu_data_parallel_opt_different_sized_ops=true --xla_tpu_overlap_compute_collective_tc=true --xla_enable_async_all_gather=true --xla_tpu_enable_all_experimental_scheduler_features=true --xla_tpu_enable_scheduler_memory_pressure_tracking=true --xla_tpu_host_transfer_overlap_limit=24 --xla_tpu_aggressive_opt_barrier_removal=ENABLED --xla_lhs_prioritize_async_depth_over_stall=ENABLED --xla_tpu_enable_ag_backward_pipelining=true --xla_should_allow_loop_variant_parameter_in_chain=ENABLED --xla_should_add_loop_invariant_op_in_chain=ENABLED --xla_max_concurrent_host_send_recv=100 --xla_tpu_scheduler_percent_shared_memory_limit=100 --xla_latency_hiding_scheduler_rerun=2 --xla_jf_spmd_threshold_for_windowed_einsum_mib=1000000"
 export JAX_SCAN_UNROLL=1
 export SPLASH_RESIDUAL_CKPT_NAME=context
-export XLA_FLAGS="--xla_dump_to=gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v044-ctx/hlo --xla_dump_hlo_as_text --xla_dump_hlo_as_proto"
+export XLA_FLAGS="--xla_dump_to=gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v044-ctx/hlo --xla_dump_hlo_as_text --xla_dump_hlo_as_proto"
 python -u train.py --model_id=Qwen/Qwen3-8B --use_real_data=False \
   --batch_size=2 --seqlen=8192 --tp_parallelism=1 \
   --train_steps=20 --weights_dtype=bf16 --use_splash=True \
   --use_tokamax_ce=True --tokamax_ce_impl=chunked_xla --remat_policy=save_qkv_ctx \
   --use_scan=True \
-  --profile_dir=gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v044-ctx \
+  --profile_dir=gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v044-ctx \
   --profile_start_step=12 --profile_steps=3
 ```
 
@@ -127,7 +127,7 @@ and 12–14 profiling):
 **Steps captured**: steps 12–14 (3 profiling steps at steady state).
 **Description**: xprof trace (TPU v6 Lite, 8 chips/host, 2 hosts, fsdp=8);
 device + host planes. HBM peak 22.03/31.25 GB (70.5% cap); MXU 55.7%.
-**GCS path**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v044-ctx/plugins/profile/2026_06_12_15_01_13/`
+**GCS path**: `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v044-ctx/plugins/profile/2026_06_12_15_01_13/`
 
 ### Bucket attribution (steady state, steps 12–14)
 
@@ -167,7 +167,7 @@ host pinned memory S(5): `bf16[36,2,32,8192,128]` + `f32[36,2,32,8192]`
 
 ## HLO Dump
 
-**GCS**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v044-ctx/hlo/` (50 files, 33.6 MiB)
+**GCS**: `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v044-ctx/hlo/` (50 files, 33.6 MiB)
 **Modules (2)**: `jit_train_step(18061459034935412866)` + `jit__identity_fn(3512440348090122076)` — 2-module fingerprint confirms scan-over-layers active (1 main train step + 1 identity for params).
 
 ### Hypothesis-firing verification
@@ -224,8 +224,8 @@ next direction.
 
 ## Sources
 
-- Profile + HLO (GCS): `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v044-ctx/`
-- xprof run: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v044-ctx/plugins/profile/2026_06_12_15_01_13/`
-- HLO dump: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v044-ctx/hlo/`
+- Profile + HLO (GCS): `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v044-ctx/`
+- xprof run: `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v044-ctx/plugins/profile/2026_06_12_15_01_13/`
+- HLO dump: `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v044-ctx/hlo/`
 - Prior: [MaxText feature-gap inventory](../../../../analyses/2026-06-12-maxtext-feature-gap-inventory.md)
 - v043: [2026-06-12-v043-bs2-svqkv-val.md](2026-06-12-v043-bs2-svqkv-val.md)

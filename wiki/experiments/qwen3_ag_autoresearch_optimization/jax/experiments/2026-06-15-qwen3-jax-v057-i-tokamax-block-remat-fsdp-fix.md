@@ -26,7 +26,7 @@ By updating the `SHARDING_PLAN` dictionary to correctly map `model.blocks.*.laye
 **Falsification criterion**: HBM OOM due to excessive activation materialization during the block's backward pass.
 
 ## Setup
-Image: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/v6e8-qwen3-8b-jax-20260615-exp057-d-tokamax-layer-ckpt:latest` (with dynamic archive layering over it for `v057_c/trainer` containing the sharding patch).
+Image: `<your-registry>/torchtitan-images/v6e8-qwen3-8b-jax-20260615-exp057-d-tokamax-layer-ckpt:latest` (with dynamic archive layering over it for `v057_c/trainer` containing the sharding patch).
 
 ## Results
 ## Results

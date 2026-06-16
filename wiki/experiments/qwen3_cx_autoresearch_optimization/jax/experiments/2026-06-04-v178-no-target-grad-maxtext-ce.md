@@ -50,10 +50,10 @@ confirmed frontier.
 
 GKE workload `alekseyv-qwen3-v178-ce-notarget`.
 
-- **Base image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v178-no-target-grad-maxtext-ce`
+- **Base image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v178-no-target-grad-maxtext-ce`
 - **Image digest**: `sha256:f6557e14c8aa7b9d77fc4bebeb313f04441d7703fd1582d1e905f7b02a825b5f`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v178-no-target-grad-maxtext-ce`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v178-no-target-grad-maxtext-ce`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flags**: v170 stack with `--xla_tpu_scoped_vmem_limit_kib=100352`.
@@ -83,7 +83,7 @@ Completed cleanly on v6e-8 with normal loss and `EXIT_CODE=0`.
 
 Profile captured steps 12-14 under:
 
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v178-no-target-grad-maxtext-ce/plugins/profile/2026_06_04_20_58_50/`
+`gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v178-no-target-grad-maxtext-ce/plugins/profile/2026_06_04_20_58_50/`
 
 The profile contains both TPU hosts:
 
@@ -94,7 +94,7 @@ The profile contains both TPU hosts:
 
 No HLO objects were emitted under the v178 run prefix:
 
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v178-no-target-grad-maxtext-ce/hlo/`
+`gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v178-no-target-grad-maxtext-ce/hlo/`
 
 The run's short step-0/compile behavior and absence of fresh HLO are consistent
 with persistent-cache reuse of the v169/v170 train-step program. That implies

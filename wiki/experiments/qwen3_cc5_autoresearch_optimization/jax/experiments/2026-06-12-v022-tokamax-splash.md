@@ -36,7 +36,7 @@ crash/incompat → refuted; splash topic closes fully on this stack.
 
 ## Setup
 
-- Hardware: v6e-8, fsdp=8, tp=1, 1 slice of `alekseyv-tpu-v6e8-spot-xpk`.
+- Hardware: v6e-8, fsdp=8, tp=1, 1 slice of `<your-cluster>`.
 - Image: `qwen3-8b-jax:latest` (trunk `11e8f9d`).
 - Workload: `alekseyv-qwen3-cc5-jax-v022-tksp`.
 - Command: v019's + the three tokamax-splash envs.
@@ -56,12 +56,12 @@ bq=2048 bkv=1024 … base2=True fuse_recip=True` ×36 layers; no Mosaic errors.
 
 - **xprof URL**: `http://localhost:8791/?run=2026-06-12-qwen3-jax-v022-tksp`
   (run `…/2026_06_12_05_18_48`); profiled steps 12–14.
-- **GCS run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v022-tksp/plugins/profile/2026_06_12_05_18_48/`
+- **GCS run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v022-tksp/plugins/profile/2026_06_12_05_18_48/`
 - Flat-shape comparison is the complete signal.
 
 ## HLO Dump
 
-- **GCS**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v022-tksp/hlo/` — 51 files.
+- **GCS**: `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v022-tksp/hlo/` — 51 files.
 
 ## Verdict
 
@@ -82,5 +82,5 @@ Splash topic fully closed. The tokamax splash is numerics-equivalent and
 
 ## Sources
 
-- Profile + HLO (GCS): `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v022-tksp/`
+- Profile + HLO (GCS): `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v022-tksp/`
 - Prior: [v019 (frontier)](2026-06-12-v019-val50.md), [v016 (block transfer weak)](2026-06-12-v016-splash-bkv2048.md)

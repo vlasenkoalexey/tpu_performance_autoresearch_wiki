@@ -35,9 +35,9 @@ SparseCore all-gather offload disabled, aggregator enabled, batch 16, sequence
 
 - Workload: `alekseyv-qwen3-v122-2krsl4sh99`
 - Run dir:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v122-2k-bs16-vmem98304-splash2048-rslat4-shmem99`
+  `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v122-2k-bs16-vmem98304-splash2048-rslat4-shmem99`
 - Compile cache:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v122_2k_bs16_vmem98304_splash2048_rslat4_shmem99`
+  `gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v122_2k_bs16_vmem98304_splash2048_rslat4_shmem99`
 - Placement: cluster `v6e-demo-hjajoo`, nodepool `v6e-demo-hjajoo-np-0`.
 
 ## Results

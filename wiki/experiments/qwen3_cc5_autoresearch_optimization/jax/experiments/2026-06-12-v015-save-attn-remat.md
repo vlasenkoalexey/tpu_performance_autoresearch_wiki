@@ -38,7 +38,7 @@ seq-8192 goal (gap quantified for the next derivative).
 
 ## Setup
 
-- Hardware: v6e-8, fsdp=8, tp=1, 1 slice of `alekseyv-tpu-v6e8-spot-xpk`.
+- Hardware: v6e-8, fsdp=8, tp=1, 1 slice of `<your-cluster>`.
 - Image: `qwen3-8b-jax:v6e8-qwen3-8b-jax-20260612-v015-sattn` (FROM v008b
   image: dev tokamax; + CE-f32x trainer + save_attn remat modeling).
 - Workload: `alekseyv-qwen3-cc5-jax-v015-sattn`.
@@ -79,7 +79,7 @@ NaN was policy-specific). Remat stays OFF at seq 2048.
 
 - **xprof URL**: `http://localhost:8791/?run=2026-06-12-qwen3-jax-v015-sattn`
   (run `…/2026_06_12_03_33_33`); profiled steps 12–14 (phase 2).
-- **GCS run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v015-sattn/plugins/profile/2026_06_12_03_33_33/`
+- **GCS run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v015-sattn/plugins/profile/2026_06_12_03_33_33/`
 - **Op profile** (exclude-idle, master-analyzed): `convolution fusion`
   **46.8%**, `custom-call` **24.0%** (= splash fwd 13.0% + splash dkv bwd
   10.7%; CE negligible), `loop fusion` 14.9% (distributed remat-recompute
@@ -90,7 +90,7 @@ NaN was policy-specific). Remat stays OFF at seq 2048.
 
 ## HLO Dump
 
-- **GCS**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v015-sattn/hlo/`
+- **GCS**: `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v015-sattn/hlo/`
 - Phase-2 module `module_6132.jit_train_step`: `Total bytes used: 27.62 GiB`.
 
 ## Verdict
@@ -119,5 +119,5 @@ rebased on the dev-tokamax layer; `latest` rebuilt + pushed.
 
 ## Sources
 
-- Profile + HLO (GCS): `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v015-sattn/`
+- Profile + HLO (GCS): `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v015-sattn/`
 - Prior: [v012 (invalid remat)](2026-06-12-v012-remat.md), [v013 (seq8k OOM)](2026-06-12-v013-seq8k.md), [v014 (bs3 OOM)](2026-06-12-v014-bs3-ce.md)

@@ -32,11 +32,11 @@ Leave `TOKAMAX_Q_LAYOUT` and `TOKAMAX_K_LAYOUT` at default `HEAD_DIM_MINOR`.
 
 - Workload: `alekseyv-qwen3-v134-2kvseq`
 - Image:
-  `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v130-splash-layout-env`
+  `<your-registry>/torchtitan-images/qwen3-8b-jax:v130-splash-layout-env`
 - Run dir:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v134-2k-bs16-splash2048-rslat4-vseq`
+  `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v134-2k-bs16-splash2048-rslat4-vseq`
 - Compile cache:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v134_2k_bs16_splash2048_rslat4_vseq`
+  `gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v134_2k_bs16_splash2048_rslat4_vseq`
 - Placement: cluster `v6e-demo-hjajoo`, nodepool `v6e-demo-hjajoo-np-0`.
 
 ## Results

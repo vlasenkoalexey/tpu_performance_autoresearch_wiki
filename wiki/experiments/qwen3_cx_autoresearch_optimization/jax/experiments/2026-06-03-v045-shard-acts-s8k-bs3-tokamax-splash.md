@@ -34,8 +34,8 @@ or clean completion at or below v041's 48,312 tok/s / 34.6% MFU.
 
 GKE workload `alekseyv-qwen3-v045`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v045-shard-acts-s8k-bs3-tokamax-splash`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v045-shard-acts-s8k-bs3-tokamax-splash`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment change**: `USE_TOKAMAX_SPLASH=1`
 - **Command shape**: `--use_scan=True --use_remat=True --use_splash=True --use_maxtext_ce=True --shard_acts=True --batch_size=3 --seqlen=8192 --tp_parallelism=1`
@@ -84,7 +84,7 @@ DKV backward remains the main attention residual.
 ## HLO Dump
 
 - **Path**:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v045-shard-acts-s8k-bs3-tokamax-splash/hlo/`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v045-shard-acts-s8k-bs3-tokamax-splash/hlo/`
 - **Size**: 18.16 MiB
 - **Object count**: 32
 

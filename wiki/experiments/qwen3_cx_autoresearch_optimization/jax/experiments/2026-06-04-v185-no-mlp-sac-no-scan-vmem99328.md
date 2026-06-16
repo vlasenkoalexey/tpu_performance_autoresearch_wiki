@@ -37,8 +37,8 @@ completion at or below the no-scan frontier band.
 
 GKE workload `alekseyv-qwen3-v185-noscan-vmem99328`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v185-no-mlp-sac-no-scan-vmem99328`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v185-no-mlp-sac-no-scan-vmem99328`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flags**: v183 stack except `--xla_tpu_scoped_vmem_limit_kib=99328`.
@@ -75,8 +75,8 @@ is a real schedule change, but the schedule is slower.
 
 Profile files:
 
-- `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v185-no-mlp-sac-no-scan-vmem99328/plugins/profile/2026_06_04_21_59_51/gke-tpu-964065d9-c180.trace.json.gz`
-- `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v185-no-mlp-sac-no-scan-vmem99328/plugins/profile/2026_06_04_21_59_51/gke-tpu-964065d9-9vh8.trace.json.gz`
+- `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v185-no-mlp-sac-no-scan-vmem99328/plugins/profile/2026_06_04_21_59_51/gke-tpu-964065d9-c180.trace.json.gz`
+- `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v185-no-mlp-sac-no-scan-vmem99328/plugins/profile/2026_06_04_21_59_51/gke-tpu-964065d9-9vh8.trace.json.gz`
 - matching `.xplane.pb` files for both hosts.
 
 ## HLO Dump
@@ -84,7 +84,7 @@ Profile files:
 Fresh optimized train-step HLO:
 
 - GCS:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v185-no-mlp-sac-no-scan-vmem99328/hlo/module_0109.jit_train_step.cl_854318611.after_optimizations.txt`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v185-no-mlp-sac-no-scan-vmem99328/hlo/module_0109.jit_train_step.cl_854318611.after_optimizations.txt`
 - Bytes: 19,043,751.
 - SHA256: `6e904d246b2893d10d93b978661be51bdaf2aa04f4ee5d1305fadfb99a971d2f`.
 - Counts: all-gather 4,656, all-reduce 960, collective-permute 3,

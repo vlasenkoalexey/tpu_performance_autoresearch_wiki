@@ -34,8 +34,8 @@ at or below v023's 26.6% despite the larger global batch.
 
 Planned GKE workload `alekseyv-qwen3-v025`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260602-v015-splash-tp2-tokamax-remat-fused-rope-bs8`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v025-splash-tp4-tokamax-remat-fused-s8k-bs4`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260602-v015-splash-tp2-tokamax-remat-fused-rope-bs8`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v025-splash-tp4-tokamax-remat-fused-s8k-bs4`
 - **Mesh**: `fsdp=2,tp=4`
 - **Command shape**: `--batch_size=4 --seqlen=8192 --tp_parallelism=4 --use_splash=True`
 - **Global batch**: 8
@@ -65,7 +65,7 @@ No runtime profile; the workload failed before executing training steps.
 
 OOM artifacts were dumped under:
 
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v025-splash-tp4-tokamax-remat-fused-s8k-bs4/hlo/`
+`gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v025-splash-tp4-tokamax-remat-fused-s8k-bs4/hlo/`
 
 The prefix contains 272 objects totaling 187.16 MiB.
 

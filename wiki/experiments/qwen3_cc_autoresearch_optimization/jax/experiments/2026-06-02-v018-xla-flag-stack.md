@@ -76,7 +76,7 @@ Steady state from step 2 (step0 = 116 s first-compile, step1 = 7.8 s second-comp
 - **xprof URL**: http://localhost:8791/?run=2026-06-02-qwen3-jax-v018-xla-flag-stack
 - **Run name**: `2026-06-02-qwen3-jax-v018-xla-flag-stack`
 - **On-disk pointer**: [`raw/profiles/2026-06-02-qwen3-jax-v018-xla-flag-stack/`](../../../../../raw/profiles/2026-06-02-qwen3-jax-v018-xla-flag-stack/)
-- **GCS**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v018-xla-flag-stack/plugins/profile/2026_06_02_06_57_38/`
+- **GCS**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v018-xla-flag-stack/plugins/profile/2026_06_02_06_57_38/`
 - **Steps captured**: 12–14 (2 xplane hosts: g30s, rkr2).
 - Contents: xprof trace (2 hosts) + HLO dump.
 

@@ -51,8 +51,8 @@ frontier.
 ## Setup
 
 - Workload: `alekseyv-qwen3-cc5-jax-v054-unrollfix`
-- Image: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v054-scan-unroll-fixed`
-- Run dir: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v054-scan-unroll-fixed`
+- Image: `<your-registry>/torchtitan-images/qwen3-8b-jax:v054-scan-unroll-fixed`
+- Run dir: `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v054-scan-unroll-fixed`
 - Mesh: `fsdp=8,tp=1`; global batch 32; phase A profile window steps 12-14.
 
 ## Results
@@ -74,7 +74,7 @@ did not run. HLO dumping stopped before an `after_optimizations` file was
 emitted:
 
 - HLO dir:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v054-scan-unroll-fixed/hlo_a/`
+  `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v054-scan-unroll-fixed/hlo_a/`
 - Available train-step artifacts include only `before_optimizations.txt`,
   debug/options/config files, and the pre-crash dump subtree.
 

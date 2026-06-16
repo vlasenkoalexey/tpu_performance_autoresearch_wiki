@@ -40,7 +40,7 @@ refuted.
 
 ## Setup
 
-- Hardware: v6e-8, fsdp=8, tp=1, 1 slice of `alekseyv-tpu-v6e8-spot-xpk`.
+- Hardware: v6e-8, fsdp=8, tp=1, 1 slice of `<your-cluster>`.
 - **Attempt 1** (`alekseyv-qwen3-cc5-jax-v008-cxla`): crashed pre-compile —
   `ValueError: Unsupported implementation: chunked_xla`. The v006 image ships
   tokamax **0.0.10** (pip), which only has mosaic_tpu/xla; `chunked_xla`
@@ -88,13 +88,13 @@ seq 8192 (~10 GiB logits vs the fixed 2.49 GB accumulator).
 
 - **xprof URL**: `http://localhost:8791/?run=2026-06-12-qwen3-jax-v008b-cxla`
   (run `…/2026_06_12_02_37_07`); profiled steps 12–14.
-- **GCS run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v008b-cxla/plugins/profile/2026_06_12_02_37_07/`
+- **GCS run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v008b-cxla/plugins/profile/2026_06_12_02_37_07/`
 - Step-time + HLO + loss-series evidence sufficient for the verdict; deep
   bucket attribution deferred to the corrected v011.
 
 ## HLO Dump
 
-- **GCS**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v008b-cxla/hlo/`
+- **GCS**: `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v008b-cxla/hlo/`
 - `Total bytes used: 23.92 GiB`; 0 × `[2048,151936]` buffers (streaming
   confirmed); f32 `dw` accumulator present per source analysis.
 
@@ -124,5 +124,5 @@ Dispatched as v011.
 
 ## Sources
 
-- Profile + HLO (GCS): `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v008-cxla/`
+- Profile + HLO (GCS): `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v008-cxla/`
 - Prior: [v006 (invalid)](2026-06-12-v006-tkmce-bf16.md), [v003 (refuted)](2026-06-12-v003-tkmce.md), [v002 (frontier)](2026-06-12-v002-splash.md)

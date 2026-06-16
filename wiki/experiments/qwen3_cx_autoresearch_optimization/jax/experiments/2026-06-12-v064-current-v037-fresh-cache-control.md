@@ -26,7 +26,7 @@ for subsequent source work.
 **Mechanism**: Reuse `qwen3-8b-jax:v258-mlp-up-first` without code changes and
 run the v037 runtime stack exactly, but set:
 
-- `JAX_COMPILATION_CACHE_DIR=gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v064_fresh`
+- `JAX_COMPILATION_CACHE_DIR=gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v064_fresh`
 - `XLA_FLAGS=--xla_dump_to=.../2026-06-12-qwen3-jax-v064-v037-fresh-cache/hlo --xla_dump_hlo_as_text --xla_dump_hlo_as_proto`
 
 All training flags, topology, profile window, runtime scheduler flags, and
@@ -40,9 +40,9 @@ baseline is lower than the earlier carried frontier.
 ## Setup
 
 - Workload: `alekseyv-qwen3-cc5-jax-v064-freshcache`
-- Image: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v258-mlp-up-first`
+- Image: `<your-registry>/torchtitan-images/qwen3-8b-jax:v258-mlp-up-first`
 - Image digest: `sha256:3a08bd533913355b79d8d9c27243646bf8dd76809878cf41372fee0c6407071e`
-- Run dir: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v064-v037-fresh-cache`
+- Run dir: `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v064-v037-fresh-cache`
 - Mesh: `fsdp=8,tp=1`; global batch 32; profile window steps 12-14.
 
 ## Result

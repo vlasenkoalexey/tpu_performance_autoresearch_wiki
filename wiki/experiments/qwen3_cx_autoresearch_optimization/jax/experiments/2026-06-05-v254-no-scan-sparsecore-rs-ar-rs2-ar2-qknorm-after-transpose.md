@@ -47,7 +47,7 @@ semantics signal, or clean completion below the frontier.
 ## Setup
 
 - Image:
-  `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v254-qknorm-after-transpose`
+  `<your-registry>/torchtitan-images/qwen3-8b-jax:v254-qknorm-after-transpose`
 - Digest:
   `sha256:53d1fd3f552af51368c14380109c4d7800578db5efffdd43ef5a11b755ec1ef5`
 - Thin image patch: `Qwen3Attention.__call__` only, extracted from base image
@@ -55,9 +55,9 @@ semantics signal, or clean completion below the frontier.
 - Syntax check: `python -m py_compile /app/trainer/model/modeling_qwen3.py`
   passed in the base image.
 - Workload: pending launch as `alekseyv-q3-v254-qknorm-xpose` on
-  `alekseyv-tpu-v6e8-spot-xpk`.
+  `<your-cluster>`.
 - Run dir:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v254-no-scan-sparsecore-rs-ar-rs2-ar2-qknorm-after-transpose`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v254-no-scan-sparsecore-rs-ar-rs2-ar2-qknorm-after-transpose`
 - `XLA_FLAGS` used a concrete GCS HLO dump path.
 - Mesh: `fsdp=8,tp=1`; global batch 32; profile window steps 12-14.
 
@@ -116,7 +116,7 @@ relative to the frontier and the custom-call bucket rises to 31.4%.
 Train-step HLO:
 
 - GCS:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v254-no-scan-sparsecore-rs-ar-rs2-ar2-qknorm-after-transpose/hlo/xla-dump/module_0267.jit_train_step.cl_854318611.after_optimizations.txt`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v254-no-scan-sparsecore-rs-ar-rs2-ar2-qknorm-after-transpose/hlo/xla-dump/module_0267.jit_train_step.cl_854318611.after_optimizations.txt`
 - Local analysis copy:
   `/tmp/qwen3-v254-hlo/module_0267.jit_train_step.cl_854318611.after_optimizations.txt`
 - SHA256:

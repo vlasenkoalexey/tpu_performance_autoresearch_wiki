@@ -73,7 +73,7 @@ quota cleanup).
 ## Sources
 
 - Experiments: v052–v063 (jax), mt-v002/mt-v003 (maxtext) — all on charles-v6e, 2026-06-12/13.
-- Profiles: GCS under `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-1{2,3}-qwen3-*`.
+- Profiles: GCS under `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-1{2,3}-qwen3-*`.
 
 ## See also
 

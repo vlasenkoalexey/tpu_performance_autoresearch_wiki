@@ -46,8 +46,8 @@ completion at or below the no-scan frontier without a profile/memory win.
 
 GKE workload `alekseyv-qwen3-v195-noscan-nomlpnormsac`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v174-no-pre-mlp-norm-sac`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v195-no-scan-no-pre-mlp-norm-sac`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v174-no-pre-mlp-norm-sac`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v195-no-scan-no-pre-mlp-norm-sac`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flags**: v183 stack.
@@ -78,7 +78,7 @@ observed.
 ## Profile
 
 Profile files:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v195-no-scan-no-pre-mlp-norm-sac/plugins/profile/2026_06_04_23_22_20/`
+`gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v195-no-scan-no-pre-mlp-norm-sac/plugins/profile/2026_06_04_23_22_20/`
 
 Device-side `jit_train_step(14016405483169477827)` spans:
 

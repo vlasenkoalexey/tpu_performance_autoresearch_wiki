@@ -36,9 +36,9 @@ enabled, aggregator enabled, batch 16, sequence 2048, and Splash BKV/BKV_COMPUTE
 
 - Workload: `alekseyv-qwen3-v127-2knoacf`
 - Run dir:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v127-2k-bs16-splash2048-rslat4-noacf`
+  `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v127-2k-bs16-splash2048-rslat4-noacf`
 - Compile cache:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v127_2k_bs16_splash2048_rslat4_noacf`
+  `gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v127_2k_bs16_splash2048_rslat4_noacf`
 - Placement: cluster `v6e-demo-hjajoo`, nodepool `v6e-demo-hjajoo-np-0`.
 
 ## Results

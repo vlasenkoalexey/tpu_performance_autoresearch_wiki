@@ -36,8 +36,8 @@ completion at or below the no-scan frontier band.
 
 GKE workload `alekseyv-qwen3-v190-noscan-bkvdkv1024`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v190-no-mlp-sac-no-scan-bkvdkv1024`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v190-no-mlp-sac-no-scan-bkvdkv1024`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 SPLASH_BKV_DKV=1024 SPLASH_BKV_DKV_COMPUTE=1024 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flags**: v183 stack.
@@ -68,7 +68,7 @@ confirmed no-scan frontier:
 
 Profile files:
 
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v190-no-mlp-sac-no-scan-bkvdkv1024/plugins/profile/2026_06_04_22_42_05/`
+`gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v190-no-mlp-sac-no-scan-bkvdkv1024/plugins/profile/2026_06_04_22_42_05/`
 
 The profile validates the stdout regression. Device-side
 `jit_train_step(14633774807237963760)` spans are about 4.730-4.739 s across the
@@ -79,7 +79,7 @@ two hosts, far slower than the v183 no-scan 4.497 s class.
 Fresh train-step HLO:
 
 - Optimized HLO:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v190-no-mlp-sac-no-scan-bkvdkv1024/hlo/module_0109.jit_train_step.cl_854318611.after_optimizations.txt`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v190-no-mlp-sac-no-scan-bkvdkv1024/hlo/module_0109.jit_train_step.cl_854318611.after_optimizations.txt`
 - Size: 19,050,551 bytes.
 - SHA256: `362c1236acda6c60a5cea43826813a9c8b6545f641d00632d9ac75ee87935ace`.
 - Memory report: 27.66 GiB total bytes used.

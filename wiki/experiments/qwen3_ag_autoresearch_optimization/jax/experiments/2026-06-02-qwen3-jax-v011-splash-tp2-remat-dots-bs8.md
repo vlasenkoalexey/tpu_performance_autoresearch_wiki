@@ -17,7 +17,7 @@
 - **Seq Length**: 2048
 - **Remat Policy**: `checkpoint_dots`
 - **Attention**: Splash Attention
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260602-v011-splash-tp2-remat-dots-bs8`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260602-v011-splash-tp2-remat-dots-bs8`
 - **Flags**: `--tp_parallelism=2 --batch_size=8 --use_splash=True`
 
 ## Setup

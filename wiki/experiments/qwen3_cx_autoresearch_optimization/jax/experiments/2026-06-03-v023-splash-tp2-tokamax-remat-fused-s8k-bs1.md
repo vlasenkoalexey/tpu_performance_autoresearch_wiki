@@ -34,8 +34,8 @@ collapse that points to a new long-sequence bottleneck.
 
 Planned GKE workload `alekseyv-qwen3-v023`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260602-v015-splash-tp2-tokamax-remat-fused-rope-bs8`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v023-splash-tp2-tokamax-remat-fused-s8k-bs1`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260602-v015-splash-tp2-tokamax-remat-fused-rope-bs8`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v023-splash-tp2-tokamax-remat-fused-s8k-bs1`
 - **Mesh**: `fsdp=4,tp=2`
 - **Command shape**: `--batch_size=1 --seqlen=8192 --tp_parallelism=2 --use_splash=True`
 - **Global batch**: 4
@@ -43,7 +43,7 @@ Planned GKE workload `alekseyv-qwen3-v023`.
 
 ## Results
 
-Clean completion on `alekseyv-tpu-v6e8-spot-xpk`.
+Clean completion on `<your-cluster>`.
 
 | Metric | Worker 0 | Worker 1 |
 |--------|----------|----------|
@@ -90,7 +90,7 @@ Top HLO self-time:
 
 HLO artifacts were written under:
 
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v023-splash-tp2-tokamax-remat-fused-s8k-bs1/hlo/`
+`gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v023-splash-tp2-tokamax-remat-fused-s8k-bs1/hlo/`
 
 The dump contains 45 objects totaling 287.31 MiB, including
 `module_0092.jit_train_step.cl_854318611` configs and per-step

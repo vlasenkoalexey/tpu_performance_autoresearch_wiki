@@ -16,9 +16,9 @@ offload, SparseCore collective aggregator, RS latency multiplier **3**, AR
 latency multiplier **2**, selective resources, and shared-memory limit **90**.
 
 Run/cache paths:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v081-2k-bs4-current-control`
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v081-2k-bs4-current-control`
 and
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v081_2k_bs4ctl`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v081_2k_bs4ctl`.
 
 ## [2026-06-12] loop-iteration | cc5 v081 2k current-stack control: supported (65,505 tok/s, 42.1% script MFU)
 
@@ -74,9 +74,9 @@ that cancels the larger token batch, or a larger custom-call/loop-fusion share
 refutes direct 2k batch scaling.
 
 Run/cache paths:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v082-2k-bs6-batch-scale`
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v082-2k-bs6-batch-scale`
 and
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v082_2k_bs6`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v082_2k_bs6`.
 
 ## [2026-06-12] loop-iteration | cc5 v082 2k batch6 scale: supported (67,987 tok/s, 43.7% script MFU)
 
@@ -118,10 +118,10 @@ tok/s** and ideally MXU above **61.6%**. OOM or a step-time increase that
 overwhelms the token batch refutes further direct batch scaling.
 
 Run dir:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v083-2k-bs8-batch-scale`
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v083-2k-bs8-batch-scale`
 
 Compile cache:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v083_2k_bs8`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v083_2k_bs8`.
 
 ## [2026-06-12] loop-iteration | cc5 v083 2k batch8 scale: supported/tie (68,184 tok/s, 43.8% script MFU)
 
@@ -166,10 +166,10 @@ non-matmul overhead refutes further direct 2k batch scaling and should pivot the
 lane to scheduler/kernel-shape changes.
 
 Run dir:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v084-2k-bs12-batch-scale`
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v084-2k-bs12-batch-scale`
 
 Compile cache:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v084_2k_bs12`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v084_2k_bs12`.
 
 ## [2026-06-12] loop-iteration | cc5 v084 2k batch12 scale: supported (69,547 tok/s, 44.7% script MFU)
 
@@ -210,10 +210,10 @@ tok/s**. OOM, severe variance, or near-flat/lower throughput closes direct 2k
 batch scaling and should pivot the lane to scheduler/kernel-shape changes.
 
 Run dir:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v085-2k-bs16-batch-scale`
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v085-2k-bs16-batch-scale`
 
 Compile cache:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v085_2k_bs16`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v085_2k_bs16`.
 
 ## [2026-06-12] loop-iteration | cc5 v085 2k batch16 scale: supported (70,184 tok/s, 45.1% script MFU)
 
@@ -254,10 +254,10 @@ pressure or lower variance. If throughput drops with no memory benefit, keep
 the v085 **100352 KiB** schedule and pivot away from local VMEM.
 
 Run dir:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v086-2k-bs16-vmem98304`
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v086-2k-bs16-vmem98304`
 
 Compile cache:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v086_2k_bs16_vmem98304`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v086_2k_bs16_vmem98304`.
 
 ## [2026-06-12] loop-iteration | cc5 v086 2k batch16 VMEM 98304: supported (70,564 tok/s, 45.4% script MFU)
 
@@ -307,10 +307,10 @@ or gives identical performance, keep v086's rerun3 frontier and pivot to a
 different scheduler/codegen axis.
 
 Run dir:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v087-2k-bs16-rerun4`
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v087-2k-bs16-rerun4`
 
 Compile cache:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v087_2k_bs16_rerun4`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v087_2k_bs16_rerun4`.
 
 ## [2026-06-12] loop-iteration | cc5 v087 2k batch16 scheduler rerun4: refuted/tie (70,554 tok/s, 45.4% script MFU)
 
@@ -355,10 +355,10 @@ keeps memory/profile unchanged, keep **98304 KiB** as the lower-side VMEM
 frontier and pivot away from local VMEM.
 
 Run dir:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v088-2k-bs16-vmem97280`
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v088-2k-bs16-vmem97280`
 
 Compile cache:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v088_2k_bs16_vmem97280`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v088_2k_bs16_vmem97280`.
 
 ## [2026-06-13] loop-iteration | cc5 v088 2k batch16 VMEM 97280: refuted (70,549 tok/s, 45.4% script MFU)
 
@@ -407,10 +407,10 @@ severe XProf variance. OOM or flat/slower throughput closes raw batch scaling
 above batch16 for this 2k frontier.
 
 Run dir:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v089-2k-bs18-vmem98304`
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v089-2k-bs18-vmem98304`
 
 Compile cache:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v089_2k_bs18_vmem98304`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v089_2k_bs18_vmem98304`.
 
 ## [2026-06-13] loop-iteration | cc5 v089 2k batch18 VMEM98304: invalid/refuted (program-load HBM exhaustion)
 
@@ -446,10 +446,10 @@ Support requires beating v086's **70,564 tok/s** / **45.4% script MFU**. OOM or
 flat/slower throughput closes direct batch scaling above batch16.
 
 Run dir:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v090-2k-bs17-vmem98304`
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v090-2k-bs17-vmem98304`
 
 Compile cache:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v090_2k_bs17_vmem98304`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v090_2k_bs17_vmem98304`.
 
 ## [2026-06-13] loop-iteration | cc5 v090 2k batch17 VMEM98304: supported tie / provisional frontier (70,570 tok/s, 45.4% script MFU)
 
@@ -494,10 +494,10 @@ Support requires another clean finite-loss run in the v090 band. A result near
 v086/v087/v088 makes batch17 a noise-band tie rather than a durable improvement.
 
 Run dir:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v091-2k-bs17-vmem98304-rerun`
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v091-2k-bs17-vmem98304-rerun`
 
 Compile cache:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v091_2k_bs17_vmem98304_rerun`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v091_2k_bs17_vmem98304_rerun`.
 
 ## [2026-06-13] loop-iteration | cc5 v091 2k batch17 VMEM98304 rerun: refuted as confirmation (70,557 tok/s, 45.4% script MFU)
 
@@ -545,10 +545,10 @@ Support requires beating v086's **70,564 tok/s** / **45.4% script MFU** or XProf
 step time below **3743.6 ms**, without unsafe HBM headroom.
 
 Run dir:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v092-2k-bs16-vmem98304-shmem100`
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v092-2k-bs16-vmem98304-shmem100`
 
 Compile cache:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v092_2k_bs16_vmem98304_shmem100`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v092_2k_bs16_vmem98304_shmem100`.
 
 ## [2026-06-13] loop-iteration | cc5 v092 2k batch16 VMEM98304 shmem100: supported provisional (70,606 tok/s, 45.4% script MFU)
 
@@ -588,10 +588,10 @@ matching XProf step time near **3743.2 ms**. A result in the v086/v087 band
 refutes shmem100 as a durable 2k improvement.
 
 Run dir:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v093-2k-bs16-vmem98304-shmem100-rerun`
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v093-2k-bs16-vmem98304-shmem100-rerun`
 
 Compile cache:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v093_2k_bs16_vmem98304_shmem100_rerun`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v093_2k_bs16_vmem98304_shmem100_rerun`.
 
 ## [2026-06-13] loop-iteration | cc5 v093 2k batch16 VMEM98304 shmem100 rerun: supported (70,603 tok/s, 45.4% script MFU)
 
@@ -637,10 +637,10 @@ improving the v090/v091 batch17 profile. OOM, tight-memory instability, or a
 result in the prior **70.55k** batch17 band refutes further batch17 retries.
 
 Run dir:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v094-2k-bs17-vmem98304-shmem100`
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v094-2k-bs17-vmem98304-shmem100`
 
 Compile cache:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v094_2k_bs17_vmem98304_shmem100`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v094_2k_bs17_vmem98304_shmem100`.
 
 ## [2026-06-13] loop-iteration | cc5 v094 2k batch17 VMEM98304 shmem100: invalid/OOM before step 0
 
@@ -678,10 +678,10 @@ tok/s** or showing a same-band run with lower custom-call/data-formatting time
 and no HBM regression.
 
 Run dir:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v095-2k-bs16-vmem98304-shmem100-splash2048`
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v095-2k-bs16-vmem98304-shmem100-splash2048`
 
 Compile cache:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v095_2k_bs16_vmem98304_shmem100_splash2048`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v095_2k_bs16_vmem98304_shmem100_splash2048`.
 
 ## [2026-06-13] loop-iteration | cc5 v095 2k batch16 shmem100 Splash BKV2048: supported provisional (70,976 tok/s, 45.6% script MFU)
 
@@ -733,10 +733,10 @@ before carrying `SPLASH_BKV=2048 SPLASH_BKV_COMPUTE=2048` as the durable 2k
 frontier.
 
 Run dir:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v096-2k-bs16-vmem98304-shmem100-splash2048-rerun`
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v096-2k-bs16-vmem98304-shmem100-splash2048-rerun`
 
 Compile cache:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v096_2k_bs16_vmem98304_shmem100_splash2048_rerun`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v096_2k_bs16_vmem98304_shmem100_splash2048_rerun`.
 
 ## [2026-06-13] loop-iteration | cc5 v096 exact Splash BKV2048 rerun: supported (70,959 tok/s, 45.6% script MFU)
 
@@ -781,10 +781,10 @@ OOM, a return to the v092/v093 **70.60k tok/s** band, or a worse profile refutes
 carrying shmem95.
 
 Run dir:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v097-2k-bs16-vmem98304-splash2048-shmem95`
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v097-2k-bs16-vmem98304-splash2048-shmem95`
 
 Compile cache:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v097_2k_bs16_vmem98304_splash2048_shmem95`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v097_2k_bs16_vmem98304_splash2048_shmem95`.
 
 ## [2026-06-13] loop-iteration | cc5 v097 2k batch16 Splash BKV2048 shmem95: refuted/tie (70,965 tok/s, 45.6% script MFU)
 
@@ -824,10 +824,10 @@ profile/memory improvement without throughput loss. OOM, a lower-profile
 throughput band, or unchanged HLO/profile refutes carrying VMEM100352.
 
 Run dir:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v098-2k-bs16-vmem100352-splash2048-shmem100`
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v098-2k-bs16-vmem100352-splash2048-shmem100`
 
 Compile cache:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v098_2k_bs16_vmem100352_splash2048_shmem100`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v098_2k_bs16_vmem100352_splash2048_shmem100`.
 
 ## [2026-06-13] loop-iteration | cc5 v098 2k batch16 Splash BKV2048 VMEM100352: refuted (70,561 tok/s, 45.4% script MFU)
 
@@ -868,10 +868,10 @@ throughput loss. OOM, lower throughput, or no memory benefit refutes carrying
 VMEM97280 and closes the immediate VMEM bracket.
 
 Run dir:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v099-2k-bs16-vmem97280-splash2048-shmem100`
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v099-2k-bs16-vmem97280-splash2048-shmem100`
 
 Compile cache:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v099_2k_bs16_vmem97280_splash2048_shmem100`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v099_2k_bs16_vmem97280_splash2048_shmem100`.
 
 ## [2026-06-13] loop-iteration | cc5 v099 2k batch16 Splash BKV2048 VMEM97280: refuted/memory-only tie (70,899 tok/s, 45.6% script MFU)
 
@@ -917,10 +917,10 @@ custom-call/attention without wall-time loss. A changed HLO with lower
 throughput or worse convolution refutes carrying DQ reduction steps.
 
 Run dir:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v100-2k-bs16-vmem98304-splash2048-dqsteps3`
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v100-2k-bs16-vmem98304-splash2048-dqsteps3`
 
 Compile cache:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v100_2k_bs16_vmem98304_splash2048_dqsteps3`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v100_2k_bs16_vmem98304_splash2048_dqsteps3`.
 
 ## [2026-06-13] loop-iteration | cc5 v100 2k batch16 Splash BKV2048 DQ reduction steps 3: failed compile OOM
 
@@ -960,10 +960,10 @@ above the confirmed **70.95k tok/s** band, or same-band throughput with clear
 runtime memory improvement.
 
 Run dir:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v101-2k-bs16-vmem98304-splash2048-shmem90`
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v101-2k-bs16-vmem98304-splash2048-shmem90`
 
 Compile cache:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v101_2k_bs16_vmem98304_splash2048_shmem90`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v101_2k_bs16_vmem98304_splash2048_shmem90`.
 
 ## [2026-06-13] loop-iteration | cc5 v101 2k batch16 Splash BKV2048 shmem90: refuted for speed, useful headroom branch
 
@@ -1007,10 +1007,10 @@ shmem90 headroom is enough for batch17 to fit and lift tokens/sec above the
 confirmed **70.95k tok/s** band.
 
 Run dir:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v102-2k-bs17-vmem98304-splash2048-shmem90`
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v102-2k-bs17-vmem98304-splash2048-shmem90`
 
 Compile cache:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v102_2k_bs17_vmem98304_splash2048_shmem90`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v102_2k_bs17_vmem98304_splash2048_shmem90`.
 
 ## [2026-06-13] loop-iteration | cc5 v102 2k batch17 Splash BKV2048 shmem90: refuted (70,882 tok/s, 45.6% script MFU)
 
@@ -1051,10 +1051,10 @@ tok/s**. shmem92 tests whether the threshold can provide useful headroom while
 keeping throughput near or above the confirmed **70.95k tok/s** band.
 
 Run dir:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v103-2k-bs16-vmem98304-splash2048-shmem92`
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v103-2k-bs16-vmem98304-splash2048-shmem92`
 
 Compile cache:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v103_2k_bs16_vmem98304_splash2048_shmem92`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v103_2k_bs16_vmem98304_splash2048_shmem92`.
 
 ## [2026-06-13] loop-iteration | cc5 v103 2k batch16 Splash BKV2048 shmem92: refuted for speed, useful headroom bracket
 
@@ -1096,10 +1096,10 @@ sharding, Tokamax Splash, MaxText CE, SparseCore RS/AR offload + aggregator,
 and collective-matmul modes none.
 
 Run dir:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v104-2k-bs16-vmem98304-splash2048-shmem93`
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v104-2k-bs16-vmem98304-splash2048-shmem93`
 
 Compile cache:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v104_2k_bs16_vmem98304_splash2048_shmem93`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v104_2k_bs16_vmem98304_splash2048_shmem93`.
 
 ## [2026-06-13] loop-iteration | cc5 v104 2k batch16 Splash BKV2048 shmem93: refuted, tight-HBM side of threshold
 
@@ -1140,10 +1140,10 @@ current attention/custom-call schedule, where older qseq runs suggested `true`
 could be marginally better but later simplified stacks tolerated `false`.
 
 Run dir:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v105-2k-bs16-vmem98304-splash2048-allsched`
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v105-2k-bs16-vmem98304-splash2048-allsched`
 
 Compile cache:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v105_2k_bs16_vmem98304_splash2048_allsched`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v105_2k_bs16_vmem98304_splash2048_allsched`.
 
 ## [2026-06-13] loop-iteration | cc5 v105 2k batch16 Splash BKV2048 all scheduler features true: refuted (70,943 tok/s, 45.6% script MFU)
 
@@ -1188,10 +1188,10 @@ least matching it with lower XProf step time or less custom-call/loop-fusion
 time. A same-HLO in-band runtime refutes this reduce-scatter ACF ablation.
 
 Run dir:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v106-2k-bs16-vmem98304-splash2048-noacfrs`
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v106-2k-bs16-vmem98304-splash2048-noacfrs`
 
 Compile cache:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v106_2k_bs16_vmem98304_splash2048_noacfrs`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v106_2k_bs16_vmem98304_splash2048_noacfrs`.
 
 ## [2026-06-13] loop-iteration | cc5 v106 2k batch16 Splash BKV2048 no reduce-scatter ACF: refuted (70,945 tok/s, 45.6% script MFU)
 
@@ -1236,10 +1236,10 @@ least matching it with lower XProf step time. Same-HLO in-band runtime means
 all-reduce ACF is inert on this frontier.
 
 Run dir:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v107-2k-bs16-vmem98304-splash2048-acf-ar`
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v107-2k-bs16-vmem98304-splash2048-acf-ar`
 
 Compile cache:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v107_2k_bs16_vmem98304_splash2048_acf_ar`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v107_2k_bs16_vmem98304_splash2048_acf_ar`.
 
 ## [2026-06-13] loop-iteration | cc5 v107 2k batch16 Splash BKV2048 all-reduce ACF: refuted/inert (70,945 tok/s, 45.6% script MFU)
 
@@ -1282,10 +1282,10 @@ least matching it with lower XProf step time or lower all-gather/convolution
 fusion tail. Same-HLO in-band runtime refutes the cap.
 
 Run dir:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v108-2k-bs16-vmem98304-splash2048-ag1`
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v108-2k-bs16-vmem98304-splash2048-ag1`
 
 Compile cache:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v108_2k_bs16_vmem98304_splash2048_ag1`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v108_2k_bs16_vmem98304_splash2048_ag1`.
 
 ## [2026-06-13] loop-iteration | cc5 v108 2k batch16 Splash BKV2048 async all-gather cap1: refuted/default (70,939 tok/s, 45.6% script MFU)
 
@@ -1331,10 +1331,10 @@ least matching it with lower XProf step time. Same-HLO in-band runtime refutes
 the cap.
 
 Run dir:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v109-2k-bs16-vmem98304-splash2048-rs1`
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v109-2k-bs16-vmem98304-splash2048-rs1`
 
 Compile cache:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v109_2k_bs16_vmem98304_splash2048_rs1`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v109_2k_bs16_vmem98304_splash2048_rs1`.
 
 ## [2026-06-12] stop | /stop-experiment session end
 
@@ -1412,9 +1412,9 @@ Support requires clean finite loss plus lower HLO memory/size or lower XProf
 time without dropping below the durable **~59.33k tok/s / 4433.8 ms** frontier.
 
 Run/cache paths:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v080-v067-sparse-maxtext-ce`
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v080-v067-sparse-maxtext-ce`
 and
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v080_sparse_maxtext_ce`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v080_sparse_maxtext_ce`.
 
 ## [2026-06-12] loop-iteration | cc5 v079 explicit-SiLU shmem95 midpoint: refuted (59,326 host-best, 4434.2 ms; same shmem100 HLO)
 
@@ -1464,9 +1464,9 @@ profile closes this shared-memory bracket and should pivot back to code/HLO
 directions from the retrospective.
 
 Run/cache paths:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v079-v067-shmem95`
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v079-v067-shmem95`
 and
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v079_explicit_silu_shmem95`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v079_explicit_silu_shmem95`.
 
 ## [2026-06-12] loop-iteration | cc5 v078 exact v077 shmem100 rerun: refuted as confirmation (59,329 host-best, 4434.7 ms; same HLO)
 
@@ -1513,9 +1513,9 @@ HBM OOM. A return to the shmem90 **59.33k / 4433.8 ms** band or worse treats
 v077 as noise/tie.
 
 Run/cache paths:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v078-v077-shmem100-rerun`
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v078-v077-shmem100-rerun`
 and
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v078_explicit_silu_shmem100_rerun`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v078_explicit_silu_shmem100_rerun`.
 
 ## [2026-06-12] loop-iteration | cc5 v077 explicit-SiLU shmem100: provisional support (59,340 host-best, 4432.6 ms; tight HBM)
 
@@ -1574,9 +1574,9 @@ shmem90. Support requires beating the current durable **59.33k tok/s /
 no HBM regression.
 
 Run/cache paths:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v077-v067-shmem100`
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v077-v067-shmem100`
 and
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v077_explicit_silu_shmem100`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v077_explicit_silu_shmem100`.
 
 ## [2026-06-12] loop-iteration | cc5 v076 no ACF multistep on current explicit-SiLU HLO: refuted (59,208 host-best, 4442.5 ms; smaller slower HLO)
 
@@ -1630,9 +1630,9 @@ multiplier **3**, AR latency multiplier **2**, selective resources, scoped VMEM
 **3**.
 
 Run/cache paths:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v076-v067-no-acf-multistep`
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v076-v067-no-acf-multistep`
 and
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v076_no_acf_multistep`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v076_no_acf_multistep`.
 
 Support requires beating the current durable **59.33k tok/s / 4433.8 ms** band
 or preserving same-band throughput with lower XProf step time and unchanged HBM.
@@ -1686,9 +1686,9 @@ The only intended runtime change is disabling the reduce-scatter ACF subtype:
 ```
 
 Run/cache paths:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v075-v067-no-rs-acf`
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v075-v067-no-rs-acf`
 and
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v075_no_rs_acf`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v075_no_rs_acf`.
 
 Support requires beating the current durable **59.33k tok/s / 4433.8 ms** band
 or preserving same-band throughput with lower XProf step time and unchanged HBM.
@@ -1739,9 +1739,9 @@ resources, scoped VMEM **100352**, shared-memory limit **90**, and
 latency-hiding scheduler rerun **3**.
 
 Run/cache paths:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v074-v067-rs4-ar2`
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v074-v067-rs4-ar2`
 and
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v074_rs4_ar2`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v074_rs4_ar2`.
 
 Support requires beating the current durable **59.33k tok/s / 4433.8 ms** band
 or preserving same-band throughput with lower XProf step time and unchanged HBM.
@@ -1796,9 +1796,9 @@ The only intended runtime change is enabling all-reduce async collective fusion:
 ```
 
 Run/cache paths:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v073-v067-allreduce-acf`
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v073-v067-allreduce-acf`
 and
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v073_allreduce_acf`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v073_allreduce_acf`.
 
 Support requires beating the current durable **59.33k tok/s / 4433.8 ms** band
 or preserving same-band throughput with lower XProf step time and unchanged HBM.
@@ -1852,9 +1852,9 @@ The only intended runtime change is enabling scheduler resource sharing:
 ```
 
 Run/cache paths:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v072-v067-resource-sharing`
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v072-v067-resource-sharing`
 and
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v072_resource_sharing`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v072_resource_sharing`.
 
 Support requires beating the current durable **59.33k tok/s / 4433.8 ms** band
 or preserving same-band throughput with lower XProf step time and unchanged HBM.
@@ -1908,9 +1908,9 @@ The only intended runtime change is disabling active offload tracing:
 ```
 
 Run/cache paths:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v071-v067-no-offload-tracing`
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v071-v067-no-offload-tracing`
 and
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v071_no_offload_tracing`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v071_no_offload_tracing`.
 
 Support requires beating the current **59.3k tok/s / 4433.8-4433.9 ms** band
 or preserving same-band throughput with lower XProf overhead and unchanged HBM.
@@ -1968,9 +1968,9 @@ The only intended runtime change is omitting:
 ```
 
 Run/cache paths:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v070-v067-ar-default`
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v070-v067-ar-default`
 and
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v070_ar_default`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v070_ar_default`.
 
 Support requires beating the current **59.3k tok/s / 4433.8-4433.9 ms** band
 or preserving same-band throughput with a lower train-step profile bucket and
@@ -2024,9 +2024,9 @@ latency-hiding scheduler rerun **3**. The only intended runtime change is:
 ```
 
 Run/cache paths:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v069-v067-async-allgather-cap1`
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v069-v067-async-allgather-cap1`
 and
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v069_ag1`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v069_ag1`.
 
 Support requires beating the current durable **59.3k tok/s / 4433.8 ms** band
 or preserving same-band throughput with a lower all-gather/custom-fusion
@@ -2104,12 +2104,12 @@ with `max_abs_diff=0.0` and `allclose_1e-6=True`.
 
 Runtime uses the v064/v037 stack with preferred np0 placement, fresh compile
 cache
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v067_silu`,
+`gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v067_silu`,
 no-scan/remat, activation sharding, Tokamax Splash max-logit 30, MaxText CE,
 batch size **4** per chip / global batch **32**, RS3+AR2 SparseCore offload,
 selective resources, scoped VMEM **100352**, shared-memory limit **90**, and
 latency-hiding scheduler rerun **3**. Profile/HLO path:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v067-v037-explicit-silu`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v067-v037-explicit-silu`.
 
 Support requires beating v064's **59,326 tok/s / 4433.8 ms** band or preserving
 same-band throughput with a useful reduction in MLP/convolution-fusion cost.
@@ -2146,11 +2146,11 @@ control. v063 was slow on np1 (**58,963 tok/s / 4461.2 ms**) but used the
 shared compile cache and emitted no fresh train-step HLO, while v064 on np0
 with a unique cache recovered **59,326 tok/s / 4433.8 ms**. v066 keeps the
 v064/v037 stack fixed and pins only
-`cloud.google.com/gke-nodepool=alekseyv-tpu-v6e8-spot-xpk-np-1`, with unique
+`cloud.google.com/gke-nodepool=<your-cluster>-np-1`, with unique
 cache
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v066_np1`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v066_np1`.
 Profile/HLO path:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v066-v037-np1-placement`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v066-v037-np1-placement`.
 
 Support requires recovering v064's same-HLO step-time band. If np1 remains
 slower, close placement probing and continue source-level work from the np0
@@ -2184,7 +2184,7 @@ v036/v037/v064 when capacity permits.
 
 Launching workload `alekseyv-qwen3-cc5-jax-v065-np4` as an exact v064/v037
 fresh-cache control pinned to nodepool
-`alekseyv-tpu-v6e8-spot-xpk-np-4`. v064 recovered the lean HLO
+`<your-cluster>-np-4`. v064 recovered the lean HLO
 (`81e3c3c5...`) and the current **59,326 tok/s / 4433.8 ms** live baseline, but
 the same optimized train-step SHA historically reported **60.3k / 4358 ms**.
 This run tests whether same-HLO runtime placement can recover part of that
@@ -2193,9 +2193,9 @@ Tokamax Splash max-logit 30, MaxText CE, batch size **4** per chip / global
 batch **32**, RS3+AR2 SparseCore offload, selective resources, scoped VMEM
 **100352**, shared-memory limit **90**, and latency-hiding scheduler rerun
 **3**. Unique compile cache:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v065_np4`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v065_np4`.
 Profile/HLO path:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v065-v037-np4-placement`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v065-v037-np4-placement`.
 
 Support requires the same lean HLO family and profile/throughput above v064.
 If it ties or regresses, close placement and resume source-level work from
@@ -2232,7 +2232,7 @@ source changes that do not select the larger `copy=22117/fusion=30896` family.
 
 Launching workload `alekseyv-qwen3-cc5-jax-v064-freshcache` as an exact
 unmodified v258/v037 control with a unique persistent compile-cache directory:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v064_fresh`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v064_fresh`.
 The purpose is to force fresh HLO emission after v063 hit the shared cache,
 produced no fresh HLO, and landed at **58,963 tok/s / 4461.2 ms** instead of the
 prior **59,330 tok/s / 4433.0 ms** frontier. Runtime flags otherwise remain the
@@ -2240,7 +2240,7 @@ v037 stack: no-scan/remat, activation sharding, Tokamax Splash max-logit 30,
 MaxText CE, batch size **4** per chip / global batch **32**, RS3+AR2 SparseCore
 offload, selective resources, scoped VMEM **100352**, shared-memory limit
 **90**, and latency-hiding scheduler rerun **3**. Profile/HLO path:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v064-v037-fresh-cache`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v064-v037-fresh-cache`.
 
 Support requires fresh HLO plus recovery toward v036/v037's **59,330 tok/s /
 4433.0 ms** band. If it stays near **58.9k / 4460 ms**, the live baseline is
@@ -2277,7 +2277,7 @@ Tokamax Splash max-logit 30, MaxText CE entrypoint, batch size **4** per chip /
 global batch **32**, RS3+AR2 SparseCore offload, selective resources, scoped
 VMEM **100352**, shared-memory limit **90**, and latency-hiding scheduler rerun
 **3**. Profile/HLO path:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v063-v037-frontier-rerun`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v063-v037-frontier-rerun`.
 
 Healthy reproduction should land near v036/v037's **59,330 tok/s / 4433.0 ms**
 band and recover the tighter current-HLO family. If it instead matches the
@@ -2321,7 +2321,7 @@ Tokamax Splash max-logit 30, MaxText CE entrypoint, batch size **4** per chip /
 global batch **32**, RS3+AR2 SparseCore offload, selective resources, scoped
 VMEM **100352**, shared-memory limit **90**, and latency-hiding scheduler rerun
 **3**. Profile/HLO path:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v062-v037-final-hidden-fsdp`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v062-v037-final-hidden-fsdp`.
 
 Support requires beating v037's **59,330 tok/s / 4433.0 ms** band, or a
 same-band result with lower CE/lm-head layout/collective cost and no HBM
@@ -2367,7 +2367,7 @@ Tokamax Splash max-logit 30, MaxText CE entrypoint, batch size **4** per chip /
 global batch **32**, RS3+AR2 SparseCore offload, selective resources, scoped
 VMEM **100352**, shared-memory limit **90**, and latency-hiding scheduler rerun
 **3**. Profile/HLO path:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v061-v037-mlp-mul-order`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v061-v037-mlp-mul-order`.
 
 Support requires beating v037's **59,330 tok/s / 4433.0 ms** band, or a
 near-tie with lower MLP convolution-fusion time and no HBM regression.
@@ -2406,7 +2406,7 @@ Tokamax Splash max-logit 30, MaxText CE entrypoint, batch size **4** per chip /
 global batch **32**, RS3+AR2 SparseCore offload, selective resources, scoped
 VMEM **100352**, shared-memory limit **90**, and latency-hiding scheduler rerun
 **3**. Profile/HLO path:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v060-v037-sparse-label-ce`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v060-v037-sparse-label-ce`.
 
 Support requires beating v037's **59,330 tok/s / 4433.0 ms** band, or a
 same-band result with a smaller CE/loop-fusion footprint and no MXU/HBM
@@ -2447,7 +2447,7 @@ Tokamax Splash max-logit 30, MaxText/T5X CE, batch size **4** per chip / global
 batch **32**, RS3+AR2 SparseCore offload, selective resources, scoped VMEM
 **100352**, shared-memory limit **90**, and latency-hiding scheduler rerun
 **3**. Profile/HLO path:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v059-v037-fused-kv-proj`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v059-v037-fused-kv-proj`.
 
 Support requires beating v037's **59,330 tok/s / 4433.0 ms** band, or a
 same-band result with a clear reduction in attention projection footprint that
@@ -2487,7 +2487,7 @@ Tokamax Splash max-logit 30, MaxText/T5X CE, batch size **4** per chip / global
 batch **32**, RS3+AR2 SparseCore offload, selective resources, scoped VMEM
 **100352**, shared-memory limit **90**, and latency-hiding scheduler rerun
 **3**. Profile/HLO path:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v058-v037-fused-qkv-proj`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v058-v037-fused-qkv-proj`.
 
 Support requires beating v037's **59,330 tok/s / 4433.0 ms** band, or a
 same-band result with a clear reduction in the convolution-fusion/HLO dot
@@ -2526,7 +2526,7 @@ schedule. It keeps the v037 stack fixed and changes only
 Tokamax Splash max-logit 30, MaxText/T5X CE, batch size 4, seq8192, TP1/FSDP8,
 scoped VMEM 100352, selective resources, rerun3, and RS3+AR2 SparseCore
 collective offload. Run root:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v057-v037-shmem91`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v057-v037-shmem91`.
 
 Support requires beating v037's **59,330 tok/s / 4433.0 ms** band or at least
 preserving the low-HBM-pressure 90% schedule with a same-band speedup. If 91%
@@ -2566,7 +2566,7 @@ keeps the v037 stack fixed and changes only
 Tokamax Splash max-logit 30, MaxText/T5X CE, batch size 4, seq8192, TP1/FSDP8,
 scoped VMEM 100352, selective resources, rerun3, and RS3+AR2 SparseCore
 collective offload. Run root:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v056-v037-shmem92`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v056-v037-shmem92`.
 
 Rationale: the coarse bracket found 85 slower and 95 slower/tighter on HBM,
 while 90 became the current-cluster frontier. A 92% limit may keep the 90%
@@ -2612,7 +2612,7 @@ Runtime flags match v037/v053: no-scan/remat with no offload, activation
 sharding, MaxText CE, Tokamax Splash max-logit 30, batch size 4, seq8192,
 TP1/FSDP8, scoped VMEM 100352, RS3+AR2 SparseCore collective offload,
 selective resources, rerun3, and shared-memory limit 90. Run root:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v055-v037-remove-attn-proj-names`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v055-v037-remove-attn-proj-names`.
 
 Support requires beating the current-cluster v036/v037 frontier
 (**59,330 tok/s / 4433.0 ms**) or matching it with materially lower attention
@@ -2632,7 +2632,7 @@ index {0}`, comparing
 carrying `S(5)` in the layout. The JobSet exited with code 1. No XProf profile
 or `after_optimizations` HLO was produced; the HLO directory contains only the
 pre/post-crash setup artifacts under
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v054-scan-unroll-fixed/hlo_a/`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v054-scan-unroll-fixed/hlo_a/`.
 
 Verdict: invalid/refuted. `JAX_SCAN_UNROLL=2` is not valid with the current
 scan/offload-attention plus async-collective flag stack. Do not carry scan
@@ -2650,7 +2650,7 @@ both phase A and phase B failed before training with
 incomplete image being used on the nodes.
 
 The corrected image
-`us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v054-scan-unroll-fixed`
+`<your-registry>/torchtitan-images/qwen3-8b-jax:v054-scan-unroll-fixed`
 was pushed at digest
 `sha256:bc8d7950aa89ae8bebb689649fe397bd8764608a41a066324fcf8c6de771e836`.
 The JobSet forces `imagePullPolicy: Always`, `cd /app/trainer`, explicit
@@ -2660,7 +2660,7 @@ The JobSet forces `imagePullPolicy: Always`, `cd /app/trainer`, explicit
 broken unroll probe: batch size 4, sequence length 8192, TP1/FSDP8, Splash,
 Tokamax CE `chunked_xla`, scoped VMEM 98304, and shared-memory limit 100.
 Run root:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v054-scan-unroll-fixed`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v054-scan-unroll-fixed`.
 
 ## [2026-06-12] loop-iteration | cc5 v053 remove MLP `mlpwi` checkpoint names: refuted (58,976 tok/s / 4463.7 ms)
 
@@ -2702,7 +2702,7 @@ selective resources, scoped VMEM **100352**, shared-memory limit **90**, and
 latency-hiding scheduler rerun **3**.
 
 Profile/HLO path:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v053-v037-remove-mlpwi-names`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v053-v037-remove-mlpwi-names`.
 
 ## [2026-06-12] loop-iteration | cc5 v052 pinned-host attention offload shmem80: refuted (40,056 tok/s / 6571.4 ms)
 
@@ -2740,7 +2740,7 @@ v050/v051 image and trainer flags unchanged (`--offload_remat=True`) and changes
 only `--xla_tpu_scheduler_percent_shared_memory_limit=85` to **80**.
 
 Profile/HLO path:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v052-v050-attn-offload-shmem80`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v052-v050-attn-offload-shmem80`.
 
 Rationale: v051 reduced the HBM overage to only **233.74 MiB** while preserving
 the same semantics and batch size. Another small shared-memory reduction may be
@@ -2773,7 +2773,7 @@ offload for `decoder_layer_input`, `query_proj`, `key_proj`, `value_proj`, and
 `--xla_tpu_scheduler_percent_shared_memory_limit=90` to **85**.
 
 Profile/HLO path:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v051-v050-attn-offload-shmem85`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v051-v050-attn-offload-shmem85`.
 
 Rationale: v050 reduced HLO temp to **26.71 GiB** but total HBM still reached
 **32.52 GiB**, exceeding v6e HBM by **1.27 GiB** after arguments/live outputs.
@@ -2820,7 +2820,7 @@ activation sharding, Tokamax Splash max-logit 30, MaxText/T5X CE, batch size
 **4** per chip / global batch **32**, RS3+AR2 SparseCore offload, selective
 resources, scoped VMEM **100352**, shared-memory limit **90**, and
 latency-hiding scheduler rerun **3**. Profile/HLO path:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v050-v037-pinned-host-attn-offload`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v050-v037-pinned-host-attn-offload`.
 
 Rationale: v048/v049 prove on-device save policies are invalid under the
 current CE/logits live range, but host offload may fit and can determine whether
@@ -2869,7 +2869,7 @@ Tokamax Splash max-logit 30, MaxText/T5X CE, batch size **4** per chip / global
 batch **32**, RS3+AR2 SparseCore offload, selective resources, scoped VMEM
 **100352**, shared-memory limit **90**, and latency-hiding scheduler rerun
 **3**. Profile/HLO path:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v049-v037-save-attn-proj-only`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v049-v037-save-attn-proj-only`.
 
 Rationale: if saving all selected dot outputs is too memory-heavy, saving only
 attention projection outputs may still reduce recompute in the attention path
@@ -2912,7 +2912,7 @@ Tokamax Splash max-logit 30, MaxText/T5X CE, batch size **4** per chip / global
 batch **32**, RS3+AR2 SparseCore offload, selective resources, scoped VMEM
 **100352**, shared-memory limit **90**, and latency-hiding scheduler rerun
 **3**. Profile/HLO path:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v048-v037-save-dot-except-mlpwi`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v048-v037-save-dot-except-mlpwi`.
 
 Rationale: v037 has only about **2.22 GiB** free HBM, so this may compile/load
 OOM; if it fits, it should reduce recomputation in attention/out/MLP-output
@@ -2965,7 +2965,7 @@ Tokamax Splash max-logit 30, MaxText/T5X CE, batch size **4** per chip / global
 batch **32**, RS3+AR2 SparseCore offload, selective resources, scoped VMEM
 **100352**, shared-memory limit **90**, and latency-hiding scheduler rerun
 **3**. Profile/HLO path:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v047-v037-maxtext-mlp-names`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v047-v037-maxtext-mlp-names`.
 
 Rationale: v046 reduced collectives/HLO size but slowed the dominant
 convolution-fusion and custom-fusion buckets, so the next low-blast-radius
@@ -3015,7 +3015,7 @@ Tokamax Splash max-logit 30, MaxText/T5X CE, batch size **4** per chip / global
 batch **32**, RS3+AR2 SparseCore offload, selective resources, scoped VMEM
 **100352**, shared-memory limit **90**, and latency-hiding scheduler rerun
 **3**. Profile/HLO path:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v046-v037-replicate-rmsnorm`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v046-v037-replicate-rmsnorm`.
 
 Rationale: v165/v166 and v176 refuted replicated RMSNorm on older scan/v169
 frontiers, but the current no-scan v037 stack has a much larger unrolled HLO and
@@ -3071,7 +3071,7 @@ Tokamax Splash max-logit 30, MaxText/T5X CE, batch size **4** per chip / global
 batch **32**, RS3+AR2 SparseCore offload, selective resources, scoped VMEM
 **100352**, shared-memory limit **90**, and latency-hiding scheduler rerun
 **3**. Profile/HLO path:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v045-v037-ce-recompute-bwd`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v045-v037-ce-recompute-bwd`.
 
 Rationale: v178 showed the target cotangent/log-softmax path is already DCE'd,
 but the CE VJP still has a separate opportunity to trade recomputation for a
@@ -3124,7 +3124,7 @@ Tokamax Splash max-logit 30, MaxText/T5X CE, batch size **4** per chip / global
 batch **32**, RS3+AR2 SparseCore offload, selective resources, scoped VMEM
 **100352**, shared-memory limit **90**, and latency-hiding scheduler rerun
 **3**. Profile/HLO path:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v044-v037-attn-v-first`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v044-v037-attn-v-first`.
 
 Rationale: v040-v043 closed the local VMEM and scheduler-rerun brackets without
 beating v037. This tests whether a semantics-preserving producer-order change
@@ -3986,7 +3986,7 @@ frontier stack and changed only `TOKAMAX_MAX_LOGIT_CONST=30.0`, keeping
 the older Qwen3 lane carried the constant-max-logit Tokamax Splash path after
 it improved the attention/custom-call frontier, but the current cc5 v025 stack
 had not tested it. Profile target is late steps 40..42 under
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v026-tkmax30`.
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v026-tkmax30`.
 
 ## [2026-06-12] loop-iteration | cc5 v024-off3 offload-attn bs3 probe: invalid/refuted (bs1 slow; bs3 compile OOM)
 
@@ -4004,7 +4004,7 @@ followed by the CE weight pad at **1.17 GiB** and many repeated **384 MiB**
 
 Verdict: do not carry `offload_attn`; it both slows the viable bs1 target and
 does not make bs3 feasible. HLO/OOM artifacts are under
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v024-off3/hlo/`,
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v024-off3/hlo/`,
 including `module_0092.jit_train_step...oom_intermediate_module.txt` and
 `oom_top_memory_consuming_instructions`.
 
@@ -4528,7 +4528,7 @@ worker1 averaged **57,777 tok/s**, both about **41.4% nominal MFU**. XProf run
 `2026-06-05-qwen3-jax-v250-no-scan-sparsecore-rs-ar-rs2-ar2-levanter-ce-h512-v768/2026_06_05_11_28_55`
 shows **4553.0 ms** step time, **66.2% MXU**, and **29.38 GiB** peak HBM. The
 train-step HLO landed at
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v250-no-scan-sparsecore-rs-ar-rs2-ar2-levanter-ce-h512-v768/hlo/xla-dump/module_0267.jit_train_step.cl_854318611.after_optimizations.txt`
+`gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v250-no-scan-sparsecore-rs-ar-rs2-ar2-levanter-ce-h512-v768/hlo/xla-dump/module_0267.jit_train_step.cl_854318611.after_optimizations.txt`
 with hash `430ec9f326f5ee6956871f7428c591fcbbf5b0cba2acf1334a52a828dd0273fa`
 (19,562,599 bytes). `v768` reduces the forward CE custom-call to **582.7 ms /
 1.1%**, but the generated fusion surface gets worse: convolution fusion rises
@@ -4997,7 +4997,7 @@ workers with `EXIT_CODE=134`. The compiler aborted in
 `ReduceScatterLegalizer::IsValidReduceScatterForSparseCoreOffload`. No profile
 or optimized train-step HLO was produced, but partial HLO/MLIR artifacts were
 uploaded under
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v223-no-scan-sparsecore-rs-ar-nd-reduce-scatter/hlo/xla-dump/`
+`gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v223-no-scan-sparsecore-rs-ar-nd-reduce-scatter/hlo/xla-dump/`
 (19.53 MiB). Do not carry ND reduce-scatter offload for this native-JAX shape.
 
 ## [2026-06-05] loop-iteration | v222-no-scan-sparsecore-rs-ar-no-aggregator on 8B/v6e-8: refuted (59,246 tok/s / 42.5% MFU)
@@ -5129,7 +5129,7 @@ is **43.59 GiB**, with **37.83 GiB** preallocated temp. Optimized train-step
 HLO: `module_0294.jit_train_step.cl_854318611.after_optimizations.txt`, 109,076
 lines / 18,668,321 bytes, SHA256
 `4b4277d8e930d9dc40c491334ffd8bffaec38ba4f2b33d9aa4bed537c1d6d8f6`; HLO prefix
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v216-no-scan-custom-vjp-tiled-ce-bs4/hlo/xla-dump/`
+`gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v216-no-scan-custom-vjp-tiled-ce-bs4/hlo/xla-dump/`
 has 4950 objects / 1,760,258,711 bytes. Do not carry unrolled Python custom
 VJP; the local v217 `lax.scan` custom-VJP rewrite failed CPU equivalence, so the
 cheap scan path is also closed unless equivalence is restored first.
@@ -5147,7 +5147,7 @@ live set: **132×`bf16[32768,2048]`**, **29×`f32[32768,2048]`**,
 train-step HLO: `module_0294.jit_train_step.cl_854318611.after_optimizations.txt`,
 141,911 lines / 23,370,047 bytes, SHA256
 `4c5b3059980dcc98463a686c10a300c6d939f92c99d576d4710280dab036adb6`; HLO prefix
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v215-no-scan-remat-tiled-ce-chunk2048-bs4/hlo/xla-dump/`
+`gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v215-no-scan-remat-tiled-ce-chunk2048-bs4/hlo/xla-dump/`
 has 1226 objects / 149,773,227 bytes. Do not continue the remat-only
 chunk-size sweep; move CE/logit-memory work to custom VJP or Pallas/streaming
 CE.
@@ -5168,7 +5168,7 @@ preallocated temp, and still many chunk-shaped values:
 `module_0294.jit_train_step.cl_854318611.after_optimizations.txt`, 115,286
 lines / 19,541,330 bytes, SHA256
 `07adb0643ddb20b0f329f1d68a2dc05e32e1c40b28ccf1ce31d025f2d334976f`; HLO prefix
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v214-no-scan-remat-tiled-ce-bs4/hlo/xla-dump/`
+`gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v214-no-scan-remat-tiled-ce-bs4/hlo/xla-dump/`
 has 1220 objects / 122.93 MiB. Remat is not enough at chunk size 4096; use one
 smaller chunk-size response probe, then move to custom VJP/Pallas if still far
 from fitting.
@@ -5188,7 +5188,7 @@ values instead: **83×`bf16[32768,4096]`**, **10×`f32[32768,4096]`**, and
 `module_0294.jit_train_step.cl_854318611.after_optimizations.txt`, 116,128
 lines / 19,780,378 bytes, SHA256
 `c645d622e27b78b2e72a2130aff9383274a02a06150f96ae3a246c44dcbf47dd`; HLO prefix
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v213-no-scan-tiled-ce-bs4/hlo/`
+`gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v213-no-scan-tiled-ce-bs4/hlo/`
 has 903 objects / 116.14 MiB. Do not carry naive autodiffed tiled CE; future
 CE/logit-memory work needs rematerialized chunks, custom VJP, or a Pallas
 streaming CE that does not save chunk logits/masks.
@@ -5678,7 +5678,7 @@ confirmed v182/v183 no-scan frontier, changing only
 accidentally submitted to a stale Europe v5p kubectl context and remained
 pending; it was deleted before running, v6e credentials were refreshed, and the
 workload was resubmitted to the correct
-`gke_tpu-pytorch_us-central2_alekseyv-tpu-v6e8-spot-xpk` context. The v6e run
+`<your-gke-context>` context. The v6e run
 completed cleanly with normal loss ending at 12.0460 and `EXIT_CODE=0`, but
 regressed to 57,815 tok/s average / 7,227 tok/s/chip / 41.5% MFU, with a best
 observed step of only 58,004 tok/s. Profile files were written under
@@ -6415,14 +6415,14 @@ Loop protocol resumed with the never-stop hook disabled. Backfilled completed un
 
 ## [2026-06-03] loop-iteration | v012-splash-tp4-bs8 on 8B/v6e-8: supported (39,438 tok/s, 25.4% MFU)
 
-Adopted live workload `alekseyv-qwen3-v012` as the active `/start-experiment` track. It completed cleanly on `alekseyv-tpu-v6e8-spot-xpk` with `fsdp=2,tp=4`, Splash enabled, global batch 16, and seq_len 2048. XProf run `2026-06-02-qwen3-jax-v012-splash-tp4-bs8/2026_06_03_00_24_23` shows MXU 26.9%, peak HBM 27.75 GiB, and `jit_train_step` 97.8% of device time. This moves the native-JAX frontier from the baseline 31,955 tok/s / 20.5% MFU to 39,438 tok/s / 25.4% MFU.
+Adopted live workload `alekseyv-qwen3-v012` as the active `/start-experiment` track. It completed cleanly on `<your-cluster>` with `fsdp=2,tp=4`, Splash enabled, global batch 16, and seq_len 2048. XProf run `2026-06-02-qwen3-jax-v012-splash-tp4-bs8/2026_06_03_00_24_23` shows MXU 26.9%, peak HBM 27.75 GiB, and `jit_train_step` 97.8% of device time. This moves the native-JAX frontier from the baseline 31,955 tok/s / 20.5% MFU to 39,438 tok/s / 25.4% MFU.
 
 ## [2026-06-03] loop-iteration | v011-splash-tp2-remat-dots-bs8 on 8B/v6e-8: invalid (compile-time HBM OOM; 35.21G > 31.25G)
 
 ## [2026-06-03] start | /start-experiment session begin
 
 **Op**: start
-**Cluster pool**: alekseyv-tpu-v6e8-spot-xpk
+**Cluster pool**: <your-cluster>
 **Parallelism**: 1
 **First-pick hypothesis**: adopt live `alekseyv-qwen3-v011` track (Qwen3 JAX splash + TP=2 + per-chip batch 8) and backfill/analyze before dispatching another duplicate.
 **Notes**: session opened via Codex start-experiment; Codex never-stop marker active at `.codex/.loop_active.json`.

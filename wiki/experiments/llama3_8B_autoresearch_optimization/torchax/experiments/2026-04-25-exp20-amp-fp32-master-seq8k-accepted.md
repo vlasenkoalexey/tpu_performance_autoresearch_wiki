@@ -113,5 +113,5 @@ per-chip B·L; the OOM data points narrow the path:
 ## Sources
 
 - Workload (XPK): `llama3-8b-exp20-amp-bs1-seq8k`.
-- Image: `us-central1-docker.pkg.dev/<your-project>/test/llama3-8b-torchax-container:hf-v7`.
+- Image: `<your-registry>/test/llama3-8b-torchax-container:hf-v7`.
 - Branch: `v6e8-llama3-8b-torchax-20260425-exp20-amp-fp32-master`.

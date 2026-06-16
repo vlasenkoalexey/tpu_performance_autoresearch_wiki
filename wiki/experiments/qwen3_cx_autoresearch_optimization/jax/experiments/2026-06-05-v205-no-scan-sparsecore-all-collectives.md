@@ -44,8 +44,8 @@ completion at or below the confirmed no-scan frontier.
 
 GKE workload `alekseyv-qwen3-v205-noscan-scall`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v205-no-scan-sparsecore-all-collectives`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v205-no-scan-sparsecore-all-collectives`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **Command shape**: `--use_scan=False --use_remat=True --offload_remat=False --use_splash=True --use_maxtext_ce=True --shard_acts=True --batch_size=4 --seqlen=8192 --tp_parallelism=1`
@@ -97,8 +97,8 @@ This beats the confirmed v182/v183 no-scan frontier
 
 Profile capture completed on both hosts:
 
-- `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v205-no-scan-sparsecore-all-collectives/plugins/profile/2026_06_05_01_31_01/gke-tpu-964065d9-c180.{trace.json.gz,xplane.pb}`
-- `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v205-no-scan-sparsecore-all-collectives/plugins/profile/2026_06_05_01_31_02/gke-tpu-964065d9-9vh8.{trace.json.gz,xplane.pb}`
+- `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v205-no-scan-sparsecore-all-collectives/plugins/profile/2026_06_05_01_31_01/gke-tpu-964065d9-c180.{trace.json.gz,xplane.pb}`
+- `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v205-no-scan-sparsecore-all-collectives/plugins/profile/2026_06_05_01_31_02/gke-tpu-964065d9-9vh8.{trace.json.gz,xplane.pb}`
 
 Trace spans for `jit_train_step(2150120830615090428)` on `gke-tpu-964065d9-c180`
 showed profiled-step durations around **4.425 s**, matching the stdout
@@ -108,7 +108,7 @@ throughput band for global batch 32 at seq8192.
 
 HLO was written under:
 
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v205-no-scan-sparsecore-all-collectives/hlo/`
+`gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v205-no-scan-sparsecore-all-collectives/hlo/`
 
 The two train-step modules were byte-identical:
 

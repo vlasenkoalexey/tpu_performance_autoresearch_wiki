@@ -25,24 +25,24 @@ Scaling per-chip batch size from 1 to 2 to measure MXU occupancy improvements an
 
 ## Setup
 
-- **Hardware**: TPU v6e-8 — 2 hosts × 4 chips, fsdp=8, tp=1. Cluster `alekseyv-tpu-v6e8-spot-xpk` (`tpu-pytorch`, zone `us-central2`), 1 slice.
+- **Hardware**: TPU v6e-8 — 2 hosts × 4 chips, fsdp=8, tp=1. Cluster `<your-cluster>` (`<your-project>`, zone `<your-region>`), 1 slice.
 - **Dispatch**: GKE/XPK via the gke-cluster-runner agent. Workload `alekseyv-qwen3-jax-v001-scaling`.
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:latest`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:latest`
 - **Env**:
   - `LIBTPU_INIT_ARGS='--xla_tpu_scoped_vmem_limit_kib=98304'`
-  - `JAX_COMPILATION_CACHE_DIR=gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/jax_lane_cache`
-  - `XLA_FLAGS='--xla_dump_to=gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v001-batch-scaling/hlo --xla_dump_hlo_as_text --xla_dump_hlo_as_proto'`
+  - `JAX_COMPILATION_CACHE_DIR=gs://<your-bucket>/autoresearch/qwen3_cc/jax_lane_cache`
+  - `XLA_FLAGS='--xla_dump_to=gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v001-batch-scaling/hlo --xla_dump_hlo_as_text --xla_dump_hlo_as_proto'`
 - **Data**: synthetic random tokens (`use_real_data=False`); random-init weights.
 - **Command**:
   ```bash
   cd /app/trainer && LIBTPU_INIT_ARGS='--xla_tpu_scoped_vmem_limit_kib=98304' \
-    JAX_COMPILATION_CACHE_DIR=gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/jax_lane_cache \
+    JAX_COMPILATION_CACHE_DIR=gs://<your-bucket>/autoresearch/qwen3_cc/jax_lane_cache \
     JAX_PERSISTENT_CACHE_MIN_COMPILE_TIME_SECS=1 JAX_PERSISTENT_CACHE_MIN_ENTRY_SIZE_BYTES=0 \
-    XLA_FLAGS='--xla_dump_to=gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v001-batch-scaling/hlo --xla_dump_hlo_as_text --xla_dump_hlo_as_proto' \
+    XLA_FLAGS='--xla_dump_to=gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v001-batch-scaling/hlo --xla_dump_hlo_as_text --xla_dump_hlo_as_proto' \
     python -u train.py --model_id=Qwen/Qwen3-8B --use_real_data=False \
     --batch_size=2 --seqlen=2048 --tp_parallelism=1 \
     --train_steps=20 --weights_dtype=bf16 \
-    --profile_dir=gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v001-batch-scaling \
+    --profile_dir=gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v001-batch-scaling \
     --profile_start_step=12 --profile_steps=3
   ```
 
@@ -63,7 +63,7 @@ No profile trace was generated because the training workload crashed during the 
 
 ## HLO Dump
 
-**Source**: [hlo/](file:///mnt/disks/persist/torch-tpu/tpu_performance_autoresearch_wiki_ag/raw/profiles/2026-06-02-qwen3-jax-v001-batch-scaling/hlo) (and mirrored in GCS at `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v001-batch-scaling/hlo/`)
+**Source**: [hlo/](file:///mnt/disks/persist/torch-tpu/tpu_performance_autoresearch_wiki_ag/raw/profiles/2026-06-02-qwen3-jax-v001-batch-scaling/hlo) (and mirrored in GCS at `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v001-batch-scaling/hlo/`)
 
 The HLO dump directory contains partial compiler intermediate representations produced before memory limits were hit. Because the compilation aborted due to HBM capacity limits, no final executable HLO was generated.
 

@@ -59,8 +59,8 @@ with regression, or clean completion below the confirmed v123/v127 band.
 
 GKE workload `alekseyv-qwen3-v133-bs4-noacfrs`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v133-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-no-acf-reducescatter`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v133-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-no-acf-reducescatter`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flags**: v127 stack with only reduce-scatter ACF subtype disabled.
@@ -78,7 +78,7 @@ workers.
 - **Worker 1**: 56,414 tok/s avg over 18 measured steps, 7,052 tok/s/chip,
   40.4% MFU; best observed steady step 56,557 tok/s; final loss 12.0461.
 - **Profile dir**:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v133-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-no-acf-reducescatter`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v133-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-no-acf-reducescatter`
 
 ## Profile
 

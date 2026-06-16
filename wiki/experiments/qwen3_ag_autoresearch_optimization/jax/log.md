@@ -1,7 +1,7 @@
 ## [2026-06-02] start | /start-experiment session begin
 
 **Op**: start
-**Cluster pool**: alekseyv-tpu-v6e8-spot-xpk
+**Cluster pool**: <your-cluster>
 **Parallelism**: 1
 **First-pick hypothesis**: Selective SparseCore offload (reduce-scatter offload only) to minimize host transfer overhead and PCIe bottleneck.
 **Notes**: session opened/re-grounded via /start-experiment.

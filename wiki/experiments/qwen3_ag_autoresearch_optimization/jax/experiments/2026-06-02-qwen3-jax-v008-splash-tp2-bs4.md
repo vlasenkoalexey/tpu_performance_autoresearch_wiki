@@ -17,12 +17,12 @@
 - **Seq Length**: 2048
 - **Remat Policy**: `checkpoint_dots_with_no_batch_dims`
 - **Attention**: Splash Attention
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260602-v008-splash-tp2-bs4`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260602-v008-splash-tp2-bs4`
 - **Flags**: `--tp_parallelism=2 --batch_size=4 --use_splash=True`
 
 ## Setup
 - Rebuilt image from `v004` base to fix a `set_splash_mesh` import bug in `train.py`.
-- Final image pushed as `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260602-v008-splash-tp2-bs4`.
+- Final image pushed as `<your-registry>/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260602-v008-splash-tp2-bs4`.
 - Launched via `gke-cluster-runner` using `v008d` job name.
 
 ## Results

@@ -36,10 +36,10 @@ or clean completion at or below v041's 48,312 tok/s / 34.6% MFU.
 
 GKE workload `alekseyv-qwen3-v043`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v043-label-ce`
-- **Base image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v043-label-ce`
+- **Base image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
 - **Image digest**: `sha256:d5f651ec93e5d6052e26781730e334ba8b6c42f133cdc1e972362bc5e4c87003`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v043-shard-acts-s8k-bs3-label-ce`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v043-shard-acts-s8k-bs3-label-ce`
 - **Mesh**: `fsdp=8,tp=1`
 - **Command shape**: `--use_scan=True --use_remat=True --use_splash=True --use_label_ce=True --shard_acts=True --batch_size=3 --seqlen=8192 --tp_parallelism=1`
 - **Global batch**: 24
@@ -71,7 +71,7 @@ No runtime profile: compile failed before training steps.
 ## HLO Dump
 
 - **Path**:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v043-shard-acts-s8k-bs3-label-ce/hlo/`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v043-shard-acts-s8k-bs3-label-ce/hlo/`
 - **Size**: 21.22 MiB
 - **Object count**: 32
 

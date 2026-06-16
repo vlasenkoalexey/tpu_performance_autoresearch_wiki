@@ -48,11 +48,11 @@ same-HLO in-band runtime refutes the cap.
 
 - Workload: `alekseyv-qwen3-jax-v111-2ksp2048ar1`
 - Image:
-  `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v067-explicit-silu`
+  `<your-registry>/torchtitan-images/qwen3-8b-jax:v067-explicit-silu`
 - Run dir:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v111-2k-bs16-vmem98304-splash2048-ar1`
+  `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v111-2k-bs16-vmem98304-splash2048-ar1`
 - Compile cache:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v111_2k_bs16_vmem98304_splash2048_ar1`
+  `gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v111_2k_bs16_vmem98304_splash2048_ar1`
 - Placement: cluster `v6e-demo-hjajoo`, nodepool `v6e-demo-hjajoo-np-0`
 - Mesh: `fsdp=8,tp=1`; per-chip batch 16 / global batch 128; sequence length
   **2048**; profile window steps 12-14.

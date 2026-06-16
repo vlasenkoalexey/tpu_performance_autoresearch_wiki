@@ -36,8 +36,8 @@ below v041's 48,312 tok/s / 34.6% MFU.
 
 Planned GKE workload `alekseyv-qwen3-v032`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v032-shard-acts-s8k-bs4-maxtext-offload`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v032-shard-acts-s8k-bs4-maxtext-offload`
 - **Mesh**: `fsdp=8,tp=1`
 - **Command shape**: `--use_scan=True --use_remat=True --offload_remat=True --use_splash=True --use_maxtext_ce=True --shard_acts=True --batch_size=4 --seqlen=8192 --tp_parallelism=1`
 - **Global batch**: 32
@@ -86,7 +86,7 @@ and DKV is 11.1%, but the extra formatting/offload overhead dominates.
 
 HLO artifacts were dumped under:
 
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v032-shard-acts-s8k-bs4-maxtext-offload/hlo/`
+`gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v032-shard-acts-s8k-bs4-maxtext-offload/hlo/`
 
 The prefix contains 32 objects totaling 31.53 MiB.
 

@@ -36,8 +36,8 @@ workers.
 
 Planned GKE workload `alekseyv-qwen3-v073-ccvmem-rerun`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v073-shard-acts-s8k-bs3-tokamax-splash-customcall-vmem-adjust-rerun`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v073-shard-acts-s8k-bs3-tokamax-splash-customcall-vmem-adjust-rerun`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flags**: v072 bundle with `--xla_tpu_scoped_vmem_limit_kib=81920` and
@@ -49,7 +49,7 @@ Planned GKE workload `alekseyv-qwen3-v073-ccvmem-rerun`.
 ## Results
 
 Workload `alekseyv-qwen3-v073-ccvmem-rerun` completed cleanly on
-`alekseyv-tpu-v6e8-spot-xpk`.
+`<your-cluster>`.
 
 | Worker | Avg step | Avg throughput | Tok/s/chip | MFU | Loss end |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -84,7 +84,7 @@ the flag changes scheduling enough to hold the v068/v072 performance band.
 No new HLO dump objects were written for this exact rerun, consistent with a
 persistent compilation-cache hit. Use the v072 HLO dump for the compiled
 configuration:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v072-shard-acts-s8k-bs3-tokamax-splash-customcall-vmem-adjust/hlo/`.
+`gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v072-shard-acts-s8k-bs3-tokamax-splash-customcall-vmem-adjust/hlo/`.
 
 ## Verdict
 

@@ -29,7 +29,7 @@ updated: 2026-06-15
 **Falsification criterion**: Compilation still fails with VMEM OOM, HBM OOM, or the XLA compiler hangs (like it did in `v050` when combining Splash and Tokamax).
 
 ## Setup
-* Cluster: `alekseyv-tpu-v6e8-spot-xpk`
+* Cluster: `<your-cluster>`
 * Same docker image as `v047` baseline, but injecting custom `train.py` from `qwen3-jax-v055-ac-selective-remat`.
 * Batch size: 8
 

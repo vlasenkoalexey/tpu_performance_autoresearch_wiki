@@ -34,8 +34,8 @@ MFU gain over v041's 34.6%.
 
 Planned GKE workload `alekseyv-qwen3-v026`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v026-shard-acts-s8k-bs4`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v026-shard-acts-s8k-bs4`
 - **Mesh**: `fsdp=8,tp=1`
 - **Command shape**: `--use_scan=True --use_remat=True --use_splash=True --use_maxtext_ce=True --shard_acts=True --batch_size=4 --seqlen=8192 --tp_parallelism=1`
 - **Global batch**: 32
@@ -64,7 +64,7 @@ No runtime profile; the workload failed before executing training steps.
 
 OOM artifacts were dumped under:
 
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v026-shard-acts-s8k-bs4/hlo/`
+`gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v026-shard-acts-s8k-bs4/hlo/`
 
 The prefix contains 45 objects totaling 18.44 MiB, including
 `module_0112.jit_train_step.cl_854318611.oom_intermediate_module.txt` and

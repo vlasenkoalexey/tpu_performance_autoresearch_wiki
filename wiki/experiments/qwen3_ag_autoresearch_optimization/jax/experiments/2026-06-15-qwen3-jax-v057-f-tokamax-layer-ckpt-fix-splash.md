@@ -24,7 +24,7 @@ origin: retrospective-recommendation
 **Falsification criterion**: HBM or VMEM OOM, or MFU drops unexpectedly.
 
 ## Setup
-Using image `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/v6e8-qwen3-8b-jax-20260615-exp057-d-tokamax-layer-ckpt:latest`.
+Using image `<your-registry>/torchtitan-images/v6e8-qwen3-8b-jax-20260615-exp057-d-tokamax-layer-ckpt:latest`.
 
 ## Results
 ## Results

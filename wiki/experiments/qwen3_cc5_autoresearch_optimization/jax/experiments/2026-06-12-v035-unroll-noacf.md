@@ -41,7 +41,7 @@ carry-prefetch or close the hypothesis on this libtpu generation.
 
 ## Setup
 
-- Hardware: v6e-8, fsdp=8, tp=1, 1 slice of `alekseyv-tpu-v6e8-spot-xpk`.
+- Hardware: v6e-8, fsdp=8, tp=1, 1 slice of `<your-cluster>`.
 - Image: digest-pinned `qwen3-8b-jax@sha256:bc8d7950…` (= v034-unroll tag).
 - Workload: `alekseyv-qwen3-cc5-jax-v035-noacf`.
 
@@ -73,7 +73,7 @@ loss parity carry arm A's finding; the error text carries arm B's.
 
 ## HLO Dump
 
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v035-noacf/hlo_b/`
+`gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v035-noacf/hlo_b/`
 (trivial early modules only — the crash precedes the train_step dump).
 
 ## Verdict
@@ -100,5 +100,5 @@ report.
 
 ## Sources
 
-- Profile + HLO (GCS): `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v035-noacf/`
+- Profile + HLO (GCS): `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v035-noacf/`
 - Prior: [v034 (the XLA bug)](2026-06-12-v034-scan-unroll.md), [v027 (frontier)](2026-06-12-v027-bs4-mtfl.md), [v026 (the flag bundle)](2026-06-12-v026-mt-flags-bs3.md)

@@ -28,7 +28,7 @@ origin: 2026-06-15-qwen3-jax-v057-n-tokamax-layer-dots-bs8
 **Falsification criterion**: HBM OOM, VMEM OOM, or compiler hang.
 
 ## Setup
-Image: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/v6e8-qwen3-8b-jax-20260615-exp057-d-tokamax-layer-ckpt:latest` (with dynamic archive layering over it for `v057_c/trainer`).
+Image: `<your-registry>/torchtitan-images/v6e8-qwen3-8b-jax-20260615-exp057-d-tokamax-layer-ckpt:latest` (with dynamic archive layering over it for `v057_c/trainer`).
 Cluster: `charles-v6e`
 
 ## Results

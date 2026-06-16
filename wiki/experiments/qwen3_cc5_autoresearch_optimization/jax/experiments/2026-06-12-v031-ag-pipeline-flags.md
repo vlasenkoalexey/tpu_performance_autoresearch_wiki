@@ -40,7 +40,7 @@ or accept the residual gap as scan+GSPMD-structural.
 
 ## Setup
 
-- Hardware: v6e-8, fsdp=8, tp=1, 1 slice of `alekseyv-tpu-v6e8-spot-xpk`.
+- Hardware: v6e-8, fsdp=8, tp=1, 1 slice of `<your-cluster>`.
 - Image: `qwen3-8b-jax:v6e8-qwen3-8b-jax-20260612-v024-offload` (= latest).
 - Workload: `alekseyv-qwen3-cc5-jax-v031-agpl`.
 - 20 steps/arm; arm A profiled 12–14 + HLO.
@@ -70,7 +70,7 @@ or accept the residual gap as scan+GSPMD-structural.
 
 - **xprof URL**: http://localhost:8791/?run=2026-06-12-qwen3-jax-v031-agpl/2026_06_12_08_25_10
 - **Run name**: `2026-06-12-qwen3-jax-v031-agpl/2026_06_12_08_25_10`
-- **GCS**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v031-agpl/plugins/profile/2026_06_12_08_25_10/`
+- **GCS**: `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v031-agpl/plugins/profile/2026_06_12_08_25_10/`
 - **Steps captured**: 12–14 (arm A).
 
 Bucket attribution (per chip per step) vs v027:
@@ -93,7 +93,7 @@ pipeline.
 
 ## HLO Dump
 
-- Arm A: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v031-agpl/hlo_a/`
+- Arm A: `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v031-agpl/hlo_a/`
   — 4 `jit_train_step` compile instances; module_0691 inspected (10,850
   lines). **Structural audit**: 32 synchronous `all-gather` ops (vs 17 in
   v027), **zero** `all-gather-start/done` async splits, zero loop rotation,
@@ -120,5 +120,5 @@ path is declared exhausted per the hypothesis's falsification criterion.
 
 ## Sources
 
-- Profile + HLO (GCS): `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v031-agpl/`
+- Profile + HLO (GCS): `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v031-agpl/`
 - Prior: [v030 (flag archaeology)](2026-06-12-v030-ag-overlap.md), [v027 (baseline)](2026-06-12-v027-bs4-mtfl.md), [gap analysis](../../../../analyses/2026-06-12-maxtext-vs-jax-bucket-diff.md)

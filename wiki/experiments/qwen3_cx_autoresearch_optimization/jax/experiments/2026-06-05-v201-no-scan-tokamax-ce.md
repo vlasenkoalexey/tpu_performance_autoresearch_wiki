@@ -42,8 +42,8 @@ completion below the frontier without a compelling memory-opening signal.
 
 GKE workload `alekseyv-qwen3-v201-noscan-tokamaxce`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v201-no-scan-tokamax-ce`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v201-no-scan-tokamax-ce`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flags**: v183 stack with `--xla_tpu_scoped_vmem_limit_kib=100352`,
@@ -83,7 +83,7 @@ of 58,288-58,330 tok/s average / 41.8% MFU.
 
 Profile files were written under:
 
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v201-no-scan-tokamax-ce/plugins/profile/2026_06_05_00_28_12/`
+`gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v201-no-scan-tokamax-ce/plugins/profile/2026_06_05_00_28_12/`
 
 - `gke-tpu-964065d9-9vh8.xplane.pb`
 - `gke-tpu-964065d9-c180.xplane.pb`
@@ -100,9 +100,9 @@ throughput:
 Fresh train-step HLO was emitted. The two worker modules are byte-identical:
 
 - Optimized HLO:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v201-no-scan-tokamax-ce/hlo/module_0109.jit_train_step.cl_854318611.after_optimizations.txt`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v201-no-scan-tokamax-ce/hlo/module_0109.jit_train_step.cl_854318611.after_optimizations.txt`
 - Duplicate worker module:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v201-no-scan-tokamax-ce/hlo/module_0311.jit_train_step.cl_854318611.after_optimizations.txt`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v201-no-scan-tokamax-ce/hlo/module_0311.jit_train_step.cl_854318611.after_optimizations.txt`
 - Size: 19,005,717 bytes
 - SHA256: `3453e887ee7ccf1ccab52e2503ad14362a8e6d50b2c77c944f1aa10b1edfd5ab`
 - Memory report: 22.50 GiB total bytes used, with a 16.75 GiB preallocated

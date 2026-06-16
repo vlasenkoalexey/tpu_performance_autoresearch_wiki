@@ -32,8 +32,8 @@ trajectory, or clean completion at or below v056's 50,383 tok/s / 36.1% MFU.
 
 GKE workload `alekseyv-qwen3-v057`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v057-shard-acts-s8k-bs3-tokamax-splash-maxlogit30-rerun4`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v057-shard-acts-s8k-bs3-tokamax-splash-maxlogit30-rerun4`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment change**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flag change**: `--xla_latency_hiding_scheduler_rerun=4` instead of v056's `3`
@@ -74,7 +74,7 @@ residuals are about 11.1%.
 ## HLO Dump
 
 - **Path**:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v057-shard-acts-s8k-bs3-tokamax-splash-maxlogit30-rerun4/hlo/`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v057-shard-acts-s8k-bs3-tokamax-splash-maxlogit30-rerun4/hlo/`
 - **Size**: 31.82 MiB
 - **Object count**: 1619
 

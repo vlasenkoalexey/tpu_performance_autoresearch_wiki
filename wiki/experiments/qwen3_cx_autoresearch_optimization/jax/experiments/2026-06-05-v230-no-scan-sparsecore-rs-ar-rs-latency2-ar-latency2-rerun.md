@@ -35,9 +35,9 @@ without a clear reason, or throughput returning to the v227/v228 RS2-only band.
 
 GKE workload `alekseyv-q3-v230-rs2-ar2-r`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
 - **Run dir**:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v230-no-scan-sparsecore-rs-ar-rs-latency2-ar-latency2-rerun`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v230-no-scan-sparsecore-rs-ar-rs-latency2-ar-latency2-rerun`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **Command shape**: `--use_scan=False --use_remat=True --offload_remat=False
@@ -105,7 +105,7 @@ Top buckets:
 ## HLO Dump
 
 - Optimized train-step HLO:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v230-no-scan-sparsecore-rs-ar-rs-latency2-ar-latency2-rerun/hlo/xla-dump/module_0267.jit_train_step.cl_854318611.after_optimizations.txt`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v230-no-scan-sparsecore-rs-ar-rs-latency2-ar-latency2-rerun/hlo/xla-dump/module_0267.jit_train_step.cl_854318611.after_optimizations.txt`
 - Size: **19,925,715 bytes**
 - Lines: **119,437**
 - SHA256:

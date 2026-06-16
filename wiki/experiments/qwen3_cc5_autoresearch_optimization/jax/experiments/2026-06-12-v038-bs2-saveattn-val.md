@@ -28,7 +28,7 @@ share? where does the remaining MaxText gap sit at this op-point)?
 
 ## Setup
 
-- Hardware: v6e-8, fsdp=8, tp=1, 1 slice of `alekseyv-tpu-v6e8-spot-xpk`.
+- Hardware: v6e-8, fsdp=8, tp=1, 1 slice of `<your-cluster>`.
 - Image: digest-pinned `qwen3-8b-jax@sha256:bc8d7950…`.
 - Workload: `alekseyv-qwen3-cc5-jax-v038-bs2val`.
 - Single arm: bs2 seq8192, scan + save_attn + splash + chunked CE f32-x +
@@ -56,7 +56,7 @@ steps, monotone-ish, long-horizon stable.
 
 - **xprof URL**: http://localhost:8791/?run=2026-06-12-qwen3-jax-v038-bs2val/2026_06_12_12_36_28
 - **Run name**: `2026-06-12-qwen3-jax-v038-bs2val/2026_06_12_12_36_28`
-- **GCS**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v038-bs2val/plugins/profile/2026_06_12_12_36_28/`
+- **GCS**: `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v038-bs2val/plugins/profile/2026_06_12_12_36_28/`
 - **Steps captured**: 30–32; xprof traces, 2 hosts × 4 chips.
 
 Bucket attribution (per chip per step; the new frontier's structure):
@@ -107,5 +107,5 @@ retires to alternate status. Session climb: 20.5% → **35.7% MFU**.
 
 ## Sources
 
-- Profile + HLO (GCS): `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v038-bs2val/`
+- Profile + HLO (GCS): `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v038-bs2val/`
 - Prior: [v037 (discovery)](2026-06-12-v037-unroll-saveattn-bs2.md), [v019 (validation precedent)](2026-06-12-v019-val50.md)

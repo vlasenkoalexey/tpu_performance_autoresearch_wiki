@@ -32,8 +32,8 @@ profile matching v078 without repeatable throughput gain.
 
 Planned GKE workload `alekseyv-qwen3-v079-multicomp-rerun`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v079-shard-acts-s8k-bs3-tokamax-splash-layer-multicompute-overlap-rerun`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v079-shard-acts-s8k-bs3-tokamax-splash-layer-multicompute-overlap-rerun`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flag stack**: v074/v075 plus

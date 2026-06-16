@@ -29,12 +29,12 @@ Expected outcome:
 ## Setup
 
 - **Workload**: `alekseyv-qwen3-v213-tiledce-bs4`
-- **Cluster**: `alekseyv-tpu-v6e8-spot-xpk` (`us-central2`, project
-  `tpu-pytorch`, v6e-8, 2 hosts x 4 chips)
+- **Cluster**: `<your-cluster>` (`<your-region>`, project
+  `<your-project>`, v6e-8, 2 hosts x 4 chips)
 - **Image**:
-  `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v213-tiled-ce`
+  `<your-registry>/torchtitan-images/qwen3-8b-jax:v213-tiled-ce`
 - **Run dir**:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v213-no-scan-tiled-ce-bs4`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v213-no-scan-tiled-ce-bs4`
 - **Base stack**: v210 no-scan, remat, Tokamax Splash, MaxText CE disabled,
   SparseCore offload for all-gather/reduce-scatter/all-reduce plus aggregator,
   collective-matmul modes `none`, scoped VMEM 100352 KiB.
@@ -99,7 +99,7 @@ forward/backward temps.
 ## HLO Artifacts
 
 - Prefix:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v213-no-scan-tiled-ce-bs4/hlo/`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v213-no-scan-tiled-ce-bs4/hlo/`
 - Recursive object summary: **903 objects, 116.14 MiB**.
 - Train-step optimized HLO:
   `module_0294.jit_train_step.cl_854318611.after_optimizations.txt`

@@ -35,8 +35,8 @@ band, invalid loss, missing profile capture, or compile/runtime failure.
 
 GKE workload `alekseyv-qwen3-v212-noscan-scagg-bs3`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v212-no-scan-sparsecore-aggregator-bs3-comparison`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v212-no-scan-sparsecore-aggregator-bs3-comparison`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **Command shape**: `--use_scan=False --use_remat=True --offload_remat=False --use_splash=True --use_maxtext_ce=True --shard_acts=True --batch_size=3 --seqlen=8192 --tp_parallelism=1`
@@ -77,8 +77,8 @@ aggregate and **6,883 tok/s/chip** by about **+7.1%**.
 
 Profile capture completed on both hosts:
 
-- `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v212-no-scan-sparsecore-aggregator-bs3-comparison/plugins/profile/2026_06_05_03_19_27/gke-tpu-964065d9-c180.{trace.json.gz,xplane.pb}`
-- `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v212-no-scan-sparsecore-aggregator-bs3-comparison/plugins/profile/2026_06_05_03_19_28/gke-tpu-964065d9-9vh8.{trace.json.gz,xplane.pb}`
+- `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v212-no-scan-sparsecore-aggregator-bs3-comparison/plugins/profile/2026_06_05_03_19_27/gke-tpu-964065d9-c180.{trace.json.gz,xplane.pb}`
+- `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v212-no-scan-sparsecore-aggregator-bs3-comparison/plugins/profile/2026_06_05_03_19_28/gke-tpu-964065d9-9vh8.{trace.json.gz,xplane.pb}`
 
 XProf runs:
 
@@ -108,7 +108,7 @@ Top 9vh8 op-profile buckets:
 
 Fresh train-step HLO was emitted:
 
-- `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v212-no-scan-sparsecore-aggregator-bs3-comparison/hlo/module_0115.jit_train_step.cl_854318611.after_optimizations.txt`
+- `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v212-no-scan-sparsecore-aggregator-bs3-comparison/hlo/module_0115.jit_train_step.cl_854318611.after_optimizations.txt`
 - SHA256:
   `3a615983c09ec3ed3e9aba43c225c6f09f9862bd726b30549867abb60e48f292`
 - HLO size: **93,855 lines**, **16,513,927 bytes**.

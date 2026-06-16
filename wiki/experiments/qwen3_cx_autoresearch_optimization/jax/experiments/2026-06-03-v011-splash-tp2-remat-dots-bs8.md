@@ -32,7 +32,7 @@ Backfilled from live GKE workload `alekseyv-qwen3-v011` after the `/start-experi
 Image:
 
 ```text
-us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260602-v011-splash-tp2-remat-dots-bs8
+<your-registry>/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260602-v011-splash-tp2-remat-dots-bs8
 ```
 
 Command:
@@ -40,14 +40,14 @@ Command:
 ```bash
 cd /app/trainer &&
 LIBTPU_INIT_ARGS='--xla_tpu_scoped_vmem_limit_kib=98304'
-JAX_COMPILATION_CACHE_DIR=gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/jax_lane_cache
+JAX_COMPILATION_CACHE_DIR=gs://<your-bucket>/autoresearch/qwen3_cc/jax_lane_cache
 JAX_PERSISTENT_CACHE_MIN_COMPILE_TIME_SECS=1
 JAX_PERSISTENT_CACHE_MIN_ENTRY_SIZE_BYTES=0
-XLA_FLAGS='--xla_dump_to=gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v011-splash-tp2-remat-dots-bs8/hlo --xla_dump_hlo_as_text --xla_dump_hlo_as_proto --xla_dump_hlo_pass_re=.*'
+XLA_FLAGS='--xla_dump_to=gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v011-splash-tp2-remat-dots-bs8/hlo --xla_dump_hlo_as_text --xla_dump_hlo_as_proto --xla_dump_hlo_pass_re=.*'
 python -u train.py --model_id=Qwen/Qwen3-8B --use_real_data=False \
   --batch_size=8 --seqlen=2048 --tp_parallelism=2 --train_steps=20 \
   --weights_dtype=bf16 --use_splash=True \
-  --profile_dir=gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v011-splash-tp2-remat-dots-bs8 \
+  --profile_dir=gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v011-splash-tp2-remat-dots-bs8 \
   --profile_start_step=12 --profile_steps=3
 ```
 
@@ -97,7 +97,7 @@ No XProf trace was captured because the program failed during compile before `pr
 HLO dump path:
 
 ```text
-gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v011-splash-tp2-remat-dots-bs8/hlo/
+gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v011-splash-tp2-remat-dots-bs8/hlo/
 ```
 
 Artifact count: 479 GCS objects.

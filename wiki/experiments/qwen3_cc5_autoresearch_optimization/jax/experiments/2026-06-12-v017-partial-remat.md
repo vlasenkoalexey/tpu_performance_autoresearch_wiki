@@ -35,7 +35,7 @@ measurement).
 
 ## Setup
 
-- Hardware: v6e-8, fsdp=8, tp=1, 1 slice of `alekseyv-tpu-v6e8-spot-xpk`.
+- Hardware: v6e-8, fsdp=8, tp=1, 1 slice of `<your-cluster>`.
 - Image: `qwen3-8b-jax:v6e8-qwen3-8b-jax-20260612-v017-partial-remat`.
 - Workload: `alekseyv-qwen3-cc5-jax-v017-prem5`.
 - Command (diff vs v015 ph2: `JAX_REMAT_SKIP_EVERY=5`):
@@ -63,7 +63,7 @@ measurement).
 
 - **xprof URL**: `http://localhost:8791/?run=2026-06-12-qwen3-jax-v017-prem5`
   (run `…/2026_06_12_04_01_03`); profiled steps 12–14.
-- **GCS run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v017-prem5/plugins/profile/2026_06_12_04_01_03/`
+- **GCS run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v017-prem5/plugins/profile/2026_06_12_04_01_03/`
 - **Op profile** (exclude-idle, master-analyzed): `convolution fusion` 47.4%,
   `custom-call` 23.9%, `loop fusion` **14.4%** (down from 14.9 — the
   recompute tax shrank as predicted), `data formatting` 4.9%, collectives
@@ -72,7 +72,7 @@ measurement).
 
 ## HLO Dump
 
-- **GCS**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v017-prem5/hlo/` — 51 files;
+- **GCS**: `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v017-prem5/hlo/` — 51 files;
   `Total bytes used: 30.68 GiB` (the ~0.43 GiB/exempt-layer model holds:
   27.62 + 8 × 0.43 ≈ 31.1 projected vs 30.68 measured).
 
@@ -97,5 +97,5 @@ Fork merged to trunk; `latest` rebuilt; the seq-8192 recipe gains the knob.
 
 ## Sources
 
-- Profile + HLO (GCS): `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v017-prem5/`
+- Profile + HLO (GCS): `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v017-prem5/`
 - Prior: [v015 (frontier)](2026-06-12-v015-save-attn-remat.md), [v016 (bkv refuted)](2026-06-12-v016-splash-bkv2048.md)

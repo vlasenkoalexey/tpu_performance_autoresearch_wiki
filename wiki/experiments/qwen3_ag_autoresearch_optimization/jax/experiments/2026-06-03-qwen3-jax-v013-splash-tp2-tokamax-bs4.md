@@ -17,7 +17,7 @@
 - **Seq Length**: 2048
 - **Remat Policy**: `checkpoint_dots_with_no_batch_dims`
 - **Attention**: Splash Attention
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260602-v010-splash-tp2-tokamax-bs8`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260602-v010-splash-tp2-tokamax-bs8`
 - **Flags**: `--tp_parallelism=2 --batch_size=4 --use_splash=True`
 
 ## Setup

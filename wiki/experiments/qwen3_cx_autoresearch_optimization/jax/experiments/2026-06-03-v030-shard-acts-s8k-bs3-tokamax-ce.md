@@ -36,8 +36,8 @@ below v041's 48,312 tok/s / 34.6% MFU.
 
 Planned GKE workload `alekseyv-qwen3-v030`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v030-shard-acts-s8k-bs3-tokamax-ce`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v030-shard-acts-s8k-bs3-tokamax-ce`
 - **Mesh**: `fsdp=8,tp=1`
 - **Command shape**: `--use_scan=True --use_remat=True --use_splash=True --use_tokamax_ce=True --tokamax_ce_impl=mosaic_tpu --shard_acts=True --batch_size=3 --seqlen=8192 --tp_parallelism=1`
 - **Global batch**: 24
@@ -88,7 +88,7 @@ therefore regresses even though HBM improves substantially.
 
 HLO artifacts were dumped under:
 
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v030-shard-acts-s8k-bs3-tokamax-ce/hlo/`
+`gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v030-shard-acts-s8k-bs3-tokamax-ce/hlo/`
 
 The prefix contains 63 objects totaling 35.69 MiB.
 

@@ -21,25 +21,25 @@ None — reference baseline reproduction for the `8B/v6e-8` variant of the jax l
 
 ## Setup
 
-- **Hardware**: TPU v6e-8 — 2 hosts × 4 chips, fsdp=8, tp=1. Cluster `alekseyv-tpu-v6e8-spot-xpk` (`tpu-pytorch`, zone `us-central2-b`), 1 slice.
+- **Hardware**: TPU v6e-8 — 2 hosts × 4 chips, fsdp=8, tp=1. Cluster `<your-cluster>` (`<your-project>`, zone `<your-zone>`), 1 slice.
 - **Dispatch**: GKE/XPK via the gke-cluster-runner agent. Workload `alekseyv-qwen3-jax-v000-repro`.
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:latest`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:latest`
   — built `FROM` the torchax lane image with only the jax trainer code swapped in. Pure JAX.
 - **Env**:
   - `LIBTPU_INIT_ARGS='--xla_tpu_scoped_vmem_limit_kib=98304'`
-  - `JAX_COMPILATION_CACHE_DIR=gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/jax_lane_cache`
-  - `XLA_FLAGS='--xla_dump_to=gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v6e8-baseline-repro/hlo --xla_dump_hlo_as_text --xla_dump_hlo_as_proto'`
+  - `JAX_COMPILATION_CACHE_DIR=gs://<your-bucket>/autoresearch/qwen3_cc/jax_lane_cache`
+  - `XLA_FLAGS='--xla_dump_to=gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v6e8-baseline-repro/hlo --xla_dump_hlo_as_text --xla_dump_hlo_as_proto'`
 - **Data**: synthetic random tokens (`use_real_data=False`); random-init weights.
 - **Command**:
   ```bash
   cd /app/trainer && LIBTPU_INIT_ARGS='--xla_tpu_scoped_vmem_limit_kib=98304' \
-    JAX_COMPILATION_CACHE_DIR=gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/jax_lane_cache \
+    JAX_COMPILATION_CACHE_DIR=gs://<your-bucket>/autoresearch/qwen3_cc/jax_lane_cache \
     JAX_PERSISTENT_CACHE_MIN_COMPILE_TIME_SECS=1 JAX_PERSISTENT_CACHE_MIN_ENTRY_SIZE_BYTES=0 \
-    XLA_FLAGS='--xla_dump_to=gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v6e8-baseline-repro/hlo --xla_dump_hlo_as_text --xla_dump_hlo_as_proto' \
+    XLA_FLAGS='--xla_dump_to=gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v6e8-baseline-repro/hlo --xla_dump_hlo_as_text --xla_dump_hlo_as_proto' \
     python -u train.py --model_id=Qwen/Qwen3-8B --use_real_data=False \
     --batch_size=1 --seqlen=2048 --tp_parallelism=1 \
     --train_steps=20 --weights_dtype=bf16 \
-    --profile_dir=gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v6e8-baseline-repro \
+    --profile_dir=gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v6e8-baseline-repro \
     --profile_start_step=12 --profile_steps=3
   ```
   global_batch = 1 × 8 = 8; tokens/step = 8 × 2048 = 16,384.
@@ -69,14 +69,14 @@ The reproduction run matches the original baseline with very minor variance (~1.
 ## Profile
 
 - **xprof URL**: `http://localhost:8791/?run=2026-06-02-qwen3-jax-v6e8-baseline-repro`
-- **GCS run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v6e8-baseline-repro/plugins/profile/2026_06_02_19_14_50/`
+- **GCS run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v6e8-baseline-repro/plugins/profile/2026_06_02_19_14_50/`
 - **Local pointer**: [`raw/profiles/2026-06-02-qwen3-jax-v6e8-baseline-repro/`](../../../../../../raw/profiles/2026-06-02-qwen3-jax-v6e8-baseline-repro/GCS_LOCATION.txt)
 - **Profiled steps**: 12–14.
 - **Op profile description**: Op profile and compilation metrics closely match the original baseline, verifying that matmul and collective-permute scheduling behave deterministically.
 
 ### HLO Dump
 
-- **GCS**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v6e8-baseline-repro/hlo/` — All compiler modules successfully verified.
+- **GCS**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v6e8-baseline-repro/hlo/` — All compiler modules successfully verified.
 
 ## Observations
 
@@ -94,7 +94,7 @@ The reproduction run matches the original baseline with very minor variance (~1.
 
 ## Sources
 
-- Profile + HLO (GCS): `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v6e8-baseline-repro/`
+- Profile + HLO (GCS): `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v6e8-baseline-repro/`
 - Local pointer: `raw/profiles/2026-06-02-qwen3-jax-v6e8-baseline-repro/GCS_LOCATION.txt`
 - Trainer: `wiki/experiments/qwen3_ag_autoresearch_optimization/jax/` (train.py, model/, sharding.py).
 - Original baseline: [Qwen3 JAX baseline](2026-06-02-qwen3-jax-v6e8-baseline.md).

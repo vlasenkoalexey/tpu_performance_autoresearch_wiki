@@ -34,8 +34,8 @@ without a meaningful custom-call reduction.
 
 GKE workload `alekseyv-qwen3-v060`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v060-shard-acts-s8k-bs3-tokamax-splash-maxlogit35`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v060-shard-acts-s8k-bs3-tokamax-splash-maxlogit35`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment change**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=35.0`
 - **XLA flag**: keep v056's `--xla_latency_hiding_scheduler_rerun=3`
@@ -76,7 +76,7 @@ forward residuals remain about 11.1%.
 ## HLO Dump
 
 - **Path**:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v060-shard-acts-s8k-bs3-tokamax-splash-maxlogit35/hlo/`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v060-shard-acts-s8k-bs3-tokamax-splash-maxlogit35/hlo/`
 - **Size**: 19.02 MiB
 - **Object count**: 32
 

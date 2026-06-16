@@ -84,4 +84,4 @@ Next: stack tokamax-CE (drop the `[B,L,V]` logits) for bs=6+, and push seq8192 (
 
 ## Sources
 
-- Profile + HLO (GCS): `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v008-splash-vmem-bs4/`
+- Profile + HLO (GCS): `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v008-splash-vmem-bs4/`

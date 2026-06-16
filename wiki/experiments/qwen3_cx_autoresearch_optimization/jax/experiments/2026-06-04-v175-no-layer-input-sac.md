@@ -43,10 +43,10 @@ confirmed frontier.
 
 GKE workload `alekseyv-qwen3-v175-nolayersac`.
 
-- **Base image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v175-no-layer-input-sac`
+- **Base image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v175-no-layer-input-sac`
 - **Image digest**: `sha256:17388c233e2c9edc3442a3cd8cd3011b7174306d158ca2938c42bdf87d076d27`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v175-no-layer-input-sac`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v175-no-layer-input-sac`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flags**: v170 stack with `--xla_tpu_scoped_vmem_limit_kib=100352`.
@@ -57,7 +57,7 @@ GKE workload `alekseyv-qwen3-v175-nolayersac`.
 ## Equivalence
 
 CPU equivalence passed against image
-`us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v175-no-layer-input-sac`
+`<your-registry>/torchtitan-images/qwen3-8b-jax:v175-no-layer-input-sac`
 with `JAX_PLATFORMS=cpu python -u test_equivalence.py`.
 
 Result: `==== EQUIVALENCE PASS ====`.
@@ -85,14 +85,14 @@ This is below the confirmed v169/v170 frontier band:
 
 Profiles landed under:
 
-- `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v175-no-layer-input-sac/plugins/profile/2026_06_04_20_31_17/`
-- `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v175-no-layer-input-sac/plugins/profile/2026_06_04_20_31_18/`
+- `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v175-no-layer-input-sac/plugins/profile/2026_06_04_20_31_17/`
+- `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v175-no-layer-input-sac/plugins/profile/2026_06_04_20_31_18/`
 
 ## HLO Dump
 
 Optimized train-step HLO:
 
-- Path: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v175-no-layer-input-sac/hlo/module_0109.jit_train_step.cl_854318611.after_optimizations.txt`
+- Path: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v175-no-layer-input-sac/hlo/module_0109.jit_train_step.cl_854318611.after_optimizations.txt`
 - Size: 783,587 bytes
 - SHA256: `76fc341db3f31dbef527b130e601dce97d3100c2dbd259ebca185f5e2b1d27f1`
 - Quick counts: all-gather 140, all-reduce 36, collective-permute 3, convolution 66, custom-call 41, copy 318, fusion 753.

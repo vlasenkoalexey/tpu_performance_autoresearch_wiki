@@ -24,13 +24,13 @@ lm-head/logit memory path than the Llama3.1-8B MaxText recipe.
 
 ## Setup
 
-- **Cluster**: `alekseyv-tpu-v6e8-spot-xpk` (`us-central2`, project
-  `tpu-pytorch`, v6e-8, 2 hosts x 4 chips)
+- **Cluster**: `<your-cluster>` (`<your-region>`, project
+  `<your-project>`, v6e-8, 2 hosts x 4 chips)
 - **Workload**: `alekseyv-qwen3-maxtext-v003`
-- **Image**: `gcr.io/tpu-pytorch/alekseyv_google_com-runner:tsij-2026-06-02-14-00-13`
+- **Image**: `<your-registry>/alekseyv_google_com-runner:tsij-2026-06-02-14-00-13`
 - **MaxText layout in image**: `/app/MaxText`
 - **Model config**: `/app/MaxText/configs/models/qwen3-8b.yml`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_maxtext/2026-06-05-qwen3-8b-v6e8-baseline-v003`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_maxtext/2026-06-05-qwen3-8b-v6e8-baseline-v003`
 - **Mesh**: `ici_fsdp_parallelism=-1` (v6e-8 -> fsdp=8)
 - **Global tokens/step**: `1 * 8 * 8192 = 65,536`
 - **Model parameters**: `8,190,735,360`
@@ -40,7 +40,7 @@ lm-head/logit memory path than the Llama3.1-8B MaxText recipe.
 ```bash
 cd /app
 PYTHONPATH=/app python3 -u -m MaxText.train MaxText/configs/base.yml \
-  base_output_directory=gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_maxtext/2026-06-05-qwen3-8b-v6e8-baseline-v003 \
+  base_output_directory=gs://<your-bucket>/autoresearch/qwen3_maxtext/2026-06-05-qwen3-8b-v6e8-baseline-v003 \
   run_name=alekseyv-qwen3-maxtext-v003 \
   model_name=qwen3-8b \
   tokenizer_path=Qwen/Qwen3-8B \
@@ -119,14 +119,14 @@ Per-step TensorBoard scalars:
 
 ## Profile
 
-- `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_maxtext/2026-06-05-qwen3-8b-v6e8-baseline-v003/alekseyv-qwen3-maxtext-v003/tensorboard/plugins/profile/2026_06_05_01_13_31/`
+- `gs://<your-bucket>/autoresearch/qwen3_maxtext/2026-06-05-qwen3-8b-v6e8-baseline-v003/alekseyv-qwen3-maxtext-v003/tensorboard/plugins/profile/2026_06_05_01_13_31/`
 - Files: two `.xplane.pb` and two `.trace.json.gz`, one per host.
 - Total profile payload: **122.79 MiB**.
 - Trace JSON train-step spans confirm ~1.387-1.389 s `jit_train_step(956769204075967375)` events on both hosts.
 
 ## HLO Dump
 
-- `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_maxtext/2026-06-05-qwen3-8b-v6e8-baseline-v003/alekseyv-qwen3-maxtext-v003/xla_dump/`
+- `gs://<your-bucket>/autoresearch/qwen3_maxtext/2026-06-05-qwen3-8b-v6e8-baseline-v003/alekseyv-qwen3-maxtext-v003/xla_dump/`
 - Host dirs: `gke-tpu-32cb1c36-gs53/`, `gke-tpu-32cb1c36-jj8f/`
 - Optimized train-step HLO: `module_0103.jit_train_step.cl_759148519.after_optimizations.txt`
 - Size: **1,507,976 bytes**, 8,408 lines

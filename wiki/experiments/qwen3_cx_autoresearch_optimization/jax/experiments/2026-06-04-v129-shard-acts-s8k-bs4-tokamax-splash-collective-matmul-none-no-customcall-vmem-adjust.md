@@ -51,8 +51,8 @@ clean completion below the confirmed v123/v127 band.
 
 GKE workload `alekseyv-qwen3-v129-bs4-noccvmem`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v129-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-no-customcall-vmem-adjust`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v129-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-no-customcall-vmem-adjust`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flags**: v127 stack with custom-call scoped VMEM adjustments disabled.
@@ -109,7 +109,7 @@ jit_train_step(16296087512277873197)
 Fresh dumps were emitted under:
 
 ```text
-gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v129-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-no-customcall-vmem-adjust/hlo/
+gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v129-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-no-customcall-vmem-adjust/hlo/
 ```
 
 The final train-step module is `module_0267.jit_train_step.cl_854318611`.

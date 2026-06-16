@@ -40,8 +40,8 @@ completion at/below the confirmed frontier.
 
 GKE workload `alekseyv-qwen3-v180-offload-mlpsac`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v180-no-mlp-sac-offload-remat`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v180-no-mlp-sac-offload-remat`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flags**: v170 stack with `--xla_tpu_scoped_vmem_limit_kib=100352`.
@@ -60,7 +60,7 @@ code using the v169 dependency image:
 docker run --rm -e JAX_PLATFORMS=cpu \
   -v /mnt/disks/persist/torch-tpu/tpu_performance_autoresearch_wiki_cx/wiki/experiments/qwen3_cx_autoresearch_optimization/jax:/workspace \
   -w /workspace \
-  us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac \
+  <your-registry>/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac \
   python -u test_equivalence.py
 ```
 
@@ -90,7 +90,7 @@ overhead for this shape.
 ## Profile
 
 Profile files were written under
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v180-no-mlp-sac-offload-remat/plugins/profile/2026_06_04_21_11_31/`
+`gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v180-no-mlp-sac-offload-remat/plugins/profile/2026_06_04_21_11_31/`
 for both TPU hosts:
 
 - `gke-tpu-46dd3e54-g30s.xplane.pb`
@@ -104,7 +104,7 @@ The step log already shows the core signal: post-warmup steady steps are around
 Fresh train-step HLO was emitted:
 
 - Optimized HLO:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v180-no-mlp-sac-offload-remat/hlo/module_0109.jit_train_step.cl_854318611.after_optimizations.txt`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v180-no-mlp-sac-offload-remat/hlo/module_0109.jit_train_step.cl_854318611.after_optimizations.txt`
 - Size: 1,303,770 bytes
 - SHA256: `262e50f1fe353d98136e328b51018e20df05b4ee151ee27ecb6b1403020501c1`
 - Text counts: all-gather 226, all-reduce 62, collective-permute 3,

@@ -37,8 +37,8 @@ trajectory, or clean completion at or below v068's 50,790 tok/s / 36.4% MFU.
 
 Planned GKE workload `alekseyv-qwen3-v072-ccvmem`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v072-shard-acts-s8k-bs3-tokamax-splash-customcall-vmem-adjust`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v072-shard-acts-s8k-bs3-tokamax-splash-customcall-vmem-adjust`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flag change**: add
@@ -52,7 +52,7 @@ Planned GKE workload `alekseyv-qwen3-v072-ccvmem`.
 ## Results
 
 Workload `alekseyv-qwen3-v072-ccvmem` completed cleanly on
-`alekseyv-tpu-v6e8-spot-xpk`.
+`<your-cluster>`.
 
 | Worker | Avg step | Avg throughput | Tok/s/chip | MFU | Loss end |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -86,7 +86,7 @@ faster Splash kernel.
 ## HLO Dump
 
 HLO dump:
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v072-shard-acts-s8k-bs3-tokamax-splash-customcall-vmem-adjust/hlo/`.
+`gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v072-shard-acts-s8k-bs3-tokamax-splash-customcall-vmem-adjust/hlo/`.
 
 The train-step dump is `module_0267.jit_train_step.cl_854318611` with a
 1,375,090-byte `after_optimizations.txt`; the dump prefix contains 1,619

@@ -35,8 +35,8 @@ compile/runtime failure.
 
 GKE workload `alekseyv-qwen3-v206-noscan-scall-r`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v206-no-scan-sparsecore-all-collectives-rerun`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v206-no-scan-sparsecore-all-collectives-rerun`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **Command shape**: `--use_scan=False --use_remat=True --offload_remat=False --use_splash=True --use_maxtext_ce=True --shard_acts=True --batch_size=4 --seqlen=8192 --tp_parallelism=1`
@@ -88,8 +88,8 @@ all-reduce as the confirmed JAX frontier.
 
 Profile capture completed on both hosts:
 
-- `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v206-no-scan-sparsecore-all-collectives-rerun/plugins/profile/2026_06_05_01_42_37/gke-tpu-964065d9-9vh8.{trace.json.gz,xplane.pb}`
-- `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v206-no-scan-sparsecore-all-collectives-rerun/plugins/profile/2026_06_05_01_42_38/gke-tpu-964065d9-c180.{trace.json.gz,xplane.pb}`
+- `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v206-no-scan-sparsecore-all-collectives-rerun/plugins/profile/2026_06_05_01_42_37/gke-tpu-964065d9-9vh8.{trace.json.gz,xplane.pb}`
+- `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v206-no-scan-sparsecore-all-collectives-rerun/plugins/profile/2026_06_05_01_42_38/gke-tpu-964065d9-c180.{trace.json.gz,xplane.pb}`
 
 ## HLO Dump
 

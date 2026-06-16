@@ -39,8 +39,8 @@ or clean completion below the v150/v151 98304 band.
 
 GKE workload `alekseyv-qwen3-v153-bs4-vmem100352`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v153-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-vmem100352`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v153-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-vmem100352`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flags**: v151 frontier stack plus `--xla_tpu_scoped_vmem_limit_kib=100352`.

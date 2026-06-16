@@ -22,7 +22,7 @@ under an exact rerun.
 **Mechanism**: Exact rerun of v263:
 
 - Same image:
-  `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v258-mlp-up-first`
+  `<your-registry>/torchtitan-images/qwen3-8b-jax:v258-mlp-up-first`
 - Same model/code: MLP computes `up_proj` before `gate_proj`
 - Same runtime stack: RS latency multiplier `4`, AR latency multiplier `2`,
   Tokamax Splash, MaxText CE, no-scan, remat, activation sharding, SparseCore
@@ -40,9 +40,9 @@ v259/v260 RS3+AR2 band without reproducing v263's profile signal.
 
 GKE workload: `alekseyv-q3-v264-mlp-up-rs4-ar2-r`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v258-mlp-up-first`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v258-mlp-up-first`
 - **Image digest**: `sha256:3a08bd533913355b79d8d9c27243646bf8dd76809878cf41372fee0c6407071e`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v264-no-scan-sparsecore-rs-ar-rs4-ar2-mlp-up-proj-first-rerun`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v264-no-scan-sparsecore-rs-ar-rs4-ar2-mlp-up-proj-first-rerun`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **Command shape**: `--use_scan=False --use_remat=True --offload_remat=False --use_splash=True --use_maxtext_ce=True --shard_acts=True --batch_size=4 --seqlen=8192 --tp_parallelism=1`

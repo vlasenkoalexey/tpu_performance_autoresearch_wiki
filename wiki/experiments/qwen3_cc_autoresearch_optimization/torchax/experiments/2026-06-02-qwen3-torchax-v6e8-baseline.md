@@ -27,11 +27,11 @@ starting `step / TPS / MFU` for the `8B/v6e-8` variant row.
 ## Setup
 
 - **Hardware**: TPU v6e-8 — 2 hosts × 4 chips = 8 chips, fsdp=8, tp=1. Cluster
-  `alekseyv-tpu-v6e8-spot-xpk` (project `tpu-pytorch`, zone `us-central2-b`),
+  `<your-cluster>` (project `<your-project>`, zone `<your-zone>`),
   1 slice (2×4 topology).
 - **Dispatch**: GKE via XPK (gke-cluster-runner agent). Workload
   `alekseyv-qwen3-torchax-v000-base`.
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-torchax:latest`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-torchax:latest`
   (digest `sha256:1ade963e…`). Base `jax-ai-image/tpu:jax0.9.0-rev1` + torchax
   (from `raw/code/torchax`) + HF transformers 5.3 + the minimal trainer.
 - **Env**: `TORCH_DEVICE_BACKEND_AUTOLOAD=0` (required — torch_tpu vs torchax
@@ -81,7 +81,7 @@ step and the rest is FSDP-collective stalls + framework dispatch. This is a
 
 - **xprof URL**: `http://localhost:8791/?run=2026-06-02-qwen3-torchax-v6e8-baseline`
   (run name `2026-06-02-qwen3-torchax-v6e8-baseline/2026_06_02_04_20_28`).
-- **GCS run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-02-qwen3-torchax-v6e8-baseline/plugins/profile/2026_06_02_04_20_28/`
+- **GCS run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-02-qwen3-torchax-v6e8-baseline/plugins/profile/2026_06_02_04_20_28/`
   (two hosts: `gke-tpu-46dd3e54-g30s.xplane.pb`, `…-rkr2.xplane.pb` + `.trace.json.gz`).
 - **Local pointer**: [`raw/profiles/2026-06-02-qwen3-torchax-v6e8-baseline/`](../../../../../raw/profiles/2026-06-02-qwen3-torchax-v6e8-baseline/GCS_LOCATION.txt)
   (GKE runs are GCS-resident; this pointer file records the gs:// location).
@@ -126,6 +126,6 @@ hypothesis test; it sets the `8B/v6e-8` matrix row's `Baseline` cell at
 
 ## Sources
 
-- Profile + HLO (GCS): `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-02-qwen3-torchax-v6e8-baseline/`
+- Profile + HLO (GCS): `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-02-qwen3-torchax-v6e8-baseline/`
 - Local pointer: `raw/profiles/2026-06-02-qwen3-torchax-v6e8-baseline/GCS_LOCATION.txt`
 - Trainer: `wiki/experiments/qwen3_cc_autoresearch_optimization/torchax/` (train.py, model/, profiling.py).

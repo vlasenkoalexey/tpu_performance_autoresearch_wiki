@@ -20,9 +20,9 @@ Using Tokamax CE with TP=2 and Splash attention will enable scaling the batch si
 - Batch Size: 8
 
 ## Setup Steps
-1. Based on image: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260602-v008-splash-tp2-bs4`
+1. Based on image: `<your-registry>/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260602-v008-splash-tp2-bs4`
 2. Edited `train.py` inside `.repo/2026-06-02-v010-splash-tp2-tokamax-bs8` to switch to Tokamax CE.
-3. Built and pushed Docker image: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260602-v010-splash-tp2-tokamax-bs8`
+3. Built and pushed Docker image: `<your-registry>/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260602-v010-splash-tp2-tokamax-bs8`
 
 ## Training Run
 (To be executed and validated)

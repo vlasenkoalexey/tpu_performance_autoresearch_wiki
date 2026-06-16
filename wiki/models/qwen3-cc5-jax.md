@@ -31,10 +31,10 @@ Serves as the reference ceiling over the [torchax](qwen3-cc5-torchax.md) lane.
 Current target-shape frontier recipe (v044/v045; trainer in
 `wiki/experiments/qwen3_cc5_autoresearch_optimization/jax/` trunk,
 image `qwen3-8b-jax:v6e8-qwen3-8b-jax-20260612-v044-ctx`, dispatched via
-gke-cluster-runner on `alekseyv-tpu-v6e8-spot-xpk`):
+gke-cluster-runner on `<your-cluster>`):
 
 ```bash
-export JAX_COMPILATION_CACHE_DIR=gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache
+export JAX_COMPILATION_CACHE_DIR=gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache
 # 21-flag stack (v035: ACF flags worth ~0; use this trimmed form):
 export LIBTPU_INIT_ARGS="--xla_tpu_scoped_vmem_limit_kib=98304 --xla_tpu_use_minor_sharding_for_major_trivial_input=true --xla_tpu_relayout_group_size_threshold_for_reduce_scatter=1 --xla_tpu_assign_all_reduce_scatter_layout=true --xla_tpu_enable_data_parallel_all_reduce_opt=true --xla_tpu_data_parallel_opt_different_sized_ops=true --xla_tpu_overlap_compute_collective_tc=true --xla_enable_async_all_gather=true --xla_tpu_enable_all_experimental_scheduler_features=true --xla_tpu_enable_scheduler_memory_pressure_tracking=true --xla_tpu_host_transfer_overlap_limit=24 --xla_tpu_aggressive_opt_barrier_removal=ENABLED --xla_lhs_prioritize_async_depth_over_stall=ENABLED --xla_tpu_enable_ag_backward_pipelining=true --xla_should_allow_loop_variant_parameter_in_chain=ENABLED --xla_should_add_loop_invariant_op_in_chain=ENABLED --xla_max_concurrent_host_send_recv=100 --xla_tpu_scheduler_percent_shared_memory_limit=100 --xla_latency_hiding_scheduler_rerun=2 --xla_jf_spmd_threshold_for_windowed_einsum_mib=1000000"
 # NEW (v044): splash context checkpointing — removes bwd splash-fwd re-run
@@ -107,12 +107,12 @@ Retired this phase: [Host-offload remat](../hypotheses/qwen3-jax-host-offload-re
 ## Variant-specific open hypotheses
 
 **seq-2048 phase (opened 2026-06-12, user-directed; cluster = charles-v6e,
-project `cienet-cmcs`, europe-west4-a, 3× v6e-8 on-demand — 1 slice usable,
+project `<your-project-2>`, <your-zone>, 3× v6e-8 on-demand — 1 slice usable,
 2 held by foreign zombie Kueue reservations).** seq-2048 best on record:
 31.4% MFU ([v007](../experiments/qwen3_cc5_autoresearch_optimization/jax/experiments/2026-06-12-v007-bs2-vmem.md)) —
 predates every seq-8192 frontier lever. Dispatch uses a dedicated kubeconfig
 (`~/.kube/config-charles-v6e`; shared kubeconfig is clobbered by other users)
-and literal `--project=cienet-cmcs --zone=europe-west4-a`.
+and literal `--project=<your-project-2> --zone=<your-zone>`.
 
 **Phase extension CLOSED (2026-06-13)**: best-vs-best at 2k =
 **statistical tie** ([analysis](../analyses/2026-06-13-qwen3-2k-stack-vs-maxtext.md)):

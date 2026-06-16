@@ -34,8 +34,8 @@ confirmed 100352 frontier.
 
 GKE workload `alekseyv-qwen3-v155-bs4-vmem101376`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v155-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-vmem101376`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v155-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-vmem101376`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flags**: exact v154 stack except `--xla_tpu_scoped_vmem_limit_kib=101376`.
@@ -61,7 +61,7 @@ This is below the confirmed v153/v154 100352 KiB band:
 
 Profile files were written under:
 
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v155-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-vmem101376/plugins/profile/2026_06_04_17_40_29/`
+`gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v155-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-vmem101376/plugins/profile/2026_06_04_17_40_29/`
 
 Files present:
 

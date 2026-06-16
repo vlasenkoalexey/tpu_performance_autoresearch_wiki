@@ -38,11 +38,11 @@ compilation, or logits/CE experiments rather than more 8k scheduler sweeps.
 
 - Workload: `alekseyv-qwen3-jax-v081-2kctl`
 - Image:
-  `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v067-explicit-silu`
+  `<your-registry>/torchtitan-images/qwen3-8b-jax:v067-explicit-silu`
 - Run dir:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v081-2k-bs4-current-control`
+  `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v081-2k-bs4-current-control`
 - Compile cache:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v081_2k_bs4ctl`
+  `gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v081_2k_bs4ctl`
 - Placement: cluster `v6e-demo-hjajoo`, nodepool `v6e-demo-hjajoo-np-0`
 - Mesh: `fsdp=8,tp=1`; per-chip batch 4 / global batch 32; sequence length
   **2048**; profile window steps 12-14.

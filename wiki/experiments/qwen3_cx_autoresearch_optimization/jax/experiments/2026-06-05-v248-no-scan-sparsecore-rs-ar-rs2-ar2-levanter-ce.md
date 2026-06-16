@@ -53,9 +53,9 @@ compelling memory/perf tradeoff.
 GKE workload `alekseyv-q3-v248-levanterce`.
 
 - **Image**:
-  `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v248-levanter-ce`
+  `<your-registry>/torchtitan-images/qwen3-8b-jax:v248-levanter-ce`
 - **Run dir**:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v248-no-scan-sparsecore-rs-ar-rs2-ar2-levanter-ce`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v248-no-scan-sparsecore-rs-ar-rs2-ar2-levanter-ce`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **Command shape**: `--use_scan=False --use_remat=True --offload_remat=False
@@ -133,7 +133,7 @@ alone at **6,913.5 ms / 6.1%** and **7,601.3 GiB** accessed.
 Train-step HLO:
 
 - GCS:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v248-no-scan-sparsecore-rs-ar-rs2-ar2-levanter-ce/hlo/xla-dump/module_0267.jit_train_step.cl_854318611.after_optimizations.txt`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v248-no-scan-sparsecore-rs-ar-rs2-ar2-levanter-ce/hlo/xla-dump/module_0267.jit_train_step.cl_854318611.after_optimizations.txt`
 - Local analysis copy:
   `/tmp/qwen3-v248-hlo/module_0267.jit_train_step.cl_854318611.after_optimizations.txt`
 - SHA256:

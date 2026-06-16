@@ -32,9 +32,9 @@ Keep all other v114 settings fixed.
 
 - Workload: `alekseyv-qwen3-v119-2krsl4rer4`
 - Run dir:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v119-2k-bs16-vmem98304-splash2048-rslat4-rerun4`
+  `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v119-2k-bs16-vmem98304-splash2048-rslat4-rerun4`
 - Compile cache:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v119_2k_bs16_vmem98304_splash2048_rslat4_rerun4`
+  `gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v119_2k_bs16_vmem98304_splash2048_rslat4_rerun4`
 - Placement: cluster `v6e-demo-hjajoo`, nodepool `v6e-demo-hjajoo-np-0`.
 
 ## Results

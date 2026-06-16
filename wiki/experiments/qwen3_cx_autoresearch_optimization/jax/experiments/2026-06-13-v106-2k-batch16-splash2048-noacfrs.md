@@ -48,11 +48,11 @@ refutes this axis.
 
 - Workload: `alekseyv-qwen3-jax-v106-2ksp2048noacfrs`
 - Image:
-  `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v067-explicit-silu`
+  `<your-registry>/torchtitan-images/qwen3-8b-jax:v067-explicit-silu`
 - Run dir:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v106-2k-bs16-vmem98304-splash2048-noacfrs`
+  `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-13-qwen3-jax-v106-2k-bs16-vmem98304-splash2048-noacfrs`
 - Compile cache:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v106_2k_bs16_vmem98304_splash2048_noacfrs`
+  `gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v106_2k_bs16_vmem98304_splash2048_noacfrs`
 - Placement: cluster `v6e-demo-hjajoo`, nodepool `v6e-demo-hjajoo-np-0`
 - Mesh: `fsdp=8,tp=1`; per-chip batch 16 / global batch 128; sequence length
   **2048**; profile window steps 12-14.

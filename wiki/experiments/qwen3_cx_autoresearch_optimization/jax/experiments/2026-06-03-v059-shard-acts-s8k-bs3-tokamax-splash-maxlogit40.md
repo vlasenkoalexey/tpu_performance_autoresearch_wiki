@@ -35,8 +35,8 @@ without a meaningful custom-call reduction.
 
 GKE workload `alekseyv-qwen3-v059`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v059-shard-acts-s8k-bs3-tokamax-splash-maxlogit40`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v059-shard-acts-s8k-bs3-tokamax-splash-maxlogit40`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment change**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=40.0`
 - **XLA flag**: keep v056's `--xla_latency_hiding_scheduler_rerun=3`
@@ -77,7 +77,7 @@ The custom-call split is unchanged from v056/v058: DKV backward remains about
 ## HLO Dump
 
 - **Path**:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v059-shard-acts-s8k-bs3-tokamax-splash-maxlogit40/hlo/`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v059-shard-acts-s8k-bs3-tokamax-splash-maxlogit40/hlo/`
 - **Size**: 19.02 MiB
 - **Object count**: 32
 

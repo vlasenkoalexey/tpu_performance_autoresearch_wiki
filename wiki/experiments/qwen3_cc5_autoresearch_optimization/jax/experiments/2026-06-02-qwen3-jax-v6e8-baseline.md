@@ -28,10 +28,10 @@ None — reference baseline for the `8B/v6e-8` variant of the jax lane.
 ## Setup
 
 - **Hardware**: TPU v6e-8 — 2 hosts × 4 chips, fsdp=8, tp=1. Cluster
-  `alekseyv-tpu-v6e8-spot-xpk` (`tpu-pytorch`, zone `us-central2-b`), 1 slice.
+  `<your-cluster>` (`<your-project>`, zone `<your-zone>`), 1 slice.
 - **Dispatch**: GKE/XPK via the gke-cluster-runner agent. Workload
   `alekseyv-qwen3-jax-v000-base`.
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:latest`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:latest`
   — built `FROM` the torchax lane image (which already carries flax/optax/
   transformers) with only the jax trainer code swapped in. **No torch/torchax at
   run time** (pure JAX).
@@ -79,7 +79,7 @@ spends **21.7%** on the FSDP collective vs torchax's **31.3%**.
 
 - **xprof URL**: `http://localhost:8791/?run=2026-06-02-qwen3-jax-v6e8-baseline`
   (run `2026-06-02-qwen3-jax-v6e8-baseline/2026_06_02_05_07_29`).
-- **GCS run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-02-qwen3-jax-v6e8-baseline/plugins/profile/2026_06_02_05_07_29/`
+- **GCS run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-02-qwen3-jax-v6e8-baseline/plugins/profile/2026_06_02_05_07_29/`
   (2 hosts: `gke-tpu-32cb1c36-gs53.xplane.pb`, `…-jj8f.xplane.pb`).
 - **Local pointer**: [`raw/profiles/2026-06-02-qwen3-jax-v6e8-baseline/`](../../../../../raw/profiles/2026-06-02-qwen3-jax-v6e8-baseline/GCS_LOCATION.txt).
 - **Profiled steps**: 12–14.
@@ -116,7 +116,7 @@ analyzed via xprof-mcp. Sets the `8B/v6e-8` jax matrix row at
 
 ## Sources
 
-- Profile + HLO (GCS): `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-02-qwen3-jax-v6e8-baseline/`
+- Profile + HLO (GCS): `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-02-qwen3-jax-v6e8-baseline/`
 - Local pointer: `raw/profiles/2026-06-02-qwen3-jax-v6e8-baseline/GCS_LOCATION.txt`
 - Trainer: `wiki/experiments/qwen3_cc5_autoresearch_optimization/jax/` (train.py, model/, sharding.py).
 - Sibling: [torchax baseline](../../torchax/experiments/2026-06-02-qwen3-torchax-v6e8-baseline.md).

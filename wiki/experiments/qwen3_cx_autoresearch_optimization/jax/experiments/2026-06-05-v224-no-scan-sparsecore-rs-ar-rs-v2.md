@@ -35,9 +35,9 @@ throughput, or regression below v220/v221.
 
 GKE workload `alekseyv-qwen3-v224-sc-rsar-rsv2`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
 - **Run dir**:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v224-no-scan-sparsecore-rs-ar-rs-v2`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v224-no-scan-sparsecore-rs-ar-rs-v2`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **Command shape**: `--use_scan=False --use_remat=True --offload_remat=False
@@ -111,7 +111,7 @@ The profile confirms the stdout regression: step time is worse than v221
 ## HLO Dump
 
 - Optimized train-step HLO:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v224-no-scan-sparsecore-rs-ar-rs-v2/hlo/xla-dump/module_0267.jit_train_step.cl_854318611.after_optimizations.txt`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v224-no-scan-sparsecore-rs-ar-rs-v2/hlo/xla-dump/module_0267.jit_train_step.cl_854318611.after_optimizations.txt`
 - Size: **19,954,794 bytes**
 - SHA256:
   `a33c7940efea974ff9a7dcf2704fa4d08f79e5d82e1821a59a553805ceca81d5`

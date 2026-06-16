@@ -37,13 +37,13 @@ clean and yields a stable MFU number (the number itself is the deliverable, not 
 
 ## Setup
 
-- **Cluster**: alekseyv-tpu-v6e8-spot-xpk (v6e-8, 2 hosts × 4 chips, fsdp=8 via `ici_fsdp_parallelism=-1`).
+- **Cluster**: <your-cluster> (v6e-8, 2 hosts × 4 chips, fsdp=8 via `ici_fsdp_parallelism=-1`).
 - **MaxText**: worktree `/mnt/disks/persist/maxtext-tpu-recipes-v0.1.4` (`tpu-recipes-v0.1.4` / `9f1820b47`); venv `/mnt/disks/persist/venv-maxtext-v0.1.4`; base image `maxtext_base_image:latest` (rebuilt 2026-06-02 from `us-docker.pkg.dev/cloud-tpu-images/jax-ai-image/tpu:jax0.6.1-rev1`).
 - **Submission**:
   ```bash
-  python3 -m benchmarks.benchmark_runner xpk --project=tpu-pytorch --zone=us-central2-b \
-    --device_type=v6e-8 --num_slices=1 --cluster_name=alekseyv-tpu-v6e8-spot-xpk \
-    --base_output_directory=gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/maxtext/2026-06-02-qwen3-8b-8192-ref \
+  python3 -m benchmarks.benchmark_runner xpk --project=<your-project> --zone=<your-zone> \
+    --device_type=v6e-8 --num_slices=1 --cluster_name=<your-cluster> \
+    --base_output_directory=gs://<your-bucket>/autoresearch/qwen3_cc/maxtext/2026-06-02-qwen3-8b-8192-ref \
     --model_name=qwen3_8b_8192_ref --base_docker_image=maxtext_base_image --xpk_path=/home/alekseyv_google_com/xpk
   ```
 - **Workload**: `ale-qwen3-8b-8-1-060213-9sh`; pod `...-slice-job-0-0-mlbfw`. Entrypoint `python3 -m MaxText.train MaxText/configs/base.yml model_name=qwen3-8b ...`.
@@ -80,7 +80,7 @@ Steady-state (steps 15–19, post-profile, clean — `seconds` 3.533–3.541, Δ
 
 ## Profile
 
-- **xprof URL**: http://localhost:8791/?run=2026-06-02-qwen3-8b-8192-ref (point xprof at `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/maxtext/2026-06-02-qwen3-8b-8192-ref/ale-qwen3-8b-8-1-060213-9sh/tensorboard`).
+- **xprof URL**: http://localhost:8791/?run=2026-06-02-qwen3-8b-8192-ref (point xprof at `gs://<your-bucket>/autoresearch/qwen3_cc/maxtext/2026-06-02-qwen3-8b-8192-ref/ale-qwen3-8b-8-1-060213-9sh/tensorboard`).
 - **Run name**: `ale-qwen3-8b-8-1-060213-9sh`.
 - **On-disk pointer**: [`raw/profiles/2026-06-02-maxtext-qwen3-8b-v6e8-ref-seq8192/`](../../../../../raw/profiles/2026-06-02-maxtext-qwen3-8b-v6e8-ref-seq8192/)
 - **GCS**: `.../2026-06-02-qwen3-8b-8192-ref/ale-qwen3-8b-8-1-060213-9sh/tensorboard/plugins/profile/2026_06_02_13_55_04/` (`gke-tpu-0d0013c1-pzbz.xplane.pb` + `.trace.json.gz`, rank-0).

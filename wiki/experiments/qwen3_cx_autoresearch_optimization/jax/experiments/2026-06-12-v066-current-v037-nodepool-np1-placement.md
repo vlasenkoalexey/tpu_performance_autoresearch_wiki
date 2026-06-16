@@ -20,10 +20,10 @@ cache and emitted no fresh train-step HLO. Pinning an exact v064 fresh-cache
 control to np1 separates cache state from nodepool placement.
 
 **Mechanism**: Reuse the v064/v037 stack exactly with a node selector for
-`cloud.google.com/gke-nodepool=alekseyv-tpu-v6e8-spot-xpk-np-1` and a unique
+`cloud.google.com/gke-nodepool=<your-cluster>-np-1` and a unique
 compile cache:
 
-- `JAX_COMPILATION_CACHE_DIR=gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v066_np1`
+- `JAX_COMPILATION_CACHE_DIR=gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v066_np1`
 
 No model code, math, shape, scheduler flags, profile window, or HLO dump
 settings change otherwise.
@@ -35,8 +35,8 @@ v063/v065, prefer np0 for the live frontier and close placement probing.
 ## Setup
 
 - Workload: `alekseyv-qwen3-cc5-jax-v066-np1`
-- Image: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v258-mlp-up-first`
-- Run dir: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v066-v037-np1-placement`
+- Image: `<your-registry>/torchtitan-images/qwen3-8b-jax:v258-mlp-up-first`
+- Run dir: `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v066-v037-np1-placement`
 - Mesh: `fsdp=8,tp=1`; global batch 32; profile window steps 12-14.
 
 ## Result

@@ -51,7 +51,7 @@ RUN=$(date +%Y-%m-%d)-qwen3-torchax-baseline
 TORCH_DEVICE_BACKEND_AUTOLOAD=0 \
 JAX_COMPILATION_CACHE_DIR=/tmp/qwen3_jax_cache \
 python train.py --steps 20 --batch_size 1 --seqlen 8192 \
-    --profile_dir gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/$RUN \
+    --profile_dir gs://<your-bucket>/autoresearch/qwen3_cc5/$RUN \
     --profile_start_step 8 --profile_steps 3
 ```
 
@@ -75,18 +75,18 @@ profiler (see `profiling.py`). `--profile_dir` may be:
   rsync it up afterward (falls back to `gsutil`, which needs `unset CLOUDSDK_PYTHON`
   on this box — see project memory).
 
-Canonical GCS layout: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/<run-name>/plugins/profile/<ts>/<host>.xplane.pb`.
+Canonical GCS layout: `gs://<your-bucket>/autoresearch/qwen3_cc5/<run-name>/plugins/profile/<ts>/<host>.xplane.pb`.
 
 To browse/analyze a captured run:
 ```bash
 # xprof server (has the binary in py312), logdir = the qwen3_cc5 parent:
 ~/miniconda3/envs/py312/bin/xprof \
-    --logdir=gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5 --port=8791 &
+    --logdir=gs://<your-bucket>/autoresearch/qwen3_cc5 --port=8791 &
 
 # xprof-mcp HTTP server (env xprof_mcp_py312) so the MCP tools can query it:
 PYTHONPATH=/mnt/disks/persist/torch-tpu \
 XPROF_URL=http://localhost:8791 \
-XPROF_LOGDIR=gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5 \
+XPROF_LOGDIR=gs://<your-bucket>/autoresearch/qwen3_cc5 \
 MCP_PORT=8792 \
 ~/miniconda3/envs/xprof_mcp_py312/bin/python \
     -m xprof_mcp.server.xprof_mcp_server --transport http &

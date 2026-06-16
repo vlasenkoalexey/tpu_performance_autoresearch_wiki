@@ -41,8 +41,8 @@ HLO with no throughput gain, or throughput below the confirmed frontier.
 
 GKE workload `alekseyv-qwen3-v159-bs4-vmem99328`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v159-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-vmem99328`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v159-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-vmem99328`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flags**: exact v154 stack except `--xla_tpu_scoped_vmem_limit_kib=99328`.
@@ -66,7 +66,7 @@ Completed cleanly on both workers with normal loss but below the confirmed
 
 Profile artifacts were written under:
 
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v159-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-vmem99328/plugins/profile/`
+`gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v159-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-vmem99328/plugins/profile/`
 
 Both host xplane files are present. XProf HTTP indexing remained unreliable, so
 the decision uses worker logs plus direct GCS HLO/profile artifacts.

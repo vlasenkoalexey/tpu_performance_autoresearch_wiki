@@ -39,8 +39,8 @@ completion at or below the v074/v075 throughput band without a profile win.
 
 Planned GKE workload `alekseyv-qwen3-v084-startdone`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v084-shard-acts-s8k-bs3-tokamax-splash-async-start-done-only`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v084-shard-acts-s8k-bs3-tokamax-splash-async-start-done-only`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flag change**: add
@@ -82,7 +82,7 @@ Profile:
 ## HLO Dump
 
 HLO dump exists under
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v084-shard-acts-s8k-bs3-tokamax-splash-async-start-done-only/hlo/`.
+`gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v084-shard-acts-s8k-bs3-tokamax-splash-async-start-done-only/hlo/`.
 
 - HLO object count: 1,619
 - Train-step after-optimization dump:

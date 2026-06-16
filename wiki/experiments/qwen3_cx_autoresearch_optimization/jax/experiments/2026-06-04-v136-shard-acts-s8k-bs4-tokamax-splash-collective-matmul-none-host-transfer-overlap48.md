@@ -61,8 +61,8 @@ with regression, or clean completion below the confirmed v123/v127 band.
 
 GKE workload `alekseyv-qwen3-v136-bs4-hto48`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v136-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-host-transfer-overlap48`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v136-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-host-transfer-overlap48`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flags**: v127 stack with only host-transfer overlap limit raised from 24 to 48.
@@ -80,7 +80,7 @@ normal loss ending at 12.0461.
 - **Worker 1**: 56,423 tok/s avg, 7,053 tok/s/chip, 40.5% MFU; best steady
   step 56,585 tok/s.
 - **Profile dir**:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v136-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-host-transfer-overlap48`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v136-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-host-transfer-overlap48`
 
 Worker0 is only 3 tok/s above v127's 56,453 tok/s best-worker average, and the
 best steady step remains below v123's 56,599 tok/s best observed. Treat this as
@@ -109,7 +109,7 @@ Top train-step buckets:
 ## HLO Dump
 
 - **HLO prefix**:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v136-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-host-transfer-overlap48/hlo/`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v136-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-host-transfer-overlap48/hlo/`
 - **Optimized train-step**:
   `module_0267.jit_train_step.cl_854318611.after_optimizations.txt`
 - **HLO bytes**: 787,978

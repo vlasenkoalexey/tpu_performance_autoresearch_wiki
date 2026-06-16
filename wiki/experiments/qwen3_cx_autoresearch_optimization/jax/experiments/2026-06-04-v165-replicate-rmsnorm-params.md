@@ -46,8 +46,8 @@ or throughput at/below the confirmed frontier without a clear profile win.
 
 GKE workload `alekseyv-qwen3-v165-repnorm`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v165-replicate-rmsnorm`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v165-replicate-rmsnorm-params`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v165-replicate-rmsnorm`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v165-replicate-rmsnorm-params`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flags**: confirmed v154 stack with `--xla_tpu_scoped_vmem_limit_kib=100352`.
@@ -73,7 +73,7 @@ observed step is effectively tied with v153's 57,888.
 
 Profile captured successfully:
 
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v165-replicate-rmsnorm-params/plugins/profile/2026_06_04_19_04_55/`
+`gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v165-replicate-rmsnorm-params/plugins/profile/2026_06_04_19_04_55/`
 
 Artifacts:
 

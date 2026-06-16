@@ -28,8 +28,8 @@ updated: 2026-06-03
 
 GKE workload `alekseyv-qwen3-v016`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260602-v015-splash-tp2-tokamax-remat-fused-rope-bs8`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v016-splash-tp1-tokamax-remat-fused-bs4`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260602-v015-splash-tp2-tokamax-remat-fused-rope-bs8`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v016-splash-tp1-tokamax-remat-fused-bs4`
 - **Mesh**: `fsdp=8,tp=1`
 - **Command shape**: `--batch_size=4 --seqlen=2048 --tp_parallelism=1 --use_splash=True`
 - **Global batch**: 32
@@ -61,7 +61,7 @@ No XProf trace was captured because the program failed during compile before the
 HLO dump path:
 
 ```text
-gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v016-splash-tp1-tokamax-remat-fused-bs4/hlo/
+gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v016-splash-tp1-tokamax-remat-fused-bs4/hlo/
 ```
 
 Artifact count: 24 GCS objects, 686.07 MiB total.

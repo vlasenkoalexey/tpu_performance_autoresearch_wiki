@@ -45,12 +45,12 @@ exposes large direct all-gather time or any clean slowdown refutes the probe.
 
 - Workload: `alekseyv-qwen3-cc5-jax-v069-ag1`
 - Image:
-  `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v067-explicit-silu`
+  `<your-registry>/torchtitan-images/qwen3-8b-jax:v067-explicit-silu`
 - Run dir:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v069-v067-async-allgather-cap1`
+  `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v069-v067-async-allgather-cap1`
 - Compile cache:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v069_ag1`
-- Placement: nodepool `alekseyv-tpu-v6e8-spot-xpk-np-0`
+  `gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v069_ag1`
+- Placement: nodepool `<your-cluster>-np-0`
 - Mesh: `fsdp=8,tp=1`; global batch 32; profile window steps 12-14.
 
 ## Status

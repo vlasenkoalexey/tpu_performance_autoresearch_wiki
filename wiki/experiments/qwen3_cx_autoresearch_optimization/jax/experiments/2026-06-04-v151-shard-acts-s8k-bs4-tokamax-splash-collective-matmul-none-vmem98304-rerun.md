@@ -33,8 +33,8 @@ command shape, or clean completion that does not repeat the v150 improvement.
 
 GKE workload `alekseyv-qwen3-v151-bs4-vmem98304r`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v151-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-vmem98304-rerun`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v151-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-vmem98304-rerun`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flags**: exact v150 stack, including `--xla_tpu_scoped_vmem_limit_kib=98304`.

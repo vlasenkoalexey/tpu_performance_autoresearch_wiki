@@ -37,8 +37,8 @@ completion at or below the v090 throughput band without a net profile win.
 
 Planned GKE workload `alekseyv-qwen3-v112-dq3`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v112-shard-acts-s8k-bs3-tokamax-splash-layeragg-dq3`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v112-shard-acts-s8k-bs3-tokamax-splash-layeragg-dq3`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0 TOKAMAX_DQ_REDUCTION_STEPS=3`
 - **XLA flags**: v090 scheduler frontier unchanged.
@@ -49,7 +49,7 @@ Planned GKE workload `alekseyv-qwen3-v112-dq3`.
 ## Results
 
 Workload `alekseyv-qwen3-v112-dq3` completed cleanly on
-`alekseyv-tpu-v6e8-spot-xpk`.
+`<your-cluster>`.
 
 - Worker 0: 50,853 tok/s average, 36.5% MFU.
 - Worker 1: 50,825 tok/s average, 36.4% MFU.

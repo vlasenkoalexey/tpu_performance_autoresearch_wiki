@@ -47,12 +47,12 @@ clean completion below v064 refutes the probe.
 ## Setup
 
 - Workload: `alekseyv-qwen3-cc5-jax-v067-silu`
-- Base image: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v258-mlp-up-first`
+- Base image: `<your-registry>/torchtitan-images/qwen3-8b-jax:v258-mlp-up-first`
 - Base digest: `sha256:3a08bd533913355b79d8d9c27243646bf8dd76809878cf41372fee0c6407071e`
-- Experiment image: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v067-explicit-silu`
+- Experiment image: `<your-registry>/torchtitan-images/qwen3-8b-jax:v067-explicit-silu`
 - Experiment digest: `sha256:d752d2d9720ddc54602c2476689a40c20d322386c47339f047dbf7efa60ede21`
-- Run dir: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v067-v037-explicit-silu`
-- Placement: nodepool `alekseyv-tpu-v6e8-spot-xpk-np-0`, the current best
+- Run dir: `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v067-v037-explicit-silu`
+- Placement: nodepool `<your-cluster>-np-0`, the current best
   v064/v037 placement.
 - Mesh: `fsdp=8,tp=1`; global batch 32; profile window steps 12-14.
 

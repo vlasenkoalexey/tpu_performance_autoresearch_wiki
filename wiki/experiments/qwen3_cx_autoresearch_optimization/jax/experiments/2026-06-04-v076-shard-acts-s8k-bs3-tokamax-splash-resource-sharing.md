@@ -34,8 +34,8 @@ trajectory, or clean completion at or below the v074/v075 band.
 
 Planned GKE workload `alekseyv-qwen3-v076-sharing`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v076-shard-acts-s8k-bs3-tokamax-splash-resource-sharing`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v076-shard-acts-s8k-bs3-tokamax-splash-resource-sharing`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flag change**: add
@@ -84,7 +84,7 @@ and loop fusion 18.0%.
 ## HLO Dump
 
 HLO dump exists under
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v076-shard-acts-s8k-bs3-tokamax-splash-resource-sharing/hlo/`.
+`gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v076-shard-acts-s8k-bs3-tokamax-splash-resource-sharing/hlo/`.
 
 - HLO object count: 2,226
 - Train-step after-optimization dumps:

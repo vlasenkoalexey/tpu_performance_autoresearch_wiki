@@ -37,9 +37,9 @@ gain was a one-run artifact.
 
 GKE workload `alekseyv-qwen3-v221-sc-rsar-r`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
 - **Run dir**:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v221-no-scan-sparsecore-rs-ar-only-rerun`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v221-no-scan-sparsecore-rs-ar-only-rerun`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **Command shape**: `--use_scan=False --use_remat=True --offload_remat=False
@@ -86,8 +86,8 @@ best measured full-window run.
 - XProf run:
   `2026-06-05-qwen3-jax-v221-no-scan-sparsecore-rs-ar-only-rerun/2026_06_05_05_19_51`
 - Profile files:
-  - `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v221-no-scan-sparsecore-rs-ar-only-rerun/plugins/profile/2026_06_05_05_19_51/gke-tpu-964065d9-c180.{trace.json.gz,xplane.pb}`
-  - `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v221-no-scan-sparsecore-rs-ar-only-rerun/plugins/profile/2026_06_05_05_19_51/gke-tpu-964065d9-9vh8.{trace.json.gz,xplane.pb}`
+  - `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v221-no-scan-sparsecore-rs-ar-only-rerun/plugins/profile/2026_06_05_05_19_51/gke-tpu-964065d9-c180.{trace.json.gz,xplane.pb}`
+  - `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v221-no-scan-sparsecore-rs-ar-only-rerun/plugins/profile/2026_06_05_05_19_51/gke-tpu-964065d9-9vh8.{trace.json.gz,xplane.pb}`
 - XProf summary:
   - Average step time: **4429.0 ms**
   - MXU utilization: **67.4%**
@@ -115,7 +115,7 @@ peak HBM 30.93 GiB, and train-step program time 106,044.4 ms.
 ## HLO Dump
 
 - Optimized train-step HLO:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v221-no-scan-sparsecore-rs-ar-only-rerun/hlo/xla-dump/module_0267.jit_train_step.cl_854318611.after_optimizations.txt`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v221-no-scan-sparsecore-rs-ar-only-rerun/hlo/xla-dump/module_0267.jit_train_step.cl_854318611.after_optimizations.txt`
 - Size: **19,954,794 bytes**
 - SHA256:
   `a33c7940efea974ff9a7dcf2704fa4d08f79e5d82e1821a59a553805ceca81d5`

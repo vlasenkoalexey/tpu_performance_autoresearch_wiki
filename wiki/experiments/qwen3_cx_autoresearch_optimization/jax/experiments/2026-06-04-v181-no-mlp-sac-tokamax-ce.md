@@ -41,8 +41,8 @@ completion below the v169/v170 frontier.
 
 GKE workload `alekseyv-qwen3-v181-tokamaxce-mlpsac`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v181-no-mlp-sac-tokamax-ce`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v181-no-mlp-sac-tokamax-ce`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flags**: v170 stack with `--xla_tpu_scoped_vmem_limit_kib=100352`.
@@ -80,7 +80,7 @@ correctness failure.
 ## Profile
 
 Profile files were written under
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v181-no-mlp-sac-tokamax-ce/plugins/profile/2026_06_04_21_20_51/`
+`gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v181-no-mlp-sac-tokamax-ce/plugins/profile/2026_06_04_21_20_51/`
 for both TPU hosts:
 
 - `gke-tpu-46dd3e54-g30s.xplane.pb`
@@ -95,7 +95,7 @@ Fresh train-step HLO was emitted. The duplicated train-step dumps
 `module_0109` and `module_0308` are byte-identical.
 
 - Optimized HLO:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v181-no-mlp-sac-tokamax-ce/hlo/module_0308.jit_train_step.cl_854318611.after_optimizations.txt`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v181-no-mlp-sac-tokamax-ce/hlo/module_0308.jit_train_step.cl_854318611.after_optimizations.txt`
 - Size: 791,173 bytes
 - SHA256: `caca667e8d8e01a478379131a36d943f4007cbd428cdfab5db7ee5b3d3b71ac3`
 - Text counts: all-gather 139, all-reduce 36, collective-permute 3,

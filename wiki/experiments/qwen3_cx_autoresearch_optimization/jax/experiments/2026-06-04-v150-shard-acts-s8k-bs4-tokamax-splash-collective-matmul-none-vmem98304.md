@@ -39,8 +39,8 @@ with no throughput gain, or clean completion below the v149 confirmed frontier.
 
 GKE workload `alekseyv-qwen3-v150-bs4-vmem98304`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v150-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-vmem98304`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v150-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-vmem98304`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flags**: v149 frontier stack plus `--xla_tpu_scoped_vmem_limit_kib=98304`.

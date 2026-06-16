@@ -25,7 +25,7 @@ The objective of this experiment is to fix the massive memory fragmentation (16.
 1. Forked the `v024-tp1-xla-bs4` setup to `wiki/experiments/qwen3_ag_autoresearch_optimization/jax/.repo/2026-06-03-v026-tp1-vocab-parallel-bs4-no-outer-ckpt/`.
 2. Extracted `train.py` from the `v024` Docker image.
 3. In `train.py`, removed the outer `jax.checkpoint` wrapping of `loss_fn`.
-4. Built and pushed the Docker image as `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260603-v026-tp1-vocab-parallel-bs4-no-outer-ckpt`.
+4. Built and pushed the Docker image as `<your-registry>/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260603-v026-tp1-vocab-parallel-bs4-no-outer-ckpt`.
 
 ## Results
 - **Status**: Completed (Exit Code 0)

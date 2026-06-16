@@ -36,8 +36,8 @@ without a meaningful custom-call reduction.
 
 GKE workload `alekseyv-qwen3-v058`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v058-shard-acts-s8k-bs3-tokamax-splash-maxlogit30-cost-est`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v041-shard-acts`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v058-shard-acts-s8k-bs3-tokamax-splash-maxlogit30-cost-est`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment change**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0 TOKAMAX_COST_FWD=3300000000000 TOKAMAX_COST_BWD=5200000000000`
 - **XLA flag**: keep v056's `--xla_latency_hiding_scheduler_rerun=3`
@@ -80,7 +80,7 @@ custom calls, but not observed device time.
 ## HLO Dump
 
 - **Path**:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v058-shard-acts-s8k-bs3-tokamax-splash-maxlogit30-cost-est/hlo/`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v058-shard-acts-s8k-bs3-tokamax-splash-maxlogit30-cost-est/hlo/`
 - **Size**: 19.03 MiB
 - **Object count**: 32
 

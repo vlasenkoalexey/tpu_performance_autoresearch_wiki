@@ -17,13 +17,13 @@
 - **Seq Length**: 2048
 - **Remat Policy**: `nnx.remat` (per-layer)
 - **Attention**: Splash Attention
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260602-v014-splash-tp2-tokamax-remat-bs8`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260602-v014-splash-tp2-tokamax-remat-bs8`
 - **Flags**: `--tp_parallelism=2 --batch_size=8 --use_splash=True`
 
 ## Setup
 Derived from `v010` (Splash + TP=2 + Tokamax CE). 
 1. In `model/modeling_qwen3.py`, wrapped the `Qwen3DecoderLayer` application inside the `Qwen3Model.__call__` loop with `nnx.remat`: `hidden_states = nnx.remat(layer)(hidden_states, (cos, sin), attention_mask=None)`.
-2. Built new docker image `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260602-v014-splash-tp2-tokamax-remat-bs8` containing the modified model code.
+2. Built new docker image `<your-registry>/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260602-v014-splash-tp2-tokamax-remat-bs8` containing the modified model code.
 
 ## Results
 (To be populated)

@@ -44,12 +44,12 @@ slower profile, or same/lower throughput refutes the probe.
 
 - Workload: `alekseyv-qwen3-cc5-jax-v077-shm100`
 - Image:
-  `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v067-explicit-silu`
+  `<your-registry>/torchtitan-images/qwen3-8b-jax:v067-explicit-silu`
 - Run dir:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v077-v067-shmem100`
+  `gs://<your-bucket>/autoresearch/qwen3_cc5/2026-06-12-qwen3-jax-v077-v067-shmem100`
 - Compile cache:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc5/jax_lane_cache_v077_explicit_silu_shmem100`
-- Placement: nodepool `alekseyv-tpu-v6e8-spot-xpk-np-0`
+  `gs://<your-bucket>/autoresearch/qwen3_cc5/jax_lane_cache_v077_explicit_silu_shmem100`
+- Placement: nodepool `<your-cluster>-np-0`
 - Mesh: `fsdp=8,tp=1`; global batch 32; profile window steps 12-14.
 
 ## Status

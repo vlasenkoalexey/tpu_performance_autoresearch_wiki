@@ -48,9 +48,9 @@ Note: `alekseyv-qwen3-v168-lmrepl` was an inert first JobSet created from a
 completed template that retained queue-owned metadata and never reached a real
 run. It was deleted and replaced with this clean retry before logs/compile.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v168-lmhead-repl`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v168-lmhead-repl`
 - **Image digest**: `sha256:fb51d0b9122d675575d1d63db1fc00fb80cb3ad267c237ce3dfbda9a5ac91506`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v168-lmhead-replicated`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v168-lmhead-replicated`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flags**: confirmed v154 stack with `--xla_tpu_scoped_vmem_limit_kib=100352`.
@@ -74,7 +74,7 @@ This is a large regression from the confirmed v153/v154 frontier
 
 Profile captured successfully:
 
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v168-lmhead-replicated/plugins/profile/2026_06_04_19_28_50/`
+`gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v168-lmhead-replicated/plugins/profile/2026_06_04_19_28_50/`
 
 Artifacts:
 

@@ -37,11 +37,11 @@ The experiment crashed with an Out-of-Memory (OOM) error during the execution of
 
 ## Profile
 
-- **Phase 1 unavailable**: xprof trace not found at `gs://tpu-pytorch-alekseyv-asia-northeast1/autoresearch/qwen3-jax-v053-block-remat-bs64-e/plugins/profile`.
+- **Phase 1 unavailable**: xprof trace not found at `gs://<your-project>-alekseyv-asia-northeast1/autoresearch/qwen3-jax-v053-block-remat-bs64-e/plugins/profile`.
 
 ## HLO Dump
 
-**Source**: `gs://tpu-pytorch-alekseyv-asia-northeast1/autoresearch/qwen3-jax-v053-block-remat-bs64-e/hlo`
+**Source**: `gs://<your-project>-alekseyv-asia-northeast1/autoresearch/qwen3-jax-v053-block-remat-bs64-e/hlo`
 **Modules**: 200+ total, top by size: `jit__normal`, `jit__uniform`, `jit_threefry_fold_in`
 
 **Inspected modules** (top by size, fallback due to missing xprof):

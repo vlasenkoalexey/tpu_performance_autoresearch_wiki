@@ -30,8 +30,8 @@ GKE workload `alekseyv-qwen3-v017`.
 
 Note: an earlier `v017` submission attempt using a TP4 command received SIGTERM (`EXIT_CODE=143`) before first train step and disappeared from the API. The active accepted workload with the same name was recreated with the TP2 scan run path below; this page tracks the active workload.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260602-v015-splash-tp2-tokamax-remat-fused-rope-bs8`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v017-splash-tp2-tokamax-remat-scan-bs8`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260602-v015-splash-tp2-tokamax-remat-fused-rope-bs8`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v017-splash-tp2-tokamax-remat-scan-bs8`
 - **Mesh**: `fsdp=4,tp=2`
 - **Command shape**: `--batch_size=8 --seqlen=2048 --tp_parallelism=2 --use_splash=True`
 - **Global batch**: 32

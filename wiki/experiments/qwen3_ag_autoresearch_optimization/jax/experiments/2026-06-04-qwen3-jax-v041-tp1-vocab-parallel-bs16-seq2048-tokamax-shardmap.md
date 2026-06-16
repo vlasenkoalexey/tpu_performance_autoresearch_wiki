@@ -40,7 +40,7 @@ Pending.
 
 ## Profile
 
-**Source**: gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3-jax-v041-profile
+**Source**: gs://<your-bucket>/autoresearch/qwen3-jax-v041-profile
 **xprof URL**: N/A (Server environment unavailable)
 **Run name**: qwen3-jax-v041-profile
 **Steps captured**: 10 steps (approx)
@@ -67,7 +67,7 @@ Pending.
 
 ## HLO Dump
 
-**Source**: gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3-jax-v041/hlo
+**Source**: gs://<your-bucket>/autoresearch/qwen3-jax-v041/hlo
 **Modules**: Extracted from xplane.pb
 
 **Hypothesis-firing audit** (Phase 3):

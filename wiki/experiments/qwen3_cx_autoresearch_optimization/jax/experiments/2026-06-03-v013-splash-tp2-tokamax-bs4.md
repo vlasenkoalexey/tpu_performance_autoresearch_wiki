@@ -23,8 +23,8 @@ updated: 2026-06-03
 
 Backfilled from completed GKE workload `alekseyv-qwen3-v013`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260602-v010-splash-tp2-tokamax-bs8`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v013-splash-tp2-tokamax-bs4`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260602-v010-splash-tp2-tokamax-bs8`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v013-splash-tp2-tokamax-bs4`
 - **XProf run**: `2026-06-03-qwen3-jax-v013-splash-tp2-tokamax-bs4/2026_06_03_00_30_39`
 - **Mesh**: `fsdp=4,tp=2`
 - **Command shape**: `--batch_size=4 --seqlen=2048 --tp_parallelism=2 --use_splash=True`
@@ -51,7 +51,7 @@ Backfilled page. No profile-analyzer pass was dispatched before completion, so t
 Backfilled page. HLO path from command:
 
 ```text
-gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v013-splash-tp2-tokamax-bs4/hlo
+gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-03-qwen3-jax-v013-splash-tp2-tokamax-bs4/hlo
 ```
 
 ## Verdict

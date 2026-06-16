@@ -32,14 +32,14 @@ Expected outcome:
 ## Setup
 
 - **Workload**: `alekseyv-qwen3-v216-cvjpce-bs4`
-- **Cluster**: `alekseyv-tpu-v6e8-spot-xpk` (`us-central2`, project
-  `tpu-pytorch`, v6e-8, 2 hosts x 4 chips)
+- **Cluster**: `<your-cluster>` (`<your-region>`, project
+  `<your-project>`, v6e-8, 2 hosts x 4 chips)
 - **Image**:
-  `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v216-custom-vjp-tiled-ce`
+  `<your-registry>/torchtitan-images/qwen3-8b-jax:v216-custom-vjp-tiled-ce`
 - **Image digest**:
   `sha256:27bb89cabebf4ea0aeea20733e45ee32be22acbf664e8d84e471e8fc7bc724b5`
 - **Run dir**:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v216-no-scan-custom-vjp-tiled-ce-bs4`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v216-no-scan-custom-vjp-tiled-ce-bs4`
 - **Base stack**: v210 no-scan, remat, Tokamax Splash, MaxText CE disabled,
   SparseCore offload for all-gather/reduce-scatter/all-reduce plus aggregator,
   collective-matmul modes `none`, scoped VMEM 100352 KiB.
@@ -98,7 +98,7 @@ symptom (saved predicates) but worsened the f32 chunk-dot live set.
 ## HLO Artifacts
 
 - Prefix:
-  `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v216-no-scan-custom-vjp-tiled-ce-bs4/hlo/xla-dump/`
+  `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v216-no-scan-custom-vjp-tiled-ce-bs4/hlo/xla-dump/`
 - Recursive object summary: **4950 objects, 1,760,258,711 bytes**.
 - Train-step optimized HLO:
   `module_0294.jit_train_step.cl_854318611.after_optimizations.txt`

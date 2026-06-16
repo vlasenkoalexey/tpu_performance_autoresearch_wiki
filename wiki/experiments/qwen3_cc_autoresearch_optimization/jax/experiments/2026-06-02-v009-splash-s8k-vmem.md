@@ -59,4 +59,4 @@ activations) and seq16384.
 - [Splash attention (jax)](../../../../hypotheses/qwen3-jax-splash-attention.md) — seq16384 (does splash scale further?).
 
 ## Sources
-- Profile + HLO (GCS): `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v009-splash-s8k/`
+- Profile + HLO (GCS): `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-02-qwen3-jax-v009-splash-s8k/`

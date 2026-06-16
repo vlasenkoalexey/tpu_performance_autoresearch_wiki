@@ -33,7 +33,7 @@ and provide a fresh XProf/HLO reference for native-JAX comparison.
 
 Supported. Workload completed with `EXIT_CODE=0`.
 
-- Output root: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_maxtext/2026-06-12-qwen3-8b-v6e8-recipe-v007-bs3-rerun/alekseyv-qwen3-maxtext-v007-bs3r/`
+- Output root: `gs://<your-bucket>/autoresearch/qwen3_maxtext/2026-06-12-qwen3-8b-v6e8-recipe-v007-bs3-rerun/alekseyv-qwen3-maxtext-v007-bs3r/`
 - Profile: `tensorboard/plugins/profile/2026_06_12_06_07_07/`
 - HLO: `xla_dump/gke-tpu-01f93eb9-43vk/module_0103.jit_train_step.cl_759148519.after_optimizations.txt`
 

@@ -41,8 +41,8 @@ frontier.
 
 GKE workload `alekseyv-qwen3-v207-noscan-scagg`.
 
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v207-no-scan-sparsecore-aggregator`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v207-no-scan-sparsecore-aggregator`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **Command shape**: `--use_scan=False --use_remat=True --offload_remat=False --use_splash=True --use_maxtext_ce=True --shard_acts=True --batch_size=4 --seqlen=8192 --tp_parallelism=1`
@@ -74,7 +74,7 @@ None captured.
 
 Only early helper-module HLO appeared under:
 
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v207-no-scan-sparsecore-aggregator/hlo/`
+`gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-05-qwen3-jax-v207-no-scan-sparsecore-aggregator/hlo/`
 
 No train-step HLO was reached.
 

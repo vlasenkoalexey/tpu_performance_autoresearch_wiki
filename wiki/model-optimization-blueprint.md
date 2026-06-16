@@ -92,7 +92,7 @@ Then layer the MaxText bundles (see [`benchmarks/xla_flags_library.py`](codebase
 - `DATA_PARALLEL_OVERLAP` — DP / FSDP collective overlap (in every JAX-stack frontier).
 - `LAYOUT_FOR_ALL_REDUCE_SCATTER` — layout pin for RS (DeepSeek V3 v007b, Llama 4 v003).
 - `CF_FOR_ALL_GATHER` + `CF_FOR_ALL_REDUCE` — continuation fusion presets.
-- `DISABLE_BUNDLE_AWARE_COST_MODEL` — fixed a 3× backward regression in MoE (`b/357103386`).
+- `DISABLE_BUNDLE_AWARE_COST_MODEL` — fixed a 3× backward regression in MoE (`<internal-bug>`).
 
 **On `torchax-thin` (`Compile(enable=False) + call_jax`)**: the MaxText bundles are *largely inert* — most of these flags are consumed by torch.compile graph passes that don't run on thin. Set the VMEM flag and `enhanced_launch_barrier=false`; defer the rest until you switch to a graph-bearing path. See `project_torchtitan_parallelism_flags_inert_on_torchax_thin`.
 

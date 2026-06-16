@@ -48,10 +48,10 @@ or a clean run at/below the confirmed frontier without a profile/HLO win.
 
 GKE workload `alekseyv-qwen3-v172-noattnsac`.
 
-- **Base image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v172-no-attn-output-sac`
+- **Base image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v169-no-mlp-sac`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v172-no-attn-output-sac`
 - **Image digest**: `sha256:17d89a609f3608cf9a3e4f9f00d92877275bdab765cc063e8c68909934593339`
-- **Run dir**: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v172-no-attn-output-sac`
+- **Run dir**: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v172-no-attn-output-sac`
 - **Mesh**: `fsdp=8,tp=1`
 - **Environment**: `USE_TOKAMAX_SPLASH=1 TOKAMAX_MAX_LOGIT_CONST=30.0`
 - **XLA flags**: v170 stack with `--xla_tpu_scoped_vmem_limit_kib=100352`.
@@ -62,7 +62,7 @@ GKE workload `alekseyv-qwen3-v172-noattnsac`.
 ## Equivalence
 
 CPU equivalence was rerun against image
-`us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v172-no-attn-output-sac`
+`<your-registry>/torchtitan-images/qwen3-8b-jax:v172-no-attn-output-sac`
 with `JAX_PLATFORMS=cpu python -u test_equivalence.py`.
 
 Result: `==== EQUIVALENCE PASS ====`.
@@ -90,13 +90,13 @@ This is below the confirmed v169/v170 frontier band:
 
 Profile landed under:
 
-`gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v172-no-attn-output-sac/plugins/profile/2026_06_04_20_08_58/`
+`gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v172-no-attn-output-sac/plugins/profile/2026_06_04_20_08_58/`
 
 ## HLO Dump
 
 Optimized train-step HLO:
 
-- Path: `gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v172-no-attn-output-sac/hlo/module_0109.jit_train_step.cl_854318611.after_optimizations.txt`
+- Path: `gs://<your-bucket>/autoresearch/qwen3_cc/2026-06-04-qwen3-jax-v172-no-attn-output-sac/hlo/module_0109.jit_train_step.cl_854318611.after_optimizations.txt`
 - Size: 783,590 bytes
 - SHA256: `fdcf65285f8c251968d5fe4279d8914e6b8e50978e3f43f236aa5d52c54afcb5`
 - Quick counts: all-gather 140, all-reduce 36, collective-permute 3, convolution 66, custom-call 41, copy 318, fusion 753.

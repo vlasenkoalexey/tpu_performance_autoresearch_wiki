@@ -19,7 +19,7 @@ The only risk is that Tokamax CE might balloon memory under Pure FSDP (as it did
 - **Seq Length**: 2048
 - **Remat Policy**: `nnx.remat` (per-layer)
 - **Attention**: Splash Attention
-- **Image**: `us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260602-v015-splash-tp2-tokamax-remat-fused-rope-bs8`
+- **Image**: `<your-registry>/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260602-v015-splash-tp2-tokamax-remat-fused-rope-bs8`
 - **Flags**: `--tp_parallelism=1 --batch_size=4 --use_splash=True`
 
 ## Setup
