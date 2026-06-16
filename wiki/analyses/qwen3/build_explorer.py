@@ -37,7 +37,25 @@ mfu_pats = [re.compile(r"approx MFU\s*[:=]\s*([0-9]{1,2}\.[0-9])", re.I),
             re.compile(r"MFU[:\s*]*\**\s*([0-9]{1,2}\.[0-9])\s*%", re.I),
             re.compile(r"MFU[^0-9%]{0,14}([0-9]{1,2}\.[0-9])\s*%", re.I)]
 tps_pat = re.compile(r"([0-9],?[0-9]{3})\s*tok/s/chip", re.I)
-verdict_pat = re.compile(r"^verdict:\s*([a-z]+)", re.I | re.M)
+verdict_pat = re.compile(r"^verdict:\s*([^\n]+)", re.I | re.M)
+status_pat = re.compile(r"^status:\s*([^\n]+)", re.I | re.M)
+
+
+def norm_verdict(txt):
+    # Lanes are inconsistent: some use `verdict:`, most of cx uses `status:`. Prefer
+    # an explicit verdict; otherwise normalize the status string to a canonical verdict.
+    m = verdict_pat.search(txt) or status_pat.search(txt)
+    if not m:
+        return ""
+    s = m.group(1).strip().lower()
+    if "supported" in s or "confirmed" in s: return "supported"
+    if "invalid" in s or "failed" in s:      return "invalid"        # invalid wins over refuted
+    if "refuted" in s or "tie" in s:         return "refuted"
+    if "inconclusive" in s:                  return "inconclusive"
+    if "baseline" in s:                      return "baseline"
+    if any(k in s for k in ("completed", "complete", "filed")): return "completed"
+    if any(k in s for k in ("running", "pending", "open", "tbd")): return "pending"
+    return ""
 
 
 def vkey(fn):
@@ -85,7 +103,7 @@ def extract():
             tcands = [int(m.replace(",", "")) for m in tps_pat.findall(txt)
                       if 1000 <= int(m.replace(",", "")) <= 15000 and int(m.replace(",", "")) not in MT_TPS]
             tps = max(tcands) if tcands else None
-            vd = verdict_pat.search(txt); vd = vd.group(1).lower() if vd else ""
+            vd = norm_verdict(txt)
             records.append({
                 "lane": L, "slug": bn, "vnum": vkey(bn)[0], "order": order,
                 "seq": sl, "mfu": adj, "tps": tps, "verdict": vd,
@@ -103,16 +121,19 @@ HTML = r"""<!DOCTYPE html>
 <title>Qwen3-8B v6e-8 — experiment explorer</title>
 <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
 <style>
-  body{font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin:0;background:#fafafa;color:#222}
+  :root{--bg:#fafafa;--panel:#fff;--text:#222;--muted:#666;--label:#888;--border:#e5e5e5;--subt:#999}
+  body.dark{--bg:#1b1b1b;--panel:#262626;--text:#e8e8e8;--muted:#9aa0a6;--label:#9aa0a6;--border:#3a3a3a;--subt:#888}
+  body{font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin:0;background:var(--bg);color:var(--text)}
   header{padding:14px 20px 6px}
-  h1{font-size:18px;margin:0 0 2px} .sub{color:#666;font-size:12px}
-  #controls{display:flex;flex-wrap:wrap;gap:18px;padding:10px 20px;background:#fff;border-bottom:1px solid #e5e5e5;align-items:center}
+  h1{font-size:18px;margin:0 0 2px} .sub{color:var(--muted);font-size:12px}
+  #controls{display:flex;flex-wrap:wrap;gap:18px;padding:10px 20px;background:var(--panel);border-bottom:1px solid var(--border);align-items:center}
   .group{display:flex;gap:10px;align-items:center;font-size:13px}
-  .group b{font-size:11px;color:#888;text-transform:uppercase;letter-spacing:.04em;margin-right:2px}
+  .group b{font-size:11px;color:var(--label);text-transform:uppercase;letter-spacing:.04em;margin-right:2px}
   label{display:inline-flex;gap:4px;align-items:center;cursor:pointer;user-select:none}
   .sw{width:11px;height:11px;border-radius:2px;display:inline-block}
   #chart{width:100%;height:74vh}
-  .hint{font-size:11px;color:#999;padding:4px 20px}
+  .hint{font-size:11px;color:var(--subt);padding:4px 20px}
+  #theme{margin-left:auto;cursor:pointer;background:var(--panel);color:var(--text);border:1px solid var(--border);border-radius:5px;padding:3px 11px;font-size:12px}
 </style>
 </head>
 <body>
@@ -136,6 +157,7 @@ const state = {
   metric: "mfu",            // radio: "mfu" | "tps"
   showUnsuccessful: true,   // refuted / invalid / inconclusive / unverdicted, WITH a metric
   showCrashed: false,       // no metric at all (crash / OOM) — drawn as ✕ at the floor
+  dark: false,              // color scheme
 };
 
 // ---- controls ----
@@ -172,6 +194,12 @@ const gShow=group("Show");
 {const {l,b}=chk("unsucc",state.showUnsuccessful,"unsuccessful (refuted/invalid/inconcl.)"); b.onchange=()=>{state.showUnsuccessful=b.checked;render();}; gShow.appendChild(l);}
 {const {l,b}=chk("crashed",state.showCrashed,"crashed / no-metric"); b.onchange=()=>{state.showCrashed=b.checked;render();}; gShow.appendChild(l);}
 C.appendChild(gShow);
+
+const themeBtn=document.createElement("button");
+themeBtn.id="theme"; themeBtn.textContent="🌙 Dark";
+themeBtn.onclick=()=>{ state.dark=!state.dark; document.body.classList.toggle("dark",state.dark);
+  themeBtn.textContent=state.dark?"☀ Light":"🌙 Dark"; render(); };
+C.appendChild(themeBtn);
 
 // ---- filtering + trace building ----
 const SYM = {"2048":"triangle-up", "8192":"circle", "null":"square"};
@@ -242,21 +270,24 @@ function buildTraces(){
   }
   return traces;
 }
+function theme(){ return state.dark
+  ? {paper:"#262626",plot:"#202020",font:"#e8e8e8",grid:"#333",mt:"#aaa",line:"#888"}
+  : {paper:"#fff",plot:"#fff",font:"#222",grid:"#eee",mt:"#555",line:"#555"}; }
 function shapes(){
-  const M=METRIC[state.metric], s=[];
+  const M=METRIC[state.metric], T=theme(), s=[];
   for(const seq of ["2048","8192"]){
     if(!state.seq[seq]) continue;
     s.push({type:"line",xref:"paper",x0:0,x1:1,yref:"y",y0:M.mt[seq],y1:M.mt[seq],
-            line:{color:"#555",width:1,dash:"dash"}});
+            line:{color:T.line,width:1,dash:"dash"}});
   }
   return s;
 }
 function annotations(){
-  const M=METRIC[state.metric], a=[];
+  const M=METRIC[state.metric], T=theme(), a=[];
   for(const seq of ["2048","8192"]){
     if(!state.seq[seq]) continue;
     a.push({xref:"paper",x:0.005,yref:"y",y:M.mt[seq],yanchor:"bottom",showarrow:false,
-            text:`MaxText ${seq==="2048"?"2k":"8k"} ${M.fmt(M.mt[seq])}${M.ulabel}`,font:{size:10,color:"#555"}});
+            text:`MaxText ${seq==="2048"?"2k":"8k"} ${M.fmt(M.mt[seq])}${M.ulabel}`,font:{size:10,color:T.mt}});
   }
   return a;
 }
@@ -271,14 +302,14 @@ function xMax(){
   return mx;
 }
 function render(){
-  const M=METRIC[state.metric];
+  const M=METRIC[state.metric], T=theme();
   const traces=buildTraces();
   const layout={
-    margin:{l:62,r:20,t:10,b:45}, hovermode:"closest", showlegend:true,
-    legend:{orientation:"h",y:-0.13,font:{size:11}},
-    xaxis:{title:"experiment (in order, per lane)",range:[0,xMax()+3],gridcolor:"#eee"},
-    yaxis:{title:M.title,range:M.range,gridcolor:"#eee"},
-    shapes:shapes(), annotations:annotations(), plot_bgcolor:"#fff", paper_bgcolor:"#fff",
+    margin:{l:62,r:20,t:10,b:45}, hovermode:"closest", showlegend:true, font:{color:T.font},
+    legend:{orientation:"h",y:-0.13,font:{size:11,color:T.font}},
+    xaxis:{title:"experiment (in order, per lane)",range:[0,xMax()+3],gridcolor:T.grid,zerolinecolor:T.grid},
+    yaxis:{title:M.title,range:M.range,gridcolor:T.grid,zerolinecolor:T.grid},
+    shapes:shapes(), annotations:annotations(), plot_bgcolor:T.plot, paper_bgcolor:T.paper,
   };
   Plotly.react("chart",traces,layout,{responsive:true,displaylogo:false});
   const shown=DATA.filter(visible).length;

@@ -592,7 +592,7 @@
 "seq": 2048,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-02-qwen3-jax-v001-batch-scaling.md"
@@ -618,7 +618,7 @@
 "seq": 2048,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-02-qwen3-jax-v003-selective-remat.md"
@@ -735,7 +735,7 @@
 "seq": null,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "pending",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-02-qwen3-jax-v010-splash-tp2-tokamax-bs8.md"
@@ -1151,7 +1151,7 @@
 "seq": 2048,
 "mfu": null,
 "tps": null,
-"verdict": "tbd",
+"verdict": "pending",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-04-qwen3-jax-v042-tp1-vocab-parallel-bs16-seq2048-tokamax-shardmap-scan.md"
@@ -1190,7 +1190,7 @@
 "seq": 2048,
 "mfu": null,
 "tps": null,
-"verdict": "open",
+"verdict": "pending",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-05-qwen3-jax-v044-bs24.md"
@@ -1203,7 +1203,7 @@
 "seq": 2048,
 "mfu": null,
 "tps": null,
-"verdict": "open",
+"verdict": "pending",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-05-qwen3-jax-v045-nsa-attention.md"
@@ -1229,7 +1229,7 @@
 "seq": null,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-05-qwen3-jax-v046-nsa-pallas.md"
@@ -1255,7 +1255,7 @@
 "seq": 8192,
 "mfu": 30.6,
 "tps": 5329,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-13-qwen3-jax-v047-seq8k-baseline.md"
@@ -1268,7 +1268,7 @@
 "seq": 8192,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-13-qwen3-jax-v048-bs64.md"
@@ -1281,7 +1281,7 @@
 "seq": 8192,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-13-qwen3-jax-v049-splash-bs64.md"
@@ -1294,7 +1294,7 @@
 "seq": null,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-13-qwen3-jax-v050-splash-tokamax-bs64.md"
@@ -1307,7 +1307,7 @@
 "seq": 8192,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-13-qwen3-jax-v051-tokamax-bs64.md"
@@ -1320,7 +1320,7 @@
 "seq": 8192,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-13-qwen3-jax-v052-selective-remat-bs64.md"
@@ -1333,7 +1333,7 @@
 "seq": null,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-13-qwen3-jax-v053-block-remat-bs64.md"
@@ -1346,7 +1346,7 @@
 "seq": null,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-15-qwen3-jax-v053-block-remat-bs64-b.md"
@@ -1359,7 +1359,7 @@
 "seq": null,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-15-qwen3-jax-v053-block-remat-bs64-c.md"
@@ -1372,7 +1372,7 @@
 "seq": null,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-15-qwen3-jax-v053-block-remat-bs64-d.md"
@@ -1385,7 +1385,7 @@
 "seq": null,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-15-qwen3-jax-v053-block-remat-bs64-e.md"
@@ -1398,7 +1398,7 @@
 "seq": null,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-15-qwen3-jax-v054-fused-qknorm-rope-c.md"
@@ -1411,7 +1411,7 @@
 "seq": null,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-15-qwen3-jax-v054-fused-qknorm-rope-d.md"
@@ -1424,7 +1424,7 @@
 "seq": 8192,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-15-qwen3-jax-v054-fused-qknorm-rope-e.md"
@@ -1437,7 +1437,7 @@
 "seq": null,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-15-qwen3-jax-v054-fused-qknorm-rope-f.md"
@@ -1450,7 +1450,7 @@
 "seq": null,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-15-qwen3-jax-v055-ac-selective-remat.md"
@@ -1463,7 +1463,7 @@
 "seq": 8192,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "pending",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-15-qwen3-jax-v056-splash-vmem-tune.md"
@@ -1476,7 +1476,7 @@
 "seq": 8192,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-15-qwen3-jax-v057-d-tokamax-layer-ckpt.md"
@@ -1489,7 +1489,7 @@
 "seq": 8192,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-15-qwen3-jax-v057-e-tokamax-layer-ckpt-fix-splash.md"
@@ -1502,7 +1502,7 @@
 "seq": 2048,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-15-qwen3-jax-v057-f-tokamax-layer-ckpt-fix-splash.md"
@@ -1515,7 +1515,7 @@
 "seq": 2048,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-15-qwen3-jax-v057-g-tokamax-layer-ckpt-fix-splash.md"
@@ -1528,7 +1528,7 @@
 "seq": 2048,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-15-qwen3-jax-v057-h-tokamax-block-remat.md"
@@ -1541,7 +1541,7 @@
 "seq": 8192,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-15-qwen3-jax-v057-i-tokamax-block-remat-fsdp-fix.md"
@@ -1554,7 +1554,7 @@
 "seq": 2048,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-15-qwen3-jax-v057-j-tokamax-layer-ckpt-bs4.md"
@@ -1567,7 +1567,7 @@
 "seq": 8192,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-15-qwen3-jax-v057-k-tokamax-policy.md"
@@ -1580,7 +1580,7 @@
 "seq": 2048,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-15-qwen3-jax-v057-l-tokamax-layer-dots.md"
@@ -1593,7 +1593,7 @@
 "seq": 2048,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-15-qwen3-jax-v057-m-tokamax-layer-dots-bs8.md"
@@ -1606,7 +1606,7 @@
 "seq": 8192,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-15-qwen3-jax-v057-n-tokamax-layer-dots-bs8.md"
@@ -1619,7 +1619,7 @@
 "seq": null,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-15-qwen3-jax-v057-o-tokamax-layer-dots-bs4.md"
@@ -1632,7 +1632,7 @@
 "seq": 8192,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-15-qwen3-jax-v057-p-block-remat-bs8.md"
@@ -1645,7 +1645,7 @@
 "seq": 8192,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-15-qwen3-jax-v057-q-block-remat-bs8-no-policy.md"
@@ -1658,7 +1658,7 @@
 "seq": 8192,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-15-qwen3-jax-v057-r-nested-ckpt-bs8.md"
@@ -1671,7 +1671,7 @@
 "seq": 8192,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-15-qwen3-jax-v057-s-nested-ckpt-nothing-saveable-bs8.md"
@@ -1684,7 +1684,7 @@
 "seq": 8192,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-15-qwen3-jax-v057-t-nested-ckpt-custom-outer-policy-bs8.md"
@@ -1697,7 +1697,7 @@
 "seq": 8192,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-15-qwen3-jax-v057-tokamax-fix-b.md"
@@ -1710,7 +1710,7 @@
 "seq": 8192,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-15-qwen3-jax-v057-tokamax-fix-c.md"
@@ -1723,7 +1723,7 @@
 "seq": null,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "pending",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-15-qwen3-jax-v057-tokamax-fix.md"
@@ -1736,7 +1736,7 @@
 "seq": 8192,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-15-qwen3-jax-v057-u-nested-ckpt-bs4.md"
@@ -1853,8 +1853,8 @@
 "seq": 2048,
 "mfu": 30.8,
 "tps": null,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-03-v018-splash-tp2-tokamax-remat-fused-bs6.md"
 },
@@ -1866,7 +1866,7 @@
 "seq": 2048,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-03-v019-phase2-bundle-cost-model-off.md"
@@ -1879,7 +1879,7 @@
 "seq": 2048,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-03-v020-splash-tp2-tokamax-remat-fused-bs7.md"
@@ -1892,7 +1892,7 @@
 "seq": 2048,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-03-v021-splash-tp2-tokamax-remat-fused-s4k-bs4.md"
@@ -1905,8 +1905,8 @@
 "seq": 8192,
 "mfu": 27.8,
 "tps": null,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-03-v022-splash-tp2-tokamax-remat-fused-s4k-bs2.md"
 },
@@ -1918,8 +1918,8 @@
 "seq": 8192,
 "mfu": 26.6,
 "tps": null,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-03-v023-splash-tp2-tokamax-remat-fused-s8k-bs1.md"
 },
@@ -1931,7 +1931,7 @@
 "seq": 8192,
 "mfu": 26.6,
 "tps": null,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-03-v024-splash-tp2-tokamax-remat-fused-s8k-bs2.md"
@@ -1944,7 +1944,7 @@
 "seq": 8192,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-03-v025-splash-tp4-tokamax-remat-fused-s8k-bs4.md"
@@ -1957,7 +1957,7 @@
 "seq": 8192,
 "mfu": 34.6,
 "tps": null,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-03-v026-shard-acts-s8k-bs4.md"
@@ -1970,7 +1970,7 @@
 "seq": 8192,
 "mfu": 34.6,
 "tps": 6039,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-03-v027-shard-acts-s8k-bs3-splash-bkv512.md"
@@ -1983,7 +1983,7 @@
 "seq": 8192,
 "mfu": 34.6,
 "tps": 6039,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-03-v028-shard-acts-s8k-bs3-splash-bkv-dkv1024.md"
@@ -1996,7 +1996,7 @@
 "seq": 8192,
 "mfu": 34.6,
 "tps": 6039,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-03-v029-shard-acts-s8k-bs3-splash-unfused-bwd.md"
@@ -2009,7 +2009,7 @@
 "seq": 8192,
 "mfu": 34.6,
 "tps": 6039,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-03-v030-shard-acts-s8k-bs3-tokamax-ce.md"
@@ -2022,7 +2022,7 @@
 "seq": 8192,
 "mfu": 34.6,
 "tps": 6039,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-03-v031-shard-acts-s8k-bs4-tokamax-ce.md"
@@ -2035,7 +2035,7 @@
 "seq": 8192,
 "mfu": 34.6,
 "tps": 6039,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-03-v032-shard-acts-s8k-bs4-maxtext-offload.md"
@@ -2048,7 +2048,7 @@
 "seq": 8192,
 "mfu": 34.6,
 "tps": null,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-03-v033-shard-acts-s8k-gb24-tp2.md"
@@ -2061,7 +2061,7 @@
 "seq": 8192,
 "mfu": 34.6,
 "tps": null,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-03-v034-shard-acts-s8k-gb24-tp2-noscan.md"
@@ -2074,8 +2074,8 @@
 "seq": 8192,
 "mfu": 34.6,
 "tps": 6039,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-03-v041-shard-acts-s8k-bs3.md"
 },
@@ -2087,7 +2087,7 @@
 "seq": 8192,
 "mfu": 34.6,
 "tps": null,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-03-v042-shard-acts-s8k-bs3-noscan.md"
@@ -2100,7 +2100,7 @@
 "seq": 8192,
 "mfu": 34.6,
 "tps": null,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-03-v043-shard-acts-s8k-bs3-label-ce.md"
@@ -2113,7 +2113,7 @@
 "seq": 8192,
 "mfu": 34.6,
 "tps": null,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-03-v044-shard-acts-s8k-bs3-label-ce-internal-cast.md"
@@ -2126,8 +2126,8 @@
 "seq": 8192,
 "mfu": 35.2,
 "tps": 6134,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-03-v045-shard-acts-s8k-bs3-tokamax-splash.md"
 },
@@ -2139,7 +2139,7 @@
 "seq": 8192,
 "mfu": 35.2,
 "tps": 6025,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-03-v046-shard-acts-s8k-bs3-tokamax-splash-exp-sched.md"
@@ -2152,7 +2152,7 @@
 "seq": 8192,
 "mfu": 35.2,
 "tps": 6107,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-03-v047-shard-acts-s8k-bs3-tokamax-splash-no-base2.md"
@@ -2165,7 +2165,7 @@
 "seq": 8192,
 "mfu": 35.2,
 "tps": 6078,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-03-v048-shard-acts-s8k-bs3-tokamax-splash-no-fuse-recip.md"
@@ -2178,7 +2178,7 @@
 "seq": 8192,
 "mfu": 35.2,
 "tps": 6107,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-03-v049-shard-acts-s8k-bs3-tokamax-splash-dq3.md"
@@ -2191,7 +2191,7 @@
 "seq": 8192,
 "mfu": 39.1,
 "tps": 6817,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-03-v050-shard-acts-s8k-bs3-tokamax-splash-qseq2.md"
@@ -2204,7 +2204,7 @@
 "seq": 8192,
 "mfu": 35.2,
 "tps": 6869,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-03-v051-shard-acts-s8k-bs3-tokamax-splash-qseq2-maxlogit30.md"
@@ -2217,8 +2217,8 @@
 "seq": 8192,
 "mfu": 36.1,
 "tps": 6297,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-03-v052-shard-acts-s8k-bs3-tokamax-splash-maxlogit30.md"
 },
@@ -2230,7 +2230,7 @@
 "seq": 8192,
 "mfu": 36.1,
 "tps": 6297,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-03-v053-shard-acts-s8k-bs3-tokamax-splash-maxlogit20.md"
@@ -2243,7 +2243,7 @@
 "seq": 8192,
 "mfu": null,
 "tps": 7372,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-12-v053-current-remove-mlpwi-checkpoint-names.md"
@@ -2256,7 +2256,7 @@
 "seq": 8192,
 "mfu": 36.1,
 "tps": 6270,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-03-v054-shard-acts-s8k-bs3-tokamax-splash-maxlogit30-dq3.md"
@@ -2269,7 +2269,7 @@
 "seq": 8192,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-12-v054-current-scan-unroll-fixed.md"
@@ -2282,7 +2282,7 @@
 "seq": 8192,
 "mfu": 36.1,
 "tps": 5200,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-03-v055-shard-acts-s8k-bs3-tokamax-splash-maxlogit30-bqdkv4096.md"
@@ -2295,7 +2295,7 @@
 "seq": 8192,
 "mfu": null,
 "tps": 7372,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-12-v055-current-remove-attn-proj-checkpoint-names.md"
@@ -2308,8 +2308,8 @@
 "seq": 8192,
 "mfu": 36.1,
 "tps": 6298,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-03-v056-shard-acts-s8k-bs3-tokamax-splash-maxlogit30-rerun3.md"
 },
@@ -2321,7 +2321,7 @@
 "seq": 8192,
 "mfu": null,
 "tps": 7372,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-12-v056-current-shmem92.md"
@@ -2334,7 +2334,7 @@
 "seq": 8192,
 "mfu": 36.1,
 "tps": 6296,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-03-v057-shard-acts-s8k-bs3-tokamax-splash-maxlogit30-rerun4.md"
@@ -2347,7 +2347,7 @@
 "seq": null,
 "mfu": null,
 "tps": 7371,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-12-v057-current-shmem91.md"
@@ -2360,7 +2360,7 @@
 "seq": 8192,
 "mfu": 36.1,
 "tps": 6297,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-03-v058-shard-acts-s8k-bs3-tokamax-splash-maxlogit30-cost-est.md"
@@ -2373,7 +2373,7 @@
 "seq": null,
 "mfu": null,
 "tps": 7075,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-12-v058-current-fused-qkv-projection.md"
@@ -2386,7 +2386,7 @@
 "seq": 8192,
 "mfu": 36.1,
 "tps": 6297,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-03-v059-shard-acts-s8k-bs3-tokamax-splash-maxlogit40.md"
@@ -2399,7 +2399,7 @@
 "seq": null,
 "mfu": null,
 "tps": 7397,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-12-v059-current-fused-kv-projection.md"
@@ -2412,7 +2412,7 @@
 "seq": 8192,
 "mfu": 36.1,
 "tps": 6298,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-03-v060-shard-acts-s8k-bs3-tokamax-splash-maxlogit35.md"
@@ -2425,7 +2425,7 @@
 "seq": 8192,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-12-v060-current-sparse-label-ce.md"
@@ -2438,7 +2438,7 @@
 "seq": 8192,
 "mfu": 36.1,
 "tps": 5198,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-03-v061-shard-acts-s8k-bs3-tokamax-splash-maxlogit30-bkvdkv4096.md"
@@ -2451,7 +2451,7 @@
 "seq": null,
 "mfu": null,
 "tps": 7368,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-12-v061-current-mlp-mul-operand-order.md"
@@ -2464,7 +2464,7 @@
 "seq": 8192,
 "mfu": 36.1,
 "tps": null,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-03-v062-shard-acts-s8k-bs3-tokamax-splash-maxlogit30-dq2.md"
@@ -2477,7 +2477,7 @@
 "seq": null,
 "mfu": null,
 "tps": 7368,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-12-v062-current-final-hidden-fsdp-constraint.md"
@@ -2490,7 +2490,7 @@
 "seq": 8192,
 "mfu": 36.1,
 "tps": 6298,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-03-v063-shard-acts-s8k-bs3-tokamax-splash-maxlogit32p5.md"
@@ -2503,7 +2503,7 @@
 "seq": null,
 "mfu": null,
 "tps": 7370,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-12-v063-current-v037-frontier-rerun.md"
@@ -2516,7 +2516,7 @@
 "seq": 8192,
 "mfu": 36.1,
 "tps": 6849,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-03-v064-shard-acts-s8k-bs3-tokamax-splash-qseq2-sharded-mask.md"
@@ -2529,7 +2529,7 @@
 "seq": null,
 "mfu": null,
 "tps": 7416,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-12-v064-current-v037-fresh-cache-control.md"
@@ -2542,7 +2542,7 @@
 "seq": 8192,
 "mfu": 36.1,
 "tps": null,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-03-v065-shard-acts-s8k-bs3-tokamax-splash-save-residuals.md"
@@ -2555,7 +2555,7 @@
 "seq": null,
 "mfu": null,
 "tps": 7321,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-12-v065-current-v037-nodepool-np4-placement.md"
@@ -2568,7 +2568,7 @@
 "seq": 8192,
 "mfu": 36.1,
 "tps": null,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-03-v066-shard-acts-s8k-bs3-tokamax-splash-save-residuals-unwrap.md"
@@ -2581,7 +2581,7 @@
 "seq": null,
 "mfu": null,
 "tps": 7369,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-12-v066-current-v037-nodepool-np1-placement.md"
@@ -2594,7 +2594,7 @@
 "seq": 8192,
 "mfu": 36.1,
 "tps": 6296,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-03-v067-shard-acts-s8k-bs3-tokamax-splash-no-ag-bwd-pipeline.md"
@@ -2607,7 +2607,7 @@
 "seq": null,
 "mfu": 42.6,
 "tps": 7418,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-12-v067-current-mlp-explicit-silu.md"
@@ -2620,8 +2620,8 @@
 "seq": 8192,
 "mfu": 36.4,
 "tps": 6349,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v068-shard-acts-s8k-bs3-tokamax-splash-vmem81920.md"
 },
@@ -2633,7 +2633,7 @@
 "seq": null,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-12-v068-current-explicit-silu-rerun.md"
@@ -2646,7 +2646,7 @@
 "seq": 8192,
 "mfu": 36.4,
 "tps": null,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v069-shard-acts-s8k-bs3-tokamax-splash-vmem65536.md"
@@ -2659,7 +2659,7 @@
 "seq": null,
 "mfu": null,
 "tps": 7416,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-12-v069-current-async-allgather-cap1.md"
@@ -2672,7 +2672,7 @@
 "seq": 8192,
 "mfu": 36.4,
 "tps": null,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v070-shard-acts-s8k-bs3-tokamax-splash-vmem90112.md"
@@ -2685,7 +2685,7 @@
 "seq": null,
 "mfu": null,
 "tps": 7414,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-12-v070-current-ar-default.md"
@@ -2698,7 +2698,7 @@
 "seq": 8192,
 "mfu": 36.4,
 "tps": null,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v071-shard-acts-s8k-bs3-tokamax-splash-vmem73728.md"
@@ -2711,7 +2711,7 @@
 "seq": null,
 "mfu": null,
 "tps": 7416,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-12-v071-current-no-offload-tracing.md"
@@ -2724,8 +2724,8 @@
 "seq": 8192,
 "mfu": 36.4,
 "tps": null,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v072-shard-acts-s8k-bs3-tokamax-splash-customcall-vmem-adjust.md"
 },
@@ -2737,7 +2737,7 @@
 "seq": null,
 "mfu": null,
 "tps": 7413,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-12-v072-current-resource-sharing.md"
@@ -2750,8 +2750,8 @@
 "seq": 8192,
 "mfu": 36.4,
 "tps": null,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v073-shard-acts-s8k-bs3-tokamax-splash-customcall-vmem-adjust-rerun.md"
 },
@@ -2763,7 +2763,7 @@
 "seq": null,
 "mfu": null,
 "tps": 7415,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-12-v073-current-allreduce-acf.md"
@@ -2776,8 +2776,8 @@
 "seq": 8192,
 "mfu": 36.6,
 "tps": null,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v074-shard-acts-s8k-bs3-tokamax-splash-selective-resources.md"
 },
@@ -2789,7 +2789,7 @@
 "seq": null,
 "mfu": null,
 "tps": 7412,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-12-v074-current-rs4-ar2.md"
@@ -2802,8 +2802,8 @@
 "seq": 8192,
 "mfu": 36.6,
 "tps": null,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v075-shard-acts-s8k-bs3-tokamax-splash-selective-resources-rerun.md"
 },
@@ -2815,7 +2815,7 @@
 "seq": null,
 "mfu": null,
 "tps": 7412,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-12-v075-current-no-rs-acf.md"
@@ -2828,7 +2828,7 @@
 "seq": 8192,
 "mfu": 36.6,
 "tps": null,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v076-shard-acts-s8k-bs3-tokamax-splash-resource-sharing.md"
@@ -2841,7 +2841,7 @@
 "seq": null,
 "mfu": null,
 "tps": 7401,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-12-v076-current-no-acf-multistep.md"
@@ -2854,7 +2854,7 @@
 "seq": 8192,
 "mfu": 36.6,
 "tps": null,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v077-shard-acts-s8k-bs3-tokamax-splash-mosaic-async-collective-fusion.md"
@@ -2867,8 +2867,8 @@
 "seq": null,
 "mfu": null,
 "tps": 7418,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-12-v077-current-explicit-silu-shmem100.md"
 },
@@ -2880,8 +2880,8 @@
 "seq": 8192,
 "mfu": 36.6,
 "tps": null,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v078-shard-acts-s8k-bs3-tokamax-splash-layer-multicompute-overlap.md"
 },
@@ -2893,7 +2893,7 @@
 "seq": null,
 "mfu": null,
 "tps": 7416,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-12-v078-current-explicit-silu-shmem100-rerun.md"
@@ -2906,8 +2906,8 @@
 "seq": 8192,
 "mfu": 36.6,
 "tps": null,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v079-shard-acts-s8k-bs3-tokamax-splash-layer-multicompute-overlap-rerun.md"
 },
@@ -2919,7 +2919,7 @@
 "seq": null,
 "mfu": null,
 "tps": 7416,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-12-v079-current-explicit-silu-shmem95.md"
@@ -2932,7 +2932,7 @@
 "seq": 8192,
 "mfu": 36.6,
 "tps": null,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v080-shard-acts-s8k-bs3-tokamax-splash-dependent-collectives-layer-scheduler.md"
@@ -2945,7 +2945,7 @@
 "seq": 8192,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-12-v080-current-sparse-maxtext-ce.md"
@@ -2958,7 +2958,7 @@
 "seq": 8192,
 "mfu": 36.6,
 "tps": null,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v081-shard-acts-s8k-bs3-tokamax-splash-collective-compute-fusion.md"
@@ -2971,8 +2971,8 @@
 "seq": 2048,
 "mfu": null,
 "tps": 8188,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-12-v081-2k-current-control.md"
 },
@@ -2984,8 +2984,8 @@
 "seq": 8192,
 "mfu": 36.6,
 "tps": null,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v082-shard-acts-s8k-bs3-tokamax-splash-fuse-multiple-collectives.md"
 },
@@ -2997,8 +2997,8 @@
 "seq": 2048,
 "mfu": null,
 "tps": 8498,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-12-v082-2k-batch6.md"
 },
@@ -3010,7 +3010,7 @@
 "seq": 8192,
 "mfu": 36.6,
 "tps": null,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v083-shard-acts-s8k-bs3-tokamax-splash-fuse-kloop-fusions.md"
@@ -3023,8 +3023,8 @@
 "seq": 2048,
 "mfu": null,
 "tps": 8523,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-12-v083-2k-batch8.md"
 },
@@ -3036,7 +3036,7 @@
 "seq": 8192,
 "mfu": 36.6,
 "tps": null,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v084-shard-acts-s8k-bs3-tokamax-splash-async-start-done-only.md"
@@ -3049,8 +3049,8 @@
 "seq": 2048,
 "mfu": null,
 "tps": 8693,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-12-v084-2k-batch12.md"
 },
@@ -3062,7 +3062,7 @@
 "seq": 8192,
 "mfu": 36.6,
 "tps": null,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v085-shard-acts-s8k-bs3-tokamax-splash-staged-collective-compute-pipelining.md"
@@ -3075,8 +3075,8 @@
 "seq": 2048,
 "mfu": null,
 "tps": 8773,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-12-v085-2k-batch16.md"
 },
@@ -3088,8 +3088,8 @@
 "seq": 8192,
 "mfu": 36.6,
 "tps": null,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v086-shard-acts-s8k-bs3-tokamax-splash-ilp-latency-hiding-scheduler.md"
 },
@@ -3101,8 +3101,8 @@
 "seq": 2048,
 "mfu": 45.4,
 "tps": 8820,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-12-v086-2k-batch16-vmem98304.md"
 },
@@ -3114,8 +3114,8 @@
 "seq": 8192,
 "mfu": 36.6,
 "tps": null,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v087-shard-acts-s8k-bs3-tokamax-splash-brkga-latency-hiding-scheduler.md"
 },
@@ -3127,7 +3127,7 @@
 "seq": 2048,
 "mfu": null,
 "tps": 8819,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-12-v087-2k-batch16-rerun4.md"
@@ -3140,7 +3140,7 @@
 "seq": 8192,
 "mfu": 36.6,
 "tps": null,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v088-shard-acts-s8k-bs3-tokamax-splash-latency-hiding-layer-scheduler.md"
@@ -3153,7 +3153,7 @@
 "seq": 2048,
 "mfu": null,
 "tps": 8819,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-12-v088-2k-batch16-vmem97280.md"
@@ -3166,8 +3166,8 @@
 "seq": 8192,
 "mfu": 36.6,
 "tps": null,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v089-shard-acts-s8k-bs3-tokamax-splash-layer-scheduler-sparsecore-aggregator.md"
 },
@@ -3179,7 +3179,7 @@
 "seq": 2048,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-13-v089-2k-batch18-vmem98304.md"
@@ -3192,8 +3192,8 @@
 "seq": 8192,
 "mfu": 36.6,
 "tps": null,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v090-shard-acts-s8k-bs3-tokamax-splash-layer-scheduler-sparsecore-aggregator-rerun.md"
 },
@@ -3205,7 +3205,7 @@
 "seq": 2048,
 "mfu": null,
 "tps": 8821,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-13-v090-2k-batch17-vmem98304.md"
@@ -3218,7 +3218,7 @@
 "seq": 8192,
 "mfu": 36.6,
 "tps": null,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v091-shard-acts-s8k-bs3-tokamax-splash-layeragg-brkga-lhs.md"
@@ -3231,7 +3231,7 @@
 "seq": 2048,
 "mfu": null,
 "tps": 8820,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-13-v091-2k-batch17-vmem98304-rerun.md"
@@ -3244,7 +3244,7 @@
 "seq": 8192,
 "mfu": 36.6,
 "tps": null,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v092-shard-acts-s8k-bs3-tokamax-splash-layeragg-ilp-lhs.md"
@@ -3257,7 +3257,7 @@
 "seq": 2048,
 "mfu": null,
 "tps": 8826,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-13-v092-2k-batch16-vmem98304-shmem100.md"
@@ -3270,7 +3270,7 @@
 "seq": 8192,
 "mfu": 36.6,
 "tps": null,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v093-shard-acts-s8k-bs3-tokamax-splash-layeragg-resource-serializing.md"
@@ -3283,7 +3283,7 @@
 "seq": 2048,
 "mfu": null,
 "tps": 8825,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-13-v093-2k-batch16-vmem98304-shmem100-rerun.md"
@@ -3296,7 +3296,7 @@
 "seq": 8192,
 "mfu": 36.6,
 "tps": null,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v094-shard-acts-s8k-bs3-tokamax-splash-layeragg-multicompute-overlap.md"
@@ -3309,7 +3309,7 @@
 "seq": 2048,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-13-v094-2k-batch17-vmem98304-shmem100.md"
@@ -3322,7 +3322,7 @@
 "seq": 8192,
 "mfu": 36.6,
 "tps": null,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v095-shard-acts-s8k-bs3-tokamax-splash-layeragg-dependent-collectives.md"
@@ -3335,7 +3335,7 @@
 "seq": 2048,
 "mfu": null,
 "tps": 8872,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-13-v095-2k-batch16-shmem100-splash2048.md"
@@ -3348,7 +3348,7 @@
 "seq": 8192,
 "mfu": 36.6,
 "tps": null,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v096-shard-acts-s8k-bs3-tokamax-splash-sparsecore-aggregator-only.md"
@@ -3361,7 +3361,7 @@
 "seq": 2048,
 "mfu": null,
 "tps": 8870,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-13-v096-2k-batch16-shmem100-splash2048-rerun.md"
@@ -3374,7 +3374,7 @@
 "seq": 8192,
 "mfu": 36.6,
 "tps": null,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v097-shard-acts-s8k-bs3-tokamax-splash-qseq2-dense-mask.md"
@@ -3387,7 +3387,7 @@
 "seq": 2048,
 "mfu": null,
 "tps": 8871,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-13-v097-2k-batch16-splash2048-shmem95.md"
@@ -3400,7 +3400,7 @@
 "seq": 8192,
 "mfu": 36.6,
 "tps": null,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v098-shard-acts-s8k-bs3-tokamax-splash-qseq2-no-base2.md"
@@ -3413,7 +3413,7 @@
 "seq": 2048,
 "mfu": null,
 "tps": 8820,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-13-v098-2k-batch16-splash2048-vmem100352.md"
@@ -3426,7 +3426,7 @@
 "seq": 8192,
 "mfu": 36.6,
 "tps": null,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v099-shard-acts-s8k-bs3-tokamax-splash-qseq2-no-fuse-recip.md"
@@ -3439,7 +3439,7 @@
 "seq": 2048,
 "mfu": null,
 "tps": 8862,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-13-v099-2k-batch16-splash2048-vmem97280.md"
@@ -3452,7 +3452,7 @@
 "seq": 8192,
 "mfu": 36.6,
 "tps": 6846,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v100-shard-acts-s8k-bs3-tokamax-splash-qseq2-conservative-softmax.md"
@@ -3465,7 +3465,7 @@
 "seq": 2048,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-13-v100-2k-batch16-splash2048-dqsteps3.md"
@@ -3478,7 +3478,7 @@
 "seq": 8192,
 "mfu": 36.6,
 "tps": 6295,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v101-shard-acts-s8k-bs3-tokamax-splash-layeragg-no-async-collective-fusion.md"
@@ -3491,7 +3491,7 @@
 "seq": 2048,
 "mfu": null,
 "tps": 8865,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-13-v101-2k-batch16-splash2048-shmem90.md"
@@ -3504,7 +3504,7 @@
 "seq": 8192,
 "mfu": 36.6,
 "tps": 6377,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v102-shard-acts-s8k-bs3-tokamax-splash-layeragg-no-scheduler-memory-pressure.md"
@@ -3517,7 +3517,7 @@
 "seq": 2048,
 "mfu": null,
 "tps": 8860,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-13-v102-2k-batch17-splash2048-shmem90.md"
@@ -3530,7 +3530,7 @@
 "seq": 8192,
 "mfu": 36.6,
 "tps": 6375,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v103-shard-acts-s8k-bs3-tokamax-splash-layeragg-no-all-experimental-scheduler.md"
@@ -3543,7 +3543,7 @@
 "seq": 2048,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-13-v103-2k-batch16-splash2048-shmem92.md"
@@ -3556,7 +3556,7 @@
 "seq": 8192,
 "mfu": 36.6,
 "tps": 6376,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v104-shard-acts-s8k-bs3-tokamax-splash-layeragg-host-transfer-overlap12.md"
@@ -3569,7 +3569,7 @@
 "seq": 2048,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-13-v104-2k-batch16-splash2048-shmem93.md"
@@ -3582,7 +3582,7 @@
 "seq": 8192,
 "mfu": 36.6,
 "tps": 6376,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v105-shard-acts-s8k-bs3-tokamax-splash-layeragg-host-sendrecv64.md"
@@ -3595,7 +3595,7 @@
 "seq": 2048,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-13-v105-2k-batch16-splash2048-all-sched-true.md"
@@ -3608,7 +3608,7 @@
 "seq": 8192,
 "mfu": 36.6,
 "tps": 6375,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v106-shard-acts-s8k-bs3-tokamax-splash-layeragg-shmem90.md"
@@ -3621,7 +3621,7 @@
 "seq": 2048,
 "mfu": null,
 "tps": 8868,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-13-v106-2k-batch16-splash2048-noacfrs.md"
@@ -3634,7 +3634,7 @@
 "seq": 8192,
 "mfu": 36.6,
 "tps": 6376,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v107-shard-acts-s8k-bs3-tokamax-splash-layeragg-shmem95.md"
@@ -3647,7 +3647,7 @@
 "seq": 2048,
 "mfu": null,
 "tps": 8868,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-13-v107-2k-batch16-splash2048-allreduce-acf.md"
@@ -3660,7 +3660,7 @@
 "seq": 8192,
 "mfu": 36.6,
 "tps": 6377,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v108-shard-acts-s8k-bs3-tokamax-splash-layeragg-host-transfer-overlap48.md"
@@ -3673,7 +3673,7 @@
 "seq": 2048,
 "mfu": null,
 "tps": 8867,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-13-v108-2k-batch16-splash2048-async-ag-cap1.md"
@@ -3686,7 +3686,7 @@
 "seq": 8192,
 "mfu": 36.6,
 "tps": 6376,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v109-shard-acts-s8k-bs3-tokamax-splash-layeragg-host-sendrecv128.md"
@@ -3699,7 +3699,7 @@
 "seq": 2048,
 "mfu": 45.6,
 "tps": 8870,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-13-v109-2k-batch16-splash2048-async-rs-cap1.md"
@@ -3712,7 +3712,7 @@
 "seq": 8192,
 "mfu": 36.6,
 "tps": 6376,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v110-shard-acts-s8k-bs3-tokamax-splash-layeragg-rerun4.md"
@@ -3725,7 +3725,7 @@
 "seq": 2048,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-13-v110-2k-batch16-splash2048-layerlhs.md"
@@ -3738,7 +3738,7 @@
 "seq": 8192,
 "mfu": 35.9,
 "tps": 6250,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v111-shard-acts-s8k-bs3-tokamax-splash-layeragg-vmem86016.md"
@@ -3751,7 +3751,7 @@
 "seq": 2048,
 "mfu": 45.6,
 "tps": 8868,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-13-v111-2k-batch16-splash2048-async-ar-cap1.md"
@@ -3764,7 +3764,7 @@
 "seq": 8192,
 "mfu": 36.5,
 "tps": null,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v112-shard-acts-s8k-bs3-tokamax-splash-layeragg-dq3.md"
@@ -3777,7 +3777,7 @@
 "seq": 2048,
 "mfu": 45.5,
 "tps": 8851,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-13-v112-2k-batch16-splash2048-no-allreduce-offload.md"
@@ -3790,7 +3790,7 @@
 "seq": 8192,
 "mfu": 36.1,
 "tps": null,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v113-shard-acts-s8k-bs3-tokamax-splash-layeragg-no-acf-allgather.md"
@@ -3803,7 +3803,7 @@
 "seq": 2048,
 "mfu": 45.6,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-13-v113-2k-batch16-splash2048-rs-lat2.md"
@@ -3816,7 +3816,7 @@
 "seq": 8192,
 "mfu": 36.6,
 "tps": null,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v114-shard-acts-s8k-bs3-tokamax-splash-layeragg-no-acf-reducescatter.md"
@@ -3829,7 +3829,7 @@
 "seq": 2048,
 "mfu": 45.7,
 "tps": 8880,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-13-v114-2k-batch16-splash2048-rs-lat4.md"
@@ -3842,7 +3842,7 @@
 "seq": 8192,
 "mfu": 36.6,
 "tps": 6378,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v115-shard-acts-s8k-bs3-tokamax-splash-layeragg-no-acf-multistep.md"
@@ -3855,7 +3855,7 @@
 "seq": 2048,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-13-v115-2k-batch16-splash2048-rs-lat5.md"
@@ -3868,7 +3868,7 @@
 "seq": 8192,
 "mfu": 40.2,
 "tps": 7001,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v116-shard-acts-s8k-bs3-tokamax-splash-layeragg-collective-matmul-none.md"
@@ -3881,7 +3881,7 @@
 "seq": 2048,
 "mfu": 45.6,
 "tps": 8870,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-13-v116-2k-batch16-splash2048-rs-lat4-ar-lat1.md"
@@ -3894,7 +3894,7 @@
 "seq": 8192,
 "mfu": 40.2,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v117-shard-acts-s8k-bs3-tokamax-splash-layeragg-collective-matmul-none-rerun.md"
@@ -3907,7 +3907,7 @@
 "seq": 2048,
 "mfu": 45.6,
 "tps": 8874,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-13-v117-2k-batch16-splash2048-rs-lat4-ar-lat3.md"
@@ -3920,7 +3920,7 @@
 "seq": 8192,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v118-shard-acts-s8k-bs4-tokamax-splash-layeragg-collective-matmul-none.md"
@@ -3933,7 +3933,7 @@
 "seq": 2048,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-13-v118-2k-batch16-splash2048-rs-lat5-ar-lat3.md"
@@ -3946,7 +3946,7 @@
 "seq": 8192,
 "mfu": 40.5,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v119-shard-acts-s8k-bs5-tokamax-splash-layeragg-collective-matmul-none.md"
@@ -3959,7 +3959,7 @@
 "seq": 2048,
 "mfu": 45.7,
 "tps": 8882,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-13-v119-2k-batch16-splash2048-rs-lat4-rerun4.md"
@@ -3972,7 +3972,7 @@
 "seq": 8192,
 "mfu": 40.5,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v120-shard-acts-s8k-bs5-tokamax-splash-layeragg-collective-matmul-none-shmem90.md"
@@ -3985,7 +3985,7 @@
 "seq": 2048,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-13-v120-2k-batch16-splash2048-rs-lat4-agoff.md"
@@ -3998,7 +3998,7 @@
 "seq": 8192,
 "mfu": 40.5,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v121-shard-acts-s8k-bs5-tokamax-splash-layeragg-collective-matmul-none-vmem73728.md"
@@ -4011,7 +4011,7 @@
 "seq": 2048,
 "mfu": 45.7,
 "tps": 8881,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-13-v121-2k-batch16-splash2048-rs-lat4-noagg.md"
@@ -4024,7 +4024,7 @@
 "seq": 8192,
 "mfu": 40.5,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v122-shard-acts-s8k-bs5-tokamax-splash-layeragg-collective-matmul-none-vmem65536.md"
@@ -4037,7 +4037,7 @@
 "seq": 2048,
 "mfu": 45.7,
 "tps": 8882,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-13-v122-2k-batch16-splash2048-rs-lat4-shmem99.md"
@@ -4050,7 +4050,7 @@
 "seq": 8192,
 "mfu": 40.5,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v123-shard-acts-s8k-bs4-tokamax-splash-layeragg-collective-matmul-none-rerun.md"
@@ -4063,7 +4063,7 @@
 "seq": 2048,
 "mfu": 45.6,
 "tps": 8856,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-13-v123-2k-batch16-splash2048-rs-lat4-vmem98816.md"
@@ -4076,7 +4076,7 @@
 "seq": 8192,
 "mfu": 40.5,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v124-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-no-layeragg.md"
@@ -4089,7 +4089,7 @@
 "seq": 2048,
 "mfu": 45.5,
 "tps": 8853,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-13-v124-2k-batch16-splash-bq1024-bkv2048-rs-lat4.md"
@@ -4102,7 +4102,7 @@
 "seq": 8192,
 "mfu": 40.5,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v125-shard-acts-s8k-bs4-tokamax-splash-layeragg-collective-matmul-none-no-selective-resources.md"
@@ -4115,7 +4115,7 @@
 "seq": 2048,
 "mfu": 44.7,
 "tps": 8686,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-13-v125-2k-batch16-splash2048-rs-lat4-noacfg.md"
@@ -4128,7 +4128,7 @@
 "seq": 8192,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v126-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-layeragg-false.md"
@@ -4141,7 +4141,7 @@
 "seq": 2048,
 "mfu": 45.6,
 "tps": 8857,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-13-v126-2k-batch16-splash2048-rs-lat4-noacfms.md"
@@ -4154,7 +4154,7 @@
 "seq": 8192,
 "mfu": 40.5,
 "tps": 7057,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v127-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-no-all-experimental-scheduler.md"
@@ -4167,7 +4167,7 @@
 "seq": 2048,
 "mfu": 44.7,
 "tps": 8684,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-13-v127-2k-batch16-splash2048-rs-lat4-noacf.md"
@@ -4180,7 +4180,7 @@
 "seq": 8192,
 "mfu": 40.5,
 "tps": 7056,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v128-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-no-memory-pressure-tracking.md"
@@ -4193,7 +4193,7 @@
 "seq": 2048,
 "mfu": 45.6,
 "tps": 8873,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-13-v128-2k-batch16-splash2048-rs-lat4-nomemtrack.md"
@@ -4206,7 +4206,7 @@
 "seq": 8192,
 "mfu": 40.5,
 "tps": 7056,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v129-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-no-customcall-vmem-adjust.md"
@@ -4219,7 +4219,7 @@
 "seq": 2048,
 "mfu": 45.6,
 "tps": 8873,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-13-v129-2k-batch16-splash2048-rs-lat4-dkvc512.md"
@@ -4232,7 +4232,7 @@
 "seq": 8192,
 "mfu": 40.5,
 "tps": 7056,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v130-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-no-ag-backward-pipelining.md"
@@ -4245,8 +4245,8 @@
 "seq": 2048,
 "mfu": 47.3,
 "tps": 9198,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-13-v130-2k-batch16-splash2048-rs-lat4-seqminor.md"
 },
@@ -4258,7 +4258,7 @@
 "seq": 8192,
 "mfu": 39.8,
 "tps": 6935,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v131-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-no-base-async-collective-fusion.md"
@@ -4271,7 +4271,7 @@
 "seq": 2048,
 "mfu": 46.9,
 "tps": 9111,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-13-v131-2k-batch16-splash2048-rs-lat4-qseqminor.md"
@@ -4284,7 +4284,7 @@
 "seq": 8192,
 "mfu": 39.8,
 "tps": 6935,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v132-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-no-acf-allgather.md"
@@ -4297,7 +4297,7 @@
 "seq": 2048,
 "mfu": 46.0,
 "tps": 8950,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-13-v132-2k-batch16-splash2048-rs-lat4-kvseqminor.md"
@@ -4310,7 +4310,7 @@
 "seq": 8192,
 "mfu": 40.5,
 "tps": 7055,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v133-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-no-acf-reducescatter.md"
@@ -4323,7 +4323,7 @@
 "seq": 2048,
 "mfu": 46.0,
 "tps": 8941,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-13-v133-2k-batch16-splash2048-rs-lat4-kseqminor.md"
@@ -4336,7 +4336,7 @@
 "seq": 8192,
 "mfu": 40.4,
 "tps": 7037,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v134-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-no-acf-multistep.md"
@@ -4349,7 +4349,7 @@
 "seq": 2048,
 "mfu": 45.7,
 "tps": 8891,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-13-v134-2k-batch16-splash2048-rs-lat4-vseqminor.md"
@@ -4362,7 +4362,7 @@
 "seq": 8192,
 "mfu": 40.5,
 "tps": 7055,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v135-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-host-transfer-overlap12.md"
@@ -4375,7 +4375,7 @@
 "seq": 2048,
 "mfu": 47.3,
 "tps": 9197,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-13-v135-2k-batch17-splash2048-rs-lat4-seqminor-shmem90.md"
@@ -4388,7 +4388,7 @@
 "seq": 8192,
 "mfu": 40.5,
 "tps": 7057,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v136-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-host-transfer-overlap48.md"
@@ -4401,8 +4401,8 @@
 "seq": 2048,
 "mfu": 47.3,
 "tps": 9198,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-13-v136-2k-batch17-splash2048-rs-lat4-seqminor-shmem95.md"
 },
@@ -4414,7 +4414,7 @@
 "seq": 8192,
 "mfu": 40.5,
 "tps": 7057,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v137-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-host-transfer-overlap48-rerun.md"
@@ -4427,7 +4427,7 @@
 "seq": 2048,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "pending",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-13-v137-2k-batch17-splash2048-rs-lat4-seqminor-shmem97.md"
@@ -4440,7 +4440,7 @@
 "seq": 8192,
 "mfu": 40.5,
 "tps": 7056,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v138-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-host-sendrecv128.md"
@@ -4453,7 +4453,7 @@
 "seq": 8192,
 "mfu": 40.5,
 "tps": 7055,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v139-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-host-sendrecv64.md"
@@ -4466,7 +4466,7 @@
 "seq": 8192,
 "mfu": 40.5,
 "tps": 7056,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v140-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-rerun4.md"
@@ -4479,7 +4479,7 @@
 "seq": 8192,
 "mfu": 40.5,
 "tps": 7057,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v141-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-shmem95.md"
@@ -4492,7 +4492,7 @@
 "seq": 8192,
 "mfu": 40.5,
 "tps": 7057,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v142-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-shmem90.md"
@@ -4505,7 +4505,7 @@
 "seq": 8192,
 "mfu": 40.0,
 "tps": 6976,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v143-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-vmem73728.md"
@@ -4518,7 +4518,7 @@
 "seq": 8192,
 "mfu": 40.6,
 "tps": 7076,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v144-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-vmem86016.md"
@@ -4531,7 +4531,7 @@
 "seq": 8192,
 "mfu": 40.6,
 "tps": 7075,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v145-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-vmem86016-rerun.md"
@@ -4544,7 +4544,7 @@
 "seq": 8192,
 "mfu": 40.6,
 "tps": 7079,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v146-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-vmem90112.md"
@@ -4557,7 +4557,7 @@
 "seq": 8192,
 "mfu": 40.6,
 "tps": 7081,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v147-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-vmem90112-rerun.md"
@@ -4570,7 +4570,7 @@
 "seq": 8192,
 "mfu": 40.7,
 "tps": 7097,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v148-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-vmem94208.md"
@@ -4583,7 +4583,7 @@
 "seq": 8192,
 "mfu": 40.7,
 "tps": 7096,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v149-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-vmem94208-rerun.md"
@@ -4596,7 +4596,7 @@
 "seq": 8192,
 "mfu": 41.3,
 "tps": 7197,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v150-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-vmem98304.md"
@@ -4609,7 +4609,7 @@
 "seq": 8192,
 "mfu": 41.3,
 "tps": 7196,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v151-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-vmem98304-rerun.md"
@@ -4622,7 +4622,7 @@
 "seq": 8192,
 "mfu": 41.2,
 "tps": 7176,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v152-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-vmem102400.md"
@@ -4635,7 +4635,7 @@
 "seq": 8192,
 "mfu": 41.4,
 "tps": 7220,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v153-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-vmem100352.md"
@@ -4648,8 +4648,8 @@
 "seq": 8192,
 "mfu": 41.4,
 "tps": null,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v154-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-vmem100352-rerun.md"
 },
@@ -4661,7 +4661,7 @@
 "seq": 8192,
 "mfu": 41.3,
 "tps": null,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v155-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-vmem101376.md"
@@ -4674,7 +4674,7 @@
 "seq": 8192,
 "mfu": 40.5,
 "tps": null,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v156-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-vmem100352-bkv512.md"
@@ -4687,7 +4687,7 @@
 "seq": 8192,
 "mfu": 39.6,
 "tps": 6907,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v157-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-vmem100352-bkvdkv1024.md"
@@ -4700,7 +4700,7 @@
 "seq": 8192,
 "mfu": 41.4,
 "tps": 7219,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v158-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-vmem100352-layeragg-pair.md"
@@ -4713,7 +4713,7 @@
 "seq": 8192,
 "mfu": 41.2,
 "tps": 7190,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v159-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-vmem99328.md"
@@ -4726,7 +4726,7 @@
 "seq": 8192,
 "mfu": 41.4,
 "tps": 7220,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v160-shard-acts-s8k-bs4-tokamax-splash-collective-matmul-none-vmem100864.md"
@@ -4739,8 +4739,8 @@
 "seq": 8192,
 "mfu": 41.4,
 "tps": 7221,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v161-shard-acts-s8k-bs4-lmhead-vocab-fsdp.md"
 },
@@ -4752,7 +4752,7 @@
 "seq": 8192,
 "mfu": 40.5,
 "tps": 7062,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v162-shard-acts-s8k-bs4-lmhead-vocab-fsdp-rerun.md"
@@ -4765,7 +4765,7 @@
 "seq": 8192,
 "mfu": 40.4,
 "tps": 7051,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v163-maxtext-ce-logits-fsdp-constraint.md"
@@ -4778,7 +4778,7 @@
 "seq": 8192,
 "mfu": 40.4,
 "tps": 7047,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v164-final-hidden-fsdp-constraint.md"
@@ -4791,7 +4791,7 @@
 "seq": 8192,
 "mfu": 41.4,
 "tps": 7216,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v165-replicate-rmsnorm-params.md"
@@ -4804,7 +4804,7 @@
 "seq": 8192,
 "mfu": 41.4,
 "tps": 7217,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v166-replicate-rmsnorm-params-rerun.md"
@@ -4817,7 +4817,7 @@
 "seq": 8192,
 "mfu": 41.4,
 "tps": 7216,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v167-replicate-rmsnorm-vmem100864.md"
@@ -4830,7 +4830,7 @@
 "seq": 8192,
 "mfu": 41.4,
 "tps": 7058,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v168-lmhead-replicated.md"
@@ -4843,8 +4843,8 @@
 "seq": 8192,
 "mfu": 41.5,
 "tps": 7243,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v169-no-mlp-intermediate-sac.md"
 },
@@ -4856,8 +4856,8 @@
 "seq": 8192,
 "mfu": 41.5,
 "tps": 7242,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v170-no-mlp-intermediate-sac-rerun.md"
 },
@@ -4869,7 +4869,7 @@
 "seq": 8192,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v171-no-mlp-sac-vmem100864.md"
@@ -4882,7 +4882,7 @@
 "seq": 8192,
 "mfu": 41.5,
 "tps": null,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v172-no-attn-output-sac.md"
@@ -4895,7 +4895,7 @@
 "seq": 8192,
 "mfu": 41.5,
 "tps": null,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v173-no-pre-attn-norm-sac.md"
@@ -4908,7 +4908,7 @@
 "seq": 8192,
 "mfu": 41.5,
 "tps": null,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v174-no-pre-mlp-norm-sac.md"
@@ -4921,7 +4921,7 @@
 "seq": 8192,
 "mfu": 41.5,
 "tps": null,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v175-no-layer-input-sac.md"
@@ -4934,7 +4934,7 @@
 "seq": 8192,
 "mfu": 41.4,
 "tps": 7215,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v176-no-mlp-sac-replicate-rmsnorm.md"
@@ -4947,7 +4947,7 @@
 "seq": 8192,
 "mfu": 40.5,
 "tps": 7056,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v177-no-mlp-sac-lmhead-replicated.md"
@@ -4960,7 +4960,7 @@
 "seq": 8192,
 "mfu": 41.4,
 "tps": 7221,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v178-no-target-grad-maxtext-ce.md"
@@ -4973,7 +4973,7 @@
 "seq": 8192,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v179-no-mlp-sac-no-remat.md"
@@ -4986,7 +4986,7 @@
 "seq": 8192,
 "mfu": 41.5,
 "tps": 6220,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v180-no-mlp-sac-offload-remat.md"
@@ -4999,7 +4999,7 @@
 "seq": 8192,
 "mfu": 41.5,
 "tps": 6660,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v181-no-mlp-sac-tokamax-ce.md"
@@ -5012,8 +5012,8 @@
 "seq": 8192,
 "mfu": 41.8,
 "tps": 7291,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v182-no-mlp-sac-no-scan.md"
 },
@@ -5025,8 +5025,8 @@
 "seq": 8192,
 "mfu": 41.8,
 "tps": null,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v183-no-mlp-sac-no-scan-rerun.md"
 },
@@ -5038,7 +5038,7 @@
 "seq": 8192,
 "mfu": 41.8,
 "tps": 7289,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v184-no-mlp-sac-no-scan-vmem100864.md"
@@ -5051,7 +5051,7 @@
 "seq": 8192,
 "mfu": 41.5,
 "tps": 7227,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v185-no-mlp-sac-no-scan-vmem99328.md"
@@ -5064,7 +5064,7 @@
 "seq": 8192,
 "mfu": 41.7,
 "tps": 7263,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v186-no-mlp-sac-no-scan-shmem95.md"
@@ -5077,7 +5077,7 @@
 "seq": 8192,
 "mfu": 41.8,
 "tps": 7290,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v187-no-mlp-sac-no-scan-hto48.md"
@@ -5090,7 +5090,7 @@
 "seq": 8192,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v188-no-mlp-sac-no-scan-bkv512.md"
@@ -5103,7 +5103,7 @@
 "seq": 8192,
 "mfu": 40.8,
 "tps": 7105,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v189-no-mlp-sac-no-scan-bkv512-compute512.md"
@@ -5116,7 +5116,7 @@
 "seq": 8192,
 "mfu": 39.8,
 "tps": 6936,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v190-no-mlp-sac-no-scan-bkvdkv1024.md"
@@ -5129,7 +5129,7 @@
 "seq": 8192,
 "mfu": 41.2,
 "tps": 7189,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v191-no-mlp-sac-no-scan-tokamax-exp-sched.md"
@@ -5142,7 +5142,7 @@
 "seq": 8192,
 "mfu": 41.6,
 "tps": 7261,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v192-no-mlp-sac-no-scan-no-shard-acts.md"
@@ -5155,7 +5155,7 @@
 "seq": 8192,
 "mfu": 41.6,
 "tps": 7261,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v193-no-scan-no-attn-output-sac.md"
@@ -5168,7 +5168,7 @@
 "seq": 8192,
 "mfu": 41.6,
 "tps": 7261,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v194-no-scan-no-pre-attn-norm-sac.md"
@@ -5181,7 +5181,7 @@
 "seq": 8192,
 "mfu": 40.6,
 "tps": 7082,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v195-no-scan-no-pre-mlp-norm-sac.md"
@@ -5194,7 +5194,7 @@
 "seq": 8192,
 "mfu": 41.7,
 "tps": 7262,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v196-no-scan-no-layer-input-sac.md"
@@ -5207,7 +5207,7 @@
 "seq": 8192,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v197-no-scan-collective-matmul-auto.md"
@@ -5220,7 +5220,7 @@
 "seq": 8192,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v198-no-scan-ag-collective-matmul-auto.md"
@@ -5233,7 +5233,7 @@
 "seq": 8192,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-04-v199-no-scan-rs-collective-matmul-auto.md"
@@ -5246,7 +5246,7 @@
 "seq": 8192,
 "mfu": 41.8,
 "tps": null,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v200-no-scan-plain-ce.md"
@@ -5259,7 +5259,7 @@
 "seq": 8192,
 "mfu": 41.8,
 "tps": null,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v201-no-scan-tokamax-ce.md"
@@ -5272,7 +5272,7 @@
 "seq": 8192,
 "mfu": 41.8,
 "tps": null,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v202-no-scan-tokamax-ce-bs5.md"
@@ -5285,7 +5285,7 @@
 "seq": 8192,
 "mfu": 41.8,
 "tps": null,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v203-no-scan-maxtext-ce-bs5.md"
@@ -5298,7 +5298,7 @@
 "seq": 8192,
 "mfu": 41.8,
 "tps": null,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v204-no-scan-maxtext-ce-bs5-shmem90.md"
@@ -5311,8 +5311,8 @@
 "seq": 8192,
 "mfu": 42.5,
 "tps": 7417,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v205-no-scan-sparsecore-all-collectives.md"
 },
@@ -5324,8 +5324,8 @@
 "seq": 8192,
 "mfu": 42.6,
 "tps": 7419,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v206-no-scan-sparsecore-all-collectives-rerun.md"
 },
@@ -5337,7 +5337,7 @@
 "seq": 8192,
 "mfu": 42.6,
 "tps": null,
-"verdict": "",
+"verdict": "inconclusive",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v207-no-scan-sparsecore-aggregator.md"
@@ -5350,8 +5350,8 @@
 "seq": 8192,
 "mfu": 42.6,
 "tps": 7422,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v208-no-scan-sparsecore-aggregator-rerun.md"
 },
@@ -5363,7 +5363,7 @@
 "seq": 8192,
 "mfu": 42.6,
 "tps": null,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v209-no-scan-sparsecore-aggregator-rerun2.md"
@@ -5376,8 +5376,8 @@
 "seq": 8192,
 "mfu": 42.6,
 "tps": 7421,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v210-no-scan-sparsecore-aggregator-rerun3.md"
 },
@@ -5389,7 +5389,7 @@
 "seq": 8192,
 "mfu": 42.6,
 "tps": 7408,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v211-no-scan-sparsecore-concurrent-offload.md"
@@ -5402,8 +5402,8 @@
 "seq": 8192,
 "mfu": 42.3,
 "tps": 7371,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v212-no-scan-sparsecore-aggregator-bs3-comparison.md"
 },
@@ -5415,7 +5415,7 @@
 "seq": 8192,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v213-no-scan-tiled-ce-bs4.md"
@@ -5428,7 +5428,7 @@
 "seq": 8192,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v214-no-scan-remat-tiled-ce-bs4.md"
@@ -5441,7 +5441,7 @@
 "seq": 2048,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v215-no-scan-remat-tiled-ce-chunk2048-bs4.md"
@@ -5454,7 +5454,7 @@
 "seq": 2048,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v216-no-scan-custom-vjp-tiled-ce-bs4.md"
@@ -5467,7 +5467,7 @@
 "seq": 8192,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v217-scan-custom-vjp-tiled-ce-local-invalid.md"
@@ -5480,7 +5480,7 @@
 "seq": 8192,
 "mfu": 42.6,
 "tps": 7420,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v218-no-scan-sparsecore-ag-rs-only.md"
@@ -5493,7 +5493,7 @@
 "seq": 8192,
 "mfu": 42.6,
 "tps": 7284,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v219-no-scan-sparsecore-ag-ar-only.md"
@@ -5506,8 +5506,8 @@
 "seq": 8192,
 "mfu": 42.7,
 "tps": 7430,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v220-no-scan-sparsecore-rs-ar-only.md"
 },
@@ -5519,8 +5519,8 @@
 "seq": 8192,
 "mfu": 42.7,
 "tps": null,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v221-no-scan-sparsecore-rs-ar-only-rerun.md"
 },
@@ -5532,7 +5532,7 @@
 "seq": 8192,
 "mfu": 42.5,
 "tps": null,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v222-no-scan-sparsecore-rs-ar-no-aggregator.md"
@@ -5545,7 +5545,7 @@
 "seq": 8192,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v223-no-scan-sparsecore-rs-ar-nd-reduce-scatter.md"
@@ -5558,7 +5558,7 @@
 "seq": 8192,
 "mfu": 42.5,
 "tps": null,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v224-no-scan-sparsecore-rs-ar-rs-v2.md"
@@ -5571,8 +5571,8 @@
 "seq": 8192,
 "mfu": 42.9,
 "tps": null,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v225-no-scan-sparsecore-rs-ar-rs-latency3.md"
 },
@@ -5584,8 +5584,8 @@
 "seq": 8192,
 "mfu": 42.9,
 "tps": null,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v226-no-scan-sparsecore-rs-ar-rs-latency3-rerun.md"
 },
@@ -5597,8 +5597,8 @@
 "seq": 8192,
 "mfu": 42.9,
 "tps": null,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v227-no-scan-sparsecore-rs-ar-rs-latency2.md"
 },
@@ -5610,8 +5610,8 @@
 "seq": 8192,
 "mfu": 42.9,
 "tps": null,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v228-no-scan-sparsecore-rs-ar-rs-latency2-rerun.md"
 },
@@ -5623,8 +5623,8 @@
 "seq": 8192,
 "mfu": 42.9,
 "tps": null,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v229-no-scan-sparsecore-rs-ar-rs-latency2-ar-latency2.md"
 },
@@ -5636,8 +5636,8 @@
 "seq": 8192,
 "mfu": 42.9,
 "tps": null,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v230-no-scan-sparsecore-rs-ar-rs-latency2-ar-latency2-rerun.md"
 },
@@ -5649,7 +5649,7 @@
 "seq": 8192,
 "mfu": 41.3,
 "tps": null,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v231-no-scan-sparsecore-rs-ar-rs-latency2-ar-latency3.md"
@@ -5662,7 +5662,7 @@
 "seq": 8192,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v232-no-scan-sparsecore-rs-ar-rs2-ar2-max-async-ag1.md"
@@ -5675,7 +5675,7 @@
 "seq": 8192,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v233-no-scan-sparsecore-rs-ar-rs2-ar2-max-async-ag2.md"
@@ -5688,7 +5688,7 @@
 "seq": 8192,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v234-no-scan-sparsecore-rs-ar-rs1-ar2.md"
@@ -5701,7 +5701,7 @@
 "seq": 8192,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v235-no-scan-sparsecore-rs-ar-rs3-ar2.md"
@@ -5714,7 +5714,7 @@
 "seq": 8192,
 "mfu": 42.9,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v236-no-scan-sparsecore-rs-ar-rs3-ar2-rerun.md"
@@ -5727,7 +5727,7 @@
 "seq": 8192,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v237-no-scan-sparsecore-rs-ar-rs4-ar2.md"
@@ -5740,7 +5740,7 @@
 "seq": 8192,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v238-no-scan-sparsecore-rs-ar-rs3-ar2-no-offload-tracing.md"
@@ -5753,7 +5753,7 @@
 "seq": 8192,
 "mfu": 42.7,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v239-no-scan-sparsecore-rs-ar-rs3-ar2-vmem98304.md"
@@ -5766,7 +5766,7 @@
 "seq": 8192,
 "mfu": 42.8,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v240-no-scan-sparsecore-rs-ar-rs3-ar2-vmem100864.md"
@@ -5779,7 +5779,7 @@
 "seq": 8192,
 "mfu": 42.8,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v241-no-scan-sparsecore-rs-ar-rs2-ar2-vmem100864.md"
@@ -5792,7 +5792,7 @@
 "seq": 8192,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v242-no-scan-sparsecore-rs-ar-rs2-ar2-rerun4.md"
@@ -5805,7 +5805,7 @@
 "seq": 8192,
 "mfu": 42.6,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v243-no-scan-sparsecore-rs-ar-rs2-ar2-shmem95.md"
@@ -5818,7 +5818,7 @@
 "seq": 8192,
 "mfu": 39.8,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v244-no-scan-sparsecore-rs-ar-rs2-ar2-tokamax-ce.md"
@@ -5831,7 +5831,7 @@
 "seq": 8192,
 "mfu": 40.0,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v245-no-scan-sparsecore-rs-ar-rs2-ar2-tokamax-ce-bs5.md"
@@ -5844,7 +5844,7 @@
 "seq": 8192,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v246-no-scan-sparsecore-rs-ar-rs2-ar2-no-mem-pressure-tracking.md"
@@ -5857,7 +5857,7 @@
 "seq": 8192,
 "mfu": null,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": false,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v247-no-scan-sparsecore-rs-ar-rs2-ar2-no-offload-tracing.md"
@@ -5870,7 +5870,7 @@
 "seq": 8192,
 "mfu": null,
 "tps": 7011,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v248-no-scan-sparsecore-rs-ar-rs2-ar2-levanter-ce.md"
@@ -5883,7 +5883,7 @@
 "seq": null,
 "mfu": 42.9,
 "tps": 7303,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v249-no-scan-sparsecore-rs-ar-rs2-ar2-levanter-ce-default-blocks.md"
@@ -5896,7 +5896,7 @@
 "seq": null,
 "mfu": 42.9,
 "tps": 7224,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v250-no-scan-sparsecore-rs-ar-rs2-ar2-levanter-ce-h512-v768.md"
@@ -5909,7 +5909,7 @@
 "seq": 8192,
 "mfu": 42.9,
 "tps": 6759,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v251-no-scan-sparsecore-rs-ar-rs2-ar2-levanter-xla-ce.md"
@@ -5922,7 +5922,7 @@
 "seq": null,
 "mfu": 42.9,
 "tps": null,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v252-no-scan-sparsecore-rs-ar-rs2-ar2-fused-mlp-gate-up.md"
@@ -5935,7 +5935,7 @@
 "seq": null,
 "mfu": 42.9,
 "tps": null,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v253-no-scan-sparsecore-rs-ar-rs2-ar2-fused-mlp-gate-up-vmem98304.md"
@@ -5948,7 +5948,7 @@
 "seq": null,
 "mfu": 42.9,
 "tps": 7055,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v254-no-scan-sparsecore-rs-ar-rs2-ar2-qknorm-after-transpose.md"
@@ -5961,7 +5961,7 @@
 "seq": 8192,
 "mfu": 42.9,
 "tps": 7052,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v255-no-scan-sparsecore-rs-ar-rs2-ar2-explicit-swiglu.md"
@@ -5974,7 +5974,7 @@
 "seq": 2048,
 "mfu": 42.9,
 "tps": 7416,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v256-no-scan-sparsecore-rs-ar-rs2-ar2-explicit-swiglu-tokamax.md"
@@ -5987,7 +5987,7 @@
 "seq": 2048,
 "mfu": 42.9,
 "tps": 7416,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v257-no-scan-sparsecore-rs-ar-rs2-ar2-qknorm-after-transpose-tokamax.md"
@@ -6000,8 +6000,8 @@
 "seq": 8192,
 "mfu": 43.0,
 "tps": 7488,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v258-no-scan-sparsecore-rs-ar-rs2-ar2-mlp-up-proj-first.md"
 },
@@ -6013,8 +6013,8 @@
 "seq": 8192,
 "mfu": 43.0,
 "tps": 7491,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v259-no-scan-sparsecore-rs-ar-rs3-ar2-mlp-up-proj-first.md"
 },
@@ -6026,8 +6026,8 @@
 "seq": 8192,
 "mfu": 43.0,
 "tps": 7488,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v260-no-scan-sparsecore-rs-ar-rs3-ar2-mlp-up-proj-first-rerun.md"
 },
@@ -6039,7 +6039,7 @@
 "seq": 8192,
 "mfu": 43.0,
 "tps": 7488,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v261-no-scan-sparsecore-rs-ar-rs3-ar2-mlp-up-proj-first-no-offload-tracing.md"
@@ -6052,7 +6052,7 @@
 "seq": 8192,
 "mfu": 43.0,
 "tps": 7490,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v262-no-scan-sparsecore-rs-ar-rs3-mlp-up-proj-first-ar-default.md"
@@ -6065,8 +6065,8 @@
 "seq": 8192,
 "mfu": 43.0,
 "tps": 7493,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v263-no-scan-sparsecore-rs-ar-rs4-ar2-mlp-up-proj-first.md"
 },
@@ -6078,8 +6078,8 @@
 "seq": 8192,
 "mfu": 43.0,
 "tps": 7494,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v264-no-scan-sparsecore-rs-ar-rs4-ar2-mlp-up-proj-first-rerun.md"
 },
@@ -6091,7 +6091,7 @@
 "seq": 8192,
 "mfu": 43.0,
 "tps": 7494,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v265-no-scan-sparsecore-rs-ar-rs5-ar2-mlp-up-proj-first.md"
@@ -6104,7 +6104,7 @@
 "seq": 8192,
 "mfu": 43.0,
 "tps": 7493,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v266-no-scan-sparsecore-rs-ar-rs4-mlp-up-proj-first-ar-default.md"
@@ -6117,7 +6117,7 @@
 "seq": 8192,
 "mfu": 43.0,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v267-no-scan-sparsecore-rs-ar-rs4-ar2-mlp-up-proj-first-layer-scheduler.md"
@@ -6130,7 +6130,7 @@
 "seq": 8192,
 "mfu": 43.2,
 "tps": 7542,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v268-no-scan-sparsecore-rs-ar-rs4-ar2-mlp-up-proj-first-selective-resources.md"
@@ -6143,7 +6143,7 @@
 "seq": 8192,
 "mfu": 43.2,
 "tps": 7542,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v269-no-scan-sparsecore-rs-ar-rs4-ar2-mlp-up-proj-first-selective-resources-rerun.md"
@@ -6156,7 +6156,7 @@
 "seq": 8192,
 "mfu": 43.2,
 "tps": 7514,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v270-no-scan-sparsecore-rs-ar-rs4-ar2-mlp-up-proj-first-selective-resources-vmem99840.md"
@@ -6169,7 +6169,7 @@
 "seq": 8192,
 "mfu": 43.2,
 "tps": null,
-"verdict": "",
+"verdict": "completed",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v271-no-scan-sparsecore-rs-ar-rs5-ar2-mlp-up-proj-first-selective-resources.md"
@@ -6182,8 +6182,8 @@
 "seq": 8192,
 "mfu": 43.2,
 "tps": null,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v272-no-scan-sparsecore-rs-ar-rs3-ar2-mlp-up-proj-first-selective-resources.md"
 },
@@ -6195,8 +6195,8 @@
 "seq": 8192,
 "mfu": 43.2,
 "tps": null,
-"verdict": "",
-"success": false,
+"verdict": "supported",
+"success": true,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v273-no-scan-sparsecore-rs-ar-rs3-ar2-mlp-up-proj-first-selective-resources-rerun.md"
 },
@@ -6208,7 +6208,7 @@
 "seq": 8192,
 "mfu": 43.2,
 "tps": null,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v274-no-scan-sparsecore-rs-ar-rs3-mlp-up-proj-first-selective-resources-ar-default.md"
@@ -6221,7 +6221,7 @@
 "seq": 8192,
 "mfu": 43.2,
 "tps": null,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v275-no-scan-sparsecore-rs-ar-rs3-ar2-mlp-up-proj-first-selective-resources-vmem100864.md"
@@ -6234,7 +6234,7 @@
 "seq": 8192,
 "mfu": 43.2,
 "tps": null,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v276-no-scan-sparsecore-rs-ar-rs3-ar2-mlp-up-proj-first-selective-resources-shmem95.md"
@@ -6247,7 +6247,7 @@
 "seq": 8192,
 "mfu": 43.2,
 "tps": null,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v277-no-scan-sparsecore-rs-ar-rs3-ar2-mlp-up-proj-first-selective-resources-shmem90.md"
@@ -6260,7 +6260,7 @@
 "seq": 8192,
 "mfu": 43.2,
 "tps": null,
-"verdict": "",
+"verdict": "invalid",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v278-no-scan-sparsecore-rs-ar-rs3-ar2-mlp-up-proj-first-selective-resources-bs5-shmem90.md"
@@ -6273,7 +6273,7 @@
 "seq": 8192,
 "mfu": 43.2,
 "tps": 7040,
-"verdict": "",
+"verdict": "refuted",
 "success": false,
 "has_metric": true,
 "link": "../../experiments/qwen3_cx_autoresearch_optimization/jax/experiments/2026-06-05-v279-no-scan-sparsecore-rs-ar-rs3-ar2-mlp-up-proj-first-selective-resources-tokamax-ce-bs5.md"
