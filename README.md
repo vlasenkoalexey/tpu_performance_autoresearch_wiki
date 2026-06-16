@@ -7,8 +7,19 @@ This repository is an experiment in **autonomous TPU model performance optimizat
 
 The claim is structural, not incremental: **given a sufficiently capable LLM, the right profiling tools, and a knowledge base that includes the model's + framework's source, an autonomous agent can drive any (model, hardware) pair to state-of-the-art performance for that combination**. This isn't a replacement for performance engineers — it's a force multiplier. The primary goal is unchanged: a faster model. The engineer stays in charge of direction (picking targets, adjudicating contradictions, deciding which gains are worth keeping); the agent absorbs the legwork (reading code, generating hypotheses, running experiments, profiling, writeup).
 
-[![The wiki graph: every markdown page the agent has built or read, and the cross-links between them. Click for full resolution.](raw/assets/wiki-graph.webp)](raw/assets/wiki-graph-large.png)
 
+## Case study
+
+Now auto-optimization works for Claude Code (Opus 4.8 and Fable 5), Codex (GPT-5.5), and Antigravity (Gemini 3.1 pro).
+To demonstrate that we performed a side by side comparison of how each model + harness is able to handle auto-optimization fully autonomously — the only steering was eventually pointing each agent at the MaxText repo as a reference.
+
+Click image below to explore experiments yourself.
+
+[![Qwen3 8B auto-optimization case study. Click to interact.](raw/assets/qwen3-mfu.png)](https://vlasenkoalexey.github.io/tpu_performance_autoresearch_wiki/wiki/analyses/qwen3/mfu-explorer.html)
+
+At least Codex GPT-5.5 and Fable 5 were able to autonomously achieve better results compared to the optimized MaxText version.
+
+Explore original experiments for Llama3 8B here: https://vlasenkoalexey.github.io/tpu_performance_autoresearch_wiki/wiki/analyses/llama3/mfu-explorer.html
 
 ## The Core Components
 
@@ -34,7 +45,12 @@ A lighter alternative, popularized by Karpathy in his [**LLM wiki gist**](https:
 
 In practice, using an LLM wiki is straightforward: you point the agent at a source — a paper, a doc page, a codebase — and ask it to summarize into the schema's page format, cross-linked to anything it touches. Ingestion can be as low-lift as *"find every public reference to Pallas TPU kernels, catalog them by repo, backend, stability, and claimed performance improvements, and add the result to the wiki"* — which is exactly how this repo's [Pallas kernel directory](wiki/analyses/2026-04-23-pallas-kernel-directory.md) was built, surveying ~200 kernels across ~30 OSS repos and indexing them by function. The payoff is leverage on every subsequent run: when the agent is scoring optimization hypotheses later, it already knows which Pallas kernels exist in the ecosystem, which are production-grade, and how to apply them — no re-discovery, no hallucinating kernels that don't exist.
 
-**Bonus**: because the wiki is plain markdown with relative links, you can point [**Obsidian**](https://obsidian.md/) — a free, local-first markdown knowledge-base editor — at the wiki directory and immediately get a navigable graph view, backlinks, full-text search, and tag filtering on top of exactly the same files the LLM is reading and writing. Same source of truth, two readers: the agent uses `grep` and direct file I/O, you get a visual UI for browsing what the agent has learned, spot-checking its writeups, or manually exploring the experiment tree.
+**Bonus**: because the wiki is plain markdown with relative links, you can point [**Obsidian**](https://obsidian.md/) — a free, local-first markdown knowledge-base editor — at the wiki directory and immediately get a navigable graph view, backlinks, full-text search, and tag filtering on top of exactly the same files the LLM is reading and writing. 
+
+Click image below for live visualization of what current wiki knowledge base looks like:
+
+[![The wiki graph: every markdown page the agent has built or read, and the cross-links between them. Click to interact.](raw/assets/wiki.png)](https://vlasenkoalexey.github.io/tpu_performance_autoresearch_wiki/tools/graph/index.html)
+
 
 
 ### 💻 Your model codebase — what LLM can actually change and optimize
