@@ -108,6 +108,7 @@ def extract():
                 "lane": L, "slug": bn, "vnum": vkey(bn)[0], "order": order,
                 "seq": sl, "mfu": adj, "tps": tps, "verdict": vd,
                 "success": vd == "supported",
+                "maxtext": ("maxtext" in bn.lower()) or ("maxtext" in txt.lower()),
                 "has_metric": (adj is not None) or (tps is not None),
                 "link": f"../../experiments/qwen3_{L}_autoresearch_optimization/jax/experiments/{bn}.md",
             })
@@ -150,6 +151,8 @@ const COLORS = __COLORS__;
 const MAXTEXT = __MAXTEXT__;
 const LANE_NAME = __LANENAMES__;
 const LANES = ["cc","ag","cx","cc5"];
+const MTMARK = {};   // lane -> order of the first experiment that engaged MaxText
+for(const r of DATA){ if(r.maxtext && (!(r.lane in MTMARK) || r.order<MTMARK[r.lane])) MTMARK[r.lane]=r.order; }
 
 const state = {
   lane: {cc:true, ag:true, cx:true, cc5:true},
@@ -157,6 +160,7 @@ const state = {
   metric: "mfu",            // radio: "mfu" | "tps"
   showUnsuccessful: true,   // refuted / invalid / inconclusive / unverdicted, WITH a metric
   showCrashed: false,       // no metric at all (crash / OOM) — drawn as ✕ at the floor
+  showMtMark: true,         // dotted vertical line where each lane first engaged MaxText
   dark: false,              // color scheme
 };
 
@@ -193,6 +197,7 @@ C.appendChild(gMetric);
 const gShow=group("Show");
 {const {l,b}=chk("unsucc",state.showUnsuccessful,"unsuccessful (refuted/invalid/inconcl.)"); b.onchange=()=>{state.showUnsuccessful=b.checked;render();}; gShow.appendChild(l);}
 {const {l,b}=chk("crashed",state.showCrashed,"crashed / no-metric"); b.onchange=()=>{state.showCrashed=b.checked;render();}; gShow.appendChild(l);}
+{const {l,b}=chk("mtmark",state.showMtMark,"MaxText onset (dotted)"); b.onchange=()=>{state.showMtMark=b.checked;render();}; gShow.appendChild(l);}
 C.appendChild(gShow);
 
 const themeBtn=document.createElement("button");
@@ -279,6 +284,11 @@ function shapes(){
     if(!state.seq[seq]) continue;
     s.push({type:"line",xref:"paper",x0:0,x1:1,yref:"y",y0:M.mt[seq],y1:M.mt[seq],
             line:{color:T.line,width:1,dash:"dash"}});
+  }
+  if(state.showMtMark) for(const L of LANES){
+    if(!state.lane[L] || !(L in MTMARK)) continue;
+    s.push({type:"line",xref:"x",x0:MTMARK[L],x1:MTMARK[L],yref:"paper",y0:0,y1:1,
+            line:{color:COLORS[L],width:1.5,dash:"dot"},opacity:0.6});
   }
   return s;
 }
