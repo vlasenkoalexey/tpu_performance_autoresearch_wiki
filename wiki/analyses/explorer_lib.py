@@ -249,12 +249,23 @@ function render(){
   const shown=DATA.filter(visible).length;
   document.getElementById("count").textContent=`${shown} of ${DATA.length} experiments shown`;
 }
+// When served from GitHub Pages (*.github.io), .md links render as raw text.
+// Rewrite to github.com/<user>/<repo>/blob/main/... which renders the markdown.
+// Off github.io (local file://, Obsidian) keep the resolved relative link.
+function ghBlob(rel){
+  const u=new URL(rel,location.href);
+  if(!u.hostname.endsWith("github.io")) return u.href;
+  const parts=u.pathname.replace(/^\//,"").split("/");
+  const repo=parts.shift();
+  const user=u.hostname.split(".")[0];
+  return `https://github.com/${user}/${repo}/blob/main/${parts.join("/")}`;
+}
 document.getElementById("chart").on = null;
 Plotly.newPlot("chart",[],{}).then(()=>{
   render();
   document.getElementById("chart").on("plotly_click",ev=>{
     const p=ev.points&&ev.points[0];
-    if(p&&p.customdata) window.open(p.customdata,"_blank");
+    if(p&&p.customdata) window.open(ghBlob(p.customdata),"_blank");
   });
 });
 </script>

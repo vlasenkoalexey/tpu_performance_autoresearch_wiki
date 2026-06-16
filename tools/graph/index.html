@@ -72,6 +72,18 @@ const THEMES = {
 };
 let theme = 'dark', T = THEMES.dark;
 
+// On GitHub Pages (*.github.io), .md links render as raw text. Rewrite to
+// github.com/<user>/<repo>/blob/main/... which renders the markdown. Off
+// github.io (local file://) keep the resolved relative link.
+function ghBlob(rel) {
+  const u = new URL(rel, location.href);
+  if (!u.hostname.endsWith('github.io')) return u.href;
+  const parts = u.pathname.replace(/^\//, '').split('/');
+  const repo = parts.shift();
+  const user = u.hostname.split('.')[0];
+  return `https://github.com/${user}/${repo}/blob/main/${parts.join('/')}`;
+}
+
 fetch('graph.json').then(r => r.json()).then(data => {
   const byId = new Map(data.nodes.map(n => [n.id, n]));
   data.nodes.forEach(n => { n.neighbors = []; n.links = []; });
@@ -162,7 +174,7 @@ fetch('graph.json').then(r => r.json()).then(data => {
                         `${node.group} · ${node.deg} links</div>`;
       } else tip.style.display = 'none';
     })
-    .onNodeClick(node => window.open('../../wiki/' + node.id, '_blank'))
+    .onNodeClick(node => window.open(ghBlob('../../wiki/' + node.id), '_blank'))
     .onNodeDrag(() => { dragging = true; })
     .onNodeDragEnd(() => { dragging = false; })
     .onBackgroundClick(() => clearSelection());
