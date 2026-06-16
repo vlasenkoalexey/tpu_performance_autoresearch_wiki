@@ -82,6 +82,7 @@ const SEQKEYS = SEQS.map(s=>s.key);
 const SYM = {"null":"square"}; SEQS.forEach(s=>SYM[s.key]=s.sym);
 const SEQLABEL = {}; SEQS.forEach(s=>SEQLABEL[s.key]=s.label);
 const MFURANGE = __MFURANGE__, TPSRANGE = __TPSRANGE__;
+const MTNOTE = __MTNOTE__;   // per-metric suffix on the MaxText line label, e.g. {mfu:" (causal-adj.)"}
 const MTMARK = {};   // lane -> order of the first experiment that engaged MaxText
 for(const r of DATA){ if(r.maxtext && (!(r.lane in MTMARK) || r.order<MTMARK[r.lane])) MTMARK[r.lane]=r.order; }
 
@@ -222,7 +223,7 @@ function annotations(){
     if(!state.seq[sq.key]) continue;
     const y=M.mt[sq.key]; if(y==null) continue;
     a.push({xref:"paper",x:0.005,yref:"y",y:y,yanchor:"bottom",showarrow:false,
-            text:`MaxText ${sq.label} ${M.fmt(y)}${M.ulabel}`,font:{size:10,color:T.mt}});
+            text:`MaxText ${sq.label} ${M.fmt(y)}${M.ulabel}${MTNOTE[state.metric]||""}`,font:{size:10,color:T.mt}});
   }
   return a;
 }
@@ -274,7 +275,8 @@ def build_explorer(script_dir, records, cfg):
             .replace("__LANES__", json.dumps(cfg["lanes"]))
             .replace("__SEQS__", json.dumps(cfg["seqs"]))
             .replace("__MFURANGE__", json.dumps(cfg["mfu_range"]))
-            .replace("__TPSRANGE__", json.dumps(cfg["tps_range"])))
+            .replace("__TPSRANGE__", json.dumps(cfg["tps_range"]))
+            .replace("__MTNOTE__", json.dumps(cfg.get("mtnote", {}))))
     json.dump(records, open(os.path.join(script_dir, "mfu_data.json"), "w"), indent=0)
     open(os.path.join(script_dir, "mfu-explorer.html"), "w").write(html)
 

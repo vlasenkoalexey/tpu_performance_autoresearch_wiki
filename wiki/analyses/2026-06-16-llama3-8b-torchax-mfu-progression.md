@@ -8,7 +8,7 @@ tags: [llama3-8b, torchax, mfu, tps, data]
 
 # Llama3-8B torchax — per-experiment MFU/TPS data
 
-Best-effort per-experiment extraction for the **torchax** lane, in experiment order. MFU as reported (MaxText formula); the lane and MaxText use the same FLOP accounting. Frontiers (8k) clamped to the verified best. MaxText reference: 44.6% MFU / 7,069 tok/s/chip @ seq8192 (no MaxText reference for 1k/2k/4k). `—` = not recoverable (crash / no metric / unparsed). Regenerate: `python wiki/analyses/llama3/build_explorer.py`.
+Best-effort per-experiment extraction for the **torchax** lane, in experiment order. MFU as reported (MaxText formula); the lane and MaxText use the same FLOP accounting. Frontiers (8k) clamped to the verified best. MaxText reference: **39.6% MFU (causal-adjusted; the tpu-recipes-v0.1.4 figure 44.6% is non-causal — current MaxText applies the causal ÷2)** / 7,069 tok/s/chip @ seq8192 (no ref for 1k/2k/4k). `—` = not recoverable (crash / no metric / unparsed). Regenerate: `python wiki/analyses/llama3/build_explorer.py`.
 
 **Frontier:** 1k = 35.7% MFU / 5,450 tok/s/chip · 2k = 35.2% MFU / — tok/s/chip · 4k = 33.1% MFU / — tok/s/chip · 8k = 36.8% MFU / 6,559 tok/s/chip.
 

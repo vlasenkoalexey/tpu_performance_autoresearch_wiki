@@ -21,8 +21,9 @@ import explorer_lib as lib
 LANES = ["jax", "torchax"]
 LANE_NAME = {"jax": "JAX (Flax NNX)", "torchax": "torchax"}
 COLORS = {"jax": "#1f77b4", "torchax": "#ff7f0e"}
-# MaxText llama3-8b reference exists only at seq8192 (44.6% MFU / 7,069 tok/s/chip).
-MAXTEXT = {"mfu": {"8192": 44.6}, "tps": {"8192": 7069}}
+# MaxText llama3-8b reference exists only at seq8192. MFU is causal-adjusted to 39.6%
+# (the tpu-recipes-v0.1.4 figure 44.6% is non-causal; current MaxText applies the causal ÷2).
+MAXTEXT = {"mfu": {"8192": 39.6}, "tps": {"8192": 7069}}
 VERIFIED = {"jax": {8192: 43.6}, "torchax": {8192: 36.8}}   # clamp 8k only (others trust extraction)
 MT_CONSTS = {44.6, 44.5, 49.0}      # MaxText ref + its alt-accounting figure
 MT_TPS = {7069}
@@ -100,10 +101,12 @@ def extract():
 
 CFG = {
     "title": "Llama3-8B v6e-8",
-    "subnote": ("Pick MFU or TPS · MFU as reported (MaxText formula) · line = running-best frontier · "
-                "○ 8k / △ 2k / ◇ 4k / □ 1k · dashed = MaxText (8k only) · dotted = MaxText onset · "
+    "subnote": ("Pick MFU or TPS · lane MFU is causal (÷2 attention) · line = running-best frontier · "
+                "○ 8k / △ 2k / ◇ 4k / □ 1k · dashed = MaxText 8k (MFU causal-adjusted to 39.6%; the "
+                "tpu-recipes-v0.1.4 figure 44.6% is non-causal) · dotted = MaxText onset · "
                 "click a point to open its experiment page · drag to zoom"),
     "lanes": LANES, "lane_name": LANE_NAME, "colors": COLORS, "maxtext": MAXTEXT,
+    "mtnote": {"mfu": " (causal-adj.)", "tps": ""},
     "seqs": [{"key": "1024", "label": "1k", "sym": "square"},
              {"key": "2048", "label": "2k", "sym": "triangle-up"},
              {"key": "4096", "label": "4k", "sym": "diamond"},
@@ -114,8 +117,9 @@ CFG = {
         "title": lambda L: f"Llama3-8B {L} — per-experiment MFU/TPS data",
         "tags": lambda L: f"llama3-8b, {L}, mfu, tps, data",
         "note": lambda L: "MFU as reported (MaxText formula); the lane and MaxText use the same FLOP accounting.",
-        "intro": ("Frontiers (8k) clamped to the verified best. MaxText reference: 44.6% MFU / "
-                  "7,069 tok/s/chip @ seq8192 (no MaxText reference for 1k/2k/4k)."),
+        "intro": ("Frontiers (8k) clamped to the verified best. MaxText reference: **39.6% MFU "
+                  "(causal-adjusted; the tpu-recipes-v0.1.4 figure 44.6% is non-causal — current "
+                  "MaxText applies the causal ÷2)** / 7,069 tok/s/chip @ seq8192 (no ref for 1k/2k/4k)."),
         "regen": "python wiki/analyses/llama3/build_explorer.py",
         "seealso": lambda L: ["- [Interactive explorer](llama3/mfu-explorer.html)",
                               "- [Llama3-8B program](../experiments/llama3_8B_autoresearch_optimization/README.md)"],

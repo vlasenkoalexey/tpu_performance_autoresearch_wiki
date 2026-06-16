@@ -3,7 +3,7 @@ title: "Llama 3 8B — TPU Autoresearch Optimization"
 type: experiment-program
 tags: [program, model-under-optimization, llama, torchax, jax, active]
 created: 2026-04-25
-updated: 2026-04-27
+updated: 2026-06-16
 status: active
 hardware: "TPU v6e (primary)"
 framework: "torchax (PyTorch-on-JAX); optional native-JAX port"
@@ -24,18 +24,33 @@ Individual experiments for this program live as dated files in **this folder**: 
 
 ### Cross-stack comparison (Llama 3 / 3.1 8B, v6e-8, bs configured per stack, seq=8192)
 
-| Stack | Best config | tok/s/chip | MFU | vs MaxText | Reference experiment |
-|-------|-------------|-----------:|----:|-----------:|----------------------|
-| 🏆 **JAX (Flax NNX)** | bs=4, full MaxText XLA stack + SC offload of AR/RS/AG + tokamax-splash w/ base2/fuse_recip/mlc=30 + tokamax CE chunked_xla + scan/`nothing_saveable` | **~7,700** (peak 7,768) | **~43.3 %** (peak 43.6 %) | **+8.9 %** (peak +9.9 %) | [JAX exp 27/28b](jax/experiments/2026-04-26-jax-exp27-28-sparsecore-rs-ag-offload-frontier.md) |
-| MaxText reference | bs=3, `tpu-recipes-v0.1.4` recipe `llama3_1_8b_8192_no_collective_matmul` (host-offload of activations + custom remat + AR-only SC offload) | 7,069 | 44.6 % | — (anchor) | [MaxText baseline](maxtext/experiments/2026-04-25-maxtext-llama3-1-8b-v6e8-baseline.md) |
-| torchax (PyTorch-on-JAX) | bs=3, scan + tokamax CE chunked_xla + tokamax-splash w/ base2/fuse_recip/mlc=30 + AMP fp32-master | 6,559 | 36.8 % | -7.2 % | [torchax exp 72a/74b](torchax/experiments/2026-04-26-exp72a-tokamax-splash-bs3-seq8k-accepted.md) |
-| torchax (morning baseline) | bs=2 seq=1024, no scan/tokamax, plain AMP | 4,591 | 22.9 % (at seq=1024) | — | [torchax baseline](torchax/experiments/2026-04-25-baseline.md) |
+| Stack | Best config | tok/s/chip | MFU (reported) | MFU (causal-norm.) | vs MaxText (TPS) | Reference experiment |
+|-------|-------------|-----------:|----:|----:|-----------:|----------------------|
+| 🏆 **JAX (Flax NNX)** | bs=4, full MaxText XLA stack + SC offload of AR/RS/AG + tokamax-splash w/ base2/fuse_recip/mlc=30 + tokamax CE chunked_xla + scan/`nothing_saveable` | **~7,700** (peak 7,768) | **~43.3 %** (peak 43.6 %) | **~43.3 %** (peak 43.6 %) | **+8.9 %** (peak +9.9 %) | [JAX exp 27/28b](jax/experiments/2026-04-26-jax-exp27-28-sparsecore-rs-ag-offload-frontier.md) |
+| MaxText reference | bs=3, `tpu-recipes-v0.1.4` recipe `llama3_1_8b_8192_no_collective_matmul` (host-offload of activations + custom remat + AR-only SC offload) | 7,069 | 44.6 % (pre-`/2`, non-causal) | **39.6 %** | — (anchor) | [MaxText baseline](maxtext/experiments/2026-04-25-maxtext-llama3-1-8b-v6e8-baseline.md) |
+| torchax (PyTorch-on-JAX) | bs=3, scan + tokamax CE chunked_xla + tokamax-splash w/ base2/fuse_recip/mlc=30 + AMP fp32-master | 6,559 | 36.8 % | 36.8 % | -7.2 % | [torchax exp 72a/74b](torchax/experiments/2026-04-26-exp72a-tokamax-splash-bs3-seq8k-accepted.md) |
+| torchax (morning baseline) | bs=2 seq=1024, no scan/tokamax, plain AMP | 4,591 | 22.9 % (at seq=1024) | 22.9 % (seq=1024) | — | [torchax baseline](torchax/experiments/2026-04-25-baseline.md) |
+
+*The **MFU (causal-norm.)** column normalizes all stacks to the same FLOP accounting (causal attention, ÷2) — see [MaxText MFU is reported on a stale non-causal basis](#maxtext-mfu-is-reported-on-a-stale-non-causal-basis) below. JAX and torchax already count causally; only MaxText's reference number changes (44.6 % → 39.6 %). On this consistent basis the JAX frontier beats MaxText on **both** MFU and throughput.*
 
 **JAX vs torchax (same hardware, same model, both at their best)**: **+17.4 % per-chip** — the native-JAX port closes its 17 % gap to MaxText and then beats it; torchax has a residual ~7 % gap to MaxText that's not closeable by knob-tuning under the current scaffold (further wins would require torchax dispatch-overhead reduction at the framework level or kernel-level changes already in the JAX path).
 
-**JAX vs MaxText** (the +8.9 % / +9.9 % win): **the bf16-MXU path is faster than MaxText on v6e-8 at 8 K context**. The FLOP-counter normalization difference accounts for the 1.0 pp reported MFU gap (MaxText counts more FLOPs/token in their formula) — under MaxText's accounting we measure 49.0 % MFU on the same throughput, **+4.4 pp above MaxText's reported 44.6 %**. Profile breakdown of the JAX frontier: matmul 60.1 %, splash 25.5 %, loop fusion 9.2 %, async-collective 1.7 %, **TC idle 0.014 % (saturated)**.
+**JAX vs MaxText** (the +8.9 % / +9.9 % win): **the bf16-MXU path is faster than MaxText on v6e-8 at 8 K context**. The 1.0 pp "reported MFU gap" is a FLOP-accounting artifact — **the recipe's MaxText reference counts attention non-causally, while our stacks (and current MaxText code) apply the causal ÷2** (see [MaxText MFU is reported on a stale non-causal basis](#maxtext-mfu-is-reported-on-a-stale-non-causal-basis) below). On MaxText's non-causal accounting we measure **49.0 % MFU** on the same throughput (**+4.4 pp above their 44.6 %**); on the causal basis both shift down and the JAX frontier's **43.6 % beats MaxText's 39.6 %** — either way the MFU win equals the throughput win. Profile breakdown of the JAX frontier: matmul 60.1 %, splash 25.5 %, loop fusion 9.2 %, async-collective 1.7 %, **TC idle 0.014 % (saturated)**.
 
 **Cumulative session climb**: torchax morning baseline 4,591 tok/s/chip → JAX exp 28b 7,768 tok/s/chip = **+69.2 % per-chip throughput** in two days.
+
+### MaxText MFU is reported on a stale (non-causal) basis
+
+The MaxText `44.6 %` reference is **not** on the same FLOP basis as the JAX/torchax MFU — which is what makes the "−1 pp MFU but +9.9 % throughput" look paradoxical. Checking the code resolves it:
+
+- **Our stacks count attention causally (`÷2`).** Only the lower triangle of the attention score matrix executes under a causal mask, so `jax/train.py:543` computes `4·B·L²·Hq·hd / 2`. This is the physically-accurate FLOP count.
+- **The MaxText reference we ran does not.** The `2026-04-25` baseline ran `tpu-recipes-v0.1.4`, which prints `409.4 TFLOP/s/device` — **non-causal** (full attention): `409.4e12 ÷ 7,069.7 tok/s = 5.79e10 FLOPs/token`, exactly the no-`/2` count → 44.6 %.
+- **Current MaxText code *does* apply the causal `/2`.** `src/maxtext/utils/maxtext_utils.py:905`: `causal_attention_flops = noncausal_attention_flops / 2`, reached for llama3.1-8b via `decoder_block: "llama2"` → the generic dense branch (line 969). This `/2` was a **recent** fix (commit `6288c233`, 2026-04-11); `tpu-recipes-v0.1.4` pins a *pre-fix* MaxText, so the published recipe ceiling is still non-causal.
+- **On the causal basis MaxText llama3-8b ≈ 39.6 % MFU**, not 44.6 % (409.4 → 363.9 TFLOP/s = ×0.889; 363.9 ÷ 918). For that same baseline run, *current* MaxText would print ≈ 39.6 %.
+
+So on a consistent (causal) basis — the convention both our stacks **and** current MaxText use — the JAX frontier (**43.6 %**) beats MaxText (**39.6 %**) by ≈ **+9.9 %**, exactly matching the throughput margin. The only way 43.6 % looks "below MaxText" is comparing our causal number against the recipe's stale non-causal 44.6 %. **Throughput (+8.9 % / +9.9 %) is convention-free and is the comparison to trust.**
+
+> [!note] Follow-up: re-measure the MaxText llama3-8b reference on the current causal-`/2` build (or recompute 409.4 → 363.9 TFLOP/s) to replace the stale 44.6 % anchor with ≈ 39.6 %. Until then the maxtext-baseline page's 44.6 % is non-causal and not comparable to the JAX/torchax MFU.
 
 ### Open + refuted hypotheses (post-frontier)
 
