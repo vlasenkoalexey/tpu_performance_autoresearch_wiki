@@ -75,3 +75,4 @@
 - Result: MFU regressed to 30.6%. `jax.custom_vjp` usage with standard `jnp.dot` in the backward pass forced materialization of massive intermediate tensors to HBM, negating bandwidth savings. XLA redundantly computed forward matmuls three times. Refuted.
 
 2026-06-27-qwen3-jax-v016-fused-glu-bwd.md | Falsified | 11.9% MFU | Backward kernel exceeded VMEM limit and silently fell back to unrolled JAX reference ops.
+2026-06-27-qwen3-jax-v017-fused-glu-tiled-bwd.md | Falsified | 0.0% MFU | Compile OOM (166GB). Pallas grid reduction materialized massive HBM buffers.
