@@ -1,5 +1,18 @@
 # Log
 
+## [2026-06-27] analyze | qwen3-jax retrospective
+
+**Op**: analyze (retrospective).
+**Pages created**: [wiki/analyses/2026-06-27-qwen3-jax-retrospective-2.md](analyses/2026-06-27-qwen3-jax-retrospective-2.md)
+**Pages updated**: `wiki/index.md` (Analyses count + 1)
+**Key result**: Exhaustion signal broken on jax lane (frontier pushed to 32.5% MFU from v004 via v009 scan-over-layers). Identifies FSDP collective optimization (async overlap) and Pallas kernels as the primary unblocked directions.
+
+## [2026-06-27] loop-iteration | v009-scan-over-layers on 8B/v6e-8: confirmed (32.5% MFU)
+
+**Op**: end
+**Status**: confirmed (compiled fast; achieved ~45.3k tok/s and 32.5% MFU at 8192 seqlen with `nnx.scan` over layers and `jax.checkpoint`).
+**Next hypothesis**: None right now; retrospective updated.
+
 ## [2026-06-02] run-experiment | Qwen3-8B jax (Flax NNX) v6e-8 BASELINE + cross-lane win
 
 **Op**: run-experiment (GKE/XPK via gke-cluster-runner agent).
@@ -889,3 +902,29 @@ Loss values are around 11.9 (synthetic random data), bf16 precision floor ≈ 0.
 **Pages updated**: —
 **Key result**: —
 **Notes**: Bootstrapped autoresearch-oriented schema from scratch. Independent of sibling `tpu_wiki` by design. Loop: sources + codebases + profiles → concepts + models → ranked hypotheses → experiments → observations → revised priors. Next: ingest first codebase and/or file the first model page.
+
+## [2026-06-27] start-experiment | Qwen3-8B JAX Ring Attention (v012)
+
+**Op**: start-experiment
+**Pages updated**: wiki/experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-27-qwen3-jax-v012-ring-attention.md
+**Key result**: Successfully trained seqlen=8192 with Ring Attention / Splash Attention, 2D FSDP, and batch size 8 across 4 chips.
+**Notes**:
+- **Implementation fixes**:
+  - Enabled 2D FSDP () in  to prevent HBM OOM by dropping local optimizer state size from 41GB to 20.5GB.
+  - Fixed a cross-entropy bug in  where  on the logits broke the 2D tensor sharding and triggered a massive 9GB all-gather across the  dimension.
+  - Reduced default  Pallas block sizes (, , ) from 2048 to 1024. This prevented a VMEM (SRAM) OOM () during the backward pass compilation.
+- **Performance outcome**: The model achieved an MFU of **22.8%** with an average throughput of 31797 tok/s (3975 tok/s/chip) at .
+- **Next step**: The 22.8% MFU is lower than the previous single-chip baseline. This regression needs to be profiled to understand the communication overhead of  and tile size efficiency.
+
+## [2026-06-27] start-experiment | Qwen3-8B JAX Ring Attention (v012)
+
+**Op**: start-experiment
+**Pages updated**: wiki/experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-27-qwen3-jax-v012-ring-attention.md
+**Key result**: Successfully trained seqlen=8192 with Ring Attention / Splash Attention, 2D FSDP, and batch size 8 across 4 chips.
+**Notes**:
+- **Implementation fixes**:
+  - Enabled 2D FSDP `("fsdp", "sp")` in `sharding.py` to prevent HBM OOM by dropping local optimizer state size from 41GB to 20.5GB.
+  - Fixed a cross-entropy bug in `train.py` where `.reshape(-1, v)` on the logits broke the 2D tensor sharding and triggered a massive 9GB all-gather across the `sp` dimension.
+  - Reduced default `splash_attn.py` Pallas block sizes (`SPLASH_BQ_DKV`, `SPLASH_BKV_DKV`, `SPLASH_BKV_DKV_COMPUTE`) from 2048 to 1024. This prevented a VMEM (SRAM) OOM (`34.96M > 32.00M`) during the backward pass compilation.
+- **Performance outcome**: The model achieved an MFU of **22.8%** with an average throughput of 31797 tok/s (3975 tok/s/chip) at `seqlen=8192`.
+- **Next step**: The 22.8% MFU is lower than the previous single-chip baseline. This regression needs to be profiled to understand the communication overhead of `sp=2` and tile size efficiency.

@@ -53,17 +53,17 @@ def _iter_params(module: nnx.Module, prefix: str = "") -> Iterable[tuple[str, nn
 # Tuple = PartitionSpec across canonical mesh axes (fsdp, tp). () = replicated.
 SHARDING_PLAN: Dict[str, Tuple] = {
     "model.embed_tokens.weight": ("fsdp", "tp"),               # (V, D)
-    "model.scanned_layers.layers.*.self_attn.q_proj.weight": (None, "tp", "fsdp"),  # (layers, Hq*hd, D)
-    "model.scanned_layers.layers.*.self_attn.k_proj.weight": (None, "tp", "fsdp"),  # (layers, Hkv*hd, D)
-    "model.scanned_layers.layers.*.self_attn.v_proj.weight": (None, "tp", "fsdp"),  # (layers, Hkv*hd, D)
-    "model.scanned_layers.layers.*.self_attn.o_proj.weight": (None, "fsdp", "tp"),  # (layers, D, Hq*hd)
-    "model.scanned_layers.layers.*.self_attn.q_norm.weight": (None,),               # (layers, head_dim,)
-    "model.scanned_layers.layers.*.self_attn.k_norm.weight": (None,),
-    "model.scanned_layers.layers.*.mlp.gate_proj.weight": (None, "tp", "fsdp"),     # (layers, ffn, D)
-    "model.scanned_layers.layers.*.mlp.up_proj.weight":   (None, "tp", "fsdp"),
-    "model.scanned_layers.layers.*.mlp.down_proj.weight": (None, "fsdp", "tp"),     # (layers, D, ffn)
-    "model.scanned_layers.layers.*.input_layernorm.weight":          (None, "fsdp"),
-    "model.scanned_layers.layers.*.post_attention_layernorm.weight": (None, "fsdp"),
+    "model.scanned_layers.layers.self_attn.q_proj.weight": (None, "tp", "fsdp"),  # (layers, Hq*hd, D)
+    "model.scanned_layers.layers.self_attn.k_proj.weight": (None, "tp", "fsdp"),  # (layers, Hkv*hd, D)
+    "model.scanned_layers.layers.self_attn.v_proj.weight": (None, "tp", "fsdp"),  # (layers, Hkv*hd, D)
+    "model.scanned_layers.layers.self_attn.o_proj.weight": (None, "fsdp", "tp"),  # (layers, D, Hq*hd)
+    "model.scanned_layers.layers.self_attn.q_norm.weight": (None,),               # (layers, head_dim,)
+    "model.scanned_layers.layers.self_attn.k_norm.weight": (None,),
+    "model.scanned_layers.layers.mlp.gate_proj.weight": (None, "tp", "fsdp"),     # (layers, ffn, D)
+    "model.scanned_layers.layers.mlp.up_proj.weight":   (None, "tp", "fsdp"),
+    "model.scanned_layers.layers.mlp.down_proj.weight": (None, "fsdp", "tp"),     # (layers, D, ffn)
+    "model.scanned_layers.layers.input_layernorm.weight":          (None, "fsdp"),
+    "model.scanned_layers.layers.post_attention_layernorm.weight": (None, "fsdp"),
     "model.norm.weight": ("fsdp",),
     "lm_head.weight": ("tp", "fsdp"),                          # (V, D)
 }

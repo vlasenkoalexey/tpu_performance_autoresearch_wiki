@@ -1,186 +1,200 @@
-XPK Start: Sat Jun 27 00:50:26 UTC 2026
-[dist] global_devices=8 local_devices=4 hosts=2
-[mesh] fsdp=8 tp=1 mesh=Mesh('fsdp': 8, 'tp': 1, axis_types=(Auto, Auto))
-[load] config from Qwen/Qwen3-8B ...
-/app/trainer/train.py:86: DeprecationWarning: '.value' access is now deprecated. For Variable[Array] instances use:
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/app/trainer/train.py", line 235, in <module>
+    fire.Fire(main)
+  File "/opt/venv/lib/python3.12/site-packages/fire/core.py", line 135, in Fire
+    component_trace = _Fire(component, args, parsed_flag_args, context, name)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/fire/core.py", line 468, in _Fire
+    component, remaining_args = _CallAndUpdateTrace(
+                                ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/fire/core.py", line 684, in _CallAndUpdateTrace
+    component = fn(*varargs, **kwargs)
+                ^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/trainer/train.py", line 185, in main
+    loss, params, opt_state = jitted_step(params, opt_state, input_ids, labels)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+jax.errors.JaxRuntimeError: RESOURCE_EXHAUSTED: XLA:TPU compile permanent error. Ran out of memory in memory space hbm. Used 34.90G of 31.25G hbm. Exceeded hbm capacity by 3.66G.
 
-  variable[...]
+Total hbm usage >= 35.16G:
+    reserved        260.00M 
+    program          29.18G 
+    arguments         5.72G 
 
-For other Variable types use:
+Output size 5.72G; shares 5.72G with arguments.
 
-  variable.get_value()
+Program hbm requirement 29.18G:
+    global           11.94M
+    scoped            5.39M
+    HLO temp         29.16G (100.0% utilization: Unpadded (27.82G) Padded (27.82G), 4.6% fragmentation (1.35G))
 
-  n_params = sum(int(p.value.size) for _, p in _iter_params(model))
-[load] Qwen3 has 8.19 B parameters (NNX-side), random init
-[sharding] matched=399 replicated=0
-[opt] adamw lr=1e-05 wd=0.0
-[data] fake (random ints) global_batch=8 seqlen=8192
-[train] starting train_steps=20 per_chip_batch=1 global_batch=8
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[step  0/20] loss=12.0959 step_time=315439.5ms throughput=208 tok/s
-[step  1/20] loss=12.0990 step_time=13727.7ms throughput=4774 tok/s
-[step  2/20] loss=12.0944 step_time=1511.7ms throughput=43354 tok/s
-[step  3/20] loss=12.0948 step_time=1511.1ms throughput=43369 tok/s
-[step  4/20] loss=12.0918 step_time=1510.7ms throughput=43382 tok/s
-[step  5/20] loss=12.0852 step_time=1511.5ms throughput=43357 tok/s
-[step  6/20] loss=12.0880 step_time=1510.8ms throughput=43379 tok/s
-[step  7/20] loss=12.0862 step_time=1511.7ms throughput=43353 tok/s
-[step  8/20] loss=12.0835 step_time=1511.4ms throughput=43361 tok/s
-[step  9/20] loss=12.0854 step_time=1511.1ms throughput=43371 tok/s
-[profile] start_trace -> gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_ag/2026-06-26-qwen3-jax-v004-gradient-checkpointing/plugins/profile (GCS (direct)); capturing steps 10..12
-[step 10/20] loss=12.0775 step_time=1513.0ms throughput=43316 tok/s
-[step 11/20] loss=12.0795 step_time=1512.8ms throughput=43321 tok/s
-[profile] stop_trace (captured steps 10..12)
-[step 12/20] loss=12.0744 step_time=1513.1ms throughput=43313 tok/s
-[step 13/20] loss=12.0765 step_time=1512.1ms throughput=43342 tok/s
-[step 14/20] loss=12.0737 step_time=1511.9ms throughput=43346 tok/s
-[step 15/20] loss=12.0768 step_time=1511.3ms throughput=43365 tok/s
-[step 16/20] loss=12.0743 step_time=1511.5ms throughput=43360 tok/s
-[step 17/20] loss=12.0754 step_time=1511.8ms throughput=43349 tok/s
-[step 18/20] loss=12.0726 step_time=1511.5ms throughput=43359 tok/s
-[step 19/20] loss=12.0681 step_time=1511.1ms throughput=43370 tok/s
+  Largest program allocations in hbm:
 
----------------- profile ----------------
-profile dir   : gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_ag/2026-06-26-qwen3-jax-v004-gradient-checkpointing/plugins/profile
-xprof run     : profile
-xprof URL     : http://localhost:8791/?run=profile
-(visible in xprof-mcp once the run dir is under the server --logdir root)
------------------------------------------
+  1. Size: 9.27G
+     Operator: op_name="jit(train_step)/forward_backward/jvp()/dot_general" stack_frame_id=168
+     Shape: f32[2,8192,151936]{2,1,0:T(8,128)}
+     Unpadded size: 9.27G
+     XLA label: fusion.13660 = fusion(fusion.11379, async-collective-done.71), kind=kOutput, calls=fused_computation.18603, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+     Allocation type: HLO temp
+     ==========================
 
-================ summary ================
-global_batch          : 8
-seqlen                : 8192
-steps measured        : 18
-avg throughput        : 43354 tok/s (5419/chip)
-approx MFU            : 31.1% (v6e bf16 peak)
-==========================================
-XPK End: Sat Jun 27 00:57:51 UTC 2026
-EXIT_CODE=0
-XPK Start: Sat Jun 27 00:50:27 UTC 2026
-[dist] global_devices=8 local_devices=4 hosts=2
-[mesh] fsdp=8 tp=1 mesh=Mesh('fsdp': 8, 'tp': 1, axis_types=(Auto, Auto))
-[load] config from Qwen/Qwen3-8B ...
-/app/trainer/train.py:86: DeprecationWarning: '.value' access is now deprecated. For Variable[Array] instances use:
+  2. Size: 9.27G
+     Operator: op_name="jit(train_step)/forward_backward/jvp(jit(log_softmax))/sub" stack_frame_id=170
+     Shape: f32[16384,151936]{1,0:T(8,128)}
+     Unpadded size: 9.27G
+     XLA label: subtract_subtract_fusion = fusion(bitcast.1409, bitcast.32578, bitcast.32577), kind=kLoop, calls=fused_computation.12347, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+     Allocation type: HLO temp
+     ==========================
 
-  variable[...]
+  3. Size: 4.64G
+     Operator: op_name="jit(train_step)/forward_backward/jvp()/dot_general" stack_frame_id=168
+     Shape: bf16[2,8192,151936]{2,1,0:T(8,128)(2,1)}
+     Unpadded size: 4.64G
+     XLA label: fusion.13660 = fusion(fusion.11379, async-collective-done.71), kind=kOutput, calls=fused_computation.18603, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+     Allocation type: HLO temp
+     ==========================
 
-For other Variable types use:
+  4. Size: 128.00M
+     Operator: op_name="jit(train_step)/forward_backward/jvp()/reduce_sum" stack_frame_id=32
+     Shape: bf16[2,8192,4096]{2,1,0:T(8,128)(2,1)}
+     Unpadded size: 128.00M
+     XLA label: fusion.11482 = fusion(get-tuple-element.26106, copy.5724), kind=kLoop, calls=fused_computation.13584, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["1","3"]}]}}
+     Allocation type: HLO temp
+     ==========================
 
-  variable.get_value()
+  5. Size: 128.00M
+     Operator: op_name="jit(train_step)/forward_backward/jvp()/reduce_sum" stack_frame_id=162
+     Shape: bf16[2,8192,4096]{2,1,0:T(8,128)(2,1)}
+     Unpadded size: 128.00M
+     XLA label: fusion.11778 = fusion(get-tuple-element.26030, copy.5876), kind=kLoop, calls=fused_computation.13880, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["1","3"]}]}}
+     Allocation type: HLO temp
+     ==========================
 
-  n_params = sum(int(p.value.size) for _, p in _iter_params(model))
-[load] Qwen3 has 8.19 B parameters (NNX-side), random init
-[sharding] matched=399 replicated=0
-[opt] adamw lr=1e-05 wd=0.0
-[data] fake (random ints) global_batch=8 seqlen=8192
-[train] starting train_steps=20 per_chip_batch=1 global_batch=8
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
-[step  0/20] loss=12.0959 step_time=315439.3ms throughput=208 tok/s
-[step  1/20] loss=12.0990 step_time=13727.7ms throughput=4774 tok/s
-[step  2/20] loss=12.0944 step_time=1511.6ms throughput=43355 tok/s
-[step  3/20] loss=12.0948 step_time=1511.1ms throughput=43371 tok/s
-[step  4/20] loss=12.0918 step_time=1510.7ms throughput=43381 tok/s
-[step  5/20] loss=12.0852 step_time=1511.5ms throughput=43358 tok/s
-[step  6/20] loss=12.0880 step_time=1510.7ms throughput=43381 tok/s
-[step  7/20] loss=12.0862 step_time=1511.6ms throughput=43354 tok/s
-[step  8/20] loss=12.0835 step_time=1511.5ms throughput=43358 tok/s
-[step  9/20] loss=12.0854 step_time=1511.1ms throughput=43369 tok/s
-[profile] start_trace -> gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_ag/2026-06-26-qwen3-jax-v004-gradient-checkpointing/plugins/profile (GCS (direct)); capturing steps 10..12
-[step 10/20] loss=12.0775 step_time=1547.4ms throughput=42352 tok/s
-[step 11/20] loss=12.0795 step_time=1512.7ms throughput=43323 tok/s
-[profile] stop_trace (captured steps 10..12)
-[step 12/20] loss=12.0744 step_time=1512.9ms throughput=43317 tok/s
-[step 13/20] loss=12.0765 step_time=1512.0ms throughput=43344 tok/s
-[step 14/20] loss=12.0737 step_time=1511.9ms throughput=43347 tok/s
-[step 15/20] loss=12.0768 step_time=1511.4ms throughput=43362 tok/s
-[step 16/20] loss=12.0743 step_time=1511.5ms throughput=43358 tok/s
-[step 17/20] loss=12.0754 step_time=1511.9ms throughput=43348 tok/s
-[step 18/20] loss=12.0726 step_time=1511.6ms throughput=43357 tok/s
-[step 19/20] loss=12.0681 step_time=1511.0ms throughput=43372 tok/s
+  6. Size: 128.00M
+     Operator: op_name="jit(train_step)/forward_backward/jvp()/reduce_sum" stack_frame_id=32
+     Shape: bf16[2,8192,4096]{2,1,0:T(8,128)(2,1)}
+     Unpadded size: 128.00M
+     XLA label: fusion.11392 = fusion(get-tuple-element.26166, copy.5604), kind=kLoop, calls=fused_computation.13494, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["1","3"]}]}}
+     Allocation type: HLO temp
+     ==========================
 
----------------- profile ----------------
-profile dir   : gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_ag/2026-06-26-qwen3-jax-v004-gradient-checkpointing/plugins/profile
-xprof run     : profile
-xprof URL     : http://localhost:8791/?run=profile
-(visible in xprof-mcp once the run dir is under the server --logdir root)
------------------------------------------
+  7. Size: 128.00M
+     Operator: op_name="jit(train_step)/forward_backward/jvp()/reduce_sum" stack_frame_id=32
+     Shape: bf16[2,8192,4096]{2,1,0:T(8,128)(2,1)}
+     Unpadded size: 128.00M
+     XLA label: fusion.11398 = fusion(get-tuple-element.26162, copy.5612), kind=kLoop, calls=fused_computation.13500, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["1","3"]}]}}
+     Allocation type: HLO temp
+     ==========================
 
-================ summary ================
-global_batch          : 8
-seqlen                : 8192
-steps measured        : 18
-avg throughput        : 43299 tok/s (5412/chip)
-approx MFU            : 31.0% (v6e bf16 peak)
-==========================================
-XPK End: Sat Jun 27 00:57:52 UTC 2026
-EXIT_CODE=0
+  8. Size: 128.00M
+     Operator: op_name="jit(train_step)/forward_backward/jvp()/reduce_sum" stack_frame_id=32
+     Shape: bf16[2,8192,4096]{2,1,0:T(8,128)(2,1)}
+     Unpadded size: 128.00M
+     XLA label: fusion.11404 = fusion(get-tuple-element.26158, copy.5620), kind=kLoop, calls=fused_computation.13506, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["1","3"]}]}}
+     Allocation type: HLO temp
+     ==========================
+
+  9. Size: 128.00M
+     Operator: op_name="jit(train_step)/forward_backward/jvp()/reduce_sum" stack_frame_id=32
+     Shape: bf16[2,8192,4096]{2,1,0:T(8,128)(2,1)}
+     Unpadded size: 128.00M
+     XLA label: fusion.11410 = fusion(get-tuple-element.26154, copy.5628), kind=kLoop, calls=fused_computation.13512, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["1","3"]}]}}
+     Allocation type: HLO temp
+     ==========================
+
+  10. Size: 128.00M
+     Operator: op_name="jit(train_step)/forward_backward/jvp()/reduce_sum" stack_frame_id=32
+     Shape: bf16[2,8192,4096]{2,1,0:T(8,128)(2,1)}
+     Unpadded size: 128.00M
+     XLA label: fusion.11416 = fusion(get-tuple-element.26150, copy.5636), kind=kLoop, calls=fused_computation.13518, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["1","3"]}]}}
+     Allocation type: HLO temp
+     ==========================
+
+  11. Size: 128.00M
+     Operator: op_name="jit(train_step)/forward_backward/jvp()/reduce_sum" stack_frame_id=32
+     Shape: bf16[2,8192,4096]{2,1,0:T(8,128)(2,1)}
+     Unpadded size: 128.00M
+     XLA label: fusion.11422 = fusion(get-tuple-element.26146, copy.5644), kind=kLoop, calls=fused_computation.13524, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["1","3"]}]}}
+     Allocation type: HLO temp
+     ==========================
+
+  12. Size: 128.00M
+     Operator: op_name="jit(train_step)/forward_backward/jvp()/reduce_sum" stack_frame_id=32
+     Shape: bf16[2,8192,4096]{2,1,0:T(8,128)(2,1)}
+     Unpadded size: 128.00M
+     XLA label: fusion.11428 = fusion(get-tuple-element.26142, copy.5652), kind=kLoop, calls=fused_computation.13530, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["1","3"]}]}}
+     Allocation type: HLO temp
+     ==========================
+
+  13. Size: 128.00M
+     Operator: op_name="jit(train_step)/forward_backward/jvp()/reduce_sum" stack_frame_id=32
+     Shape: bf16[2,8192,4096]{2,1,0:T(8,128)(2,1)}
+     Unpadded size: 128.00M
+     XLA label: fusion.11434 = fusion(get-tuple-element.26138, copy.5660), kind=kLoop, calls=fused_computation.13536, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["1","3"]}]}}
+     Allocation type: HLO temp
+     ==========================
+
+  14. Size: 128.00M
+     Operator: op_name="jit(train_step)/forward_backward/jvp()/reduce_sum" stack_frame_id=32
+     Shape: bf16[2,8192,4096]{2,1,0:T(8,128)(2,1)}
+     Unpadded size: 128.00M
+     XLA label: fusion.11440 = fusion(get-tuple-element.26134, copy.5668), kind=kLoop, calls=fused_computation.13542, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["1","3"]}]}}
+     Allocation type: HLO temp
+     ==========================
+
+  15. Size: 128.00M
+     Operator: op_name="jit(train_step)/forward_backward/jvp()/reduce_sum" stack_frame_id=32
+     Shape: bf16[2,8192,4096]{2,1,0:T(8,128)(2,1)}
+     Unpadded size: 128.00M
+     XLA label: fusion.11446 = fusion(get-tuple-element.26130, copy.5676), kind=kLoop, calls=fused_computation.13548, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["1","3"]}]}}
+     Allocation type: HLO temp
+     ==========================
+
+  16. Size: 128.00M
+     Operator: op_name="jit(train_step)/forward_backward/jvp()/reduce_sum" stack_frame_id=32
+     Shape: bf16[2,8192,4096]{2,1,0:T(8,128)(2,1)}
+     Unpadded size: 128.00M
+     XLA label: fusion.11452 = fusion(get-tuple-element.26126, copy.5684), kind=kLoop, calls=fused_computation.13554, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["1","3"]}]}}
+     Allocation type: HLO temp
+     ==========================
+
+  17. Size: 128.00M
+     Operator: op_name="jit(train_step)/forward_backward/jvp()/reduce_sum" stack_frame_id=32
+     Shape: bf16[2,8192,4096]{2,1,0:T(8,128)(2,1)}
+     Unpadded size: 128.00M
+     XLA label: fusion.11458 = fusion(get-tuple-element.26122, copy.5692), kind=kLoop, calls=fused_computation.13560, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["1","3"]}]}}
+     Allocation type: HLO temp
+     ==========================
+
+  18. Size: 128.00M
+     Operator: op_name="jit(train_step)/forward_backward/jvp()/reduce_sum" stack_frame_id=32
+     Shape: bf16[2,8192,4096]{2,1,0:T(8,128)(2,1)}
+     Unpadded size: 128.00M
+     XLA label: fusion.11464 = fusion(get-tuple-element.26118, copy.5700), kind=kLoop, calls=fused_computation.13566, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["1","3"]}]}}
+     Allocation type: HLO temp
+     ==========================
+
+  19. Size: 128.00M
+     Operator: op_name="jit(train_step)/forward_backward/jvp()/reduce_sum" stack_frame_id=32
+     Shape: bf16[2,8192,4096]{2,1,0:T(8,128)(2,1)}
+     Unpadded size: 128.00M
+     XLA label: fusion.11470 = fusion(get-tuple-element.26114, copy.5708), kind=kLoop, calls=fused_computation.13572, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["1","3"]}]}}
+     Allocation type: HLO temp
+     ==========================
+
+  20. Size: 128.00M
+     Operator: op_name="jit(train_step)/forward_backward/jvp()/reduce_sum" stack_frame_id=32
+     Shape: bf16[2,8192,4096]{2,1,0:T(8,128)(2,1)}
+     Unpadded size: 128.00M
+     XLA label: fusion.11476 = fusion(get-tuple-element.26110, copy.5716), kind=kLoop, calls=fused_computation.13578, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["1","3"]}]}}
+     Allocation type: HLO temp
+     ==========================
+
+
+--------------------
+For simplicity, JAX has removed its internal frames from the traceback of the following exception. Set JAX_TRACEBACK_FILTERING=off to include these.
+XPK End: Sat Jun 27 01:38:58 UTC 2026
+EXIT_CODE=1

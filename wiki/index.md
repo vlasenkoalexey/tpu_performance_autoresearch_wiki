@@ -1,5 +1,5 @@
 # TPU Model Performance Auto-optimization — Index
-*Last updated: 2026-05-06 — 193 pages (27 codebases + 45 sources + 97 concepts + 2 model-programs + 4 analyses + 6 analysis subpages + jax-exp47 rejected page + 2 maxtext baseline experiments + 1 torchax llama3-8b baseline + 1 torchax llama3-8b splash kernel-only autotune + 1 jax-llama3-8b SparseCore-offload frontier)*
+*Last updated: 2026-06-27 — 194 pages (27 codebases + 45 sources + 97 concepts + 2 model-programs + 5 analyses + 6 analysis subpages + jax-exp47 rejected page + 2 maxtext baseline experiments + 1 torchax llama3-8b baseline + 1 torchax llama3-8b splash kernel-only autotune + 1 jax-llama3-8b SparseCore-offload frontier)*
 
 *Methodology: autoresearch (see [README](../README.md) + [SCHEMA](../SCHEMA.md)).*
 
@@ -309,7 +309,8 @@ These were the candidates expected to recover the 9.2 % loop-fusion line in the 
 ## Observations (0)
 *None yet.*
 
-## Analyses (6)
+## Analyses (7)
+- [2026-06-27 qwen3 / jax retrospective (v2)](analyses/2026-06-27-qwen3-jax-retrospective-2.md) — automated assessment of the 8B/v6e-8 search space mapping. Identifies single-axis probes are exhausted (frontier pushed to 32.5% MFU via v009 scan-over-layers) and recommends FSDP collective async overlap and Pallas kernels.
 - [2026-04-30 Bottleneck reverse-index — profile bucket → candidate levers](analyses/2026-04-30-bottleneck-reverse-index.md) — reverse-index page keyed by xprof bucket; for each bucket lists standing levers (concept/source links), tried-and-refuted hypotheses with verdict notes (so the agent doesn't re-propose disproved Pallas-replacements), and open hypotheses tagged for it. Bootstraps from the [llama3-8b converged-stack breakdown](observations/llama3-8b-torchax-converged-stack-bottleneck-breakdown.md). Explicitly non-exhaustive — meant as a starting shortlist for hypothesis generation, not a fence on exploration.
 - [2026-04-24 Gemma 4 E4B — JAX fp32-master + seq=8192 regime ceiling (exp 52–53)](analyses/2026-04-24-gemma4-jax-fp32master-seq8k-regime.md) — new-regime baseline (exp 52 at 26,807 TPS seq=2048 b=1 fp32-master) + seq=8192 infeasibility probe on v6e-4. Legacy bf16 also OOMs at seq=8192 (memory wall is not AMP-specific). XLA compile-time peak HBM non-monotonic in seq_len (seq=6144 = 49.66 GiB, seq=8192 = 35.18 GiB). Three-branch forward path documented.
 - [2026-04-23 Pallas kernel directory](analyses/2026-04-23-pallas-kernel-directory.md) — repo-by-repo catalog of ~200 Pallas kernels across ~30 repos, with source-code refs, stability, perf claims, use cases, and callers. Cross-cutting functional-category tables + 6 subpages ([§1 JAX+tokamax](analyses/pallas-kernel-directory/01-upstream-jax-tokamax.md), [§2 AI-Hypercomputer](analyses/pallas-kernel-directory/02-ai-hypercomputer.md), [§3 Inference engines](analyses/pallas-kernel-directory/03-inference-engines.md), [§4 Research labs](analyses/pallas-kernel-directory/04-research-labs.md), [§5 Frameworks & quant](analyses/pallas-kernel-directory/05-frameworks-quant.md), [§6 Community](analyses/pallas-kernel-directory/06-community-research.md)). Confirms Zig-Zag ring attention absent everywhere; identifies AlphaFold3 @ v3.0.1 fused GLU and apple/axlearn SSM kernels as the key novel content.
