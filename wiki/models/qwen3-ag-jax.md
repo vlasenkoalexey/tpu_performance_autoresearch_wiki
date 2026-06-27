@@ -46,7 +46,7 @@ and [torchax baseline](../experiments/qwen3_ag_autoresearch_optimization/torchax
 
 Ranked after the [2026-06-27 retrospective (v3)](../analyses/2026-06-27-qwen3-jax-retrospective-3.md):
 
-1. [Ring Attention Pallas kernel](../hypotheses/qwen3-jax-ring-attention.md) — explore sequence parallelism to unlock batch/sequence headroom without gradient checkpointing memory overhead.
+(none yet)
 
 ## Variant-specific open hypotheses
 
@@ -61,6 +61,8 @@ Ranked after the [2026-06-27 retrospective (v3)](../analyses/2026-06-27-qwen3-ja
 5. [tokamax-ce + batch scaling](../hypotheses/qwen3-jax-tokamax-batch.md) — combine `splash-attention`, `gradient-checkpointing`, and `tokamax-ce` to unlock `batch_size=2` at 8K context. Status: **Refuted** (compiles, but performance regressed to 29.7% MFU).
 6. [Async FSDP collectives](../hypotheses/qwen3-jax-fsdp-async-overlap.md) — overlap FSDP reduce-scatter and all-gather with compute via XLA flags. Status: **Refuted** (silent no-op).
 7. [Fused RMSNorm+RoPE Pallas kernel](../hypotheses/qwen3-jax-pallas-rmsnorm-rope.md) — Status: **Refuted** (Pallas autodiff crash; pure-TPU Norms are an anti-pattern as XLA optimally fuses them).
+8. [Ring Attention Pallas kernel](../hypotheses/qwen3-jax-ring-attention.md) — Status: **Confirmed** (unlocks memory for batch=8 seq=8192 via sp=2 2D FSDP, but performance regressed to 22.8% MFU due to collective overhead and suboptimal block sizes).
+9. [Fused GLU Pallas kernel](../hypotheses/qwen3-jax-pallas-fused-glu.md) — Status: **Refuted** (MFU regressed to 30.6% due to redundant forward matmuls caused by `jax.remat` and excessive HBM traffic in the custom JAX backward pass).
 
 ## Knobs translation matrix
 
