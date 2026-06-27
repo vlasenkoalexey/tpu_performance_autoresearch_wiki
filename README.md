@@ -7,6 +7,8 @@ This repository is an experiment in **autonomous TPU model performance optimizat
 
 The claim is structural, not incremental: **given a sufficiently capable LLM, the right profiling tools, and a knowledge base that includes the model's + framework's source, an autonomous agent can drive any (model, hardware) pair to state-of-the-art performance for that combination**. This isn't a replacement for performance engineers — it's a force multiplier. The primary goal is unchanged: a faster model. The engineer stays in charge of direction (picking targets, adjudicating contradictions, deciding which gains are worth keeping); the agent absorbs the legwork (reading code, generating hypotheses, running experiments, profiling, writeup).
 
+> 📝 **Blog series:** a series of articles walks through this TPU auto-optimization work in depth — motivation, methodology, and case-study results. Read them at **[vlasenkoalexey.github.io/tags/autoresearch](https://vlasenkoalexey.github.io/tags/autoresearch/)**.
+
 
 ## Case study
 
