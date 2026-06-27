@@ -1,3 +1,15 @@
+## [2026-06-27] start | /start-experiment session begin
+
+## [2026-06-27] loop-iteration | v015-ring-attn-seq16k-bs2 on 8B/v6e-8: invalid (OOM during XLA compile, HLO temp 46.60G)
+
+## [2026-06-27] loop-iteration | v014-ring-attn-seq16k on 8B/v6e-8: invalid (crashed with OOM during compile due to 40GB logits tensor)
+
+**Op**: start
+**Cluster pool**: alekseyv-tpu-v6e8-spot-xpk
+**Parallelism**: 1
+**First-pick hypothesis**: Ring attention seqlen=16384 scaling to amortize sp=2 comm overhead.
+**Notes**: session opened via /start-experiment.
+
 ## [2026-06-02] start | /start-experiment session begin
 
 **Op**: start
@@ -54,3 +66,12 @@
 **Verdict**: refuted
 **Notes**: The run failed during compilation. However, it was not an HBM OOM (as in previous runs), but rather a VMEM (Vector Memory) OOM inside the Pallas `splash_mha_dkv_no_residuals` backward kernel. Scoped allocation of 35.63M exceeded the 32.00M limit.
 
+## [2026-06-27] loop-iteration | v012-ring-attention on 8B/v6e-8: confirmed (22.8% MFU)
+- Created `v012-ring-attention.md` to test Ring Attention for sequence parallelism at 8K context.
+- Result: Compiled and trained successfully at seqlen=8192 with bs=8 after fixing 2D FSDP cross-entropy and Pallas block sizes. MFU dropped to 22.8% due to sp=2 communication overhead and tile size inefficiency. Confirmed.
+
+## [2026-06-27] loop-iteration | v013-fused-glu on 8B/v6e-8: refuted (30.6% MFU)
+- Created `v013-fused-glu.md` to test a custom Pallas kernel for Fused GLU.
+- Result: MFU regressed to 30.6%. `jax.custom_vjp` usage with standard `jnp.dot` in the backward pass forced materialization of massive intermediate tensors to HBM, negating bandwidth savings. XLA redundantly computed forward matmuls three times. Refuted.
+
+2026-06-27-qwen3-jax-v016-fused-glu-bwd.md | Falsified | 11.9% MFU | Backward kernel exceeded VMEM limit and silently fell back to unrolled JAX reference ops.
