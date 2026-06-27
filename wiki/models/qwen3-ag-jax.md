@@ -51,6 +51,15 @@ Ranked after the [2026-06-02 v036](../experiments/qwen3_ag_autoresearch_optimiza
 ## Retired hypotheses
 
 - [SparseCore collective offload](../hypotheses/qwen3-jax-sparsecore-offload.md) — Refuted by [2026-06-02 v036](../experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-02-qwen3-jax-v036-sc-bs3.md). Offloading all collectives slightly degraded step time (+0.6%) due to SC-TC memory transfer/PCIe overhead.
+- [Splash attention](../hypotheses/qwen3-jax-splash-attention.md) — GQA-native kernel; avoids `[B,H,S,S]`. Status: **Confirmed** (via `v004-gradient-checkpointing`).
+- [Gradient Checkpointing](../hypotheses/qwen3-jax-gradient-checkpointing.md) — Status: **Confirmed**.
+- [tokamax streamed cross-entropy](../hypotheses/qwen3-jax-tokamax-ce.md) — drop `[B,L,V]` logits at the lm_head. Status: **Blocked** (refuted during compilation due to SDPA OOM).
+- [Per-chip batch scaling](../hypotheses/qwen3-jax-batch-scaling.md) — fill MXU occupancy at 8K context. Status: **Refuted** (compilation OOM; activation + Adam state exceeds memory limit at bs=2).
+- [tokamax-ce + batch scaling](../hypotheses/qwen3-jax-tokamax-batch.md) — combine `splash-attention`, `gradient-checkpointing`, and `tokamax-ce` to unlock `batch_size=2` at 8K context. Status: **Refuted** (compiles, but performance regressed to 29.7% MFU).
+- [Async FSDP collectives](../hypotheses/qwen3-jax-fsdp-async-overlap.md) — overlap FSDP reduce-scatter and all-gather with compute via XLA flags. Status: **Refuted** (silent no-op).
+- [Fused RMSNorm+RoPE Pallas kernel](../hypotheses/qwen3-jax-pallas-rmsnorm-rope.md) — Status: **Refuted** (Pallas autodiff crash; pure-TPU Norms are an anti-pattern as XLA optimally fuses them).
+- [Ring Attention Pallas kernel](../hypotheses/qwen3-jax-ring-attention.md) — Status: **Confirmed** (unlocks memory for batch=8 seq=8192 via sp=2 2D FSDP, but performance regressed to 22.8% MFU due to collective overhead and suboptimal block sizes).
+- [Fused GLU Pallas kernel](../hypotheses/qwen3-jax-pallas-fused-glu.md) — Status: **Refuted** (MFU regressed to 30.6% due to redundant forward matmuls caused by `jax.remat` and excessive HBM traffic in the custom JAX backward pass).
 
 ## Knobs translation matrix
 
