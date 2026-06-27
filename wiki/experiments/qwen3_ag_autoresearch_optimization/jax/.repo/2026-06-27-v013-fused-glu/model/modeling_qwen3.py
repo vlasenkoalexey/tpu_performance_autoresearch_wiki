@@ -198,8 +198,9 @@ class Qwen3MLP(nnx.Module):
     def __call__(self, x):
         if self.fused_glu:
             from .fused_glu import fused_glu
+            from .modeling_qwen3 import _SPLASH_MESH
             # weights in Linear are [out_features, in_features] which is [N, K]
-            out = fused_glu(x, self.up_proj.weight.value, self.gate_proj.weight.value)
+            out = fused_glu(x, self.up_proj.weight.value, self.gate_proj.weight.value, mesh=_SPLASH_MESH)
             return self.down_proj(out)
         else:
             return self.down_proj(jax.nn.silu(self.gate_proj(x)) * self.up_proj(x))

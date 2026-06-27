@@ -30,11 +30,16 @@ def glu_kernel(x_tile_ref, w_up_tile_ref, w_gate_tile_ref, o_tile_ref, acc_up_re
         o_tile_ref[...] = (acc_up_ref[...] * jax.nn.silu(acc_gate_ref[...])).astype(o_tile_ref.dtype)
 
 
-@functools.partial(jax.custom_vjp, nondiff_argnums=(3, 4, 5, 6))
+from jax.experimental.shard_map import shard_map
+from jax.sharding import PartitionSpec as P
+
+@functools.partial(jax.custom_vjp, nondiff_argnums=(3, 4, 5, 6, 7, 8))
 def fused_glu(
     x: jax.Array,
     w_up: jax.Array,
     w_gate: jax.Array,
+    mesh = None,
+    x_sharding = P("fsdp", None, None),
     block_shape=(1024, 1024),
     block_k: int = 256,
     out_dtype: jnp.dtype | None = None,
@@ -50,42 +55,59 @@ def fused_glu(
         is_3d = True
         orig_shape = x.shape
         x = x.reshape(-1, x.shape[-1])
+        # x is now 2D: [B*S, K]. But if it's sharded on B, reshaping it to 2D
+        # means it's sharded on the first dimension. So x_sharding is just P("fsdp", None).
+        x_sharding = P(x_sharding[0], None)
         
     m, k = x.shape
     n, _ = w_up.shape
     l, r = block_shape
 
-    out = pl.pallas_call(
-        glu_kernel,
-        out_shape=jax.ShapeDtypeStruct((m, n), out_dtype),
-        grid_spec=pltpu.PrefetchScalarGridSpec(
-            num_scalar_prefetch=0,
-            in_specs=[
-                pl.BlockSpec((l, block_k), lambda i, _, k: (i, k)),
-                pl.BlockSpec((r, block_k), lambda _, j, k: (j, k)),
-                pl.BlockSpec((r, block_k), lambda _, j, k: (j, k)),
-            ],
-            out_specs=pl.BlockSpec((l, r), lambda i, j, k: (i, j)),
-            grid=(m // l, n // r, k // block_k),
-            scratch_shapes=[pltpu.VMEM((l, r), acc_dtype), pltpu.VMEM((l, r), acc_dtype)],
-        ),
-        compiler_params=pltpu.CompilerParams(
-            dimension_semantics=("parallel", "parallel", "arbitrary")),
-        debug=debug,
-    )(x, w_up, w_gate)
+    def run_pallas(x_loc, w_up_loc, w_gate_loc):
+        loc_m, loc_k = x_loc.shape
+        loc_n, _ = w_up_loc.shape
+        return pl.pallas_call(
+            glu_kernel,
+            out_shape=jax.ShapeDtypeStruct((loc_m, loc_n), out_dtype),
+            grid_spec=pltpu.PrefetchScalarGridSpec(
+                num_scalar_prefetch=0,
+                in_specs=[
+                    pl.BlockSpec((l, block_k), lambda i, _, k: (i, k)),
+                    pl.BlockSpec((r, block_k), lambda _, j, k: (j, k)),
+                    pl.BlockSpec((r, block_k), lambda _, j, k: (j, k)),
+                ],
+                out_specs=pl.BlockSpec((l, r), lambda i, j, k: (i, j)),
+                grid=(loc_m // l, loc_n // r, loc_k // block_k),
+                scratch_shapes=[pltpu.VMEM((l, r), acc_dtype), pltpu.VMEM((l, r), acc_dtype)],
+            ),
+            compiler_params=pltpu.CompilerParams(
+                dimension_semantics=("parallel", "parallel", "arbitrary")),
+            debug=debug,
+        )(x_loc, w_up_loc, w_gate_loc)
+
+    if mesh is not None:
+        out = shard_map(
+            run_pallas,
+            mesh=mesh,
+            in_specs=(x_sharding, P(None, None), P(None, None)),
+            out_specs=x_sharding,
+            check_rep=False
+        )(x, w_up, w_gate)
+    else:
+        out = run_pallas(x, w_up, w_gate)
 
     if is_3d:
         out = out.reshape(orig_shape[0], orig_shape[1], n)
     return out
 
 
-def fused_glu_fwd(x, w_up, w_gate, block_shape, block_k, out_dtype, debug):
-    out = fused_glu(x, w_up, w_gate, block_shape, block_k, out_dtype, debug)
+def fused_glu_fwd(x, w_up, w_gate, mesh, x_sharding, block_shape, block_k, out_dtype, debug):
+    out = fused_glu(x, w_up, w_gate, mesh, x_sharding, block_shape, block_k, out_dtype, debug)
     # Save inputs for the backward pass
     return out, (x, w_up, w_gate)
 
 
-def fused_glu_bwd(block_shape, block_k, out_dtype, debug, res, g):
+def fused_glu_bwd(mesh, x_sharding, block_shape, block_k, out_dtype, debug, res, g):
     x, w_up, w_gate = res
     
     # Compute the standard JAX forward ops to get gradients
