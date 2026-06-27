@@ -248,15 +248,29 @@ class Qwen3Attention(nnx.Module):
         return self.o_proj(attn_out)
 
 
+def maybe_remat(fn):
+    import os
+    if os.environ.get("JAX_REMAT", "0") == "1":
+        return nnx.remat(fn)
+    return fn
+
 class Qwen3DecoderLayer(nnx.Module):
-    def __init__(self, config, layer_idx, *, weights_dtype=jnp.bfloat16,
-                 compute_dtype=jnp.bfloat16, rngs):
+    def __init__(
+        self,
+        config,
+        layer_idx: int,
+        *,
+        weights_dtype=jnp.bfloat16,
+        compute_dtype=jnp.bfloat16,
+        rngs: nnx.Rngs,
+    ):
+        self.config = config
+        self.layer_idx = layer_idx
         kw = dict(weights_dtype=weights_dtype, compute_dtype=compute_dtype, rngs=rngs)
         self.self_attn = Qwen3Attention(config, layer_idx, **kw)
         self.mlp = Qwen3MLP(config, **kw)
-        eps = config.rms_norm_eps
-        self.input_layernorm = Qwen3RMSNorm(config.hidden_size, eps=eps, weights_dtype=weights_dtype)
-        self.post_attention_layernorm = Qwen3RMSNorm(config.hidden_size, eps=eps, weights_dtype=weights_dtype)
+        self.input_layernorm = Qwen3RMSNorm(config.hidden_size, eps=config.rms_norm_eps, weights_dtype=weights_dtype)
+        self.post_attention_layernorm = Qwen3RMSNorm(config.hidden_size, eps=config.rms_norm_eps, weights_dtype=weights_dtype)
 
     def __call__(self, hidden_states, position_embeddings, attention_mask=None):
         residual = hidden_states
@@ -277,17 +291,9 @@ class Qwen3ScannedLayers(nnx.Module):
         self.layers = create_layer(rngs)
         
     def __call__(self, hidden_states, position_embeddings, attention_mask=None):
-        import os
-        use_remat = os.environ.get("JAX_REMAT", "0") == "1"
-        
-        def layer_fn(layer, hs, pos_emb, mask):
-            if use_remat:
-                return nnx.remat(layer)(hs, pos_emb, mask)
-            return layer(hs, pos_emb, mask)
-            
         @nnx.scan(in_axes=(nnx.Carry, 0, None, None), out_axes=nnx.Carry)
         def forward(hs, layer, pos_emb, mask):
-            return layer_fn(layer, hs, pos_emb, mask)
+            return layer(hs, pos_emb, mask)
             
         return forward(hidden_states, self.layers, position_embeddings, attention_mask)
 
