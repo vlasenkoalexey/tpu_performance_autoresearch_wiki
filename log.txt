@@ -1,0 +1,255 @@
+XPK Start: Fri Jun 26 23:29:33 UTC 2026
+[dist] global_devices=8 local_devices=4 hosts=2
+[mesh] fsdp=8 tp=1 mesh=Mesh('fsdp': 8, 'tp': 1, axis_types=(Auto, Auto))
+[load] config from Qwen/Qwen3-8B ...
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+/app/trainer/train.py:86: DeprecationWarning: '.value' access is now deprecated. For Variable[Array] instances use:
+
+  variable[...]
+
+For other Variable types use:
+
+  variable.get_value()
+
+  n_params = sum(int(p.value.size) for _, p in _iter_params(model))
+[load] Qwen3 has 8.19 B parameters (NNX-side), random init
+[sharding] matched=399 replicated=0
+[opt] adamw lr=1e-05 wd=0.0
+[data] fake (random ints) global_batch=8 seqlen=8192
+[train] starting train_steps=20 per_chip_batch=1 global_batch=8
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+WARNING:absl:Autotuning cache miss for PallasMosaicTpuLinearSoftmaxCrossEntropyLoss(config=None, vjp=PallasMosaicTpuLinearSoftmaxCrossEntropyLossVjp(config=None, vjp=None)) on TPU v6 lite with key immutabledict({'x': BatchedShapeDtype(shape=(8192, 4096), dtype=float32, vmap_axes=()), 'labels': BatchedShapeDtype(shape=(8192,), dtype=int32, vmap_axes=()), 'w': BatchedShapeDtype(shape=(4096, 151936), dtype=float32, vmap_axes=()), 'reduction': 'sum', 'return_residuals': True})
+WARNING:absl:Autotuning cache miss for PallasMosaicTpuLinearSoftmaxCrossEntropyLossVjp(config=None, vjp=None) on TPU v6 lite with key immutabledict({'residuals': (BatchedShapeDtype(shape=(8192,), dtype=float32, vmap_axes=()),), 'out': BatchedShapeDtype(shape=(), dtype=float32, vmap_axes=()), 'dout': BatchedShapeDtype(shape=(), dtype=float32, vmap_axes=()), 'x': BatchedShapeDtype(shape=(8192, 4096), dtype=float32, vmap_axes=()), 'labels': BatchedShapeDtype(shape=(8192,), dtype=int32, vmap_axes=()), 'w': BatchedShapeDtype(shape=(4096, 151936), dtype=float32, vmap_axes=()), 'reduction': 'sum', 'return_residuals': False})
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/app/trainer/train.py", line 262, in <module>
+    fire.Fire(main)
+  File "/opt/venv/lib/python3.12/site-packages/fire/core.py", line 135, in Fire
+    component_trace = _Fire(component, args, parsed_flag_args, context, name)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/fire/core.py", line 468, in _Fire
+    component, remaining_args = _CallAndUpdateTrace(
+                                ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/fire/core.py", line 684, in _CallAndUpdateTrace
+    component = fn(*varargs, **kwargs)
+                ^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/trainer/train.py", line 212, in main
+    loss, params, opt_state = jitted_step(params, opt_state, input_ids, labels)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+jax.errors.JaxRuntimeError: RESOURCE_EXHAUSTED: XLA:TPU compile permanent error. Ran out of memory in memory space hbm. Used 45.12G of 31.25G hbm. Exceeded hbm capacity by 13.87G.
+
+Total hbm usage >= 45.37G:
+    reserved        260.00M 
+    program          45.12G 
+    arguments            0B 
+
+Output size 0B; shares 0B with arguments.
+
+Program hbm requirement 45.12G:
+    global            4.41M
+    scoped           272.5K
+    HLO temp         45.11G (100.0% utilization: Unpadded (44.86G) Padded (44.86G), 0.6% fragmentation (254.07M))
+
+  Largest program allocations in hbm:
+
+  1. Size: 2.32G
+     Operator: op_name="jit(train_step)/forward_backward/jvp()/convert_element_type" stack_frame_id=160
+     Shape: f32[4096,151936]{1,0:T(8,128)}
+     Unpadded size: 2.32G
+     XLA label: convert_element_type.3376.remat2 = convert(all-gather.4259.remat2), backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+     Allocation type: HLO temp
+     ==========================
+
+  2. Size: 2.32G
+     Operator: op_name="jit(train_step)/forward_backward/transpose(forward_backward)/jvp()/shard_map/tokamax:{\"op\":{\"__type\":\"tokamax._src.ops.linear_softmax_cross_entropy_loss.pallas_mosaic_tpu.PallasMosaicTpuLinearSoftmaxCrossEntropyLossVjp\",\"config\":{},\"vjp\":null},\"arguments\":{\"dout\":\"f32[]\",\"labels\":\"i32[8192]\",\"out\":\"f32[]\",\"reduction\":\"sum\",\"residuals\":[\"f32[8192]\"],\"return_residuals\":false,\"w\":\"f32[4096,151936]\",\"x\":\"f32[8192,4096]\"}}/jit(linear_softmax_cross_entropy_loss_bwd_pallas_mosaic_tpu)/pallas_call" stack_frame_id=180
+     Shape: f32[4096,151936]{1,0:T(8,128)}
+     Unpadded size: 2.32G
+     XLA label: linear_softmax_cross_entropy_loss_bwd_pallas_mosaic_tpu.1 = custom-call(convert_bitcast_fusion.remat2, bitcast.25123, convert_element_type.3376.remat2, get-tuple-element.1631), custom_call_target="tpu_custom_call", operand_layout_constraints={f32[8192,4096]{1,0}, s32[8192]{0}, f32[4096,151936]{1,0}, f32[8192]{0}}, frontend_attributes={kernel_metadata={}}, backend_config={"flag_configs":[],"scoped_memory_configs":[],"custom_call_config":{"body":"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AwEFBw0TAwUFBT0DAyELAwEFByEVAwUFB0ETBicDBQU/Qw8GHQMBA0UDAwMLAwEFBwMVAwUFR0kRFAMDSwkDJ1UDAwEFAwMDAwEFAwMJBgEDBwcV8/UDAwEFAwMDAwEFAwMJBgEDCwcJ+fsHBgEDCwP9AwMBBQMDAwMBBQMDCQYBAw0HDQICBgIHBgEDDQMKAgMDH6UDBxkHH6cDBwf/DgISAiUHSSMDBwX3FgIDAwkFAwMDAwkFAwMJBgkDBwcVHgIiAgcGCQMHAyYCBwYJAwcDGgIVBQkxCS4CFR4CIgILAAMDAQULAAMDAxlFAwEXBxktAwEFTQMDAzW+AgMBJwc1LQMBBVFPAwOHRQMBLQaHAwEFU1UpBh0DCQNXAwOLiQMJLweLIwMJBVlbMQfyAiMDCQNdAwMZiQMJMwcZIwMJBV9hNQYdAwEDYzcHDgMCAwMBA2UDAxkeAwMBFwcZLQMBBQFpAwMZjQMBFwcZLQMBBQdtAwMZjQMBFwcZLQMBBQdxAwMZRQMBFwcZLQMBBQN1AwMNLwMBBQcNEwMFBQV5AwMhCwMBBQchFQMFBQN9EwYnAwUFe38PBh0DAQOBAwMDCwMBBQcDFQMFBYOFERQDA4cJAwMNDQcPPQMTBxFrbxsFDzcH8xcbCwADAwEFCwADAwMNLwMBBQcNEwMFBQWJAwMhCwMBBQchFQMFBQGNEwYnAwUFi48PBh0DAQORAwMDCwMBBQcDFQMFBZOVERQDA5cJAwkZDQcPJQMXCRNzd2cDAw8LAwEDAw8LAwENBw8lAxUJGfX3ZxsFDzcH8/kdCwADAwEFCwADAwMNLwMBBQcNEwMFBQWZAwMNCwMBBQcNEwMFBQedEwYnAwUFm58PBh0DAQOhAwMDCwMBBQcDFQMFBaOlERQDA6cJA0ONAwMBBQMDCQYBAx0FC/MHBgEDHQP1AwMZRQMBFwcZLQMBBQP5HQY1Ax0D+ycHNS0DHQX3/QcGngMDNQP/OQMmBBoEAzcdBlcDIQMCAh0GVwMhAwYCBQdXEwM5BQoCDgIPBqEDIQMSAikGoQMHAxYCAwNZowMJHQZZAwcDHgIrB1kjAwcFIgIaAgMDAQUDAwMDAQUDAwkGAQMHBxUqAi4CAwMBBQMDCQYBAy0FDzYCBwYBAy0DOgIHBlsDOwM+Ah0GNQMHA0ICKwc1IwMHBTICRgI7B1IEIwMHA0oCJQdJIwMHBSYCTgIDAwkFAwMDAwkFAwMJBgkDBwcVVgJaAgcGCQMHA14CBwYJAwcDUgIVBQkxCWYCFVYCWgILAAMDAQULAAMDAw0vAwEFBw0TAwUFBakDAw0LAwEFBw0TAwUFA60TBicDBQWrrw8GHQMBA7EDAwMLAwEFBwMVAwUFs7URFAMDtwkDH0kDAwEFAwMDAwEFAwMJBgEDBwcV8/UDAwEFAwMDAwEFAwMJBgEDDQcN+fsHBgEDDQP9AwMflwMLGQcfmQMLB/f/AgIDAwkFAwMDAwkFAwMJBgkDCwcXCgIOAgcGCQMLAxICBwYJAwsDBgIVBQkxCRoCFwoCDgINBw89AxMHEWtvGwUPNwcXHgIfCwADAwEFCwADAwMNLwMBBQcNEwMFBQW5AwMNCwMBBQcNEwMFBQG9EwYnAwUFu78PBh0DAQPBAwMDCwMBBQcDFQMFBcPFERQDA8cJAyVVAwMBBQMDAwMBBQMDCQYBAwsHCfP1BwYBAwsD9wMDAQUDAwMDAQUDAwkGAQMHBxX7/QMDH5EDDRkHH5MDDQf5/wICAwMJBQMDAwMJBQMDCQYJAw0HGQoCDgIHBgkDDQMSAgcGCQMNAwYCFQUJMQkaAhkKAg4CAwMPCwMBAwMPCwMBDQcPJQMVCRkeAiICZw0HDyUDFwkTc3dnGwUPNwcmAioCIQsAAwMBBQsAAwMDDS8DAQUHDRMDBQUFyQMDIQsDAQUHIRUDBQUDzRMGJwMFBcvPDwYdAwED0QMDAwsDAQUHAxUDBQXT1REUAwPXCQMpYQMDAQUDAwMDAQUDAwkGAQMHBxXz9QMDAQUDAwMDAQUDAwkGAQMNBw35+wcGAQMNA/0DAx+XAwsZBx+ZAwsH9/8CAg0HGz0DEwcRa28jBRtHBxsKAhcDAwEFAwMDAwEFAwMJBgEDCwcXDgISAiUHSSMDCwUWAgYCAwMJBQMDAwMJBQMDCQYJAwsHFx4CIgIHBgkDCwMmAgcGCQMLAxoCFQUJMQkuAhceAiICDQcPPQMTBxFrbxsFDzcHFzICHwsAAwMBBQsAAwMDDS8DAQUHDRMDBQUF2QMDIQsDAQUHIRUDBQUB3RMGJwMFBdvfDwYdAwED4QMDAwsDAQUHAxUDBQXj5REUAwPnCQM1eQMDAQUDAwMDAQUDAwkGAQMLBwnz9QcGAQMLA/cDAwEFAwMDAwEFAwMJBgEDBwcV+/0DAx+RAw0ZBx+TAw0H+f8CAg0HGyUDFwkTc3dnAwMbCwMBAwMbCwMBDQcbJQMVCRkOAhICZyMFG0cHHQoCFgIDAwEFAwMDAwEFAwMJBgEDDQcZGgIeAiUHSSMDDQUiAgYCAwMJBQMDAwMJBQMDCQYJAw0HGSoCLgIHBgkDDQMyAgcGCQMNAyYCFQUJMQk6AhkqAi4CAwMPCwMBAwMPCwMBDQcPJQMVCRk+AkICZw0HDyUDFwkTc3dnGwUPNwdGAkoCIQsAAwMBBQsAAwMDDS8DAQUHDRMDBQUF6Q8GHQMBA+sDAwMLAwEFBwMVAwUF7e8RFAMD8QkDCyENBxs9AxMHEWtvIwUbRwcfF/MDAxsLAwEDAxsLAwENBxslAxUJGfX3Zw0HGyUDFwkTc3dnIwUbRwch+fsLAAMDAQULAAMhAAcfEQfdBwMLCwkBBwEHAQcBBwMDBwsDASEEBwUBBx8RB98HAwsLCQEHAQcBBwEHAwMHCwMBIQQHAwEfEQfhBwMLCwkBBwEHAQcBBwMDBwsDASEEBwUHAx8RB+MHAwsLCQEHAQcBBwEHAwMHCwMBIQQHAwEGAwEFAQCeIv8JCwkLCw0XTW8zZXFxhxMVFxELDQsZGwkLExUZGxMLDRMJCwkLCQsdCQsHCQkLCw0LDSkzLTVbw0UZHSMhIylzLYEjJQkhKy0VfQcJGRkZGQsdHSVp3x0lKS0dEw0TEykbFxUXGRcbFxcdGRUjIRcXIxcPGSMVGSUXHw8NCR0RYnVpbHRpbgBzdGFibGVfbW9zYWljAHRwdQBhcml0aABtb2R1bGUAYXJpdGguY29uc3RhbnQAYXJpdGguY21waQB2ZWN0b3Iuc2hhcGVfY2FzdAB2ZWN0b3IubG9hZABzY2YueWllbGQAdHB1Lm1lbXJlZl9zbGljZQBhcml0aC5leHR1aQBzY2YuaWYAYXJpdGguYW5kaQB0cHUudmVjdG9yX3N0b3JlAGFyaXRoLm11bGkAdHB1Lm1hdG11bAB0cHUuZW5xdWV1ZV9kbWEAdmVjdG9yLmJyb2FkY2FzdABmdW5jLmZ1bmMAZnVuYy5yZXR1cm4AdHB1LndhaXRfZG1hMgBhcml0aC5hZGRmAGFyaXRoLnN1YmkAYXJpdGguc2l0b2ZwAGFyaXRoLnN1YmYAYXJpdGgubWluc2kAYXJpdGguZGl2ZgBtYXRoLmNlaWwAYXJpdGgubXVsZgBhcml0aC5mcHRvc2kAdHB1LmFzc3VtZV9tdWx0aXBsZQB0cHUuaW90YQBtYXRoLmV4cAB2YWx1ZQBzeW1fbmFtZQBmdW5jdGlvbl90eXBlAC9hcHAvdHJhaW5lci90cmFpbi5weQBvcGVyYW5kU2VnbWVudFNpemVzAHRyYW5zZm9ybV9pbmRpY2VzAHdpbmRvd19ib3VuZHMAL29wdC92ZW52L2xpYi9weXRob24zLjEyL3NpdGUtcGFja2FnZXMvdG9rYW1heC9fc3JjL29wcy9saW5lYXJfc29mdG1heF9jcm9zc19lbnRyb3B5X2xvc3MvcGFsbGFzX21vc2FpY190cHUucHkAL29wdC92ZW52L2xpYi9weXRob24zLjEyL3NpdGUtcGFja2FnZXMvZmlyZS9jb3JlLnB5AGRpbWVuc2lvbl9udW1iZXJzAHRyYW5zcG9zZV9saHMAdHJhbnNwb3NlX3JocwBtYWluAHRyYW5zZm9ybV8wAHRyYW5zZm9ybV8xAHRyYW5zZm9ybV8yAHRyYW5zZm9ybV8zAGVxOgBlcQAvb3B0L3ZlbnYvbGliL3B5dGhvbjMuMTIvc2l0ZS1wYWNrYWdlcy90b2thbWF4L19zcmMvb3BzL29wLnB5AHByZWRpY2F0ZQBjb252ZXJ0X2VsZW1lbnRfdHlwZToAY29udmVydF9lbGVtZW50X3R5cGUAc3RyaWN0X29yZGVyaW5nAGFkZABicm9hZGNhc3RfaW5fZGltOgBicm9hZGNhc3RfaW5fZGltAC9vcHQvdmVudi9saWIvcHl0aG9uMy4xMi9zaXRlLXBhY2thZ2VzL3Rva2FtYXgvX3NyYy9iYXRjaGluZy5weQBzdGFibGVfbW9zYWljLnZlcnNpb24AbGluZWFyX3NvZnRtYXhfY3Jvc3NfZW50cm9weV9sb3NzX2JhY2t3YXJkX3BhbGxhc19rZXJuZWwAZGltZW5zaW9uX3NlbWFudGljcwBpdGVyYXRpb25fYm91bmRzAHNjYWxhcl9wcmVmZXRjaABzY3JhdGNoX29wZXJhbmRzAHdpbmRvd19wYXJhbXMAT3AuX19jYWxsX18AbGluZWFyX3NvZnRtYXhfY3Jvc3NfZW50cm9weV9sb3NzAC9vcHQvdmVudi9saWIvcHl0aG9uMy4xMi9zaXRlLXBhY2thZ2VzL3Rva2FtYXgvX3NyYy9vcHMvbGluZWFyX3NvZnRtYXhfY3Jvc3NfZW50cm9weV9sb3NzL2FwaS5weQBtYWluLjxsb2NhbHM+Ll9jZV90b2thbWF4Ljxsb2NhbHM+Ll9jZV9sb2NhbABtYWluLjxsb2NhbHM+Ll9jZV90b2thbWF4AG1haW4uPGxvY2Fscz4ubG9zc19mbgBtYWluLjxsb2NhbHM+LnRyYWluX3N0ZXAAX0NhbGxBbmRVcGRhdGVUcmFjZQBfRmlyZQBGaXJlAGNvbmQ6AGNvbmQAYW5kOgBhbmQAbmU6AG5lAG11bDoAbXVsAG92ZXJmbG93RmxhZ3MAc3ViOgBzdWIAbWluOgBtaW4AZGl2OgBkaXYAZmFzdG1hdGgAY2VpbDoAY2VpbABtdWx0aXBsZQBtdWx0aXBsZV9vZjoAbXVsdGlwbGVfb2YAZG1hX3dhaXQ6AGRtYV93YWl0AGdldDoAZ2V0AGRvdF9nZW5lcmFsOgBkb3RfZ2VuZXJhbABhZGQ6AHN3YXA6AHN3YXAAc3RyaWRlcwBkbWFfc3RhcnQ6AGRtYV9zdGFydABwcmlvcml0eQBsaW5lYXJfc29mdG1heF9jcm9zc19lbnRyb3B5X2xvc3NfZm9yd2FyZF9wYWxsYXNfa2VybmVsLjxsb2NhbHM+Ll8AbGluZWFyX3NvZnRtYXhfY3Jvc3NfZW50cm9weV9sb3NzX2ZvcndhcmRfcGFsbGFzX2tlcm5lbABsaW5lYXJfc29mdG1heF9jcm9zc19lbnRyb3B5X2xvc3NfZndkX3BhbGxhc19tb3NhaWNfdHB1AFBhbGxhc01vc2FpY1RwdUxpbmVhclNvZnRtYXhDcm9zc0VudHJvcHlMb3NzLl9md2QAT3AuX19jYWxsX18uPGxvY2Fscz4uZndkAGNhcHR1cmVfYmF0Y2hlZF9hcmdzLjxsb2NhbHM+LndyYXBwZWQuPGxvY2Fscz4uZm5fZmxhdABjYXB0dXJlX2JhdGNoZWRfYXJncy48bG9jYWxzPi53cmFwcGVkAGRpbWVuc2lvbnMAaW90YToAaW90YQBuZWc6AG5lZwBleHA6AGV4cAA=","needs_layout_passes":true,"allow_input_fusion":[],"serialization_format":"1","output_memory_colors":[],"output_memory_space_colors":[],"input_memory_space_colors":[]},"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+     Allocation type: HLO temp
+     ==========================
+
+  3. Size: 192.00M
+     Operator: op_name="jit(train_step)/forward_backward/jvp()/dot_general" stack_frame_id=137
+     Shape: bf16[1,8192,12288]{2,1,0:T(8,128)(2,1)}
+     Unpadded size: 192.00M
+     XLA label: bitcast_multiply_fusion.105 = fusion(fusion.8014.remat2, all-gather.4158.remat2, fusion.6933.remat3), kind=kOutput, calls=fused_computation.7637, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","4"]}]}}
+     Allocation type: HLO temp
+     ==========================
+
+  4. Size: 192.00M
+     Operator: op_name="jit(train_step)/forward_backward/jvp()/dot_general" stack_frame_id=137
+     Shape: bf16[1,8192,12288]{2,1,0:T(8,128)(2,1)}
+     Unpadded size: 192.00M
+     XLA label: bitcast_multiply_fusion.120 = fusion(fusion.8064, all-gather.4113, fusion.6953), kind=kOutput, calls=fused_computation.7682, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","4"]}]}}
+     Allocation type: HLO temp
+     ==========================
+
+  5. Size: 192.00M
+     Operator: op_name="jit(train_step)/forward_backward/jvp()/dot_general" stack_frame_id=133
+     Shape: bf16[8192,12288]{1,0:T(8,128)(2,1)}
+     Unpadded size: 192.00M
+     XLA label: fusion.8014.remat2 = fusion(all-gather.4157.remat2, fusion.6933.remat3), kind=kOutput, calls=fused_computation.9743.clone.clone, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+     Allocation type: HLO temp
+     ==========================
+
+  6. Size: 192.00M
+     Operator: op_name="jit(train_step)/forward_backward/jvp()/dot_general" stack_frame_id=133
+     Shape: bf16[8192,12288]{1,0:T(8,128)(2,1)}
+     Unpadded size: 192.00M
+     XLA label: fusion.15389 = fusion(get-tuple-element.47964, get-tuple-element.47965, get-tuple-element.47966, get-tuple-element.47967, ...(+7)), kind=kOutput, output_to_operand_aliasing={{1}: (0, {}), {2}: (1, {}), {3}: (1, {}), {4}: (2, {}), {5}: (3, {}), {6}: (4, {}), {7}: (5, {}), {8}: (6, {}), {9}: (7, {}), {10}: (8, {})}, calls=async_collective_fusion.15389, backend_config={"flag_configs":[],"scoped_memory_configs":[],"continuation_config":{"output_tuple_original_start":"0","output_tuple_original_end":"0","operand_original_start":"9","operand_original_end":"10"},"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","12"]},{"indices":["1","13","14"]},{"indices":["2","15"]},{"indices":["3","16"]},{"indices":["4","17"]},{"indices":["5","18"]},{"indices":["6","19"]},{"indices":["7","20"]},{"indices":["8","21"]}]}}
+     Allocation type: HLO temp
+     ==========================
+
+  7. Size: 192.00M
+     Operator: op_name="jit(train_step)/forward_backward/jvp()/dot_general" stack_frame_id=137
+     Shape: bf16[8192,12288]{1,0:T(8,128)(2,1)}
+     Unpadded size: 192.00M
+     XLA label: bitcast_multiply_fusion.72 = fusion(fusion.7904.remat2, all-gather.4257.remat2, fusion.6889.remat2), kind=kOutput, calls=fused_computation.7538, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","4"]}]}}
+     Allocation type: HLO temp
+     ==========================
+
+  8. Size: 192.00M
+     Operator: op_name="jit(train_step)/forward_backward/jvp()/dot_general" stack_frame_id=137
+     Shape: bf16[1,8192,12288]{2,1,0:T(8,128)(2,1)}
+     Unpadded size: 192.00M
+     XLA label: bitcast_multiply_fusion.72 = fusion(fusion.7904.remat2, all-gather.4257.remat2, fusion.6889.remat2), kind=kOutput, calls=fused_computation.7538, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","4"]}]}}
+     Allocation type: HLO temp
+     ==========================
+
+  9. Size: 192.00M
+     Operator: op_name="jit(train_step)/forward_backward/jvp()/dot_general" stack_frame_id=137
+     Shape: bf16[1,8192,12288]{2,1,0:T(8,128)(2,1)}
+     Unpadded size: 192.00M
+     XLA label: fusion.15666 = fusion(get-tuple-element.48914, get-tuple-element.48915, get-tuple-element.48916, get-tuple-element.48917, ...(+8)), kind=kOutput, output_to_operand_aliasing={{2}: (0, {}), {3}: (1, {}), {4}: (1, {}), {5}: (2, {}), {6}: (3, {}), {7}: (4, {}), {8}: (5, {}), {9}: (6, {}), {10}: (7, {}), {11}: (8, {})}, calls=async_collective_fusion.15666, backend_config={"flag_configs":[],"scoped_memory_configs":[],"continuation_config":{"output_tuple_original_start":"0","output_tuple_original_end":"1","operand_original_start":"10","operand_original_end":"11"},"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","14"]},{"indices":["1","15","16"]},{"indices":["2","17"]},{"indices":["3","18"]},{"indices":["4","19"]},{"indices":["5","20"]},{"indices":["6","21"]},{"indices":["7","22"]},{"indices":["8","23"]}]}}
+     Allocation type: HLO temp
+     ==========================
+
+  10. Size: 192.00M
+     Operator: op_name="jit(train_step)/forward_backward/jvp()/dot_general" stack_frame_id=133
+     Shape: bf16[8192,12288]{1,0:T(8,128)(2,1)}
+     Unpadded size: 192.00M
+     XLA label: fusion.7904.remat2 = fusion(all-gather.4256.remat2, fusion.6889.remat2), kind=kOutput, calls=fused_computation.9611.clone.clone, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+     Allocation type: HLO temp
+     ==========================
+
+  11. Size: 192.00M
+     Operator: op_name="jit(train_step)/forward_backward/jvp()/dot_general" stack_frame_id=133
+     Shape: bf16[8192,12288]{1,0:T(8,128)(2,1)}
+     Unpadded size: 192.00M
+     XLA label: fusion.15164 = fusion(get-tuple-element.47189, get-tuple-element.47190, get-tuple-element.47191, get-tuple-element.47192, ...(+7)), kind=kOutput, output_to_operand_aliasing={{1}: (0, {}), {2}: (1, {}), {3}: (1, {}), {4}: (2, {}), {5}: (3, {}), {6}: (4, {}), {7}: (5, {}), {8}: (6, {}), {9}: (7, {}), {10}: (8, {})}, calls=async_collective_fusion.15164, backend_config={"flag_configs":[],"scoped_memory_configs":[],"continuation_config":{"output_tuple_original_start":"0","output_tuple_original_end":"0","operand_original_start":"9","operand_original_end":"10"},"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","12"]},{"indices":["1","13","14"]},{"indices":["2","15"]},{"indices":["3","16"]},{"indices":["4","17"]},{"indices":["5","18"]},{"indices":["6","19"]},{"indices":["7","20"]},{"indices":["8","21"]}]}}
+     Allocation type: HLO temp
+     ==========================
+
+  12. Size: 192.00M
+     Operator: op_name="jit(train_step)/forward_backward/jvp()/dot_general" stack_frame_id=137
+     Shape: bf16[1,8192,12288]{2,1,0:T(8,128)(2,1)}
+     Unpadded size: 192.00M
+     XLA label: fusion.15171 = fusion(get-tuple-element.47209, get-tuple-element.47210, get-tuple-element.47211, get-tuple-element.47212, ...(+8)), kind=kOutput, output_to_operand_aliasing={{2}: (0, {}), {3}: (1, {}), {4}: (1, {}), {5}: (2, {}), {6}: (3, {}), {7}: (4, {}), {8}: (5, {}), {9}: (6, {}), {10}: (7, {}), {11}: (8, {})}, calls=async_collective_fusion.15171, backend_config={"flag_configs":[],"scoped_memory_configs":[],"continuation_config":{"output_tuple_original_start":"0","output_tuple_original_end":"1","operand_original_start":"10","operand_original_end":"11"},"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","14"]},{"indices":["1","15","16"]},{"indices":["2","17"]},{"indices":["3","18"]},{"indices":["4","19"]},{"indices":["5","20"]},{"indices":["6","21"]},{"indices":["7","22"]},{"indices":["8","23"]}]}}
+     Allocation type: HLO temp
+     ==========================
+
+  13. Size: 192.00M
+     Operator: op_name="jit(train_step)/forward_backward/jvp()/dot_general" stack_frame_id=137
+     Shape: bf16[8192,12288]{1,0:T(8,128)(2,1)}
+     Unpadded size: 192.00M
+     XLA label: fusion.15171 = fusion(get-tuple-element.47209, get-tuple-element.47210, get-tuple-element.47211, get-tuple-element.47212, ...(+8)), kind=kOutput, output_to_operand_aliasing={{2}: (0, {}), {3}: (1, {}), {4}: (1, {}), {5}: (2, {}), {6}: (3, {}), {7}: (4, {}), {8}: (5, {}), {9}: (6, {}), {10}: (7, {}), {11}: (8, {})}, calls=async_collective_fusion.15171, backend_config={"flag_configs":[],"scoped_memory_configs":[],"continuation_config":{"output_tuple_original_start":"0","output_tuple_original_end":"1","operand_original_start":"10","operand_original_end":"11"},"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","14"]},{"indices":["1","15","16"]},{"indices":["2","17"]},{"indices":["3","18"]},{"indices":["4","19"]},{"indices":["5","20"]},{"indices":["6","21"]},{"indices":["7","22"]},{"indices":["8","23"]}]}}
+     Allocation type: HLO temp
+     ==========================
+
+  14. Size: 192.00M
+     Operator: op_name="jit(train_step)/forward_backward/jvp()/dot_general" stack_frame_id=137
+     Shape: bf16[8192,12288]{1,0:T(8,128)(2,1)}
+     Unpadded size: 192.00M
+     XLA label: fusion.15621 = fusion(get-tuple-element.48759, get-tuple-element.48760, get-tuple-element.48761, get-tuple-element.48762, ...(+8)), kind=kOutput, output_to_operand_aliasing={{2}: (0, {}), {3}: (1, {}), {4}: (1, {}), {5}: (2, {}), {6}: (3, {}), {7}: (4, {}), {8}: (5, {}), {9}: (6, {}), {10}: (7, {}), {11}: (8, {})}, calls=async_collective_fusion.15621, backend_config={"flag_configs":[],"scoped_memory_configs":[],"continuation_config":{"output_tuple_original_start":"0","output_tuple_original_end":"1","operand_original_start":"10","operand_original_end":"11"},"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","14"]},{"indices":["1","15","16"]},{"indices":["2","17"]},{"indices":["3","18"]},{"indices":["4","19"]},{"indices":["5","20"]},{"indices":["6","21"]},{"indices":["7","22"]},{"indices":["8","23"]}]}}
+     Allocation type: HLO temp
+     ==========================
+
+  15. Size: 192.00M
+     Operator: op_name="jit(train_step)/forward_backward/jvp()/dot_general" stack_frame_id=137
+     Shape: bf16[1,8192,12288]{2,1,0:T(8,128)(2,1)}
+     Unpadded size: 192.00M
+     XLA label: fusion.15621 = fusion(get-tuple-element.48759, get-tuple-element.48760, get-tuple-element.48761, get-tuple-element.48762, ...(+8)), kind=kOutput, output_to_operand_aliasing={{2}: (0, {}), {3}: (1, {}), {4}: (1, {}), {5}: (2, {}), {6}: (3, {}), {7}: (4, {}), {8}: (5, {}), {9}: (6, {}), {10}: (7, {}), {11}: (8, {})}, calls=async_collective_fusion.15621, backend_config={"flag_configs":[],"scoped_memory_configs":[],"continuation_config":{"output_tuple_original_start":"0","output_tuple_original_end":"1","operand_original_start":"10","operand_original_end":"11"},"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","14"]},{"indices":["1","15","16"]},{"indices":["2","17"]},{"indices":["3","18"]},{"indices":["4","19"]},{"indices":["5","20"]},{"indices":["6","21"]},{"indices":["7","22"]},{"indices":["8","23"]}]}}
+     Allocation type: HLO temp
+     ==========================
+
+  16. Size: 192.00M
+     Operator: op_name="jit(train_step)/forward_backward/jvp()/dot_general" stack_frame_id=133
+     Shape: bf16[8192,12288]{1,0:T(8,128)(2,1)}
+     Unpadded size: 192.00M
+     XLA label: fusion.15614 = fusion(get-tuple-element.48739, get-tuple-element.48740, get-tuple-element.48741, get-tuple-element.48742, ...(+7)), kind=kOutput, output_to_operand_aliasing={{1}: (0, {}), {2}: (1, {}), {3}: (1, {}), {4}: (2, {}), {5}: (3, {}), {6}: (4, {}), {7}: (5, {}), {8}: (6, {}), {9}: (7, {}), {10}: (8, {})}, calls=async_collective_fusion.15614, backend_config={"flag_configs":[],"scoped_memory_configs":[],"continuation_config":{"output_tuple_original_start":"0","output_tuple_original_end":"0","operand_original_start":"9","operand_original_end":"10"},"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","12"]},{"indices":["1","13","14"]},{"indices":["2","15"]},{"indices":["3","16"]},{"indices":["4","17"]},{"indices":["5","18"]},{"indices":["6","19"]},{"indices":["7","20"]},{"indices":["8","21"]}]}}
+     Allocation type: HLO temp
+     ==========================
+
+  17. Size: 192.00M
+     Operator: op_name="jit(train_step)/forward_backward/jvp()/dot_general" stack_frame_id=137
+     Shape: bf16[8192,12288]{1,0:T(8,128)(2,1)}
+     Unpadded size: 192.00M
+     XLA label: bitcast_multiply_fusion.75 = fusion(fusion.7914.remat2, all-gather.4248.remat2, fusion.6893.remat2), kind=kOutput, calls=fused_computation.7547, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","4"]}]}}
+     Allocation type: HLO temp
+     ==========================
+
+  18. Size: 192.00M
+     Operator: op_name="jit(train_step)/forward_backward/jvp()/dot_general" stack_frame_id=137
+     Shape: bf16[1,8192,12288]{2,1,0:T(8,128)(2,1)}
+     Unpadded size: 192.00M
+     XLA label: bitcast_multiply_fusion.75 = fusion(fusion.7914.remat2, all-gather.4248.remat2, fusion.6893.remat2), kind=kOutput, calls=fused_computation.7547, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","4"]}]}}
+     Allocation type: HLO temp
+     ==========================
+
+  19. Size: 192.00M
+     Operator: op_name="jit(train_step)/forward_backward/jvp()/dot_general" stack_frame_id=133
+     Shape: bf16[8192,12288]{1,0:T(8,128)(2,1)}
+     Unpadded size: 192.00M
+     XLA label: fusion.7914.remat2 = fusion(all-gather.4247.remat2, fusion.6893.remat2), kind=kOutput, calls=fused_computation.9623.clone.clone, backend_config={"flag_configs":[],"scoped_memory_configs":[],"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[]}}
+     Allocation type: HLO temp
+     ==========================
+
+  20. Size: 192.00M
+     Operator: op_name="jit(train_step)/forward_backward/jvp()/dot_general" stack_frame_id=133
+     Shape: bf16[8192,12288]{1,0:T(8,128)(2,1)}
+     Unpadded size: 192.00M
+     XLA label: fusion.15704 = fusion(get-tuple-element.49049, get-tuple-element.49050, get-tuple-element.49051, get-tuple-element.49052, ...(+7)), kind=kOutput, output_to_operand_aliasing={{1}: (0, {}), {2}: (1, {}), {3}: (1, {}), {4}: (2, {}), {5}: (3, {}), {6}: (4, {}), {7}: (5, {}), {8}: (6, {}), {9}: (7, {}), {10}: (8, {})}, calls=async_collective_fusion.15704, backend_config={"flag_configs":[],"scoped_memory_configs":[],"continuation_config":{"output_tuple_original_start":"0","output_tuple_original_end":"0","operand_original_start":"9","operand_original_end":"10"},"used_scoped_memory_configs":[],"aliasing_operands":{"lists":[{"indices":["0","12"]},{"indices":["1","13","14"]},{"indices":["2","15"]},{"indices":["3","16"]},{"indices":["4","17"]},{"indices":["5","18"]},{"indices":["6","19"]},{"indices":["7","20"]},{"indices":["8","21"]}]}}
+     Allocation type: HLO temp
+     ==========================
+
+
+--------------------
+For simplicity, JAX has removed its internal frames from the traceback of the following exception. Set JAX_TRACEBACK_FILTERING=off to include these.
+XPK End: Fri Jun 26 23:33:58 UTC 2026
+EXIT_CODE=1

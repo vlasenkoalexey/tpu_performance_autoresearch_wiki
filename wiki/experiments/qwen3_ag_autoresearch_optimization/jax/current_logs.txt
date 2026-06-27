@@ -1,0 +1,186 @@
+XPK Start: Sat Jun 27 00:50:26 UTC 2026
+[dist] global_devices=8 local_devices=4 hosts=2
+[mesh] fsdp=8 tp=1 mesh=Mesh('fsdp': 8, 'tp': 1, axis_types=(Auto, Auto))
+[load] config from Qwen/Qwen3-8B ...
+/app/trainer/train.py:86: DeprecationWarning: '.value' access is now deprecated. For Variable[Array] instances use:
+
+  variable[...]
+
+For other Variable types use:
+
+  variable.get_value()
+
+  n_params = sum(int(p.value.size) for _, p in _iter_params(model))
+[load] Qwen3 has 8.19 B parameters (NNX-side), random init
+[sharding] matched=399 replicated=0
+[opt] adamw lr=1e-05 wd=0.0
+[data] fake (random ints) global_batch=8 seqlen=8192
+[train] starting train_steps=20 per_chip_batch=1 global_batch=8
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[step  0/20] loss=12.0959 step_time=315439.5ms throughput=208 tok/s
+[step  1/20] loss=12.0990 step_time=13727.7ms throughput=4774 tok/s
+[step  2/20] loss=12.0944 step_time=1511.7ms throughput=43354 tok/s
+[step  3/20] loss=12.0948 step_time=1511.1ms throughput=43369 tok/s
+[step  4/20] loss=12.0918 step_time=1510.7ms throughput=43382 tok/s
+[step  5/20] loss=12.0852 step_time=1511.5ms throughput=43357 tok/s
+[step  6/20] loss=12.0880 step_time=1510.8ms throughput=43379 tok/s
+[step  7/20] loss=12.0862 step_time=1511.7ms throughput=43353 tok/s
+[step  8/20] loss=12.0835 step_time=1511.4ms throughput=43361 tok/s
+[step  9/20] loss=12.0854 step_time=1511.1ms throughput=43371 tok/s
+[profile] start_trace -> gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_ag/2026-06-26-qwen3-jax-v004-gradient-checkpointing/plugins/profile (GCS (direct)); capturing steps 10..12
+[step 10/20] loss=12.0775 step_time=1513.0ms throughput=43316 tok/s
+[step 11/20] loss=12.0795 step_time=1512.8ms throughput=43321 tok/s
+[profile] stop_trace (captured steps 10..12)
+[step 12/20] loss=12.0744 step_time=1513.1ms throughput=43313 tok/s
+[step 13/20] loss=12.0765 step_time=1512.1ms throughput=43342 tok/s
+[step 14/20] loss=12.0737 step_time=1511.9ms throughput=43346 tok/s
+[step 15/20] loss=12.0768 step_time=1511.3ms throughput=43365 tok/s
+[step 16/20] loss=12.0743 step_time=1511.5ms throughput=43360 tok/s
+[step 17/20] loss=12.0754 step_time=1511.8ms throughput=43349 tok/s
+[step 18/20] loss=12.0726 step_time=1511.5ms throughput=43359 tok/s
+[step 19/20] loss=12.0681 step_time=1511.1ms throughput=43370 tok/s
+
+---------------- profile ----------------
+profile dir   : gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_ag/2026-06-26-qwen3-jax-v004-gradient-checkpointing/plugins/profile
+xprof run     : profile
+xprof URL     : http://localhost:8791/?run=profile
+(visible in xprof-mcp once the run dir is under the server --logdir root)
+-----------------------------------------
+
+================ summary ================
+global_batch          : 8
+seqlen                : 8192
+steps measured        : 18
+avg throughput        : 43354 tok/s (5419/chip)
+approx MFU            : 31.1% (v6e bf16 peak)
+==========================================
+XPK End: Sat Jun 27 00:57:51 UTC 2026
+EXIT_CODE=0
+XPK Start: Sat Jun 27 00:50:27 UTC 2026
+[dist] global_devices=8 local_devices=4 hosts=2
+[mesh] fsdp=8 tp=1 mesh=Mesh('fsdp': 8, 'tp': 1, axis_types=(Auto, Auto))
+[load] config from Qwen/Qwen3-8B ...
+/app/trainer/train.py:86: DeprecationWarning: '.value' access is now deprecated. For Variable[Array] instances use:
+
+  variable[...]
+
+For other Variable types use:
+
+  variable.get_value()
+
+  n_params = sum(int(p.value.size) for _, p in _iter_params(model))
+[load] Qwen3 has 8.19 B parameters (NNX-side), random init
+[sharding] matched=399 replicated=0
+[opt] adamw lr=1e-05 wd=0.0
+[data] fake (random ints) global_batch=8 seqlen=8192
+[train] starting train_steps=20 per_chip_batch=1 global_batch=8
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[splash] bq=2048 bkv=1024 bq_dkv=2048 bkv_dkv=2048 fused_bwd=True bq_dq=None bkv_dq=None
+[step  0/20] loss=12.0959 step_time=315439.3ms throughput=208 tok/s
+[step  1/20] loss=12.0990 step_time=13727.7ms throughput=4774 tok/s
+[step  2/20] loss=12.0944 step_time=1511.6ms throughput=43355 tok/s
+[step  3/20] loss=12.0948 step_time=1511.1ms throughput=43371 tok/s
+[step  4/20] loss=12.0918 step_time=1510.7ms throughput=43381 tok/s
+[step  5/20] loss=12.0852 step_time=1511.5ms throughput=43358 tok/s
+[step  6/20] loss=12.0880 step_time=1510.7ms throughput=43381 tok/s
+[step  7/20] loss=12.0862 step_time=1511.6ms throughput=43354 tok/s
+[step  8/20] loss=12.0835 step_time=1511.5ms throughput=43358 tok/s
+[step  9/20] loss=12.0854 step_time=1511.1ms throughput=43369 tok/s
+[profile] start_trace -> gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_ag/2026-06-26-qwen3-jax-v004-gradient-checkpointing/plugins/profile (GCS (direct)); capturing steps 10..12
+[step 10/20] loss=12.0775 step_time=1547.4ms throughput=42352 tok/s
+[step 11/20] loss=12.0795 step_time=1512.7ms throughput=43323 tok/s
+[profile] stop_trace (captured steps 10..12)
+[step 12/20] loss=12.0744 step_time=1512.9ms throughput=43317 tok/s
+[step 13/20] loss=12.0765 step_time=1512.0ms throughput=43344 tok/s
+[step 14/20] loss=12.0737 step_time=1511.9ms throughput=43347 tok/s
+[step 15/20] loss=12.0768 step_time=1511.4ms throughput=43362 tok/s
+[step 16/20] loss=12.0743 step_time=1511.5ms throughput=43358 tok/s
+[step 17/20] loss=12.0754 step_time=1511.9ms throughput=43348 tok/s
+[step 18/20] loss=12.0726 step_time=1511.6ms throughput=43357 tok/s
+[step 19/20] loss=12.0681 step_time=1511.0ms throughput=43372 tok/s
+
+---------------- profile ----------------
+profile dir   : gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_ag/2026-06-26-qwen3-jax-v004-gradient-checkpointing/plugins/profile
+xprof run     : profile
+xprof URL     : http://localhost:8791/?run=profile
+(visible in xprof-mcp once the run dir is under the server --logdir root)
+-----------------------------------------
+
+================ summary ================
+global_batch          : 8
+seqlen                : 8192
+steps measured        : 18
+avg throughput        : 43299 tok/s (5412/chip)
+approx MFU            : 31.0% (v6e bf16 peak)
+==========================================
+XPK End: Sat Jun 27 00:57:52 UTC 2026
+EXIT_CODE=0

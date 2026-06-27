@@ -245,6 +245,7 @@ If your polling loop drifts (sleep + work taking >30s combined), the next poll f
      # the slice-job suffix to recover the workload_name.
      workload=$(echo "$pod" | sed 's/-slice-job-.*//')
      case "$workload" in
+       "ray-tpu-"*)                  ;;                          # ignore ray workloads on shared clusters
        "${expected_prefix}"*)        ;;                          # ours; expected
        "${user_prefix}-"*)           conflict+=("$workload") ;;  # our user, different model/lane
        *)                            foreign+=("$workload") ;;   # someone else
