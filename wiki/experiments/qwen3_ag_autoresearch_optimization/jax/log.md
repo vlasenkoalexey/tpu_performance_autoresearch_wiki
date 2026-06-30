@@ -76,3 +76,4 @@
 
 2026-06-27-qwen3-jax-v016-fused-glu-bwd.md | Falsified | 11.9% MFU | Backward kernel exceeded VMEM limit and silently fell back to unrolled JAX reference ops.
 2026-06-27-qwen3-jax-v017-fused-glu-tiled-bwd.md | Falsified | 0.0% MFU | Compile OOM (166GB). Pallas grid reduction materialized massive HBM buffers.
+2026-06-27-qwen3-jax-v018-fused-glu-fori-bwd.md | Pending | N/A | Testing in-kernel fori_loop reduction for backward pass.
