@@ -12,6 +12,7 @@ updated: 2026-07-03
 | easydel | [easydel](easydel/index.md) | standalone |
 | jaxite | [jaxite](jaxite/index.md) | standalone |
 | learning-machine | [learning-machine](learning-machine/index.md) | standalone |
+| marin | [marin](marin/index.md) | standalone |
 | maxdiffusion | [maxdiffusion](maxdiffusion/index.md) | standalone |
 | maxtext | [maxtext](maxtext/index.md) | standalone |
 | pallas-forge | [pallas-forge](pallas-forge/index.md) | standalone |
