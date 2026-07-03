@@ -23,6 +23,7 @@ updated: 2026-07-03
 | qwix | [qwix](qwix/index.md) | standalone |
 | recurrentgemma | [recurrentgemma](recurrentgemma/index.md) | standalone |
 | ringattention | [ringattention](ringattention/index.md) | standalone |
+| sglang-jax | [sglang-jax](sglang-jax/index.md) | standalone |
 | simply | [simply](simply/index.md) | standalone |
 | tokamax | [tokamax](tokamax/index.md) | standalone |
 | torchax | [torchax](torchax/index.md) | standalone |
