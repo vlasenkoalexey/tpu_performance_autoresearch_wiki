@@ -29,7 +29,7 @@ Per SCHEMA.md's "Operations → LINT" section. The canonical list (extend if SCH
 ### Cross-cutting wiki invariants
 
 1. **Unresolved `[!warning]` contradictions** — grep `wiki/**.md` for `> [!warning]` blocks; report each with file:line + the contradicting claim.
-2. **Orphan pages** — pages with zero inbound markdown links. Special case: `_`-prefixed dirs/files in `wiki/` are auto-generated; SKIP orphan check for them (see also: AST snapshots under `wiki/codebases/<slug>/_ast/`).
+2. **Orphan pages** — pages with zero inbound markdown links. Special case: `_`-prefixed dirs/files in `wiki/` are auto-generated; SKIP orphan check for them. Also SKIP the wikify-generated grounded catalogs under `wiki/codebases/<slug>/` (`catalog/`, `concepts/`, `doc-concepts/`, `overview.md`) — they are internally cross-linked and lint-gated by `wikify finalize`, not by this skill.
 3. **Broken markdown links** — relative paths whose target `.md` doesn't exist.
 4. **Concept/entity names mentioned in prose but not linked** — heuristic: substrings from known concept page titles that appear unlinked in prose. Surface as advisory; many false positives.
 
