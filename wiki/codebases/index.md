@@ -9,6 +9,7 @@ updated: 2026-07-03
 |---|---|---|
 | alphafold3 | [alphafold3](alphafold3/index.md) | standalone |
 | aqt | [aqt](aqt/index.md) | standalone |
+| axlearn | [axlearn](axlearn/index.md) | standalone |
 | easydel | [easydel](easydel/index.md) | standalone |
 | ejkernel | [ejkernel](ejkernel/index.md) | standalone |
 | graphcast | [graphcast](graphcast/index.md) | standalone |
