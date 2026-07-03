@@ -7,6 +7,7 @@ updated: 2026-07-03
 
 | Repo | Wiki | Connection |
 |---|---|---|
+| jaxite | [jaxite](jaxite/index.md) | standalone |
 | learning-machine | [learning-machine](learning-machine/index.md) | standalone |
 | maxtext | [maxtext](maxtext/index.md) | standalone |
 | pallas-forge | [pallas-forge](pallas-forge/index.md) | standalone |
@@ -14,3 +15,4 @@ updated: 2026-07-03
 | recurrentgemma | [recurrentgemma](recurrentgemma/index.md) | standalone |
 | ringattention | [ringattention](ringattention/index.md) | standalone |
 | torchax | [torchax](torchax/index.md) | standalone |
+| xprof-mcp | [xprof-mcp](xprof-mcp/index.md) | standalone |
