@@ -24,5 +24,7 @@ updated: 2026-07-03
 | recurrentgemma | [recurrentgemma](recurrentgemma/index.md) | standalone |
 | ringattention | [ringattention](ringattention/index.md) | standalone |
 | simply | [simply](simply/index.md) | standalone |
+| tokamax | [tokamax](tokamax/index.md) | standalone |
 | torchax | [torchax](torchax/index.md) | standalone |
+| tpu-inference | [tpu-inference](tpu-inference/index.md) | standalone |
 | xprof-mcp | [xprof-mcp](xprof-mcp/index.md) | standalone |
