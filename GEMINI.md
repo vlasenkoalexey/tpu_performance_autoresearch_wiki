@@ -21,6 +21,7 @@ You should be able to run this flow by locating, reading, and executing the prot
 8. **`/extract-ast`** (`.agents/skills/extract-ast/SKILL.md`): Inspects the target repository codebase to map and extract structural abstractions, class hierarchies, and performance-relevant surfaces.
 9. **`/ingest-source`** (`.agents/skills/ingest-source/SKILL.md`): Fully ingests research papers, documentation, or articles, creates corresponding source wiki pages, maps techniques to concept stubs, and connects them to open hypotheses.
 10. **`/lint`** (`.agents/skills/lint/SKILL.md`): Syntactically and structurally validates the wiki, verifying links, variant matrices, mandatory profiles, next-hypotheses stubs, frontmatter, and orphan pages.
+11. **`/wikify-ingest-repo`** (`.agents/skills/wikify-ingest-repo/SKILL.md`): Ingests a code repo under `raw/code/<slug>/` into a **SCIP-grounded, citation-linted** catalog at `wiki/codebases/<slug>/` (overview + concepts + per-module catalog + doc-concepts). This is the grounded structural layer for `INGEST-CODEBASE` step 5 and the retrieval target for `ANSWER-CODEBASE-INTERNALS` — the working replacement for `/extract-ast`. Drives the deterministic `wikify` CLI around one LLM synthesis step; see `config/README.md` for the per-repo config conventions (`wiki_subdir: codebases`, `repo: raw/code/<slug>`).
 
 #### Claude Agents (.claude/agents/)
 To handle complex, specialized tasks in the background, you must review and utilize the agent definitions:
