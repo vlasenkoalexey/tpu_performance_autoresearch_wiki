@@ -331,6 +331,7 @@ Check and report:
 - Concept/entity names mentioned in prose but not linked to an existing page.
 - Stale codebase pages whose `commit:` is far behind the current checkout.
 - Kernel-replacement hypothesis pages with `status: open` that lack an `hlo_prefilter:` frontmatter field (must be `passed`, `refuted`, or `pending`).
+- **Hook health** — the never-stop loop's Stop hook (`.claude/stop_hook.sh`) must be wired and executable, no command hook may reference a missing script, and no hook may base a decision on a non-durable `/tmp` path or a rogue global-scope Stop hook. Run `.claude/scripts/check-hook-health.py` (ERROR ⇒ lint fails). This is the loop's control plane — if it breaks, the discipline fails silently.
 
 Fix mechanical issues automatically; flag judgment calls for the human.
 

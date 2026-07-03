@@ -56,6 +56,12 @@ Per SCHEMA.md's "Operations → LINT" section. The canonical list (extend if SCH
 17. **Per-model `refuted-patterns.md` referencing experiment v-IDs that don't exist** in `wiki/experiments/<model>_autoresearch_optimization/<lane>/`.
 18. **`model-optimization-index.md` or `model-optimization-blueprint.md` referencing concept/observation/source pages that don't exist.**
 
+### Hook-health invariants (the never-stop loop's control plane)
+
+The autoresearch never-stop loop is governed *entirely* by a Stop hook; if it is unwired or shadowed by a rogue hook in another settings scope, the discipline fails **silently**. This check is not optional hygiene — it validates the loop's control plane.
+
+23. **Hook health** — run `python3 .claude/scripts/check-hook-health.py`. It scans every settings scope (`~/.claude/settings*.json`, project `.claude/settings*.json`) and hard-fails (ERROR) if: the never-stop Stop hook (`.claude/stop_hook.sh`) isn't wired, its script is missing/non-executable, or any command hook references a script that doesn't exist. It WARNs on rogue global Stop hooks and hook commands that read non-durable `/tmp` paths (the two anti-patterns behind the 2026-06 `v6e32_stop_hook.json` staleness bug). Fold its ERRORS into the punch list; surface WARNINGS advisory. Do **not** auto-edit `~/.claude` settings — global scope affects every project, so flag global-scope findings for the user.
+
 ### Codebase invariants
 
 19. **Stale codebase pages** whose `commit:` is far behind the current checkout (`git -C raw/code/<slug> rev-parse HEAD` vs frontmatter `commit:`).
@@ -90,7 +96,7 @@ The following require human judgment — surface them, don't auto-fix:
 
 **Scope**: <wiki/ paths checked>
 **Pages scanned**: <N>
-**Checks run**: 22 of 22
+**Checks run**: 23 of 23
 
 ## Auto-fixed (N issues)
 
@@ -116,6 +122,9 @@ The following require human judgment — surface them, don't auto-fix:
 
 ### Log routing (N)
 - ...
+
+### Hook health (N)
+- [scope] <ERROR/WARN from check-hook-health.py> — <fix>
 
 ## Summary
 
