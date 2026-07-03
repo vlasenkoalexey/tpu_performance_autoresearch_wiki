@@ -7,6 +7,7 @@ updated: 2026-07-03
 
 | Repo | Wiki | Connection |
 |---|---|---|
+| alphafold3 | [alphafold3](alphafold3/index.md) | standalone |
 | jaxite | [jaxite](jaxite/index.md) | standalone |
 | learning-machine | [learning-machine](learning-machine/index.md) | standalone |
 | maxdiffusion | [maxdiffusion](maxdiffusion/index.md) | standalone |
