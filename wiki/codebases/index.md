@@ -27,4 +27,6 @@ updated: 2026-07-03
 | tokamax | [tokamax](tokamax/index.md) | standalone |
 | torchax | [torchax](torchax/index.md) | standalone |
 | tpu-inference | [tpu-inference](tpu-inference/index.md) | standalone |
+| tpu-recipes | [tpu-recipes](tpu-recipes/index.md) | standalone |
+| xprof | [xprof](xprof/index.md) | standalone |
 | xprof-mcp | [xprof-mcp](xprof-mcp/index.md) | standalone |
