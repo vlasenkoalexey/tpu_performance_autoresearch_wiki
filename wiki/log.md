@@ -1,5 +1,12 @@
 # Log
 
+## [2026-07-04] migrate | wikify-repo drop-in replacement for INGEST-CODEBASE — index repointed to grounded overviews, perf lens added
+
+**Op**: migrate (adopt the standalone `wikify-repo` tool + `wikify-ingest-repo` skill as the codebase-ingest pipeline; make it an improved drop-in replacement for the never-finished inline INGEST-CODEBASE process).
+**Pages updated**: `wiki/index.md` (all 25 ingested codebases now link to their grounded `codebases/<slug>/overview.md` front door instead of the hand pages; `stablehlo`/`autoresearch` stay hand pages — not ingested); `SCHEMA.md` (INGEST-CODEBASE slimmed to a thin orchestrator that drives the skill and delegates hypothesis generation to `/formulate-hypothesis`; last `_ast/` reference removed); all 25 `config/<slug>.md` gained a `synthesis_focus: "TPU performance — …"` lens.
+**Key result**: the main index now connects to every ingested codebase's grounded overview (previously it only reached the hand pages, and the overviews were orphaned). The perf lens makes regenerated overviews lead with a Performance-relevant surfaces section — the overview becomes the perf entry point, replacing a hand-written perf page. Hand pages (`codebases/<slug>.md`) become optional thin, on-demand perf-verdict notes (e.g. aqt deprecated→qwix); grounded layer is primary. Idempotent: re-ingest at a new commit rebuilds only the delta.
+
+
 ## [2026-06-02] analyze | qwen3_cc-jax retrospective #5 (MaxText config delta) — RE-OPENS the offload lever; loop resumed
 
 **Op**: analyze (user directive: "do another retrospective covering maxtext findings, identify what's unexplored, keep the loop running").
