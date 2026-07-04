@@ -13,6 +13,7 @@ index_shards:
   - python/sgl_jax/srt/managers/schedule_batch.py
   - python/sgl_jax/srt/managers/schedule_policy.py
   - python/sgl_jax/srt/speculative/**
+synthesis_focus: "TPU performance — kernels, sharding, attention, autotune knobs, precision, memory, compilation"
 ---
 
 ## Concepts

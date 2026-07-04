@@ -9,6 +9,7 @@ index_shards:
   - src/maxdiffusion/models/**
   - src/maxdiffusion/kernels/**
   - src/maxdiffusion/trainers/**
+synthesis_focus: "TPU performance — kernels, sharding, attention, autotune knobs, precision, memory, compilation"
 ---
 
 ## Concepts

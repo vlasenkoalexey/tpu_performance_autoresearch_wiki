@@ -8,6 +8,7 @@ languages: [python]
 index_shards:
   - src/alphafold3/model/**
   - src/alphafold3/jax/**
+synthesis_focus: "TPU performance — kernels, sharding, attention, autotune knobs, precision, memory, compilation"
 ---
 
 ## Concepts

@@ -39,6 +39,7 @@ index_shards:
   - axlearn/common/quantized_dot_general/*.py
   - axlearn/common/rattention/**/*.py
   - axlearn/common/ops/*.py
+synthesis_focus: "TPU performance — kernels, sharding, attention, autotune knobs, precision, memory, compilation"
 ---
 
 ## Concepts

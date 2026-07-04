@@ -10,6 +10,7 @@ index_shards:
   - tpu_inference/layers/**/*.py
   - tpu_inference/models/**/*.py
   - tpu_inference/runner/*.py
+synthesis_focus: "TPU performance — kernels, sharding, attention, autotune knobs, precision, memory, compilation"
 ---
 
 ## Concepts

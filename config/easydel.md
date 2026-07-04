@@ -16,6 +16,7 @@ index_shards:
 # resolve) but drop the detailed member body.
 coverage_collapse:
   - easydel/modules/*
+synthesis_focus: "TPU performance — kernels, sharding, attention, autotune knobs, precision, memory, compilation"
 ---
 
 ## Concepts

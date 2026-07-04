@@ -13,6 +13,7 @@ index_shards:
   - lib/levanter/src/levanter/layers/**/*.py
   - lib/levanter/src/levanter/models/**/*.py
   - lib/levanter/src/levanter/optim/**/*.py
+synthesis_focus: "TPU performance — kernels, sharding, attention, autotune knobs, precision, memory, compilation"
 ---
 
 ## Concepts
