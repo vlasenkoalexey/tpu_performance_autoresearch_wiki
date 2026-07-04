@@ -8,6 +8,10 @@ grounded, cross-linked concept page per concept** into `wiki/code/<slug>/doc-con
 The doc itself is **never moved or copied** — it stays in the repo. You only
 extract from it.
 
+**Lens.** If `config/<slug>.md` sets `synthesis_focus`, extract through it — prioritize the
+concepts the lens cares about and frame each around it (e.g. a "TPU performance" lens → pull the
+perf-relevant guidance, flags, and recipes the doc names). With no lens, extract neutrally.
+
 ## Inputs
 - The doc worklist: `.cache/docs/<slug>.txt` (repo-relative doc paths), produced by
   `wikify prepare`.

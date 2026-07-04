@@ -6,6 +6,13 @@ that a newcomer reads FIRST to get the whole system in their head. It is the
 It is synthesized from the concept pages (and their cited grounding) — you are
 stitching the per-subsystem mental models into a single system mental model.
 
+**Lens.** Read `synthesis_focus` from `config/<slug>.md`. If set, it is the reader's angle:
+organize the overview around it and **add a dedicated section leading with the focus-relevant
+surfaces** — e.g. a "TPU performance" lens → a `## Performance-relevant surfaces` section naming
+the kernels / sharding / autotune knobs / precision / memory paths that matter, each linked to its
+concept or catalog page. This is what makes the overview the perf entry point (it replaces a
+hand-written perf page). With no lens, keep the overview neutral.
+
 ## Method
 1. Read every page in `wiki/code/<slug>/concepts/` (their Overview + Design rationale
    sections are the raw material — that's where each subsystem's essence lives).

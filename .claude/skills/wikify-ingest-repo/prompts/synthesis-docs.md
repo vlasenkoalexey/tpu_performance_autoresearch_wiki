@@ -11,6 +11,11 @@ packet gives you: the source file path, the doc text (truncated — **read the r
 `raw/code/<slug>/…` path for anything long), the exact **`src:` citation tokens** you may use, and
 the sibling docs it links to.
 
+**Lens.** Read `synthesis_focus` from `config/<slug>.md` (same as code mode). If set, it is the
+reader's angle: weight which topics get pages and what each summary leads with toward the focus.
+The lens moves emphasis, never grounding — every claim still cites a real `src:` section. With no
+lens, stay neutral.
+
 ## For each doc packet
 
 Write into `wiki/<wiki_subdir>/<slug>/` (default `wiki/code/<slug>/`; here it's docs-mode, so

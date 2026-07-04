@@ -9,6 +9,19 @@ A grounded page that merely traces the code ("X calls Y, then Z", every clause
 cited) is a FAILURE even if it passes the linter. Comprehension first; citations
 support it.
 
+**Lens.** If the packet has a `## Synthesis focus (lens)` block, that is the reader's
+angle — foreground it: organize the page around it, lead with the symbols/mechanisms
+that matter *for that lens*, and call out the knobs/tradeoffs it cares about. (E.g. a
+"TPU performance" lens → surface kernels, sharding, autotune knobs, precision, memory,
+and *why they matter for perf* — not a neutral tour.) With no lens, synthesize neutrally.
+
+**Concept tags.** If the packet has a `## Concept vocabulary` block, decide whether this
+page's mechanism *is an instance of* one or more of those shared concepts (e.g. a splash
+kernel page → `splash-attention`, `pallas-kernel`). If so, add a `concepts: [<keys>]` list
+to the frontmatter using ONLY the keys that genuinely apply — this is what lets Stage 7
+`connect` link your page to the same concept in other repos as an authoritative match
+(vs. a name-guess). Omit the field entirely if none apply; never invent a key not listed.
+
 ## Method (this is different from a shallow pass — follow it)
 1. The packet is your **grounding index + citation target list**, not your only
    source. Its Subgraph lists the symbols you may cite (with `cite:` links) and
@@ -48,6 +61,7 @@ title: <concept title>
 type: concept
 provenance: mixed
 concept: <concept-slug>
+concepts: [<shared-key>, ...]   # OPTIONAL — see "Concept tags" below; omit if none apply
 updated: <date>
 status: fresh
 ---

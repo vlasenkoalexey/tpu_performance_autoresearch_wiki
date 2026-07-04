@@ -17,7 +17,10 @@ packets, lint, assemble). You write one mechanism page per packet. Never put
 synthesis in Python; never push linting into your prose.
 
 ## Preconditions
-- `wikify` is on PATH and `scip-python` is installed (see the repo's README install steps).
+- `wikify` is on PATH, plus the SCIP indexer for the repo's language(s): `scip-python`
+  and the vendored `scip-clang` come from `scripts/setup-vendor.sh` (see the repo's README);
+  TS/JS, Go, and Rust indexers are installed **on demand** — `prepare` detects the language
+  and asks before installing, and skips that language if declined.
 
 ## Input — invoke with the repo to ingest
 You are called with a repo **URL or local path** (e.g. `wikify-ingest-repo
@@ -34,6 +37,14 @@ repo: <the URL or local path>
 No `## Concepts` list is needed — discovery auto-seeds the agenda from code centrality; add seed
 concepts later only to go deeper into a subsystem. If a config for that slug already exists,
 reuse it (re-ingest is idempotent). Then run the Procedure below with `<slug>`.
+
+**Focus (lens) — settle it before synthesizing; ask only if it isn't already known.** If the
+config already has `synthesis_focus`, or the host wiki has an established lens (skim a couple of
+sibling `config/*.md`, or the host `SCHEMA.md`), use that — **do not re-ask a settled question**.
+Otherwise ASK the user for the domain angle in one line (e.g. *"TPU performance — kernels,
+sharding, autotune, precision"*) and write it into `config/<slug>.md` as `synthesis_focus:`. In a
+non-interactive/batch run with no signal, proceed neutrally (no lens). The lens shapes emphasis,
+never grounding.
 
 > **Docs mode (prose sources).** If the repo is documentation, not code — or you set
 > `source_type: docs` in the config — the pipeline is the same shape but prose-grounded:
@@ -65,6 +76,14 @@ reuse it (re-ingest is idempotent). Then run the Procedure below with `<slug>`.
    symbol stubs — paste each symbol's `cite:` link from the Subgraph verbatim (it
    resolves to the catalog anchor). Cite ONLY Subgraph symbols; ungrounded → a
    `> [!inferred]` block.
+
+   **Then offer to go deeper (interactive; skip in batch).** List the concept pages you just
+   wrote and — from the reconcile **plan** and the Stage-6b coverage (modules that got only a
+   catalog, not a deep page) — the highest-centrality subsystems *not yet* deep-dived. Ask the
+   user which, if any, to add. For each chosen one, add it as a seed to the `## Concepts` list in
+   `config/<slug>.md` and **re-run from step 1** (`prepare` builds only the new packet). This is
+   the derived, ranked agenda — offer real candidates, never free-form (a concept with no packet
+   symbols cannot be grounded). With no user present, proceed with the auto-seeded set.
 
 3. **Overview (after all concepts exist).** Follow
    `prompts/overview.md` to write `wiki/code/<slug>/overview.md` —
@@ -98,6 +117,38 @@ reuse it (re-ingest is idempotent). Then run the Procedure below with `<slug>`.
    claim into an `[!inferred]` block) and run `wikify finalize <slug>` again.
    Repeat until it exits 0.
 
+7. **Adversarial verify (after the gate is green; skip only if the user declines).** The
+   linter proves every claim *cites* a real symbol — not that the claim is *true*. Run:
+   ```
+   wikify verify <slug>            # per-page count of load-bearing claims (no model)
+   wikify verify <slug> --page <concept>   # the claim worklist for one page
+   ```
+   For each concept page, follow `prompts/verify.md`: re-read the real source behind each
+   load-bearing claim and try to REFUTE it. Fix refuted claims in place (correct the prose,
+   or demote to `> [!inferred]` if the source can't support it), then re-run
+   `wikify finalize <slug>` so the gate re-checks the edited pages.
+
+8. **Register in the host wiki (REQUIRED).** The ingest is not done until the repo is
+   reachable from the host's read-first index and recorded in its log, **following the host
+   wiki's own conventions** (read its `SCHEMA.md` / `index.md` for the exact format):
+   - **Index** — add/refresh the repo's entry in the host's top `index.md`, linking the
+     **`overview.md`** front door (`wiki/<wiki_subdir>/<slug>/overview.md`), *not* the per-repo
+     `index.md` (the overview routes on to it). One entry per repo. If the host already lists the
+     repo (e.g. a curated page), add the overview as an "internals" link on that same row.
+   - **Log** — append one line to the host's `log.md`, prefixed per its convention
+     (e.g. `## [YYYY-MM-DD] ingest-code | <slug>`).
+   (wikify's CLI never edits the curated `index.md` / `log.md`; that's deliberate — this
+   step does, per the host's format.)
+
+9. **Connect to the other repos (from the 2nd silo on).** If the host wiki has other
+   ingested silos **and** a concept vocabulary (`wiki/concepts/*.md`), hand off to the
+   **`wikify-connect-repo`** skill and let it drive: it proposes candidates (`wikify connect`),
+   **asks the human which concepts to connect** (selective — not everything), applies them, and
+   refreshes the already-connected concepts so they pick up this new repo's implementations.
+   Do not run `wikify connect` yourself here — the connect skill owns that procedure, including
+   `--refresh`. Skip only when this is the first/only repo, or the wiki has no `wiki/concepts/`
+   vocabulary.
+
 ## Notes
 - **Where pages go**: `wiki/<wiki_subdir>/<slug>/` — `wiki_subdir` defaults to `code`
   (so `wiki/code/<slug>/`, leaving `wiki/` for a curated index + prose). Set
@@ -106,4 +157,9 @@ reuse it (re-ingest is idempotent). Then run the Procedure below with `<slug>`.
   `prepare` builds only the new packet (same commit, nothing else marked stale).
 - **Version bump**: `wikify prepare <slug> --ref <newcommit>` — only changed
   symbols' pages rebuild.
-- `wikify plan <slug>` previews the delta without emitting anything.
+- `wikify plan <slug>` previews the delta without emitting anything (requires a cached
+  index from a prior `prepare`).
+- **Interrupted or failed run**: the reconcile is idempotent — re-run `wikify prepare <slug>`
+  and it rebuilds only what's missing/stale; already-written pages are never double-built.
+  If `scip-python` OOMs on a huge repo (exit 137/144), add `index_shards:` globs to
+  `config/<slug>.md` (see implementation.md §10) and re-run `prepare`.
