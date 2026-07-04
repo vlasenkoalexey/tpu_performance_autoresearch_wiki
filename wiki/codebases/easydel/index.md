@@ -2,7 +2,7 @@
 slug: easydel
 commit: 090a03b2e0b3606bd38e0e3fcfdc640cd7e6e246
 scip_tool: scip-python
-updated: 2026-07-03
+updated: 2026-07-04
 ---
 
 # easydel internals wiki

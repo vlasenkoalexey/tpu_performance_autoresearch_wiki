@@ -10,6 +10,4 @@ symbols:
 ---
 # Module: [`easydel/modules/glm46v/__init__.py`](../../../../../../../raw/code/EasyDeL/easydel/modules/glm46v/__init__.py)
 
-## Module values
-- `__all__` — [`L85`](../../../../../../../raw/code/EasyDeL/easydel/modules/glm46v/__init__.py#L85)
-
+> **Collapsed catalog** (1 symbols) — anchors above resolve for citations; detailed member listing omitted (`coverage_collapse`). See the source link above, or the curated codebase page, for depth.

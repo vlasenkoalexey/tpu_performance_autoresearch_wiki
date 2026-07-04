@@ -10,6 +10,4 @@ symbols:
 ---
 # Module: [`easydel/modules/qwen3_omni_moe/__init__.py`](../../../../../../../raw/code/EasyDeL/easydel/modules/qwen3_omni_moe/__init__.py)
 
-## Module values
-- `__all__` — [`L70`](../../../../../../../raw/code/EasyDeL/easydel/modules/qwen3_omni_moe/__init__.py#L70)
-
+> **Collapsed catalog** (1 symbols) — anchors above resolve for citations; detailed member listing omitted (`coverage_collapse`). See the source link above, or the curated codebase page, for depth.

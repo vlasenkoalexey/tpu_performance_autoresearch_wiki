@@ -33,35 +33,4 @@ symbols:
 ---
 # Module: [`easydel/modules/gemma/gemma_configuration.py`](../../../../../../../raw/code/EasyDeL/easydel/modules/gemma/gemma_configuration.py)
 
-## Classes
-### `GemmaConfig`  ·  implements/extends EasyDeLBaseConfig
-- def: [`easydel/modules/gemma/gemma_configuration.py:24`](../../../../../../../raw/code/EasyDeL/easydel/modules/gemma/gemma_configuration.py#L24)
-- doc: Configuration objects inherit from \[`EasyDeLBaseConfig`\] and can be used to control the model outputs. Read
-- signature: `class GemmaConfig(EasyDeLBaseConfig):`
-- members:
-  - `get_partition_rules(self, *args, **kwargs)` — [`L143`](../../../../../../../raw/code/EasyDeL/easydel/modules/gemma/gemma_configuration.py#L143) — Returns partition rules for model sharding.
-  - `attention_bias` — [`L128`](../../../../../../../raw/code/EasyDeL/easydel/modules/gemma/gemma_configuration.py#L128)
-  - `attention_dropout` — [`L129`](../../../../../../../raw/code/EasyDeL/easydel/modules/gemma/gemma_configuration.py#L129)
-  - `bits` — [`L113`](../../../../../../../raw/code/EasyDeL/easydel/modules/gemma/gemma_configuration.py#L113)
-  - `gradient_checkpointing` — [`L112`](../../../../../../../raw/code/EasyDeL/easydel/modules/gemma/gemma_configuration.py#L112)
-  - `head_dim` — [`L121`](../../../../../../../raw/code/EasyDeL/easydel/modules/gemma/gemma_configuration.py#L121)
-  - `hidden_act` — [`L123`](../../../../../../../raw/code/EasyDeL/easydel/modules/gemma/gemma_configuration.py#L123)
-  - `hidden_activation` — [`L130`](../../../../../../../raw/code/EasyDeL/easydel/modules/gemma/gemma_configuration.py#L130)
-  - `hidden_size` — [`L117`](../../../../../../../raw/code/EasyDeL/easydel/modules/gemma/gemma_configuration.py#L117)
-  - `initializer_range` — [`L124`](../../../../../../../raw/code/EasyDeL/easydel/modules/gemma/gemma_configuration.py#L124)
-  - `intermediate_size` — [`L118`](../../../../../../../raw/code/EasyDeL/easydel/modules/gemma/gemma_configuration.py#L118)
-  - `layer_types` — [`L131`](../../../../../../../raw/code/EasyDeL/easydel/modules/gemma/gemma_configuration.py#L131)
-  - `max_position_embeddings` — [`L116`](../../../../../../../raw/code/EasyDeL/easydel/modules/gemma/gemma_configuration.py#L116)
-  - `model_type` — [`L82`](../../../../../../../raw/code/EasyDeL/easydel/modules/gemma/gemma_configuration.py#L82)
-  - `num_attention_heads` — [`L120`](../../../../../../../raw/code/EasyDeL/easydel/modules/gemma/gemma_configuration.py#L120)
-  - `num_hidden_layers` — [`L119`](../../../../../../../raw/code/EasyDeL/easydel/modules/gemma/gemma_configuration.py#L119)
-  - `num_key_value_heads` — [`L122`](../../../../../../../raw/code/EasyDeL/easydel/modules/gemma/gemma_configuration.py#L122)
-  - `rms_norm_eps` — [`L125`](../../../../../../../raw/code/EasyDeL/easydel/modules/gemma/gemma_configuration.py#L125)
-  - `rope_theta` — [`L127`](../../../../../../../raw/code/EasyDeL/easydel/modules/gemma/gemma_configuration.py#L127)
-  - `scan_layers` — [`L114`](../../../../../../../raw/code/EasyDeL/easydel/modules/gemma/gemma_configuration.py#L114)
-  - `use_cache` — [`L126`](../../../../../../../raw/code/EasyDeL/easydel/modules/gemma/gemma_configuration.py#L126)
-  - `vocab_size` — [`L115`](../../../../../../../raw/code/EasyDeL/easydel/modules/gemma/gemma_configuration.py#L115)
-- protocol/private: `__init__`[`L84`](../../../../../../../raw/code/EasyDeL/easydel/modules/gemma/gemma_configuration.py#L84)
-- uses (calls/refs, reference-scoped): [`EasyDeLBaseConfig`](../../infra/base_config.md#EasyDeLBaseConfig), [`register_config`](../../infra/factory.md#register_config), [`__init__`](../../infra/base_config.md#EasyDeLBaseConfig.__init__), [`EasyDeLGradientCheckPointers`](../../infra/etils.md#EasyDeLGradientCheckPointers), [`NONE`](../../infra/etils.md#EasyDeLGradientCheckPointers.NONE)
-- used by: [`_import_structure`](../../__init__.md#_import_structure), [`EasyDeLBaseConfig`](../../infra/base_config.md#EasyDeLBaseConfig), [`get_partition_rules`](../../infra/base_config.md#EasyDeLBaseConfig.get_partition_rules), [`embed_tokens`](modeling_gemma.md#GemmaModel.embed_tokens), [`GemmaModel`](modeling_gemma.md#GemmaModel), [`GemmaForCausalLM`](modeling_gemma.md#GemmaForCausalLM), [`GemmaForSequenceClassification`](modeling_gemma.md#GemmaForSequenceClassification), [`precision`](modeling_gemma.md#GemmaMLP.precision), [`kernel`](modeling_gemma.md#GemmaRMSNorm.kernel), [`_create_rotary`](modeling_gemma.md#GemmaAttention._create_rotary), [`__init__`](modeling_gemma.md#GemmaForCausalLM.__init__), [`__init__`](modeling_gemma.md#GemmaForSequenceClassification.__init__), [`epsilon`](modeling_gemma.md#GemmaRMSNorm.epsilon), [`__init__`](modeling_gemma.md#GemmaAttention.__init__), [`__init__`](modeling_gemma.md#GemmaModel.__init__), [`__init__`](modeling_gemma.md#GemmaDecoderLayer.__init__), [`__init__`](modeling_gemma.md#GemmaMLP.__init__), [`__init__`](modeling_gemma.md#GemmaRMSNorm.__init__), [`_config_class`](modeling_gemma.md#GemmaForCausalLM._config_class), [`_config_class`](modeling_gemma.md#GemmaForSequenceClassification._config_class)
-
+> **Collapsed catalog** (24 symbols) — anchors above resolve for citations; detailed member listing omitted (`coverage_collapse`). See the source link above, or the curated codebase page, for depth.

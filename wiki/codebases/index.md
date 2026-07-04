@@ -1,6 +1,6 @@
 ---
 title: wikify — top-level catalog
-updated: 2026-07-03
+updated: 2026-07-04
 ---
 
 # Wikify — repository wikis

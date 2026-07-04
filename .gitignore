@@ -270,3 +270,4 @@ profiles/
 
 # Codex runtime jobset manifests
 .codex/run_manifests/
+raw/code/easydel
