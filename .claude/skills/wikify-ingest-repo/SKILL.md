@@ -20,7 +20,10 @@ synthesis in Python; never push linting into your prose.
 - `wikify` is on PATH, plus the SCIP indexer for the repo's language(s): `scip-python`
   and the vendored `scip-clang` come from `scripts/setup-vendor.sh` (see the repo's README);
   TS/JS, Go, and Rust indexers are installed **on demand** — `prepare` detects the language
-  and asks before installing, and skips that language if declined.
+  and auto-installs a missing indexer, announcing the command (pass `--no-install-indexers`
+  to skip instead). If prepare reports a language was skipped anyway (install failed — e.g.
+  scip-go needs a Go toolchain), surface that to the user rather than ignoring it: the
+  skipped language's symbols are absent from the wiki until it's installed and prepare re-runs.
 
 ## Input — invoke with the repo to ingest
 You are called with a repo **URL or local path** (e.g. `wikify-ingest-repo
