@@ -8,6 +8,8 @@ created: 2026-04-23
 updated: 2026-04-23
 ---
 
+> **Grounded front door → [graphcast overview](graphcast/overview.md).** This hand page is the thin, on-demand companion: cross-ecosystem perf verdicts, loop-experiment backlinks, and Pallas-kernel-directory cross-links that the code-regenerated overview intentionally omits. For architecture, mechanisms, and per-symbol detail, start at the overview.
+
 DeepMind's graph-based weather-forecasting model (GraphCast + GenCast + WeatherMesh). **Wrapper over upstream splash attention** for non-LLM structured-adjacency attention; no new Pallas kernel. Ingested as the reference for [`custom-splash-masks`](../concepts/custom-splash-masks.md) — shows how to specialize splash for a non-language domain. Per-kernel detail in [§4.4 of the Pallas kernel directory](../analyses/pallas-kernel-directory/04-research-labs.md#44-google-deepmindgraphcast).
 
 ## Architecture

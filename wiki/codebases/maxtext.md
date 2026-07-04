@@ -8,6 +8,8 @@ created: 2026-04-23
 updated: 2026-04-23
 ---
 
+> **Grounded front door → [maxtext overview](maxtext/overview.md).** This hand page is the thin, on-demand companion: cross-ecosystem perf verdicts, loop-experiment backlinks, and Pallas-kernel-directory cross-links that the code-regenerated overview intentionally omits. For architecture, mechanisms, and per-symbol detail, start at the overview.
+
 Google AI-Hypercomputer's reference JAX trainer for Gemma / Llama / DeepSeek / Qwen / Mistral / Kimi on TPU. **The closest public analogue of this wiki's gemma4 program**. Ships Pallas kernels for training attention (splash), serving attention (paged + ragged), and MoE (megablox GMM with int4/int8 via qwix). Notable: `sc_gather_reduce.py` uses raw MLIR dialects below `pallas_call` for SparseCore (v5p/v7x) — unique MLIR-Pallas entry in the ecosystem. Per-kernel detail in [§2.1 of the Pallas kernel directory](../analyses/pallas-kernel-directory/02-ai-hypercomputer.md#21-ai-hypercomputermaxtext).
 
 ## Overview

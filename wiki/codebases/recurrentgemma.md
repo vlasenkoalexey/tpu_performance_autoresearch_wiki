@@ -8,6 +8,8 @@ created: 2026-04-23
 updated: 2026-04-23
 ---
 
+> **Grounded front door → [recurrentgemma overview](recurrentgemma/overview.md).** This hand page is the thin, on-demand companion: cross-ecosystem perf verdicts, loop-experiment backlinks, and Pallas-kernel-directory cross-links that the code-regenerated overview intentionally omits. For architecture, mechanisms, and per-symbol detail, start at the overview.
+
 Small but load-bearing: ships **the canonical public Mosaic-TPU Pallas LRU scan** (`h_t = a_t · h_{t-1} + x_t`), backing the Griffin / RecurrentGemma RG-LRU block. Single kernel, fwd + bwd, supports **real and complex accumulators** (rare), with a `multi_shard_correction` for sequence-parallel training. **Direct ancestor of axlearn's Mamba Pallas kernel** — [axlearn](axlearn.md) imports the LRU pattern from here. Per-kernel detail in [§4.2 of the Pallas kernel directory](../analyses/pallas-kernel-directory/04-research-labs.md#42-google-deepmindrecurrentgemma).
 
 ## Architecture

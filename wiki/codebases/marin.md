@@ -8,6 +8,8 @@ created: 2026-04-23
 updated: 2026-04-23
 ---
 
+> **Grounded front door → [marin overview](marin/overview.md).** This hand page is the thin, on-demand companion: cross-ecosystem perf verdicts, loop-experiment backlinks, and Pallas-kernel-directory cross-links that the code-regenerated overview intentionally omits. For architecture, mechanisms, and per-symbol detail, start at the overview.
+
 Ingestion narrow-scoped to `lib/levanter/src/levanter/kernels/pallas/` — the **deployment-time autotune harness** and fused-cross-entropy-loss kernels. **The single most-valuable non-kernel artifact surveyed in this wiki**: a kernel-agnostic, shard-aware, compile-cost-aware, GCS-persistent autotuner — superior to tokamax's write-time autotune for an autoresearch loop. The patterns this wiki should emulate. Per-kernel detail in [§5.8 of the Pallas kernel directory](../analyses/pallas-kernel-directory/05-frameworks-quant.md#58-marin-communitymarin-vendors-levanter).
 
 ## Architecture

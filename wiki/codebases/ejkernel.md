@@ -8,6 +8,8 @@ created: 2026-04-23
 updated: 2026-04-23
 ---
 
+> **Grounded front door → [ejkernel overview](ejkernel/overview.md).** This hand page is the thin, on-demand companion: cross-ecosystem perf verdicts, loop-experiment backlinks, and Pallas-kernel-directory cross-links that the code-regenerated overview intentionally omits. For architecture, mechanisms, and per-symbol detail, start at the overview.
+
 Single-author community kernel library positioning as "production-grade" — **broadest community TPU Pallas surface** surveyed (17 TPU kernels). Consumed by [EasyDeL](EasyDeL.md) via an operations registry. License Apache-2.0. Each TPU kernel is a folder under `ejkernel/kernels/_pallas/tpu/<kernel>/` with `_interface.py`, `_pallas_impl_fwd.py`, `_pallas_impl_bwd.py`. **Ring-attention here is explicitly a Splash wrapper — orchestration, not a novel kernel.** Per-kernel detail in [§6.1 of the Pallas kernel directory](../analyses/pallas-kernel-directory/06-community-research.md#61-erfanzarejkernel).
 
 ## Overview

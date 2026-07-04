@@ -10,6 +10,8 @@ created: 2026-04-22
 updated: 2026-04-22
 ---
 
+> **Grounded front door → [learning-machine overview](learning-machine/overview.md).** This hand page is the thin, on-demand companion: cross-ecosystem perf verdicts, loop-experiment backlinks, and Pallas-kernel-directory cross-links that the code-regenerated overview intentionally omits. For architecture, mechanisms, and per-symbol detail, start at the overview.
+
 Four-part tutorial plus matching runnable scripts showing how to execute HuggingFace PyTorch models — Llama-2-7B (transformers) and Stable Diffusion 2-base (diffusers) — under JAX via [torchax](torchax.md). The series walks from eager `torchax.extract_jax` → `jax.jit` with pytree registration → 8-way tensor parallelism → `StaticCache` + `torch.func.functional_call` for fast autoregressive decoding → `torchax.compile` for diffusion pipelines. The scripts are the canonical reference implementations the blog text narrates.
 
 ## Overview

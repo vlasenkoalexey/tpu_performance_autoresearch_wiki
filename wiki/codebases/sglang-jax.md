@@ -8,6 +8,8 @@ created: 2026-04-23
 updated: 2026-04-23
 ---
 
+> **Grounded front door → [sglang-jax overview](sglang-jax/overview.md).** This hand page is the thin, on-demand companion: cross-ecosystem perf verdicts, loop-experiment backlinks, and Pallas-kernel-directory cross-links that the code-regenerated overview intentionally omits. For architecture, mechanisms, and per-symbol detail, start at the overview.
+
 SGLang's JAX port — mostly a **vendored subset of [tpu-inference](tpu-inference.md)** plus SGLang-specific additions. The two genuinely-novel contributions are **speculative-decoding tree kernels** (EAGLE tree sampling, draft-tree building, greedy tree verify — no public analogue anywhere else) and the **largest tuning table in the ecosystem** (~2,000+ RPA entries across v4 / v5 / v6e / v7). Ingested with the narrow scope the Wave 4 recommendation suggested: speculative-decoding kernels + the tuning table; the vendored kernels are documented but deferred to [tpu-inference](tpu-inference.md). Per-kernel detail in [§3.2 of the Pallas kernel directory](../analyses/pallas-kernel-directory/03-inference-engines.md#32-sgl-projectsglang-jax).
 
 ## Architecture

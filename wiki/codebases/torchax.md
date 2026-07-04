@@ -7,6 +7,8 @@ created: 2026-04-22
 updated: 2026-04-22
 ---
 
+> **Grounded front door → [torchax overview](torchax/overview.md).** This hand page is the thin, on-demand companion: cross-ecosystem perf verdicts, loop-experiment backlinks, and Pallas-kernel-directory cross-links that the code-regenerated overview intentionally omits. For architecture, mechanisms, and per-symbol detail, start at the overview.
+
 torchax is a PyTorch backend that runs PyTorch programs on TPU by dispatching every PyTorch op to a JAX equivalent. It is the torch-to-TPU bridge for any torch-origin model under optimization in this wiki — it supplies the `Tensor` subclass, the op lowering tables, the `jax.jit` entry point, and the interop for moving values between `torch.Tensor` and `jax.Array` pytrees. Upstream version at this commit is `0.0.12`.
 
 ## Overview

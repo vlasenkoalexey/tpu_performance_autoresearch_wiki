@@ -8,6 +8,8 @@ created: 2026-04-23
 updated: 2026-04-23
 ---
 
+> **Grounded front door → [maxdiffusion overview](maxdiffusion/overview.md).** This hand page is the thin, on-demand companion: cross-ecosystem perf verdicts, loop-experiment backlinks, and Pallas-kernel-directory cross-links that the code-regenerated overview intentionally omits. For architecture, mechanisms, and per-symbol detail, start at the overview.
+
 Google AI-Hypercomputer's reference JAX diffusion trainer — Flux / Wan / SDXL / LTX. Ingestion narrow-scoped to `src/maxdiffusion/kernels/splash_attention/` per the analysis's Wave 4 scoping recommendation — **the only repo where ring-attention is wired in as a first-class splash-integrated kernel**. Announced 2026-04-16: *"Support for Tokamax Ring Attention kernel is now added."* Per-kernel detail in [§2.2 of the Pallas kernel directory](../analyses/pallas-kernel-directory/02-ai-hypercomputer.md#22-ai-hypercomputermaxdiffusion).
 
 ## Overview

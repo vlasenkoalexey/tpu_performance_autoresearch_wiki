@@ -7,6 +7,8 @@ created: 2026-04-22
 updated: 2026-04-22
 ---
 
+> **Grounded front door → [xprof-mcp overview](xprof-mcp/overview.md).** This hand page is the thin, on-demand companion: cross-ecosystem perf verdicts, loop-experiment backlinks, and Pallas-kernel-directory cross-links that the code-regenerated overview intentionally omits. For architecture, mechanisms, and per-symbol detail, start at the overview.
+
 `xprof-mcp` is an MCP (Model Context Protocol) server that exposes the OSS [xprof](https://github.com/openxla/xprof) profiler to an AI agent. In this wiki, it is the bridge between `raw/profiles/` artifacts and `observation` / `experiment` pages: the same agent that maintains this knowledge base calls these tools to read step time, HLO, memory, and timeline data out of captured profiles.
 
 ## Overview

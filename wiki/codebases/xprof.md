@@ -8,6 +8,8 @@ created: 2026-04-22
 updated: 2026-04-22
 ---
 
+> **Grounded front door → [xprof overview](xprof/overview.md).** This hand page is the thin, on-demand companion: cross-ecosystem perf verdicts, loop-experiment backlinks, and Pallas-kernel-directory cross-links that the code-regenerated overview intentionally omits. For architecture, mechanisms, and per-symbol detail, start at the overview.
+
 XProf is OpenXLA's performance profiler for JAX, PyTorch/XLA, and TensorFlow workloads — the primary profiler whose outputs (`.xplane.pb` traces, HLO dumps, and derived tool views) every experiment in this wiki consumes. This page describes the *tool's structure*: where profile formats live, how metrics are computed, and what the CLI/plugin surface looks like. Deep concept docs under `raw/code/xprof/docs/` will be ingested separately as `source` pages.
 
 ## Overview

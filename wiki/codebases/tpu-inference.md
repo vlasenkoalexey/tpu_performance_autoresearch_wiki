@@ -8,6 +8,8 @@ created: 2026-04-23
 updated: 2026-04-23
 ---
 
+> **Grounded front door → [tpu-inference overview](tpu-inference/overview.md).** This hand page is the thin, on-demand companion: cross-ecosystem perf verdicts, loop-experiment backlinks, and Pallas-kernel-directory cross-links that the code-regenerated overview intentionally omits. For architecture, mechanisms, and per-symbol detail, start at the overview.
+
 vLLM's TPU inference backend and the **most comprehensive Pallas kernel collection** surveyed in this wiki — broadest novel-content surface on TPU. Authoritative author for: Ragged-Paged-Attention v2/v3 (+ `_hd64`), Multi-Latent Attention v1/v2, Fused-MoE v1, blockwise Quantized Matmul (600+ tuned entries), Fused AllGather+Matmul (collective overlap), GDN/triangle-solver (Qwen-Next), SparseCore gather/scatter (v5p/v7x), structured sparse matmul v1. **Crown-jewel tuning artifacts**: ~1,200 RPA v2 entries, 600+ quantized_matmul entries (v6 96 MiB VMEM / v7 48 MiB VMEM), hundreds of RPA v3 entries. Per-kernel detail in [§3.1 of the Pallas kernel directory](../analyses/pallas-kernel-directory/03-inference-engines.md#31-vllm-projecttpu-inference).
 
 ## Overview

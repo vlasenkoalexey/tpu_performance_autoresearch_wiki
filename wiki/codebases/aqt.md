@@ -9,6 +9,8 @@ created: 2026-04-23
 updated: 2026-04-23
 ---
 
+> **Grounded front door → [aqt overview](aqt/overview.md).** This hand page is the thin, on-demand companion: cross-ecosystem perf verdicts, loop-experiment backlinks, and Pallas-kernel-directory cross-links that the code-regenerated overview intentionally omits. For architecture, mechanisms, and per-symbol detail, start at the overview.
+
 Accurate Quantized Training — Google's earlier quantization framework, now **deprecated in favor of [qwix](qwix.md)**. Four Pallas files in the repo, all superseded. Ingested for lineage only; any new quantization hypothesis should target qwix, not aqt. Per-kernel detail in [§5 of the Pallas kernel directory](../analyses/pallas-kernel-directory/05-frameworks-quant.md).
 
 ## Architecture

@@ -8,6 +8,8 @@ created: 2026-04-23
 updated: 2026-04-23
 ---
 
+> **Grounded front door → [qwix overview](qwix/overview.md).** This hand page is the thin, on-demand companion: cross-ecosystem perf verdicts, loop-experiment backlinks, and Pallas-kernel-directory cross-links that the code-regenerated overview intentionally omits. For architecture, mechanisms, and per-symbol detail, start at the overview.
+
 Google's quantization framework — **successor to [AQT](aqt.md)**. Provides a `QArray` tensor type and `pallas_call` wrappers that make Pallas kernels quantization-aware. Used by [maxtext](maxtext.md) Megablox for int4/int8 MoE. TPU Pallas surface concentrated in `qwix/contrib/kernels/quantized_matmul.py`. Per-kernel detail in [§5 of the Pallas kernel directory](../analyses/pallas-kernel-directory/05-frameworks-quant.md).
 
 ## Architecture

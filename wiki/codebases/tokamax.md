@@ -7,6 +7,8 @@ created: 2026-04-22
 updated: 2026-04-22
 ---
 
+> **Grounded front door → [tokamax overview](tokamax/overview.md).** This hand page is the thin, on-demand companion: cross-ecosystem perf verdicts, loop-experiment backlinks, and Pallas-kernel-directory cross-links that the code-regenerated overview intentionally omits. For architecture, mechanisms, and per-symbol detail, start at the overview.
+
 Tokamax is a DeepMind/OpenXLA library of custom Pallas kernels for JAX, targeting both NVIDIA GPUs (Triton / Mosaic GPU) and Google TPUs (Mosaic TPU). Each public entry point (`dot_product_attention`, `gated_linear_unit`, `layer_norm`, `ragged_dot`, `linear_softmax_cross_entropy_loss`, `triangle_multiplication`) is a drop-in replacement for an XLA-lowered op; the implementation is selected at call time via an `implementation=` argument and tuned via `tokamax.autotune`. Every such kernel is a direct optimization candidate for a TPU model that currently runs the XLA reference lowering.
 
 ## Overview

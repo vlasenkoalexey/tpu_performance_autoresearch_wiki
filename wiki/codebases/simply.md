@@ -8,6 +8,8 @@ created: 2026-04-23
 updated: 2026-04-23
 ---
 
+> **Grounded front door → [simply overview](simply/overview.md).** This hand page is the thin, on-demand companion: cross-ecosystem perf verdicts, loop-experiment backlinks, and Pallas-kernel-directory cross-links that the code-regenerated overview intentionally omits. For architecture, mechanisms, and per-symbol detail, start at the overview.
+
 DeepMind's experimental LLM serving framework. **Wrapper around upstream `ragged_paged_attention`** — not a kernel author. Ingested as the reference for [dma-overhead-heuristic](../concepts/dma-overhead-heuristic.md): the code explicitly documents a DMA-setup-cost-equivalent (`~0.5 MiB virtual bytes`) used in autotune block-size selection. Per-kernel detail in [§4.3 of the Pallas kernel directory](../analyses/pallas-kernel-directory/04-research-labs.md#43-google-deepmindsimply).
 
 ## Architecture

@@ -9,6 +9,8 @@ created: 2026-04-23
 updated: 2026-04-23
 ---
 
+> **Grounded front door → [alphafold3 overview](alphafold3/overview.md).** This hand page is the thin, on-demand companion: cross-ecosystem perf verdicts, loop-experiment backlinks, and Pallas-kernel-directory cross-links that the code-regenerated overview intentionally omits. For architecture, mechanisms, and per-symbol detail, start at the overview.
+
 Ingested scope: **only `src/alphafold3/jax/gated_linear_unit/`**, pinned to **tag `v3.0.1`** (commit `231efc9`). The kernels were **removed from `main` after v3.0.1** — always pin the v3.0.1 tag in links. Contains the only public, production-grade **Pallas fused-GLU kernel** (GPU, via Triton-on-Pallas), plus an autotuned block-size search. This is the reference architecture for "what a fused `activation(x @ W_gate) * (x @ W_up)` kernel looks like" — directly informative for closing tokamax's missing TPU Pallas fused GLU, though porting to Mosaic-TPU requires HLO-level validation that XLA isn't already fusing the pattern (same lesson as exp 33's RMSNorm result). Per-kernel detail in [§4.5 of the Pallas kernel directory](../analyses/pallas-kernel-directory/04-research-labs.md#45-google-deepmindalphafold3-pinned-to-tag-v301).
 
 ## Overview — scope

@@ -9,6 +9,8 @@ created: 2026-04-23
 updated: 2026-04-23
 ---
 
+> **Grounded front door → [axlearn overview](axlearn/overview.md).** This hand page is the thin, on-demand companion: cross-ecosystem perf verdicts, loop-experiment backlinks, and Pallas-kernel-directory cross-links that the code-regenerated overview intentionally omits. For architecture, mechanisms, and per-symbol detail, start at the overview.
+
 Apple's public training framework and the **single largest source of non-upstream Pallas kernels** surveyed in this wiki. Ships side-by-side TPU (Mosaic) + GPU (Triton) Pallas implementations for flash attention (splash extensions with dropout + logit sink), paged attention (block-sparse offset masks), decoding, grouped matmul — plus **exclusive Pallas kernels for Mamba1, Mamba2 (SSD), and RAttention linear attention** that exist nowhere else publicly. Per-kernel detail in [§4.1 of the Pallas kernel directory](../analyses/pallas-kernel-directory/04-research-labs.md#41-appleaxlearn).
 
 ## Overview

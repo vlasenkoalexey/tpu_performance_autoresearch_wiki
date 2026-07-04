@@ -8,6 +8,8 @@ created: 2026-04-23
 updated: 2026-04-23
 ---
 
+> **Grounded front door → [ringattention overview](ringattention/overview.md).** This hand page is the thin, on-demand companion: cross-ecosystem perf verdicts, loop-experiment backlinks, and Pallas-kernel-directory cross-links that the code-regenerated overview intentionally omits. For architecture, mechanisms, and per-symbol detail, start at the overview.
+
 Paper companion for [Liu et al. 2023 "Ring Attention with Blockwise Transformers"](https://arxiv.org/abs/2310.01889) — **the canonical public Pallas TPU ring-attention implementation**. Single-file kernel (`ringattention_pallas_tpu.py`) directly implementing the paper. Low-maintenance (770★, last updated 2025-10-13) but stable and verbatim. **Unidirectional ring; straight `below_or_on_diag` causal mask — no Zig-Zag / load-balanced variant.** Per-kernel detail in [§6.4 of the Pallas kernel directory](../analyses/pallas-kernel-directory/06-community-research.md#64-haoliuhlringattention).
 
 ## Overview

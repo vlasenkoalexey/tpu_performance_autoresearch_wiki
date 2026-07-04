@@ -8,6 +8,8 @@ created: 2026-04-25
 updated: 2026-04-25
 ---
 
+> **Grounded front door → [tpu-recipes overview](tpu-recipes/overview.md).** This hand page is the thin, on-demand companion: cross-ecosystem perf verdicts, loop-experiment backlinks, and Pallas-kernel-directory cross-links that the code-regenerated overview intentionally omits. For architecture, mechanisms, and per-symbol detail, start at the overview.
+
 Google AI-Hypercomputer's curated **per-(model, hardware, topology) reproduction recipes** for training and inference on Cloud TPU. Each recipe is a small directory with a launch script, a `README.md` that pins the exact MaxText commit/tag, the JAX `jax-stable-stack` Docker image version, and the tuned MaxText `tuning_params` block used to hit the published throughput target. **Crown jewel for this wiki: a tested-on-Google-hardware table of per-model (Llama 3.1, Gemma 3/4, Mixtral, DeepSeek 3, Qwen 3, GPT-OSS, Wan 2.1, GPT-3 175B) MaxText config knobs across v6e (Trillium) and v7x (Ironwood) topologies — directly comparable references for any optimization hypothesis on similar models.**
 
 ## Overview

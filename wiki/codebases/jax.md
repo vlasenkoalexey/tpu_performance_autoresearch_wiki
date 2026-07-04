@@ -8,6 +8,8 @@ created: 2026-04-23
 updated: 2026-04-23
 ---
 
+> **Grounded front door → [jax overview](jax/overview.md).** This hand page is the thin, on-demand companion: cross-ecosystem perf verdicts, loop-experiment backlinks, and Pallas-kernel-directory cross-links that the code-regenerated overview intentionally omits. For architecture, mechanisms, and per-symbol detail, start at the overview.
+
 The JAX library itself — the ground-truth for every transformation, kernel, and TPU surface the rest of this wiki builds on. Every other ingested codebase ([torchax](torchax.md), [tokamax](tokamax.md), [pallas-forge](pallas-forge.md), [xprof](xprof.md), [xprof-mcp](xprof-mcp.md), [jax-huggingface](jax-huggingface.md), [scaling-book](scaling-book.md)) imports or lowers through this repo. It also ships **first-party reference TPU Pallas kernels** (`flash_attention`, `splash_attention`, `paged_attention`, `ragged_paged_attention`, `megablox`, `matmul`, `all_gather`, `threefry`) that the wiki's Pallas-kernel analysis treats as canonical. **Commit `feb5ba05` was `HEAD` on 2026-04-23** — a bleeding-edge pin; rerun `git submodule update --remote` to bump.
 
 ## Overview

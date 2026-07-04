@@ -7,6 +7,8 @@ created: 2026-04-22
 updated: 2026-04-22
 ---
 
+> **Grounded front door → [scaling-book overview](scaling-book/overview.md).** This hand page is the thin, on-demand companion: cross-ecosystem perf verdicts, loop-experiment backlinks, and Pallas-kernel-directory cross-links that the code-regenerated overview intentionally omits. For architecture, mechanisms, and per-symbol detail, start at the overview.
+
 `scaling-book` is the Jekyll-based source for the book *How To Scale Your Model: A Systems View of LLMs on TPUs* by Jacob Austin, Sholto Douglas, Roy Frostig, Anselm Levskaya, Charlie Chen, Sharad Vikram, Federico Lebron, Peter Choy, Vinay Ramasesh, Albert Webson, and Reiner Pope (Google DeepMind, 2025). It is **prose, not a library** — the wiki value is in the individual chapters, each of which will be ingested as its own `source` page in a later wave. This page is a thin index that frames the repo and maps chapters to their planned source-page slugs.
 
 ## Overview

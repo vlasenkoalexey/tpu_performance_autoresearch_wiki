@@ -8,6 +8,8 @@ created: 2026-04-23
 updated: 2026-04-23
 ---
 
+> **Grounded front door → [jaxite overview](jaxite/overview.md).** This hand page is the thin, on-demand companion: cross-ecosystem perf verdicts, loop-experiment backlinks, and Pallas-kernel-directory cross-links that the code-regenerated overview intentionally omits. For architecture, mechanisms, and per-symbol detail, start at the overview.
+
 Google's JAX-based **Fully Homomorphic Encryption** (FHE) library. Ingested for one data-point: `jaxite_lib/polymul_kernel.py` — the only non-ML Pallas TPU kernel in this wiki. CGGI boolean-gate bootstrap via **negacyclic polymul** implemented as **four byte-split bf16 matmuls reassembled to u32**. Concrete reference for integer-heavy Pallas patterns. Per-kernel detail in [§5 of the Pallas kernel directory](../analyses/pallas-kernel-directory/05-frameworks-quant.md).
 
 ## Architecture
