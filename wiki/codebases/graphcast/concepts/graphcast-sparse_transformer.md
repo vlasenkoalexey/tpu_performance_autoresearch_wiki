@@ -8,6 +8,9 @@ status: fresh
 ---
 # graphcast.sparse_transformer — three interchangeable attention backends for GenCast
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [sparsecore](../../../concepts/sparsecore.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 
 This module implements GenCast's mesh-transformer attention with three interchangeable

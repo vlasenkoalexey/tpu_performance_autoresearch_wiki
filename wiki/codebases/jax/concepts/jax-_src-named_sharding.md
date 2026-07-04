@@ -8,6 +8,9 @@ status: fresh
 ---
 # jax._src.named_sharding — NamedSharding (mesh + PartitionSpec) and Shardy (SDY) lowering
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [sharding](../../../concepts/sharding.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 
 [`NamedSharding`](../catalog/jax/_src/named_sharding.md#NamedSharding) is JAX's primary

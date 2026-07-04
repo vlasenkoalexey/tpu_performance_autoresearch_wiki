@@ -3,7 +3,7 @@ title: "Directory: Pallas kernels across the JAX ecosystem"
 type: analysis
 tags: [directory, pallas, kernels, catalog, tpu, gpu, survey]
 created: 2026-04-23
-updated: 2026-04-23
+updated: 2026-07-04
 ---
 
 Repo-by-repo catalog of every Pallas kernel surfaced across ~30 public repositories, with source-code references, stability statements, performance claims (verbatim from source when they exist), application use cases, and known callers. This is a directory, not a synthesis — the page answers "where does Pallas kernel X live, is it maintained, and who uses it?" for the widest possible value of X. **Detailed per-kernel rows live in 6 subpages under [pallas-kernel-directory/](pallas-kernel-directory/);** this page is the cross-cutting index that groups by functional category, summarises the vendoring graph, ranks ingest candidates, and reconciles findings against the [2026-04-23 Pallas kernel source survey](2026-04-23-pallas-kernel-source-survey.md).
@@ -26,6 +26,32 @@ Scope: all repositories listed in [2026-04-23 Pallas kernel source survey](2026-
 | 4 | [Research labs — Apple + DeepMind](pallas-kernel-directory/04-research-labs.md) | apple/axlearn, google-deepmind/{recurrentgemma, simply, graphcast, alphafold3 v3.0.1} | ~18 kernels. **Uniquely-novel Mamba/Mamba2/RAttention SSM Pallas (axlearn).** **Canonical LRU scan (recurrentgemma).** **Fused GLU Pallas (alphafold3 @ v3.0.1).** Non-LLM example: graphcast banded-sparse splash for weather models |
 | 5 | [Frameworks & quantization libraries](pallas-kernel-directory/05-frameworks-quant.md) | tunix, qwix, aqt, jaxite, paxml/praxis, pytorch/xla, google-pytorch/torchtitan, marin/levanter, pytorch/pytorch | ~18 kernels. Mostly consumers/re-packagers. **jaxite (FHE polymul) is the rare non-ML Pallas.** **marin/levanter autotune harness is the most portable deployment-time tuner** found |
 | 6 | [Community & research-companion repos](pallas-kernel-directory/06-community-research.md) | ejkernel, EasyDeL, jax-flash-attn2, ringattention, flashback, gla-jax, sqtian matmul, maxtext-external, tpu-research, recompute_dont_restore + 4 small | ~50 rows. **ejkernel is the broadest community TPU surface** (17 TPU kernels). Several repos mislabel backend as "Pallas" when they're Triton-only |
+
+## Per-repo Pallas kernel pages (in-wiki, current source — 2026-07-04)
+
+Each ingested repo that **defines** Pallas kernels now has a grounded `pallas_kernels.md` page in its wiki, generated from the **current pinned source** (not this 2026-04-23 snapshot) and cross-linked back here. **Where a per-repo page and the category tables below disagree, the per-repo page wins** — it reflects the checked-out commit, and most repos have materially diverged since this directory was first written (new kernels, vendoring lineage now documented in source, autotune tables grown or split, some kernels deleted upstream). Use this directory for the cross-repo *category* view; use the per-repo pages for *what's actually in this checkout*.
+
+| Repo | Page | Kernels | Backend(s) | Highlights / drift vs this catalog |
+|---|---|---|---|---|
+| jax | [pallas_kernels](../codebases/jax/pallas_kernels.md) | 27 | mosaic_tpu, triton, mosaic_gpu sm90/sm100 | Root of the vendoring graph; all novel upstream originals. No drift. |
+| tokamax | [pallas_kernels](../codebases/tokamax/pallas_kernels.md) | ~30 | full matrix (tpu + triton + gpu sm90/sm100) | **New since catalog:** ragged_dot v2 gmm/tgmm, sm100 quant family, ragged_gather, realized MLA. |
+| tpu-inference | [pallas_kernels](../codebases/tpu-inference/pallas_kernels.md) | ~35 | mosaic_tpu | Authoritative inference author. **Autotune grew ~4.5× → ~5,480 entries**; new DeepSeek-V4 / MLA v2. |
+| ejkernel | [pallas_kernels](../codebases/ejkernel/pallas_kernels.md) | ~25 | mosaic_tpu | Broadest community TPU surface (up from 17). **"All-novel" claim stale** — sources now cite upstream lineage. |
+| sglang-jax | [pallas_kernels](../codebases/sglang-jax/pallas_kernels.md) | ~20 | mosaic_tpu | RPA-v3 autotune split into `tuned_block_sizes_v3.py` (~3,500 combined). New MLA v2, fused_moe v2, KDA, EAGLE. |
+| maxtext | [pallas_kernels](../codebases/maxtext/pallas_kernels.md) | 13 | mosaic_tpu + SparseCore | Paged attn **migrated out** to tpu-inference imports; new v2 megablox forks + SparseCore ragged routing. |
+| axlearn | [pallas_kernels](../codebases/axlearn/pallas_kernels.md) | 11 (+2 removed) | mosaic_tpu, triton | ⚠ The rare **Mamba/Mamba2 SSM kernels were deleted upstream**; RAttention linear-attention is the surviving novel SSM. |
+| maxdiffusion | [pallas_kernels](../codebases/maxdiffusion/pallas_kernels.md) | 6 | mosaic_tpu | Diffusion-tuned splash + ring; **new** `custom_splash_attention.py` (multi-heads-per-tile) not in catalog. |
+| easydel | [pallas_kernels](../codebases/easydel/pallas_kernels.md) | 6 | mosaic_tpu | 16/18 files are ejkernel re-export adapters, but **6 novel GDN/GatedDeltaNet decode kernels** the catalog missed. |
+| jaxite | [pallas_kernels](../codebases/jaxite/pallas_kernels.md) | 4 | mosaic_tpu | Rare non-ML Pallas: 4 CGGI/FHE polynomial-mult kernels; moved to `jaxite_cggi/`. |
+| pallas-forge | [pallas_kernels](../codebases/pallas-forge/pallas_kernels.md) | 4 | mosaic_tpu | Autotune harness that also authors 4 example kernels (tiled_matmul, fused rmsnorm/swiglu/geglu). |
+| ringattention | [pallas_kernels](../codebases/ringattention/pallas_kernels.md) | 3 | mosaic_tpu | Canonical novel ring-flash-attention (fwd + 2 bwd); no zig-zag variant. Not diverged. |
+| marin | [pallas_kernels](../codebases/marin/pallas_kernels.md) | 3 | mosaic_tpu, triton | levanter CE kernel (tokamax-vendored) + grug MoE gather kernels + the portable autotune harness. |
+| learning-machine | [pallas_kernels](../codebases/learning-machine/pallas_kernels.md) | 3 | mosaic_tpu | Microbench/interop matmul + vector kernels (not previously in catalog). |
+| simply | [pallas_kernels](../codebases/simply/pallas_kernels.md) | 2 | mosaic_tpu | ⚠ Catalog's "not a kernel author" is **stale** — now vendors RPA v3 in-tree + novel ragged-all-to-all (ra2a) collective. |
+| qwix | [pallas_kernels](../codebases/qwix/pallas_kernels.md) | 2 | mosaic_tpu | Two novel quantized-GEMM kernels; config now TPUv5-swept (was `128³`/`INTERPRET`). |
+| recurrentgemma | [pallas_kernels](../codebases/recurrentgemma/pallas_kernels.md) | 1 | mosaic_tpu | Canonical LRU scan (fwd+bwd in one body); ancestor of axlearn's Mamba scan. |
+
+*Not listed — **aqt**: its `aqt/jax/v2/pallas/` is QTensor-lifting infrastructure + in-kernel helpers, not standalone `pallas_call` kernels (superseded by qwix's kernels). No page written.*
 
 ## Kernel inventory by functional category
 

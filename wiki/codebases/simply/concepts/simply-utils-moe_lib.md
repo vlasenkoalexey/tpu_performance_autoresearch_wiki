@@ -8,6 +8,9 @@ status: fresh
 ---
 # simply.utils.moe_lib — expert-parallel MoE dispatch with pipelined communication/compute overlap
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [expert-parallelism](../../../concepts/expert-parallelism.md), [pipeline-parallelism](../../../concepts/pipeline-parallelism.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 
 This module implements the token-routing and communication machinery for expert-parallel Mixture-of-

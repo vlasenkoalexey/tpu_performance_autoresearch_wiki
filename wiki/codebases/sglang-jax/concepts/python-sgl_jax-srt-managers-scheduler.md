@@ -8,6 +8,9 @@ status: fresh
 ---
 # sgl_jax.srt.managers.scheduler — continuous-batching Scheduler, precompile padding buckets, overlap mode
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [continuous-batching](../../../concepts/continuous-batching.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 
 [`Scheduler`](../catalog/python/sgl_jax/srt/managers/scheduler.md#Scheduler) is sglang-jax's

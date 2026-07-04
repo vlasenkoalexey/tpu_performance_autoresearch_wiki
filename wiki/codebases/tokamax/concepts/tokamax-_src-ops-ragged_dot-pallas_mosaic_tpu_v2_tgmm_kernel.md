@@ -8,6 +8,9 @@ status: fresh
 ---
 # tokamax._src.ops.ragged_dot.pallas_mosaic_tpu_v2_tgmm_kernel — TGMM (lhs.T @ dout) tiling, VMEM-budget-aware, XLU-transpose-cache-aware
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [mosaic-kernel](../../../concepts/mosaic-kernel.md), [pallas-kernel](../../../concepts/pallas-kernel.md), [vmem](../../../concepts/vmem.md), [vmem-budget](../../../concepts/vmem-budget.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 
 [`tgmm_v2`](../catalog/tokamax/_src/ops/ragged_dot/pallas_mosaic_tpu_v2_tgmm_kernel.md#tgmm_v2)

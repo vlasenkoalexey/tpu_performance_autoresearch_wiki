@@ -8,6 +8,9 @@ status: fresh
 ---
 # ejkernel/kernels/_pallas/tpu/blocksparse_attention/_info — the sparse MaskInfo the Splash kernel prefetches
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [pallas-kernel](../../../concepts/pallas-kernel.md), [sparsecore](../../../concepts/sparsecore.md), [splash-attention](../../../concepts/splash-attention.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 This module turns a dense/lazy attention mask into the *sparse block representation* the Splash attention Pallas kernel actually runs on. The central type is [`MaskInfo`](../catalog/ejkernel/kernels/_pallas/tpu/blocksparse_attention/_info.md#MaskInfo) (a NamedTuple), and the core function is [`process_mask`](../catalog/ejkernel/kernels/_pallas/tpu/blocksparse_attention/_info.md#process_mask) (static masks) / [`process_dynamic_mask`](../catalog/ejkernel/kernels/_pallas/tpu/blocksparse_attention/_info.md#process_dynamic_mask) (traced masks). The key idea is a three-way per-block classification: every `(q_block, kv_block)` in the mask is *empty* (all zeros — skip entirely), *full* (all ones — no masking work), or *partial* (mixed — store the actual block). That classification is packed into prefetch lookup tables ([`block_mask`](../catalog/ejkernel/kernels/_pallas/tpu/blocksparse_attention/_info.md#MaskInfo.block_mask), [`data_next`](../catalog/ejkernel/kernels/_pallas/tpu/blocksparse_attention/_info.md#MaskInfo.data_next), [`mask_next`](../catalog/ejkernel/kernels/_pallas/tpu/blocksparse_attention/_info.md#MaskInfo.mask_next)) that the kernel uses to skip masked blocks and prefetch only the partial ones — the mechanism that makes block-sparse attention faster than dense.
 

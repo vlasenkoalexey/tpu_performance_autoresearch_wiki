@@ -8,6 +8,9 @@ status: fresh
 ---
 # MaxText NNX decoder stack — eager layer build, scanned init, and jax.checkpoint remat
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [rematerialization](../../../concepts/rematerialization.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 `nnx_decoders.py` is the **Flax NNX** port of the same decoder documented in [the Linen stack](maxtext-layers-decoders.md). It computes the identical function but inverts *when* work happens: because NNX is stateful and eager, the layer stack is constructed at `__init__` time by [`_init_decoder_layers`](../catalog/src/maxtext/layers/nnx_decoders.md#NNXDecoder._init_decoder_layers) — not lazily inside `__call__`. The key idea unique to NNX is [`_create_scanned_layers`](../catalog/src/maxtext/layers/nnx_decoders.md#NNXDecoder._create_scanned_layers): rather than instantiating N layer objects (which would blow up host memory and init time), it builds *one* reference layer, then uses `jax.lax.scan` over per-layer RNG states to produce a single **stacked** parameter pytree with a leading layers axis. At forward time, [`_apply_layers_sequentially`](../catalog/src/maxtext/layers/nnx_decoders.md#NNXDecoder._apply_layers_sequentially) splits that stacked module and replays it with a second `jax.lax.scan`, wrapping the per-iteration body in `jax.checkpoint` for rematerialization. So the Linen `nn.scan` + `nn.remat` module transforms become two explicit, hand-rolled `jax.lax.scan` passes — one for init, one for apply — which is the central Linen↔NNX divergence.
 

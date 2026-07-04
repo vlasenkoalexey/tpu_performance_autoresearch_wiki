@@ -8,6 +8,9 @@ status: fresh
 ---
 # ejkernel/kernels/_pallas/tpu/ring_attention/_pallas_impl_bwd — sequence-parallel ring attention over Splash
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [pallas-kernel](../../../concepts/pallas-kernel.md), [ring-attention](../../../concepts/ring-attention.md), [sequence-parallelism](../../../concepts/sequence-parallelism.md), [splash-attention](../../../concepts/splash-attention.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 Ring attention is how you attend over a sequence too long to fit K/V on one device: the sequence is sharded across devices along the [`RING_AXIS`](../catalog/ejkernel/kernels/_pallas/tpu/ring_attention/_pallas_impl_bwd.md#RING_AXIS), each device holds a K/V shard, and the shards are **rotated around a ring** (`lax.ppermute`) so every device eventually sees every other device's K/V — computing local Splash attention on each and merging with numerically-stable log-sum-exp. This module builds that kernel: [`make_ring_attention`](../catalog/ejkernel/kernels/_pallas/tpu/ring_attention/_pallas_impl_bwd.md#make_ring_attention) constructs a [`RingSplashAttentionKernel`](../catalog/ejkernel/kernels/_pallas/tpu/ring_attention/_pallas_impl_bwd.md#RingSplashAttentionKernel) from a mask + [`BlockSizes`](../catalog/ejkernel/kernels/_pallas/tpu/ring_attention/_pallas_impl_bwd.md#BlockSizes), [`_ring_attention_forward`](../catalog/ejkernel/kernels/_pallas/tpu/ring_attention/_pallas_impl_bwd.md#_ring_attention_forward) runs the ring loop, and (this file's focus) the backward is wired through a `custom_vjp` ([`_ring_attention_custom`](../catalog/ejkernel/kernels/_pallas/tpu/ring_attention/_pallas_impl_bwd.md#_ring_attention_custom)). The key idea: ring attention is *Splash attention plus a communication pattern* — the per-block math is the same block-sparse kernel, wrapped in a device-ring that overlaps KV shifts with local compute.
 

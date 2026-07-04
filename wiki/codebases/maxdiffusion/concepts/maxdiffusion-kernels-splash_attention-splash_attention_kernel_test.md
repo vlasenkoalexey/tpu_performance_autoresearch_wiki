@@ -8,6 +8,9 @@ status: fresh
 ---
 # maxdiffusion/kernels/splash_attention/splash_attention_kernel_test — property-based correctness suite (and its numerical-tolerance map)
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [splash-attention](../../../concepts/splash-attention.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 This is the `hypothesis`-driven property-based test suite validating [`splash_attention_kernel`](maxdiffusion-kernels-splash_attention-splash_attention_kernel.md) against a plain-JAX reference implementation across a combinatorial space of MQA/MHA, segment ids, static/dynamic masks, and — most informative for TPU-perf work — every numerically-sensitive config knob (`use_base2_exp`, `fuse_reciprocal`, `max_logit` estimation mode, attention sinks). The test suite's per-config tolerance bands are effectively a map of which performance optimizations cost numerical precision, and by how much.
 

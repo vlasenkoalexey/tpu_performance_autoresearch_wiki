@@ -7,6 +7,10 @@ updated: 2026-07-03
 status: fresh
 ---
 # pallas_forge/tune/config — the auto-tuner's search-space definition
+
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [autotuning](../../../concepts/autotuning.md) across this wiki's repos.
+<!-- connect:up:end -->
 Defines [`TuneConfig`](../catalog/pallas_forge/tune/config.md#TuneConfig), the declarative search-space object every `pallas-forge` benchmark script builds before calling `tune()` — a list of named parameters with candidate values, plus optional constraint predicates to prune invalid combinations, exposed either as an exhaustive grid or a reproducible random sample.
 
 ## Entry points

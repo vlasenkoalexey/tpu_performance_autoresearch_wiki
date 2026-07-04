@@ -8,6 +8,9 @@ status: fresh
 ---
 # SplashAttention backward — sparse flash-attention gradient kernels
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [flash-attention](../../../concepts/flash-attention.md), [sparsecore](../../../concepts/sparsecore.md), [splash-attention](../../../concepts/splash-attention.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 SplashAttention is **sparse** flash attention: it exploits the block structure of
 the attention mask (causal, local, chunked) so the Pallas/Mosaic kernel only visits

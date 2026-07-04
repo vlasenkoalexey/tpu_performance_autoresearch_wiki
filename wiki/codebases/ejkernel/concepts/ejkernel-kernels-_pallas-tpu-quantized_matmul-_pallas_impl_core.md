@@ -8,6 +8,9 @@ status: fresh
 ---
 # ejkernel/kernels/_pallas/tpu/quantized_matmul/_pallas_impl_core — bit-unpacking, dequant, and predecode caching for quantized matmul
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [pallas-kernel](../../../concepts/pallas-kernel.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 This module is the shared TPU core for *quantized* matmul — the building blocks the forward and input-gradient quantized-matmul kernels both use. It solves one problem: how to multiply by a weight matrix stored in a sub-byte packed format (1–8 bit affine, or NF4/MXFP4/MXFP8/NVFP4/NVFP8 float formats) without materializing the full bf16 weight in HBM. It provides bit-unpacking (`_unpack_packed_bits` extracting affine values from packed uint32 words), format-specific dequantization ([`_dequantize_tile`](../catalog/ejkernel/kernels/_pallas/tpu/quantized_matmul/_pallas_impl_core.md#_dequantize_tile) dispatching to [`_decode_nf4`](../catalog/ejkernel/kernels/_pallas/tpu/quantized_matmul/_pallas_impl_core.md#_decode_nf4)/[`_decode_e2m1`](../catalog/ejkernel/kernels/_pallas/tpu/quantized_matmul/_pallas_impl_core.md#_decode_e2m1)/[`_decode_e4m3`](../catalog/ejkernel/kernels/_pallas/tpu/quantized_matmul/_pallas_impl_core.md#_decode_e4m3)/...), TPU-tiling legality checks ([`is_packed_tpu_legal_forward`](../catalog/ejkernel/kernels/_pallas/tpu/quantized_matmul/_pallas_impl_core.md#is_packed_tpu_legal_forward)), and — the key perf feature — an LRU-cached *predecode* path ([`get_predecoded_dense_weight`](../catalog/ejkernel/kernels/_pallas/tpu/quantized_matmul/_pallas_impl_core.md#get_predecoded_dense_weight)) that materializes and caches the dense bf16 weight so repeated matmuls with the same quantized weight don't re-dequantize each time.
 

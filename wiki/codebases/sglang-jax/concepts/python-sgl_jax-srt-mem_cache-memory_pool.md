@@ -8,6 +8,9 @@ status: fresh
 ---
 # sgl_jax.srt.mem_cache.memory_pool — pytree-registered KV pools, sharded kv_sharding, ReqToTokenPool
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [kv-cache](../../../concepts/kv-cache.md), [sharding](../../../concepts/sharding.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 
 [`ReqToTokenPool`](../catalog/python/sgl_jax/srt/mem_cache/memory_pool.md#ReqToTokenPool) and the

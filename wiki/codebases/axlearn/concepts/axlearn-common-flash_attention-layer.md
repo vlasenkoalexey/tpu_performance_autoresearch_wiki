@@ -8,6 +8,9 @@ status: fresh
 ---
 # axlearn.common.flash_attention.layer — FlashAttention, a GroupedQueryAttention with a kernel backend
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [flash-attention](../../../concepts/flash-attention.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 
 [`FlashAttention`](../catalog/axlearn/common/flash_attention/layer.md#FlashAttention) ("FlashAttention

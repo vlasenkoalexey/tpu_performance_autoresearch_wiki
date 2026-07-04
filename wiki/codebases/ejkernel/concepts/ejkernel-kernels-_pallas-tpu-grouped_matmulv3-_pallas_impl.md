@@ -8,6 +8,9 @@ status: fresh
 ---
 # ejkernel/kernels/_pallas/tpu/grouped_matmulv3/_pallas_impl — the MoE grouped matmul with fused activation
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [pallas-kernel](../../../concepts/pallas-kernel.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 [`grouped_matmulv3_pallas_impl`](../catalog/ejkernel/kernels/_pallas/tpu/grouped_matmulv3/_pallas_impl.md#grouped_matmulv3_pallas_impl) is the TPU Pallas kernel that powers Mixture-of-Experts feed-forward: it computes, in *one launch*, a batched matmul where each contiguous group of rows (tokens routed to expert `i`) multiplies a *different* weight matrix `rhs[i]` — `out[s_i:s_i+g_i] = lhs[s_i:s_i+g_i] @ rhs[i]`. The group boundaries come from a `group_sizes` array (how many tokens each expert got). This is the shape MoE routing produces, and doing it as one metadata-driven kernel — rather than a Python loop of per-expert matmuls — is what makes MoE efficient on TPU. v3 adds fused activation (`swigluoai`/`apply_act_fn`), fused dequantization (`rhs_scale`/`rhs_bias` for quantized expert weights), and a `FusedWeightsRef` that packs gate+up projections together.
 

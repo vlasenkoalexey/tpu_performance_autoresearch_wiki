@@ -8,6 +8,9 @@ status: fresh
 ---
 # tokamax._src.ops.experimental.tpu.splash_attention.ring_attention_kernel — ring-sharded MaskInfo slicing, materialized-mask-only restriction
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [ring-attention](../../../concepts/ring-attention.md), [splash-attention](../../../concepts/splash-attention.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 
 This module implements Ring Attention on top of splash attention: K/V blocks are sharded across a

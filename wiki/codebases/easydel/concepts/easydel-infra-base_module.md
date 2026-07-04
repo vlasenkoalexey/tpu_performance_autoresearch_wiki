@@ -8,6 +8,9 @@ status: fresh
 ---
 # easydel/infra/base_module — the Flax-NNX model base with sharding, state-split, and RoPE plumbing
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [sharding](../../../concepts/sharding.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 [`EasyDeLBaseModule`](../catalog/easydel/infra/base_module.md#EasyDeLBaseModule) is the root class every EasyDeL model inherits from. Beyond being a Flax NNX `nn.Module`, it mixes in bridge (HuggingFace conversion), generation, and operation-cache capabilities, and it centralizes the machinery a distributed model needs but that shouldn't be re-written per architecture: pulling the device [`mesh`](../catalog/easydel/infra/base_module.md#EasyDeLBaseModule) from the config, splitting parameters out as a [`graphstate`](../catalog/easydel/infra/base_module.md#EasyDeLBaseModule) for functional transforms, sharding the whole model, computing RoPE [`frequencies`](../catalog/easydel/infra/base_module.md#EasyDeLBaseModule.frequencies) once, and offering uniform `get_lm_head`/`get_embedding`/`get_decoder` accessors so generic training/generation code can reach into any model. The single mental model: a subclass supplies `config_class`, a constructor that builds its layers, and `__call__`; everything about *running that model on a mesh* comes from this base.
 

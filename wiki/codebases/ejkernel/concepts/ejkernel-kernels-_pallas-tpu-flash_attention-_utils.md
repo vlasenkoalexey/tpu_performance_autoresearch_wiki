@@ -8,6 +8,9 @@ status: fresh
 ---
 # ejkernel/kernels/_pallas/tpu/flash_attention/_utils — BlockSizes, the flash-attention TPU tiling with major/minor validation
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [flash-attention](../../../concepts/flash-attention.md), [pallas-kernel](../../../concepts/pallas-kernel.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 The FlashAttention TPU Pallas kernel is tiled by a [`BlockSizes`](../catalog/ejkernel/kernels/_pallas/tpu/flash_attention/_utils.md#BlockSizes) dataclass, and this file defines it plus the reference-attention helpers. The key idea: TPU flash attention uses a *two-level* (major/minor) tiling for both the forward and the backward (`dq`, `dkv`) passes, and getting those block sizes right is where nearly all the performance lives — the docstring is blunt: "Those parameters have negligible effect on numerics, but affect performance greatly." `BlockSizes` validates the major/minor relationships at construction ([`__post_init__`](../catalog/ejkernel/kernels/_pallas/tpu/flash_attention/_utils.md#BlockSizes.__post_init__)), knows whether it carries backward tiles ([`has_backward_blocks`](../catalog/ejkernel/kernels/_pallas/tpu/flash_attention/_utils.md#BlockSizes.has_backward_blocks)), and provides an all-128 default ([`get_default`](../catalog/ejkernel/kernels/_pallas/tpu/flash_attention/_utils.md#BlockSizes.get_default)) — 128 being the TPU-efficient minimum ([`MIN_BLOCK_SIZE`](../catalog/ejkernel/kernels/_pallas/tpu/flash_attention/_utils.md#MIN_BLOCK_SIZE)).
 

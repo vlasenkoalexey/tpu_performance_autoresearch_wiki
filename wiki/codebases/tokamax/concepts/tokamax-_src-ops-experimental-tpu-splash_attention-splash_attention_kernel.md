@@ -8,6 +8,9 @@ status: fresh
 ---
 # tokamax._src.ops.experimental.tpu.splash_attention.splash_attention_kernel — SegmentIds packing, LOG2E base-2 softmax, QKVLayout
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [splash-attention](../../../concepts/splash-attention.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 
 This module implements TPU splash attention: block-sparse attention driven by

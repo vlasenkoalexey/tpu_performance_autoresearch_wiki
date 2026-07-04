@@ -8,6 +8,9 @@ status: fresh
 ---
 # tokamax._src.ops.attention.pallas_triton — Triton flash attention, AUTO-resolved stable-softmax, split head-dim tiling
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [autotuning](../../../concepts/autotuning.md), [flash-attention](../../../concepts/flash-attention.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 
 [`PallasTritonFlashAttention`](../catalog/tokamax/_src/ops/attention/pallas_triton.md#PallasTritonFlashAttention._fwd)

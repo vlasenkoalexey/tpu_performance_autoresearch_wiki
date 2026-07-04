@@ -8,6 +8,9 @@ status: fresh
 ---
 # Ring Flash Attention — TPU Pallas kernel
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [flash-attention](../../../concepts/flash-attention.md), [pallas-kernel](../../../concepts/pallas-kernel.md), [ring-attention](../../../concepts/ring-attention.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 This module fuses two ideas into one differentiable op: **FlashAttention's online-softmax
 recurrence** (never materializing the full attention matrix) and **ring attention's

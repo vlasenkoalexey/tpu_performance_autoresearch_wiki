@@ -8,6 +8,9 @@ status: fresh
 ---
 # tokamax._src.ops.experimental.tpu.splash_attention.splash_attention_mask_info — MaskInfo block-sparsity compilation
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [splash-attention](../../../concepts/splash-attention.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 
 [`MaskInfo`](../catalog/tokamax/_src/ops/experimental/tpu/splash_attention/splash_attention_mask_info.md#MaskInfo)

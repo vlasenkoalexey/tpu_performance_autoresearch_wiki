@@ -8,6 +8,9 @@ status: fresh
 ---
 # tokamax._src.ops.attention.pallas_mosaic_gpu_vjp_kernel_sm90 — Hopper flash-attention backward, compute_wgs warpgroup fan-out
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [flash-attention](../../../concepts/flash-attention.md), [mosaic-kernel](../../../concepts/mosaic-kernel.md), [pallas-kernel](../../../concepts/pallas-kernel.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 
 This module implements the SM90 (Hopper) backward pass (VJP) for flash attention, reusing

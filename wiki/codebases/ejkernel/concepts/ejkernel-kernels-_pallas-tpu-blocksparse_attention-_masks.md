@@ -8,6 +8,9 @@ status: fresh
 ---
 # ejkernel/kernels/_pallas/tpu/blocksparse_attention/_masks — the composable lazy mask algebra
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [pallas-kernel](../../../concepts/pallas-kernel.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 Splash (block-sparse) attention needs to know, per query-key block, whether that block is fully masked, fully open, or partial — and this module defines the *lazy, composable* mask objects that express those patterns. [`Mask`](../catalog/ejkernel/kernels/_pallas/tpu/blocksparse_attention/_masks.md#Mask) is the abstract base; concrete masks ([`CausalMask`](../catalog/ejkernel/kernels/_pallas/tpu/blocksparse_attention/_masks.md#CausalMask), [`LocalMask`](../catalog/ejkernel/kernels/_pallas/tpu/blocksparse_attention/_masks.md#LocalMask), [`ChunkedCausalMask`](../catalog/ejkernel/kernels/_pallas/tpu/blocksparse_attention/_masks.md#ChunkedCausalMask), [`FullMask`](../catalog/ejkernel/kernels/_pallas/tpu/blocksparse_attention/_masks.md#FullMask)) define a pattern, and they compose via bitwise operators — [`Mask.__and__`](../catalog/ejkernel/kernels/_pallas/tpu/blocksparse_attention/_masks.md#Mask.__and__)/[`Mask.__or__`](../catalog/ejkernel/kernels/_pallas/tpu/blocksparse_attention/_masks.md#Mask.__or__) build [`LogicalAnd`](../catalog/ejkernel/kernels/_pallas/tpu/blocksparse_attention/_masks.md#LogicalAnd)/[`LogicalOr`](../catalog/ejkernel/kernels/_pallas/tpu/blocksparse_attention/_masks.md#LogicalOr) trees. The key idea: a mask is *never densely materialized* until a specific block is sliced via `__getitem__`, so "causal AND local-window" is a small composition object that the sparse-processing pass ([_info](ejkernel-kernels-_pallas-tpu-blocksparse_attention-_info.md)) can query block-by-block rather than a full `[seq, seq]` boolean array.
 

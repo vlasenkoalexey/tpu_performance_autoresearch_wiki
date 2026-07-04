@@ -7,6 +7,10 @@ updated: 2026-07-03
 status: fresh
 ---
 # pallas_forge/tune/runner — warmup-disciplined kernel benchmarking
+
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [pallas-kernel](../../../concepts/pallas-kernel.md) across this wiki's repos.
+<!-- connect:up:end -->
 [`BenchmarkRunner`](../catalog/pallas_forge/tune/runner.md#BenchmarkResult) is the timing engine every `pallas-forge` measurement goes through, whether it's benchmarking one candidate Pallas kernel configuration or an XLA baseline for comparison — its whole reason to exist (per the module docstring) is getting the boring parts of TPU/GPU benchmarking right: separate warmup from timed iterations, force actual device completion with `jax.block_until_ready`, and report a full distribution (median/mean/std/min/max) rather than a single number.
 
 ## Entry points

@@ -8,6 +8,9 @@ status: fresh
 ---
 # sgl_jax.srt.mem_cache.radix_cache — RadixCache prefix caching, page-aligned KV insertion, EAGLE bigram keys
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [kv-cache](../../../concepts/kv-cache.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 
 `RadixCache` is sglang-jax's

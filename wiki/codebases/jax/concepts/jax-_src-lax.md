@@ -8,6 +8,9 @@ status: fresh
 ---
 # jax._src.lax.lax — primitive wrappers, auto_insert_reshard, and weak-type constant handling
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [autotuning](../../../concepts/autotuning.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 
 This module is where the low-level XLA-mirroring ops (`mul`, `select`, `pad`, `full_like`, ...) are

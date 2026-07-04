@@ -8,6 +8,9 @@ status: fresh
 ---
 # maxdiffusion/common_types — sequence-parallel attention axis-rule presets
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [sequence-parallelism](../../../concepts/sequence-parallelism.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 Four named logical-axis-rule lists — [`RING_ATTENTION_AXIS_RULES`](../catalog/src/maxdiffusion/common_types.md#RING_ATTENTION_AXIS_RULES), [`SEQUENCE_PARALLEL_AXIS_RULES`](../catalog/src/maxdiffusion/common_types.md#SEQUENCE_PARALLEL_AXIS_RULES), [`ULYSSES_ATTENTION_AXIS_RULES`](../catalog/src/maxdiffusion/common_types.md#ULYSSES_ATTENTION_AXIS_RULES), [`ULYSSES_RING_ATTENTION_AXIS_RULES`](../catalog/src/maxdiffusion/common_types.md#ULYSSES_RING_ATTENTION_AXIS_RULES) — map logical self/cross-attention activation axes onto the physical `context` mesh axis, selecting between four distinct long-sequence attention parallelism strategies used across MaxDiffusion's video/diffusion transformer models. The key design idea: all four share the same *logical* axis names, so the difference between "plain sequence parallelism" and "ring/Ulysses attention" is entirely in whether the KV-length axis is sharded (forcing cross-device attention communication) or left replicated.
 

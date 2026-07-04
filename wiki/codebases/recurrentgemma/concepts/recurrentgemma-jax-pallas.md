@@ -8,6 +8,9 @@ status: fresh
 ---
 # recurrentgemma.jax.pallas — the TPU Pallas kernel for the RG-LRU scan
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [pallas-kernel](../../../concepts/pallas-kernel.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 
 This module is the performance-critical core of RecurrentGemma on TPU: it implements the RG-LRU's

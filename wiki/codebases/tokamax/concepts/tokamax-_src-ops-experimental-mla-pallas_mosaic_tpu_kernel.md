@@ -8,6 +8,9 @@ status: fresh
 ---
 # tokamax._src.ops.experimental.mla.pallas_mosaic_tpu_kernel — MLA ragged+paged attention, MlaCase dispatch
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [mosaic-kernel](../../../concepts/mosaic-kernel.md), [pallas-kernel](../../../concepts/pallas-kernel.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 
 [`mla_ragged_paged_attention`](../catalog/tokamax/_src/ops/experimental/mla/pallas_mosaic_tpu_kernel.md#mla_ragged_paged_attention)

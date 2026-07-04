@@ -8,6 +8,9 @@ status: fresh
 ---
 # easydel/layers/norms/_norms — RMSNorm / LayerNorm with mixed-precision discipline
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [layer-norm](../../../concepts/layer-norm.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 This module holds EasyDeL's normalization primitives — chiefly [`RMSNorm`](../catalog/easydel/layers/norms/_norms.md#RMSNorm) (the norm of essentially every modern LLM here) and [`LayerNorm`](../catalog/easydel/layers/norms/_norms.md#LayerNorm) (BERT/RoBERTa/OPT/Whisper-era models), plus a gated RMSNorm and a `BatchNorm`. The single design idea worth internalizing: normalization is the place where low-precision training most easily loses accuracy, so each norm *forces its reductions into float32* regardless of the model's compute dtype, then casts the result back — the learned scale stays cheap while the statistics stay numerically safe. Every decoder layer's `input_layernorm`/`post_attention_layernorm`, every model's final `norm`, and the attention Q/K-norm hooks are instances built here.
 

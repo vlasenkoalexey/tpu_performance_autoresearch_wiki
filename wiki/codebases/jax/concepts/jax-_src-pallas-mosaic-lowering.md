@@ -8,6 +8,9 @@ status: fresh
 ---
 # jax._src.pallas.mosaic.lowering — jaxpr-to-Mosaic lowering via per-(kernel_type, primitive) rules
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [mosaic-kernel](../../../concepts/mosaic-kernel.md), [pallas-kernel](../../../concepts/pallas-kernel.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 
 This module lowers a Pallas kernel's jaxpr to TPU Mosaic MLIR.

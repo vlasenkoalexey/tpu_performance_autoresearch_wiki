@@ -8,6 +8,9 @@ status: fresh
 ---
 # simply.utils.sharding — mesh construction, partition annotations, and multi-host reductions
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [sharding](../../../concepts/sharding.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 
 This module is Simply's whole interface to JAX's device mesh and sharding APIs: it builds a

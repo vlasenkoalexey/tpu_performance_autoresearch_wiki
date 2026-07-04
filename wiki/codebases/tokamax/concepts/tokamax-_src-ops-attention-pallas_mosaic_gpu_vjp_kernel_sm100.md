@@ -8,6 +8,9 @@ status: fresh
 ---
 # tokamax._src.ops.attention.pallas_mosaic_gpu_vjp_kernel_sm100 — flash-attention backward, split dQ/dKV configs, residual-in-regs option
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [flash-attention](../../../concepts/flash-attention.md), [mosaic-kernel](../../../concepts/mosaic-kernel.md), [pallas-kernel](../../../concepts/pallas-kernel.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 
 This module implements the SM100 (Blackwell) backward pass (VJP) for flash attention, with a

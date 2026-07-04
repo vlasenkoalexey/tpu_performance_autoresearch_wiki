@@ -7,6 +7,10 @@ updated: 2026-07-03
 status: fresh
 ---
 # spmd_sharding_jax/ffn_jax — Megatron-style FFN sharding benchmark (Flax)
+
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [sharding](../../../concepts/sharding.md) across this wiki's repos.
+<!-- connect:up:end -->
 A standalone Flax/Optax training-step benchmark for a deep stack of feed-forward blocks under a 2-D `(batch, model)` device mesh, using the classic Megatron column-parallel→row-parallel weight split (so only one resharding communication is needed per block) plus explicit `with_sharding_constraint` calls to keep GSPMD's auto-partitioner aligned with that intent, both on activations during the forward pass and on gradients before the optimizer step.
 
 ## Entry points

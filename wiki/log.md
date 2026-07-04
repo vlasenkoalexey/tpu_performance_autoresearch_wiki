@@ -13,6 +13,20 @@ the connect vocabulary + hub).
 ingested silos (`pallas-kernel` → 27, `flash-attention`/`splash-attention` → 15 each, `autotuning`
 → 11, `sharding`/`kv-cache` → 10). Regenerate anytime with `wikify connect --emit`; deepen a concept
 into an implementation table (Depth 1) or a cross-repo hub (Depth 2) via the connect skill.
+## [2026-07-04] connect | 17 concepts cross-linked inline across the ingested repos
+
+**Op**: connect (new `wikify connect` / `wikify-connect-repo` skill — cross-repo links inline, as a
+normal wiki; no side-table).
+**Pages updated**: 17 `wiki/concepts/*.md` gained a `## In this wiki's repos` block linking each
+repo's grounded implementation; 86 silo concept pages gained a one-line up-link back to the
+concept(s) they implement (260 links, all resolve). `wiki/index.md` + `SCHEMA.md` describe the
+inline model.
+**Selection**: connected the **multi-repo** perf concepts (≥2 repos, where a cross-repo view helps) —
+`pallas-kernel` (27 impls/11 repos), `flash-attention`/`splash-attention` (15 each), `autotuning`
+(11), `sharding`/`kv-cache` (10), `mosaic-kernel` (9), `continuous-batching` (7), `ring-attention`
+/`sparsecore` (5), + remat, pipeline/expert/sequence-parallelism, layer-norm, vmem, vmem-budget.
+Single-repo concepts left unconnected (no cross-repo comparison). Re-run `wikify connect --refresh`
+after any new ingest; deepen a concept with *how-they-differ* hub prose above its `connect:auto` block.
 
 
 ## [2026-07-04] migrate | wikify-repo drop-in replacement for INGEST-CODEBASE — index repointed to grounded overviews, perf lens added

@@ -8,6 +8,9 @@ status: fresh
 ---
 # ejkernel/modules/base — platform auto-detection and executor assembly for the module layer
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [autotuning](../../../concepts/autotuning.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 The `modules` layer is the user-facing wrapper around the low-level ops/kernels machinery, and this file supplies its glue: [`detect_platform`](../catalog/ejkernel/modules/base.md#detect_platform) picks the best [`Platform`](../catalog/ejkernel/kernels/_registry.md#Platform) for a given algorithm on the current hardware, [`create_default_executor`](../catalog/ejkernel/modules/base.md#create_default_executor) assembles a ready-to-use [`Executor`](../catalog/ejkernel/ops/execution/executor.md#Executor)+`ConfigSelectorChain` (now deprecated in favor of explicit construction), and [`mesh_to_jax_mesh`](../catalog/ejkernel/modules/base.md#mesh_to_jax_mesh) normalizes wrapped meshes down to a raw `jax.sharding.Mesh`. The key idea is `platform="auto"`: a caller asks for `"flash_attention"` and this module resolves — from explicit preferences, registry availability, and the live JAX backend — which of Pallas/CUDA/CuTe/Triton/XLA to actually run, so model code never hardcodes a backend.
 

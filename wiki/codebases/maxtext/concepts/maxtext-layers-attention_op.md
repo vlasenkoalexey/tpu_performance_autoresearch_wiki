@@ -8,6 +8,9 @@ status: fresh
 ---
 # MaxText AttentionOp — kernel selection, Splash config, masking, sharding
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [sharding](../../../concepts/sharding.md), [splash-attention](../../../concepts/splash-attention.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 `AttentionOp` is the module the [`Attention`](maxtext-layers-attentions.md) layer delegates
 the actual softmax(QKᵀ)V to. It is a *dispatcher*: a single string

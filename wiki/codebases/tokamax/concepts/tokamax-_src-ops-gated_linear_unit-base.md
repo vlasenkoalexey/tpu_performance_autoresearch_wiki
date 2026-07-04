@@ -8,6 +8,9 @@ status: fresh
 ---
 # tokamax._src.ops.gated_linear_unit.base — GatedLinearUnit, auto-assigned default VJP, fused/unfused weight layouts
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [autotuning](../../../concepts/autotuning.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 
 [`GatedLinearUnit`](../catalog/tokamax/_src/ops/gated_linear_unit/base.md#GatedLinearUnit) computes

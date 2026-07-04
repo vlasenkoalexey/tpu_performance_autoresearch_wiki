@@ -8,6 +8,9 @@ status: fresh
 ---
 # axlearn.common.kv_cache.base_kv_cache — BaseKVCache and KVState
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [kv-cache](../../../concepts/kv-cache.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 
 [`BaseKVCache`](../catalog/axlearn/common/kv_cache/base_kv_cache.md#BaseKVCache) ("Abstract base

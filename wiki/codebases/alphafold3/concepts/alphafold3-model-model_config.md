@@ -8,6 +8,9 @@ status: fresh
 ---
 # alphafold3.model.model_config — GlobalConfig, the model-wide precision/sharding/kernel knobs
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [sharding](../../../concepts/sharding.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 
 [`GlobalConfig`](../catalog/src/alphafold3/model/model_config.md#GlobalConfig) is the single

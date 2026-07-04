@@ -7,6 +7,10 @@ updated: 2026-07-03
 status: fresh
 ---
 # jax_perf/splash_attention_debug — Splash vs flash attention mask-mode benchmark
+
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [flash-attention](../../../concepts/flash-attention.md), [splash-attention](../../../concepts/splash-attention.md) across this wiki's repos.
+<!-- connect:up:end -->
 A Flax wrapper ([`SplashAttention`](../catalog/jax_perf/splash_attention_debug.md#SplashAttention)) around JAX's Pallas TPU splash-attention kernel (`jax.experimental.pallas.ops.tpu.splash_attention`), plus a benchmark ([`main`](../catalog/jax_perf/splash_attention_debug.md#main)) that measures the same Q/K/V under four attention strategies — dynamic mask, static mask, static causal mask, and the plain (non-splash) flash-attention kernel — to quantify the cost of mask *dynamism* versus mask *shape* on TPU.
 
 ## Entry points

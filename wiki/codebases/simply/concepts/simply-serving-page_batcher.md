@@ -8,6 +8,9 @@ status: fresh
 ---
 # simply.serving.page_batcher — continuous-batching gRPC serving over paged attention
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [continuous-batching](../../../concepts/continuous-batching.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 
 [`Batcher`](../catalog/simply/serving/page_batcher.md#Batcher.input_processor) is Simply's

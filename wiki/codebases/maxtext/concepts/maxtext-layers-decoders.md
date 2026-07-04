@@ -8,6 +8,9 @@ status: fresh
 ---
 # MaxText Linen decoder stack — layer scan, remat, and pipeline wiring
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [rematerialization](../../../concepts/rematerialization.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 `decoders.py` is the Flax **Linen** implementation of MaxText's decoder: the module that turns token ids into logits by stacking N transformer blocks. The single load-bearing idea is that the N identical blocks are **not** unrolled into N sub-modules — they are compiled once and replayed with [`scan_decoder_layers`](../catalog/src/maxtext/layers/decoders.md#Decoder.scan_decoder_layers), a thin wrapper over `flax.linen.transforms.scan` that stacks the per-layer parameters along a leading "layers" axis. Wrapped around that scan is a rematerialization policy chosen by [`get_remat_policy`](../catalog/src/maxtext/layers/decoders.md#Decoder.get_remat_policy) and applied by [`set_remat_policy`](../catalog/src/maxtext/layers/decoders.md#Decoder.set_remat_policy). Everything else in the file — the DeepSeek/Gemma3/Gemma4/pipeline branches inside [`__call__`](../catalog/src/maxtext/layers/decoders.md#Decoder.__call__) — is variation on *how many* scan calls to issue and *which* block class each scans. These three surfaces (scan axis, remat policy, pipeline partition) are the decoder's entire TPU-perf envelope.
 

@@ -8,6 +8,9 @@ status: fresh
 ---
 # maxdiffusion/kernels/splash_attention/splash_attention_kernel — block-sparse flash attention (+ ring-attention merge variant)
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [flash-attention](../../../concepts/flash-attention.md), [ring-attention](../../../concepts/ring-attention.md), [sparsecore](../../../concepts/sparsecore.md), [splash-attention](../../../concepts/splash-attention.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 This module is a MaxDiffusion-vendored copy of DeepMind/JAX's "Splash" (sparse flash) attention Pallas TPU kernel — block-sparse flash attention driven by a precomputed [`MaskInfo`](../catalog/src/maxdiffusion/kernels/splash_attention/splash_attention_mask_info.md#MaskInfo) sparsity pattern, with MQA/MHA support, segment ids, attention sinks, logit soft-capping, and a `jax.custom_vjp`-registered forward/backward pair. MaxDiffusion adds one function not present upstream — [`_splash_attention_forward_ring_raw`](../catalog/src/maxdiffusion/kernels/splash_attention/splash_attention_kernel.md#_splash_attention_forward_ring_raw) — which returns *unnormalized* fp32 accumulators instead of a finished attention output, so an outer ring-attention loop can merge partial results from multiple ring steps and normalize exactly once at the end.
 

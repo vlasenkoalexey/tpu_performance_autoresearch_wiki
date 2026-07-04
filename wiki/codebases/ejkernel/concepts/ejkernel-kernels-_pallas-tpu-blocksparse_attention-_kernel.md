@@ -8,6 +8,9 @@ status: fresh
 ---
 # ejkernel/kernels/_pallas/tpu/blocksparse_attention/_kernel — the Splash attention Pallas kernel (fwd + dq/dkv bwd)
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [pallas-kernel](../../../concepts/pallas-kernel.md), [splash-attention](../../../concepts/splash-attention.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 This is the actual TPU Pallas implementation of block-sparse ("Splash") attention: the forward kernel plus the two backward kernels (`dq` and `dkv`), assembled by [`_make_splash_attention`](../catalog/ejkernel/kernels/_pallas/tpu/blocksparse_attention/_kernel.md#_make_splash_attention) and exposed through the public [`blocksparse_attention`](../catalog/ejkernel/kernels/_pallas/tpu/blocksparse_attention/_kernel.md#blocksparse_attention) entry point. It consumes the sparse [MaskInfo](ejkernel-kernels-_pallas-tpu-blocksparse_attention-_info.md) prefetch tables to skip masked blocks, is tiled by a [`BlockSizes`](../catalog/ejkernel/kernels/_pallas/tpu/blocksparse_attention/_kernel.md#BlockSizes) config (with distinct forward and `dq`/`dkv` tiles), and supports a *fused backward* mode ([`use_fused_bwd_kernel`](../catalog/ejkernel/kernels/_pallas/tpu/blocksparse_attention/_kernel.md#BlockSizes.use_fused_bwd_kernel)) that computes `dq` and `dkv` in one pass. The kernel handles the full feature surface a production attention needs: GQA, sliding window, causal/chunked masks, attention sinks (`softmax_aux`), logit soft-capping, bias, and sequence-parallel sharding.
 

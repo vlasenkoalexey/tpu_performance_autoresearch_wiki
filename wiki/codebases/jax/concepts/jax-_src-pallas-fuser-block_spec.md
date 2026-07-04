@@ -8,6 +8,9 @@ status: fresh
 ---
 # jax._src.pallas.fuser.block_spec — backward BlockSpec propagation for kernel fusion
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [pallas-kernel](../../../concepts/pallas-kernel.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 
 [`_pull_block_transform`](../catalog/jax/_src/pallas/fuser/block_spec.md#_pull_block_transform)

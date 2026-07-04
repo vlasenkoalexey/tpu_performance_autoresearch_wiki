@@ -8,6 +8,9 @@ status: fresh
 ---
 # tokamax._src.ops.ragged_dot.pallas_mosaic_tpu_v2_gmm_kernel — GMM v2, MXU-column-size-gated dequantization timing
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [mosaic-kernel](../../../concepts/mosaic-kernel.md), [pallas-kernel](../../../concepts/pallas-kernel.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 
 This module is the "v2" TPU Pallas grouped-matmul (GMM) kernel, generating block specs and index

@@ -8,6 +8,9 @@ status: fresh
 ---
 # MaxText input-pipeline utilities: HF sharding + pad/segment preprocessing
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [sharding](../../../concepts/sharding.md) across this wiki's repos.
+<!-- connect:up:end -->
 Host-side helpers that (a) turn a streaming HuggingFace `IterableDataset` into a
 Grain-compatible random-access source across many data-loading hosts and threads,
 and (b) pad every example to a fixed `max_length` while emitting the segmentation

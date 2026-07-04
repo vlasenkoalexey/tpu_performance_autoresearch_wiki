@@ -8,6 +8,9 @@ status: fresh
 ---
 # maxdiffusion/models/ltx_video/transformers/attention — LTX-Video JAX attention (TPU-flash-only)
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [flash-attention](../../../concepts/flash-attention.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 This is the `flax.linen` JAX port of LTX-Video's transformer attention block — `BasicTransformerBlock` with separate [`attn1`](../catalog/src/maxdiffusion/models/ltx_video/transformers/attention.md#BasicTransformerBlock.attn1) (self-attention) and [`attn2`](../catalog/src/maxdiffusion/models/ltx_video/transformers/attention.md#BasicTransformerBlock.attn2) (optional cross-attention) sub-modules plus an [`ff`](../catalog/src/maxdiffusion/models/ltx_video/transformers/attention.md#BasicTransformerBlock.ff) feed-forward — paired one-to-one with a PyTorch reference implementation in the sibling [ltx_video/transformers_pytorch/attention](maxdiffusion-models-ltx_video-transformers_pytorch-attention.md) module. Unlike the rest of this codebase's attention layers, this port hard-requires TPU flash attention: `setup()` asserts `self.use_tpu_flash_attention`, with the message "Jax version only use tpu_flash attention."
 

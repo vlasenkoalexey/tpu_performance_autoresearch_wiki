@@ -206,7 +206,7 @@ These were the candidates expected to recover the 9.2 % loop-fusion line in the 
 
 ## Concepts (97)
 
-> **Cross-repo view:** [`_connect/index.md`](_connect/index.md) maps each concept below to its grounded implementations across the ingested repos (`wikify connect`). A concept page is the *definition*; the connect index is *who implements it, where*.
+> **Cross-repo view:** a connected concept page carries an `## In this wiki's repos` section linking each ingested repo's grounded implementation (`wikify connect`). The concept page is the *definition + hub*; the links reach *who implements it, where*.
 
 ### Pallas-authoring patterns (11, stubs — added 2026-04-23)
 - [online-softmax-with-logit-sink](concepts/online-softmax-with-logit-sink.md) — axlearn splash extension; add `exp(sink - m_final)` to normalizer.

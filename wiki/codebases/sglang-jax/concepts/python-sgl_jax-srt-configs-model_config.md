@@ -8,6 +8,9 @@ status: fresh
 ---
 # sgl_jax.srt.configs.model_config — ModelConfig, MoE backend auto-selection, hybrid KV-cache sizing inputs
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [autotuning](../../../concepts/autotuning.md), [kv-cache](../../../concepts/kv-cache.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 
 [`ModelConfig`](../catalog/python/sgl_jax/srt/configs/model_config.md#ModelConfig) is the single

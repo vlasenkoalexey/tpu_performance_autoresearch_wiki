@@ -8,6 +8,9 @@ status: fresh
 ---
 # tokamax._src.ops.experimental.tpu.splash_attention.splash_attention_kernel_test — hypothesis-based property testing across MQA/MHA/segmented configs
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [splash-attention](../../../concepts/splash-attention.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 
 This test module validates splash attention correctness via property-based testing (the

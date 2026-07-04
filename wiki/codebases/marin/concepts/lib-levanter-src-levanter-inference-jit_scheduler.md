@@ -8,6 +8,9 @@ status: fresh
 ---
 # levanter.inference.jit_scheduler — the fully-jitted continuous-batching decode scheduler
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [continuous-batching](../../../concepts/continuous-batching.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 
 [`DecodeState`](../catalog/lib/levanter/src/levanter/inference/jit_scheduler.md#DecodeState) is the

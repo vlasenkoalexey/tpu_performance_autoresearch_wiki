@@ -8,6 +8,9 @@ status: fresh
 ---
 # sgl_jax.srt.kernels.fused_moe.v2.bench_v2 — VMEM-budget-aware block-config tuning search for fused_ep_moe_v2
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [vmem](../../../concepts/vmem.md), [vmem-budget](../../../concepts/vmem-budget.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 
 [`generate_tune_candidates`](../catalog/python/sgl_jax/srt/kernels/fused_moe/v2/bench_v2.md#generate_tune_candidates)

@@ -8,6 +8,9 @@ status: fresh
 ---
 # easydel/caching/transformer/cache — the dense contiguous KV cache with a sliding-window fast path
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [kv-cache](../../../concepts/kv-cache.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 This is the "standard" KV cache: a pre-allocated `[batch, seq, heads, dim]` tensor per layer whose new keys/values are written in-place-functionally at a per-sequence write index via `lax.dynamic_update_slice`. [`TransformerCache`](../catalog/easydel/caching/transformer/cache.md#TransformerCache) is the model-level container of per-layer [`TransformerCacheView`](../catalog/easydel/caching/transformer/cache.md#TransformerCacheView)s (implementing the `BaseCache`/`BaseCacheView` contract), and the single interesting method is [`concatenate_to_cache`](../catalog/easydel/caching/transformer/cache.md#TransformerCacheView.concatenate_to_cache), which handles the ordinary "append at index" path and a distinct sliding-window path that rolls the buffer when the window overflows. The design keeps the *storage* dtype fixed (possibly quantized) while returning K/V in the *runtime* dtype for the attention math — a separation that lets you cache in int8 but compute in bf16.
 

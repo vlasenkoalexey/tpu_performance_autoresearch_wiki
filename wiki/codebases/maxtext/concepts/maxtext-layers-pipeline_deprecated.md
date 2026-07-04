@@ -8,6 +8,9 @@ status: fresh
 ---
 # MaxText pipeline parallelism — deprecated Linen implementation
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [pipeline-parallelism](../../../concepts/pipeline-parallelism.md) across this wiki's repos.
+<!-- connect:up:end -->
 > **Superseded.** `src/maxtext/layers/pipeline_deprecated.py` is the **old flax Linen** (`nn.Module` / `@nn.compact`) pipeline layer, kept for reference and retired in favour of the NNX rewrite in [`pipeline.py`](maxtext-layers-pipeline.md). It implements the same GPipe/circular microbatch schedule and the same buffer-rotation math, but with a **single flat scan**, **synchronous per-iteration weight gathering**, and **no Buffer Sliding Window / async FSDP prefetch** — the overlap lever that the NNX `NNXCircularPipeline` was built to add. Read this page to understand what the schedule did and *why* the new version replaced it; do not build new hypotheses against this code path.
 
 ## Overview
