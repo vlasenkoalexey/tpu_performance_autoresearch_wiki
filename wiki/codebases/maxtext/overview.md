@@ -1,7 +1,7 @@
 ---
 title: maxtext — overview
 type: overview
-updated: 2026-07-03
+updated: 2026-07-04
 ---
 # maxtext — what it is and how it fits together
 
@@ -49,6 +49,24 @@ flowchart TD
 
 Node → concept page: [typed config](concepts/maxtext-configs-types.md) · [decoder stack](concepts/maxtext-layers-decoders.md) · [Attention layer](concepts/maxtext-layers-attentions.md) · [AttentionOp](concepts/maxtext-layers-attention_op.md) · [MLA](concepts/maxtext-layers-attention_mla.md) / [Compressed](concepts/maxtext-layers-attention_compressed.md) · [linears](concepts/maxtext-layers-linears.md) · [embeddings](concepts/maxtext-layers-embeddings.md) · [MoE](concepts/maxtext-layers-moe.md) · [Splash kernel](concepts/maxtext-kernels-attention-splash_attention_kernel.md) · [GMM kernel](concepts/maxtext-kernels-megablox-pallas_mosaic_tpu_v2_gmm_kernel.md) · [pipeline](concepts/maxtext-layers-pipeline.md) · [input pipeline](concepts/maxtext-input_pipeline-input_pipeline_utils.md).
 
+## Performance-relevant surfaces
+The TPU-perf entry point: every knob a perf-optimization loop tunes, where it lives, and what it trades. Each row grounds in the concept page that explains the mechanism; the deeper walkthrough follows under *Main concepts*.
+
+| Surface (config knob) | Where | What it trades |
+|---|---|---|
+| **Remat policy** — `remat_policy` = `minimal`/`save_*`/`*_offloaded`, plus per-tensor `RematLocation` → `tensors_on_device`/`tensors_to_offload` | [config types](concepts/maxtext-configs-types.md), [decoders](concepts/maxtext-layers-decoders.md) | activation HBM ↔ recompute FLOPs (+ host-offload bandwidth). The single most-tuned lever. |
+| **Scan axis / FSDP overlap** — logical sharding name stamped on the stacked-layer dim | [Linen](concepts/maxtext-layers-decoders.md) / [NNX decoders](concepts/maxtext-layers-nnx_decoders.md) | lets XLA overlap FSDP weight all-gathers across `scan` iterations; decouples compile time from depth. |
+| **Attention kernel dispatch** — `attention` = `autoselected`/`dot_product`/`flash`(splash)/`cudnn_flash_te`/`paged`/`vllm_rpa` | [AttentionOp](concepts/maxtext-layers-attention_op.md) | a decision tree over (model, hardware, regime); decode→dot-product (KV-quant/mask), train/prefill→splash. |
+| **Splash `BlockSizes`** — `block_q`, `block_kv`, `block_kv_compute`, `block_q_dkv`…, `use_fused_bwd_kernel`, `QKVLayout` | [Splash kernel](concepts/maxtext-kernels-attention-splash_attention_kernel.md) | grid/VMEM occupancy vs. recompute; the 8-field autotune surface. Fused backward reuses fwd `logsumexp`. |
+| **MoE compute path** — dense/capacity vs. sparse-GMM (dropless) vs. fused; `use_tokamax_backend`, `use_megablox` | [RoutedMoE](concepts/maxtext-layers-moe.md), [GMM v2 kernel](concepts/maxtext-kernels-megablox-pallas_mosaic_tpu_v2_gmm_kernel.md) | token-dropping padding ↔ ragged-GEMM sort cost; expert-parallel `ragged_all_to_all` schedule. |
+| **Pipeline schedule + BSW** — microbatch count, circular/interleaved repeats, Buffer Sliding Window | [NNX pipeline](concepts/maxtext-layers-pipeline.md) | bubble amortization; two-slot buffer all-gathers next repeat's FSDP weights behind current matmul. |
+| **Matmul precision / quant** — AQT int8/fp8, weight-vs-compute dtype split, host-offload of weights, explicit output sharding | [linears](concepts/maxtext-layers-linears.md), [embeddings](concepts/maxtext-layers-embeddings.md) | MXU throughput / HBM ↔ numerics; applied at the single `lax.dot_general`. |
+| **KV-cache reduction** — MLA low-rank latent, DeepSeek-V4 HCA/CSA pooling, cross-layer KV sharing, KV-quant | [MLA](concepts/maxtext-layers-attention_mla.md), [Compressed](concepts/maxtext-layers-attention_compressed.md), [Attention layer](concepts/maxtext-layers-attentions.md) | extra down/up matmuls + compressor/indexer ↔ shorter key axis / smaller cache. |
+| **SparseCore MoE unroute** — MLIR-dialect kernel (`gather_reduce_sc`); `col_chunk_size`, `row_chunk_size`, `loop_unroll_factor_*`, `reduce_group_size` | [MoE](concepts/maxtext-layers-moe.md) (see [`catalog/`](catalog/)) | drops below `pallas_call` to raw dialects for v5p/v7x SparseCore; large autotune surface. |
+| **Host input throughput** — fixed-shape packing, Grain shard assignment, OLMo index, prefill bin-packing | [input utils](concepts/maxtext-input_pipeline-input_pipeline_utils.md), [OLMo](concepts/maxtext-input_pipeline-olmo_data.md), [prefill packing](concepts/maxtext-input_pipeline-packing-prefill_packing.md) | keeps the accelerator fed at fixed shapes (never recompiles); n-gram filter is the real host bottleneck. |
+
+> [!inferred] Cross-repo perf verdicts and this wiki's own experiment backlinks (e.g. which `BlockSizes` the gemma4 loop accepted) live in the thin on-demand hand page [`../maxtext.md`](../maxtext.md), not here — this overview is regenerated from code and stays a pure map of the repo's tunable surfaces.
+
 ## Main concepts
 
 ### Typed config → derived mesh, parallelism, and remat plan
@@ -85,6 +103,7 @@ The accelerator sees identical tensor shapes every step so it never recompiles; 
 A training step runs down one spine. The [typed config](concepts/maxtext-configs-types.md) is constructed and derived (mesh, batch, remat lists, pipeline schedule); the host [input pipeline](concepts/maxtext-input_pipeline-input_pipeline_utils.md) delivers a fixed-shape, segmented batch; the [decoder stack](concepts/maxtext-layers-decoders.md) embeds tokens, then `scan`s one rematted block body over the layer axis (or, under pipeline parallelism, hands stages to the [NNX pipeline](concepts/maxtext-layers-pipeline.md) with BSW weight prefetch). Inside each block, the [Attention layer](concepts/maxtext-layers-attentions.md) projects/norms/RoPEs Q/K/V (or [MLA](concepts/maxtext-layers-attention_mla.md)/[Compressed](concepts/maxtext-layers-attention_compressed.md) for DeepSeek) and dispatches through [AttentionOp](concepts/maxtext-layers-attention_op.md) to the [Splash kernel](concepts/maxtext-kernels-attention-splash_attention_kernel.md); the FFN runs either a dense [MlpBlock](concepts/maxtext-layers-linears.md) or [RoutedMoE](concepts/maxtext-layers-moe.md), whose sparse path sorts tokens, all-to-alls across expert shards, and calls the [GMM kernel](concepts/maxtext-kernels-megablox-pallas_mosaic_tpu_v2_gmm_kernel.md). The decoder's output head projects to vocab logits. Which [model family](concepts/maxtext-models-llama4.md) is running only changes the per-layer schedule wiring these shared pieces together.
 
 ## Map of the wiki
+- **Which knobs does a perf loop tune (remat, splash blocks, MoE path, precision, pipeline)?** → [Performance-relevant surfaces](#performance-relevant-surfaces).
 - **How is the run configured / where do device count, batch size, remat lists come from?** → [config types](concepts/maxtext-configs-types.md) (and the [legacy loader](concepts/maxtext-configs-pyconfig_deprecated.md)).
 - **How does depth not blow up compile time / where is remat and scan?** → [Linen decoders](concepts/maxtext-layers-decoders.md), [NNX decoders](concepts/maxtext-layers-nnx_decoders.md).
 - **Where is a specific attention behavior (fused QKV, GQA, KV-sharing, RoPE)?** → [Attention layer](concepts/maxtext-layers-attentions.md); **kernel selection, Splash block sizes, masking, sharding** → [AttentionOp](concepts/maxtext-layers-attention_op.md).
