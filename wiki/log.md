@@ -1,5 +1,11 @@
 # Log
 
+## [2026-07-04] ingest-codebase | stablehlo recovered as a grounded docs wiki (docs-mode)
+
+**Op**: ingest-codebase (wikify docs-mode — `source_type: docs`, `doc_globs: docs/**/*.md`, perf-lens `synthesis_focus`). Recovered from the `ingest-stablehlo-docs` branch (lost in a prior sync) and re-validated at the current pin.
+**Pages created**: `wiki/codebases/stablehlo/` grounded docs wiki — `overview.md`, 11 `topics/` (dot_general, collectives, scatter-gather, convolution, reduce-and-windowing, elementwise-and-fusion, optimization-passes, quantization, dynamism, type-inference, compatibility-and-versioning), 27 `sources/` (one per doc), auto-assembled `index.md`. Ingested @ `9793611e`; `wikify finalize` clean (100% doc coverage; all `src:` citations resolve).
+**Pages updated**: `wiki/codebases/stablehlo.md` (thin on-demand perf-lens companion → the overview); `wiki/index.md` (Codebases entry repointed `codebases/stablehlo.md` → `codebases/stablehlo/overview.md`, `ce5d230`→`9793611`); this log.
+
 ## [2026-07-04] connect | 17 concepts cross-linked inline across the ingested repos
 
 **Op**: connect (new `wikify connect` / `wikify-connect-repo` skill — cross-repo links inline, as a

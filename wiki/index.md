@@ -200,7 +200,7 @@ These were the candidates expected to recover the 9.2 % loop-fusion line in the 
 - [xprof-mcp](codebases/xprof-mcp/overview.md) — commit `9970d65` — MCP server exposing 18 tools for agent-driven profile analysis; wraps a local xprof HTTP server and `.xplane.pb` files.
 - [torchax](codebases/torchax/overview.md) — commit `8f957d1` — PyTorch backend that runs torch programs on TPU via JAX; op lowering + graph-compile boundary for torch-origin models.
 - [tokamax](codebases/tokamax/overview.md) — commit `54bdd95` — Pallas kernel library (splash/flash attention, GLU, layer_norm, ragged_dot, cross-entropy); **direct optimization toolbox**.
-- [stablehlo](codebases/stablehlo.md) — commit `ce5d230` — MLIR op-set + dialect reference; consulted when reading HLO dumps.
+- [stablehlo](codebases/stablehlo/overview.md) — commit `9793611` — MLIR op-set + pass-vocabulary reference (grounded docs wiki: 11 topics / 27 sources); consulted when reading HLO dumps + xprof traces. Perf-lens companion: [stablehlo.md](codebases/stablehlo.md).
 - [scaling-book](codebases/scaling-book/overview.md) — commit `6cda371` — "How To Scale Your Model" book (DeepMind); 11 chapters to be ingested as sources in Wave 3.
 - [autoresearch](codebases/autoresearch.md) — commit `228791f` — Karpathy's autoresearch reference impl (single H100, `val_bpb`); methodological model for this wiki's loop.
 
