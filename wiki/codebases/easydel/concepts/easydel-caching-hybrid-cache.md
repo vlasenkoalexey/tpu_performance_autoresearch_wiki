@@ -8,6 +8,9 @@ status: fresh
 ---
 # easydel/caching/hybrid/cache — one cache, different state per layer (KV vs conv+recurrent)
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [kv-cache](../../../concepts/kv-cache.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 Hybrid architectures (e.g. Gemma-style interleaved attention, Mamba/attention stacks, Kimi Linear) mix *attention* layers and *linear-attention/SSM* layers in the same model — and those two layer kinds need fundamentally different cached state: attention needs a K/V buffer, while a linear-attention layer needs a convolution state plus a recurrent state. `HybridCacheView` is the key idea here: a *single* view type that carries fields for **both** kinds, allocates only the ones its layer needs (the rest stay `None`), and branches its update on a per-layer `layer_type` string (its per-layer allocator is [`HybridCacheView.init`](../catalog/easydel/caching/hybrid/cache.md#HybridCacheView.init)). [`HybridCache`](../catalog/easydel/caching/hybrid/cache.md#HybridCache) is the container of these mixed views. This "union view" avoids needing the model's cache list to hold heterogeneous view classes — every layer's slot is a `HybridCacheView`, just populated differently.
 

@@ -8,6 +8,9 @@ status: fresh
 ---
 # ejkernel/kernels/_pallas/tpu/multi_latent_ragged_page_attention_v2/_pallas_impl_fwd — MLA paged attention with explicit async pipelining
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [pallas-kernel](../../../concepts/pallas-kernel.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 This is the paged-attention kernel for **Multi-head Latent Attention (MLA)** — DeepSeek's attention variant where K and V are stored as a low-rank *latent* (`kv_c`) plus a separate RoPE component (`k_pe`), rather than full per-head K/V. [`mla_ragged_paged_attention_v2`](../catalog/ejkernel/kernels/_pallas/tpu/multi_latent_ragged_page_attention_v2/_pallas_impl_fwd.md#mla_ragged_paged_attention_v2) serves the same continuous-batching role as the standard ragged-page kernel (decode/prefill/mixed via an [`MlaCase`](../catalog/ejkernel/kernels/_pallas/tpu/multi_latent_ragged_page_attention_v2/_pallas_impl_fwd.md#MlaCase) split) but for the latent KV layout. What distinguishes it is an **explicit software pipeline**: the kernel body ([`_mla_ragged_paged_attention_kernel`](../catalog/ejkernel/kernels/_pallas/tpu/multi_latent_ragged_page_attention_v2/_pallas_impl_fwd.md#_mla_ragged_paged_attention_kernel)) manually manages async copies (`_async_copy`, `_fetch_bkv`/`_fetch_bq`, `_send_bo`) with wait barriers, double-buffering the paged-KV loads against compute — a level of hand-pipelining the simpler kernels leave to Pallas.
 

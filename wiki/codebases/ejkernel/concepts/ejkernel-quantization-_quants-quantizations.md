@@ -8,6 +8,9 @@ status: fresh
 ---
 # ejkernel/quantization/_quants/quantizations — quantize/dequantize with runtime config autotuning
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [autotuning](../../../concepts/autotuning.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 This module provides the public [`quantize`](../catalog/ejkernel/quantization/_quants/quantizations.md#quantize) (weights → packed uint32 codes + per-group scales) and [`dequantize`](../catalog/ejkernel/quantization/_quants/quantizations.md#dequantize) (codes + scales → floats) entry points, for all the quantization modes. The distinctive feature is a *runtime autotuner for the quant/dequant operations themselves*: [`_maybe_autotune_quantize_runtime_cfg`](../catalog/ejkernel/quantization/_quants/quantizations.md#_maybe_autotune_quantize_runtime_cfg) / [`_maybe_autotune_dequantize_runtime_cfg`](../catalog/ejkernel/quantization/_quants/quantizations.md#_maybe_autotune_dequantize_runtime_cfg) benchmark candidate `QuantRuntimeConfig`s for a given shape/mode and cache the fastest — a lightweight, lock-guarded, per-shape autotuning cache separate from the main ops-layer tuner. The idea: quantizing/dequantizing a large weight isn't free, and the optimal blocking depends on shape, so it's worth tuning — but cheaply and inline, gated by a minimum-gain threshold so tuning only sticks if it actually helps.
 

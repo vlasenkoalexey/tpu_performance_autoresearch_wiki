@@ -8,6 +8,9 @@ status: fresh
 ---
 # tpu_inference.kernels.mla.v2.kernel — the MLA (Multi-head Latent Attention) Pallas kernel
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [pallas-kernel](../../../concepts/pallas-kernel.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 
 [`mla_ragged_paged_attention`](../catalog/tpu_inference/kernels/mla/v2/kernel.md#mla_ragged_paged_attention)

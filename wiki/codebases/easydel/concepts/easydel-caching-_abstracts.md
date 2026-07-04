@@ -8,6 +8,9 @@ status: fresh
 ---
 # easydel/caching/_abstracts — the cache/view/config/metadata contract every KV-cache implements
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [kv-cache](../../../concepts/kv-cache.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 This file defines the four abstract shapes that *every* concrete cache in EasyDeL (transformer KV, ragged-paged, hybrid, recurrent/SSM) must fit into, so the attention layer can treat all of them through one interface. The split is deliberate and worth internalizing: a **[`BaseCache`](../catalog/easydel/caching/_abstracts.md#BaseCache)** is the whole-model container (one per model), a **[`BaseCacheView`](../catalog/easydel/caching/_abstracts.md#BaseCacheView)** is one layer's slice of it, a **[`BaseCacheConfig`](../catalog/easydel/caching/_abstracts.md#BaseCacheConfig)** is *static* shape/dtype configuration, and **[`OperationsMetadata`](../catalog/easydel/caching/_abstracts.md#OperationsMetadata)** is the *dynamic* per-forward-pass runtime state (positions, indices). The container/view split lets each layer own an independently-sharded, independently-formatted cache; the config/metadata split cleanly separates what's fixed at build time from what changes every decode step — a distinction that matters because the former can be baked into the compiled graph while the latter must stay a traced input.
 

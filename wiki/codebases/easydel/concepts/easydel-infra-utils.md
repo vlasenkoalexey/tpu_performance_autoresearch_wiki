@@ -8,6 +8,9 @@ status: fresh
 ---
 # easydel/infra/utils — auto_remat rematerialization, the activation registry, and FLOP accounting
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [autotuning](../../../concepts/autotuning.md), [rematerialization](../../../concepts/rematerialization.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 A grab-bag infra module, but its performance-load-bearing export is [`auto_remat`](../catalog/easydel/infra/utils.md#auto_remat): the one-call way to wrap a module's `__call__` in JAX rematerialization (gradient checkpointing), trading recompute for activation memory during the backward pass. It supports the full spectrum of checkpoint policies — from "save nothing" (recompute everything) to named-tensor policies that save only specific `checkpoint_name`-annotated tensors (like the `"attn_qkv"`/`"attn_output"` names the attention layer emits). The rest of the file supplies the shared [`ACT2FN`](../catalog/easydel/infra/utils.md#ACT2FN) activation registry, the [`ArrayParam`](../catalog/easydel/infra/utils.md#ArrayParam) serializable-parameter container, a [`ProcessingClassType`](../catalog/easydel/infra/utils.md#ProcessingClassType) tokenizer/processor type alias, and a large FLOP-counting toolkit (`flop_attention`, `flop_mlp`, `count_flop_jaxpr`, ...) that backs the model's MFU accounting.
 

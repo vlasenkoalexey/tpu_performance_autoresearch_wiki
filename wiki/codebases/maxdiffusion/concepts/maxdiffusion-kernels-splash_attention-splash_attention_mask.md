@@ -8,6 +8,9 @@ status: fresh
 ---
 # maxdiffusion/kernels/splash_attention/splash_attention_mask — lazy, composable attention masks
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [splash-attention](../../../concepts/splash-attention.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 The logical mask layer splash attention is built on: a [`Mask`](../catalog/src/maxdiffusion/kernels/splash_attention/splash_attention_mask.md#Mask) base class supporting `&`/`|` composition, concrete materialized variants ([`NumpyMask`](../catalog/src/maxdiffusion/kernels/splash_attention/splash_attention_mask.md#Mask), [`FullMask`](../catalog/src/maxdiffusion/kernels/splash_attention/splash_attention_mask.md#FullMask)), and — the design centerpiece — [`_ComputableMask`](../catalog/src/maxdiffusion/kernels/splash_attention/splash_attention_mask.md#_ComputableMask) (parent of [`CausalMask`](../catalog/src/maxdiffusion/kernels/splash_attention/splash_attention_mask.md#CausalMask), [`LocalMask`](../catalog/src/maxdiffusion/kernels/splash_attention/splash_attention_mask.md#LocalMask), [`ChunkedCausalMask`](../catalog/src/maxdiffusion/kernels/splash_attention/splash_attention_mask.md#ChunkedCausalMask)), which never materializes the full `(q_seq_len, kv_seq_len)` boolean array — it evaluates a `mask_function` closure per-block on demand, specifically to avoid an O(seq_len²) memory cost that would be prohibitive for the long video/sequence lengths this codebase targets.
 

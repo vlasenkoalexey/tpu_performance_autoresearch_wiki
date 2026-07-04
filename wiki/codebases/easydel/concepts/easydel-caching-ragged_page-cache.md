@@ -8,6 +8,9 @@ status: fresh
 ---
 # easydel/caching/ragged_page/cache — paged KV cache with a TPU Pallas update kernel
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [kv-cache](../../../concepts/kv-cache.md), [pallas-kernel](../../../concepts/pallas-kernel.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 This is the high-throughput serving cache: instead of one contiguous `[batch, seq, ...]` buffer per sequence, KV storage is divided into fixed-size **pages** (`page_size=128` tokens by default) drawn from a shared pool, so variable-length concurrent requests pack into memory without per-sequence over-allocation (the vLLM PagedAttention idea, ported to JAX/TPU). [`RaggedPagesCacheConfig`](../catalog/easydel/caching/ragged_page/cache.md#RaggedPagesCacheConfig) sizes the page pool from an HBM-utilization target; [`RaggedPagesCacheView`](../catalog/easydel/caching/ragged_page/cache.md#RaggedPagesCacheView) holds one layer's `kv_pages` tensor; and [`concatenate_to_cache`](../catalog/easydel/caching/ragged_page/cache.md#RaggedPagesCacheView) scatters new tokens into their pages via a **slot mapping**, using a TPU-optimized Pallas kernel (`kv_cache_update`) when eligible and a pure-JAX fallback otherwise. The whole thing exists to serve many sequences at once, which is why the update path is shard-map aware and DP-aware.
 

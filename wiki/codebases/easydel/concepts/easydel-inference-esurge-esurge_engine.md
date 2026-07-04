@@ -8,6 +8,9 @@ status: fresh
 ---
 # easydel/inference/esurge/esurge_engine — the continuous-batching serving engine front door
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [continuous-batching](../../../concepts/continuous-batching.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 [`eSurge`](../catalog/easydel/inference/esurge/esurge_engine.md#eSurge) is EasyDeL's high-throughput serving engine — the JAX/TPU analogue of vLLM's engine. Its whole reason to exist is *continuous batching*: a background scheduler thread pulls requests off a queue and keeps the accelerator busy by mixing prefill and decode work across many concurrent requests, backed by the paged KV cache ([`RaggedPagesCacheView`](../catalog/easydel/caching/ragged_page/cache.md)). The class itself is thin — it composes six mixins (monitoring, parsing, requests, IO, lifecycle, utils) that carry the actual behavior — and exposes a simple surface (`initiate()`, `stream()`, `generate()`) returning [`RequestOutput`](../catalog/easydel/inference/esurge/esurge_engine.md#RequestOutput) objects rich with throughput metrics (TTFT, tokens/sec). The design idea: keep the *engine* a small orchestrator over mixins and a background scheduler, so the serving concerns (streaming, monitoring, distributed execution) are separable.
 

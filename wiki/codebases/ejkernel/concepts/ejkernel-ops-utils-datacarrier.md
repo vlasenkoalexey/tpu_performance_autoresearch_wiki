@@ -8,6 +8,9 @@ status: fresh
 ---
 # ejkernel/ops/utils/datacarrier — FwdParams/BwdParams, the tiling knobs autotuning searches over
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [autotuning](../../../concepts/autotuning.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 This tiny module holds [`FwdParams`](../catalog/ejkernel/ops/utils/datacarrier.md#FwdParams) and [`BwdParams`](../catalog/ejkernel/ops/utils/datacarrier.md#BwdParams): the dataclasses that carry *block-size tiling parameters* for the forward and backward passes of a kernel. Every field is optional (`None`) — meaning "let the kernel or autotuner choose" — so these objects are simultaneously the manual-override surface and the autotuning search space. They are what a [`FlashAttentionConfig`](../catalog/ejkernel/modules/operations/configs.md#FlashAttentionConfig.fwd_params) carries as `fwd_params`/`bwd_params`, and their values (`q_blocksize`, [`kv_blocksize`](../catalog/ejkernel/ops/utils/datacarrier.md#FwdParams.kv_blocksize), `blocksize_m/k/n`, `num_warps`, `num_stages`) are precisely the TPU/GPU tiling dials that determine a kernel's memory footprint and throughput.
 

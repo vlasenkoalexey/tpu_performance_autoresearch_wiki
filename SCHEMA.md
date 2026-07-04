@@ -137,6 +137,11 @@ Ingested repository. The **grounded layer** — `wiki/codebases/<slug>/{overview
 An optimization technique, hardware feature, compiler pass, flag, kernel, or abstraction.
 - H2: Definition, Why it matters for TPU perf, Mechanism, When it applies / when it doesn't, Known results, Connections.
 - If the concept has measured impact, include a results table with model × baseline × delta × source/experiment.
+- **These pages are also the connect vocabulary + hubs.** `wikify connect` reads `wiki/concepts/*.md`
+  filenames as the shared concept keys; a **connected** page carries an `## In this wiki's repos`
+  block (a `connect:auto` block) linking each ingested repo's grounded implementation, and each of
+  those silo pages links back up. A concept worth cross-repo depth gains *how-they-differ* hub prose
+  above that block — authored by the `wikify-connect-repo` skill. No `_connect/` side-table.
 
 ### model  (`wiki/models/<architecture>-<lane>.md`)
 A model under optimization. This is a **live page** — it tracks every (size × hardware) variant of one model architecture on one execution lane.
@@ -260,6 +265,15 @@ This is a **thin orchestrator** — it drives the `wikify-ingest-repo` skill and
    registers** the repo's `overview.md` into `index.md` + appends `log.md` (skill step 7). Requires
    the `wikify` CLI ([wikify-repo](https://github.com/vlasenkoalexey/wikify-repo): `pip install -e` +
    `setup-vendor.sh`; TS/Go/Rust indexers install on demand). Skip for languages wikify doesn't cover.
+
+3. **Connect (from the 2nd repo on).** The ingest skill then hands off to `wikify-connect-repo`,
+   which cross-links this silo to the others on the concept axis **inline, as a normal wiki** (no
+   side-table). `wikify connect` proposes which `concepts/` keys have implementations across the
+   silos; you pick **which to connect** (selective — not everything); `wikify connect --apply <keys>`
+   writes, in regenerable `connect:auto` blocks, a `## In this wiki's repos` list on the concept page
+   linking each repo's implementation, plus a one-line up-link on each silo page. Run `wikify connect
+   --refresh` after any new ingest so already-connected concepts pick up its implementations. Deepen a
+   concept into a real hub by adding *how-they-differ* prose above the auto block.
 
 **That's the ingest.** The two research artifacts are created **when the repo enters the optimization
 loop, not at ingest** — never eagerly:

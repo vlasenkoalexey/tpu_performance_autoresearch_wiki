@@ -8,6 +8,9 @@ status: fresh
 ---
 # ejkernel/kernels/_pallas/tpu/ragged_page_attention_v3/_pallas_impl_fwd — mixed prefill/decode paged attention kernel
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [pallas-kernel](../../../concepts/pallas-kernel.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 [`ragged_paged_attention`](../catalog/ejkernel/kernels/_pallas/tpu/ragged_page_attention_v3/_pallas_impl_fwd.md#ragged_paged_attention) is the forward TPU Pallas kernel behind continuous-batching serving: it attends a *ragged* batch (sequences of different lengths, each with its own KV pages via `block_tables`) and — critically — handles **mixed prefill and decode in one launch**. The design idea is the [`RpaCase`](../catalog/ejkernel/kernels/_pallas/tpu/ragged_page_attention_v3/_pallas_impl_fwd.md#RpaCase) split ([`DECODE`](../catalog/ejkernel/kernels/_pallas/tpu/ragged_page_attention_v3/_pallas_impl_fwd.md#RpaCase.DECODE)/[`PREFILL`](../catalog/ejkernel/kernels/_pallas/tpu/ragged_page_attention_v3/_pallas_impl_fwd.md#RpaCase.PREFILL)/[`MIXED`](../catalog/ejkernel/kernels/_pallas/tpu/ragged_page_attention_v3/_pallas_impl_fwd.md#RpaCase.MIXED)): a `distribution` array partitions the batch into a decode region (1 query token each), a prefill region (many tokens), and a mixed region, and the kernel specializes each. This is exactly what an eSurge-style scheduler needs — it can pack decode tokens from many requests and prefill tokens from others into a single kernel call, keeping the TPU busy rather than launching a separate kernel per phase.
 

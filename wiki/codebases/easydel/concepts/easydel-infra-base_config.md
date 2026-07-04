@@ -8,6 +8,9 @@ status: fresh
 ---
 # easydel/infra/base_config — the central config that carries every sharding, kernel, and quantization knob
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [sharding](../../../concepts/sharding.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 [`EasyDeLBaseConfig`](../catalog/easydel/infra/base_config.md#EasyDeLBaseConfig) extends HuggingFace's `PretrainedConfig` with *everything EasyDeL needs to run a model on a mesh*: the parallelism axis sizes, the attention-kernel choice, block sizes, MoE tiling, quantization configs, gradient-checkpointing policy, and RoPE/scan flags. It is the single object threaded into every module — this is the page to read to understand "what knob controls X." From a performance standpoint it is the most important surface in the whole codebase, because almost every optimization decision (which attention kernel, how to shard, whether to quantize KV, whether to scan MLPs) is a field here read by the layers. Two methods matter above the field list: [`partition_manager`](../catalog/easydel/infra/base_config.md#EasyDeLBaseConfig.partition_manager) turns the config's `partition_axis` into the object that resolves logical→physical sharding, and [`get_partition_rules`](../catalog/easydel/infra/base_config.md#EasyDeLBaseConfig.get_partition_rules) is the per-model override point for explicit parameter sharding.
 

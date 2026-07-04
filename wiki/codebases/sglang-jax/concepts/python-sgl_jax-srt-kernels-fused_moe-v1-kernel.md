@@ -8,6 +8,9 @@ status: fresh
 ---
 # sgl_jax.srt.kernels.fused_moe.v1.kernel — fused expert-parallel MoE Pallas kernel with inline all-to-all
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [expert-parallelism](../../../concepts/expert-parallelism.md), [pallas-kernel](../../../concepts/pallas-kernel.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 
 [`fused_ep_moe`](../catalog/python/sgl_jax/srt/kernels/fused_moe/v1/kernel.md#fused_ep_moe) is a

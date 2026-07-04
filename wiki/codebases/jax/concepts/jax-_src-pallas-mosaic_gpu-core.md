@@ -8,6 +8,9 @@ status: fresh
 ---
 # jax._src.pallas.mosaic_gpu.core — MemorySpace hierarchy and the kernel() entry point
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [mosaic-kernel](../../../concepts/mosaic-kernel.md), [pallas-kernel](../../../concepts/pallas-kernel.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 
 [`MemorySpace`](../catalog/jax/_src/pallas/mosaic_gpu/core.md#MemorySpace) is an enum naming the

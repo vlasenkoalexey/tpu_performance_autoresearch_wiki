@@ -8,6 +8,9 @@ status: fresh
 ---
 # levanter.inference.engine — the prefill-then-decode continuous-batching generation loop
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [continuous-batching](../../../concepts/continuous-batching.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 
 [`InferenceEngine.generate`](../catalog/lib/levanter/src/levanter/inference/engine.md#InferenceEngine.generate)

@@ -8,6 +8,9 @@ status: fresh
 ---
 # MaxText pipeline parallelism (NNX)
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [pipeline-parallelism](../../../concepts/pipeline-parallelism.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 `src/maxtext/layers/pipeline.py` is MaxText's active (flax **NNX**) pipeline-parallelism layer. It takes a single decoder-layer body and turns it into a **GPipe/circular pipeline**: the global batch is reshaped into `num_pipeline_microbatches` microbatches, the model's layers are split into `num_stages` pipeline stages sharded along a `"stage"` mesh axis, and a software loop pushes microbatches through the stages one hop per iteration. Every loop iteration is `vmap`ped over the stage axis so all stages run *the same code* on different microbatches simultaneously — a real pipeline emerges only because the `"stage"` axis is physically sharded across devices. The file ships two implementations sharing a common [`PipelineBase`](../catalog/src/maxtext/layers/pipeline.md#PipelineBase.__init__): the simple [`NNXPipeline`](../catalog/src/maxtext/layers/pipeline.md#NNXPipeline.__call__) (one flat scan, weights resident) and the performance-oriented [`NNXCircularPipeline`](../catalog/src/maxtext/layers/pipeline.md#NNXCircularPipeline.__call__), which adds a **Buffer Sliding Window (BSW)** that all-gathers the *next* repeat's FSDP-sharded weights while the *current* repeat computes, hiding the collective behind matmul time.
 

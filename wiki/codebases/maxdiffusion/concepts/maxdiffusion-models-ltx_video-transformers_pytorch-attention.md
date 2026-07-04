@@ -8,6 +8,9 @@ status: fresh
 ---
 # maxdiffusion/models/ltx_video/transformers_pytorch/attention — PyTorch reference (calls JAX Pallas flash attention directly)
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [flash-attention](../../../concepts/flash-attention.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 This is the PyTorch reference implementation of LTX-Video's attention, paired with the JAX/Flax port in [ltx_video/transformers/attention](maxdiffusion-models-ltx_video-transformers-attention.md). It follows the standard Diffusers "attention processor" pattern — pluggable processor objects ([`AttnProcessor2_0`](../catalog/src/maxdiffusion/models/ltx_video/transformers_pytorch/attention.md#AttnProcessor2_0.__call__) using PyTorch 2.0's `scaled_dot_product_attention`, [`AttnProcessor`](../catalog/src/maxdiffusion/models/ltx_video/transformers_pytorch/attention.md#AttnProcessor.__call__) using a manual softmax) operating on a shared `Attention` module — but [`AttnProcessor2_0.__call__`](../catalog/src/maxdiffusion/models/ltx_video/transformers_pytorch/attention.md#AttnProcessor2_0.__call__) additionally branches on `attn.use_tpu_flash_attention` to call a **JAX Pallas TPU flash-attention kernel directly from PyTorch model code**, the same cross-framework kernel-bridging pattern documented in [learning-machine/custom_kernel_spmd](../../../learning-machine/concepts/custom_kernel_spmd.md).
 

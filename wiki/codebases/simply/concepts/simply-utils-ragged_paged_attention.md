@@ -8,6 +8,9 @@ status: fresh
 ---
 # simply.utils.ragged_paged_attention — paged KV cache + priority-ranked continuous-batching decode
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [continuous-batching](../../../concepts/continuous-batching.md), [kv-cache](../../../concepts/kv-cache.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 
 This module is the state machine behind [simply-serving-page_batcher](simply-serving-page_batcher.md)'s

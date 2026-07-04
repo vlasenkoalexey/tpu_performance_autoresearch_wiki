@@ -8,6 +8,9 @@ status: fresh
 ---
 # simply.kernels.ragged_paged_attention — the Pallas double-buffered flash-attention-over-pages kernel
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [flash-attention](../../../concepts/flash-attention.md), [pallas-kernel](../../../concepts/pallas-kernel.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 
 This module is a hand-written Mosaic/Pallas TPU kernel implementing ragged (variable-length,

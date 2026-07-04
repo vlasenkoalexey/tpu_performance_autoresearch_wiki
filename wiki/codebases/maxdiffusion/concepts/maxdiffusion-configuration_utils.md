@@ -8,6 +8,9 @@ status: fresh
 ---
 # maxdiffusion/configuration_utils — ConfigMixin auto-capture and JSON config round-tripping
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [autotuning](../../../concepts/autotuning.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 A HuggingFace-diffusers-derived mechanism (not itself TPU-perf-relevant, but load-bearing infrastructure every model class in this codebase inherits) that automatically captures a model's constructor arguments into a JSON-serializable config dict via the [`@register_to_config`](../catalog/src/maxdiffusion/configuration_utils.md#register_to_config) decorator and [`ConfigMixin`](../catalog/src/maxdiffusion/configuration_utils.md#ConfigMixin) base class, and reloads them via [`ConfigMixin.load_config`](../catalog/src/maxdiffusion/configuration_utils.md#ConfigMixin.load_config) — this is what lets every `nnx.Module`/`nn.Module` model class in this codebase (e.g. `LTX2VideoTransformer3DModel`, `FluxTransformer2DModel`) be saved/loaded from a `config.json` without hand-writing serialization code.
 

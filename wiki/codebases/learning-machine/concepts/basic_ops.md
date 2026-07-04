@@ -7,6 +7,10 @@ updated: 2026-07-03
 status: fresh
 ---
 # basic_ops — shard_map vs GSPMD-auto microbenchmark harness
+
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [autotuning](../../../concepts/autotuning.md), [sharding](../../../concepts/sharding.md) across this wiki's repos.
+<!-- connect:up:end -->
 A standalone script that times a fixed list of sharded JAX ops (replicated/sharded matmul,
 `all_gather`, `all_reduce`, and a 3-layer Llama FFN) under two different sharding
 strategies — explicit `shard_map` vs GSPMD auto-partitioning via

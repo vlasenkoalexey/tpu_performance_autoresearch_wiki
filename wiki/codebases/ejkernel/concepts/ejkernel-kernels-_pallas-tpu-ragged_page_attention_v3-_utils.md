@@ -8,6 +8,9 @@ status: fresh
 ---
 # ejkernel/kernels/_pallas/tpu/ragged_page_attention_v3/_utils — precomputed tuned block sizes + TPU packing helpers
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [pallas-kernel](../../../concepts/pallas-kernel.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 This file is the *tuning knowledge* for ragged paged attention v3, baked into the source. Its centerpiece is [`TUNED_BLOCK_SIZES`](../catalog/ejkernel/kernels/_pallas/tpu/ragged_page_attention_v3/_utils.md#TUNED_BLOCK_SIZES) — a large precomputed lookup table mapping `(TPU version, dtypes, head config, sequence shape)` to the `(block_kv, block_q)` tiling that was found fastest offline — accessed via [`get_tuned_block_sizes`](../catalog/ejkernel/kernels/_pallas/tpu/ragged_page_attention_v3/_utils.md#get_tuned_block_sizes_h64) (head_dim≥128) and [`get_tuned_block_sizes_h64`](../catalog/ejkernel/kernels/_pallas/tpu/ragged_page_attention_v3/_utils.md#get_tuned_block_sizes_h64) (head_dim=64). The rest is TPU arithmetic helpers: [`cdiv`](../catalog/ejkernel/kernels/_pallas/tpu/ragged_page_attention_v3/_utils.md#cdiv) (ceil-div), [`align_to`](../catalog/ejkernel/kernels/_pallas/tpu/ragged_page_attention_v3/_utils.md#align_to), and dtype-packing helpers ([`get_dtype_packing`](../catalog/ejkernel/kernels/_pallas/tpu/ragged_page_attention_v3/_utils.md#get_dtype_packing), [`get_dtype_bitwidth`](../catalog/ejkernel/kernels/_pallas/tpu/ragged_page_attention_v3/_utils.md#get_dtype_bitwidth)) that compute how sub-32-bit types pack into TPU's 32-bit words. The design idea: rather than autotune paged attention live (expensive, per serving deployment), ship a table of known-good tiles keyed by the situation.
 

@@ -8,6 +8,9 @@ status: fresh
 ---
 # easydel/inference/esurge/runners/sequence_buffer — the CPU-side batch-slot state for continuous batching
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [continuous-batching](../../../concepts/continuous-batching.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 `SequenceBuffer` is the bookkeeping backbone of eSurge's continuous batching: a fixed-capacity, *slot-indexed* table holding, for up to `max_num_reqs` concurrent requests, each one's [`token_ids`](../catalog/easydel/inference/esurge/runners/sequence_buffer.md#SequenceBuffer.token_ids), progress counters ([`num_computed_tokens`](../catalog/easydel/inference/esurge/runners/sequence_buffer.md#SequenceBuffer.num_computed_tokens), [`num_tokens`](../catalog/easydel/inference/esurge/runners/sequence_buffer.md#SequenceBuffer.num_tokens), [`num_prompt_tokens`](../catalog/easydel/inference/esurge/runners/sequence_buffer.md#SequenceBuffer.num_prompt_tokens)), per-request sampling parameters ([`temperature`](../catalog/easydel/inference/esurge/runners/sequence_buffer.md#SequenceBuffer.temperature), [`top_p`](../catalog/easydel/inference/esurge/runners/sequence_buffer.md#SequenceBuffer.top_p), [`top_k`](../catalog/easydel/inference/esurge/runners/sequence_buffer.md#SequenceBuffer.top_k), the penalty vectors), and the [`page_table`](../catalog/easydel/inference/esurge/runners/sequence_buffer.md#SequenceBuffer.page_table) mapping each request to its paged-KV allocation. The two design decisions that define it: **NumPy arrays on CPU** for all the metadata (so slot management is cheap host-side scalar work, not device round-trips), and **mutable in-place** methods (unlike the functional cache) because this is host orchestration, not a traced computation. A [`req_id_to_index`](../catalog/easydel/inference/esurge/runners/sequence_buffer.md#SequenceBuffer.req_id_to_index) map translates request IDs to physical slots.
 

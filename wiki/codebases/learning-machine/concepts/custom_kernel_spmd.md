@@ -7,6 +7,10 @@ updated: 2026-07-03
 status: fresh
 ---
 # custom_kernel_spmd — torch_xla SPMD flash-attention benchmark driver
+
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [flash-attention](../../../concepts/flash-attention.md) across this wiki's repos.
+<!-- connect:up:end -->
 A `__main__` benchmark script that exercises [`SPMDFlashAttention`](../catalog/custom_kernel_spmd.md#SPMDFlashAttention) — a PyTorch `autograd.Function` wrapper that dispatches to a JAX-defined Pallas TPU flash-attention kernel — across a 4-axis (`data, fsdp, model, sequence`) `torch_xla` SPMD mesh, timing a full forward+backward pass on synthetic Q/K/V/mask tensors.
 
 ## Entry points

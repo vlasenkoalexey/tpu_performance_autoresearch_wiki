@@ -8,6 +8,9 @@ status: fresh
 ---
 # MaxText Attention layer (projection → norm → RoPE → KV-cache → op dispatch)
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [kv-cache](../../../concepts/kv-cache.md), [layer-norm](../../../concepts/layer-norm.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 `Attention` is the nnx module that turns hidden states into an attention output: it
 owns the Q/K/V/out projection weights, the rotary embedding, optional Q/K/V norms, an

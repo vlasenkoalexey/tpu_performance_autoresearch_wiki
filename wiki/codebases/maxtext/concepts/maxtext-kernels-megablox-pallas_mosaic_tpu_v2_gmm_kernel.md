@@ -8,6 +8,9 @@ status: fresh
 ---
 # MegaBlox GMM v2 — pipelined grouped-matmul kernel for MoE
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [mosaic-kernel](../../../concepts/mosaic-kernel.md), [pallas-kernel](../../../concepts/pallas-kernel.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 GMM (grouped matmul) is the core compute of a Mixture-of-Experts layer: a stack of
 tokens `lhs [size_m, size_k]`, pre-sorted by expert, is multiplied by a stack of

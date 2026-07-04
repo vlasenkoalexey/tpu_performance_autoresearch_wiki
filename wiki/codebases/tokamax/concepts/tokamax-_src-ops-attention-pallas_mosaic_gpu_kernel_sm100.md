@@ -8,6 +8,9 @@ status: fresh
 ---
 # tokamax._src.ops.attention.pallas_mosaic_gpu_kernel_sm100 — Blackwell flash attention, collective 2-CTA MMA, split TMA loads
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [flash-attention](../../../concepts/flash-attention.md), [mosaic-kernel](../../../concepts/mosaic-kernel.md), [pallas-kernel](../../../concepts/pallas-kernel.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 
 [`flash_attention_kernel`](../catalog/tokamax/_src/ops/attention/pallas_mosaic_gpu_kernel_sm100.md#flash_attention_kernel)

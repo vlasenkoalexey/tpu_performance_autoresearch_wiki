@@ -8,6 +8,9 @@ status: fresh
 ---
 # Ring Attention — pure-JAX reference (blockwise attention + causal skip)
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [ring-attention](../../../concepts/ring-attention.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 This module is the non-Pallas twin of the [TPU Pallas ring-attention kernel](ringattention-ringattention_pallas_tpu.md):
 it implements the same ring-communication idea (rotate K/V shards around a device ring

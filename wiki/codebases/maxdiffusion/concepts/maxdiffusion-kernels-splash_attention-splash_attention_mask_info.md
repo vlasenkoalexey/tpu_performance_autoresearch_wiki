@@ -8,6 +8,9 @@ status: fresh
 ---
 # maxdiffusion/kernels/splash_attention/splash_attention_mask_info — dense-mask-to-sparse-block precomputation
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [sparsecore](../../../concepts/sparsecore.md), [splash-attention](../../../concepts/splash-attention.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 This module converts a dense boolean attention [`Mask`](../catalog/src/maxdiffusion/kernels/splash_attention/splash_attention_mask.md#Mask) into the compact [`MaskInfo`](../catalog/src/maxdiffusion/kernels/splash_attention/splash_attention_mask_info.md#MaskInfo) representation the splash-attention Pallas kernel actually consumes to build its sparsity-driven grid — which (query-block, kv-block) pairs are fully active, fully empty (skippable), or partially masked, packed into TPU-scalar-memory-friendly integer arrays. It is the layer between the user-facing mask abstractions ([`Mask`](../catalog/src/maxdiffusion/kernels/splash_attention/splash_attention_mask.md#Mask)/[`NumpyMask`](../catalog/src/maxdiffusion/kernels/splash_attention/splash_attention_mask.md#Mask) etc.) and every kernel entry point in [splash_attention_kernel](maxdiffusion-kernels-splash_attention-splash_attention_kernel.md) that takes a `MaskInfo` argument.
 

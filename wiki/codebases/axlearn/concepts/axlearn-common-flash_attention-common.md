@@ -8,6 +8,9 @@ status: fresh
 ---
 # axlearn.common.flash_attention.common — BaseFlashAttention's capability-negotiation contract
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [flash-attention](../../../concepts/flash-attention.md) across this wiki's repos.
+<!-- connect:up:end -->
 ## Overview
 
 `BaseFlashAttention` defines a shared capability-check contract every Flash Attention backend
