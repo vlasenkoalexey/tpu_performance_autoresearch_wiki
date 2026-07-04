@@ -261,7 +261,10 @@ wiki/experiments/*/RESULTS.tsv
 
 .repo/
 
-ejkernel/
+# Anchored to repo root: hides a top-level vendored ejkernel/ checkout only.
+# Was previously unanchored (`ejkernel/`), which also matched the tracked wiki
+# catalog wiki/codebases/ejkernel/ and forced `git add -f`. Keep anchored.
+/ejkernel/
 
 profiles/
 

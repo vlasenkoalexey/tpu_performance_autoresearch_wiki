@@ -29,7 +29,7 @@ Per SCHEMA.md's "Operations → LINT" section. The canonical list (extend if SCH
 ### Cross-cutting wiki invariants
 
 1. **Unresolved `[!warning]` contradictions** — grep `wiki/**.md` for `> [!warning]` blocks; report each with file:line + the contradicting claim.
-2. **Orphan pages** — pages with zero inbound markdown links. Special case: `_`-prefixed dirs/files in `wiki/` are auto-generated; SKIP orphan check for them (see also: AST snapshots under `wiki/codebases/<slug>/_ast/`).
+2. **Orphan pages** — pages with zero inbound markdown links. Special case: `_`-prefixed dirs/files in `wiki/` are auto-generated; SKIP orphan check for them. Also SKIP the wikify-generated grounded catalogs under `wiki/codebases/<slug>/` (`catalog/`, `concepts/`, `doc-concepts/`, `overview.md`) — they are internally cross-linked and lint-gated by `wikify finalize`, not by this skill.
 3. **Broken markdown links** — relative paths whose target `.md` doesn't exist.
 4. **Concept/entity names mentioned in prose but not linked** — heuristic: substrings from known concept page titles that appear unlinked in prose. Surface as advisory; many false positives.
 
@@ -55,6 +55,12 @@ Per SCHEMA.md's "Operations → LINT" section. The canonical list (extend if SCH
 
 17. **Per-model `refuted-patterns.md` referencing experiment v-IDs that don't exist** in `wiki/experiments/<model>_autoresearch_optimization/<lane>/`.
 18. **`model-optimization-index.md` or `model-optimization-blueprint.md` referencing concept/observation/source pages that don't exist.**
+
+### Hook-health invariants (the never-stop loop's control plane)
+
+The autoresearch never-stop loop is governed *entirely* by a Stop hook; if it is unwired or shadowed by a rogue hook in another settings scope, the discipline fails **silently**. This check is not optional hygiene — it validates the loop's control plane.
+
+23. **Hook health** — run `python3 .claude/scripts/check-hook-health.py`. It scans every settings scope (`~/.claude/settings*.json`, project `.claude/settings*.json`) and hard-fails (ERROR) if: the never-stop Stop hook (`.claude/stop_hook.sh`) isn't wired, its script is missing/non-executable, or any command hook references a script that doesn't exist. It WARNs on rogue global Stop hooks and hook commands that read non-durable `/tmp` paths (the two anti-patterns behind the 2026-06 `v6e32_stop_hook.json` staleness bug). Fold its ERRORS into the punch list; surface WARNINGS advisory. Do **not** auto-edit `~/.claude` settings — global scope affects every project, so flag global-scope findings for the user.
 
 ### Codebase invariants
 
@@ -90,7 +96,7 @@ The following require human judgment — surface them, don't auto-fix:
 
 **Scope**: <wiki/ paths checked>
 **Pages scanned**: <N>
-**Checks run**: 22 of 22
+**Checks run**: 23 of 23
 
 ## Auto-fixed (N issues)
 
@@ -116,6 +122,9 @@ The following require human judgment — surface them, don't auto-fix:
 
 ### Log routing (N)
 - ...
+
+### Hook health (N)
+- [scope] <ERROR/WARN from check-hook-health.py> — <fix>
 
 ## Summary
 
