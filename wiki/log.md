@@ -1,5 +1,11 @@
 # Log
 
+## [2026-07-04] ingest-codebase | autoresearch ingested as a grounded code silo
+
+**Op**: ingest-codebase (wikify code-mode; perf-lens `synthesis_focus`).
+**Pages created**: `wiki/codebases/autoresearch/` — `overview.md`, 2 `concepts/` (`train` — time-budgeted single-GPU loop, FA3 flash-attention, window-aware MFU accounting; `prepare` — packed dataloader, BPE tokenizer, frozen BPB metric), 2 `catalog/` module pages, assembled `index.md`. Ingested @ `228791fb`; `wikify finalize --fix` clean (100% coverage, all citations resolve).
+**Pages updated**: `wiki/index.md` (Codebases entry repointed to the overview; `autoresearch.md` kept as companion); this log.
+
 ## [2026-07-04] ingest-codebase | stablehlo recovered as a grounded docs wiki (docs-mode)
 
 **Op**: ingest-codebase (wikify docs-mode — `source_type: docs`, `doc_globs: docs/**/*.md`, perf-lens `synthesis_focus`). Recovered from the `ingest-stablehlo-docs` branch (lost in a prior sync) and re-validated at the current pin.

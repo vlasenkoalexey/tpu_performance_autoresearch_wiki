@@ -202,7 +202,7 @@ These were the candidates expected to recover the 9.2 % loop-fusion line in the 
 - [tokamax](codebases/tokamax/overview.md) — commit `54bdd95` — Pallas kernel library (splash/flash attention, GLU, layer_norm, ragged_dot, cross-entropy); **direct optimization toolbox**.
 - [stablehlo](codebases/stablehlo/overview.md) — commit `9793611` — MLIR op-set + pass-vocabulary reference (grounded docs wiki: 11 topics / 27 sources); consulted when reading HLO dumps + xprof traces. Perf-lens companion: [stablehlo.md](codebases/stablehlo.md).
 - [scaling-book](codebases/scaling-book/overview.md) — commit `6cda371` — "How To Scale Your Model" book (DeepMind); 11 chapters to be ingested as sources in Wave 3.
-- [autoresearch](codebases/autoresearch.md) — commit `228791f` — Karpathy's autoresearch reference impl (single H100, `val_bpb`); methodological model for this wiki's loop.
+- [autoresearch](codebases/autoresearch/overview.md) — commit `228791f` — Karpathy's autoresearch reference impl (single H100, `val_bpb`); methodological model for this wiki's loop (grounded: `train` time-budgeted loop + FA3/MFU, `prepare` packed dataloader + frozen BPB). Companion: [autoresearch.md](codebases/autoresearch.md).
 
 ## Concepts (97)
 
