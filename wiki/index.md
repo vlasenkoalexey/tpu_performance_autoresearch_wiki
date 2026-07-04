@@ -7,6 +7,8 @@
 
 **[Pallas kernel directory](analyses/2026-04-23-pallas-kernel-directory.md)** — the single most load-bearing reference document in this wiki. A repo-by-repo catalog of **~200 Pallas kernels across ~30 open-source repositories**, each row with a clickable link to the source code, backend (Mosaic-TPU / Mosaic-GPU SM90/SM100 / Triton / XLA fallback), stability tier, any performance claim quoted verbatim from source, application use case, and known callers. Cross-cutting tables group kernels by function (attention, paged-KV, ring, MoE grouped matmul, normalization, GLU, matmul, collectives, SSM/linear-recurrence, cross-entropy, PRNG, non-ML).
 
+> **Machine-generated grounded companion:** [Cross-repo concept index](_connect/index.md) — `wikify connect` maps the shared concept vocabulary (`concepts/`) to each repo's grounded, SCIP-cited implementation page (**147 implementations across 22 ingested repos**). Where the kernel directory is the curated wide catalog, this is the always-fresh, click-through-to-grounding index of *which repos implement each concept and how they differ*. Regenerate with `wikify connect --emit`.
+
 Use this page to answer:
 - *"Is there a public Pallas implementation of X?"* — look up X in the [functional-category tables](analyses/2026-04-23-pallas-kernel-directory.md#kernel-inventory-by-functional-category).
 - *"Where is the canonical / production version of X?"* — every row has a `[file](https://github.com/…)` link to the definition.
@@ -203,6 +205,8 @@ These were the candidates expected to recover the 9.2 % loop-fusion line in the 
 - [autoresearch](codebases/autoresearch.md) — commit `228791f` — Karpathy's autoresearch reference impl (single H100, `val_bpb`); methodological model for this wiki's loop.
 
 ## Concepts (97)
+
+> **Cross-repo view:** [`_connect/index.md`](_connect/index.md) maps each concept below to its grounded implementations across the ingested repos (`wikify connect`). A concept page is the *definition*; the connect index is *who implements it, where*.
 
 ### Pallas-authoring patterns (11, stubs — added 2026-04-23)
 - [online-softmax-with-logit-sink](concepts/online-softmax-with-logit-sink.md) — axlearn splash extension; add `exp(sink - m_final)` to normalizer.

@@ -1,5 +1,20 @@
 # Log
 
+## [2026-07-04] connect | Depth-0 cross-repo concept index — 147 implementations across 22 repos
+
+**Op**: connect (new `wikify connect` / `wikify-connect-repo` skill — the concept-axis analog of the
+coverage floor).
+**Pages created**: `wiki/_connect/index.md` (deterministic map: each `concepts/` vocabulary key →
+its grounded per-repo implementation pages).
+**Pages updated**: `wiki/index.md` (linked the connect index from the Featured Pallas-kernel-directory
+section and the Concepts header); `SCHEMA.md` (INGEST-CODEBASE step 3 = connect; concept page type is
+the connect vocabulary + hub).
+**Key result**: 27 of 97 vocabulary concepts now resolve to grounded implementations across the
+ingested silos (`pallas-kernel` → 27, `flash-attention`/`splash-attention` → 15 each, `autotuning`
+→ 11, `sharding`/`kv-cache` → 10). Regenerate anytime with `wikify connect --emit`; deepen a concept
+into an implementation table (Depth 1) or a cross-repo hub (Depth 2) via the connect skill.
+
+
 ## [2026-07-04] migrate | wikify-repo drop-in replacement for INGEST-CODEBASE — index repointed to grounded overviews, perf lens added
 
 **Op**: migrate (adopt the standalone `wikify-repo` tool + `wikify-ingest-repo` skill as the codebase-ingest pipeline; make it an improved drop-in replacement for the never-finished inline INGEST-CODEBASE process).

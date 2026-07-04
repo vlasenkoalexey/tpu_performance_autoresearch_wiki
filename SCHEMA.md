@@ -137,6 +137,11 @@ Ingested repository. The **grounded layer** — `wiki/codebases/<slug>/{overview
 An optimization technique, hardware feature, compiler pass, flag, kernel, or abstraction.
 - H2: Definition, Why it matters for TPU perf, Mechanism, When it applies / when it doesn't, Known results, Connections.
 - If the concept has measured impact, include a results table with model × baseline × delta × source/experiment.
+- **These pages are also the connect vocabulary.** `wikify connect` reads `wiki/concepts/*.md`
+  filenames as the shared concept keys and maps each to the ingested repos' grounded implementations
+  (see [`_connect/index.md`](wiki/_connect/index.md)). A concept worth cross-repo depth gains an
+  `## Implementations across the ecosystem` table (repo → silo page → variant → tuning surface) or a
+  full **hub** synthesis — grounded in silo anchors, authored by the `wikify-connect-repo` skill.
 
 ### model  (`wiki/models/<architecture>-<lane>.md`)
 A model under optimization. This is a **live page** — it tracks every (size × hardware) variant of one model architecture on one execution lane.
@@ -260,6 +265,14 @@ This is a **thin orchestrator** — it drives the `wikify-ingest-repo` skill and
    registers** the repo's `overview.md` into `index.md` + appends `log.md` (skill step 7). Requires
    the `wikify` CLI ([wikify-repo](https://github.com/vlasenkoalexey/wikify-repo): `pip install -e` +
    `setup-vendor.sh`; TS/Go/Rust indexers install on demand). Skip for languages wikify doesn't cover.
+
+3. **Connect (from the 2nd repo on).** The ingest skill then hands off to `wikify-connect-repo`,
+   which cross-links this silo to the others on the concept axis. `wikify connect --emit` regenerates
+   the deterministic **[`wiki/_connect/index.md`](wiki/_connect/index.md)** (each `concepts/` key →
+   its grounded per-repo implementation pages — the concept-axis analog of the coverage floor). When
+   a concept is worth depth, it also fills the concept page's *implementations across the ecosystem*
+   table (Depth 1) or synthesizes a full cross-repo **hub** (Depth 2), every row citing a real silo
+   page. Re-run `wikify connect --emit` after any new ingest to refresh the index.
 
 **That's the ingest.** The two research artifacts are created **when the repo enters the optimization
 loop, not at ingest** — never eagerly:
