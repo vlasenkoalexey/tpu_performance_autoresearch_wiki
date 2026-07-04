@@ -1,5 +1,13 @@
 # Log
 
+## [2026-07-04] ingest-codebase | stablehlo ingested as a grounded docs wiki (docs-mode)
+
+**Op**: ingest-codebase (wikify docs-mode — `source_type: docs`, `doc_globs: docs/**/*.md`, perf-lens `synthesis_focus`).
+**Pages created**: `config/stablehlo.md`; `wiki/codebases/stablehlo/` grounded docs wiki — `overview.md`, 11 `topics/` (dot_general, collectives, scatter-gather, convolution, reduce-and-windowing, elementwise-and-fusion, optimization-passes, quantization, dynamism, type-inference, compatibility-and-versioning), 27 `sources/` (one per doc), auto-assembled `index.md`. Ingested @ `9793611e`; 100% doc coverage; `wikify finalize` lint clean (all `src:` citations resolve).
+**Pages updated**: `wiki/codebases/stablehlo.md` (rewritten as the thin on-demand perf-lens companion pointing at the new overview); `wiki/index.md` (Codebases entry repointed `codebases/stablehlo.md` → `codebases/stablehlo/overview.md`, SHA `ce5d230`→`9793611`); this log.
+**Key result**: Topics grounded in `docs/spec.md` op sections (dot_general, scatter/gather, collectives, convolution) and the generated pass docs (`stablehlo_passes.md`, `stablehlo_optimization_passes.md`) under the "reference for reading XLA dumps + xprof traces, not an optimization target" lens.
+**Notes**: Supersedes the note in the entry below that stablehlo would stay a hand page — it now has a grounded docs wiki plus a thin companion. Earlier fleet run had skipped it for poor signal-to-noise; explicit `doc_globs: docs/**/*.md` + focus on spec/pass docs resolved that.
+
 ## [2026-07-04] migrate | wikify-repo drop-in replacement for INGEST-CODEBASE — index repointed to grounded overviews, perf lens added
 
 **Op**: migrate (adopt the standalone `wikify-repo` tool + `wikify-ingest-repo` skill as the codebase-ingest pipeline; make it an improved drop-in replacement for the never-finished inline INGEST-CODEBASE process).

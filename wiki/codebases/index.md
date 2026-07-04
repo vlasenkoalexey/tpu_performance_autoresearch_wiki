@@ -26,6 +26,7 @@ updated: 2026-07-04
 | scaling-book | [scaling-book](scaling-book/index.md) | standalone |
 | sglang-jax | [sglang-jax](sglang-jax/index.md) | standalone |
 | simply | [simply](simply/index.md) | standalone |
+| stablehlo | [stablehlo](stablehlo/index.md) | standalone |
 | tokamax | [tokamax](tokamax/index.md) | standalone |
 | torchax | [torchax](torchax/index.md) | standalone |
 | tpu-inference | [tpu-inference](tpu-inference/index.md) | standalone |
