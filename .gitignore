@@ -271,3 +271,6 @@ profiles/
 # Codex runtime jobset manifests
 .codex/run_manifests/
 raw/code/easydel
+
+# Demo tool: precomputed per-experiment diffs (private, regenerable). Anchored.
+/tools/demo/diffs/

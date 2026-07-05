@@ -1,0 +1,3 @@
+# Precomputed per-experiment diffs + manifests (private, regenerable archaeology).
+# Regenerate with precompute_diffs_cc.py / precompute_diffs_series.py (see README).
+diffs/
