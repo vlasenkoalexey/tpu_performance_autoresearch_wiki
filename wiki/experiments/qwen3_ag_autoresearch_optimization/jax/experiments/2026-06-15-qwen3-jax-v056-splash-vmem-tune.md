@@ -8,7 +8,7 @@ commit: ""
 status: running
 tags: [qwen3, jax, tokamax, splash, vmem, seq8k]
 created: 2026-06-15
-updated: 2026-06-15
+updated: 2026-07-05
 ---
 
 # Splash VMEM tuning + Tokamax CE to resolve Pallas OOM

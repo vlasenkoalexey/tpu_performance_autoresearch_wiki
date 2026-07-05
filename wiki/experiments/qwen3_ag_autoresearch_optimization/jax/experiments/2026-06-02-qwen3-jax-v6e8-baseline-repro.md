@@ -8,7 +8,7 @@ commit: 14d392838fc92391b57881545ef41a55405922bc
 verdict: supported
 tags: [qwen3-cc, jax, flax-nnx, baseline, repro, v6e-8]
 created: 2026-06-02
-updated: 2026-06-02
+updated: 2026-07-05
 ---
 
 # Qwen3-8B jax (Flax NNX) v6e-8 baseline reproduction

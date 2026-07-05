@@ -195,5 +195,16 @@ stable and a native-JAX port becomes a ranked hypothesis.
 **Candidate**: Add `attn_out = jnp.transpose(attn_out, (0, 2, 1, 3))` right after `_attn_splash` returns to fix physical dimension scrambling and remove massive AllToAlls.
 **Topic**: `wiki/model-optimization-index.md#splash-attention` and `wiki/model-optimization-index.md#sharding-strategy`
 **Profile signal**: 13.50GB tensor of shape `36, 4, 4096, 12288` causing OOM.
-**Falsification criterion**: Program still OOMs with the same memory requirement or fails to run successfully.
+## Variant v059e Hypothesis
 
+**Mode**: user-override
+**Candidate**: Relaunch `v059d` (which had the `_attn_splash` transpose bug fixed) with the correct `--tp_parallelism 2` argument.
+**Topic**: `wiki/model-optimization-index.md#splash-attention` and `wiki/model-optimization-index.md#sharding-strategy`
+**Profile signal**: 13.50GB tensor of shape `36, 4, 4096, 12288` causing OOM.
+## Variant v059f Hypothesis
+
+**Mode**: user-override
+**Candidate**: Relaunch `v059e` (with the correct `--tp_parallelism 2` configuration) on a new cluster `jialeic-tpu-v6e8-spot-xpk` due to GCP spot preemption on the previous cluster.
+**Topic**: `wiki/model-optimization-index.md#splash-attention` and `wiki/model-optimization-index.md#sharding-strategy`
+**Profile signal**: 13.50GB tensor of shape `36, 4, 4096, 12288` causing OOM.
+**Falsification criterion**: Program still OOMs with the same memory requirement or fails to run successfully.

@@ -6,7 +6,7 @@ model: qwen3-cc-jax
 variant: "8B/v6e-8"
 status: refuted
 created: 2026-06-02
-updated: 2026-06-02
+updated: 2026-07-05
 ---
 
 # Qwen3-8B jax v001 batch scaling

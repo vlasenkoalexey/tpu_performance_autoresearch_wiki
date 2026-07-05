@@ -1,0 +1,42 @@
+state: crashed
+exit_code: 1
+phase_at_end: crash
+wall_time_s: 130
+steps_seen: 0
+last_step_logged: null
+profile_gcs: missing
+hlo_gcs: gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_ag/2026-07-03-qwen3-jax-v031-maxtext-ce-bs4/hlo/
+headline: "OOM: RESOURCE_EXHAUSTED used 35.40G of 31.25G hbm"
+last_log_lines: |
+  Traceback (most recent call last):
+    File "<frozen runpy>", line 198, in _run_module_as_main
+    File "<frozen runpy>", line 88, in _run_code
+    File "/app/trainer/train.py", line 244, in <module>
+      fire.Fire(main)
+    File "/opt/venv/lib/python3.12/site-packages/fire/core.py", line 135, in Fire
+      component_trace = _Fire(component, args, parsed_flag_args, context, name)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    File "/opt/venv/lib/python3.12/site-packages/fire/core.py", line 468, in _Fire
+      component, remaining_args = _CallAndUpdateTrace(
+                                  ^^^^^^^^^^^^^^^^^^^^
+    File "/opt/venv/lib/python3.12/site-packages/fire/core.py", line 684, in _CallAndUpdateTrace
+      component = fn(*varargs, **kwargs)
+                  ^^^^^^^^^^^^^^^^^^^^^^
+    File "/app/trainer/train.py", line 194, in main
+      loss, params, opt_state = jitted_step(params, opt_state, input_ids, labels)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  jax.errors.JaxRuntimeError: RESOURCE_EXHAUSTED: XLA:TPU compile permanent error. Ran out of memory in memory space hbm. Used 35.40G of 31.25G hbm. Exceeded hbm capacity by 4.15G.
+  
+  Total hbm usage >= 35.65G:
+      reserved        260.00M 
+      program          29.68G 
+      arguments         5.72G 
+  
+  Output size 5.72G; shares 5.72G with arguments.
+  
+  Program hbm requirement 29.68G:
+      global           336.5K
+      scoped            6.25M
+      HLO temp         29.67G (100.0% utilization: Unpadded (19.09G) Padded (19.09G), 35.7% fragmentation (10.58G))
+  
+    Largest program allocations in hbm:

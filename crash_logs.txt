@@ -1,0 +1,50 @@
+     Extra memory due to padding: 960B (16.0x expansion)
+     XLA label: constant literal
+     Allocation type: global
+     ==========================
+
+  16. Size: 512B
+     Shape: s32[32]{0:T(128)}
+     Unpadded size: 128B
+     Extra memory due to padding: 384B (4.0x expansion)
+     XLA label: deduplicated constant
+     Allocation type: global
+     ==========================
+
+  17. Size: 512B
+     Shape: s32[16]{0:T(128)}
+     Unpadded size: 64B
+     Extra memory due to padding: 448B (8.0x expansion)
+     XLA label: constant literal
+     Allocation type: global
+     ==========================
+
+  18. Size: 512B
+     Shape: s32[32]{0:T(128)}
+     Unpadded size: 128B
+     Extra memory due to padding: 384B (4.0x expansion)
+     XLA label: deduplicated constant
+     Allocation type: global
+     ==========================
+
+  19. Size: 512B
+     Shape: s32[32]{0:T(128)}
+     Unpadded size: 128B
+     Extra memory due to padding: 384B (4.0x expansion)
+     XLA label: deduplicated constant
+     Allocation type: global
+     ==========================
+
+  20. Size: 512B
+     Shape: s32[32]{0:T(128)}
+     Unpadded size: 128B
+     Extra memory due to padding: 384B (4.0x expansion)
+     XLA label: deduplicated constant
+     Allocation type: global
+     ==========================
+
+
+--------------------
+For simplicity, JAX has removed its internal frames from the traceback of the following exception. Set JAX_TRACEBACK_FILTERING=off to include these.
+XPK End: Fri Jul 3 15:17:10 UTC 2026
+EXIT_CODE=1

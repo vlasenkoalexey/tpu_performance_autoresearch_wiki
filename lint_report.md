@@ -1,0 +1,170 @@
+# LINT report — 2026-07-05 18:50 UTC
+
+**Scope**: qwen3_ag jax lane
+**Pages scanned**: 115
+**Checks run**: 22 of 22
+
+## Auto-fixed (18 issues)
+
+- Experiment 2026-07-04-v059-tp2-bs4.md: appended ## Next hypotheses placeholder
+- Experiment 2026-07-04-v059-tp2-bs4.md: appended ## See also placeholder
+- Experiment 2026-07-04-v059-tp2-bs4.md: appended ## Sources placeholder
+- Experiment 2026-07-04-v058-tp2-bs4.md: appended ## Next hypotheses placeholder
+- Experiment 2026-07-04-v058-tp2-bs4.md: appended ## See also placeholder
+- Experiment 2026-07-04-v058-tp2-bs4.md: appended ## Sources placeholder
+- Experiment 2026-06-02-qwen3-jax-v003-selective-remat.md: auto-bumped stale updated: field to 2026-07-05
+- Experiment 2026-06-13-qwen3-jax-v051-tokamax-bs64.md: auto-bumped stale updated: field to 2026-07-05
+- Experiment 2026-06-15-qwen3-jax-v057-tokamax-fix.md: auto-bumped stale updated: field to 2026-07-05
+- Experiment 2026-06-13-qwen3-jax-v049-splash-bs64.md: auto-bumped stale updated: field to 2026-07-05
+- Experiment 2026-06-02-qwen3-jax-v001-batch-scaling.md: auto-bumped stale updated: field to 2026-07-05
+- Experiment 2026-06-15-qwen3-jax-v057-tokamax-fix-b.md: auto-bumped stale updated: field to 2026-07-05
+- Experiment 2026-06-13-qwen3-jax-v050-splash-tokamax-bs64.md: auto-bumped stale updated: field to 2026-07-05
+- Experiment 2026-06-02-qwen3-jax-v002-selective-sc-offload.md: auto-bumped stale updated: field to 2026-07-05
+- Experiment 2026-06-15-qwen3-jax-v056-splash-vmem-tune.md: auto-bumped stale updated: field to 2026-07-05
+- Experiment 2026-06-02-qwen3-jax-v6e8-baseline.md: auto-bumped stale updated: field to 2026-07-05
+- Experiment 2026-06-13-qwen3-jax-v048-bs64.md: auto-bumped stale updated: field to 2026-07-05
+- Experiment 2026-06-02-qwen3-jax-v6e8-baseline-repro.md: auto-bumped stale updated: field to 2026-07-05
+
+## Human review required (141 issues)
+
+- Experiment 2026-06-03-qwen3-jax-v031-tp1-vocab-parallel-bs8-mosaic-tpu.md: missing `variant:` field in frontmatter
+- Experiment 2026-06-03-qwen3-jax-v031-tp1-vocab-parallel-bs8-mosaic-tpu.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-15-qwen3-jax-v057-j-tokamax-layer-ckpt-bs4.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-07-03-v039-optax-bf16-bs3.md: missing profile artifact path for non-invalid verdict (pending)
+- Experiment 2026-07-03-v039-optax-bf16-bs3.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-02-qwen3-jax-v008-splash-tp2-bs4.md: missing `variant:` field in frontmatter
+- Experiment 2026-06-03-qwen3-jax-v021-tp1-vocab-parallel-bs4.md: missing `variant:` field in frontmatter
+- Experiment 2026-06-05-qwen3-jax-v045-nsa-attention.md: missing profile artifact path for non-invalid verdict (open)
+- Experiment 2026-06-05-qwen3-jax-v045-nsa-attention.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-04-qwen3-jax-v038-tp1-vocab-parallel-bs8-fused-rope.md: missing `variant:` field in frontmatter
+- Experiment 2026-06-04-qwen3-jax-v038-tp1-vocab-parallel-bs8-fused-rope.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-03-qwen3-jax-v018-collective-matmul-off.md: missing `variant:` field in frontmatter
+- Experiment 2026-06-03-qwen3-jax-v018-collective-matmul-off.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-03-qwen3-jax-v028-tp1-vocab-parallel-bs16-no-outer-ckpt.md: missing `variant:` field in frontmatter
+- Experiment 2026-06-03-qwen3-jax-v028-tp1-vocab-parallel-bs16-no-outer-ckpt.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-07-04-v059-tp2-bs4.md: missing profile artifact path for non-invalid verdict (in_progress)
+- Experiment 2026-06-15-qwen3-jax-v057-tokamax-fix-c.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-03-qwen3-jax-v019-phase2-bundle.md: missing `variant:` field in frontmatter
+- Experiment 2026-06-03-qwen3-jax-v019-phase2-bundle.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-15-qwen3-jax-v057-n-tokamax-layer-dots-bs8.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-05-qwen3-jax-v042-gate-up-fusion.md: missing profile artifact path for non-invalid verdict (supported)
+- Experiment 2026-06-05-qwen3-jax-v042-gate-up-fusion.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-03-qwen3-jax-v014-splash-tp2-tokamax-remat-bs8.md: missing `variant:` field in frontmatter
+- Experiment 2026-06-03-qwen3-jax-v014-splash-tp2-tokamax-remat-bs8.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-03-qwen3-jax-v022-tp1-chunked-xla-bs4.md: missing `variant:` field in frontmatter
+- Experiment 2026-06-03-qwen3-jax-v022-tp1-chunked-xla-bs4.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-03-qwen3-jax-v033-tp1-vocab-parallel-bs8-collective-overlap.md: missing `variant:` field in frontmatter
+- Experiment 2026-06-03-qwen3-jax-v033-tp1-vocab-parallel-bs8-collective-overlap.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-04-qwen3-jax-v035-tp1-vocab-parallel-bs8-xla-sdpa.md: missing `variant:` field in frontmatter
+- Experiment 2026-06-04-qwen3-jax-v035-tp1-vocab-parallel-bs8-xla-sdpa.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-27-qwen3-jax-v020-splash-attn-only-scan3.md: missing profile artifact path for non-invalid verdict (confirmed)
+- Experiment 2026-06-27-qwen3-jax-v020-splash-attn-only-scan3.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-07-03-v030-tokamax-shardmap-bs4.md: missing profile artifact path for non-invalid verdict (pending)
+- Experiment 2026-07-03-v030-tokamax-shardmap-bs4.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-05-qwen3-jax-v043-bs32.md: missing profile artifact path for non-invalid verdict (refuted)
+- Experiment 2026-06-05-qwen3-jax-v043-bs32.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-02-qwen3-jax-v004-splash-bs2.md: missing `variant:` field in frontmatter
+- Experiment 2026-07-03-v037-optax-bf16-bs4.md: missing profile artifact path for non-invalid verdict (pending)
+- Experiment 2026-07-03-v037-optax-bf16-bs4.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-27-v022-tp2-gate-up-fusion.md: missing profile artifact path for non-invalid verdict (pending)
+- Experiment 2026-06-27-v022-tp2-gate-up-fusion.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-02-qwen3-jax-v007-tp2-bs2.md: missing `variant:` field in frontmatter
+- Experiment 2026-06-02-qwen3-jax-v007-tp2-bs2.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-02-qwen3-jax-v006-tokamax-ce.md: missing `variant:` field in frontmatter
+- Experiment 2026-06-02-qwen3-jax-v006-tokamax-ce.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-15-qwen3-jax-v057-s-nested-ckpt-nothing-saveable-bs8.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-03-qwen3-jax-v020-phase2-bundle-bs4.md: missing `variant:` field in frontmatter
+- Experiment 2026-06-03-qwen3-jax-v020-phase2-bundle-bs4.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-15-qwen3-jax-v057-u-nested-ckpt-bs4.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-27-v026-unfused-bs8-checkpoint-dots.md: missing profile artifact path for non-invalid verdict (pending)
+- Experiment 2026-06-27-v026-unfused-bs8-checkpoint-dots.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-15-qwen3-jax-v057-f-tokamax-layer-ckpt-fix-splash.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-15-qwen3-jax-v057-q-block-remat-bs8-no-policy.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-15-qwen3-jax-v057-m-tokamax-layer-dots-bs8.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-15-qwen3-jax-v057-tokamax-fix.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-15-qwen3-jax-v057-i-tokamax-block-remat-fsdp-fix.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-03-qwen3-jax-v016-splash-tp1-tokamax-remat-fused-bs4.md: missing `variant:` field in frontmatter
+- Experiment 2026-06-03-qwen3-jax-v016-splash-tp1-tokamax-remat-fused-bs4.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-04-qwen3-jax-v041-tp1-vocab-parallel-bs16-seq2048-tokamax-shardmap.md: missing `variant:` field in frontmatter
+- Experiment 2026-06-04-qwen3-jax-v034-tp1-vocab-parallel-bs8-fused-qknorm-rope.md: missing `variant:` field in frontmatter
+- Experiment 2026-06-27-v025-unfused-bs16.md: missing profile artifact path for non-invalid verdict (pending)
+- Experiment 2026-06-27-v025-unfused-bs16.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-15-qwen3-jax-v057-tokamax-fix-b.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-03-qwen3-jax-v015-splash-tp2-tokamax-remat-fused-rope-bs8.md: missing `variant:` field in frontmatter
+- Experiment 2026-06-03-qwen3-jax-v015-splash-tp2-tokamax-remat-fused-rope-bs8.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-07-03-v036-optax-bf16-bs6.md: missing profile artifact path for non-invalid verdict (pending)
+- Experiment 2026-07-03-v036-optax-bf16-bs6.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-15-qwen3-jax-v057-k-tokamax-policy.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-05-qwen3-jax-v044-bs24.md: missing profile artifact path for non-invalid verdict (open)
+- Experiment 2026-06-05-qwen3-jax-v044-bs24.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-27-qwen3-jax-v017-fused-glu-tiled-bwd.md: missing `variant:` field in frontmatter
+- Experiment 2026-06-05-qwen3-jax-v045-nsa.md: missing profile artifact path for non-invalid verdict (refuted)
+- Experiment 2026-06-05-qwen3-jax-v045-nsa.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-27-v028-unfused-bs24.md: missing profile artifact path for non-invalid verdict (pending)
+- Experiment 2026-06-27-v028-unfused-bs24.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-02-qwen3-jax-v009-splash-tp2-bs8.md: missing `variant:` field in frontmatter
+- Experiment 2026-06-02-qwen3-jax-v009-splash-tp2-bs8.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-03-qwen3-jax-v024-tp1-xla-bs4.md: missing `variant:` field in frontmatter
+- Experiment 2026-06-15-qwen3-jax-v057-p-block-remat-bs8.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-07-03-v035-optax-bf16-bs6.md: missing profile artifact path for non-invalid verdict (pending)
+- Experiment 2026-07-03-v035-optax-bf16-bs6.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-27-qwen3-jax-v018-fused-glu-fori-bwd.md: missing `variant:` field in frontmatter
+- Experiment 2026-06-27-qwen3-jax-v018-fused-glu-fori-bwd.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-02-qwen3-jax-v010-splash-tp2-tokamax-bs8.md: missing `variant:` field in frontmatter
+- Experiment 2026-06-02-qwen3-jax-v010-splash-tp2-tokamax-bs8.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-15-qwen3-jax-v057-o-tokamax-layer-dots-bs4.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-04-qwen3-jax-v036-tp1-vocab-parallel-bs8-chunked-xla.md: missing `variant:` field in frontmatter
+- Experiment 2026-06-03-qwen3-jax-v025-tp1-vocab-parallel-bs2.md: missing `variant:` field in frontmatter
+- Experiment 2026-06-05-qwen3-jax-v046-nsa-pallas.md: missing `variant:` field in frontmatter
+- Experiment 2026-06-05-qwen3-jax-v046-nsa-pallas.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-02-qwen3-jax-v011-splash-tp2-remat-dots-bs8.md: missing `variant:` field in frontmatter
+- Experiment 2026-06-02-qwen3-jax-v011-splash-tp2-remat-dots-bs8.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-27-v024-no-chunked-ce.md: missing profile artifact path for non-invalid verdict (pending)
+- Experiment 2026-06-27-v024-no-chunked-ce.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-04-qwen3-jax-v037-tp1-vocab-parallel-bs8-chunked-xla-splash-fix.md: missing `variant:` field in frontmatter
+- Experiment 2026-06-02-qwen3-jax-v012-splash-tp4-bs8.md: missing `variant:` field in frontmatter
+- Experiment 2026-06-02-qwen3-jax-v012-splash-tp4-bs8.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-15-qwen3-jax-v056-splash-vmem-tune.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-15-qwen3-jax-v057-d-tokamax-layer-ckpt.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-15-qwen3-jax-v057-e-tokamax-layer-ckpt-fix-splash.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-03-qwen3-jax-v032-tp1-vocab-parallel-bs8-mosaic-tpu-patched.md: missing `variant:` field in frontmatter
+- Experiment 2026-06-03-qwen3-jax-v032-tp1-vocab-parallel-bs8-mosaic-tpu-patched.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-27-qwen3-jax-v013-fused-glu.md: missing `variant:` field in frontmatter
+- Experiment 2026-06-27-qwen3-jax-v013-fused-glu.md: missing profile artifact path for non-invalid verdict (refuted)
+- Experiment 2026-06-27-qwen3-jax-v013-fused-glu.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-15-qwen3-jax-v057-l-tokamax-layer-dots.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-15-qwen3-jax-v057-h-tokamax-block-remat.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-13-qwen3-jax-v047-seq8k-baseline.md: missing `variant:` field in frontmatter
+- Experiment 2026-06-03-qwen3-jax-v013-splash-tp2-tokamax-bs4.md: missing `variant:` field in frontmatter
+- Experiment 2026-06-03-qwen3-jax-v013-splash-tp2-tokamax-bs4.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-03-qwen3-jax-v030-tp1-vocab-parallel-bs8-chunked-xla.md: missing `variant:` field in frontmatter
+- Experiment 2026-06-03-qwen3-jax-v030-tp1-vocab-parallel-bs8-chunked-xla.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-03-qwen3-jax-v029-tp1-vocab-parallel-bs8-fix-layout.md: missing `variant:` field in frontmatter
+- Experiment 2026-06-03-qwen3-jax-v029-tp1-vocab-parallel-bs8-fix-layout.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-03-qwen3-jax-v017-splash-tp2-tokamax-remat-scan-bs8.md: missing `variant:` field in frontmatter
+- Experiment 2026-06-15-qwen3-jax-v057-r-nested-ckpt-bs8.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-07-03-v034-tokamax-xla-bs4.md: missing profile artifact path for non-invalid verdict (pending)
+- Experiment 2026-07-03-v034-tokamax-xla-bs4.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-27-qwen3-jax-v012-ring-attention.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-03-qwen3-jax-v023-tp1-chunked-xla-bs4.md: missing `variant:` field in frontmatter
+- Experiment 2026-06-04-qwen3-jax-v040-tp1-vocab-parallel-bs16-seq2048-tokamax.md: missing `variant:` field in frontmatter
+- Experiment 2026-06-04-qwen3-jax-v040-tp1-vocab-parallel-bs16-seq2048-tokamax.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-04-qwen3-jax-v039-tp1-vocab-parallel-bs32-seq1024.md: missing `variant:` field in frontmatter
+- Experiment 2026-06-04-qwen3-jax-v039-tp1-vocab-parallel-bs32-seq1024.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-27-v027-unfused-bs32.md: missing profile artifact path for non-invalid verdict (pending)
+- Experiment 2026-06-27-v027-unfused-bs32.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-15-qwen3-jax-v057-t-nested-ckpt-custom-outer-policy-bs8.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-07-03-v038-optax-bf16-chunked-bs6.md: missing profile artifact path for non-invalid verdict (pending)
+- Experiment 2026-07-03-v038-optax-bf16-chunked-bs6.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-12-qwen3-jax-v047-seq8k-baseline.md: missing profile artifact path for non-invalid verdict (pending)
+- Experiment 2026-06-12-qwen3-jax-v047-seq8k-baseline.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-27-v023-tp1-bs16-fused.md: missing profile artifact path for non-invalid verdict (pending)
+- Experiment 2026-06-27-v023-tp1-bs16-fused.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-07-04-v058-tp2-bs4.md: missing profile artifact path for non-invalid verdict (in_progress)
+- Experiment 2026-06-02-qwen3-jax-v005-splash-tuned.md: missing `variant:` field in frontmatter
+- Experiment 2026-06-27-v029-bs4-nothing-saveable.md: missing profile artifact path for non-invalid verdict (pending)
+- Experiment 2026-06-27-v029-bs4-nothing-saveable.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-03-qwen3-jax-v026-tp1-vocab-parallel-bs4-no-outer-ckpt.md: missing `variant:` field in frontmatter
+- Experiment 2026-06-03-qwen3-jax-v026-tp1-vocab-parallel-bs4-no-outer-ckpt.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-15-qwen3-jax-v057-g-tokamax-layer-ckpt-fix-splash.md: missing ## Profile or ## HLO Dump section
+- Experiment 2026-06-03-qwen3-jax-v027-tp1-vocab-parallel-bs8-no-outer-ckpt.md: missing `variant:` field in frontmatter

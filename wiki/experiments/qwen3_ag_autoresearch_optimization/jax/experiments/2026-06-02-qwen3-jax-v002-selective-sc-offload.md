@@ -7,7 +7,7 @@ variant: "8B/v6e-8"
 status: completed
 verdict: invalid
 created: 2026-06-02
-updated: 2026-06-02
+updated: 2026-07-05
 ---
 
 # Qwen3-8B jax v002 selective SparseCore offload

@@ -8,7 +8,7 @@ commit: ""
 status: completed
 tags: [qwen3, jax, splash, batch-scaling]
 created: 2026-06-13
-updated: 2026-06-13
+updated: 2026-07-05
 ---
 
 # Qwen3 jax — Splash attention (bs=64)

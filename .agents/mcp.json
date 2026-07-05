@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "xprof": {
+      "command": "/home/alekseyv_google_com/miniconda3/envs/xprof_mcp_py312/bin/xprof-mcp",
+      "args": ["--transport", "stdio"]
+    }
+  }
+}

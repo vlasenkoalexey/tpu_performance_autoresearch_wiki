@@ -1,0 +1,20 @@
+[step 17/20] loss=11.9375 step_time=5709.9ms throughput=45910 tok/s
+[step 18/20] loss=11.9375 step_time=5709.4ms throughput=45914 tok/s
+[step 19/20] loss=11.9375 step_time=5708.3ms throughput=45923 tok/s
+
+---------------- profile ----------------
+profile dir   : gs://tpu-pytorch-alekseyv-us-central2/autoresearch/qwen3_ag/2026-07-03-qwen3-jax-v034-tokamax-xla-bs4/plugins/profile
+xprof run     : profile
+xprof URL     : http://localhost:8791/?run=profile
+(visible in xprof-mcp once the run dir is under the server --logdir root)
+-----------------------------------------
+
+================ summary ================
+global_batch          : 32
+seqlen                : 8192
+steps measured        : 18
+avg throughput        : 45938 tok/s (5742/chip)
+approx MFU            : 32.9% (v6e bf16 peak)
+==========================================
+XPK End: Fri Jul 3 16:25:54 UTC 2026
+EXIT_CODE=0

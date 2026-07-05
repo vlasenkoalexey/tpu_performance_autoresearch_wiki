@@ -8,7 +8,7 @@ commit: minimal-jax-trainer-2026-06-02
 verdict: baseline
 tags: [qwen3-cc, jax, flax-nnx, baseline, v6e-8]
 created: 2026-06-02
-updated: 2026-06-02
+updated: 2026-07-05
 ---
 
 # Qwen3-8B jax (Flax NNX) v6e-8 baseline

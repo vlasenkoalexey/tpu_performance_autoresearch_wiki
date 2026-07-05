@@ -1,5 +1,14 @@
 # Log
 
+## [2026-07-05] lint | LINT run — 147 findings
+
+**Op**: lint
+**Pages created**: (none)
+**Pages updated**: (multiple auto-fixed experiment pages), wiki/log.md
+**Key result**: Scanned 115 pages. Auto-fixed 6; punch list 141.
+**Notes**: Mostly missing sections auto-fixed. Remaining issues are missing profile links and variants.
+
+
 ## [2026-07-03] lint | LINT run — 469 findings
 
 **Op**: lint
