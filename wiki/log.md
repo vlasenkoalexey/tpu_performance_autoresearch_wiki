@@ -1,5 +1,13 @@
 # Log
 
+## [2026-07-05] manual | process change: silo-first exploration (rule 12a + wikify-repo-navigator agent)
+
+**Op**: manual (ported from the private autoresearch wiki, commit `1b08180` there).
+**Pages created**: `.claude/agents/wikify-repo-navigator.md`
+**Pages updated**: `SCHEMA.md` (behavioral rule 12a)
+**Key result**: Repo exploration is silo-first by contract. Rule 12a binds the master session (check `wiki/codebases/<slug>/` before exploring/modifying `raw/code/<slug>`; orientation only — stack traces and single-symbol lookups exempt). The `wikify-repo-navigator` agent bakes a 4-step ladder into dispatched exploration: coverage check (silo-or-grep decision recorded) → orient from concepts → locate via catalog symbol maps → verify load-bearing facts in the EXECUTING artifact, labeling `[verified <path>]` vs `[wiki-claim <page>]`.
+**Notes**: `wikify` CLI never on the read path; stale/missing coverage is reported with the fix command (`/wikify-ingest-repo raw/code/<slug>` or `wikify prepare <slug> --ref <sha>`), never executed inline.
+
 ## [2026-07-04] ingest-codebase | autoresearch ingested as a grounded code silo
 
 **Op**: ingest-codebase (wikify code-mode; perf-lens `synthesis_focus`).
