@@ -50,15 +50,22 @@
     padding:34px 6vw;opacity:0;transform:translateY(14px);
     transition:opacity .5s ease,transform .5s ease;pointer-events:none}
   .screen.show{opacity:1;transform:none}
-  .kicker{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
-    color:var(--accent);display:flex;align-items:center;gap:9px;margin-bottom:8px}
-  .kicker .em{font-size:17px}
+  /* slide header: big linked exp title (on top) + phase eyebrow, divided from content */
+  .slide-head{margin-bottom:26px;padding-bottom:13px;border-bottom:1px solid var(--border)}
+  .slide-title{display:inline-block;font-size:clamp(21px,2.7vw,34px);font-weight:800;
+    letter-spacing:-.015em;line-height:1.18;color:var(--text);text-decoration:none;
+    transition:color .15s}
+  a.slide-title:hover,a.slide-title:hover .ext{color:var(--accent)}
+  .slide-title .ext{font-size:.5em;color:var(--subt);vertical-align:super;font-weight:600}
+  .kicker{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--accent);display:flex;align-items:center;gap:8px;margin-top:9px}
+  .kicker .em{font-size:15px}
   .exptitle{font-size:13px;color:var(--subt);margin-bottom:22px;font-variant-numeric:tabular-nums}
 
   /* hypothesis */
   .hyp-wrap{margin:auto 0;max-width:1100px}
-  .statement{font-size:clamp(26px,3.6vw,46px);line-height:1.28;font-weight:600;
-    letter-spacing:-.01em}
+  .statement{font-size:clamp(19px,2.5vw,33px);line-height:1.36;font-weight:500;
+    letter-spacing:-.005em}
   .statement code{background:color-mix(in srgb,var(--accent) 13%,transparent);
     color:var(--accent);padding:.06em .32em;border-radius:6px;font-size:.86em}
   .gain{margin-top:26px;display:inline-flex;align-items:center;gap:10px;font-size:16px;
@@ -78,6 +85,27 @@
   .dl.del{background:var(--del-bg);color:var(--del-fg)} .dl.del .g{color:var(--del-gutter)}
   .dl.hunk{color:var(--hunk);margin:4px 0} .dl.meta{color:var(--meta)}
   .diff-empty{margin:auto;color:var(--subt);font-size:15px;text-align:center}
+
+  /* profile */
+  .prof-wrap{margin:auto 0;display:flex;gap:40px;align-items:flex-start;flex-wrap:wrap;max-width:1200px}
+  .prof-summary{flex:1 1 440px;font-size:clamp(20px,2.5vw,32px);line-height:1.35;font-weight:500}
+  .prof-summary code{background:color-mix(in srgb,var(--accent) 13%,transparent);
+    color:var(--accent);padding:.05em .3em;border-radius:5px;font-size:.85em}
+  .prof-metrics{flex:0 0 auto;border-collapse:collapse;font-size:14px;
+    background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;
+    box-shadow:var(--shadow)}
+  .prof-metrics td{padding:8px 18px;border-bottom:1px solid var(--border)}
+  .prof-metrics tr:last-child td{border-bottom:none}
+  .prof-metrics td:first-child{color:var(--muted)}
+  .prof-metrics td:last-child{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+
+  /* verdict */
+  .verdict-wrap{margin:auto 0;max-width:1050px}
+  .verdict.big{display:inline-block;font-size:15px;padding:8px 18px;border-radius:10px;
+    margin-bottom:22px;align-self:auto}
+  .verdict-body p{font-size:clamp(19px,2.3vw,30px);line-height:1.4;font-weight:500;margin:0 0 16px}
+  .verdict-body code{background:color-mix(in srgb,var(--accent) 13%,transparent);
+    color:var(--accent);padding:.05em .3em;border-radius:5px;font-size:.85em}
 
   /* result */
   .res-head{display:flex;align-items:flex-end;gap:20px;margin-bottom:6px}
@@ -186,15 +214,26 @@ document.getElementById("ctx").innerHTML =
 
 function cssvar(n){ return getComputedStyle(document.body).getPropertyValue(n).trim(); }
 function esc(s){ return s.replace(/[&<>]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c])); }
+// prose → escaped HTML with `code` and **bold** rendered as highlighted chips (never heavy bold)
+function rich(s){ return esc(s||"")
+  .replace(/`([^`]+)`/g,'<code>$1</code>')
+  .replace(/\*\*([^*]+)\*\*/g,'<code>$1</code>')
+  .replace(/__([^_]+)__/g,'<code>$1</code>'); }
+function verdictBadge(v, cls){ v=(v||"").toLowerCase();
+  return v ? `<span class="verdict ${cls||""} v-${v}">${v}</span>` : ""; }
 
 // ---- build the flat step list: intro, then hypothesis/change/result per exp, then outro ----
 const steps = [{type:"intro"}];
 EXPS.forEach((e,i)=>{
   const isBaseline = (e.verdict||"").toLowerCase()==="baseline";
+  const hasProfile = (e.profile_summary && e.profile_summary.trim()) || (e.profile_metrics && e.profile_metrics.length);
+  const hasVerdict = e.verdict_paras && e.verdict_paras.length;
   // baselines have no idea/change — show them only as a starting point on the chart.
   if(!isBaseline && (e.hypothesis_statement || e.hypothesis_title)) steps.push({type:"hypothesis", idx:i});
   if(!isBaseline && e.diff && e.diff.trim())                        steps.push({type:"change", idx:i});
+  if(!isBaseline && hasProfile)                                     steps.push({type:"profile", idx:i});
   steps.push({type:"result", idx:i});
+  if(!isBaseline && hasVerdict)                                     steps.push({type:"verdict", idx:i});
 });
 steps.push({type:"outro"});
 
@@ -210,7 +249,7 @@ function renderIntro(){
   d.innerHTML = `<div class="center">
     <div class="big"><span class="agent">${P.agentName}</span> optimized ${P.model.toUpperCase()} on TPU<br>— on its own.</div>
     <div class="lede">${EXPS.length} experiments. Each one: a hypothesis it formed, a change it wrote,
-      a result it measured — then the next idea. No human in the loop.</div>
+      a profile it read, a verdict it reached — then the next idea. No human in the loop.</div>
     <div class="statline">
       <div class="stat"><span class="n">${EXPS.length}</span><span class="l">experiments run</span></div>
       <div class="stat"><span class="n">${supported}</span><span class="l">that moved the metric</span></div>
@@ -223,12 +262,10 @@ function renderIntro(){
 
 function renderHyp(e){
   const d = screenEl();
-  let st = e.hypothesis_statement || e.hypothesis_title || "(hypothesis)";
-  st = esc(st).replace(/`([^`]+)`/g, "<code>$1</code>");
+  const st = rich(e.hypothesis_statement || e.hypothesis_title || "(hypothesis)");
   const gain = e.expected_gain ? `<div class="gain">🎯 expected: <b>${esc(e.expected_gain)}</b></div>` : "";
   d.innerHTML = `
-    <div class="kicker"><span class="em">💡</span> Hypothesis</div>
-    <div class="exptitle">${expLabel(e)}</div>
+    ${slideHead(e, "💡", "Hypothesis")}
     <div class="hyp-wrap"><div class="statement">${st}</div>${gain}</div>`;
   return d;
 }
@@ -236,7 +273,7 @@ function renderHyp(e){
 function renderChange(e){
   const d = screenEl();
   d.innerHTML = `
-    <div class="kicker"><span class="em">🔧</span> Change applied</div>
+    ${slideHead(e, "🔧", "Change applied")}
     <div class="diff-head">${esc(e.diff_summary || e.title || "")}</div>
     <div class="diff-sub">${diffKindLabel(e)}</div>
     <div class="diffbox" id="diffbox"></div>`;
@@ -257,16 +294,43 @@ function renderResult(e, idx){
         ? `<span class="delta up">▲ +${delta.toFixed(1)}%</span>`
         : `<span class="delta flat">frontier ${fmtMfu(best)}</span>`;
   d.innerHTML = `
+    ${slideHead(e, "📈", "Result")}
     <div class="res-head">
       <div class="bestwrap">
         <span class="bestlabel">${label}</span>
         <span class="bestval">${fmtMfu(isBaseline ? e.mfu : best)}</span>
       </div>
       ${dchip}
-      <span class="verdict v-${v}">${v||"—"}</span>
+      ${verdictBadge(e.verdict)}
     </div>
-    <div class="exptitle">${expLabel(e)} · this run: ${e.mfu!=null?e.mfu.toFixed(1)+"% MFU":"—"}${e.tps?(" · "+e.tps.toLocaleString()+" tok/s/chip"):""}</div>
+    <div class="exptitle">this run: ${e.mfu!=null?e.mfu.toFixed(1)+"% MFU":"—"}${e.tps?(" · "+e.tps.toLocaleString()+" tok/s/chip"):""}</div>
     <div id="chart"></div>`;
+  return d;
+}
+
+function renderProfile(e){
+  const d = screenEl();
+  const mets = (e.profile_metrics||[]);
+  const rows = mets.map(([k,v])=>`<tr><td>${esc(k)}</td><td>${esc(v)}</td></tr>`).join("");
+  const summ = e.profile_summary ? rich(e.profile_summary) : "";
+  d.innerHTML = `
+    ${slideHead(e, "📊", "Profile")}
+    <div class="prof-wrap">
+      ${summ?`<div class="prof-summary">${summ}</div>`:""}
+      ${rows?`<table class="prof-metrics"><tbody>${rows}</tbody></table>`:""}
+    </div>`;
+  return d;
+}
+
+function renderVerdict(e){
+  const d = screenEl();
+  const paras = (e.verdict_paras||[]).map(p=>`<p>${rich(p)}</p>`).join("");
+  d.innerHTML = `
+    ${slideHead(e, "⚖️", "Verdict")}
+    <div class="verdict-wrap">
+      ${verdictBadge(e.verdict, "big")}
+      <div class="verdict-body">${paras}</div>
+    </div>`;
   return d;
 }
 
@@ -300,6 +364,17 @@ function renderDiff(diff){
 function fmtMfu(v){ return v==null ? "—" : v.toFixed(1)+"%"; }
 function bestOf(idx){ let b=null; for(let i=0;i<=idx;i++){const e=EXPS[i]; if(e.mfu!=null&&e.verdict!=="invalid"&&(b==null||e.mfu>b))b=e.mfu;} return b; }
 function expLabel(e){ return `exp #${e.vnum} — ${esc((e.title||e.slug))}`; }
+function slideHeader(e){
+  const t = `exp #${e.vnum} — ${esc(e.title||e.slug)}`;
+  return e.page_url
+    ? `<a class="slide-title" href="${e.page_url}" target="_blank" rel="noopener">${t} <span class="ext">↗</span></a>`
+    : `<div class="slide-title">${t}</div>`;
+}
+// full slide header block: big linked exp title + the phase eyebrow, with a divider.
+function slideHead(e, em, phase){
+  return `<div class="slide-head">${slideHeader(e)}`
+       + `<div class="kicker"><span class="em">${em}</span> ${phase}</div></div>`;
+}
 function diffKindLabel(e){
   return {code:"code diff — model / trainer", flag:"config diff — launch flags",
           none:"configuration change"}[e.diff_kind] || "change";
@@ -369,7 +444,7 @@ function drawChart(uptoIdx, instant){
 }
 
 // ---- navigation / playback ----
-function durationFor(t){ const s=P.speed*1000; return {intro:s*1.5, hypothesis:s, change:s*1.35, result:s*1.45, outro:s*2.2}[t]||s; }
+function durationFor(t){ const s=P.speed*1000; return {intro:s*1.5, hypothesis:s, change:s*1.35, profile:s*1.35, result:s*1.45, verdict:s*1.25, outro:s*2.2}[t]||s; }
 
 function render(){
   const step = steps[cur];
@@ -377,7 +452,11 @@ function render(){
   if(step.type==="intro") el=renderIntro();
   else if(step.type==="outro") el=renderOutro();
   else { const e=EXPS[step.idx];
-    el = step.type==="hypothesis"?renderHyp(e): step.type==="change"?renderChange(e): renderResult(e,step.idx); }
+    el = step.type==="hypothesis"?renderHyp(e)
+       : step.type==="change"?renderChange(e)
+       : step.type==="profile"?renderProfile(e)
+       : step.type==="verdict"?renderVerdict(e)
+       : renderResult(e,step.idx); }
   stage.innerHTML=""; stage.appendChild(el);
   requestAnimationFrame(()=>{ el.classList.add("show");
     if(step.type==="result") drawChart(step.idx);

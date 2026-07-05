@@ -41,6 +41,9 @@ MAXTEXT_MFU = {2048: 36.6, 8192: 39.8}
 # Monogram shown when no real logo SVG is dropped into tools/demo/assets/<agent>.svg
 MONOGRAM = {"cc": "C", "ag": "AG", "cx": "CX", "cc5": "F5"}
 
+# GitHub base for linking experiment pages from the slide title.
+REPO_URL = "https://github.com/vlasenkoalexey/tpu_performance_autoresearch_wiki/blob/main"
+
 
 def agent_icon(agent, color):
     """Inline SVG for the agent's top-left icon.
@@ -96,6 +99,123 @@ def extract_statement(hyp_text, exp_text):
         if m:
             return re.sub(r"\s+", " ", re.sub(r"\*+", "", m.group(1))).strip()
     return ""
+
+
+def extract_section(text, name):
+    """Body of a '## <name>' H2 up to the next H2 *or H3* (or EOF).
+    Stopping at H3 keeps sibling subsections (e.g. '### HLO Dump') out of the body."""
+    m = re.search(r"^##\s+" + re.escape(name) + r"\b.*?\n(.*?)(?=\n#{2,3}\s|\Z)", text, re.S | re.M)
+    return m.group(1).strip() if m else ""
+
+
+def parse_kv_table(section):
+    """Rows of the first 2-column Metric|Value markdown table in a section."""
+    rows = []
+    for line in section.splitlines():
+        if "|" not in line:
+            if rows:
+                break   # table ended
+            continue
+        cells = [c.strip() for c in line.strip().strip("|").split("|")]
+        if len(cells) != 2:
+            continue
+        k, v = cells
+        if set(k) <= set("-: ") or k.lower() == "metric":
+            continue
+        if not v or set(v) <= set("-: "):
+            continue
+        rows.append([re.sub(r"[`*]+", "", k), re.sub(r"[`*]+", "", v)])
+    return rows
+
+
+def _prose_paras(section, drop_pred):
+    paras, cur = [], []
+    for line in section.splitlines():
+        s = line.strip()
+        if not s or drop_pred(s):
+            if cur:
+                paras.append(re.sub(r"\s+", " ", " ".join(cur))); cur = []
+            continue
+        cur.append(re.sub(r"\*+", "", s))
+    if cur:
+        paras.append(re.sub(r"\s+", " ", " ".join(cur)))
+    return paras
+
+
+def _is_placeholder(s):
+    """True for stub/'to be filled' section content that should be skipped."""
+    t = re.sub(r"[^a-z]", "", (s or "").lower())
+    return t in {"tba", "tbd", "tbc", "na", "none", "pending", "todo", "wip",
+                 "tobeadded", "tobedetermined", "tobewritten", "tobefilled",
+                 "notyetrun", "notrun", "pendingrun"}
+
+
+def profile_from_page(text):
+    """(concluding summary paragraph, [[metric, value], ...]) from the Profile section."""
+    sec = extract_section(text, "Profile")
+    if not sec:
+        return "", []
+    metrics = parse_kv_table(sec)
+    drop = lambda s: (s.startswith("|") or s.startswith("`") or s.startswith("- ")
+                      or s.startswith("#") or s.endswith(":") or "gs://" in s
+                      or s.lower().startswith("xprof"))
+    paras = _prose_paras(sec, drop)
+    summary = paras[-1] if paras else ""
+    if _is_placeholder(summary):
+        summary = ""
+    return summary, metrics
+
+
+def norm_verdict(s):
+    """Map a raw verdict/status string to the canonical verdict set the player styles.
+    Non-verdict lifecycle statuses (completed/pending/open/...) return "" — not a verdict."""
+    s = (s or "").strip().lower()
+    if not s:
+        return ""
+    for k in ("supported", "refuted", "invalid", "inconclusive", "baseline"):
+        if k in s:
+            return k
+    if "accept" in s or "confirm" in s:
+        return "supported"
+    if "reject" in s or "fail" in s or "falsif" in s:
+        return "refuted"
+    return ""   # completed / pending / open / running / planned / unknown → no badge
+
+
+def verdict_from_page(text):
+    """Paragraphs of the Verdict section (empty list ⇒ no verdict, e.g. crashed run)."""
+    sec = extract_section(text, "Verdict")
+    if not sec:
+        return []
+    return [p for p in _prose_paras(sec, lambda s: s.startswith("|"))
+            if not _is_placeholder(p)]
+
+
+def enrich_from_pages(exps, model, agent, lane, repo_url=REPO_URL):
+    """Add profile_summary / profile_metrics / verdict_paras / page_url per experiment page."""
+    subdir = f"{model}_{agent}_autoresearch_optimization/{lane}/experiments"
+    exp_dir = os.path.join(REPO, "wiki", "experiments", subdir.split("/", 1)[0],
+                           lane, "experiments")
+    for e in exps:
+        e["page_url"] = f"{repo_url}/wiki/experiments/{subdir}/{e['slug']}.md"
+        p = os.path.join(exp_dir, e["slug"] + ".md")
+        if not os.path.exists(p):
+            e.setdefault("profile_summary", ""); e.setdefault("profile_metrics", [])
+            e.setdefault("verdict_paras", [])
+            continue
+        txt = open(p, encoding="utf-8", errors="ignore").read()
+        ps, pm = profile_from_page(txt)
+        e["profile_summary"] = ps
+        e["profile_metrics"] = pm
+        e["verdict_paras"] = verdict_from_page(txt)
+        # resolve the verdict word: mfu_data → frontmatter → leading word of the verdict prose
+        v = norm_verdict(e.get("verdict") or "")
+        if not v:
+            fm = frontmatter(txt)
+            v = norm_verdict(fm.get("verdict") or fm.get("status") or "")
+        if not v and e["verdict_paras"]:
+            v = norm_verdict(e["verdict_paras"][0].split(".")[0])
+        e["verdict"] = v
 
 
 def load_mfu_data():
@@ -195,10 +315,13 @@ def main():
     ap.add_argument("--out", default=os.path.join(SCRIPT_DIR, "demo.html"))
     ap.add_argument("--include", default="metric",
                     help="which experiments to show: 'all' | 'metric' (only metric-bearing)")
+    ap.add_argument("--repo-url", default=REPO_URL,
+                    help="GitHub blob base for experiment-page links in slide titles")
     args = ap.parse_args()
 
     model, agent, lane = parse_series(args.series)
     man, from_manifest = load_manifest(args.series, model, agent, lane, args.diffs_dir)
+    enrich_from_pages(man["experiments"], model, agent, lane, args.repo_url)
 
     exps = man["experiments"]
     # context-length filter
