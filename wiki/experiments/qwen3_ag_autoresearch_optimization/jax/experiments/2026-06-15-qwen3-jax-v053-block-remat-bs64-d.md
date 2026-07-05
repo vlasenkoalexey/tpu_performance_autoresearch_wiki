@@ -48,3 +48,18 @@ The experiment crashed with a `NotImplementedError` regarding Mosaic kernels lac
 ## Verdict
 
 `invalid` — Crash due to unpartitioned Mosaic kernel. The block-wise remat requires `shard_map` encapsulation or similar to ensure the underlying custom calls (like Pallas attention) partition correctly over the mesh when embedded inside nested block scans.
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

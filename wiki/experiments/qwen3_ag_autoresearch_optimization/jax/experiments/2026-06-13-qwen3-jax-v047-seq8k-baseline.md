@@ -83,3 +83,18 @@ Established a clean baseline on `charles-v6e` for Qwen3-8B in JAX with `seqlen=8
 
 ## Verdict
 supported (baseline)
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

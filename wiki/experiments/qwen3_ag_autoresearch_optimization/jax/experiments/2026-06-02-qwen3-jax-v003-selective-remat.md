@@ -91,3 +91,18 @@ This confirms that selective activation rematerialization is highly effective, s
 1. **Fully-fused attention / flash attention** (to shrink attention activation footprint further).
 2. **Aggressive Activation Checkpointing** (more layers or full remat, paying a higher compute tax).
 3. **Tensor Parallelism (TP=2)** (to split parameters and activations across chips, though this reduces FSDP sharding factor and adds TP collectives).
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

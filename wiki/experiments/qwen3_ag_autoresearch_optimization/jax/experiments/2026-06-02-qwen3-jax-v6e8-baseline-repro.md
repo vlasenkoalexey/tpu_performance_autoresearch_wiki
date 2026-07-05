@@ -98,3 +98,8 @@ The reproduction run matches the original baseline with very minor variance (~1.
 - Local pointer: `raw/profiles/2026-06-02-qwen3-jax-v6e8-baseline-repro/GCS_LOCATION.txt`
 - Trainer: `wiki/experiments/qwen3_ag_autoresearch_optimization/jax/` (train.py, model/, sharding.py).
 - Original baseline: [Qwen3 JAX baseline](2026-06-02-qwen3-jax-v6e8-baseline.md).
+
+
+## See also
+
+<!-- TODO: add links -->

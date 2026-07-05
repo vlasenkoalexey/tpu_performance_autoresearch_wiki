@@ -51,3 +51,18 @@ The hypothesis was that selective rematerialization (`checkpoint_dots_with_no_ba
 - **Exceeded by**: 1.83 GB
 
 Compared to `v049` (Splash attention without selective remat at `bs=64`), which required 33.08 GB, selective rematerialization provided negligible memory savings (0.01 GB) in this configuration. This suggests that the memory bottleneck at this scale is dominated by the Splash attention kernel's memory allocation (which selective remat does not target) or that the `checkpoint_dots_with_no_batch_dims` policy is failing to match and rematerialize intermediate tensors effectively with Splash enabled. We must explore alternative optimization avenues such as Pallas fused RMSNorm or advanced activation checkpointing policies.
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

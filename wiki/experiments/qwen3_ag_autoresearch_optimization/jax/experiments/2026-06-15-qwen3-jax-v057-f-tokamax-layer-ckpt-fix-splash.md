@@ -30,3 +30,18 @@ Using image `<your-registry>/torchtitan-images/v6e8-qwen3-8b-jax-20260615-exp057
 ## Results
 **Verdict**: inconclusive
 Workload terminated/crashed or loop stopped before profile completion.
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

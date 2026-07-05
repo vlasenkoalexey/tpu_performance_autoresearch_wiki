@@ -1,7 +1,7 @@
 ---
 variant: 8B/v6e-8
 hypothesis: Fused GLU custom backward kernel
-status: in_progress
+status: filed
 created: 2026-06-27
 ---
 
@@ -39,3 +39,18 @@ LIBTPU_INIT_ARGS="--xla_tpu_scoped_vmem_limit_kib=81920" XLA_FLAGS="--xla_dump_t
 
 ## Verdict
 **Falsified**. The hypothesis mechanism never executed on the hardware. The custom Pallas backward kernel violated VMEM constraints and silently fell back to unrolled JAX reference operations, causing a catastrophic HLO explosion and destroying MFU. We need to formulate a new hypothesis that correctly chunks the weight and activation gradients (using proper inner block loops) to fit within the 32 MB VMEM limit.
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

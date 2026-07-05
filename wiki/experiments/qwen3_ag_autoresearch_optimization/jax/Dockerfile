@@ -9,8 +9,7 @@
 # the base image are simply unused here.
 #
 # Build context: this directory's trainer files staged under `trainer/`.
-
-FROM <your-registry>/torchtitan-images/qwen3-8b-torchax:latest
+FROM us-central1-docker.pkg.dev/tpu-pytorch/torchtitan-images/qwen3-8b-torchax:latest
 
 # Replace the torchax trainer code with the jax trainer code.
 RUN rm -rf /app/trainer

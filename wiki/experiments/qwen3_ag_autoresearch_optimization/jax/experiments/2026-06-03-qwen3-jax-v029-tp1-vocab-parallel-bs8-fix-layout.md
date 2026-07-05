@@ -36,3 +36,18 @@ lane: "jax"
 
 ## Verdict
 **Refuted**. The explicit transpose did not improve MFU; it slightly regressed from 32.8% to 32.6%. This indicates that the `data formatting` copy overhead is physically unavoidable when converting from Splash's `(B, H, T, Dh)` native layout to the projection layout XLA requires. The transpose in Python merely explicitly instructs XLA to do what it was already doing implicitly during the reshape. We must find another avenue to recover the remaining 2.4% MFU.
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

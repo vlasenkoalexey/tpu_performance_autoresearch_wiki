@@ -35,3 +35,18 @@ While TP=2 + Splash Attention cleared massive chunks of memory at `bs=4`, it is 
 To unlock `bs=8`, we need to find another 4GB of memory per chip.
 Since we failed to integrate Tokamax CE previously (it ballooned memory to 41.77GB under pure FSDP), we could try combining Tokamax CE *with* Tensor Parallelism (TP=2) and Splash Attention. Tokamax natively supports TP and could provide the 4-5GB savings needed.
 Alternatively, we could adjust the activation checkpointing/rematerialization policy from `checkpoint_dots_with_no_batch_dims` to a more aggressive rematerialization policy (e.g. `checkpoint_dots`) to save activation memory at the cost of recompute.
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

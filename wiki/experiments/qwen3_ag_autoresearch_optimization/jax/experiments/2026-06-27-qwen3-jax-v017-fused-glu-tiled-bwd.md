@@ -23,3 +23,18 @@ Step MFU does not exceed 32.5% or the implementation fails numerical equivalence
 
 ## Verdict
 **Falsified**. The implementation traded a VMEM OOM for an HBM compile-time OOM. Pallas `grid` reductions cannot be used for large reduction dimensions because they materialize the intermediate grid outputs into HBM. A successful custom backward kernel must implement the reduction loop *inside* the kernel (e.g., using `jax.lax.fori_loop` or `pl.dot`) to accumulate gradients purely in SRAM before writing the final output block to HBM.
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

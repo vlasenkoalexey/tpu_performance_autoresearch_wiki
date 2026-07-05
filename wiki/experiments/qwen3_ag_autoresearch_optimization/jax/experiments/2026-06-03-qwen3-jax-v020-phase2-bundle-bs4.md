@@ -22,3 +22,18 @@ The Phase 2 bundle compiled successfully at `bs=4`, but the MFU (28.1%) is lower
 The `model-optimization-blueprint.md` explicitly lists `HOST_OFFLOAD_FLAGS` and `DATA_PARALLEL_OVERLAP` as the main Phase 2 levers. However, these target *Data Parallelism* (FSDP / DCN transfers), whereas our 28% overhead is purely from *Tensor Parallelism* (TP=2) `all-gather` and `all-reduce-scatter` operations.
 
 We must find a way to eliminate TP entirely without OOMing the Tokamax CE kernel.
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

@@ -37,3 +37,18 @@ The workload successfully compiled and ran at `bs=2` with `TP=1`. As predicted, 
 
 ## Next Steps
 Now that we have a working TP=1 baseline, we need to push the batch size up (to 4 or 8) to reach the >35% MFU goal. However, `v021` (bs=4) OOM'd during compilation. We need to analyze the compiler OOM to see what is blowing up the HBM during compilation so we can mitigate it and scale up the batch size.
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

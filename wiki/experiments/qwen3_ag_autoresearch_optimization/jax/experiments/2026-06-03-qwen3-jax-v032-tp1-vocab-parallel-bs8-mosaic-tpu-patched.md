@@ -36,3 +36,18 @@ lane: "jax"
 
 ## Verdict
 **Refuted**. The workload crashed during compilation with `NotImplementedError: Mosaic kernels cannot be automatically partitioned. Please wrap the call in a shard_map.` Because we are using `TP=1` FSDP via `spmd_mesh` (which relies on JAX's automatic SPMD partitioner), we cannot use the `mosaic_tpu` Pallas kernel. Therefore, both `chunked_xla` and `mosaic_tpu` are dead ends for this repository. We must stick to the default `xla` implementation and find another way to optimize communication.
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

@@ -1,3 +1,20 @@
+## [2026-07-04] start | /start-experiment session begin
+
+**Op**: start
+**Cluster pool**: alekseyv-tpu-v6e8-spot-xpk
+**Parallelism**: 1
+**First-pick hypothesis**: Tensor Parallelism (TP=2) batch scaling.
+**Notes**: session opened via /start-experiment.
+
+## [2026-07-03] stop | /stop-experiment session end
+
+**Op**: stop
+**Pages created**: None
+**Pages updated**: wiki/experiments/qwen3_ag_autoresearch_optimization/jax/log.md
+**Notes**: Clean shutdown via /stop-experiment. Reaped orphan workloads: none.
+Outstanding lint items: 0.
+Session metrics: 9 experiments run, 1 supported, 8 failed/invalid.
+
 ## [2026-06-27] start | /start-experiment session begin
 
 ## [2026-06-27] loop-iteration | v015-ring-attn-seq16k-bs2 on 8B/v6e-8: invalid (OOM during XLA compile, HLO temp 46.60G)
@@ -77,3 +94,8 @@
 2026-06-27-qwen3-jax-v016-fused-glu-bwd.md | Falsified | 11.9% MFU | Backward kernel exceeded VMEM limit and silently fell back to unrolled JAX reference ops.
 2026-06-27-qwen3-jax-v017-fused-glu-tiled-bwd.md | Falsified | 0.0% MFU | Compile OOM (166GB). Pallas grid reduction materialized massive HBM buffers.
 2026-06-27-qwen3-jax-v018-fused-glu-fori-bwd.md | Pending | N/A | Testing in-kernel fori_loop reduction for backward pass.
+
+## [2026-06-27] loop-iteration | v020-splash-attn-only-scan3 on 8B/v6e-8: confirmed (32.3% MFU)
+- Created `v020-splash-attn-only-scan3.md` to recover the baseline by falling back to standard XLA compilation with scan and per-layer remat.
+- Result: Compiled and trained successfully at seqlen=8192 with bs=8. MFU recovered to 32.3%. Confirmed.
+| v021-tp2 | Enable Tensor Parallelism (TP=2) with FSDP=4 to unblock global batch size 32 | 22.9% | MFU regression. Chunked cross entropy needed for HBM. |

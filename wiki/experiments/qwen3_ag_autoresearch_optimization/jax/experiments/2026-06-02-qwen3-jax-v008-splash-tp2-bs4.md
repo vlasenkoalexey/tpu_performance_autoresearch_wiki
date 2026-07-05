@@ -42,3 +42,18 @@ Stacking Splash Attention (to remove `[seq, seq]` materialization) with Tensor P
 
 ## Next Steps
 We have successfully broken the `bs=2` frontier! We are currently running `v009` to attempt to push batch size to `bs=8` (using the same Splash+TP=2 stack) to see if we can hit our >35% MFU target, although the 91.2% memory utilization at `bs=4` suggests it may OOM without further intervention.
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

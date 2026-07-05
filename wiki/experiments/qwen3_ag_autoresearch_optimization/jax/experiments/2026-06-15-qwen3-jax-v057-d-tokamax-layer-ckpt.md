@@ -32,3 +32,18 @@ By properly applying `jax.checkpoint` to `Qwen3DecoderLayer.__call__` and NOT wr
 ## Results
 **Verdict**: inconclusive
 Workload terminated/crashed or loop stopped before profile completion.
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

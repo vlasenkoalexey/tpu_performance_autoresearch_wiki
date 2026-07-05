@@ -54,3 +54,18 @@ The objective of this experiment is to test whether `bs=8` fits in memory under 
 
 ## Verdict
 **Confirmed**. The workload successfully compiled and ran at `bs=8` without OOMing, confirming the fragmentation fix works for larger batches. The MFU scaled to 32.8% at `bs=8`. We have completely removed TP overhead, but to cross the 35% MFU threshold we likely need to scale the batch size further (e.g. `bs=16`), or run a final profile to find the last bottleneck.
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

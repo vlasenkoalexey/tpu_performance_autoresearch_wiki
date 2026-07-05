@@ -41,3 +41,18 @@ The throughput increased marginally from 47781 to 47864 tok/s, putting us at 30.
 
 ## Next Steps
 We are at an impasse. We have stacked every optimization known to us (Splash, TP=2, Tokamax, remat, scan, fused kernels), but we cannot scale to `bs=16` due to a strict 14MB memory headroom, and we cannot eliminate the 28.1% TP=2 communication overhead without Tokamax crashing. We need to formulate a new hypothesis or write a retrospective.
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

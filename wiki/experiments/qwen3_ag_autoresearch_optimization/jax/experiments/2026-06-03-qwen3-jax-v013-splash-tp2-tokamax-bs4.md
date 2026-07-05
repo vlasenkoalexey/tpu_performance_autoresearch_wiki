@@ -35,3 +35,18 @@ The workload successfully completed. The addition of the Tokamax Fused Cross-Ent
 ## Next Steps
 We are still stuck at `bs=4` because `bs=8` OOMs, and our MFU is peaking at 28.7%.
 According to the model documentation, the baseline ships *without* per-layer rematerialization (activation checkpointing). If the model saves all activations across all 36 layers, it easily explains why `bs=8` hits the 31.25GB limit. We must implement **per-layer remat** in the model definition to slash the memory footprint and finally unlock `bs=8`.
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

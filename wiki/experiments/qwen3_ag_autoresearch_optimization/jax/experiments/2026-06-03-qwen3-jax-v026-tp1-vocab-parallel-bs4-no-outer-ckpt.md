@@ -34,3 +34,18 @@ The objective of this experiment is to fix the massive memory fragmentation (16.
 
 ## Verdict
 **Confirmed**. Removing the outer `jax.checkpoint` successfully mitigated the 16.87 GB HLO temp memory fragmentation by allowing the inner `nnx.remat` on the 36 decoder layers to correctly free memory sequentially. The `bs=4` workload fit into the 31.25 GB HBM and ran successfully, achieving 32.2% MFU (up from 24.3% at `bs=2`). TP communication overhead is bypassed. Next, we will scale to `bs=8` (v027) to push MFU over the 35% goal.
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

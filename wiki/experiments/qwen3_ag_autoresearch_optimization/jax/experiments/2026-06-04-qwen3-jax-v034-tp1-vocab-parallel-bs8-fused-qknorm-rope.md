@@ -37,3 +37,18 @@ This causes a massive regression in performance.
 
 ## Verdict
 **Refuted (with an asterisk).** While the mechanism technically functions and avoids materializing the intermediate normalized vectors in Python-land, the MFU dropped to 13.3%. Note that this run accidentally used `--batch_size=1` instead of `8`. At `bs=1`, low MFU is expected. However, the custom Pallas kernel still bypasses XLA's heuristics, so we will pivot to natively optimizing XLA SDPA first.
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

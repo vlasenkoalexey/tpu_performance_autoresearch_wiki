@@ -36,3 +36,18 @@ lane: "jax"
 
 ## Verdict
 **Refuted**. The workload failed with an HBM OOM (`Used 33.40G of 31.25G hbm`). The aggressive collective overlap flags cause the compiler to keep more tensors alive concurrently to facilitate the communication overlap, which increases peak memory pressure. Because `bs=8` already pushed us to the very edge of HBM capacity, this slight increase from the latency-hiding heuristics pushed us over the limit. This means we cannot use compiler-level heuristics to overlap the communication overhead without dropping the batch size.
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

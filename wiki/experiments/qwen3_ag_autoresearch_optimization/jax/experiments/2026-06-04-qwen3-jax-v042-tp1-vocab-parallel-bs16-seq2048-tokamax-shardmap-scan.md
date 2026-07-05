@@ -5,8 +5,9 @@ tags: [qwen3, jax, v6e-8, scan, remat]
 variant: 8B/v6e-8
 hypothesis: "Replacing the unrolled Python `for` loop over layers with `jax.lax.scan` (via `nnx.scan`) will eliminate the massive `while` loop overhead in XLA. Additionally, removing `jax.checkpoint` on the outer `loss_fn` will prevent full forward-pass recomputation, drastically reducing `fusion` time."
 commit: TBD
-status: in_progress
-verdict: TBD
+status: filed
+verdict: inconclusive
+backfilled: true
 ---
 
 # v042 — Qwen3 8B jax: scan-over-layers + fix outer remat
@@ -22,5 +23,20 @@ verdict: TBD
 - **Details**: TBD
 
 ## Verdict
-- **Reasoning**: TBD
-- **Phase 3 hypothesis-firing audit result**: TBD
+- **Reasoning**: Inconclusive. Stuck stub at /stop-experiment — workload completed or was orphaned from a previous run, but profile + HLO artifacts are unavailable for re-analysis.
+- **Phase 3 hypothesis-firing audit result**: N/A
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

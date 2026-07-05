@@ -34,3 +34,18 @@ lane: "jax"
 
 ## Verdict
 **Refuted**. Replacing Splash with XLA SDPA at `bs=8` caused the graph to exceed the 31.25GB HBM limit during compilation (Requested 35.67GB, exceeded by 4.42G). This means that Splash attention actually uses *less* memory than XLA SDPA for our specific sequence length and model architecture, keeping us under the 31.25GB limit in `v027`. We cannot fallback to XLA SDPA without dropping the batch size.
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

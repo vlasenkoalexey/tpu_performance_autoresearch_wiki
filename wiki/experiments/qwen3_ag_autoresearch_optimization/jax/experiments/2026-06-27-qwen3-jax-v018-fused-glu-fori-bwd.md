@@ -8,3 +8,18 @@ In `v017`, we successfully tiled the blocks to fit within VMEM, but mapped the r
 
 ## Falsification Criterion
 Compile OOM or step MFU does not exceed the `v009` baseline of 32.5%.
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

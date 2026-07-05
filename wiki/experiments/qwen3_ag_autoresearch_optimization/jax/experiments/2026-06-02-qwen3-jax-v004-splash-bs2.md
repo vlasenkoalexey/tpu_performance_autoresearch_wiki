@@ -64,3 +64,18 @@ We see a slight drop in MFU initially calculated at 23.2% but xprof reports ~25.
 - `custom-call` bucket takes 7.9% of the step time and `aggregate_xplane_events` confirms multiple `custom-call.XXX` invocations on the device. This strongly suggests `splash_attention` fired as intended (standard JAX attention typically lowers to `convolution fusion` / `loop fusion`).
 - Memory gap bridged successfully (30.87 GB used < 31.25 GB cap), demonstrating the sequence-dimension activation savings.
 - High `collective-permute` time (28.5% total between start and done) indicates significant cross-device sync overhead, characteristic of Splash Attention's Ring Attention P2P communication.
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

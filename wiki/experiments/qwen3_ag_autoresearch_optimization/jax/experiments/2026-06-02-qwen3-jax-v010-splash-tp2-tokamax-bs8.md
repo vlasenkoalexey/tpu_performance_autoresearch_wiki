@@ -26,3 +26,18 @@ Using Tokamax CE with TP=2 and Splash attention will enable scaling the batch si
 
 ## Training Run
 (To be executed and validated)
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

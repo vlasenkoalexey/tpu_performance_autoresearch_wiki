@@ -120,10 +120,18 @@ def build_plan(model: nnx.Module, mesh: Mesh) -> ShardingPlan:
 
 
 def apply_sharding(model: nnx.Module, plan: ShardingPlan) -> None:
+    import time
+    import jax.numpy as jnp
     for path, param in _iter_params(model):
         sh = plan.shardings.get(path)
         if sh is not None:
-            param.value = jax.device_put(param.value, sh)
+            t0 = time.time()
+            shape = param.value.shape
+            dtype = param.value.dtype
+            # Create directly on device, bypassing device_put assert_equal OOM
+            param.value = jax.jit(lambda: jnp.zeros(shape, dtype=dtype), out_shardings=sh)()
+            jax.block_until_ready(param.value)
+            print(f"[sharding] Materialized {path} in {time.time() - t0:.2f}s", flush=True)
 
 
 def input_sharding(mesh: Mesh) -> NamedSharding:

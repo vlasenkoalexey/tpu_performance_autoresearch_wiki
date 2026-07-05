@@ -16,3 +16,18 @@
 
 ## Verdict
 **Refuted/Invalid**. The collective matmul mode flags alone did not yield a massive speedup, and the batch size mistake invalidates a direct comparison. However, the blueprint specifies a FULL Phase 2 bundle (including `HOST_OFFLOAD_FLAGS`, `DATA_PARALLEL_OVERLAP`, etc.) that must be applied together. We will proceed to `v019` with the full bundle and the correct batch size 8.
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

@@ -18,3 +18,18 @@
 **Refuted/Crashed**. The Phase 2 flags attempt to overlap data-parallel collectives and host transfers, and they alter the layout and continuation fusion heuristics. While these flags optimize step time, they dramatically increase the compilation-time memory footprint (requiring an additional 2.75G of HBM). Because we are already at 99.94% HBM utilization at `bs=8` (with only 14MB free), we cannot afford the memory overhead of these scheduling optimizations. 
 
 We must either drop the batch size back to `bs=4` to use these flags, or find another way to reduce memory pressure (like sequence-parallelism / fully-sharded data parallelism) before applying them.
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

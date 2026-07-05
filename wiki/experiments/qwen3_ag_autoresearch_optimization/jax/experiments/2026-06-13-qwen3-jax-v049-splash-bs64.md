@@ -43,3 +43,18 @@ While Splash Attention avoided the `[seq, seq]` logits matrix materialization, t
 
 ## Verdict
 refuted (OOM)
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

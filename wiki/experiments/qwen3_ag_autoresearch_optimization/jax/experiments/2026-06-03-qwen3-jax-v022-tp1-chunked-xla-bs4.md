@@ -28,3 +28,18 @@ The objective of this experiment is to bypass the Pallas kernel fragmentation is
 3. In `train.py`, updated the `tokamax.linear_softmax_cross_entropy_loss` call to include `implementation="chunked_xla"`.
 4. Updated `Dockerfile` to use the `v021` image as a base and properly copy the modified `train.py`.
 5. Built and pushed the Docker image as `<your-registry>/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260603-v022-tp1-chunked-xla-bs4`.
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

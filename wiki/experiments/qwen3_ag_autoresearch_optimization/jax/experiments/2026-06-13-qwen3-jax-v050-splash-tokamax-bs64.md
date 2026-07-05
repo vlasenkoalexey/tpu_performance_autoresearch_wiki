@@ -40,3 +40,18 @@ The job was terminated by the cluster runner after hitting a 60-minute hard time
 
 ## Verdict
 refuted (hung during compilation)
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

@@ -78,3 +78,18 @@ Pending.
 **Notable patterns**:
 - **SEVERE**: Massive `while` loop overhead detected due to lack of `scan-over-layers`. 
 - **SEVERE**: `fusion` time indicates excessive recomputation from `jax.checkpoint` applied across the entire `loss_fn`.
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

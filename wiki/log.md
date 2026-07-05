@@ -1,5 +1,58 @@
 # Log
 
+## [2026-07-03] lint | LINT run — 469 findings
+
+**Op**: lint
+**Pages created**: (none)
+**Pages updated**: (multiple auto-fixed experiment pages), wiki/log.md
+**Key result**: Scanned 113 pages. Auto-fixed 330; punch list 139.
+**Notes**: Mostly missing sections auto-fixed. Remaining issues are missing profile links and variants.
+
+
+## [2026-07-03] analyze | qwen3_ag-jax retrospective (Exhausted)
+
+**Op**: analyze
+**Pages created**: wiki/analyses/2026-07-03-qwen3_ag-jax-retrospective-2.md
+**Key result**: Evaluated 105 experiments, confirming the JAX lane is exhausted for the massive cross-entropy reduction sequence. At `bs=3` natively in bf16, we hit an MFU of 32.5% and bounded by strict HBM limits. Tokamax CE and chunked XLA CE failed to bypass these constraints due to bugs or backward pass unrolling OOMs.
+**Notes**: Recommended suspending CE optimization on JAX and focusing on TP=2 scaling or Splash NSA.
+
+## [2026-07-03] analyze | qwen3_ag-jax retrospective
+
+**Op**: analyze
+**Pages created**: wiki/analyses/2026-07-03-qwen3_ag-jax-retrospective.md
+**Key result**: Consolidating 70+ experiments for qwen3_ag/jax. `v020-splash-attn-only` executed recently yielding 32.3% MFU via nnx.scan+remat, disabling custom Pallas kernels.
+**Notes**: Recommended focusing on Splash Attention and scanning layers.
+
+## [2026-06-27] analyze | qwen3-jax retrospective
+
+**Op**: analyze
+**Pages created**: wiki/analyses/2026-06-27-qwen3-jax-retrospective.md
+**Key result**: Evaluated 13 experiments. The highest MFU remains 32.5% from `v009-scan-over-layers`. We have a single-axis-heavy vs Kernel Work imbalance. Recent Pallas kernel ports have encountered backward pass autodiff friction.
+**Notes**: Recommended profiling Ring Attention sp=2 communication overhead and writing a Pallas Custom VJP for the Fused GLU backward pass.
+
+
+## [2026-06-27] start-experiment | Qwen3-8B JAX Fused GLU (v013)
+
+**Op**: start-experiment
+**Pages updated**: wiki/experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-27-qwen3-jax-v013-fused-glu.md
+**Key result**: Fused GLU hypothesis refuted. MFU regressed to 30.6% from 32.5% baseline.
+**Notes**: 
+- Wrapping the Pallas kernel in `jax.custom_vjp` to handle standard autodiff resulted in significant overhead.
+- The backward pass used standard `jnp.dot` which forced materialization of massive intermediate tensors to HBM.
+- XLA redundantly computed forward matmuls three times instead of two due to interaction with `jax.remat`.
+- A custom Pallas backward kernel must be written to avoid HBM materialization.
+
+## [2026-06-27] start-experiment | Qwen3-8B JAX Ring Attention (v012)
+
+**Op**: start-experiment
+**Pages updated**: wiki/experiments/qwen3_ag_autoresearch_optimization/jax/experiments/2026-06-27-qwen3-jax-v012-ring-attention.md
+**Key result**: Successfully trained seqlen=8192 with Ring Attention / Splash Attention, 2D FSDP, and batch size 8 across 4 chips.
+**Notes**:
+- Enabled 2D FSDP `("fsdp", "sp")` in `sharding.py` to prevent HBM OOM by dropping local optimizer state size from 41GB to 20.5GB.
+- Fixed a cross-entropy bug in `train.py` where `.reshape(-1, v)` on the logits broke the 2D tensor sharding and triggered a massive 9GB all-gather across the `sp` dimension.
+- Reduced default `splash_attn.py` Pallas block sizes (`SPLASH_BQ_DKV`, `SPLASH_BKV_DKV`, `SPLASH_BKV_DKV_COMPUTE`) from 2048 to 1024. This prevented a VMEM (SRAM) OOM (`34.96M > 32.00M`) during the backward pass compilation.
+- **Performance outcome**: The model achieved an MFU of **22.8%** with an average throughput of 31797 tok/s (3975 tok/s/chip) at `seqlen=8192`. Regression needs profiling to understand `sp=2` overhead.
+
 ## [2026-06-02] analyze | qwen3_cc-jax retrospective #5 (MaxText config delta) — RE-OPENS the offload lever; loop resumed
 
 **Op**: analyze (user directive: "do another retrospective covering maxtext findings, identify what's unexplored, keep the loop running").

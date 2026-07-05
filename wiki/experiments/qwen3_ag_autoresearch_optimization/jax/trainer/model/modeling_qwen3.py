@@ -32,6 +32,12 @@ from flax import nnx
 
 from transformers import Qwen3Config
 
+_SPLASH_MESH = None
+
+def set_splash_mesh(mesh):
+    global _SPLASH_MESH
+    _SPLASH_MESH = mesh
+
 
 # -----------------------------------------------------------------------------
 # Stateless helpers (pure jax)
@@ -71,66 +77,6 @@ def _attn_xla_sdpa(q, k, v, *, num_key_value_groups, scaling, attention_mask=Non
     aw = jax.nn.softmax(aw.astype(jnp.float32), axis=-1).astype(q.dtype)
     out = jnp.einsum("bhqk,bhkd->bhqd", aw, v_rep)  # (B, H, T, Dh)
     return jnp.transpose(out, (0, 2, 1, 3))          # (B, T, Hq, Dh)
-
-
-# -----------------------------------------------------------------------------
-# Splash Attention Integration
-# -----------------------------------------------------------------------------
-
-import os
-
-_SPLASH_MESH = None
-
-def set_splash_mesh(mesh) -> None:
-    """Register the device mesh that splash_attention's shard_map wraps
-    around. Trainer must call this once before the first forward."""
-    global _SPLASH_MESH
-    _SPLASH_MESH = mesh
-
-
-def _attn_splash(
-    q: jax.Array,  # (B, Hq, T, D)
-    k: jax.Array,  # (B, Hkv, T, D)
-    v: jax.Array,  # (B, Hkv, T, D)
-    *,
-    num_key_value_groups: int,
-) -> jax.Array:
-    """Dispatch into the tokamax/splash kernel (sibling `splash_attn.py`).
-
-    Splash is GQA-native (broadcasts kv heads internally), so we DON'T call
-    `_repeat_kv` here. Returns (B, T, Hq, D) to match _attn_xla_sdpa's
-    contract.
-    """
-    # Defer the import so the xla path doesn't hard-depend on the kernel.
-    # `splash_attn.py` lives in the trainer's top-level dir (the parent of
-    # this `model/` package). The trainer prepends that dir to sys.path
-    # before any model import, so the absolute import works.
-    try:
-        import splash_attn  # type: ignore
-    except ImportError as e:
-        raise RuntimeError(
-            "JAX_ATTENTION_IMPL=splash but `splash_attn.py` is not "
-            "importable. Trainer should add the trainer dir to sys.path "
-            "or call `set_splash_mesh(...)` from a context where the "
-            "module is reachable."
-        ) from e
-
-    if _SPLASH_MESH is None:
-        raise RuntimeError(
-            "splash kernel needs a registered mesh. Call "
-            "`model.modeling_qwen3.set_splash_mesh(mesh)` once at startup."
-        )
-
-    # The kernel expects 4D tensors with kv heads. Qwen3 has Hq>Hkv.
-    # Splash internally handles the broadcast when q has more heads
-    # than k/v. Sharding pattern: replicate seq + head_dim, shard fsdp/tp on
-    # the (B, H) axes. Layout is (B, H, T, D).
-    from jax.sharding import PartitionSpec as P
-    q_sharding = P("fsdp", "tp", None, None)
-    out = splash_attn.tpu_splash_attention(
-        _SPLASH_MESH, q_sharding, True, q, k, v, None,
-    )
-    return jnp.transpose(out, (0, 2, 1, 3))
 
 
 # -----------------------------------------------------------------------------
@@ -220,9 +166,27 @@ class Qwen3MLP(nnx.Module):
         self.gate_proj = Linear(config.hidden_size, config.intermediate_size, bias=bias, **lin)
         self.up_proj = Linear(config.hidden_size, config.intermediate_size, bias=bias, **lin)
         self.down_proj = Linear(config.intermediate_size, config.hidden_size, bias=bias, **lin)
+        self.fused_glu_flag = getattr(config, "fused_glu", True)
 
     def __call__(self, x):
-        return self.down_proj(jax.nn.silu(self.gate_proj(x)) * self.up_proj(x))
+        if self.fused_glu_flag:
+            from .fused_glu import fused_glu
+            from jax.experimental.shard_map import shard_map
+            from jax.sharding import PartitionSpec as P
+            w_gate_val = jnp.asarray(self.gate_proj.weight.value, self.gate_proj.compute_dtype)
+            w_up_val = jnp.asarray(self.up_proj.weight.value, self.up_proj.compute_dtype)
+            
+            mapped_glu = shard_map(
+                fused_glu,
+                mesh=_SPLASH_MESH,
+                in_specs=(P("fsdp", None, None), P("tp", None), P("tp", None)),
+                out_specs=P("fsdp", None, "tp"),
+                check_rep=False
+            )
+            gate_up = mapped_glu(x, w_up_val, w_gate_val)
+            return self.down_proj(gate_up)
+        else:
+            return self.down_proj(jax.nn.silu(self.gate_proj(x)) * self.up_proj(x))
 
 
 class Qwen3Attention(nnx.Module):
@@ -252,26 +216,16 @@ class Qwen3Attention(nnx.Module):
         B, T, _ = hidden_states.shape
         cos, sin = position_embeddings
         # proj -> (B, T, H, Dh) -> QK-norm over Dh -> transpose -> (B, H, T, Dh)
-        q = self.q_proj(hidden_states).reshape(B, T, self.num_heads, self.head_dim)
-        k = self.k_proj(hidden_states).reshape(B, T, self.num_kv_heads, self.head_dim)
-        v = self.v_proj(hidden_states).reshape(B, T, self.num_kv_heads, self.head_dim)
+        q = self.q_norm(self.q_proj(hidden_states).reshape(B, T, self.num_heads, self.head_dim))
         q = jnp.transpose(q, (0, 2, 1, 3))
+        k = self.k_norm(self.k_proj(hidden_states).reshape(B, T, self.num_kv_heads, self.head_dim))
         k = jnp.transpose(k, (0, 2, 1, 3))
+        v = self.v_proj(hidden_states).reshape(B, T, self.num_kv_heads, self.head_dim)
         v = jnp.transpose(v, (0, 2, 1, 3))
-        
-        from .fused_rope import fused_qknorm_rope
-        q = fused_qknorm_rope(q, self.q_norm.weight.value, cos, sin, eps=self.q_norm.eps)
-        k = fused_qknorm_rope(k, self.k_norm.weight.value, cos, sin, eps=self.k_norm.eps)
-        
-        impl = os.environ.get("JAX_ATTENTION_IMPL", "xla").lower()
-        if impl == "splash":
-            attn_out = _attn_splash(
-                q, k, v, num_key_value_groups=self.num_key_value_groups,
-            )
-        else:
-            attn_out = _attn_xla_sdpa(
-                q, k, v, num_key_value_groups=self.num_key_value_groups,
-                scaling=self.scaling, attention_mask=attention_mask)
+        q, k = apply_rotary_pos_emb(q, k, cos, sin, unsqueeze_dim=1)
+        attn_out = _attn_xla_sdpa(
+            q, k, v, num_key_value_groups=self.num_key_value_groups,
+            scaling=self.scaling, attention_mask=attention_mask)
         attn_out = attn_out.reshape(B, T, self.num_heads * self.head_dim)
         return self.o_proj(attn_out)
 
@@ -287,12 +241,6 @@ class Qwen3DecoderLayer(nnx.Module):
         self.post_attention_layernorm = Qwen3RMSNorm(config.hidden_size, eps=eps, weights_dtype=weights_dtype)
 
     def __call__(self, hidden_states, position_embeddings, attention_mask=None):
-        if not hasattr(self, '_ckpt_call'):
-            import jax
-            self._ckpt_call = jax.checkpoint(self._call_impl)
-        return self._ckpt_call(hidden_states, position_embeddings, attention_mask)
-
-    def _call_impl(self, hidden_states, position_embeddings, attention_mask=None):
         residual = hidden_states
         x = self.self_attn(self.input_layernorm(hidden_states), position_embeddings, attention_mask)
         hidden_states = residual + x
@@ -346,5 +294,5 @@ class Qwen3ForCausalLM(nnx.Module):
 __all__ = [
     "Qwen3RMSNorm", "Qwen3Embedding", "Qwen3RotaryEmbedding", "Qwen3MLP",
     "Qwen3Attention", "Qwen3DecoderLayer", "Qwen3Model", "Qwen3ForCausalLM",
-    "apply_rotary_pos_emb", "set_splash_mesh",
+    "apply_rotary_pos_emb",
 ]

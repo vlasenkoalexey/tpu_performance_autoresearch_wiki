@@ -39,3 +39,18 @@ Ideas:
 1. Try Tokamax CE + TP=2 on bs=4 (to see if it improves on v008's 28.6%).
 2. Try fully overlapping communications. 
 3. Try Fused QK-norm + RoPE (as mentioned in program.md) to reduce elementwise fusion overhead.
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

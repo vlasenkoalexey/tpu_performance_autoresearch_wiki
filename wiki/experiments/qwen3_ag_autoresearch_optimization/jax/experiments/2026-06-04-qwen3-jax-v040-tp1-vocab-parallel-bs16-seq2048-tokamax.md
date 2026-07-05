@@ -36,3 +36,18 @@ lane: "jax"
 
 ## Verdict
 **Invalid / Falsified**. The `v040` (and `v3`/`v4` iterations) crashed during `jax.jit` compilation with `NotImplementedError: Mosaic kernels cannot be automatically partitioned. Please wrap the call in a shard_map.` Pallas kernels are opaque custom calls and cannot be auto-partitioned by XLA under pure FSDP (`TP=1`). A manual `shard_map` rewrite of the loss calculation is required, which violates our codebase constraints. This represents a hard wall for FSDP on Qwen3-8B. The prior `v036` baseline (`34.6%` MFU) remains the architectural ceiling for this lane.
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

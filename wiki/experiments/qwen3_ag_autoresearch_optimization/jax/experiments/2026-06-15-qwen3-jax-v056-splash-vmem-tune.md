@@ -35,3 +35,18 @@ updated: 2026-06-15
 
 ## Results
 (To be updated)
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

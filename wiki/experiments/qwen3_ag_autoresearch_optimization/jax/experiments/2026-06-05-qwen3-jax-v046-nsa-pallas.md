@@ -10,3 +10,18 @@ status: complete
 # v046
 
 The `math.sqrt` fix worked, but the underlying Pallas kernel implementation is not fully ported to TPU yet (only CPU).
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

@@ -39,3 +39,18 @@ missing
 
 The workload crashed during setup. The `fused_qknorm_rope` Pallas kernel uses `shard_map`, which expects `_SPLASH_MESH` to be initialized by `set_splash_mesh()`. However, `train.py` only calls `set_splash_mesh()` when `use_splash` is True. Since this experiment runs without splash attention, the mesh was never registered, leading to a `ValueError`. I will update `train.py` to always call `set_splash_mesh()` and retry.
 
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

@@ -36,3 +36,18 @@ lane: "jax"
 
 ## Verdict
 **Refuted**. The run crashed immediately with `ValueError: Unsupported implementation: chunked_xla`. Although the `tokamax` source repository contains the `chunked_xla` implementation, the `tokamax` wheel installed inside the `torchtitan-images/qwen3-8b-jax` base Docker image is an older version that only supports `xla` and `mosaic_tpu`. Therefore, this specific flag cannot be used. We will pivot to testing `mosaic_tpu` in `v031`.
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

@@ -37,3 +37,18 @@ Despite having the *exact same* sequence lengths and KV cache footprint as the s
 We must accept that `TP=2` is a strict requirement for utilizing the Tokamax CE optimization on an 8B model. 
 
 We are currently hovering at 30.7% MFU (`bs=8`, `TP=2`). To bridge the remaining 4.3% gap to our 35% goal, we should look into pure compute micro-optimizations that eliminate the 12.8% `loop fusion` bucket. We should consider testing the **Scan over layers** hypothesis. `flax.nnx.scan` can eliminate Python-side loop unrolling overheads during compilation and significantly improve the XLA compiler's ability to schedule operations.
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

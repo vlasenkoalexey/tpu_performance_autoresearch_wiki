@@ -36,3 +36,18 @@ lane: "jax"
 
 ## Verdict
 Falsified. The workload crashed during XLA compilation with `RESOURCE_EXHAUSTED`. The model attempted to allocate 35.80 GB of HBM, exceeding the v6e chip's 31.25 GB capacity by 4.55 GB. Despite halving the sequence length to 1024, the memory footprint required for `bs=32` activations and gradients under pure `TP=1` FSDP scaling is strictly beyond hardware limits. Batch scaling has officially peaked at `bs=24`.
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

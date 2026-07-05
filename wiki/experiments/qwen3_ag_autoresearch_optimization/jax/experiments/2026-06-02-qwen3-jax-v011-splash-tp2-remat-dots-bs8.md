@@ -36,3 +36,18 @@ The compile OOMed at exactly the same memory usage as `v009` (35.21G). The chang
 
 ## Next Steps
 Since we cannot fit `bs=8` into 31.25G of HBM at TP=2, and activation checkpointing tweaking yielded zero gains, we must scale structural parallelism further. We should increase Tensor Parallelism to `TP=4` (leaving `FSDP=2` on the 8-chip slice). This will divide the massive sequence/KV cache footprints by 4 instead of 2.
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

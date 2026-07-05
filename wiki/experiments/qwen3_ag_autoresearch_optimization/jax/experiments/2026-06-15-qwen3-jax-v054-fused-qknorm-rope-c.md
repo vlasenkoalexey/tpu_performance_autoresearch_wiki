@@ -42,3 +42,18 @@ The workload crashed during compilation:
 NotImplementedError: Mosaic kernels cannot be automatically partitioned. Please wrap the call in a shard_map.
 ```
 The error originated from the Pallas kernel `fused_qknorm_rope` call within `Qwen3Attention.__call__` because it was not wrapped in a `shard_map`. Will wrap it in `shard_map` using `_SPLASH_MESH` and retry.
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

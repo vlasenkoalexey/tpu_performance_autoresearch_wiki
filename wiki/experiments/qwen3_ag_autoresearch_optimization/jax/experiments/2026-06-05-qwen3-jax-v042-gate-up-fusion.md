@@ -20,3 +20,18 @@ verdict: supported
 ## Verdict
 **SUPPORTED**. 
 The throughput increased from 49,944 tok/s to 51,287 tok/s (avg), adding ~1.3k tok/s and reaching 33.0% MFU. This confirms that fusing `gate_proj` and `up_proj` improves performance. In order to avoid OOMs during device parameters initialization, `sharding.py` was updated to initialize directly on-device using `jax.jit`.
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

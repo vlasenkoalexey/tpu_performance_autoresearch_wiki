@@ -35,3 +35,18 @@ JAX_ATTENTION_IMPL=splash XLA_FLAGS="--xla_dump_to=gs://tpu-pytorch-alekseyv-us-
 3. **Performance**: The Pallas kernel itself (`shard_map.510`) takes ~2.93ms per call (~70 TFLOPs/s per chip), which is heavily bottlenecked by HBM memory transfers of the inputs. Standard XLA `dot_general` is highly optimized and may pipeline TMA loads better than this custom loop over `K`.
 
 **Next Steps**: To realize MFU gains from a fused GLU, a custom Pallas *backward* kernel is strictly required to compute `dx`, `dw_up`, and `dw_gate` on the fly without materializing `u` and `gate` into HBM, or we should rely on standard XLA fusions for elementwise epilogues.
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

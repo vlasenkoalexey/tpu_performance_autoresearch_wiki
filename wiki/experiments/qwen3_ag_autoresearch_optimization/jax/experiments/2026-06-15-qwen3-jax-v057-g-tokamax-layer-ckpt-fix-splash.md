@@ -40,3 +40,18 @@ Total hbm usage >= 36.09G:
 
 **Verdict: Refuted.**
 The VMEM fix for the Splash kernel worked (it bypassed the previous VMEM exhaustion), but compiling the model with Tokamax CE and Splash attention required >35.8 GB of HBM during compilation, which exceeded the 32GB capacity of the TPU v6e lite node. The program size (30.11G) is massively bloated.
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

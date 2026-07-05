@@ -39,3 +39,18 @@ The Tokamax experimental scheduler failed to overlap the P2P communication for t
 We have an open question:
 1. What is the massive `loop fusion` (17% step time) actually computing, and can it be fused or optimized? 
 We should investigate if this loop fusion is the RMSNorm or SwiGLU operations and see if we can optimize them.
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

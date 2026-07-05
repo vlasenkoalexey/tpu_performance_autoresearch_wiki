@@ -27,3 +27,18 @@ Derived from `v010` (Splash + TP=2 + Tokamax CE).
 
 ## Results
 (To be populated)
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

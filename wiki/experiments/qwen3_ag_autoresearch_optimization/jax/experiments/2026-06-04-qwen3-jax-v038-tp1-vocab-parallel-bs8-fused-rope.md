@@ -37,3 +37,18 @@ lane: "jax"
 ## Verdict
 Falsified (Crash). Fusing RoPE *before* transpose pushes XLA's compiler limits over the edge on the Splash Pallas kernel. While it mathematically computes correctly, altering the layout changes the memory boundaries fed into Splash, causing the backward pass (`splash_mha_dkv_no_residuals`) to attempt to allocate 34.90M on the vmem stack (which has a hard limit of 32.00M), crashing during step compilation with `RESOURCE_EXHAUSTED`.
 We cannot utilize pre-transpose RoPE without either modifying Splash's layout assumptions or altering XLA's heuristic choices.
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

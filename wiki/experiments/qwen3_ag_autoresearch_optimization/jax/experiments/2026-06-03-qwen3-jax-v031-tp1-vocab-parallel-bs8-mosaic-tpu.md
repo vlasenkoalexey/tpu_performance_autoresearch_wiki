@@ -36,3 +36,18 @@ lane: "jax"
 
 ## Verdict
 **Refuted**. The workload crashed during compilation inside the `mosaic_tpu` kernel: `ValueError: Invalid dtype for swap. Ref dtype: float32. Value dtype: bfloat16.`. This occurs because the `mosaic_tpu` Pallas kernel expects the dot product of `x` and `w` to yield `float32` into the scratch buffer, but the inputs are `bfloat16` and the matmul seems to produce `bfloat16`. We need to either cast the inputs or find a way to specify the accumulator dtype.
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

@@ -81,3 +81,13 @@ Therefore, batch size 2 is completely unfeasible on TPU v6e-8 for this model siz
 ## Next hypotheses
 
 - [Selective SparseCore offload](../../../../hypotheses/qwen3-jax-selective-sparsecore-offload.md) — Since batch scaling is blocked by HBM limits, the focus shifts to optimizing batch size 1 (the baseline) by selectively offloading FSDP collectives to the SparseCore to minimize TPU host transfer overhead.
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

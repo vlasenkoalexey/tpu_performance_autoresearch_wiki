@@ -42,3 +42,18 @@ The memory breakdown shows:
 This indicates that even with 8-way FSDP weight sharding and proper `nnx.remat` usage, the intermediate activations for `bs=16` across the 2048 sequence length and 36 layers are simply too large to fit in a 32GB TPU v6e chip. The 32.8% MFU achieved at `bs=8` (`v027`) is the peak for `TP=1` FSDP without further optimization.
 
 Next steps: We need to look at the `v027` profile to figure out where we can shave off another 2.5% MFU at `bs=8` to hit our 35% goal, since scaling the batch size to 16 is physically impossible without more memory.
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

@@ -38,3 +38,18 @@ missing
 **invalid**
 
 The workload crashed with an Out Of Memory (OOM) error during the first `jitted_step`: `jax.errors.JaxRuntimeError: RESOURCE_EXHAUSTED: Allocation (size=34359738368) would exceed memory (size=33822867456) :: #allocation6476 [shape = 'f32[4,32,8192,8192]...`. The size of the allocation (~32GB) and shape (`4x32x8192x8192`) indicates that it is trying to materialize the full attention matrix in HBM. This suggests that inserting the `shard_map` `custom_call` right before XLA SDPA somehow breaks XLA's ability to fuse the SDPA kernel or triggers a memory-intensive rewrite.
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

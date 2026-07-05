@@ -43,3 +43,18 @@ This confirms that at `batch_size=8` and `seqlen=8192` (65,536 tokens per chip),
 
 **Next steps**:
 We must back off to `batch_size=4` at `seqlen=8192` (or `batch_size=8` at `seqlen=4096`). I recommend `batch_size=4` with the current nested checkpointing setup, which should compile and run with plenty of headroom.
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

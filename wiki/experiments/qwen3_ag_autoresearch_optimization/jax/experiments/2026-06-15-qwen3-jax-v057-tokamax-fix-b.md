@@ -47,3 +47,18 @@ However, upon inspecting the code that was executed, it was discovered that `use
 ## Verdict
 **Verdict**: refuted (due to missing Tokamax implementation)
 The run OOMed exactly where expected without Tokamax CE. We must retry the experiment with Tokamax CE properly included and enabled.
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

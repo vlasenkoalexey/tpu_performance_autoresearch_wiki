@@ -40,3 +40,18 @@ The job compiled successfully and started the training loop, but the pod was del
 
 ## Verdict
 refuted (hard crash during step execution)
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

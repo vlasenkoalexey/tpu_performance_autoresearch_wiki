@@ -84,3 +84,13 @@ The flag `--xla_tpu_enable_sparse_core_collective_offload_reduce_scatter=true` i
 ## Next hypotheses
 
 - [Selective rematerialization](../../../../hypotheses/qwen3-jax-selective-remat.md) — Pivot to memory-saving techniques to unblock batch size scaling. Since `batch_size=1` is already at 93.15% HBM usage, implementing custom checkpointing of attention/MLP layers will allow scaling to `batch_size=2`.
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

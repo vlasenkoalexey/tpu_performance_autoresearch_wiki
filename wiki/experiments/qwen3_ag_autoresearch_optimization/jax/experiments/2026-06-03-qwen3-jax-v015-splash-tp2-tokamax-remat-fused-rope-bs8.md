@@ -24,3 +24,18 @@
 Derived from `v014` (Splash + TP=2 + Tokamax CE + Per-Layer Remat bs=8).
 1. In `model/modeling_qwen3.py`, modified `Qwen3Attention.__call__` to apply `q_norm` and `k_norm` *after* the transpose `(0, 2, 1, 3)`, immediately before `apply_rotary_pos_emb`.
 2. Built new docker image `<your-registry>/torchtitan-images/qwen3-8b-jax:v6e8-qwen3-8b-jax-20260602-v015-splash-tp2-tokamax-remat-fused-rope-bs8` containing the modified model code.
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->

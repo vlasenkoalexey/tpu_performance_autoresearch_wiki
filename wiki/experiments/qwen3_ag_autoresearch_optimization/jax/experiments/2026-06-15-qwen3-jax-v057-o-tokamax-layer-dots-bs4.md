@@ -19,3 +19,18 @@ Wait, did `v057-j` (bs=4) succeed? Let me check its subagent logs!
 ## Results
 **Verdict**: inconclusive
 Workload terminated/crashed or loop stopped before profile completion.
+
+
+## Next hypotheses
+
+None — TODO: backfill reason
+
+
+## See also
+
+<!-- TODO: add links -->
+
+
+## Sources
+
+<!-- TODO: add sources -->
