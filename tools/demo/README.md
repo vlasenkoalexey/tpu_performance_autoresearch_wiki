@@ -160,6 +160,58 @@ from `mfu_data.json` + the markdown pages if `diffs/<series>/` is absent, so it 
 Coverage note: `cc` and `ag` are the clean series; `cx`/`cc5` document config sparsely, so their flag
 diffs are noisier (some `# lever:` comment lines, arc-boundary boolean resets).
 
+## Recovering real model-code diffs (per-lane worktree history)
+
+The precomputed `diffs/` above are extracted from **`main`**, where each lane's model dir
+(`…/<framework>/model/`) is only a **batch snapshot** — the ag/cx/cc5 lanes were developed in
+*separate git worktrees* and squash-imported, so `main` carries **no per-experiment model-code
+history** for them (only the **cc** lane committed code per experiment on `main`). That is why a
+naive ag ingest yields flag-only (`run.sh`) diffs and makes it *look* like ag never touched model
+code. **It did** — the history just lives elsewhere.
+
+**Where the real history is.** Each lane has its own branch/remote pointing at the sibling worktree
+`../tpu_performance_autoresearch_wiki_<lane>` (git remotes `ag`, `cx`, `cc5`). Two recoverable forms:
+
+1. **Per-experiment model forks** — full copies of the model under
+   `…/<framework>/.repo/<experiment-slug>/{modeling_qwen3.py, train.py, sharding.py, Dockerfile}`.
+   A real code diff for an experiment = **diff its fork against the previous experiment's fork**.
+2. **Commit history** touching those model `.py` files — commit subjects carry the `vNNN` + lever.
+
+### Extraction recipe (how the ag model-code history was recovered)
+
+```bash
+LANE=ag                      # or cx / cc5
+BR=$LANE/main                # the lane's branch (sibling worktree)
+
+# 1. confirm the lane branch exists
+git branch -r | grep -iE "$LANE/"
+
+# 2. locate the model file on that branch — it's under .repo/<slug>/, NOT model/
+git ls-tree -r --name-only "$BR" | grep 'modeling_qwen3.py$'
+
+# 3. list the preserved per-experiment model forks (each is a full model snapshot)
+git ls-tree -r --name-only "$BR" | grep -oE '\.repo/[^/]+' | sort -u
+
+# 4. list per-experiment model-code commits (message → vNNN + lever)
+git log "$BR" --oneline -- '*modeling_qwen3.py' '*sharding.py'
+
+# 5. real per-experiment diff = its fork vs the previous fork's file
+git diff "$BR:…/.repo/<prev-slug>/modeling_qwen3.py" \
+         "$BR:…/.repo/<slug>/modeling_qwen3.py"
+```
+
+**Finding (ag lane).** Forks preserved on `ag/main`: **v006** (tokamax-CE), **v010** (tokamax),
+**v014** (per-layer remat), **v015** (fused RoPE), **v034** (vocab-parallel + fused QK-norm+RoPE),
+**v041** (tokamax-shardmap); commit history adds **v004** (splash attention), **v005** (QKV layout →
+(B,T,H,D)), **nnx.scan-over-layers**, **gate-up-fusion**, **NSA**. So the ag lane changed model code
+at many experiments — but only ~6 *full forks* are preserved, so reconstruction is **partial**
+(diffs exist for the fork'd experiments; the rest stay flag-only).
+
+**Feeding it into the diffs.** `precompute_ag_model_diffs.py` reconstructs the fork-to-fork model
+diffs, maps each to its manifest experiment by `vNNN`, and **prepends** the model diff before the
+existing `run.sh` flag diff (setting `diff_kind: code`). The deck's `model_first()` then keeps
+`modeling_qwen3.py` above `run.sh` on the 🔧 slide. Re-run it after any diff refresh.
+
 ## Configurable behaviour
 
 - **Context length** (`--seq`) and **inclusion policy** (`--include`) are build flags. Default:

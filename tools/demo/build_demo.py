@@ -95,9 +95,12 @@ def extract_statement(hyp_text, exp_text):
         if m:
             return re.sub(r"\s+", " ", m.group(1)).strip().strip("*").strip()
     if exp_text:
-        m = re.search(r"##\s*Hypothesis under test\s*\n+(.+?)(?:\n\n|\n##)", exp_text, re.S | re.I)
+        # matches both "## Hypothesis under test" (cc pages) and "## Hypothesis" (ag pages)
+        m = re.search(r"##\s*Hypothesis(?:\s+under\s+test)?\s*\n+(.+?)(?:\n\n|\n##)",
+                      exp_text, re.S | re.I)
         if m:
-            return re.sub(r"\s+", " ", re.sub(r"\*+", "", m.group(1))).strip()
+            body = re.sub(r"^\*+(Hypothesis|Statement)\*+:?\s*", "", m.group(1).strip(), flags=re.I)
+            return re.sub(r"\s+", " ", body).strip()
     return ""
 
 
@@ -108,23 +111,32 @@ def extract_section(text, name):
     return m.group(1).strip() if m else ""
 
 
-def parse_kv_table(section):
-    """Rows of the first 2-column Metric|Value markdown table in a section."""
-    rows = []
+_TBL_HEADER = {"metric", "bucket", "op", "phase", "hlo op family", "hlo op", "label",
+               "stat", "name", "op family", "category", "item"}
+
+
+def parse_kv_table(section, cap=9):
+    """(label, value) rows from ALL markdown tables in a section — first column = label,
+    second = value. Captures rich tables too (e.g. Bucket|% of step|Top op|Self time), not just
+    2-column Metric|Value. Keeps only rows whose value carries a number."""
+    rows, seen = [], set()
     for line in section.splitlines():
         if "|" not in line:
-            if rows:
-                break   # table ended
             continue
         cells = [c.strip() for c in line.strip().strip("|").split("|")]
-        if len(cells) != 2:
+        if len(cells) < 2:
             continue
-        k, v = cells
-        if set(k) <= set("-: ") or k.lower() == "metric":
+        k, v = cells[0], cells[1]
+        if not k or set(k) <= set("-: ") or k.lower() in _TBL_HEADER:
             continue
-        if not v or set(v) <= set("-: "):
+        if not v or set(v) <= set("-: ") or not any(ch.isdigit() for ch in v):
             continue
-        rows.append([re.sub(r"[`*]+", "", k), re.sub(r"[`*]+", "", v)])
+        k = re.sub(r"[`*]+", "", k); v = re.sub(r"[`*]+", "", v)
+        if k in seen:
+            continue
+        seen.add(k); rows.append([k, v])
+        if len(rows) >= cap:
+            break
     return rows
 
 
@@ -150,11 +162,18 @@ def _is_placeholder(s):
                  "notyetrun", "notrun", "pendingrun"}
 
 
+# bullet lines that are pure profile metadata (links/pointers), not findings
+_PROF_META = ("xprof", "gcs", "local pointer", "profiled step", "run dir", "logdir",
+              "raw/profiles", "profile dir", "trace")
+
+
 def profile_from_page(text):
-    """(concluding summary paragraph, [[metric, value], ...]) from the Profile section."""
+    """(summary paragraph, [[metric, value], ...], [finding bullets]) from the Profile section.
+    Many pages format the profile as a bullet list of findings (conv fusion %, HBM peak, …) —
+    those are captured as `bullets` so the slide isn't empty."""
     sec = extract_section(text, "Profile")
     if not sec:
-        return "", []
+        return "", [], []
     metrics = parse_kv_table(sec)
     drop = lambda s: (s.startswith("|") or s.startswith("`") or s.startswith("- ")
                       or s.startswith("#") or s.endswith(":") or "gs://" in s
@@ -163,7 +182,19 @@ def profile_from_page(text):
     summary = paras[-1] if paras else ""
     if _is_placeholder(summary):
         summary = ""
-    return summary, metrics
+    bullets = []
+    for ln in sec.splitlines():
+        s = ln.strip()
+        if not s.startswith("- "):
+            continue
+        body = s[2:].strip()                      # keep markdown so `code`/**bold** highlight
+        low = re.sub(r"[`*]", "", body).lower()
+        if ("gs://" in low or "http" in low or _is_placeholder(body)
+                or any(k in low for k in _PROF_META)):
+            continue
+        if body:
+            bullets.append(body)
+    return summary, metrics, bullets
 
 
 def norm_verdict(s):
@@ -201,12 +232,22 @@ def enrich_from_pages(exps, model, agent, lane, repo_url=REPO_URL):
         p = os.path.join(exp_dir, e["slug"] + ".md")
         if not os.path.exists(p):
             e.setdefault("profile_summary", ""); e.setdefault("profile_metrics", [])
-            e.setdefault("verdict_paras", [])
+            e.setdefault("profile_bullets", []); e.setdefault("verdict_paras", [])
             continue
         txt = open(p, encoding="utf-8", errors="ignore").read()
-        ps, pm = profile_from_page(txt)
+        # fill hypothesis from the page when the manifest didn't capture it (e.g. ag "## Hypothesis")
+        if not (e.get("hypothesis_statement") or "").strip():
+            hyp_txt = ""
+            hs = e.get("hypothesis_slug")
+            if hs:
+                hp = os.path.join(REPO, "wiki", "hypotheses", hs + ".md")
+                if os.path.exists(hp):
+                    hyp_txt = open(hp, encoding="utf-8", errors="ignore").read()
+            e["hypothesis_statement"] = extract_statement(hyp_txt, txt)
+        ps, pm, pb = profile_from_page(txt)
         e["profile_summary"] = ps
         e["profile_metrics"] = pm
+        e["profile_bullets"] = pb
         e["verdict_paras"] = verdict_from_page(txt)
         # resolve the verdict word: mfu_data → frontmatter → leading word of the verdict prose
         v = norm_verdict(e.get("verdict") or "")
