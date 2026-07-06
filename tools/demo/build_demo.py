@@ -163,8 +163,8 @@ def _is_placeholder(s):
 
 
 # bullet lines that are pure profile metadata (links/pointers), not findings
-_PROF_META = ("xprof", "gcs", "local pointer", "profiled step", "run dir", "logdir",
-              "raw/profiles", "profile dir", "trace")
+_PROF_META = ("xprof", "gcs", "local pointer", "profiled step", "run dir", "run name",
+              "logdir", "raw/profiles", "profile dir", "op profile description", "source:", "trace")
 
 
 def profile_from_page(text):

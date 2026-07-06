@@ -61,58 +61,103 @@ def no_line(shape):
 
 
 # ---------------------------------------------------------------- chart / gif
+from matplotlib.lines import Line2D
+
+SEQ_LABEL = {2048: "2k", 8192: "8k", 4096: "4k", 1024: "1k"}
+
+
 def _compress(path, colors=48):
     Image.open(path).convert("RGB").quantize(colors=colors, method=Image.MEDIANCUT).save(path, optimize=True)
 
 
-def draw_chart(exps, k, path, accent_hex, target, w=8.9, h=4.7, dpi=95):
-    N = len(exps)
-    fig, ax = plt.subplots(figsize=(w, h), dpi=dpi)
-    fig.patch.set_facecolor("white"); ax.set_facecolor("white")
-    mfus = [e["mfu"] for e in exps if e.get("mfu") is not None]
-    ceil = max(mfus + ([target] if target else []) + [10]) * 1.14
-    floor = min(mfus + [ceil]) * 0.8
-    b = None; fx = []; fy = []
-    for i, e in enumerate(exps):
-        if i > k:
-            break
+def _shade(hex_, f):
+    h = hex_.lstrip("#"); r, g, b = int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16)
+    return "#%02x%02x%02x" % (int(r * f), int(g * f), int(b * f))
+
+
+def seq_palette(accent, seqs):
+    """Per-context colours: first context = accent, others = darker shades of it."""
+    shades = [1.0, 0.56, 0.4]
+    return {s: (accent if i == 0 else _shade(accent, shades[min(i, 2)])) for i, s in enumerate(seqs)}
+
+
+def _seq_frontier(exps, upto, s):
+    best = None; fx = []; fy = []
+    for i in range(min(upto, len(exps) - 1) + 1):
+        e = exps[i]
+        if e.get("seq") != s:
+            continue
         m = e.get("mfu")
         if m is not None and (e.get("verdict") or "").lower() != "invalid":
-            if b is None or m > b:
-                b = m
-        if b is not None:
-            fx.append(i + 1); fy.append(b)
-    if target:
-        ax.axhline(target, ls=(0, (6, 5)), color="#9aa0a6", lw=1.4, zorder=2)
-        ax.text(N + 0.4, target, f"MaxText SOTA {target:.1f}%", ha="right", va="bottom",
-                color="#8a929c", fontsize=10.5)
-    if len(fx) > 1:
-        ax.step(fx, fy, where="post", color=accent_hex, lw=3, zorder=4, solid_capstyle="round")
-    for i, e in enumerate(exps):
-        if i > k:
-            break
-        m = e.get("mfu")
-        if m is None:
+            best = m if best is None or m > best else best
+        if best is not None:
+            fx.append(i + 1); fy.append(best)
+    return best, fx, fy
+
+
+def _yrange(exps, targets):
+    mfus = [e["mfu"] for e in exps if e.get("mfu") is not None]
+    ceil = max(mfus + list(targets.values()) + [10]) * 1.14
+    floor = min(mfus + [ceil]) * 0.8
+    return floor, ceil
+
+
+def _decorate(ax, targets, colors, seqs, N, floor, ceil):
+    for s in seqs:
+        tv = targets.get(s)
+        if not tv:
             continue
-        fail = (e.get("verdict") or "").lower() in ("invalid", "refuted", "inconclusive")
-        ax.scatter(i + 1, m, s=170 if i == k else 55,
-                   facecolors="white" if fail else accent_hex, edgecolors=accent_hex,
-                   linewidths=2.4 if i == k else 1.4, zorder=6)
+        ax.axhline(tv, ls=(0, (6, 5)), color=colors[s], alpha=0.55, lw=1.3, zorder=2)
+        lbl = (f"MaxText {SEQ_LABEL.get(s, s)} {tv:.1f}%") if len(seqs) > 1 else f"MaxText SOTA {tv:.1f}%"
+        ax.text(N + 0.4, tv, lbl, ha="right", va="bottom", color=colors[s], fontsize=10, alpha=0.9)
     ax.set_xlim(0.4, N + 0.6); ax.set_ylim(floor, ceil)
     ax.set_ylabel("MFU (%)", fontsize=11, color="#5b6570")
     ax.set_xlabel("experiment #", fontsize=11, color="#5b6570")
-    if b is not None:
-        ax.text(0.015, 0.965, f"Best MFU: {b:.1f}%", transform=ax.transAxes,
-                fontsize=27, fontweight="bold", color=accent_hex, va="top", ha="left")
     ax.grid(True, axis="y", color="#eceff3", lw=1)
-    for s in ("top", "right"):
-        ax.spines[s].set_visible(False)
-    for s in ("left", "bottom"):
-        ax.spines[s].set_color("#d7dbe0")
+    for sp in ("top", "right"):
+        ax.spines[sp].set_visible(False)
+    for sp in ("left", "bottom"):
+        ax.spines[sp].set_color("#d7dbe0")
     ax.tick_params(colors="#8a929c", labelsize=9)
-    fig.tight_layout()
-    fig.savefig(path, facecolor="white"); plt.close(fig)
-    _compress(path)
+    if len(seqs) > 1:
+        handles = [Line2D([0], [0], marker="o", linestyle="", markerfacecolor=colors[s],
+                          markeredgecolor=colors[s], label=SEQ_LABEL.get(s, str(s)), markersize=9)
+                   for s in seqs]
+        leg = ax.legend(handles=handles, loc="lower right", frameon=False, fontsize=11,
+                        handletextpad=0.3, labelspacing=0.3, title="context")
+        leg.get_title().set_fontsize(9); leg.get_title().set_color("#8a929c")
+
+
+def _best_label(ax, sk, best, colors, accent, seqs):
+    if best is None:
+        return
+    lab = f"Best {SEQ_LABEL.get(sk, '')} MFU: {best:.1f}%" if len(seqs) > 1 else f"Best MFU: {best:.1f}%"
+    ax.text(0.015, 0.965, lab, transform=ax.transAxes, fontsize=24 if len(seqs) > 1 else 27,
+            fontweight="bold", color=colors.get(sk, accent), va="top", ha="left")
+
+
+def draw_chart(exps, k, path, accent, targets, seqs, w=8.9, h=4.7, dpi=95):
+    """Full snapshot up to experiment k; points/frontiers coloured per context (2k/8k)."""
+    N = len(exps); colors = seq_palette(accent, seqs)
+    fig, ax = plt.subplots(figsize=(w, h), dpi=dpi)
+    fig.patch.set_facecolor("white"); ax.set_facecolor("white")
+    floor, ceil = _yrange(exps, targets)
+    for s in seqs:
+        _, fx, fy = _seq_frontier(exps, k, s)
+        if len(fx) > 1:
+            ax.step(fx, fy, where="post", color=colors[s], lw=3, zorder=4, solid_capstyle="round")
+    for i in range(k + 1):
+        e = exps[i]; m = e.get("mfu")
+        if m is None:
+            continue
+        col = colors.get(e.get("seq"), accent)
+        fail = (e.get("verdict") or "").lower() in ("invalid", "refuted", "inconclusive")
+        ax.scatter(i + 1, m, s=170 if i == k else 55, facecolors="white" if fail else col,
+                   edgecolors=col, linewidths=2.4 if i == k else 1.4, zorder=6)
+    sk = exps[k].get("seq"); bestk, _, _ = _seq_frontier(exps, k, sk)
+    _best_label(ax, sk, bestk, colors, accent, seqs)
+    _decorate(ax, targets, colors, seqs, N, floor, ceil)
+    fig.tight_layout(); fig.savefig(path, facecolor="white"); plt.close(fig); _compress(path)
 
 
 def make_gif(frame_imgs, upto, path, hold=5, dur=470):
@@ -125,76 +170,55 @@ def _ease(t):
     return t * t * (3 - 2 * t)
 
 
-def draw_frame(exps, k, t, path, accent_hex, target, w=8.9, h=4.7, dpi=95):
-    """One transition frame: static state for experiments 0..k-1, plus experiment k
-    animating in by t∈[0,1] (point grows in + frontier extends ONE step). No full replay."""
-    N = len(exps)
+def draw_frame(exps, k, t, path, accent, targets, seqs, w=8.9, h=4.7, dpi=95):
+    """One transition frame: prior state (0..k-1) + experiment k animating in by t.
+    The new point drops in and only ITS context's frontier extends one step."""
+    N = len(exps); colors = seq_palette(accent, seqs)
     fig, ax = plt.subplots(figsize=(w, h), dpi=dpi)
     fig.patch.set_facecolor("white"); ax.set_facecolor("white")
-    mfus = [e["mfu"] for e in exps if e.get("mfu") is not None]
-    ceil = max(mfus + ([target] if target else []) + [10]) * 1.14
-    floor = min(mfus + [ceil]) * 0.8
-    if target:
-        ax.axhline(target, ls=(0, (6, 5)), color="#9aa0a6", lw=1.4, zorder=2)
-        ax.text(N + 0.4, target, f"MaxText SOTA {target:.1f}%", ha="right", va="bottom",
-                color="#8a929c", fontsize=10.5)
-    # ---- prior state: experiments 0..k-1 (drawn fully) ----
-    prev = None; fx = []; fy = []
+    floor, ceil = _yrange(exps, targets)
+    et = _ease(t); sk = exps[k].get("seq"); colk = colors.get(sk, accent)
+    # prior frontiers (each context, up to k-1) + prior points
+    for s in seqs:
+        _, fx, fy = _seq_frontier(exps, k - 1, s)
+        if len(fx) > 1:
+            ax.step(fx, fy, where="post", color=colors[s], lw=3, zorder=4, solid_capstyle="round")
     for i in range(k):
-        m = exps[i].get("mfu")
-        if m is not None and (exps[i].get("verdict") or "").lower() != "invalid":
-            prev = m if prev is None or m > prev else prev
-        if prev is not None:
-            fx.append(i + 1); fy.append(prev)
-    if len(fx) > 1:
-        ax.step(fx, fy, where="post", color=accent_hex, lw=3, zorder=4, solid_capstyle="round")
-    for i in range(k):
-        m = exps[i].get("mfu")
+        e = exps[i]; m = e.get("mfu")
         if m is None:
             continue
-        fail = (exps[i].get("verdict") or "").lower() in ("invalid", "refuted", "inconclusive")
-        ax.scatter(i + 1, m, s=55, facecolors="white" if fail else accent_hex,
-                   edgecolors=accent_hex, linewidths=1.4, zorder=6)
-    # ---- animate experiment k in (the single new move) ----
-    et = _ease(t)
-    mk = exps[k].get("mfu"); newbest = prev
+        col = colors.get(e.get("seq"), accent)
+        fail = (e.get("verdict") or "").lower() in ("invalid", "refuted", "inconclusive")
+        ax.scatter(i + 1, m, s=55, facecolors="white" if fail else col, edgecolors=col,
+                   linewidths=1.4, zorder=6)
+    # animate experiment k of context sk
+    mk = exps[k].get("mfu"); prev, pfx, _ = _seq_frontier(exps, k - 1, sk); newbest = prev
     if mk is not None:
         failk = (exps[k].get("verdict") or "").lower() in ("invalid", "refuted", "inconclusive")
         if (exps[k].get("verdict") or "").lower() != "invalid":
             newbest = mk if prev is None or mk > prev else prev
         if et > 0.01:
-            if prev is not None:
-                ax.plot([k, k + et], [prev, prev], color=accent_hex, lw=3,
-                        solid_capstyle="round", zorder=4)                 # frontier extends 1 step
-                if et >= 0.999 and newbest is not None and newbest > prev:
-                    ax.plot([k + 1, k + 1], [prev, newbest], color=accent_hex, lw=3, zorder=4)
-            ax.scatter(k + 1, mk, s=170 * et, facecolors="white" if failk else accent_hex,
-                       edgecolors=accent_hex, linewidths=2.4, alpha=min(1.0, et * 1.3), zorder=7)
+            if prev is not None and pfx:
+                xprev = pfx[-1]
+                ax.plot([xprev, xprev + et * (k + 1 - xprev)], [prev, prev], color=colk, lw=3,
+                        solid_capstyle="round", zorder=4)
+                if et >= 0.999 and newbest > prev:
+                    ax.plot([k + 1, k + 1], [prev, newbest], color=colk, lw=3, zorder=4)
+            ax.scatter(k + 1, mk, s=170 * et, facecolors="white" if failk else colk,
+                       edgecolors=colk, linewidths=2.4, alpha=min(1.0, et * 1.3), zorder=7)
     disp = newbest if (t >= 0.999 or prev is None) else prev
-    if disp is not None:
-        ax.text(0.015, 0.965, f"Best MFU: {disp:.1f}%", transform=ax.transAxes,
-                fontsize=27, fontweight="bold", color=accent_hex, va="top", ha="left")
-    ax.set_xlim(0.4, N + 0.6); ax.set_ylim(floor, ceil)
-    ax.set_ylabel("MFU (%)", fontsize=11, color="#5b6570")
-    ax.set_xlabel("experiment #", fontsize=11, color="#5b6570")
-    ax.grid(True, axis="y", color="#eceff3", lw=1)
-    for s in ("top", "right"):
-        ax.spines[s].set_visible(False)
-    for s in ("left", "bottom"):
-        ax.spines[s].set_color("#d7dbe0")
-    ax.tick_params(colors="#8a929c", labelsize=9)
-    fig.tight_layout()
-    fig.savefig(path, facecolor="white"); plt.close(fig)
-    _compress(path)
+    _best_label(ax, sk, disp, colors, accent, seqs)
+    _decorate(ax, targets, colors, seqs, N, floor, ceil)
+    fig.tight_layout(); fig.savefig(path, facecolor="white"); plt.close(fig); _compress(path)
 
 
-def build_transition_gif(exps, k, path, accent_hex, target, tmp):
+def build_transition_gif(exps, k, path, accent, targets, seqs, tmp):
     """A GIF showing only the single move: prior state → experiment k's state, then hold."""
     ts = [0.0, 0.16, 0.34, 0.52, 0.7, 0.86, 1.0]
     imgs = []
     for j, t in enumerate(ts):
         fp = os.path.join(tmp, f"tr{k:03d}_{j}.png")
-        draw_frame(exps, k, t, fp, accent_hex, target)
+        draw_frame(exps, k, t, fp, accent, targets, seqs)
         imgs.append(Image.open(fp).convert("RGB").quantize(colors=48, method=Image.MEDIANCUT))
     durations = [560, 90, 90, 90, 90, 110, 1800]   # hold prior · quick move · hold new
     imgs[0].save(path, save_all=True, append_images=imgs[1:],
@@ -448,7 +472,7 @@ def add_verdict(prs, e, accent, name, n, total):
     footer(s, accent, name, n, total)
 
 
-def title_slide(prs, agent_name, accent, n, first_mfu, best, target):
+def title_slide(prs, agent_name, accent, n, ctx_label, best_by_seq, seqs):
     s = blank(prs)
     tx = Inches(0.9)
     if ICON_PNG:
@@ -458,24 +482,34 @@ def title_slide(prs, agent_name, accent, n, first_mfu, best, target):
     _run(tf.paragraphs[0], f"{agent_name} · autonomous TPU optimization", 16, accent, bold=True)
     tf = textbox(s, Inches(0.9), Inches(2.35), Inches(11.5), Inches(2.0))
     _run(tf.paragraphs[0], "Autonomous TPU Optimization", 44, INK, bold=True)
-    p = tf.add_paragraph(); _run(p, "Qwen3-8B · v6e-8 · 2k context", 22, MUTE)
+    p = tf.add_paragraph(); _run(p, f"Qwen3-8B · v6e-8 · {ctx_label}", 22, MUTE)
     tf = textbox(s, Inches(0.95), Inches(4.6), Inches(11.5), Inches(2))
     p = tf.paragraphs[0]; p.line_spacing = 1.3
     _run(p, f"{n} experiments, run autonomously — a hypothesis it formed, a change it wrote, "
             f"a profile it read, a verdict it reached, then the next idea.", 17, MUTE)
-    p = tf.add_paragraph(); p.space_before = Pt(16)
-    _run(p, "MFU  ", 20, INK, bold=True)
-    _run(p, f"{first_mfu:.1f}%", 20, accent, bold=True)
-    _run(p, "  →  ", 20, INK, bold=True)
-    _run(p, f"{best:.1f}%", 20, accent, bold=True)
-    _run(p, f"     (MaxText SOTA {target:.1f}%)", 16, MUTE)
+    for s_ in seqs:
+        bb = best_by_seq.get(s_)
+        if bb is None:
+            continue
+        p = tf.add_paragraph(); p.space_before = Pt(12)
+        if len(seqs) > 1:
+            _run(p, f"{SEQ_LABEL.get(s_, s_)}  ", 18, MUTE, bold=True)
+        _run(p, "peak MFU  ", 19, INK, bold=True)
+        _run(p, f"{bb:.1f}%", 19, accent, bold=True)
+        tv = bd.MAXTEXT_MFU.get(s_)
+        if tv:
+            _run(p, f"     (MaxText SOTA {tv:.1f}%)", 15, MUTE)
 
 
-def climb_slide(prs, gif, accent, name):
+def climb_slide(prs, gif, accent, agent_name):
     s = blank(prs)
-    tf = textbox(s, Inches(0.6), Inches(0.4), Inches(12), Inches(0.8))
-    _run(tf.paragraphs[0], "📈  MFU frontier — the autonomous climb", 24, INK, bold=True)
-    s.shapes.add_picture(gif, Inches(2.35), Inches(1.4), height=Inches(5.2))
+    if ICON_PNG:
+        s.shapes.add_picture(ICON_PNG, Inches(0.6), Inches(0.4), height=Inches(0.66))
+    tf = textbox(s, Inches(1.4), Inches(0.36), Inches(11.4), Inches(0.9))
+    _run(tf.paragraphs[0], "MFU frontier — the autonomous climb", 24, INK, bold=True)
+    p = tf.add_paragraph()
+    _run(p, f"Result for {agent_name} · Qwen3-8B on TPU v6e-8", 14, accent, bold=True)
+    s.shapes.add_picture(gif, Inches(2.55), Inches(1.55), height=Inches(5.05))
 
 
 def main():
@@ -484,35 +518,51 @@ def main():
     ap.add_argument("--seq", default="2048")
     ap.add_argument("--diffs-dir", default=os.path.join(SCRIPT_DIR, "diffs"))
     ap.add_argument("--out", default=os.path.join(SCRIPT_DIR, "deck.pptx"))
+    ap.add_argument("--cap", type=int, default=70,
+                    help="if metric experiments exceed this, keep only supported/frontier/baseline")
     args = ap.parse_args()
 
     model, agent, lane = bd.parse_series(args.series)
     man, _ = bd.load_manifest(args.series, model, agent, lane, args.diffs_dir)
     bd.enrich_from_pages(man["experiments"], model, agent, lane)
     exps = man["experiments"]
-    if args.seq != "all":
+    if args.seq == "all":
+        exps = [e for e in exps if e.get("seq") in (2048, 8192)]     # drop context-less runs
+    else:
         exps = [e for e in exps if e.get("seq") == int(args.seq)]
     exps = [e for e in exps if e.get("mfu") is not None or e.get("tps") is not None]
     exps = bd.compute_frontier(exps)
+    # large lanes (e.g. cx has 300+): keep the meaningful climb — wins + frontier-advancers + baselines
+    capped = None
+    if len(exps) > args.cap:
+        capped = len(exps)
+        sup = lambda e: (e.get("verdict") or "").lower() in ("supported", "baseline")
+        keep = [e for e in exps if e.get("isNewBest") or sup(e)]        # wins + frontier + baselines
+        if len(keep) > args.cap:                                        # still huge → frontier + baselines only
+            keep = [e for e in exps if e.get("isNewBest")
+                    or (e.get("verdict") or "").lower() == "baseline"]
+        exps = bd.compute_frontier(keep)
 
     accent = man.get("color", AGENTS[agent]["color"]); accent_rgb = hexrgb(accent)
     name = man.get("agent_name", AGENTS[agent]["name"])
-    target = bd.MAXTEXT_MFU.get(int(args.seq)) if args.seq != "all" else bd.MAXTEXT_MFU[2048]
-    best = exps[-1]["bestMfu"]; first_mfu = next(e["mfu"] for e in exps if e.get("mfu") is not None)
+    seqs = sorted({e["seq"] for e in exps if e.get("seq") in (2048, 8192)})
+    targets = {s: bd.MAXTEXT_MFU[s] for s in seqs if s in bd.MAXTEXT_MFU}
+    best_by_seq = {s: _seq_frontier(exps, len(exps) - 1, s)[0] for s in seqs}
+    ctx_label = " + ".join(SEQ_LABEL.get(s, str(s)) for s in seqs) + " context"
     N = len(exps)
 
     tmp = tempfile.mkdtemp()
     global ICON_PNG
     ICON_PNG = agent_icon_png(agent, tmp)
-    # base frames (cumulative chart at each experiment) → reused for every result GIF
+    # base frames (cumulative chart at each experiment) → reused for the summary climb GIF
     frame_imgs = []
     for k in range(N):
         p = os.path.join(tmp, f"fr{k:03d}.png")
-        draw_chart(exps, k, p, accent, target)
+        draw_chart(exps, k, p, accent, targets, seqs)
         frame_imgs.append(Image.open(p).convert("RGB").quantize(colors=48, method=Image.MEDIANCUT))
 
     prs = Presentation(); prs.slide_width = SW; prs.slide_height = SH
-    title_slide(prs, name, accent_rgb, N, first_mfu, best, target)
+    title_slide(prs, name, accent_rgb, N, ctx_label, best_by_seq, seqs)
     for i, e in enumerate(exps):
         isbase = (e.get("verdict") or "").lower() == "baseline"
         if not isbase and (e.get("hypothesis_statement") or e.get("hypothesis_title")):
@@ -522,7 +572,7 @@ def main():
         if not isbase and (e.get("profile_summary") or e.get("profile_metrics") or e.get("profile_bullets")):
             add_profile(prs, e, accent_rgb, name, i + 1, N)
         gif = os.path.join(tmp, f"res{i:03d}.gif")
-        build_transition_gif(exps, i, gif, accent, target, tmp)   # single move: prev → this exp
+        build_transition_gif(exps, i, gif, accent, targets, seqs, tmp)   # single move: prev → this exp
         add_result(prs, e, gif, accent_rgb, name, i + 1, N)
         if not isbase and e.get("verdict_paras"):
             add_verdict(prs, e, accent_rgb, name, i + 1, N)
@@ -533,8 +583,10 @@ def main():
 
     prs.save(args.out)
     sz = os.path.getsize(args.out)
-    print(f"Wrote {args.out}  ({len(prs.slides)} slides, {N} experiments, "
-          f"MFU {first_mfu:.1f}->{best:.1f}%, {sz//1024}KB)")
+    peak = " / ".join(f"{SEQ_LABEL.get(s, s)} {best_by_seq[s]:.1f}%" for s in seqs if best_by_seq.get(s))
+    capnote = f" (capped from {capped})" if capped else ""
+    print(f"Wrote {args.out}  ({len(prs.slides)} slides, {N} experiments{capnote}, "
+          f"contexts={ctx_label}, peak {peak}, {sz//1024}KB)")
 
 
 if __name__ == "__main__":
