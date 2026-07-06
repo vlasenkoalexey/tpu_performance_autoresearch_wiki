@@ -261,13 +261,19 @@ def agent_icon_png(agent, tmp):
         return png
     svg = os.path.join(SCRIPT_DIR, "assets", f"{agent}.svg")
     if os.path.exists(svg):
-        try:
-            import cairosvg
-            out = os.path.join(tmp, f"{agent}_icon.png")
-            cairosvg.svg2png(url=svg, write_to=out, output_width=128, output_height=128)
+        out = os.path.join(tmp, f"{agent}_icon.png")
+        try:                                    # resvg handles masks/blur filters correctly
+            import resvg_py
+            open(out, "wb").write(bytes(resvg_py.svg_to_bytes(
+                svg_string=open(svg, encoding="utf-8").read(), width=1024)))
             return out
         except Exception:
-            return None
+            try:                                # cairosvg fallback (may mangle masked SVGs)
+                import cairosvg
+                cairosvg.svg2png(url=svg, write_to=out, output_width=512)
+                return out
+            except Exception:
+                return None
     return None
 
 
