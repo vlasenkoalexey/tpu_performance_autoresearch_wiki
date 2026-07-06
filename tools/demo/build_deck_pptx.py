@@ -272,11 +272,7 @@ def agent_icon_png(agent, tmp):
 
 
 def header(slide, e, phase, accent):
-    tx = Inches(0.6)
-    if ICON_PNG:
-        slide.shapes.add_picture(ICON_PNG, Inches(0.6), Inches(0.36), height=Inches(0.42))
-        tx = Inches(1.16)
-    tf = textbox(slide, tx, Inches(0.3), Inches(12.73) - tx, Inches(0.95))
+    tf = textbox(slide, Inches(0.6), Inches(0.3), Inches(12.13), Inches(0.95))
     p = tf.paragraphs[0]
     _run(p, f"exp #{e['vnum']} — {e.get('title') or e['slug']}", 23, INK, bold=True)
     if e.get("page_url"):   # link only the arrow so the title stays dark (not hyperlink-blue)
@@ -448,9 +444,11 @@ def add_verdict(prs, e, accent, name, n, total):
 
 def title_slide(prs, agent_name, accent, n, first_mfu, best, target):
     s = blank(prs)
-    dot = s.shapes.add_shape(MSO_SHAPE.OVAL, Inches(0.9), Inches(1.55), Inches(0.34), Inches(0.34))
-    dot.fill.solid(); dot.fill.fore_color.rgb = accent; no_line(dot)
-    tf = textbox(s, Inches(1.4), Inches(1.5), Inches(11), Inches(0.6))
+    tx = Inches(0.9)
+    if ICON_PNG:
+        pic = s.shapes.add_picture(ICON_PNG, Inches(0.9), Inches(1.28), height=Inches(0.82))
+        tx = Inches(0.9) + pic.width + Inches(0.22)
+    tf = textbox(s, tx, Inches(1.5), Inches(13.0) - tx, Inches(0.6))
     _run(tf.paragraphs[0], f"{agent_name} · autonomous TPU optimization", 16, accent, bold=True)
     tf = textbox(s, Inches(0.9), Inches(2.35), Inches(11.5), Inches(2.0))
     _run(tf.paragraphs[0], "Autonomous TPU Optimization", 44, INK, bold=True)
