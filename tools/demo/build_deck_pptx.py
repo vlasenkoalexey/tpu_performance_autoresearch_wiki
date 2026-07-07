@@ -81,6 +81,21 @@ def seq_palette(accent, seqs):
     return {s: (accent if i == 0 else _shade(accent, shades[min(i, 2)])) for i, s in enumerate(seqs)}
 
 
+def mark_ctx_frontier(exps):
+    """Set e['isNewBest'] using a PER-CONTEXT running best (2k and 8k climb independently),
+    so a strong 2k result never hides the 8k frontier (and vice-versa)."""
+    best = {}
+    for e in exps:
+        s = e.get("seq"); m = e.get("mfu")
+        prev = best.get(s)
+        adv = (m is not None and (e.get("verdict") or "").lower() != "invalid"
+               and (prev is None or m > prev))
+        if adv:
+            best[s] = m
+        e["isNewBest"] = adv
+    return exps
+
+
 def _seq_frontier(exps, upto, s):
     best = None; fx = []; fy = []
     for i in range(min(upto, len(exps) - 1) + 1):
@@ -531,23 +546,24 @@ def main():
     else:
         exps = [e for e in exps if e.get("seq") == int(args.seq)]
     exps = [e for e in exps if e.get("mfu") is not None or e.get("tps") is not None]
-    exps = bd.compute_frontier(exps)
+    mark_ctx_frontier(exps)     # PER-CONTEXT frontier — 2k and 8k advance independently
+    seqs = sorted({e["seq"] for e in exps if e.get("seq") in (2048, 8192)})
+    # true per-context peaks from the FULL set, before any capping can drop a frontier point
+    best_by_seq = {s: _seq_frontier(exps, len(exps) - 1, s)[0] for s in seqs}
     # large lanes (e.g. cx has 300+): keep the meaningful climb — wins + frontier-advancers + baselines
     capped = None
     if len(exps) > args.cap:
         capped = len(exps)
         sup = lambda e: (e.get("verdict") or "").lower() in ("supported", "baseline")
-        keep = [e for e in exps if e.get("isNewBest") or sup(e)]        # wins + frontier + baselines
+        keep = [e for e in exps if e.get("isNewBest") or sup(e)]        # wins + per-ctx frontier + baselines
         if len(keep) > args.cap:                                        # still huge → frontier + baselines only
             keep = [e for e in exps if e.get("isNewBest")
                     or (e.get("verdict") or "").lower() == "baseline"]
-        exps = bd.compute_frontier(keep)
+        exps = keep
 
     accent = man.get("color", AGENTS[agent]["color"]); accent_rgb = hexrgb(accent)
     name = man.get("agent_name", AGENTS[agent]["name"])
-    seqs = sorted({e["seq"] for e in exps if e.get("seq") in (2048, 8192)})
     targets = {s: bd.MAXTEXT_MFU[s] for s in seqs if s in bd.MAXTEXT_MFU}
-    best_by_seq = {s: _seq_frontier(exps, len(exps) - 1, s)[0] for s in seqs}
     ctx_label = " + ".join(SEQ_LABEL.get(s, str(s)) for s in seqs) + " context"
     N = len(exps)
 
