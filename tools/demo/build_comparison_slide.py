@@ -63,10 +63,10 @@ def render_icon(agent, tmp):
     return out
 
 
-def draw_frame(p, data, maxN, ylim, path, fig_wh):
-    """One animation frame at reveal fraction p: each agent's points+misses+frontier
-    revealed up to p·(its experiment count). Style matches the per-experiment deck charts
-    (filled = hit, hollow = miss) with the running-best frontier line."""
+def draw_frame(cursor, data, maxN, ylim, path, fig_wh):
+    """One animation frame: reveal every agent's experiments up to the SAME absolute
+    experiment #`cursor` (so every agent advances at the same per-step speed). Style matches
+    the per-experiment deck charts (filled = hit, hollow = miss) + running-best frontier line."""
     fig, axes = plt.subplots(1, 2, figsize=fig_wh, dpi=140)
     fig.patch.set_facecolor("white")
     for ax, seq in zip(axes, (2048, 8192)):
@@ -79,7 +79,9 @@ def draw_frame(p, data, maxN, ylim, path, fig_wh):
             pts = data[(ag, seq)]
             if not pts:
                 continue
-            k = max(1, round(p * len(pts))); rev = pts[:k]
+            rev = [q for q in pts if q["x"] <= cursor]
+            if not rev:
+                continue
             fx = [q["x"] for q in rev if q["best"] is not None]
             fy = [q["best"] for q in rev if q["best"] is not None]
             if len(fx) > 1:
@@ -111,13 +113,16 @@ def draw_frame(p, data, maxN, ylim, path, fig_wh):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=os.path.join(SCRIPT_DIR, "compare.pptx"))
-    ap.add_argument("--frames", type=int, default=32)
+    ap.add_argument("--frames", type=int, default=40)
+    ap.add_argument("--cut8k", type=int, default=110, help="truncate the 8k panel to this many experiments")
     args = ap.parse_args()
     rows = json.load(open(DATA))
     data, best = {}, {}
     for ag in AGENTS:
         for seq in (2048, 8192):
             pts = series([r for r in rows if r["lane"] == ag and r["seq"] == seq])
+            if seq == 8192 and args.cut8k:                   # cut 8k (drop late Codex steps)
+                pts = [q for q in pts if q["x"] <= args.cut8k]
             data[(ag, seq)] = pts
             best[(ag, seq)] = pts[-1]["best"] if pts else None
     maxN = {seq: max((len(data[(ag, seq)]) for ag in AGENTS), default=1) for seq in (2048, 8192)}
@@ -127,32 +132,35 @@ def main():
         ylim[seq] = (max(0, min(allm) * 0.85), max(allm) * 1.12)
 
     tmp = tempfile.mkdtemp()
-    fig_wh = (12.6, 5.15)                       # slightly larger diagram
+    fig_wh = (12.8, 5.4)                         # larger diagram
+    gmax = max(maxN.values())                   # shared absolute cursor → same speed/step for all agents
     F = args.frames; frames = []
     for i in range(F):
+        cursor = round(1 + (gmax - 1) * i / (F - 1))
         fp = os.path.join(tmp, f"f{i:03d}.png")
-        draw_frame((i + 1) / F, data, maxN, ylim, fp, fig_wh)
+        draw_frame(cursor, data, maxN, ylim, fp, fig_wh)
         frames.append(Image.open(fp).convert("RGB").quantize(colors=64, method=Image.MEDIANCUT))
     gif = os.path.join(tmp, "climb.gif")
-    durs = [120] * F; durs[0] = 550; durs[-1] = 2000
+    durs = [175] * F; durs[0] = 650; durs[-1] = 2400      # slightly slower
     frames[0].save(gif, save_all=True, append_images=frames[1:], duration=durs, loop=0, optimize=True)
     icons = {ag: render_icon(ag, tmp) for ag in AGENTS}
 
     prs = Presentation(); prs.slide_width = SW; prs.slide_height = SH
     s = prs.slides.add_slide(prs.slide_layouts[6])
     s.background.fill.solid(); s.background.fill.fore_color.rgb = hexrgb("#ffffff")
-    tb = s.shapes.add_textbox(Inches(0.55), Inches(0.3), Inches(12.2), Inches(0.95)).text_frame
+    tb = s.shapes.add_textbox(Inches(0.55), Inches(0.3), Inches(12.2), Inches(1.0)).text_frame
     tb.word_wrap = True
-    r = tb.paragraphs[0].add_run(); r.text = "Four agents, one problem — the autonomous MFU climb"
-    r.font.size = Pt(25); r.font.bold = True; r.font.name = "Calibri"; r.font.color.rgb = hexrgb(INK)
+    r = tb.paragraphs[0].add_run()
+    r.text = "Case study: fully autonomous TPU model optimization by different LLM agents"
+    r.font.size = Pt(22); r.font.bold = True; r.font.name = "Calibri"; r.font.color.rgb = hexrgb(INK)
     p = tb.add_paragraph(); r = p.add_run()
     r.text = ("Qwen3-8B · TPU v6e-8 · best MFU (causal) vs experiment # — filled = hit, "
               "hollow = miss, line = running best, dashed = MaxText SOTA")
     r.font.size = Pt(12.5); r.font.name = "Calibri"; r.font.color.rgb = hexrgb(MUTE)
-    s.shapes.add_picture(gif, Inches(0.4), Inches(1.28), width=Inches(12.55))
+    s.shapes.add_picture(gif, Inches(0.2), Inches(1.24), width=Inches(12.95))
 
-    # icon legend row (full model names)
-    x0, y, step = Inches(0.55), Inches(6.62), Inches(3.02)
+    # icon legend row (full model names) — lowered to give the diagram more room
+    x0, y, step = Inches(0.55), Inches(6.92), Inches(3.02)
     for i, ag in enumerate(AGENTS):
         x = x0 + step * i
         s.shapes.add_picture(icons[ag], x, y, height=Inches(0.44))
