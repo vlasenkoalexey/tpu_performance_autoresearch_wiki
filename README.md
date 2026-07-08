@@ -177,7 +177,7 @@ raw/                immutable inputs — never modified.
 
 ---
 
-## Get started
+## Getting started
 
 Clone with submodules (the `raw/code/` dir pulls ~26 codebases totalling a few GB; use `--depth` if that matters to you):
 
@@ -192,31 +192,92 @@ Or on an existing clone:
 git submodule update --init --recursive
 ```
 
-Start an LLM agent session (Claude Code, Gemini CLI, Codex, etc.) in this directory. The agent reads [`SCHEMA.md`](SCHEMA.md) and [`wiki/index.md`](wiki/index.md) on first turn and knows how to operate the wiki.
+If you didn't already install your agentic environment, solution has been tested with Antigravity, Claude Code, and Codex.
 
-For Codex specifically, the repo includes additive compatibility adapters: [`AGENTS.md`](AGENTS.md) for project instructions, `.agents/skills` as a symlink to the canonical `.claude/skills`, `.codex/agents/` wrappers for the two Claude subagents, and `.codex/config.toml` with an optional local XProf MCP endpoint at `http://localhost:8792/mcp`. Keep `.claude/` as the canonical shared source so Claude Code and Antigravity remain compatible.
+### Installing Antigravity CLI
 
-To run the optimization loop against your own model:
+For Antigravity CLI, see https://antigravity.google/docs/cli/install:
 
-1. Add the model's training repo as a submodule: `git submodule add <url> raw/code/<slug>`
-2. Ask the agent to ingest it: *"Ingest raw/code/<slug> as a codebase page, highlighting performance-relevant surfaces."*
-3. Create a model page under `wiki/models/<slug>.md` with baseline metrics and a hardware target.
-4. Bootstrap a `program.md` from the template at [`sample-program.md`](sample-program.md): *"Copy `sample-program.md` to `wiki/experiments/<slug>/program.md`, fill in every `<PLACEHOLDER>` for `raw/code/<slug>` on my hardware, and adapt the model-specific Pallas tables. Refer to other experiments and documentation in this wiki for the model-specific values."*
-5. Check your `program.md` file — the template marks every section as `<!-- GENERIC -->` (leave as-is unless your stack genuinely differs) or `<!-- MODEL-SPECIFIC -->` (must edit). Adjust as needed.
-6. Ask the agent: *"Start model optimization in accordance with the protocol described in `wiki/experiments/<slug>/program.md`."*
+```bash
+curl -fsSL https://antigravity.google/cli/install.sh | bash
+```
+
+You can authenticate under your personal account. If you'd want Antigravity to use model quota from Cloud project, add following
+lines to your ~/.bashrc or ~/.bash_profile:
+
+```bash
+export GOOGLE_CLOUD_PROJECT="tpu-pytorch"  # your cloud project name
+export GOOGLE_CLOUD_LOCATION="global"
+export GOOGLE_GENAI_USE_VERTEXAI=True
+```
+
+### Configuring xprof MCP
+
+Start an LLM agent session (Antigravity, Claude Code, Codex, etc.) in this directory. The agent reads [`SCHEMA.md`](SCHEMA.md) and [`wiki/index.md`](wiki/index.md) on first turn and knows how to operate the wiki. What's left is wiring up the profiler so the *observe* step of the loop has real signal.
+
+The [`xprof_mcp`](https://github.com/vlasenkoalexey/xprof-mcp) server is checked in as a submodule at [`raw/code/xprof-mcp`](raw/code/xprof-mcp) — its [`README`](raw/code/xprof-mcp/README.md) is the authoritative install guide. The short version: run two long-lived local processes — the **xprof UI server** (reads profile dirs, serves the trace viewer) and the **xprof MCP server** (wraps it as MCP tools) — then point each agent's MCP client at the MCP server's URL.
+
+```bash
+# 1. xprof UI server — reads raw/profiles/, serves the interactive trace viewer
+pip install xprof
+xprof --logdir=raw/profiles --port=8791 &          # UI at http://localhost:8791
+
+# 2. xprof MCP server — wraps the UI + HLO dumps as MCP tools for the agent
+cd raw/code/xprof-mcp && pip install -r requirements.txt && pip install tensorflow-cpu
+PYTHONPATH=$PWD/.. \
+XPROF_URL=http://localhost:8791 \
+XPROF_LOGDIR=$(git -C ../.. rev-parse --show-toplevel)/raw/profiles \
+XLA_HLO_DUMP_DIR=/tmp/hlo_dumps \
+MCP_PORT=8792 \
+python -m xprof_mcp.server.xprof_mcp_server --transport http > /tmp/xprof_mcp.log 2>&1 &
+```
+
+The two ports are the convention used throughout this wiki: **8791** = xprof UI (the base URL experiment pages link into under `## Profile`), **8792** = MCP endpoint (`http://localhost:8792/mcp`). Keep them if you want the checked-in configs below to work unedited.
+
+Each agent connects to the *same* MCP server — only the registration file differs:
+
+| Agent | Config (checked into this repo) | How it's registered |
+|---|---|---|
+| **Antigravity** | [`.agents/mcp_config.json`](.agents/mcp_config.json) | `xprof → http://localhost:8792/mcp` — already present; no action needed. |
+| **Codex** | [`.codex/config.toml`](.codex/config.toml) | `[mcp_servers.xprof]` block — already present; no action needed. |
+| **Claude Code** | user scope | run once: `claude mcp add --transport http --scope user xprof http://localhost:8792/mcp` |
+
+Because all three point at the same HTTP endpoint, you can restart or update the MCP server without restarting any agent. Verify the wiring by asking the agent *"list xprof runs"* — it should call `list_runs` and return whatever is under `raw/profiles/`. If the list is empty, run any experiment (or drop an existing `.xplane.pb` trace under `raw/profiles/<run>/`) and re-check.
+
+
+### Configuring GKE
+
+The loop runs experiments on real TPUs. Two hosting shapes are supported, and the choice only changes *where the launch command runs* — the wiki, profiling, and verdict machinery are identical either way:
+
+- **Cloud TPU VM** — the simplest path. SSH into a [TPU VM](https://cloud.google.com/tpu/docs/create-tpu-vm), run the agent (or the launch command) directly on it. No cluster config needed; skip the rest of this section.
+- **GKE TPU cluster** — for multi-slice fleets and running several experiments in parallel. Workloads are dispatched with [XPK](https://github.com/AI-Hypercomputer/xpk) (`xpk workload create`) against a cluster that has the JobSet CRD + Kueue installed.
+
+**Prerequisites** (GKE path): authenticated `gcloud` (`gcloud auth login`), `kubectl`, and `xpk` on `PATH`, plus a TPU cluster you can reach. Gated model weights (e.g. Llama 3) need an `HF_TOKEN` passed into the pod env.
+
+**Teach the agent your fleet.** Cluster inventory lives under [`.env/`](.env/) as markdown the agent reads before picking a cluster — one file per GCP project plus a merged [`.env/gke-tpu-cluster-scan.md`](.env/gke-tpu-cluster-scan.md) ("consult this first"). Each row records XPK type, topology/slices, ready-node count, gcsfuse, and spot status, so the agent can pick a cluster with free capacity and the right topology.
+
+Populate it with [`/scan-gke-clusters <project>`](.claude/skills/scan-gke-clusters/SKILL.md) (wraps [`scan-gke-clusters.sh`](.claude/scripts/scan-gke-clusters.sh)). It enumerates every cluster with TPUs in the project, probes status/XPK/pool composition with hard timeouts, writes `.env/<project>-gke-tpu-cluster-scan.md`, and merges the rows into the combined inventory. Re-run when a cluster is added or its pools change.
+
+### Starting experiment
+
+At experiment time [`/start-experiment`](.claude/skills/start-experiment/SKILL.md) reads this inventory, runs a live occupancy check (`xpk workload list`, attributed by your user prefix), and only then dispatches. The [`gke-cluster-runner`](.claude/agents/gke-cluster-runner.md) subagent owns the actual XPK launch → poll → xprof/HLO capture cycle. All three agents (Antigravity, Codex, Claude Code) drive the same skills through the [`.agents/skills`](.agents/skills) compatibility symlink, so cluster setup is done once and shared.
+
+
+### Adding new repository
+
+To run the optimization loop against your own model, the flow is four steps — the middle two are wrapped in skills all three agents share, so you drive them with a prompt or the slash command:
+
+1. **Add the repo as a submodule.** `git submodule add <url> raw/code/<slug>` and pin the commit. Same for any reference trainer (e.g. MaxText) or framework source you want ingested alongside it.
+2. **Ingest it** — [`/wikify-ingest-repo`](.claude/skills/wikify-ingest-repo/SKILL.md): *"Ingest `raw/code/<slug>` as a codebase, highlighting performance-relevant surfaces."* This runs the SCIP-grounded, lint-gated ingest that writes the `wiki/codebases/<slug>/{overview,concepts,catalog}` silo (the overview leads with a *Performance-relevant surfaces* section) and registers it into `wiki/index.md` — not a single hand-authored page. See `INGEST-CODEBASE` in [`SCHEMA.md`](SCHEMA.md).
+   > **Prerequisite (one-time):** the skill drives the `wikify` CLI, which must be on `PATH`. Install it from [wikify-repo](https://github.com/vlasenkoalexey/wikify-repo) — `pip install -e .` then `scripts/setup-vendor.sh` (pulls `scip-python` + the vendored `scip-clang`). TS/JS, Go, and Rust indexers auto-install on demand when `wikify prepare` detects the language. Skip this step for languages wikify doesn't cover.
+3. **Bootstrap the model family** — [`/create-experiment`](.claude/skills/create-experiment/SKILL.md). The skill asks for the folder slug, **lanes** (`tpu` / `jax` / `torchax` / `maxtext` / …), sizes, target hardware, and sequence length, then scaffolds `wiki/experiments/<slug>_autoresearch_optimization/`, a model-level `program.md` from [`sample-program.md`](sample-program.md), and one model page per `(architecture, lane)` under `wiki/models/<architecture>-<lane>.md`. (You can also copy `sample-program.md` by hand — every section is marked `<!-- GENERIC -->`, leave as-is, or `<!-- MODEL-SPECIFIC -->`, must edit — but the skill fills the placeholders for you.)
+4. **Start the loop** — [`/start-experiment`](.claude/skills/start-experiment/SKILL.md): it resolves the `program.md` hierarchy (root → model → lane), runs hardware selection + the cluster occupancy check described above, and kicks off the bounded-iteration `/loop`.
 
 The rest is iteration.
 
 For a worked case study, see [`wiki/experiments/llama3_8B_autoresearch_optimization/`](wiki/experiments/llama3_8B_autoresearch_optimization/) — browse the experiment pages in chronological order to see the loop in action. The two existing program.md files ([Llama 3 8B](wiki/experiments/llama3_8B_autoresearch_optimization/program.md), [Gemma 4 E4B](wiki/experiments/gemma4_autoresearch_optimization/program.md)) are concrete instantiations of [`sample-program.md`](sample-program.md) — useful as cross-reference if a placeholder in the template is ambiguous.
 
 Like autoresearch itself, this repo isn't meant to be used as-is — it provides a structure and starting point you adapt to your own model and codebase.
-
-The optimization loop runs on either a [Cloud TPU VM](https://cloud.google.com/tpu/docs/create-tpu-vm) or a [GKE TPU cluster](https://cloud.google.com/kubernetes-engine/docs/how-to/tpus). If you're reading this, the assumption is that you're already familiar with those.
-
-To teach your agent to use your GKE cluster, paste prompts like these:
-- *"Use this cluster for experiments: name=... region=... project=..."*
-- *"Check the cluster topology and number of slices available to see if you can run multiple experiments in parallel."*
-- *"Save cluster information under the .env folder for future reference."*
 
 ---
 
