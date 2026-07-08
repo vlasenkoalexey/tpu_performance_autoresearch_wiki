@@ -114,6 +114,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=os.path.join(SCRIPT_DIR, "compare.pptx"))
     ap.add_argument("--frames", type=int, default=40)
+    ap.add_argument("--step-ms", type=int, default=300, help="ms per animation frame (larger = slower)")
     ap.add_argument("--cut8k", type=int, default=110, help="truncate the 8k panel to this many experiments")
     args = ap.parse_args()
     rows = json.load(open(DATA))
@@ -141,7 +142,7 @@ def main():
         draw_frame(cursor, data, maxN, ylim, fp, fig_wh)
         frames.append(Image.open(fp).convert("RGB").quantize(colors=64, method=Image.MEDIANCUT))
     gif = os.path.join(tmp, "climb.gif")
-    durs = [175] * F; durs[0] = 650; durs[-1] = 2400      # slightly slower
+    durs = [args.step_ms] * F; durs[0] = args.step_ms + 500; durs[-1] = 3000   # slow, deliberate climb
     frames[0].save(gif, save_all=True, append_images=frames[1:], duration=durs, loop=0, optimize=True)
     icons = {ag: render_icon(ag, tmp) for ag in AGENTS}
 
