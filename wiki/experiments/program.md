@@ -101,10 +101,19 @@ wiki/experiments/<model>_autoresearch_optimization/
 ```
 
 - **Trunk**: shared kept-wins history. Only `supported` experiments get merged here. Docker images for production runs are built from trunk.
-- **Per-experiment fork**: a full `cp -r` copy of the trunk to `<lane>/.repo/<exp-name>/<model-repo>/`, with its own branch (model-specific naming convention — see model-level `program.md`).
-- The `<lane>/.repo/` tree is gitignored — forks never enter the wiki repo's history. Past experiments' forks remain on disk until garbage-collected.
+- **Per-experiment fork**: a **git worktree** of the trunk checked out at `<lane>/.repo/<exp-name>/<model-repo>/`, on its own branch (model-specific naming convention — see model-level `program.md`):
 
-Why forks instead of shared-checkout branches: multiple serial experiments may be live concurrently on different clusters. They share the trunk as a starting point but must NOT contend on the trunk's working tree, index, or branch state. Per-experiment forks give each run a private working copy.
+  ```bash
+  git -C raw/code/<model-repo> worktree add \
+    <path-to>/<lane>/.repo/<exp-name>/<model-repo> -b <branch>
+  ```
+
+  The worktree shares the trunk's object store (no per-fork `.git` history duplication) but has its own working tree, index, and HEAD — the isolation forks require. **Format-compatible with the older `cp -r` forks**: identical `.repo/<exp-name>/<model-repo>/` path and file layout, so existing manual copies stay valid and coexist; the one structural difference is that a worktree's `.git` is a gitlink *file*, not a full directory.
+- The `<lane>/.repo/` tree is gitignored — forks never enter the wiki repo's history. Reclaim a fork with `git -C raw/code/<model-repo> worktree remove <fork-path>` (or `rm -rf <fork-path>` then `git -C raw/code/<model-repo> worktree prune`); past experiments' worktrees remain on disk until then.
+
+Why per-experiment worktrees instead of shared-checkout branches: multiple serial experiments may be live concurrently on different clusters. They share the trunk as a starting point but must NOT contend on the trunk's working tree, index, or branch state. A worktree gives each run a private working copy while keeping every branch in one shared object store — so merge-back at step 11 is a direct `git merge --no-ff` from trunk, with no cross-directory fetch.
+
+> **Worktree caveats** (vs `cp -r`): (a) the model repo is a git **submodule** — `worktree add` on a submodule works in modern git but has more edge cases than a plain repo; validate once on the real submodule before relying on it. (b) a given branch can be checked out in only one worktree at a time (fine — every experiment has a unique branch). (c) a worktree's `.git` is a gitlink file, so a Docker build that needs a real `.git` directory for version-stamping would break — the layered `COPY <changed>.py` flow doesn't, but smoke-build once to confirm.
 
 **Per-experiment flow** (fork → branch → implement → build → launch → decide) is documented step-by-step in **The experiment loop** below (steps 3–11). The Structure diagram above shows where the artifacts live; the loop tells you what to do with them.
 
@@ -214,7 +223,7 @@ LOOP until the user interrupts:
 
    Maintain the knowledge layers incrementally: cross-model lessons land in [`model-optimization-index.md`](../model-optimization-index.md) as generic principles; per-model refuted experiments land in `wiki/experiments/<model>_autoresearch_optimization/refuted-patterns.md` as entries.
 
-3. **Fork the codebase.** Create a per-experiment fork per the **Branching model** snippet. All code edits commit to the fork's branch; the shared trunk is never touched until step 11.
+3. **Fork the codebase.** Create a per-experiment worktree fork (`git worktree add -b <branch>`) per the **Branching model** snippet. All code edits commit to the fork's branch; the shared trunk is never touched until step 11.
 
 4. **Implement.** Invoke [`/edit-model-code`](../../.claude/skills/edit-model-code/SKILL.md) BEFORE opening any file in the fork — it loads the surgical-edit discipline (one mechanism per experiment, no semantics drift, no kernel fallbacks, no while-I'm-here cleanups). Then make the code/config change inside the fork and commit. Commit message MUST carry the `exp: wiki/experiments/<...>.md` footer per the **Branching model** "link between repos" section. Keep it minimal — one hypothesis per experiment.
 
@@ -292,8 +301,8 @@ LOOP until the user interrupts:
 10. **FILE THE EXPERIMENT PAGE (MANDATORY — NON-NEGOTIABLE).** Every single experiment, without exception, gets its own wiki page **before** the next experiment is dispatched on that cluster. No experiment page = cluster stays idle. One experiment = one page.
 
 11. **Decision.**
-    - **Keep (supported)** — merge fork's branch into trunk via `git merge --no-ff`. Then rebuild the shared docker image from trunk under a stable tag so subsequent experiments build on the new baseline.
-    - **Discard (refuted/inconclusive)** — do nothing to trunk. Leave the fork in place under `.repo/`.
+    - **Keep (supported)** — merge fork's branch into trunk via `git merge --no-ff` (with worktrees the branch already lives in trunk's object store — no fetch needed; from a legacy `cp -r` fork, `git fetch <fork-path> <branch>` first). Then rebuild the shared docker image from trunk under a stable tag so subsequent experiments build on the new baseline.
+    - **Discard (refuted/inconclusive)** — do nothing to trunk. Leave the fork in place under `.repo/` (reclaim later with `git worktree remove`).
 
 12. **Loop.** Use the profile-informed "Next hypotheses" you just wrote to feed the next iteration. Every hypothesis should cite a specific profile signal.
 
