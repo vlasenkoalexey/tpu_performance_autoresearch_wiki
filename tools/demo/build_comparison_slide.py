@@ -114,7 +114,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=os.path.join(SCRIPT_DIR, "compare.pptx"))
     ap.add_argument("--frames", type=int, default=40)
-    ap.add_argument("--step-ms", type=int, default=300, help="ms per animation frame (larger = slower)")
+    ap.add_argument("--step-ms", type=int, default=420, help="ms per animation frame (larger = slower)")
     ap.add_argument("--cut8k", type=int, default=110, help="truncate the 8k panel to this many experiments")
     args = ap.parse_args()
     rows = json.load(open(DATA))
