@@ -1,5 +1,13 @@
 # Log
 
+## [2026-07-08] manual | retire root `sample-program.md` (redundant with the program.md hierarchy)
+
+**Op**: manual (cleanup).
+**Pages updated**: `README.md` (repo-layout block drops the file; *Adding new repository* step 3 + worked-case-study now point at [`wiki/experiments/program.md`](experiments/program.md) as the generic layer and `/create-experiment` for the model-family override; *Add a new codebase* section refreshed to the wikify silo); this `log.md` (two historical links delinked).
+**Pages removed**: `sample-program.md` (project root).
+**Key result**: `sample-program.md` was a standalone full-program template extracted 2026-04-30, before the `program.md` **root → model → lane** hierarchy took over. Nothing executable read it: the generic loop methodology lives in [`wiki/experiments/program.md`](experiments/program.md) (the root layer `/start-experiment` resolves), and `/create-experiment` scaffolds the model-family override layer from its own inline template. The file was doc-only redundancy — retired to remove drift risk (two copies of the generic contract). No loop behavior changes.
+**Notes**: private wiki never had the file; its `/create-experiment` already worked without it.
+
 ## [2026-07-05] manual | process change: silo-first exploration (rule 12a + wikify-repo-navigator agent)
 
 **Op**: manual (ported from the private autoresearch wiki, commit `1b08180` there).
@@ -176,7 +184,7 @@ after any new ingest; deepen a concept with *how-they-differ* hub prose above it
 **Pages updated**:
 - [`wiki/concepts/hlo-dumping-and-diffing.md`](concepts/hlo-dumping-and-diffing.md) — expanded from 24-line stub to full concept page: dump capture commands (JAX + PyTorch/XLA), file formats and naming, stage aliases table, xprof-mcp dump tools table with usage examples, key HLO patterns to grep for, fusion verification recipe, pass-by-pass vs final-only guidance, wiki conventions.
 - [`SCHEMA.md`](../SCHEMA.md) — FORMULATE-HYPOTHESIS gains step 2b (HLO pre-filter, mandatory for kernel-replacement hypotheses, requires `hlo_prefilter:` frontmatter field); RUN-EXPERIMENT gains step 1b (optional AOT screening via `cost_analysis()`); LINT gains kernel-replacement `hlo_prefilter:` check.
-- [`sample-program.md`](../sample-program.md) — new `## AOT screening protocol` section with three use cases (HLO pre-filter, pre-experiment screening, offline analysis); HLO pre-filter heuristic upgraded from informal to MANDATORY with SCHEMA cross-reference; `aot-compilation` added to "Reference material at a glance".
+- `sample-program.md` *(retired 2026-07-08 — see top of log)* — new `## AOT screening protocol` section with three use cases (HLO pre-filter, pre-experiment screening, offline analysis); HLO pre-filter heuristic upgraded from informal to MANDATORY with SCHEMA cross-reference; `aot-compilation` added to "Reference material at a glance".
 - [`wiki/index.md`](index.md) — `aot-compilation` entry added under Compiler & HLO (12 → 13 entries, 96 → 97 concepts); `hlo-dumping-and-diffing` description updated (no longer a stub); page count 192 → 193.
 **Key result**: formalizes two AOT analysis capabilities that were already in use informally: (1) HLO pre-filter for kernel-replacement hypotheses (now mandatory in SCHEMA), (2) pre-experiment AOT screening (now documented as optional step). Also documents offline HLO analysis for customer-sends-dumps workflow. No new SCHEMA operations added — AOT folds into existing FORMULATE-HYPOTHESIS and RUN-EXPERIMENT operations.
 **Notes**: design decision: AOT analysis does NOT become a new operation. It integrates into existing operations where the analysis naturally occurs (hypothesis pre-filtering, pre-experiment screening, offline analysis under ANALYZE). The xprof-mcp dump tools already work on CPU without TPU; the JAX AOT pattern already exists in `helper.py`. What was missing was formalization in the schema, concept documentation, and program template.
@@ -184,7 +192,7 @@ after any new ingest; deepen a concept with *how-they-differ* hub prose above it
 ## [2026-04-30] manual | sample-program.md — root-level template extracted from Llama 3 + Gemma 4 program.md files
 
 **Op**: manual (template extraction).
-**Pages created**: [`sample-program.md`](../sample-program.md) (project root, ~250 lines).
+**Pages created**: `sample-program.md` *(retired 2026-07-08 — see top of log)* (project root, ~250 lines).
 **Pages updated**: [`README.md`](../README.md) — Get-started step 4 now points users at `sample-program.md` instead of asking the agent to derive a program.md from scratch; repo-layout block lists the new file.
 **Key result**: the two existing program.md files (Llama 3 8B, Gemma 4 E4B) are ~95 % identical — only the model identity, architecture table, conda env name, branch prefix, libtpu version, and per-model Pallas tables differ. The template separates `<!-- GENERIC -->` sections (contract, what-you-can-cannot-do, the loop, branch model, measurement protocol, output format, observations template, heuristics, references — copy-paste verbatim) from `<!-- MODEL-SPECIFIC -->` sections (the binding values + the two Pallas-kernel tables). Includes a "How to use this template" intro block and an inline reference to the worked Llama 3 / Gemma 4 instantiations as cross-reference.
 **Notes**: incorporates the schema changes from this morning — references the now-required `## Next hypotheses` (SCHEMA.md), the bottleneck reverse-index analysis, the HLO pre-filter heuristic, and the Pallas kernel directory. 41 markdown links validated, all resolve.

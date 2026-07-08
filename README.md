@@ -133,7 +133,7 @@ flowchart TB
     style INTERNET fill:#0ea5e9,stroke:#bae6fd,stroke-width:3px,color:#fff
 ```
 
-Point it at a model and act as reviewer — you approve hypotheses, arbitrate contradictions, and audit the trail; the agent does the reading, profiling, experimenting, and learning. Every cycle leaves the wiki smarter than before, so the next cycle starts from a better prior.
+Point it at a model and act as reviewer — you set the targets, arbitrate contradictions, and audit the trail, keeping the branches whose gains are worth merging; the agent runs the loop autonomously — reading, proposing hypotheses, experimenting, profiling, and learning — filing each run to its own branch so review happens after the fact, not as a gate on every step. Every cycle leaves the wiki smarter than before, so the next cycle starts from a better prior.
 
 **Beyond TPU performance.** This repo extends the original autoresearch idea into a more general architecture: **autoresearch is an optimization loop** that proposes ranked, falsifiable experiments; **the wiki is a knowledge base** of domain information that informs hypothesis generation and experiment design (papers, codebases, concepts, and the running record of what's been tried); and **the MCP server is an observer** that grounds each iteration in real signal. The observer is the domain-specific piece — it's what raises the signal-to-noise of every measurement the loop makes, and without it the loop degenerates into flag-guessing.
 
@@ -156,7 +156,6 @@ AGENTS.md           Codex project instructions; points Codex at SCHEMA.md and sh
 .claude/            canonical shared agent skills, scripts, Claude subagents, Claude hook.
 .agents/skills      Codex + Antigravity/Gemini skill-discovery symlink to .claude/skills.
 .codex/             Codex-only adapters: MCP config, custom-agent wrappers, hook wiring.
-sample-program.md   template program.md — copy to wiki/experiments/<slug>/program.md and fill in placeholders.
 wiki/               LLM-owned markdown (index, log, page types per schema).
   index.md          cross-section — updated on every write.
   log.md            append-only event log.
@@ -270,12 +269,12 @@ To run the optimization loop against your own model, the flow is four steps — 
 1. **Add the repo as a submodule.** `git submodule add <url> raw/code/<slug>` and pin the commit. Same for any reference trainer (e.g. MaxText) or framework source you want ingested alongside it.
 2. **Ingest it** — [`/wikify-ingest-repo`](.claude/skills/wikify-ingest-repo/SKILL.md): *"Ingest `raw/code/<slug>` as a codebase, highlighting performance-relevant surfaces."* This runs the SCIP-grounded, lint-gated ingest that writes the `wiki/codebases/<slug>/{overview,concepts,catalog}` silo (the overview leads with a *Performance-relevant surfaces* section) and registers it into `wiki/index.md` — not a single hand-authored page. See `INGEST-CODEBASE` in [`SCHEMA.md`](SCHEMA.md).
    > **Prerequisite (one-time):** the skill drives the `wikify` CLI, which must be on `PATH`. Install it from [wikify-repo](https://github.com/vlasenkoalexey/wikify-repo) — `pip install -e .` then `scripts/setup-vendor.sh` (pulls `scip-python` + the vendored `scip-clang`). TS/JS, Go, and Rust indexers auto-install on demand when `wikify prepare` detects the language. Skip this step for languages wikify doesn't cover.
-3. **Bootstrap the model family** — [`/create-experiment`](.claude/skills/create-experiment/SKILL.md). The skill asks for the folder slug, **lanes** (`tpu` / `jax` / `torchax` / `maxtext` / …), sizes, target hardware, and sequence length, then scaffolds `wiki/experiments/<slug>_autoresearch_optimization/`, a model-level `program.md` from [`sample-program.md`](sample-program.md), and one model page per `(architecture, lane)` under `wiki/models/<architecture>-<lane>.md`. (You can also copy `sample-program.md` by hand — every section is marked `<!-- GENERIC -->`, leave as-is, or `<!-- MODEL-SPECIFIC -->`, must edit — but the skill fills the placeholders for you.)
-4. **Start the loop** — [`/start-experiment`](.claude/skills/start-experiment/SKILL.md): it resolves the `program.md` hierarchy (root → model → lane), runs hardware selection + the cluster occupancy check described above, and kicks off the bounded-iteration `/loop`.
+3. **Bootstrap the model family** — [`/create-experiment`](.claude/skills/create-experiment/SKILL.md). The skill asks for the folder slug, **lanes** (`tpu` / `jax` / `torchax` / `maxtext` / …), sizes, target hardware, and sequence length, then scaffolds `wiki/experiments/<slug>_autoresearch_optimization/`, a model-family `program.md` (the *override* layer — model identity, architecture invariants, per-lane launch details, model-specific Pallas tables), and one model page per `(architecture, lane)` under `wiki/models/<architecture>-<lane>.md`. The generic loop methodology it builds on lives once in the root [`wiki/experiments/program.md`](wiki/experiments/program.md) — you don't copy it per model; the loop resolves `program.md` **root → model → lane** at run time.
+4. **Start the loop** — [`/start-experiment`](.claude/skills/start-experiment/SKILL.md): it resolves that `program.md` hierarchy, runs hardware selection + the cluster occupancy check described above, and kicks off the bounded-iteration `/loop`.
 
 The rest is iteration.
 
-For a worked case study, see [`wiki/experiments/llama3_8B_autoresearch_optimization/`](wiki/experiments/llama3_8B_autoresearch_optimization/) — browse the experiment pages in chronological order to see the loop in action. The two existing program.md files ([Llama 3 8B](wiki/experiments/llama3_8B_autoresearch_optimization/program.md), [Gemma 4 E4B](wiki/experiments/gemma4_autoresearch_optimization/program.md)) are concrete instantiations of [`sample-program.md`](sample-program.md) — useful as cross-reference if a placeholder in the template is ambiguous.
+For a worked case study, see [`wiki/experiments/llama3_8B_autoresearch_optimization/`](wiki/experiments/llama3_8B_autoresearch_optimization/) — browse the experiment pages in chronological order to see the loop in action. The two existing model-family program.md files ([Llama 3 8B](wiki/experiments/llama3_8B_autoresearch_optimization/program.md), [Gemma 4 E4B](wiki/experiments/gemma4_autoresearch_optimization/program.md)) are filled-in override layers over the root [`wiki/experiments/program.md`](wiki/experiments/program.md) — useful as cross-reference when a placeholder in the `/create-experiment` scaffold is ambiguous.
 
 Like autoresearch itself, this repo isn't meant to be used as-is — it provides a structure and starting point you adapt to your own model and codebase.
 
@@ -287,7 +286,7 @@ Like autoresearch itself, this repo isn't meant to be used as-is — it provides
 git submodule add <repo-url> raw/code/<slug>
 ```
 
-Then ask the agent to ingest it — see [`SCHEMA.md`](SCHEMA.md) → `INGEST-CODEBASE`. The agent will write a `wiki/codebases/<slug>.md` with a performance-relevant-surfaces table, generate concept stubs for any technique named that lacks a page, and propose new hypothesis candidates derived from the code.
+Then ask the agent to ingest it with [`/wikify-ingest-repo`](.claude/skills/wikify-ingest-repo/SKILL.md) — see [`SCHEMA.md`](SCHEMA.md) → `INGEST-CODEBASE`. The SCIP-grounded ingest writes the `wiki/codebases/<slug>/{overview,concepts,catalog}` silo (overview leading with a *Performance-relevant surfaces* section), generates concept stubs for any technique that lacks a page, and registers the repo into `wiki/index.md`. (Requires the `wikify` CLI — see the prerequisite note under *Adding new repository* above.)
 
 ---
 
