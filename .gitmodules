@@ -1,6 +1,6 @@
-[submodule "raw/code/xprof-mcp"]
-	path = raw/code/xprof-mcp
-	url = https://github.com/vlasenkoalexey/xprof-mcp
+[submodule "raw/code/xprof-cli"]
+	path = raw/code/xprof-cli
+	url = https://github.com/vlasenkoalexey/xprof-cli
 [submodule "raw/code/torchax"]
 	path = raw/code/torchax
 	url = https://github.com/google/torchax
@@ -79,3 +79,6 @@
 [submodule "raw/code/tpu-recipes"]
 	path = raw/code/tpu-recipes
 	url = https://github.com/AI-Hypercomputer/tpu-recipes.git
+[submodule "raw/code/accelerator-agents"]
+	path = raw/code/accelerator-agents
+	url = https://github.com/AI-Hypercomputer/accelerator-agents
