@@ -1,0 +1,3 @@
+# NOTE: unlike the private fork, the generated viewer IS committed here — this
+# repo is what GitHub Pages serves, so kernel-explorer.html must be tracked.
+# Regenerate both with: python3 tools/kernel_explorer/kernel_explorer.py

@@ -68,9 +68,10 @@ point of the animation: most experiments do not move the frontier. Opus 5's jump
 experiment 8, and again to 6.03× at 15, are single structural changes surrounded by long flat runs of refuted
 hypotheses — the same staircase shape as the model lane, one level down the stack.
 
-▶ **Interactive kernel explorer** — [`tools/kernel_explorer/kernel-explorer.html`](tools/kernel_explorer/kernel-explorer.html)
-(`?kernel=<family>&llm=all`): every experiment with its verdict, the K7 candidate ledger underneath it
-(including the failures), and per-arm frontier lines across all families.
+▶ **[Explore the kernel experiments interactively](https://vlasenkoalexey.github.io/tpu_performance_autoresearch_wiki/tools/kernel_explorer/kernel-explorer.html?kernel=gqa-attention&llm=all)** — every
+experiment with its verdict, the candidate ledger underneath it (including the failures that never
+shipped), and per-arm frontier lines across all 40+ kernel families. Switch family or arm from the
+dropdowns, or straight from the URL: `?kernel=<family>&llm=all`. [All families at once](https://vlasenkoalexey.github.io/tpu_performance_autoresearch_wiki/tools/kernel_explorer/kernel-explorer.html?kernel=all&llm=all).
 
 ## The Core Components
 
