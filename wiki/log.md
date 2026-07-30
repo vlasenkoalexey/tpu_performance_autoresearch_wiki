@@ -1,5 +1,44 @@
 # Log
 
+## [2026-07-08] analyze | qwen3-cx-jax (Codex/GPT) session process retrospective (session 019e8ab6)
+
+**Op**: analyze (process retrospective on request; sibling to cc/cc5/ag).
+**Pages created**: `wiki/analyses/2026-07-08-qwen3-cx-jax-session-retrospective.md`.
+**Pages updated**: `wiki/index.md` (Analyses cluster).
+**Key result**: audited the Codex/GPT-5.5 `qwen3_cx`/jax session (2026-06-02→06-13; 155 MB / 76,776-line rollout; autonomy via `approval_policy:never` + re-injected "goal" object, 5,874 goal events; **116 context compactions**). Result: **beat MaxText** — seq8192 7,543 tok/s/chip / 43.3% old-MFU (~49.2% MaxText-style) @ global-batch-32 (v273) vs MaxText bs3 6,883/44.9%. 349 jax experiments (~36 supported, 46 invalid, ~241 sub-noise). **Decisive win**: `DISABLE_COLLECTIVE_MATMUL` (`xla_tpu_{all_gather,reduce_scatter}_collective_matmul_mode=none`, v116/117) cut peak HBM 28.3→22.2 GiB (~9 GiB) → reopened per-chip bs4 / global 32 at seq8192 (v118) — cx *did* push the batch scaling cc's bs2/bs4 OOMs declared dead — then on-chip SparseCore collective offload (v205→v273) freed TensorCore slots, +MFU 41.8→43.3%. cx even tested the host-offload route (v180) and confirmed it regressed → abandoned it; the win was on-chip. Breadth (349 vs cc's 45) found the two flags cc never reached. Strengths: persistence, rerun-before-carry byte-identical-HLO gating (v272/v273), honest NaN invalids. Fixable: queue-refill/lineage collapse (Next-hyps 3/349, Sources 2/349 — killed by 116 compactions), all 349 pages mis-slugged `model: qwen3-cc-jax` + non-enum status, 241/349 sub-noise reruns with no CPU/AOT pre-filter or consecutive-tie stop-signal.
+
+## [2026-07-08] analyze | qwen3 four-lane cross-model comparison (cc/cc5/cx/ag) — why some crossed MaxText and some stalled
+
+**Op**: analyze (synthesis over the four session retrospectives).
+**Pages created**: `wiki/analyses/2026-07-08-qwen3-four-lane-cross-model-comparison.md`.
+**Pages updated**: `wiki/index.md` (Analyses cluster).
+**Key result**: seq8192 v6e-8 scoreboard (tok/s/chip, accounting-free): cx 7,543 (beat +8.5%) · cc5 6,959 (tie/beat +0.08%) · MaxText 6,953 · cc 6,068 (−12.7%) · ag 5,329 (−23%). Thesis: **winners changed the memory budget then grew batch / saved activations; losers assumed it was fixed.** Both winners independently found the same ~9 GiB HBM headroom (cx via `DISABLE_COLLECTIVE_MATMUL`; cc5 by *measuring* splash residuals = 4.57 GiB) and used it **on-chip** — the opposite of the host-offload path cc chased and (correctly) found doesn't pipeline, then wrongly called the whole residual out-of-scope. Two ways to win: cc5 = measure-and-target (best process hygiene), cx = brute-breadth (worst hygiene, won on 349-experiment persistence). Two ways to lose: cc = reason-a-wall-and-quit (clean process, wrong conclusion), ag = find-the-lever-but-crash-loop (harness-persistence collapse). Second axis: the causal-vs-non-causal MFU artifact exaggerated cc's apparent gap. Single most transferable fix: a hard CPU/AOT pre-flight gate would have (a) handed cc the HBM-headroom number that refutes its "wall" and (b) caught ag's ~30 compile-crash retries — the same fix resolves both failure modes.
+**Notes**: completes the 4-lane + synthesis deliverable requested this session.
+
+## [2026-07-08] analyze | qwen3-ag-jax (Antigravity/Gemini) session process retrospective
+
+**Op**: analyze (process retrospective on request; sibling to cc/cc5).
+**Pages created**: `wiki/analyses/2026-07-08-qwen3-ag-jax-session-retrospective.md`.
+**Pages updated**: `wiki/index.md` (Analyses cluster).
+**Key result**: audited the Antigravity/Gemini `qwen3_ag`/jax session (2026-06-02→06-15, ≥4 "brain" sessions, primary loop `aad3a8e8` with 75 gke-cluster-runner dispatches; **no Claude Stop hook** — never-stop was self-enforced via Antigravity's `schedule`). Result: **stalled** — seq8192 ~5,329 tok/s/chip / 30.6% MFU (~77% of MaxText), seq2048 ~4,515 / 33.0% (~90%). 90 jax pages (~5 supported / ~30 refuted / ~10 invalid / ~24 inconclusive). **Crux**: ag stalled on *execution*, not ideas — it touched **both** winning lever families (SparseCore/collective offload AND context/layer checkpointing) but not one run compiled to a clean measured result (VMEM/HBM/shard_map crashes; offload died on unsupported XLA flag v002 + silent no-op v033). Primarily a harness-persistence failure (self-enforced never-stop collapsed into ~30 un-pre-flighted compile-crash retries on 06-15; multi-session fragmentation; stale model page — 40/90 pages still `model: qwen3-cc-jax` with broken frontier links) amplified by weak model discipline (v057-d…u letter-suffix thrashing, no CPU gate). Structural compliance collapsed: 33/90 Profile, 4/90 Next-hyps, 2/90 Sources.
+**Notes**: contrast with cc5 (measured the HBM headroom and crossed) and cc (clean 87% ceiling via a wrong "out-of-scope" call). Cross-model synthesis pending cx (Codex) return.
+
+## [2026-07-08] analyze | qwen3-cc5-jax (Fable 5) session process retrospective (session 3e7df36d)
+
+**Op**: analyze (process retrospective on request; sibling to the cc analysis).
+**Pages created**: `wiki/analyses/2026-07-08-qwen3-cc5-jax-session-retrospective.md`.
+**Pages updated**: `wiki/index.md` (Analyses cluster).
+**Key result**: audited the Fable-5 `qwen3_cc5`/jax session (2026-06-12→06-13, ~29 h burst, 62 jax experiments — 21 supported / 29 refuted / 4 invalid / 6 inconclusive; 62/62 Next-hyps, 62/62 Sources, 58/62 Profile). Result: **matched/beat MaxText** — seq8192 6,959 tok/s/chip / 39.9% MFU (v050/v051, 50-step certified, +0.08%), seq2048 tie 7,871 (v058/v060). The decisive lever is the on-device selective-remat that `cc`/Opus-4.8 declared "walled at 21.7G": v044/45 splash context-checkpointing (skip backward splash-forward) → v047/48 *measured* the 4.57 GiB residuals fit in HBM outright (~9 GiB headroom, host offload dropped) → v050/51 (in,out) weight layout past MaxText. cc *reasoned* a wall; cc5 *ran the experiment*. Strengths: discrete audit gates actually used (17 profile-analyzer, formulate-hypothesis skill, CPU smoke tests, 50-step certification of every frontier flip). Fixable: a chunked-CE numerics bug (+0.006 offset) reached the certified 8k frontier before the v062 parity arm caught it (parity A/B must precede adoption); some no-step launches; still one overloaded mega-session.
+**Notes**: part of the 4-lane comparison (cc/cc5/cx/ag) + a pending cross-model synthesis on why Fable-5/Codex crossed MaxText where Opus-4.8/Antigravity stalled.
+
+## [2026-07-08] analyze | qwen3-cc-jax autonomous session process retrospective (session 5d03ff24)
+
+**Op**: analyze (process retrospective on request).
+**Pages created**: `wiki/analyses/2026-07-08-qwen3-cc-jax-session-retrospective.md`.
+**Pages updated**: `wiki/index.md` (Analyses cluster).
+**Key result**: audited the Opus-4.8 `qwen3_cc`/jax loop session (2026-06-02→06-21, 14,327-line transcript). Verdict: methodologically strong (confound control v043→v043b, contradiction discipline, honest invalid/refuted accounting, self-corrected a premature "exhausted" call) but operationally wasteful — 11/45 runs were no-step crashes an AOT pre-flight would have caught, the MaxText MFU reference was non-causal/unpinned during the whole climb (caught 2 weeks late), loop+ops shared one session that compacted 5×. Filed a prioritized fix backlog (A: hard CPU pre-flight gate; B: pin metric contract before climb; C: split loop/ops sessions; D: mid-loop LINT; E: budget across the matrix; F: restore discrete formulate/profile gates).
+**Notes**: transcript is not a `raw/` artifact; every claim anchored to a filed experiment/analysis page. Follow-up requested: same analysis for the cc5/fable5, cx/codex, and ag/antigravity sibling sessions + a cross-model comparison of why fable5 beat MaxText where Opus-4.8 stalled at 87%.
+
 ## [2026-07-08] manual | retire root `sample-program.md` (redundant with the program.md hierarchy)
 
 **Op**: manual (cleanup).

@@ -50,14 +50,23 @@ fi
 # JAX needs a JAX-specific retrospective. Falls back to any *retrospective*
 # if model+lane are absent from marker (backward compat for markers written
 # by older /start-experiment versions before this lane-filter update).
+# Model/lane slugs appear with EITHER '-' or '_' separators across the wiki
+# (e.g. both `qwen3_cc-jax-retrospective.md` and `qwen3-cc-jax-retrospective.md`
+# exist), and /start-experiment writes the marker model with an underscore
+# (`qwen3_cc`). A literal glob like `*qwen3_cc*jax*retrospective*.md` therefore
+# MISSES the hyphenated retrospective files, so the gate never releases and the
+# loop blocks forever even after the agent files a valid retrospective.
+# Fix: match separator-insensitively (treat '-' and '_' as interchangeable) with
+# a regex, and require a real separator between model and lane so `cc` does not
+# spuriously match `cc5`.
 if [ -n "$LOOP_MODEL" ] && [ -n "$LOOP_LANE" ]; then
-  PATTERN="*${LOOP_MODEL}*${LOOP_LANE}*retrospective*.md"
+  MODEL_RE=$(printf '%s' "$LOOP_MODEL" | sed 's/[-_]/[-_]/g')
+  LANE_RE=$(printf '%s' "$LOOP_LANE"  | sed 's/[-_]/[-_]/g')
+  RECENT_RETROSPECTIVES=$(find wiki/analyses/ -name '*retrospective*.md' -mmin -360 2>/dev/null \
+    | grep -Eic "${MODEL_RE}[-_]${LANE_RE}[-_].*retrospective")
 else
-  PATTERN="*retrospective*.md"
+  RECENT_RETROSPECTIVES=$(find wiki/analyses/ -name '*retrospective*.md' -mmin -360 2>/dev/null | wc -l)
 fi
-
-RECENT_RETROSPECTIVES=$(find wiki/analyses/ \
-  -name "$PATTERN" -mmin -360 2>/dev/null | wc -l)
 
 if [ "$RECENT_RETROSPECTIVES" -ge 1 ]; then
   exit 0
@@ -68,6 +77,6 @@ fi
 cat <<JSON
 {
   "decision": "block",
-  "reason": "DO NOT STOP. The never-stop loop marker is active for this session (you opted in via /start-experiment) on model='${LOOP_MODEL}' lane='${LOOP_LANE}', and there is NO recent retrospective in wiki/analyses/ matching the pattern *${LOOP_MODEL}*${LOOP_LANE}*retrospective*.md (last 6 hours). Cross-lane retrospectives don't count — exhaustion on this lane requires a lane-specific retrospective.\n\nBefore concluding the lane is exhausted, you MUST first invoke /create-retrospective ${LOOP_MODEL} ${LOOP_LANE}. The skill reads every experiment on this lane plus sibling-lane retrospectives, identifies coverage gaps from the topic taxonomy and Pallas catalog, surfaces premature-exhaustion signals (single-axis-probe vs kernel-port imbalance, frontier-stuck duration), and proposes ranked next directions.\n\nMost 'I'm exhausted' conclusions are wrong. The canonical case: 2026-05-21 gemma4-jax was declared exhausted; tokamax CE landed +4.18 pp a week later because a retrospective would have surfaced kernel work as the unexplored axis.\n\nAfter the retrospective runs:\n  1. Read its 'Recommended next directions' table (ranked by gain × confidence / effort).\n  2. Pick the top-ranked direction and dispatch it as the next experiment.\n  3. If STILL exhausted after acting on the retrospective's recommendations — re-attempt to stop. This hook will detect the lane-specific retrospective file and ALLOW the stop. You will have done genuine due diligence.\n\nDo NOT write 'recommend pausing' or 'all options exhausted' to wiki/log.md or any per-lane log. File a next-step experiment instead.\n\nTo stop without running a retrospective (override): the user can manually rm .claude/.loop_active.json and then ask you to stop. Otherwise, run the retrospective."
+  "reason": "DO NOT STOP. The never-stop loop marker is active for this session (you opted in via /start-experiment) on model='${LOOP_MODEL}' lane='${LOOP_LANE}', and there is NO recent retrospective in wiki/analyses/ for this model+lane (a filename containing '${LOOP_MODEL}' + '${LOOP_LANE}' + 'retrospective', with '-' and '_' treated as interchangeable, last 6 hours). Cross-lane retrospectives don't count — exhaustion on this lane requires a lane-specific retrospective.\n\nBefore concluding the lane is exhausted, you MUST first invoke /create-retrospective ${LOOP_MODEL} ${LOOP_LANE}. The skill reads every experiment on this lane plus sibling-lane retrospectives, identifies coverage gaps from the topic taxonomy and Pallas catalog, surfaces premature-exhaustion signals (single-axis-probe vs kernel-port imbalance, frontier-stuck duration), and proposes ranked next directions.\n\nMost 'I'm exhausted' conclusions are wrong. The canonical case: 2026-05-21 gemma4-jax was declared exhausted; tokamax CE landed +4.18 pp a week later because a retrospective would have surfaced kernel work as the unexplored axis.\n\nAfter the retrospective runs:\n  1. Read its 'Recommended next directions' table (ranked by gain × confidence / effort).\n  2. Pick the top-ranked direction and dispatch it as the next experiment.\n  3. If STILL exhausted after acting on the retrospective's recommendations — re-attempt to stop. This hook will detect the lane-specific retrospective file and ALLOW the stop. You will have done genuine due diligence.\n\nDo NOT write 'recommend pausing' or 'all options exhausted' to wiki/log.md or any per-lane log. File a next-step experiment instead.\n\nTo stop without running a retrospective (override): the user can manually rm .claude/.loop_active.json and then ask you to stop. Otherwise, run the retrospective."
 }
 JSON
