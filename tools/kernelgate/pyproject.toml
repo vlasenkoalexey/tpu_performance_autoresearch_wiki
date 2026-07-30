@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kernelgate"
+version = "0.2.0"
+description = "Verification gates for TPU kernel benchmarking (timing, parity, coverage, sweep, flags, fit, roofline, receipts, lint)"
+requires-python = ">=3.10"
+# jax/jaxlib deliberately not pinned: kernelgate runs against whatever JAX the
+# execution environment provides (e.g. the benchmark pod's /opt/venv JAX).
+dependencies = ["numpy"]
+
+[project.optional-dependencies]
+test = ["pytest"]
+
+[project.scripts]
+kgate = "kernelgate.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["kernelgate*"]
+
+[tool.pytest.ini_options]
+markers = [
+    "tpu: test requires a TPU device (enable with KGATE_TPU=1 on a TPU host)",
+]
+testpaths = ["tests"]

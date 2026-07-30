@@ -208,4 +208,4 @@ Ingested <year>-<slug>:
 - `SCHEMA.md` — the INGEST-SOURCE operation contract this skill implements
 - `wiki/model-optimization-index-regenerate-prompt.md` — how the index uses ingested sources at next regen
 - `.claude/skills/formulate-hypothesis/SKILL.md` — downstream consumer (cites sources in proposals)
-- `.claude/skills/wikify-ingest-repo/SKILL.md` — sibling skill for ingested codebases (SCIP-grounded catalogs)
+- `.claude/skills/extract-ast/SKILL.md` — sibling skill for ingested codebases (AST snapshots)

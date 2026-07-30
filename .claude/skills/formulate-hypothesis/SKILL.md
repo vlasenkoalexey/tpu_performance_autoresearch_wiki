@@ -1,6 +1,6 @@
 ---
 name: formulate-hypothesis
-description: Generate a structured optimization hypothesis for the autoresearch loop. Walks three layers — (1) the generic wiki/model-optimization-index.md for TPU envelope data + topic pointers + cross-model refuted-pattern principles, (2) the generic wiki/model-optimization-blueprint.md for ladder-keyed phase ordering + compounding rules + trap awareness, and (3) the per-model refuted-patterns layer + model page + recent experiments for variant-specific prior refutations. The index and blueprint are intentionally complementary: the index answers "for topic X, what's the mechanism and what's refuted?"; the blueprint answers "in what order do I apply optimizations, what compounds, what trap will bite me?". Reads both index and blueprint in FULL (each ~lean; full-read is the safety guarantee against TLDR-tunneling). Then reads the catalog-chosen depth pages (concept + observation + source pages cited under the 1-3 implicated topics' Mechanism subsections) directly via Read — the catalog has done the filtering; no subagent middleman. Returns a structured proposal with mandatory fields (hypothesis, topic, blueprint phase, wiki precedents reviewed, generic-principle checks, per-model refuted-patterns check, profile signal, falsification criterion, expected gain). Invoke from the autoresearch loop before constructing the workload name and dispatching the gke-cluster-runner. NEVER skip this skill before proposing a hypothesis — failures like 200× regressions on chunked-XLA backward (the v391y class) came from skipping the precedent check.
+description: Generate a structured optimization hypothesis for the autoresearch loop. Walks three layers — (1) the generic wiki/model-optimization-index.md for TPU envelope data + topic pointers + cross-model refuted-pattern principles, (2) the generic wiki/model-optimization-blueprint.md for ladder-keyed phase ordering + compounding rules + trap awareness, and (3) the per-model refuted-patterns layer + model page + recent experiments for variant-specific prior refutations. The index and blueprint are intentionally complementary: the index answers "for topic X, what's the mechanism and what's refuted?"; the blueprint answers "in what order do I apply optimizations, what compounds, what trap will bite me?". Reads both index and blueprint in FULL (each ~lean; full-read is the safety guarantee against TLDR-tunneling). Then reads the catalog-chosen depth pages (concept + observation + source pages cited under the 1-3 implicated topics' Mechanism subsections) directly via Read — the catalog has done the filtering; no subagent middleman. Returns a structured proposal with mandatory fields (hypothesis, topic, blueprint phase, wiki precedents reviewed, generic-principle checks, per-model refuted-patterns check, profile signal, falsification criterion, expected gain). Invoke from the autoresearch loop before constructing the workload name and dispatching the gke-cluster-runner. MODEL LANES ONLY — kernel families use /formulate-kernel-hypothesis. NEVER skip this skill before proposing a hypothesis — failures like 200× regressions on chunked-XLA backward (the v391y class) came from skipping the precedent check.
 ---
 
 You are formulating one optimization hypothesis for the autoresearch loop. The output of this skill MUST be a structured proposal that the master agent reviews before dispatching. Do not skip steps.
@@ -8,7 +8,7 @@ You are formulating one optimization hypothesis for the autoresearch loop. The o
 ## Step 1 — Gather inputs from caller / session context
 
 The caller (typically the loop in `/start-experiment` Step 9, step 2(c)(i)) provides:
-- **`<model>`** + **`<lane>`** — e.g. `gemma4` + `jax`
+- **`<model>`** + **`<lane>`** — e.g. `<model>` + `jax`
 - **`<variant>`** — current variant being optimized (e.g. `3B/v5p-16`, `24B/v5p-32`)
 - **`<mode>`** (optional, default `frontier`) — one of:
   - `frontier` (default): variant has a measured-best baseline and regression would be costly. Full ceremony. Pick this when the model page's variant matrix shows a non-trivial Current best for the variant.
@@ -64,6 +64,15 @@ Use bootstrap mode when:
 - A new model just entered the autoresearch loop and is being shaken down
 - The variant has just been added to the matrix and there's no measured baseline yet
 - All earlier ladder rungs (Phase 0, Phase 1) are unvalidated for this variant
+
+## Kernel families — this skill does NOT apply
+
+Kernel experiment families (`wiki/kernel_experiments/`, `lane: pallas`) use the **self-contained
+[`/formulate-kernel-hypothesis`](../formulate-kernel-hypothesis/SKILL.md)** skill instead — the
+kernel lane has its own catalog (`kernel-optimization-index.md`), no blueprint, and different
+mandatory fields (intervention class, op-point provenance, candidate plan, parity-gated bar vs the
+frontier). If you were invoked for a kernel family, STOP and load that skill; this one's model
+machinery (blueprint phases, variant matrices, MFU targets) does not transfer.
 
 ## User-override mode — caller-specified candidate
 

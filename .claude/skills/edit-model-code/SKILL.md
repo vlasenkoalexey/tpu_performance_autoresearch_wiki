@@ -81,6 +81,10 @@ A Pallas kernel that fails should **fail**, not silently fall back to XLA. `try/
 
 Same rule for: shard_map wraps, fused ops, custom_vjp paths. If it errors, it errors loud.
 
+### B2. Touching Pallas/Mosaic kernel code? Load the mechanics page first
+
+If the edit touches or adds a Pallas/Mosaic kernel (a K8 upward-validation swap, a block-size retune, modifying splash/segment_matmul/CE kernels), read [`wiki/concepts/pallas-kernel.md`](../../../wiki/concepts/pallas-kernel.md) BEFORE editing — the TPU memory model, the (8,128) tiling rule, scalar-prefetch indirection, and the compile gotchas LLMs reliably get wrong. It prevents most compile-fix churn. Two boundary reminders: from-scratch kernel *authoring* belongs to the kernel lane (`wiki/kernel_experiments/program.md` K4, the kernel-author subagent — not this skill); and a kernel-family win enters model code ONLY via an upward-validation experiment (SCHEMA coupling rule) — never swap a kernel in "because the kernel family showed it's faster" without that experiment.
+
 ### C. Comment policy
 
 Only comment when the **WHY** is non-obvious — a hidden constraint, a subtle invariant, a workaround for a specific compiler / runtime bug.
@@ -97,7 +101,7 @@ A short `# perf: see wiki/experiments/<...>` is acceptable ONLY when a future co
 Every commit in the fork carries this footer in its commit message:
 
 ```
-exp: wiki/experiments/<model>_autoresearch_optimization/<lane>/experiments/<YYYY-MM-DD>-v<NNN>-<slug>.md
+exp: wiki/experiments/<model>_autoresearch_optimization/<lane>/<YYYY-MM-DD>-v<NNN>-<slug>.md
 ```
 
 This is the back-pointer that lets `git log --grep=exp:` enumerate every experiment-bound commit. Don't skip it.
@@ -145,3 +149,5 @@ If any check fails: revert that part of the edit, don't add to it.
 - [`wiki/experiments/program.md`](../../wiki/experiments/program.md) — the procedural spec; step 4 ("Implement") is the invocation point
 - [`.claude/skills/formulate-hypothesis/SKILL.md`](../formulate-hypothesis/SKILL.md) — the upstream skill that produced the hypothesis being implemented
 - [`SCHEMA.md`](../../SCHEMA.md) — wiki structure and the experiment-narrative-vs-model-code separation
+- [`wiki/concepts/pallas-kernel.md`](../../wiki/concepts/pallas-kernel.md) — TPU-Pallas authoring mechanics (load before any edit that touches kernel code — §B2)
+- [`wiki/kernel_experiments/program.md`](../../wiki/kernel_experiments/program.md) — from-scratch kernel authoring lives there (the `/author-kernel` skill), not in this skill

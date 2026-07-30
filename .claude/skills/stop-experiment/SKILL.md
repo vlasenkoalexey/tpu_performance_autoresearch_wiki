@@ -1,33 +1,42 @@
 ---
 name: stop-experiment
-description: Stop the autoresearch optimization loop cleanly. Cancels pending ScheduleWakeup, reaps orphan workloads on the project's cluster pool, files any missing experiment pages, runs lint, and appends a clean-shutdown marker to wiki/log.md. Invoke at the end of an autoresearch session.
+description: Stop the autoresearch optimization loop cleanly. Disarms the launch-armed process watcher, cancels pending wakeups, reaps orphan workloads on the project's cluster pool, files any missing experiment pages, runs lint, and appends a clean-shutdown marker to wiki/log.md. Invoke at the end of an autoresearch session.
 ---
 
 You are stopping the autoresearch loop cleanly. Follow this sequence — do not abbreviate.
 
 ## Step 1 — Stop the loop
 
-**First, remove the never-stop marker** (no-op if absent):
+### Step 1·0 — Final audit gate (BLOCKING — before the watcher is disarmed)
 
-```bash
-rm -f .claude/.loop_active.json
-```
+You are the agent the watcher supervises; you may not end your own supervision unaudited. Dispatch the [`process-auditor`](../../agents/process-auditor.md) SYNC over the closing delta (the stop/at-ceiling claim, retrospective, and evidence table included). Then:
 
-This MUST happen before any action that could end the agent's turn. The Stop hook (if wired in `.claude/settings.local.json`) checks for this marker; with it present, `/stop-experiment`'s own natural turn-end would be blocked. Removing it first ensures `/stop-experiment` can complete cleanly.
+- **`stop blocked` / FABRICATION finding** → **ABORT `/stop-experiment`.** The watcher stays armed; apply the corrections and return to the loop (kernel family: the failing gate is the next K2 input). Exception: a user-ordered infrastructure stop making NO at-ceiling claim converts to a **PAUSE** (Stop rule's PAUSE ≠ STOP) instead of aborting — record the resume state and continue shutdown. A PAUSE claims no close, so the `.stop-authorized` requirement does NOT apply to it: disarm is permitted (the pause marker records the family OPEN; LINT's unauthorized-stop check keys on clean-close/at-ceiling markers only — without this carve-out a paused session could never disarm and the revive service would fight the operator's pause).
+- **ALL-CLEAR (or only non-blocking findings, applied)** → the auditor **writes `<family>/pallas/.stop-authorized`** (its ALL-CLEAR line + cursor SHAs). **VERIFY THE FILE EXISTS before proceeding** — `test -e <family>/pallas/.stop-authorized`. No file = the audit did not complete clean = you may NOT proceed (wait for it or apply its findings; dispatching the audit is not the gate — its written authorization is). You may NEVER create this file yourself — that is fabrication-class and voids the close. Also record the auditor's report line verbatim; Step 6's marker cites it. A marker without a matching `.stop-authorized` is an unauthorized stop (LINT voids + reopens). Proceed to the disarm.
 
-(If the marker was never written — never-stop wasn't opted in for this session — this `rm -f` is a silent no-op; harmless.)
+### Step 1·1 — Disarm the watcher
 
-Then cancel any pending `ScheduleWakeup` so no further iterations fire. If `/loop` is running, the way to stop it depends on the harness:
-- If self-paced: omit the next `ScheduleWakeup` call. The loop naturally ends after this iteration.
-- If interval-based: tell the user they need to use the harness's loop-stop mechanism (typically `/loop --stop` or interrupting the session).
+**Only after Step 1·0 passes AND `<family>/pallas/.stop-authorized` exists on disk (or Step 1·0 resolved to a PAUSE — no close claimed)**, disarm the Step 9·0 process watcher — the persistent, self-rescheduling `process-auditor` task that `/start-experiment` armed at launch. Cancelling the watcher task at ANY other moment — including as "teardown hygiene" while an audit is still running — is a process violation that voids the close (the 2026-07-21 cohort's signature failure: three sessions cancelled their auditor mid-final-audit and closed unaudited). Its revive service would otherwise wake the session back up after this clean shutdown:
 
-Report to the user: "Loop stop requested — no more iterations will be scheduled."
+- **claude**: stop the background watcher Agent/Task (`TaskStop` or the harness's task-cancellation mechanism).
+- **agy**: cancel the self-rescheduling `Schedule`/`ManageTask` entry so it stops perpetuating itself.
+- **codex**: nothing to disarm (its auditor is dispatched per-experiment, not scheduled).
+
+If no programmatic cancellation is available, note that the watcher will fire once more, see the clean-shutdown marker (Step 6), and find nothing to audit — the marker is what tells a firing watcher the session ended deliberately.
+
+Then cancel any pending timer wakeups (safety-net wakes armed at the end of loop iterations) so no further iterations fire.
+
+(Legacy cleanup: if a `.claude/.loop_active.json` marker exists from a pre-retirement session, `rm -f` it — the Stop-hook/marker machinery was retired 2026-07-21; the watcher owns braking now.)
+
+Report to the user: "Loop stop requested — watcher disarmed, no more iterations will be scheduled."
 
 ## Step 2 — Determine context
 
-Same as `/start-experiment` step 1:
+**Kernel families**: context = the family slug (from the invocation or the session's family dir). Kernel runs are local — **skip Steps 2b and 3 entirely** (no clusters, nothing to reap). Steps 4.5 (stuck stubs — in the family dir), 4.7, 4.8 (family page), 5 (LINT), and 6 (stop marker → the FAMILY's log, `wiki/kernel_experiments/<slug>/pallas/log.md`) all apply. Everything else in this step is model-lane machinery.
+
+Model lanes — same as `/start-experiment` step 1:
 1. Infer model + lane from CWD if possible.
-2. Read user invocation (e.g. `/stop-experiment gemma4 tpu`).
+2. Read user invocation (e.g. `/stop-experiment <model> tpu`).
 3. Ask via `AskUserQuestion` if unresolved.
 
 Resolve the hierarchical `program.md` and derive constants using the same chain as `/start-experiment` step 2b:
@@ -83,7 +92,7 @@ For each killed workload, the experiment page filing follows SCHEMA.md `experime
 Walk back through the recent session's transcript (or the most recent `wiki/log.md` entries) for `gke-cluster-runner` subagent invocations. For each one, verify a corresponding experiment page exists at:
 
 ```
-wiki/experiments/<model>_autoresearch_optimization/<lane>/experiments/<YYYY-MM-DD>-v<NNN>-<slug>.md
+wiki/experiments/<model>_autoresearch_optimization/<lane>/<YYYY-MM-DD>-v<NNN>-<slug>.md
 ```
 
 For any subagent run that returned a structured report but **does not** have a wiki page:
@@ -99,7 +108,7 @@ LINT (Step 5) reports stuck stubs (`status: in_progress` > 24h per SCHEMA), but 
 Walk the lane's experiment directory:
 
 ```bash
-grep -l "^status: in_progress" wiki/experiments/<model>_autoresearch_optimization/<lane>/experiments/*.md
+grep -l "^status: in_progress" wiki/experiments/<model>_autoresearch_optimization/<lane>/*.md
 ```
 
 For each stub returned:
@@ -119,6 +128,24 @@ For each stub returned:
 
 Surface to user: "Resolved N stuck stubs: K via re-analysis, M as inconclusive (artifacts gone), P as invalid (crashed). Q stubs left in_progress for in-flight workloads."
 
+## Step 4.7 — Sweep un-snapshotted subagent transcripts
+
+Backstop for the per-consumption snapshots (root `program.md` step 8; `wiki/kernel_experiments/program.md` K4 + K6): for each experiment this session dispatched subagents for (`kernel-author`, `kernel-verifier`, `profile-analyzer`), check `raw/profiles/<exp-slug>/transcripts/`. If a dispatched agent's transcript is missing there and its file is still accessible in the session's task output, copy it in and reference it from the page's `## Sources`.
+
+Best-effort and NON-BLOCKING: no accessible transcript → note the gap and continue; never fail or delay shutdown over this. `gke-cluster-runner` transcripts are optional (mostly polling output; the job logs persist on GCS independently). No dispatches this session → this step is a no-op.
+
+## Step 4.8 — Update the live model / kernel family page with the latest status
+
+The live page is the frontier source of truth and must reflect the session's final state before shutdown — a reader (or the next `/start-experiment`) should never have to reconstruct the frontier from the experiment ledger.
+
+For the lane(s) this session touched, open the live page — a **model** lane's [`wiki/models/<architecture>-<lane>.md`](../../../wiki/models/) or a **kernel** family's [`wiki/kernels/<kernel>.md`](../../../wiki/kernels/) (`type: model`, `lane: pallas`) — and update **in place**:
+
+- **Variant matrix row(s)** — `Status` (`live` / `blocked` / `parked` / `at-ceiling`), `Current best` (points at the latest `supported` experiment for that variant), `Open hyps` count, `Frontier exp` link. This is the same in-place update the loop does at model step 11 / kernel step K8; Step 4.8 is the backstop that guarantees it happened for the session's last experiment (the one most likely to have been interrupted).
+- **Kernel families specifically**: if a family reached its physical ceiling this session (ALL FOUR Stop-rule conditions per `kernel_experiments/program.md` — and the closing retrospective carries the 4-row EVIDENCE TABLE (one artifact path per condition; unfillable without the 2nd retrospective + full-verify receipt) — leads dry at source, retrospective-confirmed bound, no progress across two consecutive retrospectives, AND the frontier's full verification: `kgate verify --mode full` receipt all-gates-PASS + the adversarial agentic check, receipt path + `verified_by` on the frontier page), set its row `Status: at-ceiling` and note the ceiling (roofline / dispatch floor) so it is not re-opened blindly — it is revisited only when accrued knowledge gives a fresh angle.
+- Bump the page's `updated:` frontmatter.
+
+This mirrors the loop's own in-place update rule; do NOT create a new page or a summary page. NON-BLOCKING for a crashed session with no clean final verdict — record what is known and let LINT (Step 5) flag any `Current best` that doesn't match the latest `supported` experiment.
+
 ## Step 5 — Run LINT
 
 Execute the LINT operation per `SCHEMA.md`. Check and report (don't auto-fix judgment calls). The canonical list is in SCHEMA's LINT section — use that as the source of truth. Step 4.5 already resolved most stuck-stub cases, so this step's stuck-stub check should typically report 0 or only the intentionally-left-in_progress stubs.
@@ -133,6 +160,7 @@ Append a `stop` marker to the **lane's** log (per SCHEMA's two-tier convention �
 ## [YYYY-MM-DD] stop | /stop-experiment session end
 
 **Op**: stop
+**Final audit**: <the process-auditor's Step 1·0 report line, verbatim — e.g. "AUDIT <family> @wiki=<sha> code=<sha>: ALL CLEAR (delta: N wiki / M code commits)". MANDATORY — this is the stop authorization; a stop marker without it is unauthorized (LINT flags + reopens).>
 **Pages created**: <list of any missing-page files filed in step 4>
 **Pages updated**: <lane log path>
 **Notes**: Clean shutdown via /stop-experiment. Reaped orphan workloads: <list>.
@@ -144,7 +172,7 @@ Path: `wiki/experiments/<model>_autoresearch_optimization/<lane>/log.md`. Insert
 
 This lets a subsequent `/start-experiment` distinguish "loop ended cleanly" from "session crashed mid-iteration" by reading the most recent marker in the lane's log (Step 7 of /start-experiment).
 
-If `/stop-experiment` is being run for a session that touched MULTIPLE lanes (rare — typically each /loop is single-lane), append the `stop` marker to each lane's log. The global `wiki/log.md` does NOT get a `stop` marker — that file is for cross-cutting ops only.
+If `/stop-experiment` is being run for a session that touched MULTIPLE lanes (rare — typically each loop session is single-lane), append the `stop` marker to each lane's log. The global `wiki/log.md` does NOT get a `stop` marker — that file is for cross-cutting ops only.
 
 ## Step 7 — Summary to user
 

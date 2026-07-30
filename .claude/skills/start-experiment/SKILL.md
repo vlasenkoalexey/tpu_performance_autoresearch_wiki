@@ -1,16 +1,25 @@
 ---
 name: start-experiment
-description: Start the autoresearch optimization loop for a specific model + lane. Resolves the hierarchical program.md (root → model → lane), asks the user for hardware (local TPU VM or GKE cluster of a specified TPU type + topology), discovers available clusters from .env/, checks occupancy with USER_PREFIX-aware attribution, and starts /loop with the bounded-iteration prompt. Invoke at the beginning of an autoresearch session.
+description: Start the autoresearch optimization loop for a specific model + lane. Resolves the hierarchical program.md (root → model → lane), asks the user for hardware (local TPU VM or GKE cluster of a specified TPU type + topology), discovers available clusters from .env/, checks occupancy with USER_PREFIX-aware attribution, arms the launch-time process watcher (Step 9·0), and starts the prose loop — the session itself drives the iteration protocol. Invoke at the beginning of an autoresearch session.
 ---
 
 You are starting one autoresearch session. Follow this sequence precisely. Do not skip steps.
 
 ## Step 1 — Determine context (model, lane, parallelism)
 
+**KERNEL FAST-PATH — check this FIRST.** If the invocation names a kernel (a kernel/benchmark path, a `wiki/kernels/` family slug, or "tpu chip N"), this is a KERNEL session. Steps 2–8 are model-lane machinery — skip them ALL (no cluster discovery, no xprof probe, no hardware question; the chip is in the prompt). Do exactly:
+
+1. Read `wiki/kernel_experiments/program.md` end-to-end; derive the family slug per its Quick-start rule 1.
+2. **Step 9·0** — arm the watcher (kernel mode: `family` + `home_repo` from the family binding; bootstrap the binding first if new, per Quick-start rule 2).
+3. **Step 9b** — start marker, into the FAMILY's log: `wiki/kernel_experiments/<slug>/pallas/log.md`.
+4. Hand off: run the kernel Quick start (load `/author-kernel`, then K0–K9 on the pinned chip).
+
+Everything below this line is the MODEL-lane path.
+
 **Model + lane**, try in order:
 1. **Infer from CWD**: if the current working directory contains `wiki/experiments/<model>_autoresearch_optimization/<lane>/`, use `<model>` and `<lane>`.
-2. **Read user invocation**: the user may have typed `/start-experiment <model> <lane>` (e.g. `/start-experiment gemma4 tpu`). Parse if present.
-3. **Ask**: if neither resolves both, use `AskUserQuestion` to ask. Offer the model folders under `wiki/experiments/` (list whatever `*_autoresearch_optimization` folders actually exist, e.g. `gemma4_autoresearch_optimization`, `llama3_8B_autoresearch_optimization`); then ask for lane (typically `tpu`, `jax`, `torchax` — list whatever subdirectories of the chosen model folder actually contain a `program.md`).
+2. **Read user invocation**: the user may have typed `/start-experiment <model> <lane>` (e.g. `/start-experiment <model> tpu`). Parse if present.
+3. **Ask**: if neither resolves both, use `AskUserQuestion` to ask. Offer the model folders under `wiki/experiments/` (currently: `<model>_autoresearch_optimization`, `qwen3_autoresearch_optimization`, `gemma4_autoresearch_optimization`, `llama3_8B_autoresearch_optimization`); then ask for lane (typically `tpu`, `jax`, `torchax` — list whatever subdirectories of the chosen model folder actually contain a `program.md`).
 
 **Parallelism** (how many clusters to run in parallel as independent tracks):
 1. Parse `--parallelism N` (or `--parallelism all`) from the invocation if present.
@@ -18,7 +27,7 @@ You are starting one autoresearch session. Follow this sequence precisely. Do no
 3. If user asked for `all`, treat as "up to the number of free clusters matching the requested TPU type + topology" (resolved in step 6).
 4. If user asked for `N > free clusters available`, use however many ARE free, surface to user: "requested N, only K free, proceeding with K".
 
-Hold the parallelism value through step 6 (cluster selection) and step 9 (/loop dispatch).
+Hold the parallelism value through step 6 (cluster selection) and step 9 (loop start).
 
 ## Step 2 — Resolve hierarchical program.md
 
@@ -30,12 +39,14 @@ wiki/experiments/<model>_autoresearch_optimization/program.md
 wiki/experiments/<model>_autoresearch_optimization/<lane>/program.md
 ```
 
+(Kernel families never reach this step — the Step 1 fast-path handled them. Their spec is self-contained: `wiki/kernel_experiments/program.md` → `<family>/pallas/program.md`. Both lanes share one supervision pattern: the Step 9·0 watcher, armed once at launch, plus the prose loop the runner drives at Step 9c. `/loop` and the Stop-hook/marker machinery are retired — see SCHEMA "Launch-armed process watcher"; rationale in the 2026-07-21 enforcement design record.)
+
 **Apply replace-per-section resolution** (per the inheritance rule in root `program.md`): later files completely replace earlier files' definitions of the same H2 section; new sections in later files are taken as-is.
 
 Print a one-line audit summary to the user showing which level each section came from. Example:
 
 ```
-Effective program for gemma4 / tpu:
+Effective program for <model> / tpu:
   Inheritance model        ← root
   Concurrency model        ← root
   Setup                    ← lane (overrides model + root)
@@ -53,8 +64,8 @@ Effective program for gemma4 / tpu:
 **USER_PREFIX resolution chain** (first hit wins):
 
 1. If model-level `program.md` has an explicit `USER_PREFIX = <value>` line, use it.
-2. `$USER` before first underscore, lowercased: `echo "${USER%%_*}" | tr '[:upper:]' '[:lower:]'`. Example: `jane_google_com` → `<USER_PREFIX>`.
-3. Git first-name fallback: `git config user.name | awk '{print tolower($1)}'`. Example: `Jane Doe` → `jane`.
+2. `$USER` before first underscore, lowercased: `echo "${USER%%_*}" | tr '[:upper:]' '[:lower:]'`. Example: `alekseyv_google_com` → `alekseyv`.
+3. Git first-name fallback: `git config user.name | awk '{print tolower($1)}'`. Example: `Aleksey Vlasenko` → `aleksey`.
 4. If still empty, refuse and ask the user to set it explicitly.
 
 **MODEL_NAME** is auto-derived from the model folder name:
@@ -63,13 +74,13 @@ Effective program for gemma4 / tpu:
 echo "<model>_autoresearch_optimization" | sed 's/_autoresearch_optimization$//' | tr '_' '-' | tr '[:upper:]' '[:lower:]'
 ```
 
-Examples: `gemma4` → `gemma4`, `llama3_8B` → `llama3-8b`, `qwen3_8B` → `qwen3-8b`.
+Examples: `<model>` → `<model>`, `gemma4` → `gemma4`, `llama3_8B` → `llama3-8b`.
 
 Print both to the user before continuing:
 
 ```
-USER_PREFIX = <USER_PREFIX>  (from $USER segment)
-MODEL_NAME  = gemma4  (auto-derived from folder)
+USER_PREFIX = alekseyv  (from $USER segment)
+MODEL_NAME  = <model>  (auto-derived from folder)
 LANE        = tpu  (from context)
 ```
 
@@ -112,10 +123,10 @@ Build a candidate list. Example:
 
 ```
 v5p, 2x2x2 (8 chips per slice) candidates from .env/:
-  - examplecluster-v5p-16    (<zone>, <project>)
-  - examplecluster2-v5p-16     (<zone>, <project>)
-  - othercluster-pw-v5p-16-2 (<zone>, <project>)
-  - examplecluster3-v5p-16    (<zone>, <project>)
+  - atwigg-v5p-16    (europe-west4-b, cloud-tpu-multipod-dev)
+  - tsbao-v5p-16     (europe-west4-b, cloud-tpu-multipod-dev)
+  - wenxindong-pw-v5p-16-2 (europe-west4-b, cloud-tpu-multipod-dev)
+  - niting-v5p-16    (europe-west4-b, cloud-tpu-multipod-dev)
 ```
 
 ## Step 6 — Occupancy check + cluster selection (GKE only)
@@ -154,16 +165,16 @@ kubectl --context=<ctx> get jobset <workload> -o jsonpath='{.spec.replicatedJobs
 - If parallelism = 1: pick the first free cluster (current single-cluster behavior).
 - If parallelism > 1: pick the first N free clusters. Pool will operate as N independent tracks.
 - If fewer than N are free, use however many are free and surface: "requested N, only K free, proceeding with K".
-- If **zero** are free, report each candidate's occupancy with attribution and STOP. Do NOT pick an occupied cluster. Do NOT start the loop without targets.
+- If **zero** are free, report each candidate's occupancy with attribution and STOP. Do NOT pick an occupied cluster. Do NOT start the run without targets.
 
 Example output for parallelism=3:
 
 ```
 v5p (2x2x2) cluster pool (4 candidates, 3 selected):
-  ✓ examplecluster-v5p-16              → selected (track 0)
-  ✓ examplecluster2-v5p-16               → selected (track 1)
-  ✗ othercluster-pw-v5p-16-2     → occupied by my own jax-lane workload `<USER_PREFIX>-gemma4-jax-v204-...`
-  ✓ examplecluster3-v5p-16              → selected (track 2)
+  ✓ atwigg-v5p-16              → selected (track 0)
+  ✓ tsbao-v5p-16               → selected (track 1)
+  ✗ wenxindong-pw-v5p-16-2     → occupied by my own jax-lane workload `alekseyv-<model>-jax-v204-...`
+  ✓ niting-v5p-16              → selected (track 2)
 Proceeding with 3 parallel tracks.
 ```
 
@@ -173,104 +184,68 @@ Before launching the loop, read the current state of the project:
 - Last 50 lines of the **lane's** log: `wiki/experiments/<model>_autoresearch_optimization/<lane>/log.md` (this is the per-lane log per SCHEMA's two-tier convention; if it doesn't exist yet, this is the first session on this lane — create it empty at Step 9's loop-start marker)
 - Last 30 lines of the **global** `wiki/log.md` (cross-cutting events — schema changes, ingests, lane scaffolding — that may affect this lane)
 - The active model page: `wiki/models/<model>-<lane>.md` (variant matrix, Current best, Open hyps, Frontier exp)
-- The last 2–3 experiment pages in `wiki/experiments/<model>_autoresearch_optimization/<lane>/experiments/`
+- The last 2–3 experiment pages in `wiki/experiments/<model>_autoresearch_optimization/<lane>/`
 - Any open hypotheses in `wiki/hypotheses/` tagged for this model + lane
 
 Summarize to the user in 5–10 lines: which variant is the frontier, what was just learned, what's open, what hypothesis you'd run first.
 
-## Step 7.5 — Probe xprof MCP server
+## Step 7.5 — Probe xprof-cli (serverless — no MCP server, no `:8791`)
 
-The `profile-analyzer` agent (dispatched per experiment) calls `mcp__xprof__*` tools that require a localhost xprof server pointed at the shared profiles tree. If the server isn't running, all xprof calls fail silently → no `## Profile` / `## HLO Dump` sections → LINT failures + degraded verdict quality.
+The `profile-analyzer` agent (dispatched per experiment) runs all xprof/HLO/LLO reads through the **`xprof-cli`** CLI in serverless local mode (`XPROF_MODE=local`, in-process; `--logdir` takes GCS paths and local dirs identically). There is no server to start. If the CLI is missing, every dispatch fails Phase 1 → no `## Profile` / `## HLO Dump` sections → LINT failures.
 
-Probe by calling `mcp__xprof__list_runs` with no arguments:
+Probe once:
 
-- **If it returns a (possibly empty) list of runs** → server is up. Proceed.
-- **If it errors** (connection refused, server not found) → surface to the user with the start command:
+```bash
+XPROF_MODE=local xprof-cli list_runs --logdir=<shared-profiles-tree>
+```
 
-  ```
-  xprof --logdir=<shared-profiles-tree> --port=8791 &
-  ```
+- **Returns a (possibly empty) run list** → proceed.
+- **Command not found / import error** → surface to the user: install with `pip install -e raw/code/xprof-cli` (the xprof-cli checkout; see `.claude/agents/profile-analyzer.md` for the tool inventory). Re-probe before continuing.
 
-  Where `<shared-profiles-tree>` is the GCS bucket or local path the gke-cluster-runner uploads profiles to (per the lane's program.md). Then re-probe before continuing.
-
-Do NOT proceed past this step if the xprof server is unreachable — the loop will dispatch profile-analyzer per experiment and every dispatch will fail Phase 1.
+Do NOT proceed past this step if `xprof-cli` is not functional. (The legacy `mcp__xprof__*` server transport is retired from this flow — never ask the user to start `xprof --port=8791`.)
 
 ## Step 8 — Confirm with user
 
-Use `AskUserQuestion` with TWO questions in a single call (the launch decision + the never-stop preference). If the user picks Cancel / Different on Q1, ignore Q2.
+Use `AskUserQuestion`:
 
-**Question 1**: "Start the loop with this plan?"
+**Question**: "Start the experiment run with this plan?"
 **Options**:
-- `Yes, start loop` — proceed to step 9.
+- `Yes, start` — proceed to step 9. (Description shown to the user: "Runs autonomously in this session; a background audit subagent supervises and revives it. Stop anytime with /stop-experiment.")
 - `Different first hypothesis` — let user redirect.
 - `Cancel` — exit without starting.
 
-**Question 2**: "Enable never-stop hook for this session?"
-**Options**:
-- `No (interactive — default)` — for sessions where you want normal stop behavior. Default — first in the list so accidental confirmation is safe.
-- `Yes (autonomous never-stop)` — for unattended autoresearch loops. Stop hook will block stop attempts until `/create-retrospective` has run within the last 6 hours; this forces the agent to do a comprehensive retrospective before declaring exhaustion (the 2026-05-21 gemma4-jax case is the canonical failure this prevents).
+(Do not mention internal step numbers like "Step 9·0" in the question or option text — the user hasn't read this skill; describe mechanics in plain terms only.)
 
-CLI flags override the prompts:
-- `--never-stop` — skip Q2, assume "Yes".
-- `--no-never-stop` — skip Q2, assume "No".
-- `--yes` — skip BOTH (assume "Yes start loop" + "No never-stop"; safe defaults for unattended scripted invocation).
+CLI flag override: `--yes` — skip the question (assume "Yes, start"; safe default for unattended scripted invocation).
 
-Hold the never-stop answer (Yes/No) through Step 9 — it controls whether Step 9a writes the marker file.
+(There is no never-stop question anymore. The former opt-in Stop-hook/marker mechanism is retired — premature-stop protection is now unconditional, provided by the Step 9·0 watcher's braking + reviving services and by reader-side validation: a stop without the required retrospective/evidence is flagged by the watcher and voided+reopened by LINT.)
 
-## Step 9 — Start the loop
+## Step 9 — Start the run (arm watcher, mark log, drive the prose loop)
 
-### Step 9a — Conditional: write `.claude/.loop_active.json` for the never-stop hook
+### Step 9·0 — Arm the process watcher (ONE-TIME, both lanes)
 
-If Step 8's Q2 answer was "Yes (autonomous never-stop)" (or `--never-stop` flag was passed), write the marker file. Otherwise SKIP this step entirely.
+**ARM IT NOW, EXACTLY ONCE.** The [`process-auditor`](../../agents/process-auditor.md) runs as a persistent, self-rescheduling watcher — your harness's scheduler drives the repetition, never your per-iteration memory. Never re-arm per iteration. Inputs: kernel mode `family` + `home_repo`; model mode `model` + `lane` (the auditor picks its battery from the mode).
 
-```bash
-mkdir -p .claude
+How to arm — **native scheduler only, no scripts or scaffolding**:
 
-# Derive THIS session's ID from the most recently modified transcript .jsonl file.
-# Claude Code does NOT expose CLAUDE_SESSION_ID; the latest jsonl in
-# ~/.claude/projects/<encoded-cwd>/ is the active session's transcript (its
-# mtime is newest because it's being actively written to).
-LATEST_JSONL=$(find ~/.claude/projects/ -name "*.jsonl" -printf '%T@ %p\n' 2>/dev/null \
-  | sort -rn | head -1 | cut -d' ' -f2-)
-SESSION_ID=$(basename "$LATEST_JSONL" .jsonl)
+| harness | arming action (do this now) |
+|---|---|
+| claude | launch a background `Agent` (Task) that re-runs every ~5 min or on new commits under the lane/family dir; findings arrive as task notifications |
+| agy | `define_subagent` the auditor + arm a **self-rescheduling** `Schedule`/`ManageTask` loop (timer or new-commit wake) that invokes it as a background subagent and returns findings to your context; the reschedule is part of this one arming |
+| codex | no scheduled watcher: dispatch the `process-auditor` subagent ([`.codex/agents/process-auditor.toml`](../../../.codex/agents/process-auditor.toml)) **after filing each experiment**; its result auto-returns to your context |
 
-cat > .claude/.loop_active.json <<EOF
-{"session_id":"${SESSION_ID}","model":"<model>","lane":"<lane>"}
-EOF
+What the watcher does (it replaces the retired `/loop` + Stop hook):
+1. **Check** — delta audit since `.audit-cursor`; findings + paste-ready corrections land in your context. **Your rule: apply them before your next K3 (kernel) / next iteration (model).**
+2. **Brake** — a stop/at-ceiling claim without its artifacts ⇒ "stop blocked"; LINT voids+reopens unearned closes.
+3. **Revive** — its scheduled firing wakes an idle session (proven on agy, 2026-07-21), restarting a runner that stopped early.
 
-echo "Wrote .claude/.loop_active.json (session: ${SESSION_ID}, model: <model>, lane: <lane>)."
-echo "Stop hook will block stop attempts until /create-retrospective <model> <lane> has produced"
-echo "a lane-specific retrospective file in the last 6 hours. Cross-lane retrospectives don't count."
-echo "To override mid-session: rm .claude/.loop_active.json"
-```
+**Kernel families — clear any stale stop authorization as part of this arming:** `rm -f wiki/kernel_experiments/<family>/pallas/.stop-authorized`. That file is the auditor-written close authorization (`/stop-experiment` Step 1·0); one left over from a PREVIOUS close must never satisfy a new run's `test -e` gate — a fresh run voids all prior authorization.
 
-**Hook wiring prerequisite — one-time setup per checkout.** The marker is meaningless without the hook script registered. If `.claude/settings.local.json` does not have the Stop hook wired AND the user opted in to never-stop, prompt the user:
-
-> *The never-stop marker is written, but `.claude/settings.local.json` doesn't have the Stop hook registered. Without it, stop attempts won't be blocked. Add this registration?*
-
-If the user agrees, append to `.claude/settings.local.json`:
-
-```json
-{
-  "hooks": {
-    "Stop": [
-      {
-        "hooks": [
-          {"type": "command", "command": ".claude/stop_hook.sh"}
-        ]
-      }
-    ]
-  }
-}
-```
-
-(Merge with existing settings if other keys are present.) Note that `settings.local.json` is gitignored per project convention — this is per-checkout local config; not synced.
-
-If the user declines, proceed but warn: the marker exists but won't be enforced this session.
+(Why launch-time arming: the per-iteration dispatch buried in program.md fired for 1 of 6 agy families — see the 2026-07-21 enforcement design record, "Reversal".)
 
 ### Step 9b — Write start marker to the lane's log
 
-Write a `start` marker to the lane's log so the lane's log starts with the session boundary. Path: `wiki/experiments/<model>_autoresearch_optimization/<lane>/log.md`. Create the file if it doesn't exist; insert at the top (newest-first):
+Write a `start` marker to the lane's log so the lane's log starts with the session boundary. Path: `wiki/experiments/<model>_autoresearch_optimization/<lane>/log.md` (kernel fast-path: the FAMILY's log, `wiki/kernel_experiments/<slug>/pallas/log.md`, with Cluster pool = `chip <N>` and Parallelism = 1). Create the file if it doesn't exist; insert at the top (newest-first):
 
 ```markdown
 ## [YYYY-MM-DD] start | /start-experiment session begin
@@ -282,12 +257,12 @@ Write a `start` marker to the lane's log so the lane's log starts with the sessi
 **Notes**: session opened via /start-experiment.
 ```
 
-### Step 9c — Invoke `/loop`
+### Step 9c — Run the prose loop (the runner is the driver)
 
-Invoke `/loop` (self-paced; let the model pick the next-iteration delay via `ScheduleWakeup`) with the bounded-iteration prompt template below. Substitute `<model>`, `<MODEL_NAME>`, `<lane>`, `<USER_PREFIX>`, and `<CLUSTER_POOL>` (a list of `{name, context}` for the N selected clusters from step 6).
+There is no `/loop` skill invocation and no external loop machinery: **this session IS the loop driver.** Adopt the iteration protocol below as your standing operating instructions and execute it repeatedly — kernel lanes run K0→K9 synchronously per `wiki/kernel_experiments/program.md`; model lanes run the iteration protocol below. The Step 9·0 watcher supervises (checks, brakes, revives); you drive. Substitute `<model>`, `<MODEL_NAME>`, `<lane>`, `<USER_PREFIX>`, and `<CLUSTER_POOL>` (a list of `{name, context}` for the N selected clusters from step 6).
 
 ```
-/loop You are running one iteration of the <model> / <lane> autoresearch loop.
+You are running the <model> / <lane> autoresearch loop, one iteration at a time.
 
 Session constants (derived once by /start-experiment, do not re-derive):
   USER_PREFIX  = <USER_PREFIX>
@@ -315,7 +290,7 @@ Iteration steps:
    `<USER_PREFIX>-<MODEL_NAME>-<LANE>-v<NNN>-*` via `kubectl get jobset` (or
    `xpk workload list`). For each Completed workload:
      - Extract `v<NNN>` from the workload name.
-     - Check if `wiki/experiments/<model>_autoresearch_optimization/<lane>/experiments/`
+     - Check if `wiki/experiments/<model>_autoresearch_optimization/<lane>/`
        contains a `*-v<NNN>-*.md` page.
      - If NO page exists: this is a dispatch that completed without filing.
        File a page from `kubectl logs <pod> --tail=200` (extract MFU, loss,
@@ -353,7 +328,7 @@ Iteration steps:
        Read wiki/experiments/<model>_autoresearch_optimization/<lane>/program.md
          (lane-level, if exists; gracefully skip if not).
        Apply replace-per-section resolution. Use additive-section convention for
-       sections like "<MODEL>-specific CAN additions".
+       sections like "<Model>-specific CAN additions".
    (b) STATE (what's happened):
        Read last 50 lines of the LANE'S log:
          wiki/experiments/<model>_autoresearch_optimization/<lane>/log.md
@@ -485,7 +460,7 @@ Iteration steps:
        (i.5) FILE experiment page STUB to disk BEFORE running. This
              gives durable hypothesis context that profile-analyzer
              reads later, and survives session crashes.
-             Path: wiki/experiments/<MODEL>_autoresearch_optimization/<LANE>/experiments/<YYYY-MM-DD>-v<NNN>-<slug>.md
+             Path: wiki/experiments/<MODEL>_autoresearch_optimization/<LANE>/<YYYY-MM-DD>-v<NNN>-<slug>.md
              Sections to populate from the /formulate-hypothesis proposal:
                - Frontmatter: variant, hypothesis (one-line), status: in_progress, created date
                - ## Hypothesis under test — MUST contain four labeled
@@ -561,9 +536,8 @@ Iteration steps:
              megablox→mblx, selective→sel. Do NOT strip required segments
              (USER_PREFIX, MODEL_NAME, LANE, v<NNN>).
              Recommended: ≤ 30 chars total (leaves room for retry suffix).
-             Budget for gemma4 JAX with a typical 8-char USER_PREFIX
-             (<USER_PREFIX>-gemma4-jax-v<NNN>- ≈ 25 chars): slug ≈ 14 chars.
-             A longer USER_PREFIX/MODEL_NAME shrinks this — recompute vs < 40.
+             Budget for <Model> JAX (alekseyv-<model>-jax-v<NNN>- = 29
+             chars): slug must fit in 10 chars.
 
        (vi) DISPATCH gke-cluster-runner in BACKGROUND mode (program.md step 6):
             
@@ -611,28 +585,23 @@ Iteration steps:
             Master continues immediately. Subagent runs independently and reports
             via background notification when done.
 
-3. SCHEDULE next iteration (safety net):
-   Call ScheduleWakeup(delaySeconds=600, prompt=<this loop prompt>,
-                       reason="10-min cap; background subagent notifications will wake sooner")
-   
-   Notes:
-   - **HARD MAXIMUM: 600 seconds (10 minutes).** NEVER pick delaySeconds above
-     600 for the autoresearch loop. The /loop skill's general guidance suggests
-     1200-1800s for cache-friendly idle ticks, but the autoresearch loop has
-     time-sensitive operational concerns (hung workloads burning TPU quota,
-     stuck stubs needing resolution, multi-track coordination needing fresh
-     state) that override the cache-cost optimization. 10 minutes is the cap.
-   - **Minimum floor: 120s (2 min).** NEVER pick delaySeconds below 120.
-   - Background subagent completions arrive as automatic notifications — these
-     trigger iteration sooner than 600s. The ScheduleWakeup is a safety net for
-     the case where no subagents complete within the window (idle pool, all
-     tracks in long compile).
-   - User interrupts naturally: a user message during the wait runs as a normal
-     turn. At the end of EVERY response while the loop is active, call
-     ScheduleWakeup(<=600) to reset the timer.
-   - On user "stop" or /stop-experiment: do NOT call ScheduleWakeup; exit. Loop ends.
+3. END THE ITERATION — idle/wake discipline (no busy-polling, no sleep loops):
+   - If any track has work in flight, you may end the iteration (and the turn):
+     background subagent completion notifications re-invoke you, and the
+     Step 9·0 watcher's periodic firing revives the session if nothing else
+     does (empirically verified — the revive service).
+   - Safety net: if your harness exposes a native timer wake (agy Schedule,
+     claude scheduled wakeup), arm one at <=600 s (10 min) before ending the
+     iteration — hung workloads burn TPU quota and must never wait longer
+     than 10 min for a fresh look. Floor 120 s. If no native timer exists,
+     the watcher's cadence is the fallback.
+   - User interrupts naturally: a user message during the wait runs as a
+     normal turn; resume the loop protocol at its end.
+   - On user "stop" or /stop-experiment: do not schedule anything further;
+     exit. Loop ends.
 
-4. EXIT cleanly. Do NOT continue past step 4 in this iteration.
+4. EXIT the iteration cleanly. Do NOT continue past step 4 in this iteration —
+   the next wake (notification, timer, or watcher firing) starts the next one.
 
 DO NOT:
 - Ask the user clarifying questions (the loop is autonomous).
@@ -649,9 +618,9 @@ dispatching. Different tracks should get different ideas.
 The loop continues until the user invokes /stop-experiment or interrupts.
 ```
 
-After invoking `/loop`, surface to the user:
+After starting the loop, surface to the user:
 - The chosen cluster, lane, and workload prefix.
-- A reminder of how to stop the loop: `/stop-experiment` or interrupt.
+- A reminder of how to stop the run: `/stop-experiment` (disarms the watcher). An interrupt alone leaves the watcher armed — it will revive the session by design; only `/stop-experiment` ends the run cleanly.
 - The expected first-iteration completion time.
 
 ## Failure modes to handle gracefully

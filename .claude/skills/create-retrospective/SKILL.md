@@ -1,18 +1,18 @@
 ---
 name: create-retrospective
-description: Generate a comprehensive retrospective for a `(model, lane)` pair that maps the explored search space, identifies coverage gaps from the topic taxonomy (`model-optimization-index.md`) and Pallas kernel catalog, surfaces premature-exhaustion signals (single-axis-probe vs kernel-port imbalance, frontier-stuck duration), and proposes ranked next directions. **Reads ALL experiment pages in the lane** — not a sample — because the retrospective's value depends on comprehensive coverage of what's been tried. Includes a lightweight cross-lane brief by default. Manually callable; intended to be invoked when the agent reports "out of ideas" or hits the stuck-frontier signature, BEFORE concluding the lane is exhausted. Output is a dated analysis page at `wiki/analyses/<YYYY-MM-DD>-<model>-<lane>-retrospective.md`; the skill does NOT act on its own recommendations — it produces analysis, the loop / `/formulate-hypothesis` acts.
+description: Generate a comprehensive retrospective for a `(model, lane)` pair that maps the explored search space, identifies coverage gaps from the topic taxonomy (`model-optimization-index.md`) and Pallas kernel catalog, surfaces premature-exhaustion signals (single-axis-probe vs kernel-port imbalance, frontier-stuck duration), and proposes ranked next directions. **Reads ALL experiment pages in the lane** — not a sample — because the retrospective's value depends on comprehensive coverage of what's been tried. Includes a lightweight cross-lane brief by default. Manually callable; intended to be invoked when the agent reports "out of ideas" or hits the stuck-frontier signature, BEFORE concluding the lane is exhausted. Output is a dated analysis page at `wiki/analyses/<YYYY-MM-DD>-<model>-<lane>-retrospective.md` for MODEL lanes; for KERNEL families the page is filed IN the family dir instead — `wiki/kernel_experiments/<slug>/pallas/<YYYY-MM-DD>-retrospective[-N].md` (co-located with the family's program.md/RESULTS.tsv/log.md); the skill does NOT act on its own recommendations — it produces analysis, the loop / `/formulate-hypothesis` acts.
 ---
 
 # /create-retrospective — comprehensive lane retrospective
 
-Maps the search space already explored on a `(model, lane)` pair, identifies where coverage is incomplete, and ranks unexplored directions. Run this **before** declaring a lane exhausted — the 2026-05-21 case (gemma4-jax declared exhausted; tokamax-CE kernel +4.18 pp landed a week later) is exactly the failure this skill exists to prevent.
+Maps the search space already explored on a `(model, lane)` pair, identifies where coverage is incomplete, and ranks unexplored directions. Run this **before** declaring a lane exhausted — the 2026-05-21 case (<model>-jax declared exhausted; tokamax-CE kernel +4.18 pp landed a week later) is exactly the failure this skill exists to prevent.
 
 ## When to invoke
 
 - **The agent says "I'm out of ideas" / "all options exhausted" / "recommend pausing"** — call this skill FIRST. The retrospective often surfaces a direction the agent forgot or hasn't tried.
 - **The frontier hasn't moved in 10+ experiments** — search strategy may need to change, not just the next probe.
 - **N single-axis probes refuted on the same row** with no kernel-level work tried — the imbalance pattern.
-- **Manual invocation for human review** — `/create-retrospective gemma4 jax` produces the file; user reads + decides.
+- **Manual invocation for human review** — `/create-retrospective <model> jax` produces the file; user reads + decides.
 - **NOT for routine iteration** — full-read of every experiment page is expensive (~250K–500K tokens for a large lane). Call this when stuck, not on every cycle.
 
 ## Cardinal rules
@@ -27,7 +27,7 @@ Maps the search space already explored on a `(model, lane)` pair, identifies whe
 ## Arguments
 
 Required:
-- `<model>` `<lane>` — positional. Example: `/create-retrospective gemma4 jax`.
+- `<model>` `<lane>` — positional. Example: `/create-retrospective <model> jax`.
 
 Optional:
 - `--include-sibling-lanes` (DEFAULT ON) — adds cross-lane brief at the bottom.
@@ -73,7 +73,7 @@ Report the chosen mode in your status update before doing real work:
 
 ```
 Mode: FULL (no prior retrospective)
-Mode: INCREMENTAL (prior: 2026-05-25-gemma4-jax-retrospective.md; +N new experiments since)
+Mode: INCREMENTAL (prior: 2026-05-25-<model>-jax-retrospective.md; +N new experiments since)
 Mode: FULL (force-redo: taxonomy shifted — model-optimization-index.md updated 2026-06-01)
 Mode: FULL (force-redo: --full-redo flag)
 ```
@@ -176,9 +176,9 @@ If all keyword waves miss, the experiment is genuinely outside the current dicti
 
 The following experiments don't map cleanly to any existing topic in model-optimization-index.md:
 
-- v418 (gemma4-tpu): tested an autograd-integrated structural rewrite (autograd-level hooks below the compiler). Proposed new topic: **"Autograd-integrated structural rewrites"** — distinct from torch.compile + scan because the lever operates BELOW Dynamo (autograd-level hooks rather than compile-time graph capture).
+- v418 (<model>-tpu): tested torch_tpu.scan + register_autograd integration. Proposed new topic: **"Autograd-integrated structural rewrites"** — distinct from torch.compile + scan because the lever is operating BELOW Dynamo (C++/MLIR autograd hooks rather than compile-time graph capture).
 
-- v391y (gemma4-jax): tested chunked-XLA backward kernel. Proposed new topic: **"Compiler-side loss kernel rewriting"** — adjacent to Pallas kernels but the lever is XLA-pass-level rather than custom kernel.
+- v391y (<model>-jax): tested chunked-XLA backward kernel. Proposed new topic: **"Compiler-side loss kernel rewriting"** — adjacent to Pallas kernels but the lever is XLA-pass-level rather than custom kernel.
 
 → Recommend updating wiki/model-optimization-index.md to include these topics with their own Mechanism subsections + Generic refuted-pattern principles.
 ```
@@ -300,18 +300,18 @@ Output combines 6a + 6b:
 
 ### Sibling lane summaries (model pages)
 
-- **gemma4-tpu**: 3B/v5p-16 frontier 14.50% MFU @ v885; lbs=8 SimpleFSDP is the recent shift.
+- **<model>-tpu**: 3B/v5p-16 frontier 14.50% MFU @ v885; lbs=8 SimpleFSDP is the recent shift.
   - Universal levers transferable: SimpleFSDP (jax doesn't use it; needs shard_map equivalent), bf16-compute (jax has it; OK), gate+up MoE fusion (jax has it; OK)
-- **gemma4-torchax**: 3B/v5p-16 frontier 0.17% MFU (structural floor); no immediate transfer candidates.
-- **gemma4-maxtext**: not yet ingested for this model.
+- **<model>-torchax**: 3B/v5p-16 frontier 0.17% MFU (structural floor); no immediate transfer candidates.
+- **<model>-maxtext**: not yet ingested for this model.
 
 ### Sibling retrospective candidates (from sibling lanes' own analysis)
 
-- **gemma4-tpu** retrospective (2026-05-28, recent):
+- **<model>-tpu** retrospective (2026-05-28, recent):
   - Top recommendation: "Pallas RoPE kernel avoiding reshape" — TRANSFERABLE: this lane also has the same view→reshape friction in apply_rope; cite tpu's v675b precedent
   - Ledger reveals: tpu has 3 supported tokamax kernels; we have only 1 (v391f CE); 2 more candidates surfaceable
   - Their anti-recommendation: "single-axis flag probes on 3B" — CORROBORATES our own closure of this topic
-- **gemma4-torchax** retrospective (2026-04-10, STALE — 50+ days old; low confidence):
+- **<model>-torchax** retrospective (2026-04-10, STALE — 50+ days old; low confidence):
   - Recommendations age-discounted
 
 ### Conflicts with our prior work
@@ -459,7 +459,7 @@ Append to global `wiki/log.md` (cross-cutting op per SCHEMA's two-tier conventio
 One-line summary + path to file. Surface the top 3 recommended directions inline so the caller can act immediately without re-reading the file:
 
 ```
-Retrospective written: wiki/analyses/2026-06-02-gemma4-jax-retrospective.md
+Retrospective written: wiki/analyses/2026-06-02-<model>-jax-retrospective.md
 Experiments analyzed: 412 (across 3B/v5p-16, 24B/v5p-32, 150B/v5p-64)
 Frontier stuck for 14 experiments; single-axis-probe ratio 8.5:1 (imbalance signal)
 

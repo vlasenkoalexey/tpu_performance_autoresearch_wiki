@@ -29,15 +29,20 @@ Per SCHEMA.md's "Operations → LINT" section. The canonical list (extend if SCH
 ### Cross-cutting wiki invariants
 
 1. **Unresolved `[!warning]` contradictions** — grep `wiki/**.md` for `> [!warning]` blocks; report each with file:line + the contradicting claim.
-2. **Orphan pages** — pages with zero inbound markdown links. Special case: `_`-prefixed dirs/files in `wiki/` are auto-generated; SKIP orphan check for them. Also SKIP the wikify-generated grounded catalogs under `wiki/codebases/<slug>/` (`catalog/`, `concepts/`, `doc-concepts/`, `overview.md`) — they are internally cross-linked and lint-gated by `wikify finalize`, not by this skill.
+2. **Orphan pages** — pages with zero inbound markdown links. Special case: `_`-prefixed dirs/files in `wiki/` are auto-generated; SKIP orphan check for them (see also: AST snapshots under `wiki/codebases/<slug>/_ast/`).
 3. **Broken markdown links** — relative paths whose target `.md` doesn't exist.
 4. **Concept/entity names mentioned in prose but not linked** — heuristic: substrings from known concept page titles that appear unlinked in prose. Surface as advisory; many false positives.
 
 ### Experiment-page invariants
 
-5. **Experiments without profile artifacts in `raw/profiles/`** — frontmatter says verdict was assigned, but no profile dir exists. Exception: `backfilled: true`.
+5. **Experiments without profile artifacts in `raw/profiles/`** — frontmatter says verdict was assigned, but no actual profile/trace/HLO artifacts exist. A `transcripts/` subdir alone does NOT count — transcript snapshots land in the same experiment dir and must not mask a failed capture. Exception: `backfilled: true`.
 6. **Experiments missing `## Profile` or `## HLO Dump` section** — profile-analyzer wasn't dispatched or its output wasn't pasted. Exception: `backfilled: true`.
 7. **Experiments missing the Phase 3 hypothesis-firing audit** in `## HLO Dump` (the silent-noop verification result line). Exception: `backfilled: true`.
+7a. **Kernel experiments missing independent verification** — any `wiki/kernel_experiments/*` experiment page with `verdict: supported` must carry `verified_by: kernel-verifier` in frontmatter AND the firing-audit line in `## HLO Dump` (per the Roles section of `wiki/experiments/program.md`: the author of a candidate never produces its verdict evidence). Missing `verified_by:` ⇒ the audit is presumed author-produced and the verdict should be downgraded to `inconclusive` until `kernel-verifier` re-runs. Forward-looking: hard check for pages created ≥ 2026-07-11; the 2026-07-09 comparison pages are grandfathered — advisory only.
+7b. **Kernel experiments missing the candidate ledger** — any `wiki/kernel_experiments/*` page with `status: filed` must carry a non-empty `## Candidate ledger` section (kernel_experiments/program.md K7 fixed columns; one row per attempt including failures and abandoned kernels). A filed kernel page with no ledger lost its iteration trail — the 2026-07-10 sweep gap. Same forward-looking cutoff + `backfilled: true` exception as 7a.
+7c. **Kernel pre-registration commit-order violation** — for `wiki/kernel_experiments/*` pages with a verdict, the commit that INTRODUCED the page (with `status: in_progress`; find via `git log --follow --diff-filter=A --format=%H -- <page>`) must predate the commit carrying the verdict/results. Stub and verdict landing in the same single commit ⇒ flag: pre-registration cannot be demonstrated; the intervention class / falsification bar may have been retrofitted. KERNEL-SCOPED ONLY — model lanes legitimately batch-commit stub+results (e.g. recurrentgemma v010) and are never checked. Forward-looking (≥ 2026-07-11).
+7d′ *(canonical list note)*: **SCHEMA.md's LINT section is CANONICAL for kernel-lane checks** — it includes newer checks this enumeration may lag on: declared-plan coverage (every `## Candidate plan` item executed or abandoned-with-reason; ledger rows cite `candN` ids + a receipt path; reason-less extensions cap at `inconclusive`), prematurely-stopped families (named next-lever + no follow-up + no at-ceiling double-retrospective), headroom-propagation gaps (experiment names a lead the family page never received), frontier full-verification at family close (receipt + `verified_by`), and index catalog-count drift. Run those from SCHEMA even if not listed here.
+7d. **Kernel experiments missing the required-reading attestation** — any `wiki/kernel_experiments/*` page with `status: filed`: the `## Candidate ledger` must BEGIN with a `loaded: [...]` attestation line (kernel-author contract: proof the author read the brief's `required_reading` content before authoring — the 2026-07-11 Antigravity benchmark's dominant failure was authors who never saw the knowledge). Missing attestation ⇒ verdict capped at `inconclusive` (same enforcement style as 7a). Forward-looking: hard check for pages created ≥ 2026-07-12; earlier pages advisory-only. Same `backfilled: true` exception as 7a/7b.
 8. **Stub-fill drift** — experiments with `verdict:` assigned (status: filed) whose `## Hypothesis under test` section is missing any of the four required labeled paragraphs (`**Hypothesis**`, `**Mechanism**`, `**Predicted signal**`, `**Falsification criterion**`). Exception: `backfilled: true`.
 9. **Stuck stubs** — `status: in_progress` for > 24 hours. Either re-dispatch profile-analyzer to complete or mark `verdict: inconclusive`. `/stop-experiment` Step 4.5 resolves these proactively.
 10. **Experiments missing `variant:` field** or whose `variant:` doesn't appear in the parent model page's Variant matrix.
@@ -55,12 +60,6 @@ Per SCHEMA.md's "Operations → LINT" section. The canonical list (extend if SCH
 
 17. **Per-model `refuted-patterns.md` referencing experiment v-IDs that don't exist** in `wiki/experiments/<model>_autoresearch_optimization/<lane>/`.
 18. **`model-optimization-index.md` or `model-optimization-blueprint.md` referencing concept/observation/source pages that don't exist.**
-
-### Hook-health invariants (the never-stop loop's control plane)
-
-The autoresearch never-stop loop is governed *entirely* by a Stop hook; if it is unwired or shadowed by a rogue hook in another settings scope, the discipline fails **silently**. This check is not optional hygiene — it validates the loop's control plane.
-
-23. **Hook health** — run `python3 .claude/scripts/check-hook-health.py`. It scans every settings scope (`~/.claude/settings*.json`, project `.claude/settings*.json`) and hard-fails (ERROR) if: the never-stop Stop hook (`.claude/stop_hook.sh`) isn't wired, its script is missing/non-executable, or any command hook references a script that doesn't exist. It WARNs on rogue global Stop hooks and hook commands that read non-durable `/tmp` paths (the two anti-patterns behind the 2026-06 `v6e32_stop_hook.json` staleness bug). Fold its ERRORS into the punch list; surface WARNINGS advisory. Do **not** auto-edit `~/.claude` settings — global scope affects every project, so flag global-scope findings for the user.
 
 ### Codebase invariants
 
@@ -96,7 +95,7 @@ The following require human judgment — surface them, don't auto-fix:
 
 **Scope**: <wiki/ paths checked>
 **Pages scanned**: <N>
-**Checks run**: 23 of 23
+**Checks run**: 22 of 22
 
 ## Auto-fixed (N issues)
 
@@ -122,9 +121,6 @@ The following require human judgment — surface them, don't auto-fix:
 
 ### Log routing (N)
 - ...
-
-### Hook health (N)
-- [scope] <ERROR/WARN from check-hook-health.py> — <fix>
 
 ## Summary
 
