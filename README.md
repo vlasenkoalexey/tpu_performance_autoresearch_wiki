@@ -79,13 +79,17 @@ dropdowns, or straight from the URL: `?kernel=<family>&llm=all`. [All families a
 
 **Autoresearch** — introduced in [Karpathy's autoresearch github repo](https://github.com/karpathy/autoresearch) — is a methodology for letting an LLM agent run an open-ended research program: propose ranked hypotheses, run experiments, evaluate outcomes, revise priors, feed what it learned into the next round. The methodology is **domain-agnostic** — any question you can frame as a ranked set of falsifiable experiments with measurable outcomes is a candidate. Karpathy's original target was LLM pretraining *quality* (architectural and optimizer tweaks judged by loss); **this repository specializes the same loop to TPU model *performance*** — wall-clock step time, tokens/sec, MFU, memory budget.
 
-Applied in this repo, the loop runs continuously: **hypothesis → minimal code diff → benchmark on real hardware → profile + HLO capture → op-by-op diff against the prior best → profile-grounded verdict → writeup + ledger row → next round.** Every experiment, winning or losing, is recorded as context for the next hypothesis and submitted to a separate git branch. Successful experiments are built on top of each other creating a hierarchical tree of ideas that play best together. The discipline is what makes the loop compound rather than oscillate — each experiment permanently improves the priors for the next one. The rest of this section describes the supporting components that make that discipline possible in the TPU-perf domain.
+Applied in this repo, the loop runs continuously: **hypothesis → minimal code diff → benchmark on real hardware → profile + HLO capture → op-by-op diff against the prior best → profile-grounded verdict → writeup + ledger row → next round.** Every experiment, winning or losing, is recorded as context for the next hypothesis and submitted to a separate git branch. Successful experiments are built on top of each other creating a hierarchical tree of ideas that play best together. The discipline is what makes the loop compound rather than oscillate — each experiment permanently improves the priors for the next one.
+
+The same loop also runs one level down the stack, on hand-written **Pallas kernels**: [`wiki/kernel_experiments/program.md`](wiki/kernel_experiments/program.md) is the kernel-lane protocol, with [`/formulate-kernel-hypothesis`](.claude/skills/formulate-kernel-hypothesis/SKILL.md) and [`/author-kernel`](.claude/skills/author-kernel/SKILL.md) in place of the model-lane skills, an independent [`kernel-verifier`](.claude/agents/kernel-verifier.md) that re-measures every candidate rather than trusting its author, and [`kernelgate`](tools/kernelgate) (`kgate`) as the measurement and parity gate — a number without a receipt does not exist. Knowledge is split the same way: [`kernel-optimization-index.md`](wiki/kernel-optimization-index.md) is the regeneratable router, [`BRIEFS.md`](wiki/kernel_experiments/BRIEFS.md) holds the rules earned from failed runs, and [`wiki/kernels/classes/`](wiki/kernels/classes) carries the per-class levers a hypothesis must pick from. The two lanes compose — a slow op found in a model experiment can spawn a kernel family at that exact operating point, and a kernel win is merged only after it validates end-to-end back in the model lane. See [Case study 2](#case-study-2--kernel-lane).
+
+The rest of this section describes the supporting components that make that discipline possible in the TPU-perf domain.
 
 ### 🔌 xprof-cli — profiling as a first-class LLM capability
 
 Autoresearch is a feedback loop: hypothesize → experiment → **observe** → revise. Without the *observe* step grounded in real signal, the loop collapses into flag-guessing. For TPU performance optimization, "real signal" means knowing where each millisecond of step time goes, which tensor sits where in HBM, and where every op lands on the roofline. The source of truth is [**XProf**](https://github.com/openxla/xprof), OpenXLA's official TPU profiler — step-time breakdown, per-HLO-op runtime + memory traffic, collective-overlap timing, roofline classification, memory timeline.
 
-Raw XProf is a web UI, not something an LLM agent can use directly. We bridge the gap with [**xprof-cli**](https://github.com/vlasenkoalexey/xprof-cli), which turns XProf into **40 programmatic tools the agent invokes straight from a shell** — `xprof-cli get_overview --logdir=… --run=…`. It runs in-process with no server to start or keep in sync, so a profile captured seconds ago is readable on the next call. (An [MCP](https://modelcontextprotocol.io/) transport also exists and still works, but it is legacy; the CLI is the supported path.)
+Raw XProf is a web UI, not something an LLM agent can use directly. We bridge the gap with [**xprof-cli**](https://github.com/vlasenkoalexey/xprof-cli), which exposes XProf as **programmatic tools the agent invokes straight from a shell** — `xprof-cli get_overview --logdir=… --run=…`. It runs in-process with no server to start or keep in sync, so a profile captured seconds ago is readable on the next call. (An [MCP](https://modelcontextprotocol.io/) transport also exists and still works, but it is legacy; the CLI is the supported path.)
 
 Besides analyzing profiles, it also exposes an API to access **HLO dumps** — produced when the trainer is launched with [`XLA_FLAGS="--xla_dump_to=<dir> --xla_dump_hlo_as_text"`](https://openxla.org/xla/flags_guidance) — which lets the LLM connect profile information back to the [**optimized HLO**](https://openxla.org/xla/architecture#xla_the_tensorflow_compiler_framework) (what XLA actually executes on the TPU, after layout assignment, fusion, scheduling, collective-fusion, and remat passes) and to the [**original HLO**](https://openxla.org/xla/operation_semantics) (the IR the framework — JAX or torchax — emitted before XLA's optimization passes ran). From there the LLM can backtrace the original HLO back to the line of model code that produced it.
 
@@ -144,7 +148,7 @@ The setup so far is enough for the agent to optimize your model on its own — b
 
 Concrete references worth ingesting: for TPU training, [MaxText](https://github.com/AI-Hypercomputer/maxtext) and [MaxDiffusion](https://github.com/AI-Hypercomputer/maxdiffusion); for inference, [vLLM](https://github.com/vllm-project/vllm) and [SGLang](https://github.com/sgl-project/sglang) (both have first-class TPU backends). Once these are in the wiki — kernels cataloged, sharding strategies indexed, XLA flags noted — the agent has a concrete target to compare against, not just a space of abstract hypotheses.
 
-And the agent can go further than reading code. It can actually **run** the reference model, profile it through the same xprof MCP it uses for your own model, and read its HLO and op-level breakdown side-by-side with yours. From there it can attribute the gap concretely — different attention kernels, different fusion patterns, different sharding or remat strategies, different XLA flags — and turn each gap item into a falsifiable hypothesis on your own model. That short-circuits a large chunk of the search: many "what should I try next?" decisions collapse into "do what the fast reference already does, and measure."
+And the agent can go further than reading code. It can actually **run** the reference model, profile it through the same xprof-cli it uses for your own model, and read its HLO and op-level breakdown side-by-side with yours. From there it can attribute the gap concretely — different attention kernels, different fusion patterns, different sharding or remat strategies, different XLA flags — and turn each gap item into a falsifiable hypothesis on your own model. That short-circuits a large chunk of the search: many "what should I try next?" decisions collapse into "do what the fast reference already does, and measure."
 
 ### ⚙️ Your framework's codebase — going even deeper
 
@@ -228,9 +232,9 @@ SCHEMA.md           single source of truth — page types, operations, rules.
 CLAUDE.md           @SCHEMA.md pointer for Claude Code.
 GEMINI.md           Gemini/Antigravity emulation guide — slash-command + subagent translation rules.
 AGENTS.md           Codex project instructions; points Codex at SCHEMA.md and shared skills.
-.claude/            canonical shared agent skills, scripts, Claude subagents, Claude hook.
+.claude/            canonical shared agent skills, scripts, Claude subagents.
 .agents/skills      Codex + Antigravity/Gemini skill-discovery symlink to .claude/skills.
-.codex/             Codex-only adapters: MCP config, custom-agent wrappers, hook wiring.
+.codex/             Codex-only adapters: MCP config, custom-agent wrappers.
 wiki/               LLM-owned markdown (index, log, page types per schema).
   index.md          cross-section — updated on every write.
   log.md            append-only event log.
@@ -242,6 +246,9 @@ wiki/               LLM-owned markdown (index, log, page types per schema).
   experiments/      runs — config, profile link, metrics, verdict.
   observations/     reusable findings pulled from profiles / runs.
   analyses/         syntheses, ceiling reports, directories.
+  kernels/          kernel families under optimization + per-class lever pages.
+  kernel_experiments/  the kernel-lane protocol, earned rules, and per-family runs.
+tools/              kernelgate (verification gates), the kernel explorer, the wiki graph viewer.
 raw/                immutable inputs — never modified.
   sources/          PDFs, HTML snapshots of papers.
   code/             ingested repos (git submodules) — model code + framework + kernels.
@@ -253,7 +260,7 @@ raw/                immutable inputs — never modified.
 
 ## Get started
 
-Clone with submodules (the `raw/code/` dir pulls ~28 codebases totalling a few GB; use `--depth` if that matters to you). The public version lives at [vlasenkoalexey/tpu_performance_autoresearch_wiki](https://github.com/vlasenkoalexey/tpu_performance_autoresearch_wiki):
+Clone with submodules (the `raw/code/` dir pulls the ingested codebases, a few GB in total; use `--depth` if that matters to you). The public version lives at [vlasenkoalexey/tpu_performance_autoresearch_wiki](https://github.com/vlasenkoalexey/tpu_performance_autoresearch_wiki):
 
 ```bash
 git clone --recurse-submodules https://github.com/vlasenkoalexey/tpu_performance_autoresearch_wiki
@@ -294,7 +301,7 @@ Start an LLM agent session (Antigravity, Claude Code, Codex, etc.) in this direc
 > Antigravity all read the same protocol.
 
 [`xprof-cli`](https://github.com/vlasenkoalexey/xprof-cli) is checked in as a submodule at
-[`raw/code/xprof-cli`](raw/code/xprof-cli). It exposes 40 xprof / HLO / LLO tools. **Install it once and the
+[`raw/code/xprof-cli`](raw/code/xprof-cli). It exposes the full xprof / HLO / LLO tool surface. **Install it once and the
 agent calls it straight from a shell — no server required:**
 
 ```bash
@@ -303,19 +310,32 @@ pip install -e 'raw/code/xprof-cli[full]'      # + xprof converters and tensorfl
 xprof-cli list_runs        --logdir=raw/profiles
 xprof-cli get_overview     --logdir=raw/profiles --run=<run>
 xprof-cli get_roofline_model --logdir=raw/profiles --run=<run>
-xprof-cli                                       # list all 40 commands
+xprof-cli                                       # list all commands
 xprof-cli get_overview -- --help                # per-tool help
 ```
 
 It runs **in-process** (`XPROF_MODE=local`), so a freshly captured profile is picked up on the next
-invocation with nothing to restart. Kernel work leans on the LLO family — `get_llo_fit_summary`,
-`get_llo_utilization`, `get_llo_static_utilization`, `get_device_wall_report` — which read the dumps produced
-by `--xla_jf_dump_to` plus the two kernel-profiling `LIBTPU_INIT_ARGS` flags.
+invocation with nothing to restart.
 
-> **The MCP transport is legacy.** `XPROF_MODE=http` and the `xprof-mcp` server entry point still work and the
-> per-agent registrations remain in [`.agents/mcp_config.json`](.agents/mcp_config.json) and
-> [`.codex/config.toml`](.codex/config.toml), but the CLI is the supported path and the one the
-> [`profile-analyzer`](.claude/agents/profile-analyzer.md) agent uses.
+**Kernel work needs two extra capture steps.** The LLO family — `get_llo_fit_summary`,
+`get_llo_utilization`, `get_llo_static_utilization`, `get_device_wall_report` — reads signal that is only
+emitted when the workload is launched with the kernel-profiling flags:
+
+```bash
+# 1. per-unit counter tracks in the trace
+LIBTPU_INIT_ARGS="--xla_enable_custom_call_region_trace=true \
+                  --xla_xprof_register_llo_debug_info=true" python your_workload.py
+
+# 2. LLO dumps for the inside-the-kernel drilldown
+LIBTPU_INIT_ARGS="--xla_jf_dump_to=/tmp/jf_dump --xla_jf_dump_llo_text=true \
+                  --xla_jf_dump_llo_static_gaps=true" python your_pallas_workload.py
+export XLA_JF_DUMP_DIR=/tmp/jf_dump
+```
+
+`xprof-cli check_kernel_profiling` is the gate — run it first; if the flags weren't active the drilldown is
+unavailable. Note the LLO dumper writes to its **own** `--xla_jf_dump_to` directory: XLA's `--xla_dump_to`
+does not receive LLO dumps, and with only that flag set `--xla_jf_dump_llo_text=true` is accepted but
+silently writes nothing.
 
 **Optional — the interactive UI.** Experiment pages link to a trace viewer at `http://localhost:8791`; start
 it when you want to click through a profile by hand:
@@ -325,12 +345,34 @@ pip install xprof
 xprof --logdir=raw/profiles --port=8791 &
 ```
 
-### Configuring GKE
 
-The loop runs experiments on real TPUs. Two hosting shapes are supported, and the choice only changes *where the launch command runs* — the wiki, profiling, and verdict machinery are identical either way:
+### Installing kernelgate
 
-- **Cloud TPU VM** — the simplest path. SSH into a [TPU VM](https://cloud.google.com/tpu/docs/create-tpu-vm), run the agent (or the launch command) directly on it. No cluster config needed; skip the rest of this section.
-- **GKE TPU cluster** — for multi-slice fleets and running several experiments in parallel. Workloads are dispatched with [XPK](https://github.com/AI-Hypercomputer/xpk) (`xpk workload create`) against a cluster that has the JobSet CRD + Kueue installed.
+Kernel experiments are gated by [`kernelgate`](tools/kernelgate) (`kgate`) — timing, parity against a
+high-precision oracle, and the firing audit that proves the candidate kernel actually ran. A result without a
+kgate receipt does not count, so install it before starting a kernel run:
+
+```bash
+pip install -e tools/kernelgate     # provides the `kgate` console script
+# or, without installing:
+PYTHONPATH=tools/kernelgate python -m kernelgate <cmd> ...
+```
+
+### Running on CloudTPU VM
+
+If you only plan to run optimizer for small models that can fit on singlehost TPU, or if you only want to optimize kernels, you can do that directly from Cloud TPU VM. You can also use it to schedule bigger runs on GKE.
+
+Follow this guide to setup a Cloud TPU VM and SSH into that VM: https://cloud.google.com/tpu/docs/create-tpu-vm
+Once on Cloud TPU VM, you'd need to setup and configure your agentic harness (Antigravity - see above, Claude Code or Codex).
+Then you can follow the rest of the steps.
+
+### Running on GKE
+
+If you plan to run and optimize bigger models, you can do that on GKE.
+Agent would be running on your devbox, VM or Cloud TPU VM, and should be configured to access your GKE resources.
+
+TPU workloads are generally dispatched using [XPK](https://github.com/AI-Hypercomputer/xpk), make sure that you have that installed.
+Instruction to configure and connect to GKE cluster might differ, so make sure that you can manually schedule jobs on your cluster using XPK.
 
 **Prerequisites** (GKE path): authenticated `gcloud` (`gcloud auth login`), `kubectl`, and `xpk` on `PATH`, plus a TPU cluster you can reach. Gated model weights (e.g. Llama 3) need an `HF_TOKEN` passed into the pod env.
 
@@ -338,35 +380,49 @@ The loop runs experiments on real TPUs. Two hosting shapes are supported, and th
 
 Populate it with [`/scan-gke-clusters <project>`](.claude/skills/scan-gke-clusters/SKILL.md) (wraps [`scan-gke-clusters.sh`](.claude/scripts/scan-gke-clusters.sh)). It enumerates every cluster with TPUs in the project, probes status/XPK/pool composition with hard timeouts, writes `.env/<project>-gke-tpu-cluster-scan.md`, and merges the rows into the combined inventory. Re-run when a cluster is added or its pools change.
 
-### Starting experiment
-
-At experiment time [`/start-experiment`](.claude/skills/start-experiment/SKILL.md) reads this inventory, runs a live occupancy check (`xpk workload list`, attributed by your user prefix), and only then dispatches. The [`gke-cluster-runner`](.claude/agents/gke-cluster-runner.md) subagent owns the actual XPK launch → poll → xprof/HLO capture cycle. All three agents (Antigravity, Codex, Claude Code) drive the same skills through the [`.agents/skills`](.agents/skills) compatibility symlink, so cluster setup is done once and shared.
-
 ### Adding new repository
 
-To run the optimization loop against your own model, the flow is four steps — the middle two are wrapped in skills all three agents share, so you drive them with a prompt or the slash command:
+To run the optimization loop against your own model, it is a good idea to add it and codebase that hosts it to the current repo as submodule. Both steps are optional, use your judgement if you want either of those based on your repo complexity and how much you want to iterate on your codebase.
 
 1. **Add the repo as a submodule.** `git submodule add <url> raw/code/<slug>` and pin the commit. Same for any reference trainer (e.g. MaxText) or framework source you want ingested alongside it.
 2. **Ingest it** — [`/wikify-ingest-repo`](.claude/skills/wikify-ingest-repo/SKILL.md): *"Ingest `raw/code/<slug>` as a codebase, highlighting performance-relevant surfaces."* This runs the SCIP-grounded, lint-gated ingest that writes the `wiki/codebases/<slug>/{overview,concepts,catalog}` silo (the overview leads with a *Performance-relevant surfaces* section) and registers it into `wiki/index.md` — not a single hand-authored page. See `INGEST-CODEBASE` in [`SCHEMA.md`](SCHEMA.md).
    > **Prerequisite (one-time):** the skill drives the `wikify` CLI, which must be on `PATH`. Install it from [wikify-repo](https://github.com/vlasenkoalexey/wikify-repo) — `pip install -e .` then `scripts/setup-vendor.sh` (pulls `scip-python` + the vendored `scip-clang`). TS/JS, Go, and Rust indexers auto-install on demand when `wikify prepare` detects the language. Skip this step for languages wikify doesn't cover.
-3. **Bootstrap the model family** — [`/create-experiment`](.claude/skills/create-experiment/SKILL.md). The skill asks for the folder slug, **lanes** (`tpu` / `jax` / `torchax` / `maxtext` / …), sizes, target hardware, and sequence length, then scaffolds `wiki/experiments/<slug>_autoresearch_optimization/`, a model-family `program.md` (the *override* layer — model identity, architecture invariants, per-lane launch details, model-specific Pallas tables; a handful of TODO placeholders to fill), and one model page per `(architecture, lane)` under `wiki/models/<architecture>-<lane>.md`. The generic loop methodology it builds on lives once in the root [`wiki/experiments/program.md`](wiki/experiments/program.md) — you don't copy it per model; the loop resolves `program.md` **root → model → lane** at run time.
-4. **Start the loop** — [`/start-experiment`](.claude/skills/start-experiment/SKILL.md): it resolves that `program.md` hierarchy, runs hardware selection + the cluster occupancy check described above, and kicks off the bounded-iteration `/loop`.
 
-The rest is iteration.
+### Starting model optimization experiment
 
-For a worked case study, see [`wiki/experiments/gemma4_autoresearch_optimization/`](wiki/experiments/gemma4_autoresearch_optimization/) — browse the experiment pages in chronological order to see the loop in action. The two filled-in model-family program.md files ([Gemma 4 E4B](wiki/experiments/gemma4_autoresearch_optimization/program.md), [Llama 3 8B](wiki/experiments/llama3_8B_autoresearch_optimization/program.md)) are override layers over the root [`wiki/experiments/program.md`](wiki/experiments/program.md) — useful as cross-reference when a placeholder in the `/create-experiment` scaffold is ambiguous.
+You start experiment in one prompt like:
+`Start model optimization experiment for <your model path>. Use <your cluster name> for iteration.`
 
-Like autoresearch itself, this repo isn't meant to be used as-is — it provides a structure and starting point you adapt to your own model and codebase.
+Possible alternatives (second part of the prompt): 
 
----
+`Run experiment locally`.
 
-## Add a new codebase to the wiki's working memory
+`Run experiment on clusters <your cluster name1>, <your cluster name2>, ... concurrently` - Claude can generally run up to 4 experiments on the same model at the same time.
 
-```bash
-git submodule add <repo-url> raw/code/<slug>
+Agent will create a folder under `wiki/experiments` and you should be able to observe the process, ask questions, and guide agent as optimization experiment is running.
+
+
+### Starting Kernel optimization experiment
+
+You start experiment in one prompt like:
+`Start kernel optimization experiment for <your kernel path>.`
+
+`<your kernel path>` is the kernel at its **real ship path** — an existing kernel inside an ingested repo
+under `raw/code/`, or a benchmark problem directory whose `baseline.py` becomes the parity reference. The
+agent derives the family slug from it and bootstraps the family binding on first run.
+
+At the moment kernel experiments can only be run locally on Cloud TPU VM.
+
+**Optional — pin a chip.** Add `on tpu chip N` to the prompt to bind the run to one accelerator. Claude Code
+handles this well, and because each family holds a lock on its own chip, pinning is what lets you run several
+kernel families concurrently on one VM — one per chip:
+
+```
+Start kernel optimization experiment for <kernel path A> on tpu chip 0.
+Start kernel optimization experiment for <kernel path B> on tpu chip 1.
 ```
 
-Then ask the agent to ingest it with [`/wikify-ingest-repo`](.claude/skills/wikify-ingest-repo/SKILL.md) — see [`SCHEMA.md`](SCHEMA.md) → `INGEST-CODEBASE`. The SCIP-grounded ingest writes the `wiki/codebases/<slug>/{overview,concepts,catalog}` silo (overview leading with a *Performance-relevant surfaces* section), generates concept stubs for any technique that lacks a page, and registers the repo into `wiki/index.md`. (Requires the `wikify` CLI — see the prerequisite note under *Adding new repository* above.)
+Agent will create a folder under `wiki/kernel_experiments` and you should be able to observe the process, ask questions, and guide agent as optimization experiment is running.
 
 ---
 
@@ -378,7 +434,7 @@ The repos below are git submodules under `raw/code/` and have corresponding page
 
 - [jax](raw/code/jax) — JAX itself: transformations, sharding, `jax.profiler`, Pallas DSL, first-party TPU kernels (`flash_attention`, `splash_attention`, `paged_attention`, `ragged_paged_attention`, `megablox`, `matmul`, `all_gather`, `threefry`). Ground truth for everything downstream.
 - [xprof](raw/code/xprof) — XProf profiler + TensorBoard plugin (OpenXLA). Profile capture + UI.
-- [xprof-cli](raw/code/xprof-cli) — the profiling brain: 38 xprof/HLO/LLO tools an agent calls from a shell (`xprof-cli <tool> --logdir=…`). Serverless by default; the MCP transport is legacy.
+- [xprof-cli](raw/code/xprof-cli) — the profiling brain: the xprof/HLO/LLO tools an agent calls from a shell (`xprof-cli <tool> --logdir=…`). Serverless by default; the MCP transport is legacy.
 - [stablehlo](raw/code/stablehlo) — StableHLO op-set + MLIR dialect reference; consulted when reading HLO dumps.
 
 ### Frameworks
@@ -396,6 +452,8 @@ The repos below are git submodules under `raw/code/` and have corresponding page
 - [alphafold3](raw/code/alphafold3) (@ v3.0.1) — only public production Pallas fused GLU (GPU Triton-on-Pallas); kernels removed from `main` after v3.0.1.
 - [recurrentgemma](raw/code/recurrentgemma) — DeepMind's canonical Mosaic-TPU LRU Pallas scan.
 - [aqt](raw/code/aqt), [qwix](raw/code/qwix) — quantization frameworks; qwix is AQT's successor.
+- [accelerator-agents](raw/code/accelerator-agents) — AI-Hypercomputer's agent suite: **MaxKernel** (Pallas-kernel-writing agent) and **MaxCode** (PyTorch→JAX migration), plus **[JAXBench](raw/code/accelerator-agents/JAXBench/benchmark)** — the Pallas/JAX benchmark suite this repo's kernel lane is scored against.
+- [kernelgate](tools/kernelgate) (`kgate`) — **not an ingested submodule; this repo's own tool**, under [`tools/`](tools/). The verification gate every kernel result must pass: co-measured interleaved timing, floor-normalized oracle parity (fp32, escalating to fp64), a firing audit proving the candidate kernel actually executed, roofline sanity checks, and tamper-evident self-hashed receipts. A number without a receipt does not exist.
 
 ### Reference trainers & inference engines
 
@@ -422,10 +480,10 @@ The repos below are git submodules under `raw/code/` and have corresponding page
 ## FAQ
 
 **Is this production-ready?**
-No. This is a research project. The loop works on the Gemma 4 E4B / v6e-4 example in this repo; it should generalize, but treat every number with engineer-grade skepticism: verify against your own profiles.
+This is a research project, use your judgment if you want to use it on your production system.
 
 **Does it need a specific LLM?**
-The wiki is plain markdown + MCP. Tested with Claude Code and Gemini CLI. Any agent that can run tools + read/write markdown + query MCP servers should work.
+The wiki is plain markdown and the tooling is plain CLIs — there is no server to run and no MCP dependency. Tested with Claude Code, Codex, and Antigravity; any agent that can run shell commands and read/write markdown should work.
 
 **Does it need Google Cloud?**
 Only if your TPU lives there. The wiki, profiles, and analyses are just files.
@@ -435,6 +493,9 @@ Add it as a submodule under `raw/code/` and ask the agent to ingest it. That's t
 
 **Can it change my model's semantics?**
 The protocol explicitly forbids it. Any optimization that changes loss trajectory beyond bf16-reorder noise is marked `-invalid` and not reported as a win (see [`SCHEMA.md`](SCHEMA.md) rule #6).
+
+**Is it officially supported project?**
+No, it is a personal research project.
 
 ---
 
