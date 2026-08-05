@@ -295,7 +295,7 @@ export GOOGLE_GENAI_USE_VERTEXAI=True
 > invocation:
 >
 > ```bash
-> env -u LD_PRELOAD agy --dangerously-skip-permissions
+> env -u LD_PRELOAD agy --dangerously-skip-permissions --print-timeout 45m
 > ```
 
 ### Configuring xprof-cli
