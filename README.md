@@ -291,6 +291,13 @@ export GOOGLE_CLOUD_LOCATION="global"
 export GOOGLE_GENAI_USE_VERTEXAI=True
 ```
 
+> **Running on a Cloud TPU VM.** If `agy` fails to start on the VM, unset `LD_PRELOAD` for the
+> invocation:
+>
+> ```bash
+> env -u LD_PRELOAD agy --dangerously-skip-permissions
+> ```
+
 ### Configuring xprof-cli
 
 Start an LLM agent session (Antigravity, Claude Code, Codex, etc.) in this directory. The agent reads
