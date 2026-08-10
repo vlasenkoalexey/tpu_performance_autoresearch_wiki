@@ -9,16 +9,21 @@ this skill.
 
 ## Step 1 — Gather inputs (most were just produced at K0/K1)
 
+- **[`BRIEFS.md`](../../../wiki/kernel_experiments/BRIEFS.md) §1–§3** — READ THESE, they are what
+  makes the proposal well-formed: §1 measurement (the 3σ frontier rule + between-launch σ that set
+  your falsification bar), §2 K1 bound diagnosis (binding *before* you write the Mechanism), §3
+  author discipline (frontier bar, refute bar, plan-as-contract, stop rule). §4–§7 are the K4
+  author's. **BRIEFS + the class page are the channel by which other families' experience reaches
+  you.**
 - **The K1 bound diagnosis** — the primary signal: the confirmed bound (memory / compute /
-  dispatch), the HLO-confirmed sink structure (never the analytic guess — BRIEFS §1.5), the
+  dispatch), the HLO-confirmed sink structure (never the analytic guess — BRIEFS §2), the
   reference-envelope classification (inside / at / outside), and the naive's LLO digest
   (`get_llo_fit_summary`: spills/bundle, per-unit %util, top stalls).
 - **The previous experiment's `## Headroom leads`** (verifier-authored) and the family page's
   *Variant-specific open hypotheses* — in the steady state, the hypothesis IS usually the top
   un-pulled lead. Pursuing a retrospective's recommendation (exploration mode) overrides.
 - **The family frontier**: best verified p50 + its mechanism (family page Current best row).
-- [`retrospectives-digest.md`](../../../wiki/kernel_experiments/retrospectives-digest.md) TLDRs +
-  the family's `refuted-patterns.md` if it exists.
+- **This family's own record only**: its `RESULTS.tsv` + `refuted-patterns.md` if it exists.
 
 ### Step 1.5 — describe the signal in your own words BEFORE reading the index
 
@@ -35,8 +40,9 @@ Full read, no TLDR-skimming — the map's cross-references are the point.
 ## Step 3 — Check the candidate against the refuted layers
 
 - **Layer A** — the index's refuted principles (dispatch floor, op-point mismatch, XLA-already-fused).
-- **Layer B** — the family's own `refuted-patterns.md` + the digest's refuted TLDRs: name the
-  nearest refuted neighbor and say why this proposal is different, or drop it.
+- **Layer B** — the family's own `refuted-patterns.md` + its `RESULTS.tsv` refuted rows: name the
+  nearest refuted neighbor and say why this proposal is different, or drop it. (Other families'
+  refutes generalize through BRIEFS and the class page — Layer A and Step 1 cover them.)
 - **Frontier-bar rule (v002+):** the falsification bar is the family FRONTIER (best verified p50),
   never the naive — matching the frontier within noise is `inconclusive` even if it beats naive.
 
@@ -131,5 +137,5 @@ and commits. No wiki writes from this skill.
 
 - [`wiki/kernel_experiments/program.md`](../../../wiki/kernel_experiments/program.md) — K1/K2/K3 (the caller).
 - [`wiki/kernel-optimization-index.md`](../../../wiki/kernel-optimization-index.md) — the catalog + Load mandate.
-- [`wiki/kernel_experiments/BRIEFS.md`](../../../wiki/kernel_experiments/BRIEFS.md) — §1.5 K1 diagnosis rules, §2 author discipline.
+- [`wiki/kernel_experiments/BRIEFS.md`](../../../wiki/kernel_experiments/BRIEFS.md) — §1 measurement, §2 K1 bound diagnosis, §3 author discipline (read at Step 1).
 - `/formulate-hypothesis` — the MODEL-lane counterpart (index + blueprint + variant machinery).

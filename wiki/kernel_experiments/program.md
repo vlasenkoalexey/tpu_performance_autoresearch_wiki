@@ -117,10 +117,15 @@ The boundary is the family `.repo` worktree + the reference. Inside: broad latit
 > Authoritative p50 = a clean `kgate measure`/`verify`; the profile = a dedicated capture run whose
 > timing is discarded. See [Profiling](#profiling--the-number-vs-the-profile).
 
-- **K0 Read** (orientation): the family page's variant matrix + frontier row, and
-  [`retrospectives-digest.md`](retrospectives-digest.md) (one line per past experiment). Read the
-  family `refuted-patterns.md` if it exists. Do NOT re-read whole past experiment pages — the digest
-  is their TLDR. (Digest is master-side orientation; never pasted into a cold author brief.)
+- **K0 Read** (orientation) — **THIS family's own dir + its family page, nothing wider**: the family
+  page's variant matrix + frontier row; the family's [`RESULTS.tsv`](#ledger) (one row per past
+  experiment) and its `log.md` — **read the log FIRST on any family that is already open: a paused
+  family's `rank-1 resume action` is recorded there** (Stop rule, PAUSE ≠ STOP); its latest
+  `<date>-retrospective[-N].md` if one exists (what was tried, what was ruled out, what is untried);
+  the previous experiment's `## Headroom leads`; and `refuted-patterns.md` if it exists. Re-read a
+  whole past experiment page only when resuming or when its ledger row + leads are insufficient —
+  cost, not contamination, is the reason to prefer the cheap path. What other families earned
+  reaches you through [`BRIEFS.md`](BRIEFS.md) and the [class page](../kernels/classes/).
 
 - **K1 Characterize + find the bound** (≤5 min on the run target):
   - Run the reference once; confirm the op-point matches the *claimed* semantics (mask / raggedness
@@ -147,7 +152,9 @@ The boundary is the family `.repo` worktree + the reference. Inside: broad latit
 - **K2 Formulate** via [`/formulate-kernel-hypothesis`](../../.claude/skills/formulate-kernel-hypothesis/SKILL.md)
   (self-contained kernel skill): one falsifiable hypothesis + predicted **intervention class**
   (`refute | flag | xla-rewrite | kernel-authored`) with HLO/roofline evidence + the **candidate
-  plan**, pre-registered. The skill reads [`kernel-optimization-index.md`](../kernel-optimization-index.md).
+  plan**, pre-registered. The skill reads [`kernel-optimization-index.md`](../kernel-optimization-index.md)
+  + [`BRIEFS.md`](BRIEFS.md) §1–§3 (measurement / bound diagnosis / author discipline — the bars and
+  the plan contract come from there) + your routed class page.
   **Default selection: the next hypothesis is the highest-expected UNTRIED lever from your routed
   class page, given the K1/LLO bound** — deviate only when K1 evidence argues the bound lives
   elsewhere (state why in the stub). Parameter sweeps live inside a lever's page as its sweep
@@ -269,8 +276,15 @@ The boundary is the family `.repo` worktree + the reference. Inside: broad latit
   inline `## Profile` digest (mandatory — no experiment closes without one); the `## Candidate
   ledger` as a fixed-column TABLE (one row per attempt incl. failures; never prose). **Check the
   branch-commit trail matches the ledger** (K4 rule). Assign the verdict, flip `status: filed`,
-  append the [`RESULTS.tsv`](#ledger) row + a one-line TLDR to
-  [`retrospectives-digest.md`](retrospectives-digest.md), commit (postdates the K3 stub; `exp:`
+  append the [`RESULTS.tsv`](#ledger) row (numbers only — the family's own ledger), and **DISTIL on
+  the page**: if this experiment earned a rule that would still be correct and still fire on a
+  kernel you have never seen, state it **on your experiment page, already phrased class-keyed** — no
+  family name, no op-point constants, no v-IDs — so the master can adopt it into
+  [`BRIEFS.md`](BRIEFS.md) or the [class page](../kernels/classes/) with provenance. That is the
+  same channel the knowledge-edit prohibition names (What you CANNOT do): you report it on your
+  page; you do NOT edit those files yourself. If the experiment earned nothing transferable, say
+  nothing — most experiments earn no new rule. **Never write a per-experiment narrative to
+  any file outside this family's own directory.** Then commit (postdates the K3 stub; `exp:`
   footer), push. The optimized kernel's durable home is its **branch IN the home repo** (already true by construction — the worktree is a checkout of it). **Pushing that branch to a remote is NOT automatic**: it is a deliberate durability/backup step to the family binding's `archive_remote:` (a fork we control, NEVER an unowned upstream), done at family close or on user request. Refuted candidates → `refuted-patterns.md`.
 
 - **K8 Close the coupling:** `supported` + `optimization` → spawn the model-lane validation

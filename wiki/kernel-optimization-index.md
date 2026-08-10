@@ -51,7 +51,7 @@ The **canonical category slugs** (see the routing table in [Kernel categories](#
 
 **Paste when retrieval is allowed** — 1–2 exemplar kernel pages from the [catalog](#kernel-catalog--reuse-before-you-write-unless-authorship-is-the-point) matching the category (a splash/GMM silo page) as *structure* examples, not answers.
 
-**Never paste wholesale:** the raw docs tree, silo catalogs, or past experiment pages — link them; the transferable lesson is already distilled into the pages above. Per-kernel *answers* (`verified_briefs/`, `retrospectives-digest.md`) are **warm-tier only** — paste them only in demo/beat-MK mode for that exact kernel, never in a cold/holdout run (they would leak the answer).
+**Never paste wholesale:** the raw docs tree, silo catalogs, or past experiment pages — link them; the transferable lesson is already distilled into the pages above. Per-kernel *answers* (`verified_briefs/`, a family's own retrospectives and experiment pages) are **warm-tier only** — paste them only in demo/beat-MK mode for that exact kernel, never in a cold/holdout run (they would leak the answer). Per-experiment records live in the owning family's dir and go no further; what crosses families is class-keyed only — BRIEFS, the class page, this index.
 
 | Doc distillation | Teaches | Paste for these categories |
 |---|---|---|

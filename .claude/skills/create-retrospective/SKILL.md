@@ -38,9 +38,31 @@ Optional:
 - `--since <YYYY-MM-DD>` — restrict to experiments dated on/after the given date. Default: all-time on the lane.
 - `--full-redo` — force FULL mode (re-read every experiment) even when a prior retrospective exists. Use when you suspect a prior categorization was wrong, when the taxonomy in `model-optimization-index.md` shifted in non-trivial ways, or after a SCHEMA update. Default: INCREMENTAL when a prior exists (see Step 1a).
 
+## Step 0 — KERNEL FAMILY? Apply these substitutions to every step below
+
+**Check first.** `<lane> == pallas`, or `<model>` resolves to a `wiki/kernels/<slug>.md` family page ⇒ this is a **kernel family**, not a model lane. The steps below are written for model lanes; run them with these substitutions throughout. Everything else (the FULL/INCREMENTAL logic, the coverage analysis, the ranking) applies unchanged.
+
+| Model lane (as written below) | Kernel family (substitute) |
+|---|---|
+| Output `wiki/analyses/<date>-<model>-<lane>-retrospective.md` | **`wiki/kernel_experiments/<slug>/pallas/<YYYY-MM-DD>-retrospective[-N].md`** — co-located with the family's program.md / RESULTS.tsv / log.md (SCHEMA's placement exception; still `type: analysis`). Suffix `-2`, `-3`, … for repeats; the family's Stop rule counts these. |
+| Per-lane log `wiki/experiments/<model>_.../<lane>/log.md` | the family's own `log.md` + `RESULTS.tsv` (one row per experiment) |
+| Model page `wiki/models/<model>-<lane>.md` | family page `wiki/kernels/<slug>.md` (same `type: model` machinery: variant matrix keyed `<op-point>/<hardware>`, Current best, open hypotheses) |
+| Topic taxonomy `model-optimization-index.md` | `wiki/kernel-optimization-index.md` signal→lever map **+ the routed class page's `## Levers (verified)` list** — the class page's lever list, not the topic buckets, is what coverage is computed against |
+| Pallas kernel catalog | not applicable (this *is* a kernel) |
+| Experiment pages `wiki/experiments/<model>_.../<lane>/` | `wiki/kernel_experiments/<slug>/pallas/*.md` |
+| Prior retrospective: search `wiki/analyses/` | search the **family dir** for `*-retrospective*.md` |
+| Cross-lane brief (default ON) | **OFF** — a kernel family has no sibling lanes |
+| Bump `wiki/index.md` Analyses count + global `wiki/log.md` | append to the **family's** `log.md`; do NOT bump the global Analyses catalog (the page lives in the family dir, not `wiki/analyses/`) |
+| Frontmatter `model:`/`lane:` | `model: <slug>`, `lane: pallas` |
+
+**Two kernel-only outputs the model lane has no analogue for.** `wiki/kernel_experiments/program.md`'s Stop rule reads this file as its gate, so a kernel retrospective MUST carry:
+
+1. **The LEVER-COVERAGE TABLE** — *mandatory in a closing retrospective* (Stop-rule condition 1's artifact) and worth producing in any, since the set-diff below IS the untried-direction computation this skill exists to do: one row per lever, the lever name **verbatim from the routed class page's `## Levers (verified)` bullets**, each row exactly `tried: v<NNN> + <receipt path>` or `ruled out: <why the lever's MECHANISM does not exist at this op-point>`. It is audited as a set-diff against the class page — a missing lever row, a route-only reason (a lowering error or compile failure rules out that route, not the lever), or a tried-row whose receipt doesn't resolve is an automatic block. Levers the class page itself marks N/A for this op-point still get a one-word row.
+2. **If and only if this retrospective is the CLOSING one** (an at-ceiling claim): the **4-row EVIDENCE TABLE**, one row per Stop-rule condition, each citing the artifact that proves it — the lever-coverage table (1), the two retrospective paths (2 + 3), and the `kgate verify --mode full` receipt path (4). A missing row, or a row without a resolving artifact, means NOT at ceiling and the close is void on audit. **Do not fabricate rows to complete the table**: if an artifact does not exist, the honest output is a non-closing retrospective that names what is missing.
+
 ## Step 1 — Resolve scope + read priors
 
-Resolve `<model>` and `<lane>`. If either is missing, infer from CWD (per `/start-experiment` Step 1 conventions) or ask via `AskUserQuestion`.
+Resolve `<model>` and `<lane>`. If either is missing, infer from CWD (per `/start-experiment` Step 1 conventions) or ask via `AskUserQuestion`. **If this is a kernel family, apply Step 0's substitutions to everything that follows.**
 
 Then read in this order (cheapest first; deep reads come in Step 2):
 
@@ -367,6 +389,8 @@ Plus an anti-recommendations section listing topics that are closed:
 ## Step 8 — Write the retrospective file
 
 Path: `wiki/analyses/<YYYY-MM-DD>-<model>-<lane>-retrospective.md`. If a retrospective with the same date already exists, suffix `-2`, `-3`, etc. (multiple per day OK; rare).
+
+> **KERNEL FAMILY — different path (Step 0):** `wiki/kernel_experiments/<slug>/pallas/<YYYY-MM-DD>-retrospective[-N].md`, in the family dir. Never `wiki/analyses/` — the Stop rule and the auditor look for it beside the family's RESULTS.tsv, and a retrospective written to `wiki/analyses/` leaves Stop-rule conditions 2+3 unresolvable. Add the lever-coverage table (and, when closing, the evidence table) per Step 0.
 
 Page structure (in order):
 

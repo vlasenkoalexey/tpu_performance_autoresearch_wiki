@@ -155,10 +155,10 @@ shape, and it front-loads the highest-value transferable content):
    mapping each doc-concepts/pallas-* distillation to the categories
    that need it + the catalog-exemplar (retrieval-allowed) rung +
    the never-paste-wholesale list + the WARM-TIER caveat
-   (verified_briefs/ and retrospectives-digest.md are per-kernel
-   answers — paste ONLY in demo/beat-MK mode for that exact kernel,
-   never in a cold/holdout run). Keep it a MAP — content stays in the
-   pages it points at.
+   (verified_briefs/ and a family's own retrospectives/experiment
+   pages are per-kernel answers — paste ONLY in demo/beat-MK mode for
+   that exact kernel, never in a cold/holdout run). Keep it a MAP —
+   content stays in the pages it points at.
 3. Cardinal rule.
 4. Generation scope — what transfers (all the reasoning) vs what is
    generation-specific and must be re-derived (MXU tile, VMEM
@@ -291,8 +291,7 @@ VALIDATION (before committing):
 - LOAD-MANDATE RESOLVES: the "always paste" list names this index's
   category section + pallas-kernel.md + BRIEFS + the timing helper;
   every per-category doc row resolves; the warm-tier caveat
-  (verified_briefs/, retrospectives-digest.md = per-kernel answers,
-  demo-mode only) is present.
+  (verified_briefs/ = per-kernel answers, demo-mode only) is present.
 - The Evidence base cites the kernel-family experiment pages /
   analyses it rests on, and prefers verified verdicts.
 - Length ~150-260 lines; every line is a transferable principle, a
