@@ -1,3 +1,10 @@
+## [2026-08-26] manual | port kernel-GKE execution path from the private fork
+
+**Op**: manual
+**Pages created**: tools/kernel_exec/kexec.sh (the kernel lane's single exec indirection: local flock'd chip OR persistent GKE pod — discover/up/run/sync/status/down; gs:// artifact enforcement, activeDeadlineSeconds TTL, generation always discovered), wiki/observations/tpu-dump-flags-write-directly-to-gcs.md
+**Pages updated**: wiki/kernel_experiments/program.md (run-target choice + kexec dispatch + cross-chip concurrency table: a timing window owns the host), .claude/skills/start-experiment/SKILL.md (kernel fast-path Step 9-K run-target question), .claude/skills/stop-experiment/SKILL.md (Step 2c pod teardown), .claude/agents/process-auditor.md (kernel checks 17 pod-leak + 18 non-gs-artifact), SCHEMA.md (kernel Execution row), README.md (kernel experiments no longer local-only), wiki/index.md
+**Notes**: Ported from the private fork (developed + validated there 2026-08-19..26). Kernel-GKE changes only; serving-lane tooling not ported.
+
 # Log
 
 ## [2026-08-10] manual | retire the cross-family retrospectives-digest; distil its rules into BRIEFS

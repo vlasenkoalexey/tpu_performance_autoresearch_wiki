@@ -418,7 +418,11 @@ You start experiment in one prompt like:
 under `raw/code/`, or a benchmark problem directory whose `baseline.py` becomes the parity reference. The
 agent derives the family slug from it and bootstraps the family binding on first run.
 
-At the moment kernel experiments can only be run locally on Cloud TPU VM.
+Kernel experiments run **locally on a Cloud TPU VM by default, or on a GKE cluster pod** — chosen once per run
+and dispatched through the same indirection ([`tools/kernel_exec/kexec.sh`](tools/kernel_exec/kexec.sh)), so the
+authoring/verification tooling is identical either way. The cluster path is the right choice when the target TPU
+generation differs from the local VM or the op-point needs more chips; the pod's generation is discovered from the
+cluster, never assumed. Multi-host/collective op-points remain a TODO (one pod = one node).
 
 **Optional — pin a chip.** Add `on tpu chip N` to the prompt to bind the run to one accelerator. Claude Code
 handles this well, and because each family holds a lock on its own chip, pinning is what lets you run several

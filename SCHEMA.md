@@ -296,7 +296,7 @@ A **kernel family** applies the same page machinery to a single Pallas/Mosaic ke
 | Variant row key | `<size>/<hardware>` | `<op-point>/<hardware>`, e.g. `"b8-s4096-h32-bf16/v6e-1"` |
 | Experiments dir | `<model>_autoresearch_optimization/<lane>/` | `wiki/kernel_experiments/<kernel>/pallas/` |
 | Target metrics | step time, MFU, tokens/sec, HBM | kernel µs, TFLOPs + roofline util (JAXBench-harness formula), per-unit `% util`, wait_ratio |
-| Execution | GKE/XPK via gke-cluster-runner | **local single-chip** (the wired path). Portability attestation compiles+measures on the **canonical fleet-libtpu chip** via the same local exec path — NOT gke-cluster-runner (training-workload-shaped). Multi-chip/collective op-points on GKE are a TODO (need a kernel-benchmark XPK wrapper). |
+| Execution | GKE/XPK via gke-cluster-runner | **local single-chip** (default) **or a single-node GKE pod**, chosen once per run at `/start-experiment` Step 9·K, dispatched through the one indirection [`tools/kernel_exec/kexec.sh`](tools/kernel_exec/kexec.sh) — rationale, invariants (gs:// artifacts, TTL, discovered generation), and the cross-chip concurrency rules live in `wiki/kernel_experiments/program.md` (run-target + Discipline sections). NOT gke-cluster-runner (training-workload-shaped). Multi-host/collective op-points remain a TODO (one pod = one node). |
 | Semantics gate | loss-trajectory parity | **numerical parity vs reference** (stated atol/rtol in the family program.md) |
 | Profile artifacts | multi-GB, gitignored, page is the only link | MB-scale trace + LLO dumps under `raw/profiles/<exp-slug>/` |
 | Hypothesis catalog | `model-optimization-index.md` + blueprint | `kernel-optimization-index.md` (blueprint step order is in its Signal→lever map) |

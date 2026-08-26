@@ -57,6 +57,22 @@ For each cluster in CLUSTER_POOL whose in-flight workload corresponds to a backg
 
 This is independent of the workload itself — even if the subagent stops, the GKE workload keeps running; step 3 handles workload-side cleanup.
 
+## Step 2c — Tear down the kernel exec pod (KERNEL lane)
+
+If this family ran with `target=cluster` (check `wiki/kernel_experiments/<slug>/pallas/.exec-target`), the pod is holding real chips and **must be released**:
+
+```bash
+tools/kernel_exec/kexec.sh status --family <slug>     # confirm what is up
+tools/kernel_exec/kexec.sh down   --family <slug>     # deletes the pod, clears .exec-target
+```
+
+This is NOT optional and NOT deferrable to the TTL. `sleep infinity` never exits on its own, so the
+pod holds contended capacity until something removes it; the `activeDeadlineSeconds` TTL is a
+backstop against total failure, not the intended teardown path. Run this even when the stop is a
+PAUSE — a paused family should not sit on chips. Report the release to the user.
+
+(If `.exec-target` says `target=local`, or the file is absent, there is nothing to tear down.)
+
 ## Step 3 — Reap orphan workloads on all clusters
 
 For each cluster in the project's pool (matching the lane's relevant TPU type + topology), list active workloads:

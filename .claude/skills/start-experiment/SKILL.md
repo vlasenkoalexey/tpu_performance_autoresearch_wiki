@@ -7,12 +7,42 @@ You are starting one autoresearch session. Follow this sequence precisely. Do no
 
 ## Step 1 — Determine context (model, lane, parallelism)
 
-**KERNEL FAST-PATH — check this FIRST.** If the invocation names a kernel (a kernel/benchmark path, a `wiki/kernels/` family slug, or "tpu chip N"), this is a KERNEL session. Steps 2–8 are model-lane machinery — skip them ALL (no cluster discovery, no xprof probe, no hardware question; the chip is in the prompt). Do exactly:
+**KERNEL FAST-PATH — check this FIRST.** If the invocation names a kernel (a kernel/benchmark path, a `wiki/kernels/` family slug, or "tpu chip N"), this is a KERNEL session. Steps 2–8 are model-lane machinery — skip them ALL (no XPK cluster discovery, no xprof probe, no model-lane hardware question). The kernel lane asks its own, much smaller run-target question at Step 9·K below. Do exactly:
 
 1. Read `wiki/kernel_experiments/program.md` end-to-end; derive the family slug per its Quick-start rule 1.
-2. **Step 9·0** — arm the watcher (kernel mode: `family` + `home_repo` from the family binding; bootstrap the binding first if new, per Quick-start rule 2).
-3. **Step 9b** — start marker, into the FAMILY's log: `wiki/kernel_experiments/<slug>/pallas/log.md`.
-4. Hand off: run the kernel Quick start (load `/author-kernel`, then K0–K9 on the pinned chip).
+2. **Step 9·K — choose the run target (ASK ONCE, then it is fixed for the whole run).** See below.
+3. **Step 9·0** — arm the watcher (kernel mode: `family` + `home_repo` from the family binding; bootstrap the binding first if new, per Quick-start rule 2).
+4. **Step 9b** — start marker, into the FAMILY's log: `wiki/kernel_experiments/<slug>/pallas/log.md`. Record the run target chosen at 9·K.
+5. Hand off: run the kernel Quick start (load `/author-kernel`, then K0–K9 via `kexec.sh run`).
+
+### Step 9·K — Run target: local chip or cluster pod (KERNEL ONLY)
+
+The chip named in the prompt is the *local* default. Before arming anything, ask the user with `AskUserQuestion` (`--yes` skips the question and takes the local default — same convention as Step 8):
+
+**Question**: "Run this kernel family on the local chip, or on a cluster pod?"
+**Options**:
+- `Local chip <N>` *(recommended)* — fastest edit→measure cycle; right for authoring.
+- `Cluster pod` — persistent GKE pod, `kubectl exec`. For a different target generation or more chips than local. Costs contended capacity for the whole run.
+
+(When to pick which — the full rationale — is canonical in `wiki/kernel_experiments/program.md`'s run-target section; don't restate it here.)
+
+**If `Cluster pod`:**
+
+1. `tools/kernel_exec/kexec.sh discover` — prints the TPU capacity actually present (nodepool, accelerator, topology, machine type, chips). **Never assume a generation**; the GKE accelerator label value is generation-specific (`tpu7x`, `tpu-v6e-slice`, `tpu-v5p-slice`, `tpu-v5-lite-podslice`, …).
+2. Ask which row to use, and for how long (`--hours`, default 8 — the pod's hard TTL).
+3. Bring it up — it stays up for the whole run:
+   ```bash
+   tools/kernel_exec/kexec.sh up --family <slug> \
+     --accelerator <A> --topology <T> [--chips N] --hours <H> --image <IMG>
+   ```
+   `--image` must have `jax[tpu]` + libtpu + kgate. `--chips` defaults to the node's allocatable count.
+4. `kexec.sh sync --family <slug>` after each K4 authoring pass, so the pod sees the current `.repo`.
+
+**Two properties to state to the user when the pod comes up**, because both are load-bearing:
+- **Teardown is mandatory** — `/stop-experiment` does it, but the pod also carries `activeDeadlineSeconds` so the cluster reaps it even if every software path fails. `sleep infinity` never exits on its own; a leaked pod holds scarce chips indefinitely.
+- **Artifacts must be `gs://`** — `kexec` refuses to run otherwise. All four classes (HLO / LLO / Mosaic / xprof trace) write straight to GCS, which keeps the pod stateless and immune to the `ephemeral-storage` eviction that has destroyed captures before.
+
+Record the choice in the Step 9b start marker (`**Run target**: local chip N` or `**Run target**: cluster pod <pod> — <accel>/<topo>, <chips> chips, TTL <H>h`). Do not re-ask per iteration.
 
 Everything below this line is the MODEL-lane path.
 

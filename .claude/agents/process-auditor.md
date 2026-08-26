@@ -85,6 +85,24 @@ Each check: condition ⇒ emit the finding. Severity in brackets.
 16. [DRIFT] ≥3 consecutive candidates with parity FAIL and no experiment attacking the parity
     mechanism ⇒ "PARITY-FIRST (BRIEFS §3): next experiment must target parity, not speed".
 
+17. [LEAK] **Kernel exec pod outliving its run.** A `sleep infinity` pod never exits on its own, so
+    a missed teardown holds contended chips indefinitely. Check both directions:
+    - `<family>/pallas/.exec-target` says `target=cluster` **and** the family's latest experiment is
+      `status: filed` with no newer K3 stub, **or** a stop/pause marker exists in the family log
+      ⇒ "pod `kexec-<family>` still up after the run ended — run
+      `tools/kernel_exec/kexec.sh down --family <family>`".
+    - A pod matching `-l app=kexec` exists whose `kexec-family` label has **no** `.exec-target` file
+      on disk ⇒ orphan from a crashed session; same corrective.
+    Report the pod's age and chip count in the finding — this is capacity someone else is waiting on.
+    (Not a stop-blocker by itself; the `activeDeadlineSeconds` TTL is the backstop. But an unreleased
+    pod at a *close* IS blocking: `/stop-experiment` Step 2c must run before the close is clean.)
+
+18. [DRIFT] **Artifact target not `gs://` while `target=cluster`.** A cited receipt/profile path
+    under a cluster-mode experiment that is a pod-local path rather than a `gs://` URI ⇒ the
+    artifact is unrecoverable (the pod is ephemeral) and the evidence chain is broken ⇒ "cap at
+    inconclusive; re-run with gs:// targets". `kexec run` refuses these at dispatch, so a violation
+    here means kgate was invoked bare, bypassing the indirection — flag that too.
+
 ## Model-lane checks
 
 1. [VIOLATION] New page born with a verdict instead of `status: in_progress` + four paragraphs.

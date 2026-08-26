@@ -58,7 +58,8 @@ Companion document: [Pallas kernel source survey](analyses/2026-04-23-pallas-ker
 
 These were the candidates expected to recover the 9.2 % loop-fusion line in the [exp 28b profile](experiments/llama3_8B_autoresearch_optimization/jax/experiments/2026-04-26-jax-exp27-28-sparsecore-rs-ag-offload-frontier.md#profile); since both are already done by the XLA fuser, the loop-fusion bytes must come from other ops (residual scratchpads, embedding-grad, FSDP all-gather staging, etc.) where Pallas-replacing the XLA fusion is unlikely to help. **Only int8/AQT remains as a meaningful per-chip throughput lever**; the bf16-MXU regime is saturated.
 
-## Observations (5)
+## Observations (6)
+- [tpu-dump-flags-write-directly-to-gcs](observations/tpu-dump-flags-write-directly-to-gcs.md) — every kernel-loop artifact class (HLO/LLO/Mosaic/xprof trace) writes straight to `gs://`, making a remote GKE executor stateless for artifacts (no copy-back, no ephemeral-storage eviction).
 - [qwen3-jax-sharding-matches-maxtext](observations/qwen3-jax-sharding-matches-maxtext.md) — our FSDP sharding already equals MaxText's `logical_axis_rules` (embed/D on fsdp, pure 1D fsdp=8 in both); the MXU occupancy gap (53.6% vs 61.2%) is NOT a sharding lever but recompute-downstream. Closed the "MXU/logical-axis" lever without a dispatch.
 - [qwen3-jax-fsdp-rs-not-overlapped](observations/qwen3-jax-fsdp-rs-not-overlapped.md) — FSDP grad reduce-scatter ran synchronous on the unrolled graph (the #1 non-matmul cost at v018); overlap needs scan (v028).
 - [qwen3-jax-qkv-splash-transpose-intrinsic](observations/qwen3-jax-qkv-splash-transpose-intrinsic.md) — the QKV→splash layout transpose is intrinsic (investigated + closed).

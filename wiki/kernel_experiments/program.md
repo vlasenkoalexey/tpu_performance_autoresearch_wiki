@@ -19,7 +19,7 @@ order — do NOT improvise an alternative sequence:
    if it exists — create it from the binding fields above if not (family bootstrap, including the
    family page `wiki/kernels/<slug>.md` and pinning the reference module).
 3. **Load [`/author-kernel`](../../.claude/skills/author-kernel/SKILL.md)** before writing any candidate.
-4. **Run the loop**: K0 → K9 below, on the pinned chip (`flock /tmp/tpu-chip-N.lock`), synchronously. (Supervision — ALL harnesses, one rule: **after EVERY K7 verdict commit, and as the final gate of any close, dispatch the `process-auditor` subagent and apply its findings before your next K3.** The auditor is the sole stop authorizer. Timer-based watchers, where armed, are an additional stall/revive net — never a substitute for the K7 dispatch.)
+4. **Run the loop**: K0 → K9 below, synchronously, dispatching every device run through [`kexec.sh run`](../../tools/kernel_exec/kexec.sh) (local: `flock`+`TPU_VISIBLE_DEVICES` on the pinned chip; cluster: `kubectl exec` into the family's pod). The run target is chosen ONCE at `/start-experiment` Step 9·K. (Supervision — ALL harnesses, one rule: **after EVERY K7 verdict commit, and as the final gate of any close, dispatch the `process-auditor` subagent and apply its findings before your next K3.** The auditor is the sole stop authorizer. Timer-based watchers, where armed, are an additional stall/revive net — never a substitute for the K7 dispatch.)
 5. Verification is **`kgate verify`** (K6); numbers you didn't get from a kgate receipt do not exist.
 
 Everything an orchestrator/launcher would otherwise do for you (worktree, stub, plan, receipts,
@@ -49,8 +49,21 @@ page filing, commits) is YOURS to do in solo mode — the steps below say exactl
   `wiki/kernel_experiments/<slug>/pallas/.repo/` — **ONE `.repo` per family for ALL its
   experiments** (kernel families run serially within a family); per-experiment isolation is the
   **branch** `kernel/<slug>-vNNN`, never a new folder. Gitignored via the global `.repo/` rule.
-  No docker/wheel build. Run target: the **local single chip** (the only fully-wired path;
-  multi-chip/collective op-points on GKE are a known TODO — run on a local multi-chip host or defer).
+  No docker/wheel build. **Run target: chosen once per run, then fixed** — `local` (a chip on this
+  workstation) or `cluster` (a persistent GKE pod holding chips of the generation you pick). Both
+  go through the SAME indirection, [`tools/kernel_exec/kexec.sh`](../../tools/kernel_exec/kexec.sh),
+  so kgate, `/author-kernel` and `kernel-verifier` are identical either way:
+  ```
+  kexec.sh run --family <slug> --chip <n> -- kgate measure ...
+  ```
+  `local` is the default and the right choice for authoring — most candidates die for
+  hardware-independent reasons (wrong math, wrong tiling, doesn't fire, fails parity), and paying
+  cluster latency to learn that compounds into fewer candidates explored. `cluster` earns its cost
+  when the *target* generation differs from this box (tuning can invert across generations — e.g.
+  a dequant path gated on `quant_block_size < mxu_column_size`, a per-generation constant) or when
+  the op-point needs more chips than are local. **Pick the generation from
+  `kexec.sh discover`** — never assume one; the GKE accelerator label value is generation-specific.
+  Multi-host/collective op-points remain a TODO (one pod = one node).
 - **Isolation invariants:**
   0. **The wiki repo is SINGLE-BRANCH**: it lives on the one campaign branch for the whole run —
      never create/checkout branches in it (that isolation model applies to the CODE repo only,
@@ -390,8 +403,10 @@ banned pattern.)
 - **False-wall STEP-0:** on `RESOURCE_EXHAUSTED`, `kgate fit` (compile-only) reads requested-vs-limit
   — a 33–45 MB OOM on a 128 MB part is the 32 MB scoped-VMEM default, not a hardware wall.
 - **Portability:** a candidate that does not COMPILE on the canonical (fleet-libtpu) rig is void
-  regardless of local speedup — the verifier attests the rig (K6). Reached via the local exec path
-  ([`exec_chip.sh`](../../tools/agy_loop/exec_chip.sh)) pinned to that chip — NOT gke-cluster-runner.
+  regardless of local speedup — the verifier attests the rig (K6). Reached via
+  [`kexec.sh run`](../../tools/kernel_exec/kexec.sh) pinned to that chip — NOT gke-cluster-runner
+  (that agent is training-workload-shaped). When the run target is `cluster`, the pod IS the
+  canonical rig for its generation and the attestation happens there.
 - **Receipts:** kgate emits a self-hashed `receipt.json`; the verifier validates before re-measuring.
 
 ## Profiling — the number vs the profile
@@ -420,9 +435,35 @@ flag set and the cache-hit-empty-dump gotcha). Three read tiers:
 
 ## Discipline
 
-- **Chips:** serial per chip, parallel across chips; `TPU_VISIBLE_DEVICES=<n>` + single-chip
-  topology; device runs under `flock /tmp/tpu-chip-<n>.lock`; ≤2 concurrent XLA compiles; one
-  137-kill retry then declare a wall.
+- **Chips:** serial per chip; one 137-kill retry then declare a wall. **Every device run goes
+  through [`kexec.sh run`](../../tools/kernel_exec/kexec.sh)** — never invoke kgate bare, so the
+  local/cluster choice stays in one place:
+  - `local` — `flock /tmp/tpu-chip-<n>.lock` + **`TPU_VISIBLE_CHIPS=<n>` AND `TPU_VISIBLE_DEVICES=<n>`** (both, per `tpu_worker.py`; CHIPS is the real pin — DEVICES alone does NOT isolate on 2-core-per-chip parts like v7x).
+  - `cluster` — no flock needed; the pod's chips are exclusively ours by k8s admission. That
+    guarantee is precisely why a pod beats SSH into a shared TPU-VM, where chip ownership is
+    first-come (whoever starts second is hard-blocked) and co-tenancy biases µs-scale timings.
+
+  **Cross-chip concurrency on one host** — multiple single-chip runs (different families, or
+  author + verifier) MAY overlap, per this table. Chip isolation (`TPU_VISIBLE_CHIPS` + the
+  per-chip flock) is airtight; what leaks across chips is **shared host CPU / DRAM / PCIe
+  bandwidth**, which biases µs-scale *timing* without touching correctness:
+
+  | activity on chip A ↓ / chip B → | compile / parity / authoring | **timing measurement** |
+  |---|---|---|
+  | compile / parity / authoring | OK (≤2 concurrent XLA compiles host-wide) | NOT OK |
+  | **timing measurement** (kgate measure, verifier reps — any number a verdict will cite) | NOT OK | NOT OK |
+
+  One rule: **a timing window owns the host** — everything else waits, regardless of chip. This is
+  what "authors and verifiers must not run concurrently" (v6e-4 box incident) actually meant; the
+  ban is on overlapping a *measurement*, not on parallel authoring.
+- **Artifacts are `gs://` URIs in cluster mode — enforced by `kexec`, which refuses to run
+  otherwise.** All four classes write straight to GCS (HLO `--xla_dump_to`, LLO
+  `--xla_jf_dump_to`, Mosaic `--xla_mosaic_dump_to`, and the xprof trace via
+  `jax.profiler.trace`; validated 2026-08-19 —
+  [observation](../observations/tpu-dump-flags-write-directly-to-gcs.md)). This keeps the pod
+  stateless: no scratch volume, no copy-back, and no `ephemeral-storage` eviction — the failure
+  that destroyed two full-model captures. `gs://` is *recommended* locally too; it sidesteps the
+  multi-GB `jf_dump` disk-pressure rule below.
 - **Git grammar** (one commit per event, machine-readable): `K3(<fam> vNNN): stub — <slug>` ·
   `cand<N>(<fam> vNNN): <what> — <numbers>` · `pivot(<fam> vNNN): <from>→<to>` ·
   `K7(<fam> vNNN): <verdict> — <number>` (carries `exp:` footer). Push after every K7.
@@ -486,5 +527,6 @@ exp_id  date  p50_ms  speedup  tflops  roofline_util  parity  class  activity  s
   Agents: [`kernel-verifier`](../../.claude/agents/kernel-verifier.md),
   [`profile-analyzer`](../../.claude/agents/profile-analyzer.md).
 - Tooling: `tools/kernelgate/` (kgate — the only source of a number; `verify` is K6),
-  [`exec_chip.sh`](../../tools/agy_loop/exec_chip.sh) (chip-pinned runs).
+  [`kexec.sh`](../../tools/kernel_exec/kexec.sh) (the exec indirection: chip-pinned local runs,
+  or a persistent GKE pod — `discover` / `up` / `run` / `sync` / `status` / `down`).
   `<kernel>/pallas/program.md` — the family bindings layer.
