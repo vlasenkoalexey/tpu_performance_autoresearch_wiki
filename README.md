@@ -89,7 +89,7 @@ The rest of this section describes the supporting components that make that disc
 
 Autoresearch is a feedback loop: hypothesize → experiment → **observe** → revise. Without the *observe* step grounded in real signal, the loop collapses into flag-guessing. For TPU performance optimization, "real signal" means knowing where each millisecond of step time goes, which tensor sits where in HBM, and where every op lands on the roofline. The source of truth is [**XProf**](https://github.com/openxla/xprof), OpenXLA's official TPU profiler — step-time breakdown, per-HLO-op runtime + memory traffic, collective-overlap timing, roofline classification, memory timeline.
 
-Raw XProf is a web UI, not something an LLM agent can use directly. We bridge the gap with [**xprof-cli**](https://github.com/vlasenkoalexey/xprof-cli), which exposes XProf as **programmatic tools the agent invokes straight from a shell** — `xprof-cli get_overview --logdir=… --run=…`. It runs in-process with no server to start or keep in sync, so a profile captured seconds ago is readable on the next call. (An [MCP](https://modelcontextprotocol.io/) transport also exists and still works, but it is legacy; the CLI is the supported path.)
+Raw XProf is a web UI, not something an LLM agent can use directly. We bridge the gap with [**xprof-cli**](https://github.com/vlasenkoalexey/xprof-cli) (private repo - reach out to [@vlasenkoalexey](https://github.com/vlasenkoalexey) for access), which exposes XProf as **programmatic tools the agent invokes straight from a shell** — `xprof-cli get_overview --logdir=… --run=…`. It runs in-process with no server to start or keep in sync, so a profile captured seconds ago is readable on the next call. (An [MCP](https://modelcontextprotocol.io/) transport also exists and still works, but it is legacy; the CLI is the supported path.)
 
 Besides analyzing profiles, it also exposes an API to access **HLO dumps** — produced when the trainer is launched with [`XLA_FLAGS="--xla_dump_to=<dir> --xla_dump_hlo_as_text"`](https://openxla.org/xla/flags_guidance) — which lets the LLM connect profile information back to the [**optimized HLO**](https://openxla.org/xla/architecture#xla_the_tensorflow_compiler_framework) (what XLA actually executes on the TPU, after layout assignment, fusion, scheduling, collective-fusion, and remat passes) and to the [**original HLO**](https://openxla.org/xla/operation_semantics) (the IR the framework — JAX or torchax — emitted before XLA's optimization passes ran). From there the LLM can backtrace the original HLO back to the line of model code that produced it.
 
@@ -308,10 +308,15 @@ Start an LLM agent session (Antigravity, Claude Code, Codex, etc.) in this direc
 > Antigravity all read the same protocol.
 
 [`xprof-cli`](https://github.com/vlasenkoalexey/xprof-cli) is checked in as a submodule at
-[`raw/code/xprof-cli`](raw/code/xprof-cli). It exposes the full xprof / HLO / LLO tool surface. **Install it once and the
-agent calls it straight from a shell — no server required:**
+[`raw/code/xprof-cli`](raw/code/xprof-cli). **The repo is private** - reach out to
+[@vlasenkoalexey](https://github.com/vlasenkoalexey) for access. The submodule is marked
+`update = none` in [`.gitmodules`](.gitmodules), so a plain `git clone --recurse-submodules`
+skips it cleanly (no auth prompt); once you have access, fetch it explicitly. It exposes the
+full xprof / HLO / LLO tool surface. **Install it once and the agent calls it straight from a
+shell — no server required:**
 
 ```bash
+git submodule update --init --checkout raw/code/xprof-cli   # requires repo access
 pip install -e 'raw/code/xprof-cli[full]'      # + xprof converters and tensorflow-cpu
 
 xprof-cli list_runs        --logdir=raw/profiles

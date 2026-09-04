@@ -1,3 +1,11 @@
+## [2026-09-04] manual | xprof-cli GitHub repo made private; submodule marked optional
+
+**Op**: manual
+**Pages created**: none
+**Pages updated**: README.md, .gitmodules, .claude/skills/start-experiment/SKILL.md
+**Key result**: github.com/vlasenkoalexey/xprof-cli is now a private repo. Its submodule entry carries `update = none`, so `git clone --recurse-submodules` of this public template skips it cleanly with no auth prompt. README's two xprof-cli sections note "(private repo - reach out to @vlasenkoalexey for access)" and document the opt-in fetch: `git submodule update --init --checkout raw/code/xprof-cli`.
+**Notes**: all other references to xprof-cli are local-path (`raw/code/xprof-cli`) and work unchanged once the submodule is fetched by someone with access.
+
 ## [2026-08-26] manual | port kernel-GKE execution path from the private fork
 
 **Op**: manual

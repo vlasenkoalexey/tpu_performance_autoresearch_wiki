@@ -1,6 +1,9 @@
 [submodule "raw/code/xprof-cli"]
 	path = raw/code/xprof-cli
 	url = https://github.com/vlasenkoalexey/xprof-cli
+	# private repo - reach out to @vlasenkoalexey for access, then:
+	#   git submodule update --init --checkout raw/code/xprof-cli
+	update = none
 [submodule "raw/code/torchax"]
 	path = raw/code/torchax
 	url = https://github.com/google/torchax

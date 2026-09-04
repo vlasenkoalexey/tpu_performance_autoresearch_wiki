@@ -230,7 +230,7 @@ XPROF_MODE=local xprof-cli list_runs --logdir=<shared-profiles-tree>
 ```
 
 - **Returns a (possibly empty) run list** → proceed.
-- **Command not found / import error** → surface to the user: install with `pip install -e raw/code/xprof-cli` (the xprof-cli checkout; see `.claude/agents/profile-analyzer.md` for the tool inventory). Re-probe before continuing.
+- **Command not found / import error** → surface to the user: install with `pip install -e raw/code/xprof-cli` (the xprof-cli checkout; see `.claude/agents/profile-analyzer.md` for the tool inventory). If `raw/code/xprof-cli` is empty: the submodule is a private repo marked `update = none` — the user needs access (reach out to @vlasenkoalexey), then `git submodule update --init --checkout raw/code/xprof-cli`; see README "Configuring xprof-cli". Re-probe before continuing.
 
 Do NOT proceed past this step if `xprof-cli` is not functional. (The legacy `mcp__xprof__*` server transport is retired from this flow — never ask the user to start `xprof --port=8791`.)
 
