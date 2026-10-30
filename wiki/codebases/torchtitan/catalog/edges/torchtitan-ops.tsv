@@ -1,0 +1,10 @@
+# wikify edge list: torchtitan @ 2ad96c9390, shard torchtitan/ops, 3 caller edges. Grep it by anchor; never read it whole.
+# columns: callee	caller   (one edge per line). Hubs have hundreds of callers and a search tool
+#          shows about 50 lines, so: count, then narrow, then head.
+# count first:   grep -c -P '^torchtitan/ops/scatter_add#deterministic_scatter_add\t' catalog/edges/*.tsv
+# by caller dir: grep -P '^torchtitan/ops/scatter_add#deterministic_scatter_add\t' catalog/edges/*.tsv | cut -f2 | cut -d/ -f1-2 | sort | uniq -c
+# who calls X:   grep -P '^torchtitan/ops/scatter_add#deterministic_scatter_add\ttorchtitan/models/' catalog/edges/*.tsv | cut -f2 | head -20   (narrowed to one directory)
+# what X calls:  grep -P '\ttorchtitan/ops/scatter_add#deterministic_scatter_add$' catalog/edges/*.tsv | cut -f1 | head -20
+torchtitan/ops/scatter_add#deterministic_scatter_add	torchtitan/models/common/token_dispatcher#AllToAllTokenDispatcher.combine
+torchtitan/ops/scatter_add#deterministic_scatter_add	torchtitan/models/common/token_dispatcher#LocalTokenDispatcher.combine
+torchtitan/ops/scatter_add#deterministic_scatter_add	torchtitan/models/common/token_dispatcher#TorchAOTokenDispatcher.combine

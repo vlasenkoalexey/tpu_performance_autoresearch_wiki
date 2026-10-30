@@ -1,0 +1,44 @@
+# wikify symbol index: torchtitan @ 2ad96c9390, shard scripts, 36 rows. Grep it by anchor; never read it whole.
+# columns: anchor	path	line	kind	rank	hash	callers	pages
+# one symbol:  grep -P '^scripts/loss_compare#log_print\t' catalog/symbols/*.tsv
+# by name:     grep -P '[#.]log_print\t' catalog/symbols/*.tsv | sort -t$'\t' -k5 -nr | head -20   (matches Class.log_print too)
+# by area:     grep -P '^scripts/.*#log_print\t' catalog/symbols/*.tsv | head -20
+# one module:  awk -F'\t' '$2=="scripts/loss_compare.py"' catalog/symbols/*.tsv | cut -f1,3,4 | head -40
+# to prose:    grep -P '^scripts/loss_compare#log_print\t' catalog/symbols/*.tsv | cut -f1,8   (column 8: concept pages citing it)
+# callers:     column 7 is the count; the list lives in catalog/edges/*.tsv, see its header (count, narrow, head)
+scripts/loss_compare#LOG_PREFIX	scripts/loss_compare.py	82	value	32	58c92d8c2b6f9009	4	
+scripts/loss_compare#TB_TAGS	scripts/loss_compare.py	85	value	8	f92da073dca77e14	3	
+scripts/loss_compare#DEFAULT_METRICS	scripts/loss_compare.py	89	value	4	877f02c495f66ed0	1	
+scripts/loss_compare#FIXED_OPTIONS	scripts/loss_compare.py	92	value	4	3a488725565590a0	2	
+scripts/loss_compare#SEED_PARALLELISM_OPTIONS	scripts/loss_compare.py	93	value	2	1f100621f4d7bef9	1	
+scripts/loss_compare#log_print	scripts/loss_compare.py	110	function	183	197c90e061b94759	15	
+scripts/loss_compare#get_log_path	scripts/loss_compare.py	118	function	4	449cd253e8589ead	2	
+scripts/loss_compare#build_base_command	scripts/loss_compare.py	125	function	2	3f3b8a1fbe1e6b14	1	
+scripts/loss_compare#run_with_realtime_output	scripts/loss_compare.py	132	function	9	98fe6dcbfbd47da4	2	
+scripts/loss_compare#extract_metrics_from_tensorboard	scripts/loss_compare.py	163	function	14	3152e64e3da7f69c	1	
+scripts/loss_compare#extract_scalar_from_tensorboard	scripts/loss_compare.py	186	function	7	4bbecff4bfd42eb4	1	
+scripts/loss_compare#log_and_save	scripts/loss_compare.py	233	function	30	a7b4f7244e979f35	3	
+scripts/loss_compare#validate_arguments	scripts/loss_compare.py	246	function	7	7e3e2cbcbcd6548f	1	
+scripts/loss_compare#setup_output_directory	scripts/loss_compare.py	337	function	7	e02349d83db806c3	1	
+scripts/loss_compare#build_training_command	scripts/loss_compare.py	359	function	16	ede41e2397249528	2	
+scripts/loss_compare#print_configuration	scripts/loss_compare.py	387	function	12	16d44b9621042ab7	1	
+scripts/loss_compare#check_git_clean_state	scripts/loss_compare.py	450	function	7	b4186117300d0348	1	
+scripts/loss_compare#checkout_commit	scripts/loss_compare.py	488	function	7	df4aafe2b2fc3d33	1	
+scripts/loss_compare#get_current_commit	scripts/loss_compare.py	497	function	2	d614e8b62f6eec1c	1	
+scripts/loss_compare#restore_original_commit	scripts/loss_compare.py	524	function	7	70468f214431b4f1	1	
+scripts/loss_compare#create_seed_checkpoint	scripts/loss_compare.py	535	function	31	e10c958270df8234	2	
+scripts/loss_compare#run_training	scripts/loss_compare.py	562	function	28	b501fddc5dbb63ce	2	
+scripts/loss_compare#read_metrics_from_file	scripts/loss_compare.py	610	function	6	6b924730f2422483	2	
+scripts/loss_compare#export_metrics_to_file	scripts/loss_compare.py	646	function	13	809e9a36ca2b9c35	2	
+scripts/loss_compare#generate_step_comparison	scripts/loss_compare.py	688	function	12	34a647e47e765260	1	
+scripts/loss_compare#generate_summary_statistics	scripts/loss_compare.py	718	function	17	61606ab48f602cd8	1	
+scripts/loss_compare#generate_summary_statistics.calculate_average	scripts/loss_compare.py	728	function	4	6f6ee2631c736413	1	
+scripts/loss_compare#perform_loss_analysis	scripts/loss_compare.py	749	function	22	282808e0247c50ad	1	
+scripts/loss_compare#assert_metrics_equal	scripts/loss_compare.py	780	function	17	6493be25096910cd	1	
+scripts/loss_compare#assert_losses_equal	scripts/loss_compare.py	809	function	12	0c869eb8712a198c	1	
+scripts/loss_compare#assert_losses_equal.LossEqualityTest	scripts/loss_compare.py	846	class	2	a8fecf59ba118782	1	
+scripts/loss_compare#assert_losses_equal.LossEqualityTest.test_losses_equal	scripts/loss_compare.py	847	method	0	0fac9052653e7b40	0	
+scripts/loss_compare#print_completion_summary	scripts/loss_compare.py	933	function	7	4241f7ca7a47503e	1	
+scripts/loss_compare#parse_arguments	scripts/loss_compare.py	977	function	12	0a097edd180a8a47	1	
+scripts/loss_compare#run_scenario	scripts/loss_compare.py	1140	function	14	cf421728f6c0d9f1	1	
+scripts/loss_compare#main	scripts/loss_compare.py	1189	function	82	6b628c7c7b69acc4	0	

@@ -1,0 +1,49 @@
+# wikify edge list: torch_tpu @ 005903d0ef, shard csrc/mlir, 42 caller edges. Grep it by anchor; never read it whole.
+# columns: callee	caller   (one edge per line). Hubs have hundreds of callers and a search tool
+#          shows about 50 lines, so: count, then narrow, then head.
+# count first:   grep -c -P '^csrc/mlir/instrumentation.h#InstrumentationState\t' catalog/edges/*.tsv
+# by caller dir: grep -P '^csrc/mlir/instrumentation.h#InstrumentationState\t' catalog/edges/*.tsv | cut -f2 | cut -d/ -f1-2 | sort | uniq -c
+# who calls X:   grep -P '^csrc/mlir/instrumentation.h#InstrumentationState\tcsrc/mlir/' catalog/edges/*.tsv | cut -f2 | head -20   (narrowed to one directory)
+# what X calls:  grep -P '\tcsrc/mlir/instrumentation.h#InstrumentationState$' catalog/edges/*.tsv | cut -f1 | head -20
+csrc/mlir/instrumentation.cc#ConfigureInstrumentation	csrc/mlir/instrumentation.h#InstrumentationState.dump_to_print
+csrc/mlir/instrumentation.cc#ConfigureInstrumentation	csrc/mlir/pipeline.cc#RunTorchTpuOptimizationPasses
+csrc/mlir/instrumentation.cc#InstrumentationState.Apply	csrc/mlir/instrumentation.h#InstrumentationState.dump_to_print
+csrc/mlir/instrumentation.cc#InstrumentationState.Apply	csrc/mlir/pipeline.cc#RunTorchTpuOptimizationPasses
+csrc/mlir/instrumentation.cc#NextModuleId	csrc/mlir/instrumentation.cc#ConfigureInstrumentation
+csrc/mlir/instrumentation.cc#g_module_counter	csrc/mlir/instrumentation.cc#NextModuleId
+csrc/mlir/instrumentation.h#InstrumentationState	csrc/mlir/instrumentation.cc#ConfigureInstrumentation
+csrc/mlir/instrumentation.h#InstrumentationState	csrc/mlir/instrumentation.cc#InstrumentationState.Apply
+csrc/mlir/instrumentation.h#InstrumentationState	csrc/mlir/instrumentation.cc#NextModuleId
+csrc/mlir/instrumentation.h#InstrumentationState	csrc/mlir/instrumentation.h#InstrumentationState.dump_to_print
+csrc/mlir/instrumentation.h#InstrumentationState.dump_to_print	csrc/mlir/instrumentation.cc#ConfigureInstrumentation
+csrc/mlir/instrumentation.h#InstrumentationState.dump_to_print	csrc/mlir/instrumentation.cc#InstrumentationState.Apply
+csrc/mlir/instrumentation.h#InstrumentationState.ir_os	csrc/mlir/instrumentation.cc#ConfigureInstrumentation
+csrc/mlir/instrumentation.h#InstrumentationState.ir_os	csrc/mlir/instrumentation.cc#InstrumentationState.Apply
+csrc/mlir/instrumentation.h#InstrumentationState.timing_os	csrc/mlir/instrumentation.cc#ConfigureInstrumentation
+csrc/mlir/instrumentation.h#InstrumentationState.timing_os	csrc/mlir/instrumentation.cc#InstrumentationState.Apply
+csrc/mlir/passes/dummy_pass.cc#DummyPass	csrc/mlir/passes/dummy_pass.cc#DummyPass
+csrc/mlir/passes/dummy_pass.cc#DummyPass	csrc/mlir/passes/dummy_pass.cc#createDummyPass
+csrc/mlir/passes/dummy_pass.cc#createDummyPass	csrc/mlir/registration.cc#RegisterTorchTpuPasses
+csrc/mlir/passes/reassociate_norm_weights.cc#IsOneSplat	csrc/mlir/passes/reassociate_norm_weights.cc#MatchOnePlusWeight
+csrc/mlir/passes/reassociate_norm_weights.cc#MatchOnePlusWeight	csrc/mlir/passes/reassociate_norm_weights.cc#ReassociateMulNormPattern.matchAndRewrite
+csrc/mlir/passes/reassociate_norm_weights.cc#MatchedWeight	csrc/mlir/passes/reassociate_norm_weights.cc#MatchOnePlusWeight
+csrc/mlir/passes/reassociate_norm_weights.cc#MatchedWeight	csrc/mlir/passes/reassociate_norm_weights.cc#MatchedWeight.outer_bcast
+csrc/mlir/passes/reassociate_norm_weights.cc#MatchedWeight	csrc/mlir/passes/reassociate_norm_weights.cc#ReassociateMulNormPattern.matchAndRewrite
+csrc/mlir/passes/reassociate_norm_weights.cc#MatchedWeight.outer_bcast	csrc/mlir/passes/reassociate_norm_weights.cc#ReassociateMulNormPattern.matchAndRewrite
+csrc/mlir/passes/reassociate_norm_weights.cc#MatchedWeight.raw_weight	csrc/mlir/passes/reassociate_norm_weights.cc#ReassociateMulNormPattern.matchAndRewrite
+csrc/mlir/passes/reassociate_norm_weights.cc#ReassociateMulNormPattern	csrc/mlir/passes/reassociate_norm_weights.cc#ReassociateNormWeightsPass.runOnOperation
+csrc/mlir/passes/reassociate_norm_weights.cc#ReassociateNormWeightsPass	csrc/mlir/passes/reassociate_norm_weights.cc#ReassociateNormWeightsPass
+csrc/mlir/passes/reassociate_norm_weights.cc#ReassociateNormWeightsPass	csrc/mlir/passes/reassociate_norm_weights.cc#createReassociateNormWeightsPass
+csrc/mlir/passes/reassociate_norm_weights.cc#SkipBroadcasts	csrc/mlir/passes/reassociate_norm_weights.cc#IsOneSplat
+csrc/mlir/passes/reassociate_norm_weights.cc#SkipBroadcasts	csrc/mlir/passes/reassociate_norm_weights.cc#ReassociateMulNormPattern.matchAndRewrite
+csrc/mlir/passes/reassociate_norm_weights.cc#createReassociateNormWeightsPass	csrc/mlir/pipeline.cc#AddShloPasses
+csrc/mlir/passes/reassociate_norm_weights.cc#createReassociateNormWeightsPass	csrc/mlir/registration.cc#RegisterTorchTpuPasses
+csrc/mlir/pipeline.cc#AddCleanupPasses	csrc/mlir/pipeline.cc#AddTorchTpuOptimizationPasses
+csrc/mlir/pipeline.cc#AddShloPasses	csrc/mlir/pipeline.cc#AddTorchTpuOptimizationPasses
+csrc/mlir/pipeline.cc#AddTorchTpuOptimizationPasses	csrc/mlir/pipeline.cc#RunTorchTpuOptimizationPasses
+csrc/mlir/pipeline.cc#RunTorchTpuOptimizationPasses	csrc/common/compilation.cc#ContextedModule.Make
+csrc/mlir/pipeline.cc#RunTorchTpuOptimizationPasses	csrc/mlir/pipeline_test.cc#PipelineTest_RunOptimizationPassesFailsOnInvalidModule_Test.TestBody
+csrc/mlir/pipeline_test.cc#HasSubstr	csrc/mlir/pipeline_test.cc#PipelineTest_RunOptimizationPassesFailsOnInvalidModule_Test.TestBody
+csrc/mlir/pipeline_test.cc#PipelineTest_RunOptimizationPassesFailsOnInvalidModule_Test	csrc/mlir/pipeline_test.cc#PipelineTest_RunOptimizationPassesFailsOnInvalidModule_Test.TestBody
+csrc/mlir/pipeline_test.cc#PipelineTest_RunOptimizationPassesFailsOnInvalidModule_Test.TestBody	csrc/mlir/pipeline_test.cc#PipelineTest_RunOptimizationPassesFailsOnInvalidModule_Test.TestBody
+csrc/mlir/pipeline_test.cc#StatusIs	csrc/mlir/pipeline_test.cc#PipelineTest_RunOptimizationPassesFailsOnInvalidModule_Test.TestBody

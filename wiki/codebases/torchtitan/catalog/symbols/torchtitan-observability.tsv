@@ -1,0 +1,157 @@
+# wikify symbol index: torchtitan @ 2ad96c9390, shard torchtitan/observability, 149 rows. Grep it by anchor; never read it whole.
+# columns: anchor	path	line	kind	rank	hash	callers	pages
+# one symbol:  grep -P '^torchtitan/observability/structured_logger/structured_logging#log_trace_span\t' catalog/symbols/*.tsv
+# by name:     grep -P '[#.]log_trace_span\t' catalog/symbols/*.tsv | sort -t$'\t' -k5 -nr | head -20   (matches Class.log_trace_span too)
+# by area:     grep -P '^torchtitan/observability/structured_logger/.*#log_trace_span\t' catalog/symbols/*.tsv | head -20
+# one module:  awk -F'\t' '$2=="torchtitan/observability/structured_logger/structured_logging.py"' catalog/symbols/*.tsv | cut -f1,3,4 | head -40
+# to prose:    grep -P '^torchtitan/observability/structured_logger/structured_logging#log_trace_span\t' catalog/symbols/*.tsv | cut -f1,8   (column 8: concept pages citing it)
+# callers:     column 7 is the count; the list lives in catalog/edges/*.tsv, see its header (count, narrow, head)
+torchtitan/observability/sdc_replayer#ScalarStateAccessor	torchtitan/observability/sdc_replayer.py	56	class	12	399a81fd5a67f193	4	
+torchtitan/observability/sdc_replayer#ScalarStateAccessor.get	torchtitan/observability/sdc_replayer.py	62	member	8	7cac71a4ecf63df6	4	
+torchtitan/observability/sdc_replayer#_ReplaySignature	torchtitan/observability/sdc_replayer.py	67	class	22	0859dc44b1c698ae	6	observability
+torchtitan/observability/sdc_replayer#_ReplaySignature.schema	torchtitan/observability/sdc_replayer.py	68	member	14	4b5d45e96f6c57dd	3	
+torchtitan/observability/sdc_replayer#_ReplaySignature.digests	torchtitan/observability/sdc_replayer.py	69	member	14	518dcc601b6f502a	3	
+torchtitan/observability/sdc_replayer#_ReplaySignature.state	torchtitan/observability/sdc_replayer.py	70	member	20	50250a731e953d7d	3	observability
+torchtitan/observability/sdc_replayer#_ReplaySignature.clone	torchtitan/observability/sdc_replayer.py	72	method	22	773e439fd8f1de87	1	observability
+torchtitan/observability/sdc_replayer#_ReplayResult	torchtitan/observability/sdc_replayer.py	81	class	4	2ca90b0805741dc1	1	
+torchtitan/observability/sdc_replayer#_ReplayResult.loss	torchtitan/observability/sdc_replayer.py	82	member	2	fcbf75f09129e433	1	
+torchtitan/observability/sdc_replayer#_ReplayResult.signature	torchtitan/observability/sdc_replayer.py	83	member	11	cee8516b7bbaa31d	1	
+torchtitan/observability/sdc_replayer#SDCReplayMismatch	torchtitan/observability/sdc_replayer.py	86	class	6	77bdc30fd2adda75	2	
+torchtitan/observability/sdc_replayer#SDCReplayMismatch.__init__	torchtitan/observability/sdc_replayer.py	94	method	0	9b9169ec5786f9df	0	
+torchtitan/observability/sdc_replayer#SDCReplayMismatch.step	torchtitan/observability/sdc_replayer.py	103	member	2	34cf18fd43618303	1	
+torchtitan/observability/sdc_replayer#SDCReplayMismatch.local_step	torchtitan/observability/sdc_replayer.py	104	member	2	5b5af5072e5a71f1	1	
+torchtitan/observability/sdc_replayer#SDCReplayMismatch.replay	torchtitan/observability/sdc_replayer.py	105	member	2	c1166eebb2c33820	1	
+torchtitan/observability/sdc_replayer#SDCReplayMismatch.rank	torchtitan/observability/sdc_replayer.py	106	member	2	8d52ec8f8a8f77c3	1	
+torchtitan/observability/sdc_replayer#SDCReplayMismatch.signature_mismatch	torchtitan/observability/sdc_replayer.py	107	member	4	886a9e5f97d59dc9	1	
+torchtitan/observability/sdc_replayer#_local_tensor	torchtitan/observability/sdc_replayer.py	115	function	12	eff3ea3815a206f6	5	
+torchtitan/observability/sdc_replayer#_hash_tensor	torchtitan/observability/sdc_replayer.py	119	function	7	e4035f4ba870d853	1	
+torchtitan/observability/sdc_replayer#_clone_tensor	torchtitan/observability/sdc_replayer.py	136	function	7	ea71142ac0f376bc	1	
+torchtitan/observability/sdc_replayer#_accelerator_rng_states	torchtitan/observability/sdc_replayer.py	140	function	4	a4b62f4bcda6eeb2	2	
+torchtitan/observability/sdc_replayer#_BufferSnapshot	torchtitan/observability/sdc_replayer.py	151	class	6	ad82aac3c0997503	2	
+torchtitan/observability/sdc_replayer#_BufferSnapshot.module	torchtitan/observability/sdc_replayer.py	152	member	8	3e1a2a3c76941ffe	2	
+torchtitan/observability/sdc_replayer#_BufferSnapshot.name	torchtitan/observability/sdc_replayer.py	153	member	8	412c92a84107b857	2	
+torchtitan/observability/sdc_replayer#_BufferSnapshot.original	torchtitan/observability/sdc_replayer.py	154	member	10	668cebdda14fec64	2	
+torchtitan/observability/sdc_replayer#_BufferSnapshot.value	torchtitan/observability/sdc_replayer.py	155	member	6	4db421e1e3ec8f99	2	
+torchtitan/observability/sdc_replayer#_GradientSnapshot	torchtitan/observability/sdc_replayer.py	159	class	4	640a783ec9f9387e	2	
+torchtitan/observability/sdc_replayer#_GradientSnapshot.parameter	torchtitan/observability/sdc_replayer.py	160	member	8	1373631774f27cd0	2	
+torchtitan/observability/sdc_replayer#_GradientSnapshot.original	torchtitan/observability/sdc_replayer.py	161	member	10	668cebdda14fec64	2	
+torchtitan/observability/sdc_replayer#_ReplayStateSnapshot	torchtitan/observability/sdc_replayer.py	165	class	6	8c1f2fdd9eb48486	2	
+torchtitan/observability/sdc_replayer#_ReplayStateSnapshot.python_rng_state	torchtitan/observability/sdc_replayer.py	166	member	4	fd3d56b6a1a37a10	2	
+torchtitan/observability/sdc_replayer#_ReplayStateSnapshot.cpu_rng_state	torchtitan/observability/sdc_replayer.py	167	member	4	9b608b419f3b045f	2	
+torchtitan/observability/sdc_replayer#_ReplayStateSnapshot.accelerator_rng_states	torchtitan/observability/sdc_replayer.py	168	member	8	08c9671c461d255a	2	
+torchtitan/observability/sdc_replayer#_ReplayStateSnapshot.scalar_values	torchtitan/observability/sdc_replayer.py	169	member	4	6fe0651494c19417	2	
+torchtitan/observability/sdc_replayer#_ReplayStateSnapshot.buffers	torchtitan/observability/sdc_replayer.py	170	member	9	609834f4fd6e1733	2	
+torchtitan/observability/sdc_replayer#_ReplayStateSnapshot.gradients	torchtitan/observability/sdc_replayer.py	171	member	9	519d343256ff8d2f	2	
+torchtitan/observability/sdc_replayer#_ReplayStateProvider	torchtitan/observability/sdc_replayer.py	174	class	2	f9b09ac753967b5e	1	
+torchtitan/observability/sdc_replayer#_ReplayStateProvider.__init__	torchtitan/observability/sdc_replayer.py	177	method	5	23c69e7d913160be	0	
+torchtitan/observability/sdc_replayer#_ReplayStateProvider._modules	torchtitan/observability/sdc_replayer.py	183	member	2	f391402af75ba2c3	1	
+torchtitan/observability/sdc_replayer#_ReplayStateProvider._device	torchtitan/observability/sdc_replayer.py	185	member	8	9caf77afbf6d4f70	2	
+torchtitan/observability/sdc_replayer#_ReplayStateProvider._scalar_state	torchtitan/observability/sdc_replayer.py	186	member	4	a61505625bcc768f	2	
+torchtitan/observability/sdc_replayer#_ReplayStateProvider.capture	torchtitan/observability/sdc_replayer.py	188	method	107	aa86fb7575e17bf7	1	observability
+torchtitan/observability/sdc_replayer#_ReplayStateProvider.restore	torchtitan/observability/sdc_replayer.py	236	method	82	c4b2a0996a3a407a	1	observability
+torchtitan/observability/sdc_replayer#_compare_signature	torchtitan/observability/sdc_replayer.py	276	function	22	2d35e401c90b7dfd	1	observability
+torchtitan/observability/sdc_replayer#_find_signature_mismatch	torchtitan/observability/sdc_replayer.py	296	function	22	d0544f65ad72e866	1	observability
+torchtitan/observability/sdc_replayer#SDCReplayer	torchtitan/observability/sdc_replayer.py	318	class	29	8be48a03927281df	8	observability
+torchtitan/observability/sdc_replayer#SDCReplayer.Config	torchtitan/observability/sdc_replayer.py	331	class	22	60d0524a864a9bb2	6	observability
+torchtitan/observability/sdc_replayer#SDCReplayer.Config.num_steps	torchtitan/observability/sdc_replayer.py	332	member	12	f7d2bf39f64ac29b	4	
+torchtitan/observability/sdc_replayer#SDCReplayer.Config.num_replays	torchtitan/observability/sdc_replayer.py	340	member	10	1484e6d11e4a5ac1	5	observability
+torchtitan/observability/sdc_replayer#SDCReplayer.Config.__post_init__	torchtitan/observability/sdc_replayer.py	346	method	10	5d42fb05fab5c3b9	0	observability
+torchtitan/observability/sdc_replayer#SDCReplayer.__init__	torchtitan/observability/sdc_replayer.py	352	method	10	37fcd7ec918a04eb	0	
+torchtitan/observability/sdc_replayer#SDCReplayer.config	torchtitan/observability/sdc_replayer.py	360	member	6	8857d6c4a0a01b4c	2	
+torchtitan/observability/sdc_replayer#SDCReplayer._modules	torchtitan/observability/sdc_replayer.py	361	member	6	f391402af75ba2c3	2	
+torchtitan/observability/sdc_replayer#SDCReplayer._device	torchtitan/observability/sdc_replayer.py	363	member	4	9caf77afbf6d4f70	2	
+torchtitan/observability/sdc_replayer#SDCReplayer._scalar_state	torchtitan/observability/sdc_replayer.py	364	member	4	e15bca0ddccbde3f	2	
+torchtitan/observability/sdc_replayer#SDCReplayer._state_provider	torchtitan/observability/sdc_replayer.py	365	member	19	da9196963ee9edba	1	observability
+torchtitan/observability/sdc_replayer#SDCReplayer._steps_since_reset	torchtitan/observability/sdc_replayer.py	370	member	13	90b8e0bab9e9e102	3	
+torchtitan/observability/sdc_replayer#SDCReplayer._validate_hash_support	torchtitan/observability/sdc_replayer.py	374	method	2	c01e0b35d6c8fd9f	1	
+torchtitan/observability/sdc_replayer#SDCReplayer.steps_since_reset	torchtitan/observability/sdc_replayer.py	384	method	7	970d0cafe4ca0b2e	1	
+torchtitan/observability/sdc_replayer#SDCReplayer.reset_schedule	torchtitan/observability/sdc_replayer.py	388	method	7	62e5a62a41facccf	1	
+torchtitan/observability/sdc_replayer#SDCReplayer.run_fwd_bwd	torchtitan/observability/sdc_replayer.py	392	method	24	0b0807109051316c	2	observability
+torchtitan/observability/sdc_replayer#SDCReplayer._signature	torchtitan/observability/sdc_replayer.py	415	method	42	03d614fc969dc2ae	1	observability
+torchtitan/observability/sdc_replayer#SDCReplayer.add_tensor	torchtitan/observability/sdc_replayer.py	426	method	20	cce9d1ab386a486c	1	observability
+torchtitan/observability/sdc_replayer#SDCReplayer._execute	torchtitan/observability/sdc_replayer.py	486	method	14	7ea84ee571b6c8a8	1	
+torchtitan/observability/sdc_replayer#SDCReplayer._raise_if_mismatch	torchtitan/observability/sdc_replayer.py	490	method	22	9fbb3e2bce2264b3	1	observability
+torchtitan/observability/sdc_replayer#SDCReplayer._run_checked	torchtitan/observability/sdc_replayer.py	528	method	57	005db4a55e478991	1	observability
+torchtitan/observability/structured_logger/__init__#__all__	torchtitan/observability/structured_logger/__init__.py	35	value	0	939bc565afdcd76c	0	
+torchtitan/observability/structured_logger/gantt_generator#generate_gantt_trace	torchtitan/observability/structured_logger/gantt_generator.py	25	function	25	802df962f71482c5	0	observability
+torchtitan/observability/structured_logger/gantt_generator#_assign_tids_per_source	torchtitan/observability/structured_logger/gantt_generator.py	93	function	2	f613b3dbcccdf412	1	
+torchtitan/observability/structured_logger/gantt_generator#_resolve_instant_tid	torchtitan/observability/structured_logger/gantt_generator.py	185	function	2	5d13ae60aa0216b1	1	
+torchtitan/observability/structured_logger/gantt_generator#load_all_records	torchtitan/observability/structured_logger/gantt_generator.py	211	function	2	22268c80b726d867	1	
+torchtitan/observability/structured_logger/gantt_generator#_collect_paired_and_instants	torchtitan/observability/structured_logger/gantt_generator.py	238	function	12	3a756338f751c8d7	1	
+torchtitan/observability/structured_logger/gantt_generator#_emit_chrome_events	torchtitan/observability/structured_logger/gantt_generator.py	401	function	7	3bc59d68aad0c6a7	1	
+torchtitan/observability/structured_logger/jsonl_handler#console_logger.console_logger	torchtitan/observability/structured_logger/jsonl_handler.py	36	value	2	415480ff6c6c5471	1	
+torchtitan/observability/structured_logger/jsonl_handler#MAX_MESSAGE_SIZE.MAX_MESSAGE_SIZE	torchtitan/observability/structured_logger/jsonl_handler.py	38	value	4	a873931d310f2943	1	
+torchtitan/observability/structured_logger/jsonl_handler#TraceJsonlFormatter	torchtitan/observability/structured_logger/jsonl_handler.py	41	class	2	eda4872e494dc544	1	
+torchtitan/observability/structured_logger/jsonl_handler#TraceJsonlFormatter.__init__	torchtitan/observability/structured_logger/jsonl_handler.py	59	method	0	d7f864f9e84d806d	0	
+torchtitan/observability/structured_logger/jsonl_handler#TraceJsonlFormatter.rank	torchtitan/observability/structured_logger/jsonl_handler.py	61	member	4	8d52ec8f8a8f77c3	1	
+torchtitan/observability/structured_logger/jsonl_handler#TraceJsonlFormatter.source	torchtitan/observability/structured_logger/jsonl_handler.py	62	member	2	3f4be9e512e3fb43	1	
+torchtitan/observability/structured_logger/jsonl_handler#TraceJsonlFormatter._local_rank	torchtitan/observability/structured_logger/jsonl_handler.py	63	member	2	a40709b4c5004c00	1	
+torchtitan/observability/structured_logger/jsonl_handler#TraceJsonlFormatter._host_name	torchtitan/observability/structured_logger/jsonl_handler.py	64	member	2	7e75c7a8096278fd	1	
+torchtitan/observability/structured_logger/jsonl_handler#TraceJsonlFormatter._seq_counter	torchtitan/observability/structured_logger/jsonl_handler.py	65	member	2	c277fe793b0c39c1	1	
+torchtitan/observability/structured_logger/jsonl_handler#TraceJsonlFormatter._thread_local	torchtitan/observability/structured_logger/jsonl_handler.py	69	member	8	8290f61321781718	1	
+torchtitan/observability/structured_logger/jsonl_handler#TraceJsonlFormatter.format	torchtitan/observability/structured_logger/jsonl_handler.py	71	method	5	628bac84cd264ddd	0	
+torchtitan/observability/structured_logger/jsonl_handler#TraceJsonlFormatter._log_dict	torchtitan/observability/structured_logger/jsonl_handler.py	74	method	107	9d77eff7a1b8e478	1	observability
+torchtitan/observability/structured_logger/jsonl_handler#TraceJsonlFormatter._refresh_event_delta	torchtitan/observability/structured_logger/jsonl_handler.py	160	method	7	61fe0b0ee171d173	1	
+torchtitan/observability/structured_logger/jsonl_handler#TraceJsonlHandler	torchtitan/observability/structured_logger/jsonl_handler.py	168	class	2	832ddb2b1bd45f14	1	
+torchtitan/observability/structured_logger/jsonl_handler#TraceJsonlHandler.__init__	torchtitan/observability/structured_logger/jsonl_handler.py	176	method	10	db2ba661ba6794d5	0	
+torchtitan/observability/structured_logger/jsonl_handler#register_jsonl_handler	torchtitan/observability/structured_logger/jsonl_handler.py	189	function	10	fe6e4d029774ffa0	0	
+torchtitan/observability/structured_logger/step_state#_STEP_GLOBAL._STEP_GLOBAL	torchtitan/observability/structured_logger/step_state.py	73	value	6	769fb2455cacf65c	2	
+torchtitan/observability/structured_logger/step_state#_RELATIVE_STEP_GLOBAL._RELATIVE_STEP_GLOBAL	torchtitan/observability/structured_logger/step_state.py	74	value	6	f57496e6faa79303	2	
+torchtitan/observability/structured_logger/step_state#_TAGS_GLOBAL._TAGS_GLOBAL	torchtitan/observability/structured_logger/step_state.py	75	value	14	07977f33eb1fabf9	3	observability
+torchtitan/observability/structured_logger/step_state#_STEP_CV._STEP_CV	torchtitan/observability/structured_logger/step_state.py	80	value	4	1b5cb763e3612afc	2	
+torchtitan/observability/structured_logger/step_state#_RELATIVE_STEP_CV._RELATIVE_STEP_CV	torchtitan/observability/structured_logger/step_state.py	81	value	4	89bcd1610e18e773	2	
+torchtitan/observability/structured_logger/step_state#_TAGS_CV._TAGS_CV	torchtitan/observability/structured_logger/step_state.py	84	value	8	4b1452c428126b80	3	observability
+torchtitan/observability/structured_logger/step_state#_is_in_async_task	torchtitan/observability/structured_logger/step_state.py	87	function	2	75d53bbc27d2724c	1	
+torchtitan/observability/structured_logger/step_state#set_step	torchtitan/observability/structured_logger/step_state.py	101	function	39	01e5b7f1d010fec8	6	observability
+torchtitan/observability/structured_logger/step_state#get_step	torchtitan/observability/structured_logger/step_state.py	129	function	24	3c29a6014fba0cac	4	observability
+torchtitan/observability/structured_logger/step_state#get_relative_step	torchtitan/observability/structured_logger/step_state.py	137	function	16	c2b128bc9751bd14	1	
+torchtitan/observability/structured_logger/step_state#get_step_tags	torchtitan/observability/structured_logger/step_state.py	145	function	16	2fa963c9b06d6e43	1	
+torchtitan/observability/structured_logger/step_state#add_step_tag	torchtitan/observability/structured_logger/step_state.py	153	function	27	0d7804505c794b19	4	observability
+torchtitan/observability/structured_logger/step_state#clear_step_tags	torchtitan/observability/structured_logger/step_state.py	178	function	14	34b50f567180901b	1	observability
+torchtitan/observability/structured_logger/structured_logging#F	torchtitan/observability/structured_logger/structured_logging.py	29	value	8	4bdd7e2d4a6e6ac4	1	
+torchtitan/observability/structured_logger/structured_logging#console_logger.console_logger	torchtitan/observability/structured_logger/structured_logging.py	32	value	6	415480ff6c6c5471	3	
+torchtitan/observability/structured_logger/structured_logging#_structured_logger._structured_logger	torchtitan/observability/structured_logger/structured_logging.py	37	value	31	a6db0553dc6f40b5	8	observability
+torchtitan/observability/structured_logger/structured_logging#_is_initialized._is_initialized	torchtitan/observability/structured_logger/structured_logging.py	42	value	8	c7977b033e72384e	2	observability
+torchtitan/observability/structured_logger/structured_logging#_structured_logger_subprocess_init_fn._structured_logger_subprocess_init_fn	torchtitan/observability/structured_logger/structured_logging.py	43	value	10	da04b72a0e171c13	2	observability
+torchtitan/observability/structured_logger/structured_logging#_disabled._disabled	torchtitan/observability/structured_logger/structured_logging.py	46	value	8	d768dfeceb22da4d	3	observability
+torchtitan/observability/structured_logger/structured_logging#_DEFAULT_HANDLER_FACTORY	torchtitan/observability/structured_logger/structured_logging.py	48	value	2	b5904b9187b00758	1	
+torchtitan/observability/structured_logger/structured_logging#_structured_logger_disabled	torchtitan/observability/structured_logger/structured_logging.py	53	function	13	971fa55d9d389b3d	4	observability
+torchtitan/observability/structured_logger/structured_logging#LogType	torchtitan/observability/structured_logger/structured_logging.py	62	class	16	c62e587ab8c9b575	5	observability
+torchtitan/observability/structured_logger/structured_logging#LogType.EVENT	torchtitan/observability/structured_logger/structured_logging.py	70	member	2	2eeed5075913d47a	1	
+torchtitan/observability/structured_logger/structured_logging#LogType.INSTANT	torchtitan/observability/structured_logger/structured_logging.py	71	member	6	82ff7a62d6c848e0	3	
+torchtitan/observability/structured_logger/structured_logging#LogType.TEXT	torchtitan/observability/structured_logger/structured_logging.py	72	member	2	b189609cd12df6ed	1	
+torchtitan/observability/structured_logger/structured_logging#ExtraFields	torchtitan/observability/structured_logger/structured_logging.py	75	class	36	0f0c4d1b8255f55b	4	observability
+torchtitan/observability/structured_logger/structured_logging#ExtraFields.LOG_TYPE	torchtitan/observability/structured_logger/structured_logging.py	78	member	4	cb21013465ef2133	2	
+torchtitan/observability/structured_logger/structured_logging#ExtraFields.LOG_TYPE_NAME	torchtitan/observability/structured_logger/structured_logging.py	79	member	8	711c2dfca89d2083	4	
+torchtitan/observability/structured_logger/structured_logging#ExtraFields.EVENT_NAME	torchtitan/observability/structured_logger/structured_logging.py	80	member	4	38beef6b06c5fe8b	2	
+torchtitan/observability/structured_logger/structured_logging#ExtraFields.STEP	torchtitan/observability/structured_logger/structured_logging.py	81	member	4	2da52664a2a687b4	2	
+torchtitan/observability/structured_logger/structured_logging#ExtraFields.CONTEXT	torchtitan/observability/structured_logger/structured_logging.py	82	member	2	cb3176c8de05ac88	1	
+torchtitan/observability/structured_logger/structured_logging#ExtraFields.VALUE	torchtitan/observability/structured_logger/structured_logging.py	83	member	4	2c44e9bcb92db71f	2	
+torchtitan/observability/structured_logger/structured_logging#ExtraFields.RELATIVE_STEP	torchtitan/observability/structured_logger/structured_logging.py	84	member	4	ef60c32d166c6554	2	
+torchtitan/observability/structured_logger/structured_logging#ExtraFields.TASK_NAME	torchtitan/observability/structured_logger/structured_logging.py	85	member	4	f2189ba0318c5882	2	
+torchtitan/observability/structured_logger/structured_logging#_StructuredRecordForwarder	torchtitan/observability/structured_logger/structured_logging.py	88	class	4	b6690a0d8901fc7d	1	
+torchtitan/observability/structured_logger/structured_logging#_StructuredRecordForwarder.emit	torchtitan/observability/structured_logger/structured_logging.py	134	method	15	373a7285faf47688	0	
+torchtitan/observability/structured_logger/structured_logging#_ensure_root_forwarder	torchtitan/observability/structured_logger/structured_logging.py	142	function	7	d462d202efdd5ce7	1	observability
+torchtitan/observability/structured_logger/structured_logging#get_structured_logger_subprocess_init_fn	torchtitan/observability/structured_logger/structured_logging.py	151	function	24	39c50285e1d26f6e	1	observability
+torchtitan/observability/structured_logger/structured_logging#event_extra	torchtitan/observability/structured_logger/structured_logging.py	159	function	60	c46ec397e0c59a4e	4	observability
+torchtitan/observability/structured_logger/structured_logging#TraceEventsOnlyFilter	torchtitan/observability/structured_logger/structured_logging.py	180	class	4	ad48e046808b34ba	1	
+torchtitan/observability/structured_logger/structured_logging#TraceEventsOnlyFilter.__init__	torchtitan/observability/structured_logger/structured_logging.py	203	method	0	565f5b6efae22e7a	0	
+torchtitan/observability/structured_logger/structured_logging#TraceEventsOnlyFilter._warned	torchtitan/observability/structured_logger/structured_logging.py	205	member	4	aaf31b8b7dbba82f	1	
+torchtitan/observability/structured_logger/structured_logging#TraceEventsOnlyFilter.filter	torchtitan/observability/structured_logger/structured_logging.py	207	method	20	dcc9d0f61dae8f92	0	observability
+torchtitan/observability/structured_logger/structured_logging#init_structured_logger	torchtitan/observability/structured_logger/structured_logging.py	224	function	52	3a2b774e95a45f15	5	observability
+torchtitan/observability/structured_logger/structured_logging#log_trace_scalar	torchtitan/observability/structured_logger/structured_logging.py	295	function	45	a183b79f15d508c9	3	observability
+torchtitan/observability/structured_logger/structured_logging#log_trace_instant	torchtitan/observability/structured_logger/structured_logging.py	339	function	41	d730c1a6c5c456b2	6	observability
+torchtitan/observability/structured_logger/structured_logging#log_trace_span	torchtitan/observability/structured_logger/structured_logging.py	364	class	138	830b2cc5c0990c0e	43	observability
+torchtitan/observability/structured_logger/structured_logging#log_trace_span.__init__	torchtitan/observability/structured_logger/structured_logging.py	399	method	0	89718b7f752e7f4b	0	
+torchtitan/observability/structured_logger/structured_logging#log_trace_span.base_name	torchtitan/observability/structured_logger/structured_logging.py	406	member	10	4f92423e044f3908	5	
+torchtitan/observability/structured_logger/structured_logging#log_trace_span.description	torchtitan/observability/structured_logger/structured_logging.py	407	member	4	05e7c9bfd185756e	2	
+torchtitan/observability/structured_logger/structured_logging#log_trace_span.stacklevel	torchtitan/observability/structured_logger/structured_logging.py	408	member	8	1721c88c19cca97c	3	
+torchtitan/observability/structured_logger/structured_logging#log_trace_span.start_time	torchtitan/observability/structured_logger/structured_logging.py	409	member	4	ffbcf4797116d9b4	2	
+torchtitan/observability/structured_logger/structured_logging#log_trace_span._task_name	torchtitan/observability/structured_logger/structured_logging.py	410	member	10	04d7446436b948ec	2	
+torchtitan/observability/structured_logger/structured_logging#log_trace_span.start_type_name	torchtitan/observability/structured_logger/structured_logging.py	411	member	9	90815b0fca00928e	1	
+torchtitan/observability/structured_logger/structured_logging#log_trace_span.end_type_name	torchtitan/observability/structured_logger/structured_logging.py	412	member	9	14a8be5cde905296	1	
+torchtitan/observability/structured_logger/structured_logging#log_trace_span.__enter__	torchtitan/observability/structured_logger/structured_logging.py	414	method	50	ed21491847b1193c	0	observability
+torchtitan/observability/structured_logger/structured_logging#log_trace_span.__exit__	torchtitan/observability/structured_logger/structured_logging.py	441	method	45	8a7554647946a1c8	0	observability
+torchtitan/observability/structured_logger/structured_logging#log_trace_span.__call__	torchtitan/observability/structured_logger/structured_logging.py	478	method	30	f7880c2a3f7c26ed	0	observability
+torchtitan/observability/structured_logger/structured_logging#log_trace_span.async_wrapper	torchtitan/observability/structured_logger/structured_logging.py	499	method	7	af71fa928435e25d	1	observability
+torchtitan/observability/structured_logger/structured_logging#log_trace_span.sync_wrapper	torchtitan/observability/structured_logger/structured_logging.py	506	method	7	e155b4e49cd3c54e	1	observability

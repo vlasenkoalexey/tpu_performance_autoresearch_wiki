@@ -1,0 +1,385 @@
+---
+title: 'Module: csrc/eager/events_queue_test.cc'
+type: catalog
+provenance: extracted
+module: csrc/eager/events_queue_test.cc
+status: fresh
+symbol_base: cxx . . $ torch_tpu/`$anonymous_namespace_csrc/eager/events_queue_test.cc`/
+symbols:
+  EventsQueueTest: EventsQueueTest#
+  EventsQueueTest_ClearsBuffersAfterMaterialization_Test.TestBody: EventsQueueTest_ClearsBuffersAfterMaterialization_Test#TestBody(49f6e7a06ebc5aa8).
+  DummyBuilder: DummyBuilder(68cb13ddd5c4892f).
+  EventsQueueTest_StreamsMaterializeSeparately_Test.TestBody: EventsQueueTest_StreamsMaterializeSeparately_Test#TestBody(49f6e7a06ebc5aa8).
+  EventsQueueTest_PrepareStreamTraversals_Test.TestBody: EventsQueueTest_PrepareStreamTraversals_Test#TestBody(49f6e7a06ebc5aa8).
+  EventsQueueTest_PrepareDeviceTraversals_Test.TestBody: EventsQueueTest_PrepareDeviceTraversals_Test#TestBody(49f6e7a06ebc5aa8).
+  EventsQueueTest_GetsLiveDeferredBuffers_Test.TestBody: EventsQueueTest_GetsLiveDeferredBuffers_Test#TestBody(49f6e7a06ebc5aa8).
+  EventsQueueTest_SplitModeRespected_Test.TestBody: EventsQueueTest_SplitModeRespected_Test#TestBody(49f6e7a06ebc5aa8).
+  EventsQueueTest_SingleTraversalIfPossible_Test.TestBody: EventsQueueTest_SingleTraversalIfPossible_Test#TestBody(49f6e7a06ebc5aa8).
+  EventsQueueTest_DeadSideEffectsRetained_Test.TestBody: EventsQueueTest_DeadSideEffectsRetained_Test#TestBody(49f6e7a06ebc5aa8).
+  EventsQueueTest_MaterializationAppendsExplicitEmptyOps_Test.TestBody: EventsQueueTest_MaterializationAppendsExplicitEmptyOps_Test#TestBody(49f6e7a06ebc5aa8).
+  EventsQueueTest_MaterializationIgnoresUnusedEmptyOps_Test.TestBody: EventsQueueTest_MaterializationIgnoresUnusedEmptyOps_Test#TestBody(49f6e7a06ebc5aa8).
+  EventsQueueTest_UsedEmptyOpsMaterializedOnFirstUse_Test.TestBody: EventsQueueTest_UsedEmptyOpsMaterializedOnFirstUse_Test#TestBody(49f6e7a06ebc5aa8).
+  EventsQueueTest_StreamMustMaterializeEmptyTensors_Test.TestBody: EventsQueueTest_StreamMustMaterializeEmptyTensors_Test#TestBody(49f6e7a06ebc5aa8).
+  EventsQueueTest_DeadCodeEliminated_Test.TestBody: EventsQueueTest_DeadCodeEliminated_Test#TestBody(49f6e7a06ebc5aa8).
+  EventsQueueTest_NodeMatcherAcrossSmallAndLargeSpans_Test.TestBody: EventsQueueTest_NodeMatcherAcrossSmallAndLargeSpans_Test#TestBody(49f6e7a06ebc5aa8).
+  EventsQueueTest_SingleOpFastPathAndExtraConstantFallback_Test.TestBody: EventsQueueTest_SingleOpFastPathAndExtraConstantFallback_Test#TestBody(49f6e7a06ebc5aa8).
+  EventsQueueTest_DeviceMustMaterializeEmptyTensors_Test.TestBody: EventsQueueTest_DeviceMustMaterializeEmptyTensors_Test#TestBody(49f6e7a06ebc5aa8).
+  EventsQueueTest_MultipleSnapshotsPulled_Test.TestBody: EventsQueueTest_MultipleSnapshotsPulled_Test#TestBody(49f6e7a06ebc5aa8).
+  EventsQueueTest_NotPulledAfterLastSnapshot_Test.TestBody: EventsQueueTest_NotPulledAfterLastSnapshot_Test#TestBody(49f6e7a06ebc5aa8).
+  EventsQueueTest_StopsTrackingAfterClearEventsQueue_Test.TestBody: EventsQueueTest_StopsTrackingAfterClearEventsQueue_Test#TestBody(49f6e7a06ebc5aa8).
+  EventsQueueTest_IgnoresPlaceholderBuffers_Test.TestBody: EventsQueueTest_IgnoresPlaceholderBuffers_Test#TestBody(49f6e7a06ebc5aa8).
+  EventsQueueTest_RetainsFailedCompletedFutures_Test.TestBody: EventsQueueTest_RetainsFailedCompletedFutures_Test#TestBody(49f6e7a06ebc5aa8).
+  EventsQueueTest_SyncIgnoresEmptyBuffers_Test.TestBody: EventsQueueTest_SyncIgnoresEmptyBuffers_Test#TestBody(49f6e7a06ebc5aa8).
+  EventsQueueTest_IgnoresAlreadyMaterializedBuffers_Test.TestBody: EventsQueueTest_IgnoresAlreadyMaterializedBuffers_Test#TestBody(49f6e7a06ebc5aa8).
+  EventSnapshotTest_ElapsedTimeReturnsEventError_Test.TestBody: EventSnapshotTest_ElapsedTimeReturnsEventError_Test#TestBody(49f6e7a06ebc5aa8).
+  CompilationModeTest_GetCompilationMode_Test.TestBody: CompilationModeTest_GetCompilationMode_Test#TestBody(49f6e7a06ebc5aa8).
+  EventsQueueTest_CompletesLongSnapshotChainOnSmallStack_Test.TestBody: EventsQueueTest_CompletesLongSnapshotChainOnSmallStack_Test#TestBody(49f6e7a06ebc5aa8).
+  EventsQueueTest_PrunesSuccessfulCompletedFutures_Test.TestBody: EventsQueueTest_PrunesSuccessfulCompletedFutures_Test#TestBody(49f6e7a06ebc5aa8).
+  EventSnapshotTest_ElapsedTimeExcludesWorkPendingAtStart_Test.TestBody: EventSnapshotTest_ElapsedTimeExcludesWorkPendingAtStart_Test#TestBody(49f6e7a06ebc5aa8).
+  EventSnapshotTest_ElapsedTimeMeasuresCompletionTimes_Test.TestBody: EventSnapshotTest_ElapsedTimeMeasuresCompletionTimes_Test#TestBody(49f6e7a06ebc5aa8).
+  EventSnapshotTest_ElapsedTimeIsNonNegativeForChainedPendingEvents_Test.TestBody: EventSnapshotTest_ElapsedTimeIsNonNegativeForChainedPendingEvents_Test#TestBody(49f6e7a06ebc5aa8).
+  EventsQueueTest_IgnoresAlreadyMaterializedBuffers_Test: EventsQueueTest_IgnoresAlreadyMaterializedBuffers_Test#
+  EventsQueueTest_NodeMatcherAcrossSmallAndLargeSpans_Test: EventsQueueTest_NodeMatcherAcrossSmallAndLargeSpans_Test#
+  EventSnapshotTest_ElapsedTimeExcludesWorkPendingAtStart_Test: EventSnapshotTest_ElapsedTimeExcludesWorkPendingAtStart_Test#
+  EventSnapshotTest_ElapsedTimeIsNonNegativeForChainedPendingEvents_Test: EventSnapshotTest_ElapsedTimeIsNonNegativeForChainedPendingEvents_Test#
+  EventsQueueTest_CompletesLongSnapshotChainOnSmallStack_Test: EventsQueueTest_CompletesLongSnapshotChainOnSmallStack_Test#
+  EventsQueueTest_MaterializationAppendsExplicitEmptyOps_Test: EventsQueueTest_MaterializationAppendsExplicitEmptyOps_Test#
+  EventsQueueTest_StopsTrackingAfterClearEventsQueue_Test: EventsQueueTest_StopsTrackingAfterClearEventsQueue_Test#
+  EventsQueueTest_PrepareDeviceTraversals_Test: EventsQueueTest_PrepareDeviceTraversals_Test#
+  EventsQueueTest_MaterializationIgnoresUnusedEmptyOps_Test: EventsQueueTest_MaterializationIgnoresUnusedEmptyOps_Test#
+  EventSnapshotTest_ElapsedTimeReturnsEventError_Test: EventSnapshotTest_ElapsedTimeReturnsEventError_Test#
+  EventsQueueTest_DeadSideEffectsRetained_Test: EventsQueueTest_DeadSideEffectsRetained_Test#
+  EventsQueueTest_PrunesSuccessfulCompletedFutures_Test: EventsQueueTest_PrunesSuccessfulCompletedFutures_Test#
+  EventsQueueTest_SingleOpFastPathAndExtraConstantFallback_Test: EventsQueueTest_SingleOpFastPathAndExtraConstantFallback_Test#
+  EventsQueueTest_ClearsBuffersAfterMaterialization_Test: EventsQueueTest_ClearsBuffersAfterMaterialization_Test#
+  EventsQueueTest_SingleTraversalIfPossible_Test: EventsQueueTest_SingleTraversalIfPossible_Test#
+  EventsQueueTest_PrepareStreamTraversals_Test: EventsQueueTest_PrepareStreamTraversals_Test#
+  EventsQueueTest_StreamsMaterializeSeparately_Test: EventsQueueTest_StreamsMaterializeSeparately_Test#
+  EventsQueueTest_IgnoresPlaceholderBuffers_Test: EventsQueueTest_IgnoresPlaceholderBuffers_Test#
+  EventsQueueTest_SplitModeRespected_Test: EventsQueueTest_SplitModeRespected_Test#
+  EventsQueueTest_NotPulledAfterLastSnapshot_Test: EventsQueueTest_NotPulledAfterLastSnapshot_Test#
+  EventsQueueTest_DeadCodeEliminated_Test: EventsQueueTest_DeadCodeEliminated_Test#
+  EventsQueueTest_GetsLiveDeferredBuffers_Test: EventsQueueTest_GetsLiveDeferredBuffers_Test#
+  EventsQueueTest_DeviceMustMaterializeEmptyTensors_Test: EventsQueueTest_DeviceMustMaterializeEmptyTensors_Test#
+  EventsQueueTest_RetainsFailedCompletedFutures_Test: EventsQueueTest_RetainsFailedCompletedFutures_Test#
+  EventsQueueTest_UsedEmptyOpsMaterializedOnFirstUse_Test: EventsQueueTest_UsedEmptyOpsMaterializedOnFirstUse_Test#
+  EventsQueueTest_SyncIgnoresEmptyBuffers_Test: EventsQueueTest_SyncIgnoresEmptyBuffers_Test#
+  EventsQueueTest_MultipleSnapshotsPulled_Test: EventsQueueTest_MultipleSnapshotsPulled_Test#
+  EventsQueueTest_StreamMustMaterializeEmptyTensors_Test: EventsQueueTest_StreamMustMaterializeEmptyTensors_Test#
+  CompilationModeTest_GetCompilationMode_Test: CompilationModeTest_GetCompilationMode_Test#
+  EventSnapshotTest_ElapsedTimeMeasuresCompletionTimes_Test: EventSnapshotTest_ElapsedTimeMeasuresCompletionTimes_Test#
+  EventsQueueTest.SetUpTestSuite: EventsQueueTest#SetUpTestSuite(49f6e7a06ebc5aa8).
+  ToMilliseconds: ToMilliseconds(3bfd902bd7feaca6).
+  EventsQueueTest_MultipleSnapshotsPulled_Test.EventsQueueTest_MultipleSnapshotsPulled_Test: EventsQueueTest_MultipleSnapshotsPulled_Test#EventsQueueTest_MultipleSnapshotsPulled_Test(1cd6b819595521db).
+  EventsQueueTest_GetsLiveDeferredBuffers_Test.EventsQueueTest_GetsLiveDeferredBuffers_Test: EventsQueueTest_GetsLiveDeferredBuffers_Test#EventsQueueTest_GetsLiveDeferredBuffers_Test(49f6e7a06ebc5aa8).
+  EventsQueueTest_StopsTrackingAfterClearEventsQueue_Test.operator: EventsQueueTest_StopsTrackingAfterClearEventsQueue_Test#`operator=`(d4ada99486c8efe4).
+  EventsQueueTest_UsedEmptyOpsMaterializedOnFirstUse_Test.-EventsQueueTest_UsedEmptyOpsMaterializedOnFirstUse_Test: EventsQueueTest_UsedEmptyOpsMaterializedOnFirstUse_Test#`~EventsQueueTest_UsedEmptyOpsMaterializedOnFirstUse_Test`(ced63f7c635d850d).
+  EventsQueueTest_PrepareStreamTraversals_Test.EventsQueueTest_PrepareStreamTraversals_Test: EventsQueueTest_PrepareStreamTraversals_Test#EventsQueueTest_PrepareStreamTraversals_Test(e98e19aaa0255602).
+  EventsQueueTest_DeadSideEffectsRetained_Test.test_info_: EventsQueueTest_DeadSideEffectsRetained_Test#test_info_.
+  EventsQueueTest_UsedEmptyOpsMaterializedOnFirstUse_Test.operator: EventsQueueTest_UsedEmptyOpsMaterializedOnFirstUse_Test#`operator=`(3f013a68b6596b50).
+  EventsQueueTest_SingleTraversalIfPossible_Test.EventsQueueTest_SingleTraversalIfPossible_Test: EventsQueueTest_SingleTraversalIfPossible_Test#EventsQueueTest_SingleTraversalIfPossible_Test(49f6e7a06ebc5aa8).
+  EventsQueueTest_MaterializationIgnoresUnusedEmptyOps_Test.EventsQueueTest_MaterializationIgnoresUnusedEmptyOps_Test: EventsQueueTest_MaterializationIgnoresUnusedEmptyOps_Test#EventsQueueTest_MaterializationIgnoresUnusedEmptyOps_Test(49f6e7a06ebc5aa8).
+  EventsQueueTest_SyncIgnoresEmptyBuffers_Test.EventsQueueTest_SyncIgnoresEmptyBuffers_Test: EventsQueueTest_SyncIgnoresEmptyBuffers_Test#EventsQueueTest_SyncIgnoresEmptyBuffers_Test(49f6e7a06ebc5aa8).
+  EventsQueueTest_PrepareStreamTraversals_Test.test_info_: EventsQueueTest_PrepareStreamTraversals_Test#test_info_.
+  EventsQueueTest_PrunesSuccessfulCompletedFutures_Test.test_info_: EventsQueueTest_PrunesSuccessfulCompletedFutures_Test#test_info_.
+  EventSnapshotTest_ElapsedTimeMeasuresCompletionTimes_Test.operator: EventSnapshotTest_ElapsedTimeMeasuresCompletionTimes_Test#`operator=`(cdf794bb300f420b).
+  EventsQueueTest_DeadSideEffectsRetained_Test.operator: EventsQueueTest_DeadSideEffectsRetained_Test#`operator=`(c77c27dc46342b19).
+  EventsQueueTest_ClearsBuffersAfterMaterialization_Test.EventsQueueTest_ClearsBuffersAfterMaterialization_Test: EventsQueueTest_ClearsBuffersAfterMaterialization_Test#EventsQueueTest_ClearsBuffersAfterMaterialization_Test(efbf1030f101a225).
+  EventsQueueTest_NodeMatcherAcrossSmallAndLargeSpans_Test.EventsQueueTest_NodeMatcherAcrossSmallAndLargeSpans_Test: EventsQueueTest_NodeMatcherAcrossSmallAndLargeSpans_Test#EventsQueueTest_NodeMatcherAcrossSmallAndLargeSpans_Test(49f6e7a06ebc5aa8).
+  EventsQueueTest_SingleTraversalIfPossible_Test.-EventsQueueTest_SingleTraversalIfPossible_Test: EventsQueueTest_SingleTraversalIfPossible_Test#`~EventsQueueTest_SingleTraversalIfPossible_Test`(ced63f7c635d850d).
+  EventsQueueTest_PrunesSuccessfulCompletedFutures_Test.-EventsQueueTest_PrunesSuccessfulCompletedFutures_Test: EventsQueueTest_PrunesSuccessfulCompletedFutures_Test#`~EventsQueueTest_PrunesSuccessfulCompletedFutures_Test`(ced63f7c635d850d).
+  EventsQueueTest_CompletesLongSnapshotChainOnSmallStack_Test.operator: EventsQueueTest_CompletesLongSnapshotChainOnSmallStack_Test#`operator=`(da88dd178b2b6e2b).
+  EventsQueueTest_NotPulledAfterLastSnapshot_Test.EventsQueueTest_NotPulledAfterLastSnapshot_Test: EventsQueueTest_NotPulledAfterLastSnapshot_Test#EventsQueueTest_NotPulledAfterLastSnapshot_Test(a54a18a4bb8c6c8).
+  EventSnapshotTest_ElapsedTimeExcludesWorkPendingAtStart_Test.EventSnapshotTest_ElapsedTimeExcludesWorkPendingAtStart_Test: EventSnapshotTest_ElapsedTimeExcludesWorkPendingAtStart_Test#EventSnapshotTest_ElapsedTimeExcludesWorkPendingAtStart_Test(f8b7bd71d8ee25e0).
+  EventSnapshotTest_ElapsedTimeMeasuresCompletionTimes_Test.-EventSnapshotTest_ElapsedTimeMeasuresCompletionTimes_Test: EventSnapshotTest_ElapsedTimeMeasuresCompletionTimes_Test#`~EventSnapshotTest_ElapsedTimeMeasuresCompletionTimes_Test`(ced63f7c635d850d).
+  EventsQueueTest_DeadCodeEliminated_Test.EventsQueueTest_DeadCodeEliminated_Test: EventsQueueTest_DeadCodeEliminated_Test#EventsQueueTest_DeadCodeEliminated_Test(3be99a60ad189798).
+  EventsQueueTest_StreamsMaterializeSeparately_Test.operator: EventsQueueTest_StreamsMaterializeSeparately_Test#`operator=`(e5627bbd00e19ac2).
+  EventsQueueTest_NotPulledAfterLastSnapshot_Test.-EventsQueueTest_NotPulledAfterLastSnapshot_Test: EventsQueueTest_NotPulledAfterLastSnapshot_Test#`~EventsQueueTest_NotPulledAfterLastSnapshot_Test`(ced63f7c635d850d).
+  EventsQueueTest_SingleOpFastPathAndExtraConstantFallback_Test.test_info_: EventsQueueTest_SingleOpFastPathAndExtraConstantFallback_Test#test_info_.
+  EventsQueueTest_IgnoresAlreadyMaterializedBuffers_Test.EventsQueueTest_IgnoresAlreadyMaterializedBuffers_Test: EventsQueueTest_IgnoresAlreadyMaterializedBuffers_Test#EventsQueueTest_IgnoresAlreadyMaterializedBuffers_Test(1f22519fad3355dd).
+  EventSnapshotTest_ElapsedTimeReturnsEventError_Test.operator: EventSnapshotTest_ElapsedTimeReturnsEventError_Test#`operator=`(1e0c784beb4a749c).
+  EventsQueueTest_StopsTrackingAfterClearEventsQueue_Test.EventsQueueTest_StopsTrackingAfterClearEventsQueue_Test: EventsQueueTest_StopsTrackingAfterClearEventsQueue_Test#EventsQueueTest_StopsTrackingAfterClearEventsQueue_Test(7a8fbe4eaddce5bd).
+  EventsQueueTest_RetainsFailedCompletedFutures_Test.operator: EventsQueueTest_RetainsFailedCompletedFutures_Test#`operator=`(44083a9404b84112).
+  CompilationModeTest_GetCompilationMode_Test.operator: CompilationModeTest_GetCompilationMode_Test#`operator=`(92802a250e339230).
+  EventSnapshotTest_ElapsedTimeReturnsEventError_Test.EventSnapshotTest_ElapsedTimeReturnsEventError_Test: EventSnapshotTest_ElapsedTimeReturnsEventError_Test#EventSnapshotTest_ElapsedTimeReturnsEventError_Test(49f6e7a06ebc5aa8).
+  EventsQueueTest_PrunesSuccessfulCompletedFutures_Test.EventsQueueTest_PrunesSuccessfulCompletedFutures_Test: EventsQueueTest_PrunesSuccessfulCompletedFutures_Test#EventsQueueTest_PrunesSuccessfulCompletedFutures_Test(49f6e7a06ebc5aa8).
+  EventsQueueTest_PrepareDeviceTraversals_Test.test_info_: EventsQueueTest_PrepareDeviceTraversals_Test#test_info_.
+  EventsQueueTest_SyncIgnoresEmptyBuffers_Test.operator: EventsQueueTest_SyncIgnoresEmptyBuffers_Test#`operator=`(dd28ada421344184).
+  EventsQueueTest_SplitModeRespected_Test.operator: EventsQueueTest_SplitModeRespected_Test#`operator=`(7b7ea78da4e553b9).
+  EventsQueueTest_DeadSideEffectsRetained_Test.-EventsQueueTest_DeadSideEffectsRetained_Test: EventsQueueTest_DeadSideEffectsRetained_Test#`~EventsQueueTest_DeadSideEffectsRetained_Test`(ced63f7c635d850d).
+  EventsQueueTest_IgnoresPlaceholderBuffers_Test.EventsQueueTest_IgnoresPlaceholderBuffers_Test: EventsQueueTest_IgnoresPlaceholderBuffers_Test#EventsQueueTest_IgnoresPlaceholderBuffers_Test(4e5cc0c7d8129a09).
+  EventsQueueTest_MultipleSnapshotsPulled_Test.operator: EventsQueueTest_MultipleSnapshotsPulled_Test#`operator=`(9b4cb0414730ef12).
+  EventsQueueTest_DeadCodeEliminated_Test.test_info_: EventsQueueTest_DeadCodeEliminated_Test#test_info_.
+  EventsQueueTest_DeviceMustMaterializeEmptyTensors_Test.operator: EventsQueueTest_DeviceMustMaterializeEmptyTensors_Test#`operator=`(ba0b97c7f491b742).
+  EventsQueueTest_SyncIgnoresEmptyBuffers_Test.-EventsQueueTest_SyncIgnoresEmptyBuffers_Test: EventsQueueTest_SyncIgnoresEmptyBuffers_Test#`~EventsQueueTest_SyncIgnoresEmptyBuffers_Test`(ced63f7c635d850d).
+  EventsQueueTest_PrepareStreamTraversals_Test.operator: EventsQueueTest_PrepareStreamTraversals_Test#`operator=`(b3951dd9ac3dd0dd).
+  EventsQueueTest_PrunesSuccessfulCompletedFutures_Test.operator: EventsQueueTest_PrunesSuccessfulCompletedFutures_Test#`operator=`(434fe8eb2d7b5969).
+  EventsQueueTest_DeviceMustMaterializeEmptyTensors_Test.-EventsQueueTest_DeviceMustMaterializeEmptyTensors_Test: EventsQueueTest_DeviceMustMaterializeEmptyTensors_Test#`~EventsQueueTest_DeviceMustMaterializeEmptyTensors_Test`(ced63f7c635d850d).
+  EventsQueueTest_StreamsMaterializeSeparately_Test.EventsQueueTest_StreamsMaterializeSeparately_Test: EventsQueueTest_StreamsMaterializeSeparately_Test#EventsQueueTest_StreamsMaterializeSeparately_Test(849017343ccac15c).
+  EventsQueueTest_SingleOpFastPathAndExtraConstantFallback_Test.operator: EventsQueueTest_SingleOpFastPathAndExtraConstantFallback_Test#`operator=`(51e1b79e68e56e0f).
+  EventsQueueTest_IgnoresPlaceholderBuffers_Test.operator: EventsQueueTest_IgnoresPlaceholderBuffers_Test#`operator=`(af2f705b31b24880).
+  EventsQueueTest_NotPulledAfterLastSnapshot_Test.operator: EventsQueueTest_NotPulledAfterLastSnapshot_Test#`operator=`(11709ee67f23547c).
+  EventsQueueTest_NodeMatcherAcrossSmallAndLargeSpans_Test.-EventsQueueTest_NodeMatcherAcrossSmallAndLargeSpans_Test: EventsQueueTest_NodeMatcherAcrossSmallAndLargeSpans_Test#`~EventsQueueTest_NodeMatcherAcrossSmallAndLargeSpans_Test`(ced63f7c635d850d).
+  EventsQueueTest_GetsLiveDeferredBuffers_Test.operator: EventsQueueTest_GetsLiveDeferredBuffers_Test#`operator=`(95613d8970efbeeb).
+  EventsQueueTest_PrepareDeviceTraversals_Test.EventsQueueTest_PrepareDeviceTraversals_Test: EventsQueueTest_PrepareDeviceTraversals_Test#EventsQueueTest_PrepareDeviceTraversals_Test(70cd4f863e6f0496).
+  EventSnapshotTest_ElapsedTimeReturnsEventError_Test.test_info_: EventSnapshotTest_ElapsedTimeReturnsEventError_Test#test_info_.
+  EventsQueueTest_MaterializationAppendsExplicitEmptyOps_Test.-EventsQueueTest_MaterializationAppendsExplicitEmptyOps_Test: EventsQueueTest_MaterializationAppendsExplicitEmptyOps_Test#`~EventsQueueTest_MaterializationAppendsExplicitEmptyOps_Test`(ced63f7c635d850d).
+  EventsQueueTest_ClearsBuffersAfterMaterialization_Test.operator: EventsQueueTest_ClearsBuffersAfterMaterialization_Test#`operator=`(ae323568632b8cef).
+  EventsQueueTest_SplitModeRespected_Test.test_info_: EventsQueueTest_SplitModeRespected_Test#test_info_.
+  ? EventsQueueTest_SingleOpFastPathAndExtraConstantFallback_Test.EventsQueueTest_SingleOpFastPathAndExtraConstantFallback_Test
+  : EventsQueueTest_SingleOpFastPathAndExtraConstantFallback_Test#EventsQueueTest_SingleOpFastPathAndExtraConstantFallback_Test(49f6e7a06ebc5aa8).
+  EventsQueueTest_DeadSideEffectsRetained_Test.EventsQueueTest_DeadSideEffectsRetained_Test: EventsQueueTest_DeadSideEffectsRetained_Test#EventsQueueTest_DeadSideEffectsRetained_Test(47a1dcdabd4dac01).
+  EventsQueueTest_SplitModeRespected_Test.-EventsQueueTest_SplitModeRespected_Test: EventsQueueTest_SplitModeRespected_Test#`~EventsQueueTest_SplitModeRespected_Test`(ced63f7c635d850d).
+  EventsQueueTest_NotPulledAfterLastSnapshot_Test.test_info_: EventsQueueTest_NotPulledAfterLastSnapshot_Test#test_info_.
+  EventsQueueTest_MaterializationAppendsExplicitEmptyOps_Test.EventsQueueTest_MaterializationAppendsExplicitEmptyOps_Test: EventsQueueTest_MaterializationAppendsExplicitEmptyOps_Test#EventsQueueTest_MaterializationAppendsExplicitEmptyOps_Test(49f6e7a06ebc5aa8).
+  EventsQueueTest_StreamMustMaterializeEmptyTensors_Test.EventsQueueTest_StreamMustMaterializeEmptyTensors_Test: EventsQueueTest_StreamMustMaterializeEmptyTensors_Test#EventsQueueTest_StreamMustMaterializeEmptyTensors_Test(982e4c7656fa9682).
+  EventSnapshotTest_ElapsedTimeMeasuresCompletionTimes_Test.EventSnapshotTest_ElapsedTimeMeasuresCompletionTimes_Test: EventSnapshotTest_ElapsedTimeMeasuresCompletionTimes_Test#EventSnapshotTest_ElapsedTimeMeasuresCompletionTimes_Test(2b5be2c3656a3f1d).
+  EventsQueueTest_RetainsFailedCompletedFutures_Test.EventsQueueTest_RetainsFailedCompletedFutures_Test: EventsQueueTest_RetainsFailedCompletedFutures_Test#EventsQueueTest_RetainsFailedCompletedFutures_Test(97e3963c00d316d6).
+  EventSnapshotTest_ElapsedTimeExcludesWorkPendingAtStart_Test.-EventSnapshotTest_ElapsedTimeExcludesWorkPendingAtStart_Test: EventSnapshotTest_ElapsedTimeExcludesWorkPendingAtStart_Test#`~EventSnapshotTest_ElapsedTimeExcludesWorkPendingAtStart_Test`(ced63f7c635d850d).
+  EventsQueueTest_StreamMustMaterializeEmptyTensors_Test.test_info_: EventsQueueTest_StreamMustMaterializeEmptyTensors_Test#test_info_.
+  EventSnapshotTest_ElapsedTimeReturnsEventError_Test.-EventSnapshotTest_ElapsedTimeReturnsEventError_Test: EventSnapshotTest_ElapsedTimeReturnsEventError_Test#`~EventSnapshotTest_ElapsedTimeReturnsEventError_Test`(ced63f7c635d850d).
+  EventsQueueTest_StopsTrackingAfterClearEventsQueue_Test.test_info_: EventsQueueTest_StopsTrackingAfterClearEventsQueue_Test#test_info_.
+  EventsQueueTest_IgnoresAlreadyMaterializedBuffers_Test.operator: EventsQueueTest_IgnoresAlreadyMaterializedBuffers_Test#`operator=`(204d750dc0490535).
+  EventsQueueTest_MaterializationIgnoresUnusedEmptyOps_Test.operator: EventsQueueTest_MaterializationIgnoresUnusedEmptyOps_Test#`operator=`(5a047383dbd21465).
+  CompilationModeTest_GetCompilationMode_Test.-CompilationModeTest_GetCompilationMode_Test: CompilationModeTest_GetCompilationMode_Test#`~CompilationModeTest_GetCompilationMode_Test`(ced63f7c635d850d).
+  EventsQueueTest_NodeMatcherAcrossSmallAndLargeSpans_Test.operator: EventsQueueTest_NodeMatcherAcrossSmallAndLargeSpans_Test#`operator=`(b434d468d8db58f3).
+  EventsQueueTest_StreamMustMaterializeEmptyTensors_Test.operator: EventsQueueTest_StreamMustMaterializeEmptyTensors_Test#`operator=`(804b9b2ab8297681).
+  EventsQueueTest_SplitModeRespected_Test.EventsQueueTest_SplitModeRespected_Test: EventsQueueTest_SplitModeRespected_Test#EventsQueueTest_SplitModeRespected_Test(16005eb0279ebeb2).
+  CompilationModeTest_GetCompilationMode_Test.CompilationModeTest_GetCompilationMode_Test: CompilationModeTest_GetCompilationMode_Test#CompilationModeTest_GetCompilationMode_Test(cbd99701ba666e5c).
+  EventsQueueTest_GetsLiveDeferredBuffers_Test.test_info_: EventsQueueTest_GetsLiveDeferredBuffers_Test#test_info_.
+  EventsQueueTest_SyncIgnoresEmptyBuffers_Test.test_info_: EventsQueueTest_SyncIgnoresEmptyBuffers_Test#test_info_.
+  EventsQueueTest_MaterializationAppendsExplicitEmptyOps_Test.test_info_: EventsQueueTest_MaterializationAppendsExplicitEmptyOps_Test#test_info_.
+  EventsQueueTest_MultipleSnapshotsPulled_Test.-EventsQueueTest_MultipleSnapshotsPulled_Test: EventsQueueTest_MultipleSnapshotsPulled_Test#`~EventsQueueTest_MultipleSnapshotsPulled_Test`(ced63f7c635d850d).
+  ? EventSnapshotTest_ElapsedTimeIsNonNegativeForChainedPendingEvents_Test.-EventSnapshotTest_ElapsedTimeIsNonNegativeForChainedPendingEvents_Test
+  : EventSnapshotTest_ElapsedTimeIsNonNegativeForChainedPendingEvents_Test#`~EventSnapshotTest_ElapsedTimeIsNonNegativeForChainedPendingEvents_Test`(ced63f7c635d850d).
+  EventsQueueTest_ClearsBuffersAfterMaterialization_Test.-EventsQueueTest_ClearsBuffersAfterMaterialization_Test: EventsQueueTest_ClearsBuffersAfterMaterialization_Test#`~EventsQueueTest_ClearsBuffersAfterMaterialization_Test`(ced63f7c635d850d).
+  EventsQueueTest_StreamsMaterializeSeparately_Test.-EventsQueueTest_StreamsMaterializeSeparately_Test: EventsQueueTest_StreamsMaterializeSeparately_Test#`~EventsQueueTest_StreamsMaterializeSeparately_Test`(ced63f7c635d850d).
+  EventsQueueTest_StreamsMaterializeSeparately_Test.test_info_: EventsQueueTest_StreamsMaterializeSeparately_Test#test_info_.
+  EventsQueueTest_CompletesLongSnapshotChainOnSmallStack_Test.EventsQueueTest_CompletesLongSnapshotChainOnSmallStack_Test: EventsQueueTest_CompletesLongSnapshotChainOnSmallStack_Test#EventsQueueTest_CompletesLongSnapshotChainOnSmallStack_Test(49f6e7a06ebc5aa8).
+  EventsQueueTest_SingleTraversalIfPossible_Test.operator: EventsQueueTest_SingleTraversalIfPossible_Test#`operator=`(f34fbd88d3cf54a7).
+  EventsQueueTest_MultipleSnapshotsPulled_Test.test_info_: EventsQueueTest_MultipleSnapshotsPulled_Test#test_info_.
+  EventSnapshotTest_ElapsedTimeIsNonNegativeForChainedPendingEvents_Test.operator: EventSnapshotTest_ElapsedTimeIsNonNegativeForChainedPendingEvents_Test#`operator=`(c6bdf65f489cb8f9).
+  EventsQueueTest_IgnoresAlreadyMaterializedBuffers_Test.test_info_: EventsQueueTest_IgnoresAlreadyMaterializedBuffers_Test#test_info_.
+  EventsQueueTest_MaterializationIgnoresUnusedEmptyOps_Test.test_info_: EventsQueueTest_MaterializationIgnoresUnusedEmptyOps_Test#test_info_.
+  EventsQueueTest_CompletesLongSnapshotChainOnSmallStack_Test.test_info_: EventsQueueTest_CompletesLongSnapshotChainOnSmallStack_Test#test_info_.
+  EventsQueueTest_ClearsBuffersAfterMaterialization_Test.test_info_: EventsQueueTest_ClearsBuffersAfterMaterialization_Test#test_info_.
+  EventsQueueTest_IgnoresPlaceholderBuffers_Test.-EventsQueueTest_IgnoresPlaceholderBuffers_Test: EventsQueueTest_IgnoresPlaceholderBuffers_Test#`~EventsQueueTest_IgnoresPlaceholderBuffers_Test`(ced63f7c635d850d).
+  EventsQueueTest_MaterializationAppendsExplicitEmptyOps_Test.operator: EventsQueueTest_MaterializationAppendsExplicitEmptyOps_Test#`operator=`(4955e5707520150b).
+  EventsQueueTest_DeviceMustMaterializeEmptyTensors_Test.test_info_: EventsQueueTest_DeviceMustMaterializeEmptyTensors_Test#test_info_.
+  EventsQueueTest_DeadCodeEliminated_Test.operator: EventsQueueTest_DeadCodeEliminated_Test#`operator=`(86b462b98e262943).
+  ? EventsQueueTest_SingleOpFastPathAndExtraConstantFallback_Test.-EventsQueueTest_SingleOpFastPathAndExtraConstantFallback_Test
+  : EventsQueueTest_SingleOpFastPathAndExtraConstantFallback_Test#`~EventsQueueTest_SingleOpFastPathAndExtraConstantFallback_Test`(ced63f7c635d850d).
+  EventsQueueTest_UsedEmptyOpsMaterializedOnFirstUse_Test.EventsQueueTest_UsedEmptyOpsMaterializedOnFirstUse_Test: EventsQueueTest_UsedEmptyOpsMaterializedOnFirstUse_Test#EventsQueueTest_UsedEmptyOpsMaterializedOnFirstUse_Test(41cf65a2cf5ac4e3).
+  EventSnapshotTest_ElapsedTimeMeasuresCompletionTimes_Test.test_info_: EventSnapshotTest_ElapsedTimeMeasuresCompletionTimes_Test#test_info_.
+  CompilationModeTest_GetCompilationMode_Test.test_info_: CompilationModeTest_GetCompilationMode_Test#test_info_.
+  EventsQueueTest_PrepareDeviceTraversals_Test.operator: EventsQueueTest_PrepareDeviceTraversals_Test#`operator=`(c35e997291dd7917).
+  EventsQueueTest_DeviceMustMaterializeEmptyTensors_Test.EventsQueueTest_DeviceMustMaterializeEmptyTensors_Test: EventsQueueTest_DeviceMustMaterializeEmptyTensors_Test#EventsQueueTest_DeviceMustMaterializeEmptyTensors_Test(1c0f20c1d664f562).
+  EventsQueueTest_RetainsFailedCompletedFutures_Test.-EventsQueueTest_RetainsFailedCompletedFutures_Test: EventsQueueTest_RetainsFailedCompletedFutures_Test#`~EventsQueueTest_RetainsFailedCompletedFutures_Test`(ced63f7c635d850d).
+  EventSnapshotTest_ElapsedTimeExcludesWorkPendingAtStart_Test.operator: EventSnapshotTest_ElapsedTimeExcludesWorkPendingAtStart_Test#`operator=`(aac5cceaf4c5e0a).
+  EventsQueueTest_MaterializationIgnoresUnusedEmptyOps_Test.-EventsQueueTest_MaterializationIgnoresUnusedEmptyOps_Test: EventsQueueTest_MaterializationIgnoresUnusedEmptyOps_Test#`~EventsQueueTest_MaterializationIgnoresUnusedEmptyOps_Test`(ced63f7c635d850d).
+  EventsQueueTest_RetainsFailedCompletedFutures_Test.test_info_: EventsQueueTest_RetainsFailedCompletedFutures_Test#test_info_.
+  ? EventSnapshotTest_ElapsedTimeIsNonNegativeForChainedPendingEvents_Test.EventSnapshotTest_ElapsedTimeIsNonNegativeForChainedPendingEvents_Test
+  : EventSnapshotTest_ElapsedTimeIsNonNegativeForChainedPendingEvents_Test#EventSnapshotTest_ElapsedTimeIsNonNegativeForChainedPendingEvents_Test(83ec1a6bb938d438).
+  EventsQueueTest_CompletesLongSnapshotChainOnSmallStack_Test.-EventsQueueTest_CompletesLongSnapshotChainOnSmallStack_Test: EventsQueueTest_CompletesLongSnapshotChainOnSmallStack_Test#`~EventsQueueTest_CompletesLongSnapshotChainOnSmallStack_Test`(ced63f7c635d850d).
+  EventsQueueTest_PrepareStreamTraversals_Test.-EventsQueueTest_PrepareStreamTraversals_Test: EventsQueueTest_PrepareStreamTraversals_Test#`~EventsQueueTest_PrepareStreamTraversals_Test`(ced63f7c635d850d).
+  EventsQueueTest_UsedEmptyOpsMaterializedOnFirstUse_Test.test_info_: EventsQueueTest_UsedEmptyOpsMaterializedOnFirstUse_Test#test_info_.
+  EventsQueueTest_PrepareDeviceTraversals_Test.-EventsQueueTest_PrepareDeviceTraversals_Test: EventsQueueTest_PrepareDeviceTraversals_Test#`~EventsQueueTest_PrepareDeviceTraversals_Test`(ced63f7c635d850d).
+  EventsQueueTest_StreamMustMaterializeEmptyTensors_Test.-EventsQueueTest_StreamMustMaterializeEmptyTensors_Test: EventsQueueTest_StreamMustMaterializeEmptyTensors_Test#`~EventsQueueTest_StreamMustMaterializeEmptyTensors_Test`(ced63f7c635d850d).
+  EventsQueueTest_NodeMatcherAcrossSmallAndLargeSpans_Test.test_info_: EventsQueueTest_NodeMatcherAcrossSmallAndLargeSpans_Test#test_info_.
+  EventsQueueTest_StopsTrackingAfterClearEventsQueue_Test.-EventsQueueTest_StopsTrackingAfterClearEventsQueue_Test: EventsQueueTest_StopsTrackingAfterClearEventsQueue_Test#`~EventsQueueTest_StopsTrackingAfterClearEventsQueue_Test`(ced63f7c635d850d).
+  EventsQueueTest_DeadCodeEliminated_Test.-EventsQueueTest_DeadCodeEliminated_Test: EventsQueueTest_DeadCodeEliminated_Test#`~EventsQueueTest_DeadCodeEliminated_Test`(ced63f7c635d850d).
+  EventSnapshotTest_ElapsedTimeIsNonNegativeForChainedPendingEvents_Test.test_info_: EventSnapshotTest_ElapsedTimeIsNonNegativeForChainedPendingEvents_Test#test_info_.
+  EventsQueueTest_SingleTraversalIfPossible_Test.test_info_: EventsQueueTest_SingleTraversalIfPossible_Test#test_info_.
+  EventsQueueTest_IgnoresPlaceholderBuffers_Test.test_info_: EventsQueueTest_IgnoresPlaceholderBuffers_Test#test_info_.
+  EventsQueueTest_IgnoresAlreadyMaterializedBuffers_Test.-EventsQueueTest_IgnoresAlreadyMaterializedBuffers_Test: EventsQueueTest_IgnoresAlreadyMaterializedBuffers_Test#`~EventsQueueTest_IgnoresAlreadyMaterializedBuffers_Test`(ced63f7c635d850d).
+  EventsQueueTest_GetsLiveDeferredBuffers_Test.-EventsQueueTest_GetsLiveDeferredBuffers_Test: EventsQueueTest_GetsLiveDeferredBuffers_Test#`~EventsQueueTest_GetsLiveDeferredBuffers_Test`(ced63f7c635d850d).
+  EventSnapshotTest_ElapsedTimeExcludesWorkPendingAtStart_Test.test_info_: EventSnapshotTest_ElapsedTimeExcludesWorkPendingAtStart_Test#test_info_.
+---
+# Module: [`csrc/eager/events_queue_test.cc`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc)
+
+> **Collapsed catalog** (274 symbols) — one row per symbol with its source line; member detail omitted. See the source link above, or the curated codebase page, for depth.
+
+- <a id="CompilationModeTest_GetCompilationMode_Test"></a>`CompilationModeTest_GetCompilationMode_Test` — [`L1207`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L1207)
+- <a id="CompilationModeTest_GetCompilationMode_Test.-CompilationModeTest_GetCompilationMode_Test"></a>`CompilationModeTest_GetCompilationMode_Test.-CompilationModeTest_GetCompilationMode_Test` — [`L1207`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L1207)
+- <a id="CompilationModeTest_GetCompilationMode_Test.CompilationModeTest_GetCompilationMode_Test"></a>`CompilationModeTest_GetCompilationMode_Test.CompilationModeTest_GetCompilationMode_Test` — [`L1207`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L1207)
+- <a id="CompilationModeTest_GetCompilationMode_Test.TestBody"></a>`CompilationModeTest_GetCompilationMode_Test.TestBody` — [`L1207`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L1207)
+- <a id="CompilationModeTest_GetCompilationMode_Test.operator"></a>`CompilationModeTest_GetCompilationMode_Test.operator` — [`L1207`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L1207)
+- <a id="CompilationModeTest_GetCompilationMode_Test.test_info_"></a>`CompilationModeTest_GetCompilationMode_Test.test_info_` — [`L1207`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L1207)
+- <a id="DummyBuilder"></a>`DummyBuilder` — [`L68`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L68)
+- <a id="EventSnapshotTest_ElapsedTimeExcludesWorkPendingAtStart_Test"></a>`EventSnapshotTest_ElapsedTimeExcludesWorkPendingAtStart_Test` — [`L1124`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L1124)
+- <a id="EventSnapshotTest_ElapsedTimeExcludesWorkPendingAtStart_Test.-EventSnapshotTest_ElapsedTimeExcludesWorkPendingAtStart_Test"></a>`EventSnapshotTest_ElapsedTimeExcludesWorkPendingAtStart_Test.-EventSnapshotTest_ElapsedTimeExcludesWorkPendingAtStart_Test` — [`L1124`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L1124)
+- <a id="EventSnapshotTest_ElapsedTimeExcludesWorkPendingAtStart_Test.EventSnapshotTest_ElapsedTimeExcludesWorkPendingAtStart_Test"></a>`EventSnapshotTest_ElapsedTimeExcludesWorkPendingAtStart_Test.EventSnapshotTest_ElapsedTimeExcludesWorkPendingAtStart_Test` — [`L1124`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L1124)
+- <a id="EventSnapshotTest_ElapsedTimeExcludesWorkPendingAtStart_Test.TestBody"></a>`EventSnapshotTest_ElapsedTimeExcludesWorkPendingAtStart_Test.TestBody` — [`L1124`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L1124)
+- <a id="EventSnapshotTest_ElapsedTimeExcludesWorkPendingAtStart_Test.operator"></a>`EventSnapshotTest_ElapsedTimeExcludesWorkPendingAtStart_Test.operator` — [`L1124`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L1124)
+- <a id="EventSnapshotTest_ElapsedTimeExcludesWorkPendingAtStart_Test.test_info_"></a>`EventSnapshotTest_ElapsedTimeExcludesWorkPendingAtStart_Test.test_info_` — [`L1124`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L1124)
+- <a id="EventSnapshotTest_ElapsedTimeIsNonNegativeForChainedPendingEvents_Test"></a>`EventSnapshotTest_ElapsedTimeIsNonNegativeForChainedPendingEvents_Test` — [`L1153`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L1153)
+- <a id="EventSnapshotTest_ElapsedTimeIsNonNegativeForChainedPendingEvents_Test.-EventSnapshotTest_ElapsedTimeIsNonNegativeForChainedPendingEvents_Test"></a>`EventSnapshotTest_ElapsedTimeIsNonNegativeForChainedPendingEvents_Test.-EventSnapshotTest_ElapsedTimeIsNonNegativeForChainedPendingEvents_Test` — [`L1153`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L1153)
+- <a id="EventSnapshotTest_ElapsedTimeIsNonNegativeForChainedPendingEvents_Test.EventSnapshotTest_ElapsedTimeIsNonNegativeForChainedPendingEvents_Test"></a>`EventSnapshotTest_ElapsedTimeIsNonNegativeForChainedPendingEvents_Test.EventSnapshotTest_ElapsedTimeIsNonNegativeForChainedPendingEvents_Test` — [`L1153`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L1153)
+- <a id="EventSnapshotTest_ElapsedTimeIsNonNegativeForChainedPendingEvents_Test.TestBody"></a>`EventSnapshotTest_ElapsedTimeIsNonNegativeForChainedPendingEvents_Test.TestBody` — [`L1153`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L1153)
+- <a id="EventSnapshotTest_ElapsedTimeIsNonNegativeForChainedPendingEvents_Test.operator"></a>`EventSnapshotTest_ElapsedTimeIsNonNegativeForChainedPendingEvents_Test.operator` — [`L1153`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L1153)
+- <a id="EventSnapshotTest_ElapsedTimeIsNonNegativeForChainedPendingEvents_Test.test_info_"></a>`EventSnapshotTest_ElapsedTimeIsNonNegativeForChainedPendingEvents_Test.test_info_` — [`L1153`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L1153)
+- <a id="EventSnapshotTest_ElapsedTimeMeasuresCompletionTimes_Test"></a>`EventSnapshotTest_ElapsedTimeMeasuresCompletionTimes_Test` — [`L1101`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L1101)
+- <a id="EventSnapshotTest_ElapsedTimeMeasuresCompletionTimes_Test.-EventSnapshotTest_ElapsedTimeMeasuresCompletionTimes_Test"></a>`EventSnapshotTest_ElapsedTimeMeasuresCompletionTimes_Test.-EventSnapshotTest_ElapsedTimeMeasuresCompletionTimes_Test` — [`L1101`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L1101)
+- <a id="EventSnapshotTest_ElapsedTimeMeasuresCompletionTimes_Test.EventSnapshotTest_ElapsedTimeMeasuresCompletionTimes_Test"></a>`EventSnapshotTest_ElapsedTimeMeasuresCompletionTimes_Test.EventSnapshotTest_ElapsedTimeMeasuresCompletionTimes_Test` — [`L1101`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L1101)
+- <a id="EventSnapshotTest_ElapsedTimeMeasuresCompletionTimes_Test.TestBody"></a>`EventSnapshotTest_ElapsedTimeMeasuresCompletionTimes_Test.TestBody` — [`L1101`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L1101)
+- <a id="EventSnapshotTest_ElapsedTimeMeasuresCompletionTimes_Test.operator"></a>`EventSnapshotTest_ElapsedTimeMeasuresCompletionTimes_Test.operator` — [`L1101`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L1101)
+- <a id="EventSnapshotTest_ElapsedTimeMeasuresCompletionTimes_Test.test_info_"></a>`EventSnapshotTest_ElapsedTimeMeasuresCompletionTimes_Test.test_info_` — [`L1101`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L1101)
+- <a id="EventSnapshotTest_ElapsedTimeReturnsEventError_Test"></a>`EventSnapshotTest_ElapsedTimeReturnsEventError_Test` — [`L1172`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L1172)
+- <a id="EventSnapshotTest_ElapsedTimeReturnsEventError_Test.-EventSnapshotTest_ElapsedTimeReturnsEventError_Test"></a>`EventSnapshotTest_ElapsedTimeReturnsEventError_Test.-EventSnapshotTest_ElapsedTimeReturnsEventError_Test` — [`L1172`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L1172)
+- <a id="EventSnapshotTest_ElapsedTimeReturnsEventError_Test.EventSnapshotTest_ElapsedTimeReturnsEventError_Test"></a>`EventSnapshotTest_ElapsedTimeReturnsEventError_Test.EventSnapshotTest_ElapsedTimeReturnsEventError_Test` — [`L1172`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L1172)
+- <a id="EventSnapshotTest_ElapsedTimeReturnsEventError_Test.TestBody"></a>`EventSnapshotTest_ElapsedTimeReturnsEventError_Test.TestBody` — [`L1172`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L1172)
+- <a id="EventSnapshotTest_ElapsedTimeReturnsEventError_Test.operator"></a>`EventSnapshotTest_ElapsedTimeReturnsEventError_Test.operator` — [`L1172`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L1172)
+- <a id="EventSnapshotTest_ElapsedTimeReturnsEventError_Test.test_info_"></a>`EventSnapshotTest_ElapsedTimeReturnsEventError_Test.test_info_` — [`L1172`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L1172)
+- <a id="EventsQueueTest"></a>`EventsQueueTest` — [`L57`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L57)
+- <a id="EventsQueueTest.SetUpTestSuite"></a>`EventsQueueTest.SetUpTestSuite` — [`L59`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L59)
+- <a id="EventsQueueTest_ClearsBuffersAfterMaterialization_Test"></a>`EventsQueueTest_ClearsBuffersAfterMaterialization_Test` — [`L177`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L177)
+- <a id="EventsQueueTest_ClearsBuffersAfterMaterialization_Test.-EventsQueueTest_ClearsBuffersAfterMaterialization_Test"></a>`EventsQueueTest_ClearsBuffersAfterMaterialization_Test.-EventsQueueTest_ClearsBuffersAfterMaterialization_Test` — [`L177`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L177)
+- <a id="EventsQueueTest_ClearsBuffersAfterMaterialization_Test.EventsQueueTest_ClearsBuffersAfterMaterialization_Test"></a>`EventsQueueTest_ClearsBuffersAfterMaterialization_Test.EventsQueueTest_ClearsBuffersAfterMaterialization_Test` — [`L177`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L177)
+- <a id="EventsQueueTest_ClearsBuffersAfterMaterialization_Test.TestBody"></a>`EventsQueueTest_ClearsBuffersAfterMaterialization_Test.TestBody` — [`L177`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L177)
+- <a id="EventsQueueTest_ClearsBuffersAfterMaterialization_Test.operator"></a>`EventsQueueTest_ClearsBuffersAfterMaterialization_Test.operator` — [`L177`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L177)
+- <a id="EventsQueueTest_ClearsBuffersAfterMaterialization_Test.test_info_"></a>`EventsQueueTest_ClearsBuffersAfterMaterialization_Test.test_info_` — [`L177`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L177)
+- <a id="EventsQueueTest_CompletesLongSnapshotChainOnSmallStack_Test"></a>`EventsQueueTest_CompletesLongSnapshotChainOnSmallStack_Test` — [`L1180`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L1180)
+- <a id="EventsQueueTest_CompletesLongSnapshotChainOnSmallStack_Test.-EventsQueueTest_CompletesLongSnapshotChainOnSmallStack_Test"></a>`EventsQueueTest_CompletesLongSnapshotChainOnSmallStack_Test.-EventsQueueTest_CompletesLongSnapshotChainOnSmallStack_Test` — [`L1180`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L1180)
+- <a id="EventsQueueTest_CompletesLongSnapshotChainOnSmallStack_Test.EventsQueueTest_CompletesLongSnapshotChainOnSmallStack_Test"></a>`EventsQueueTest_CompletesLongSnapshotChainOnSmallStack_Test.EventsQueueTest_CompletesLongSnapshotChainOnSmallStack_Test` — [`L1180`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L1180)
+- <a id="EventsQueueTest_CompletesLongSnapshotChainOnSmallStack_Test.TestBody"></a>`EventsQueueTest_CompletesLongSnapshotChainOnSmallStack_Test.TestBody` — [`L1180`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L1180)
+- <a id="EventsQueueTest_CompletesLongSnapshotChainOnSmallStack_Test.operator"></a>`EventsQueueTest_CompletesLongSnapshotChainOnSmallStack_Test.operator` — [`L1180`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L1180)
+- <a id="EventsQueueTest_CompletesLongSnapshotChainOnSmallStack_Test.test_info_"></a>`EventsQueueTest_CompletesLongSnapshotChainOnSmallStack_Test.test_info_` — [`L1180`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L1180)
+- <a id="EventsQueueTest_DeadCodeEliminated_Test"></a>`EventsQueueTest_DeadCodeEliminated_Test` — [`L374`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L374)
+- <a id="EventsQueueTest_DeadCodeEliminated_Test.-EventsQueueTest_DeadCodeEliminated_Test"></a>`EventsQueueTest_DeadCodeEliminated_Test.-EventsQueueTest_DeadCodeEliminated_Test` — [`L374`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L374)
+- <a id="EventsQueueTest_DeadCodeEliminated_Test.EventsQueueTest_DeadCodeEliminated_Test"></a>`EventsQueueTest_DeadCodeEliminated_Test.EventsQueueTest_DeadCodeEliminated_Test` — [`L374`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L374)
+- <a id="EventsQueueTest_DeadCodeEliminated_Test.TestBody"></a>`EventsQueueTest_DeadCodeEliminated_Test.TestBody` — [`L374`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L374)
+- <a id="EventsQueueTest_DeadCodeEliminated_Test.operator"></a>`EventsQueueTest_DeadCodeEliminated_Test.operator` — [`L374`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L374)
+- <a id="EventsQueueTest_DeadCodeEliminated_Test.test_info_"></a>`EventsQueueTest_DeadCodeEliminated_Test.test_info_` — [`L374`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L374)
+- <a id="EventsQueueTest_DeadSideEffectsRetained_Test"></a>`EventsQueueTest_DeadSideEffectsRetained_Test` — [`L427`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L427)
+- <a id="EventsQueueTest_DeadSideEffectsRetained_Test.-EventsQueueTest_DeadSideEffectsRetained_Test"></a>`EventsQueueTest_DeadSideEffectsRetained_Test.-EventsQueueTest_DeadSideEffectsRetained_Test` — [`L427`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L427)
+- <a id="EventsQueueTest_DeadSideEffectsRetained_Test.EventsQueueTest_DeadSideEffectsRetained_Test"></a>`EventsQueueTest_DeadSideEffectsRetained_Test.EventsQueueTest_DeadSideEffectsRetained_Test` — [`L427`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L427)
+- <a id="EventsQueueTest_DeadSideEffectsRetained_Test.TestBody"></a>`EventsQueueTest_DeadSideEffectsRetained_Test.TestBody` — [`L427`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L427)
+- <a id="EventsQueueTest_DeadSideEffectsRetained_Test.operator"></a>`EventsQueueTest_DeadSideEffectsRetained_Test.operator` — [`L427`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L427)
+- <a id="EventsQueueTest_DeadSideEffectsRetained_Test.test_info_"></a>`EventsQueueTest_DeadSideEffectsRetained_Test.test_info_` — [`L427`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L427)
+- <a id="EventsQueueTest_DeviceMustMaterializeEmptyTensors_Test"></a>`EventsQueueTest_DeviceMustMaterializeEmptyTensors_Test` — [`L885`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L885)
+- <a id="EventsQueueTest_DeviceMustMaterializeEmptyTensors_Test.-EventsQueueTest_DeviceMustMaterializeEmptyTensors_Test"></a>`EventsQueueTest_DeviceMustMaterializeEmptyTensors_Test.-EventsQueueTest_DeviceMustMaterializeEmptyTensors_Test` — [`L885`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L885)
+- <a id="EventsQueueTest_DeviceMustMaterializeEmptyTensors_Test.EventsQueueTest_DeviceMustMaterializeEmptyTensors_Test"></a>`EventsQueueTest_DeviceMustMaterializeEmptyTensors_Test.EventsQueueTest_DeviceMustMaterializeEmptyTensors_Test` — [`L885`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L885)
+- <a id="EventsQueueTest_DeviceMustMaterializeEmptyTensors_Test.TestBody"></a>`EventsQueueTest_DeviceMustMaterializeEmptyTensors_Test.TestBody` — [`L885`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L885)
+- <a id="EventsQueueTest_DeviceMustMaterializeEmptyTensors_Test.operator"></a>`EventsQueueTest_DeviceMustMaterializeEmptyTensors_Test.operator` — [`L885`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L885)
+- <a id="EventsQueueTest_DeviceMustMaterializeEmptyTensors_Test.test_info_"></a>`EventsQueueTest_DeviceMustMaterializeEmptyTensors_Test.test_info_` — [`L885`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L885)
+- <a id="EventsQueueTest_GetsLiveDeferredBuffers_Test"></a>`EventsQueueTest_GetsLiveDeferredBuffers_Test` — [`L73`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L73)
+- <a id="EventsQueueTest_GetsLiveDeferredBuffers_Test.-EventsQueueTest_GetsLiveDeferredBuffers_Test"></a>`EventsQueueTest_GetsLiveDeferredBuffers_Test.-EventsQueueTest_GetsLiveDeferredBuffers_Test` — [`L73`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L73)
+- <a id="EventsQueueTest_GetsLiveDeferredBuffers_Test.EventsQueueTest_GetsLiveDeferredBuffers_Test"></a>`EventsQueueTest_GetsLiveDeferredBuffers_Test.EventsQueueTest_GetsLiveDeferredBuffers_Test` — [`L73`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L73)
+- <a id="EventsQueueTest_GetsLiveDeferredBuffers_Test.TestBody"></a>`EventsQueueTest_GetsLiveDeferredBuffers_Test.TestBody` — [`L73`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L73)
+- <a id="EventsQueueTest_GetsLiveDeferredBuffers_Test.operator"></a>`EventsQueueTest_GetsLiveDeferredBuffers_Test.operator` — [`L73`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L73)
+- <a id="EventsQueueTest_GetsLiveDeferredBuffers_Test.test_info_"></a>`EventsQueueTest_GetsLiveDeferredBuffers_Test.test_info_` — [`L73`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L73)
+- <a id="EventsQueueTest_IgnoresAlreadyMaterializedBuffers_Test"></a>`EventsQueueTest_IgnoresAlreadyMaterializedBuffers_Test` — [`L154`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L154)
+- <a id="EventsQueueTest_IgnoresAlreadyMaterializedBuffers_Test.-EventsQueueTest_IgnoresAlreadyMaterializedBuffers_Test"></a>`EventsQueueTest_IgnoresAlreadyMaterializedBuffers_Test.-EventsQueueTest_IgnoresAlreadyMaterializedBuffers_Test` — [`L154`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L154)
+- <a id="EventsQueueTest_IgnoresAlreadyMaterializedBuffers_Test.EventsQueueTest_IgnoresAlreadyMaterializedBuffers_Test"></a>`EventsQueueTest_IgnoresAlreadyMaterializedBuffers_Test.EventsQueueTest_IgnoresAlreadyMaterializedBuffers_Test` — [`L154`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L154)
+- <a id="EventsQueueTest_IgnoresAlreadyMaterializedBuffers_Test.TestBody"></a>`EventsQueueTest_IgnoresAlreadyMaterializedBuffers_Test.TestBody` — [`L154`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L154)
+- <a id="EventsQueueTest_IgnoresAlreadyMaterializedBuffers_Test.operator"></a>`EventsQueueTest_IgnoresAlreadyMaterializedBuffers_Test.operator` — [`L154`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L154)
+- <a id="EventsQueueTest_IgnoresAlreadyMaterializedBuffers_Test.test_info_"></a>`EventsQueueTest_IgnoresAlreadyMaterializedBuffers_Test.test_info_` — [`L154`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L154)
+- <a id="EventsQueueTest_IgnoresPlaceholderBuffers_Test"></a>`EventsQueueTest_IgnoresPlaceholderBuffers_Test` — [`L112`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L112)
+- <a id="EventsQueueTest_IgnoresPlaceholderBuffers_Test.-EventsQueueTest_IgnoresPlaceholderBuffers_Test"></a>`EventsQueueTest_IgnoresPlaceholderBuffers_Test.-EventsQueueTest_IgnoresPlaceholderBuffers_Test` — [`L112`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L112)
+- <a id="EventsQueueTest_IgnoresPlaceholderBuffers_Test.EventsQueueTest_IgnoresPlaceholderBuffers_Test"></a>`EventsQueueTest_IgnoresPlaceholderBuffers_Test.EventsQueueTest_IgnoresPlaceholderBuffers_Test` — [`L112`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L112)
+- <a id="EventsQueueTest_IgnoresPlaceholderBuffers_Test.TestBody"></a>`EventsQueueTest_IgnoresPlaceholderBuffers_Test.TestBody` — [`L112`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L112)
+- <a id="EventsQueueTest_IgnoresPlaceholderBuffers_Test.operator"></a>`EventsQueueTest_IgnoresPlaceholderBuffers_Test.operator` — [`L112`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L112)
+- <a id="EventsQueueTest_IgnoresPlaceholderBuffers_Test.test_info_"></a>`EventsQueueTest_IgnoresPlaceholderBuffers_Test.test_info_` — [`L112`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L112)
+- <a id="EventsQueueTest_MaterializationAppendsExplicitEmptyOps_Test"></a>`EventsQueueTest_MaterializationAppendsExplicitEmptyOps_Test` — [`L598`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L598)
+- <a id="EventsQueueTest_MaterializationAppendsExplicitEmptyOps_Test.-EventsQueueTest_MaterializationAppendsExplicitEmptyOps_Test"></a>`EventsQueueTest_MaterializationAppendsExplicitEmptyOps_Test.-EventsQueueTest_MaterializationAppendsExplicitEmptyOps_Test` — [`L598`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L598)
+- <a id="EventsQueueTest_MaterializationAppendsExplicitEmptyOps_Test.EventsQueueTest_MaterializationAppendsExplicitEmptyOps_Test"></a>`EventsQueueTest_MaterializationAppendsExplicitEmptyOps_Test.EventsQueueTest_MaterializationAppendsExplicitEmptyOps_Test` — [`L598`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L598)
+- <a id="EventsQueueTest_MaterializationAppendsExplicitEmptyOps_Test.TestBody"></a>`EventsQueueTest_MaterializationAppendsExplicitEmptyOps_Test.TestBody` — [`L598`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L598)
+- <a id="EventsQueueTest_MaterializationAppendsExplicitEmptyOps_Test.operator"></a>`EventsQueueTest_MaterializationAppendsExplicitEmptyOps_Test.operator` — [`L598`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L598)
+- <a id="EventsQueueTest_MaterializationAppendsExplicitEmptyOps_Test.test_info_"></a>`EventsQueueTest_MaterializationAppendsExplicitEmptyOps_Test.test_info_` — [`L598`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L598)
+- <a id="EventsQueueTest_MaterializationIgnoresUnusedEmptyOps_Test"></a>`EventsQueueTest_MaterializationIgnoresUnusedEmptyOps_Test` — [`L497`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L497)
+- <a id="EventsQueueTest_MaterializationIgnoresUnusedEmptyOps_Test.-EventsQueueTest_MaterializationIgnoresUnusedEmptyOps_Test"></a>`EventsQueueTest_MaterializationIgnoresUnusedEmptyOps_Test.-EventsQueueTest_MaterializationIgnoresUnusedEmptyOps_Test` — [`L497`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L497)
+- <a id="EventsQueueTest_MaterializationIgnoresUnusedEmptyOps_Test.EventsQueueTest_MaterializationIgnoresUnusedEmptyOps_Test"></a>`EventsQueueTest_MaterializationIgnoresUnusedEmptyOps_Test.EventsQueueTest_MaterializationIgnoresUnusedEmptyOps_Test` — [`L497`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L497)
+- <a id="EventsQueueTest_MaterializationIgnoresUnusedEmptyOps_Test.TestBody"></a>`EventsQueueTest_MaterializationIgnoresUnusedEmptyOps_Test.TestBody` — [`L497`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L497)
+- <a id="EventsQueueTest_MaterializationIgnoresUnusedEmptyOps_Test.operator"></a>`EventsQueueTest_MaterializationIgnoresUnusedEmptyOps_Test.operator` — [`L497`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L497)
+- <a id="EventsQueueTest_MaterializationIgnoresUnusedEmptyOps_Test.test_info_"></a>`EventsQueueTest_MaterializationIgnoresUnusedEmptyOps_Test.test_info_` — [`L497`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L497)
+- <a id="EventsQueueTest_MultipleSnapshotsPulled_Test"></a>`EventsQueueTest_MultipleSnapshotsPulled_Test` — [`L921`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L921)
+- <a id="EventsQueueTest_MultipleSnapshotsPulled_Test.-EventsQueueTest_MultipleSnapshotsPulled_Test"></a>`EventsQueueTest_MultipleSnapshotsPulled_Test.-EventsQueueTest_MultipleSnapshotsPulled_Test` — [`L921`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L921)
+- <a id="EventsQueueTest_MultipleSnapshotsPulled_Test.EventsQueueTest_MultipleSnapshotsPulled_Test"></a>`EventsQueueTest_MultipleSnapshotsPulled_Test.EventsQueueTest_MultipleSnapshotsPulled_Test` — [`L921`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L921)
+- <a id="EventsQueueTest_MultipleSnapshotsPulled_Test.TestBody"></a>`EventsQueueTest_MultipleSnapshotsPulled_Test.TestBody` — [`L921`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L921)
+- <a id="EventsQueueTest_MultipleSnapshotsPulled_Test.operator"></a>`EventsQueueTest_MultipleSnapshotsPulled_Test.operator` — [`L921`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L921)
+- <a id="EventsQueueTest_MultipleSnapshotsPulled_Test.test_info_"></a>`EventsQueueTest_MultipleSnapshotsPulled_Test.test_info_` — [`L921`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L921)
+- <a id="EventsQueueTest_NodeMatcherAcrossSmallAndLargeSpans_Test"></a>`EventsQueueTest_NodeMatcherAcrossSmallAndLargeSpans_Test` — [`L1063`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L1063)
+- <a id="EventsQueueTest_NodeMatcherAcrossSmallAndLargeSpans_Test.-EventsQueueTest_NodeMatcherAcrossSmallAndLargeSpans_Test"></a>`EventsQueueTest_NodeMatcherAcrossSmallAndLargeSpans_Test.-EventsQueueTest_NodeMatcherAcrossSmallAndLargeSpans_Test` — [`L1063`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L1063)
+- <a id="EventsQueueTest_NodeMatcherAcrossSmallAndLargeSpans_Test.EventsQueueTest_NodeMatcherAcrossSmallAndLargeSpans_Test"></a>`EventsQueueTest_NodeMatcherAcrossSmallAndLargeSpans_Test.EventsQueueTest_NodeMatcherAcrossSmallAndLargeSpans_Test` — [`L1063`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L1063)
+- <a id="EventsQueueTest_NodeMatcherAcrossSmallAndLargeSpans_Test.TestBody"></a>`EventsQueueTest_NodeMatcherAcrossSmallAndLargeSpans_Test.TestBody` — [`L1063`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L1063)
+- <a id="EventsQueueTest_NodeMatcherAcrossSmallAndLargeSpans_Test.operator"></a>`EventsQueueTest_NodeMatcherAcrossSmallAndLargeSpans_Test.operator` — [`L1063`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L1063)
+- <a id="EventsQueueTest_NodeMatcherAcrossSmallAndLargeSpans_Test.test_info_"></a>`EventsQueueTest_NodeMatcherAcrossSmallAndLargeSpans_Test.test_info_` — [`L1063`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L1063)
+- <a id="EventsQueueTest_NotPulledAfterLastSnapshot_Test"></a>`EventsQueueTest_NotPulledAfterLastSnapshot_Test` — [`L969`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L969)
+- <a id="EventsQueueTest_NotPulledAfterLastSnapshot_Test.-EventsQueueTest_NotPulledAfterLastSnapshot_Test"></a>`EventsQueueTest_NotPulledAfterLastSnapshot_Test.-EventsQueueTest_NotPulledAfterLastSnapshot_Test` — [`L969`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L969)
+- <a id="EventsQueueTest_NotPulledAfterLastSnapshot_Test.EventsQueueTest_NotPulledAfterLastSnapshot_Test"></a>`EventsQueueTest_NotPulledAfterLastSnapshot_Test.EventsQueueTest_NotPulledAfterLastSnapshot_Test` — [`L969`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L969)
+- <a id="EventsQueueTest_NotPulledAfterLastSnapshot_Test.TestBody"></a>`EventsQueueTest_NotPulledAfterLastSnapshot_Test.TestBody` — [`L969`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L969)
+- <a id="EventsQueueTest_NotPulledAfterLastSnapshot_Test.operator"></a>`EventsQueueTest_NotPulledAfterLastSnapshot_Test.operator` — [`L969`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L969)
+- <a id="EventsQueueTest_NotPulledAfterLastSnapshot_Test.test_info_"></a>`EventsQueueTest_NotPulledAfterLastSnapshot_Test.test_info_` — [`L969`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L969)
+- <a id="EventsQueueTest_PrepareDeviceTraversals_Test"></a>`EventsQueueTest_PrepareDeviceTraversals_Test` — [`L643`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L643)
+- <a id="EventsQueueTest_PrepareDeviceTraversals_Test.-EventsQueueTest_PrepareDeviceTraversals_Test"></a>`EventsQueueTest_PrepareDeviceTraversals_Test.-EventsQueueTest_PrepareDeviceTraversals_Test` — [`L643`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L643)
+- <a id="EventsQueueTest_PrepareDeviceTraversals_Test.EventsQueueTest_PrepareDeviceTraversals_Test"></a>`EventsQueueTest_PrepareDeviceTraversals_Test.EventsQueueTest_PrepareDeviceTraversals_Test` — [`L643`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L643)
+- <a id="EventsQueueTest_PrepareDeviceTraversals_Test.TestBody"></a>`EventsQueueTest_PrepareDeviceTraversals_Test.TestBody` — [`L643`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L643)
+- <a id="EventsQueueTest_PrepareDeviceTraversals_Test.operator"></a>`EventsQueueTest_PrepareDeviceTraversals_Test.operator` — [`L643`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L643)
+- <a id="EventsQueueTest_PrepareDeviceTraversals_Test.test_info_"></a>`EventsQueueTest_PrepareDeviceTraversals_Test.test_info_` — [`L643`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L643)
+- <a id="EventsQueueTest_PrepareStreamTraversals_Test"></a>`EventsQueueTest_PrepareStreamTraversals_Test` — [`L699`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L699)
+- <a id="EventsQueueTest_PrepareStreamTraversals_Test.-EventsQueueTest_PrepareStreamTraversals_Test"></a>`EventsQueueTest_PrepareStreamTraversals_Test.-EventsQueueTest_PrepareStreamTraversals_Test` — [`L699`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L699)
+- <a id="EventsQueueTest_PrepareStreamTraversals_Test.EventsQueueTest_PrepareStreamTraversals_Test"></a>`EventsQueueTest_PrepareStreamTraversals_Test.EventsQueueTest_PrepareStreamTraversals_Test` — [`L699`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L699)
+- <a id="EventsQueueTest_PrepareStreamTraversals_Test.TestBody"></a>`EventsQueueTest_PrepareStreamTraversals_Test.TestBody` — [`L699`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L699)
+- <a id="EventsQueueTest_PrepareStreamTraversals_Test.operator"></a>`EventsQueueTest_PrepareStreamTraversals_Test.operator` — [`L699`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L699)
+- <a id="EventsQueueTest_PrepareStreamTraversals_Test.test_info_"></a>`EventsQueueTest_PrepareStreamTraversals_Test.test_info_` — [`L699`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L699)
+- <a id="EventsQueueTest_PrunesSuccessfulCompletedFutures_Test"></a>`EventsQueueTest_PrunesSuccessfulCompletedFutures_Test` — [`L831`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L831)
+- <a id="EventsQueueTest_PrunesSuccessfulCompletedFutures_Test.-EventsQueueTest_PrunesSuccessfulCompletedFutures_Test"></a>`EventsQueueTest_PrunesSuccessfulCompletedFutures_Test.-EventsQueueTest_PrunesSuccessfulCompletedFutures_Test` — [`L831`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L831)
+- <a id="EventsQueueTest_PrunesSuccessfulCompletedFutures_Test.EventsQueueTest_PrunesSuccessfulCompletedFutures_Test"></a>`EventsQueueTest_PrunesSuccessfulCompletedFutures_Test.EventsQueueTest_PrunesSuccessfulCompletedFutures_Test` — [`L831`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L831)
+- <a id="EventsQueueTest_PrunesSuccessfulCompletedFutures_Test.TestBody"></a>`EventsQueueTest_PrunesSuccessfulCompletedFutures_Test.TestBody` — [`L831`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L831)
+- <a id="EventsQueueTest_PrunesSuccessfulCompletedFutures_Test.operator"></a>`EventsQueueTest_PrunesSuccessfulCompletedFutures_Test.operator` — [`L831`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L831)
+- <a id="EventsQueueTest_PrunesSuccessfulCompletedFutures_Test.test_info_"></a>`EventsQueueTest_PrunesSuccessfulCompletedFutures_Test.test_info_` — [`L831`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L831)
+- <a id="EventsQueueTest_RetainsFailedCompletedFutures_Test"></a>`EventsQueueTest_RetainsFailedCompletedFutures_Test` — [`L810`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L810)
+- <a id="EventsQueueTest_RetainsFailedCompletedFutures_Test.-EventsQueueTest_RetainsFailedCompletedFutures_Test"></a>`EventsQueueTest_RetainsFailedCompletedFutures_Test.-EventsQueueTest_RetainsFailedCompletedFutures_Test` — [`L810`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L810)
+- <a id="EventsQueueTest_RetainsFailedCompletedFutures_Test.EventsQueueTest_RetainsFailedCompletedFutures_Test"></a>`EventsQueueTest_RetainsFailedCompletedFutures_Test.EventsQueueTest_RetainsFailedCompletedFutures_Test` — [`L810`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L810)
+- <a id="EventsQueueTest_RetainsFailedCompletedFutures_Test.TestBody"></a>`EventsQueueTest_RetainsFailedCompletedFutures_Test.TestBody` — [`L810`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L810)
+- <a id="EventsQueueTest_RetainsFailedCompletedFutures_Test.operator"></a>`EventsQueueTest_RetainsFailedCompletedFutures_Test.operator` — [`L810`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L810)
+- <a id="EventsQueueTest_RetainsFailedCompletedFutures_Test.test_info_"></a>`EventsQueueTest_RetainsFailedCompletedFutures_Test.test_info_` — [`L810`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L810)
+- <a id="EventsQueueTest_SingleOpFastPathAndExtraConstantFallback_Test"></a>`EventsQueueTest_SingleOpFastPathAndExtraConstantFallback_Test` — [`L1006`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L1006)
+- <a id="EventsQueueTest_SingleOpFastPathAndExtraConstantFallback_Test.-EventsQueueTest_SingleOpFastPathAndExtraConstantFallback_Test"></a>`EventsQueueTest_SingleOpFastPathAndExtraConstantFallback_Test.-EventsQueueTest_SingleOpFastPathAndExtraConstantFallback_Test` — [`L1006`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L1006)
+- <a id="EventsQueueTest_SingleOpFastPathAndExtraConstantFallback_Test.EventsQueueTest_SingleOpFastPathAndExtraConstantFallback_Test"></a>`EventsQueueTest_SingleOpFastPathAndExtraConstantFallback_Test.EventsQueueTest_SingleOpFastPathAndExtraConstantFallback_Test` — [`L1006`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L1006)
+- <a id="EventsQueueTest_SingleOpFastPathAndExtraConstantFallback_Test.TestBody"></a>`EventsQueueTest_SingleOpFastPathAndExtraConstantFallback_Test.TestBody` — [`L1006`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L1006)
+- <a id="EventsQueueTest_SingleOpFastPathAndExtraConstantFallback_Test.operator"></a>`EventsQueueTest_SingleOpFastPathAndExtraConstantFallback_Test.operator` — [`L1006`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L1006)
+- <a id="EventsQueueTest_SingleOpFastPathAndExtraConstantFallback_Test.test_info_"></a>`EventsQueueTest_SingleOpFastPathAndExtraConstantFallback_Test.test_info_` — [`L1006`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L1006)
+- <a id="EventsQueueTest_SingleTraversalIfPossible_Test"></a>`EventsQueueTest_SingleTraversalIfPossible_Test` — [`L264`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L264)
+- <a id="EventsQueueTest_SingleTraversalIfPossible_Test.-EventsQueueTest_SingleTraversalIfPossible_Test"></a>`EventsQueueTest_SingleTraversalIfPossible_Test.-EventsQueueTest_SingleTraversalIfPossible_Test` — [`L264`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L264)
+- <a id="EventsQueueTest_SingleTraversalIfPossible_Test.EventsQueueTest_SingleTraversalIfPossible_Test"></a>`EventsQueueTest_SingleTraversalIfPossible_Test.EventsQueueTest_SingleTraversalIfPossible_Test` — [`L264`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L264)
+- <a id="EventsQueueTest_SingleTraversalIfPossible_Test.TestBody"></a>`EventsQueueTest_SingleTraversalIfPossible_Test.TestBody` — [`L264`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L264)
+- <a id="EventsQueueTest_SingleTraversalIfPossible_Test.operator"></a>`EventsQueueTest_SingleTraversalIfPossible_Test.operator` — [`L264`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L264)
+- <a id="EventsQueueTest_SingleTraversalIfPossible_Test.test_info_"></a>`EventsQueueTest_SingleTraversalIfPossible_Test.test_info_` — [`L264`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L264)
+- <a id="EventsQueueTest_SplitModeRespected_Test"></a>`EventsQueueTest_SplitModeRespected_Test` — [`L311`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L311)
+- <a id="EventsQueueTest_SplitModeRespected_Test.-EventsQueueTest_SplitModeRespected_Test"></a>`EventsQueueTest_SplitModeRespected_Test.-EventsQueueTest_SplitModeRespected_Test` — [`L311`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L311)
+- <a id="EventsQueueTest_SplitModeRespected_Test.EventsQueueTest_SplitModeRespected_Test"></a>`EventsQueueTest_SplitModeRespected_Test.EventsQueueTest_SplitModeRespected_Test` — [`L311`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L311)
+- <a id="EventsQueueTest_SplitModeRespected_Test.TestBody"></a>`EventsQueueTest_SplitModeRespected_Test.TestBody` — [`L311`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L311)
+- <a id="EventsQueueTest_SplitModeRespected_Test.operator"></a>`EventsQueueTest_SplitModeRespected_Test.operator` — [`L311`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L311)
+- <a id="EventsQueueTest_SplitModeRespected_Test.test_info_"></a>`EventsQueueTest_SplitModeRespected_Test.test_info_` — [`L311`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L311)
+- <a id="EventsQueueTest_StopsTrackingAfterClearEventsQueue_Test"></a>`EventsQueueTest_StopsTrackingAfterClearEventsQueue_Test` — [`L225`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L225)
+- <a id="EventsQueueTest_StopsTrackingAfterClearEventsQueue_Test.-EventsQueueTest_StopsTrackingAfterClearEventsQueue_Test"></a>`EventsQueueTest_StopsTrackingAfterClearEventsQueue_Test.-EventsQueueTest_StopsTrackingAfterClearEventsQueue_Test` — [`L225`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L225)
+- <a id="EventsQueueTest_StopsTrackingAfterClearEventsQueue_Test.EventsQueueTest_StopsTrackingAfterClearEventsQueue_Test"></a>`EventsQueueTest_StopsTrackingAfterClearEventsQueue_Test.EventsQueueTest_StopsTrackingAfterClearEventsQueue_Test` — [`L225`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L225)
+- <a id="EventsQueueTest_StopsTrackingAfterClearEventsQueue_Test.TestBody"></a>`EventsQueueTest_StopsTrackingAfterClearEventsQueue_Test.TestBody` — [`L225`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L225)
+- <a id="EventsQueueTest_StopsTrackingAfterClearEventsQueue_Test.operator"></a>`EventsQueueTest_StopsTrackingAfterClearEventsQueue_Test.operator` — [`L225`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L225)
+- <a id="EventsQueueTest_StopsTrackingAfterClearEventsQueue_Test.test_info_"></a>`EventsQueueTest_StopsTrackingAfterClearEventsQueue_Test.test_info_` — [`L225`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L225)
+- <a id="EventsQueueTest_StreamMustMaterializeEmptyTensors_Test"></a>`EventsQueueTest_StreamMustMaterializeEmptyTensors_Test` — [`L848`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L848)
+- <a id="EventsQueueTest_StreamMustMaterializeEmptyTensors_Test.-EventsQueueTest_StreamMustMaterializeEmptyTensors_Test"></a>`EventsQueueTest_StreamMustMaterializeEmptyTensors_Test.-EventsQueueTest_StreamMustMaterializeEmptyTensors_Test` — [`L848`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L848)
+- <a id="EventsQueueTest_StreamMustMaterializeEmptyTensors_Test.EventsQueueTest_StreamMustMaterializeEmptyTensors_Test"></a>`EventsQueueTest_StreamMustMaterializeEmptyTensors_Test.EventsQueueTest_StreamMustMaterializeEmptyTensors_Test` — [`L848`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L848)
+- <a id="EventsQueueTest_StreamMustMaterializeEmptyTensors_Test.TestBody"></a>`EventsQueueTest_StreamMustMaterializeEmptyTensors_Test.TestBody` — [`L848`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L848)
+- <a id="EventsQueueTest_StreamMustMaterializeEmptyTensors_Test.operator"></a>`EventsQueueTest_StreamMustMaterializeEmptyTensors_Test.operator` — [`L848`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L848)
+- <a id="EventsQueueTest_StreamMustMaterializeEmptyTensors_Test.test_info_"></a>`EventsQueueTest_StreamMustMaterializeEmptyTensors_Test.test_info_` — [`L848`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L848)
+- <a id="EventsQueueTest_StreamsMaterializeSeparately_Test"></a>`EventsQueueTest_StreamsMaterializeSeparately_Test` — [`L755`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L755)
+- <a id="EventsQueueTest_StreamsMaterializeSeparately_Test.-EventsQueueTest_StreamsMaterializeSeparately_Test"></a>`EventsQueueTest_StreamsMaterializeSeparately_Test.-EventsQueueTest_StreamsMaterializeSeparately_Test` — [`L755`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L755)
+- <a id="EventsQueueTest_StreamsMaterializeSeparately_Test.EventsQueueTest_StreamsMaterializeSeparately_Test"></a>`EventsQueueTest_StreamsMaterializeSeparately_Test.EventsQueueTest_StreamsMaterializeSeparately_Test` — [`L755`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L755)
+- <a id="EventsQueueTest_StreamsMaterializeSeparately_Test.TestBody"></a>`EventsQueueTest_StreamsMaterializeSeparately_Test.TestBody` — [`L755`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L755)
+- <a id="EventsQueueTest_StreamsMaterializeSeparately_Test.operator"></a>`EventsQueueTest_StreamsMaterializeSeparately_Test.operator` — [`L755`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L755)
+- <a id="EventsQueueTest_StreamsMaterializeSeparately_Test.test_info_"></a>`EventsQueueTest_StreamsMaterializeSeparately_Test.test_info_` — [`L755`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L755)
+- <a id="EventsQueueTest_SyncIgnoresEmptyBuffers_Test"></a>`EventsQueueTest_SyncIgnoresEmptyBuffers_Test` — [`L133`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L133)
+- <a id="EventsQueueTest_SyncIgnoresEmptyBuffers_Test.-EventsQueueTest_SyncIgnoresEmptyBuffers_Test"></a>`EventsQueueTest_SyncIgnoresEmptyBuffers_Test.-EventsQueueTest_SyncIgnoresEmptyBuffers_Test` — [`L133`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L133)
+- <a id="EventsQueueTest_SyncIgnoresEmptyBuffers_Test.EventsQueueTest_SyncIgnoresEmptyBuffers_Test"></a>`EventsQueueTest_SyncIgnoresEmptyBuffers_Test.EventsQueueTest_SyncIgnoresEmptyBuffers_Test` — [`L133`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L133)
+- <a id="EventsQueueTest_SyncIgnoresEmptyBuffers_Test.TestBody"></a>`EventsQueueTest_SyncIgnoresEmptyBuffers_Test.TestBody` — [`L133`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L133)
+- <a id="EventsQueueTest_SyncIgnoresEmptyBuffers_Test.operator"></a>`EventsQueueTest_SyncIgnoresEmptyBuffers_Test.operator` — [`L133`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L133)
+- <a id="EventsQueueTest_SyncIgnoresEmptyBuffers_Test.test_info_"></a>`EventsQueueTest_SyncIgnoresEmptyBuffers_Test.test_info_` — [`L133`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L133)
+- <a id="EventsQueueTest_UsedEmptyOpsMaterializedOnFirstUse_Test"></a>`EventsQueueTest_UsedEmptyOpsMaterializedOnFirstUse_Test` — [`L540`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L540)
+- <a id="EventsQueueTest_UsedEmptyOpsMaterializedOnFirstUse_Test.-EventsQueueTest_UsedEmptyOpsMaterializedOnFirstUse_Test"></a>`EventsQueueTest_UsedEmptyOpsMaterializedOnFirstUse_Test.-EventsQueueTest_UsedEmptyOpsMaterializedOnFirstUse_Test` — [`L540`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L540)
+- <a id="EventsQueueTest_UsedEmptyOpsMaterializedOnFirstUse_Test.EventsQueueTest_UsedEmptyOpsMaterializedOnFirstUse_Test"></a>`EventsQueueTest_UsedEmptyOpsMaterializedOnFirstUse_Test.EventsQueueTest_UsedEmptyOpsMaterializedOnFirstUse_Test` — [`L540`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L540)
+- <a id="EventsQueueTest_UsedEmptyOpsMaterializedOnFirstUse_Test.TestBody"></a>`EventsQueueTest_UsedEmptyOpsMaterializedOnFirstUse_Test.TestBody` — [`L540`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L540)
+- <a id="EventsQueueTest_UsedEmptyOpsMaterializedOnFirstUse_Test.operator"></a>`EventsQueueTest_UsedEmptyOpsMaterializedOnFirstUse_Test.operator` — [`L540`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L540)
+- <a id="EventsQueueTest_UsedEmptyOpsMaterializedOnFirstUse_Test.test_info_"></a>`EventsQueueTest_UsedEmptyOpsMaterializedOnFirstUse_Test.test_info_` — [`L540`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L540)
+- <a id="ToMilliseconds"></a>`ToMilliseconds` — [`L1097`](../../../../../../raw/code/torch_tpu/csrc/eager/events_queue_test.cc#L1097)

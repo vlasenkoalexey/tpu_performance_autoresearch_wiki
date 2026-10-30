@@ -1,0 +1,93 @@
+# wikify symbol index: torchtitan @ 2ad96c9390, shard torchtitan/protocols, 85 rows. Grep it by anchor; never read it whole.
+# columns: anchor	path	line	kind	rank	hash	callers	pages
+# one symbol:  grep -P '^torchtitan/protocols/module#Module\t' catalog/symbols/*.tsv
+# by name:     grep -P '[#.]Module\t' catalog/symbols/*.tsv | sort -t$'\t' -k5 -nr | head -20   (matches Class.Module too)
+# by area:     grep -P '^torchtitan/protocols/.*#Module\t' catalog/symbols/*.tsv | head -20
+# one module:  awk -F'\t' '$2=="torchtitan/protocols/module.py"' catalog/symbols/*.tsv | cut -f1,3,4 | head -40
+# to prose:    grep -P '^torchtitan/protocols/module#Module\t' catalog/symbols/*.tsv | cut -f1,8   (column 8: concept pages citing it)
+# callers:     column 7 is the count; the list lives in catalog/edges/*.tsv, see its header (count, narrow, head)
+torchtitan/protocols/__init__#__all__	torchtitan/protocols/__init__.py	14	value	0	939bc565afdcd76c	0	
+torchtitan/protocols/model#ModelConfigConverter	torchtitan/protocols/model.py	19	class	159	87f967d137ff4243	35	model-spec-protocols
+torchtitan/protocols/model#ModelConfigConverter.Config	torchtitan/protocols/model.py	28	class	62	1cfcd6bbb0ebb34c	26	
+torchtitan/protocols/model#ModelConfigConverter.convert	torchtitan/protocols/model.py	32	method	70	96335bf45b6ca33b	0	model-spec-protocols
+torchtitan/protocols/model#BaseModel	torchtitan/protocols/model.py	36	class	143	237423e4bf2380dd	35	model-spec-protocols
+torchtitan/protocols/model#BaseModel.init_weights	torchtitan/protocols/model.py	47	method	25	dbd4fb7e7cddc53c	4	
+torchtitan/protocols/model#BaseModel.preprocess_inputs	torchtitan/protocols/model.py	57	method	36	3ff5a4fa3d3131c6	6	
+torchtitan/protocols/model#BaseModel.verify_module_protocol	torchtitan/protocols/model.py	88	method	15	4ffb4cc267328156	0	model-spec-protocols
+torchtitan/protocols/model#BaseModel.Config	torchtitan/protocols/model.py	109	class	50	6a23a6ca8ed852d9	20	model-spec-protocols
+torchtitan/protocols/model#BaseModel.Config.update_from_config	torchtitan/protocols/model.py	118	method	22	e4e3c78cce1c4c45	11	
+torchtitan/protocols/model#BaseModel.Config.get_nparams_and_flops	torchtitan/protocols/model.py	127	method	25	fada9ec581fd610a	8	model-spec-protocols
+torchtitan/protocols/model_spec#ParallelizeFunction.ParallelizeFunction	torchtitan/protocols/model_spec.py	23	value	16	068eb5228658e13a	4	
+torchtitan/protocols/model_spec#PipeliningFunction.PipeliningFunction	torchtitan/protocols/model_spec.py	24	value	0	f155b7e65312c117	0	
+torchtitan/protocols/model_spec#FragmentFunction.FragmentFunction	torchtitan/protocols/model_spec.py	27	value	0	d92dcc44634836a8	0	
+torchtitan/protocols/model_spec#PostOptimizerBuildFn.PostOptimizerBuildFn	torchtitan/protocols/model_spec.py	28	value	0	3727d19a658d9904	0	
+torchtitan/protocols/model_spec#ModelSpec	torchtitan/protocols/model_spec.py	33	class	229	7a3d618d658ffe0c	47	model-spec-protocols
+torchtitan/protocols/model_spec#ModelSpec.name	torchtitan/protocols/model_spec.py	36	member	104	412c92a84107b857	43	model-spec-protocols
+torchtitan/protocols/model_spec#ModelSpec.flavor	torchtitan/protocols/model_spec.py	37	member	102	b3357c236102c64a	44	model-spec-protocols
+torchtitan/protocols/model_spec#ModelSpec.model	torchtitan/protocols/model_spec.py	38	member	430	8fbb91ede201644d	137	llama3-model
+torchtitan/protocols/model_spec#ModelSpec.max_context_length	torchtitan/protocols/model_spec.py	39	member	274	a96dd19cf6668bde	83	llama3-model
+torchtitan/protocols/model_spec#ModelSpec.parallelize_fn	torchtitan/protocols/model_spec.py	45	member	126	a0b94f6a7a11fb15	57	model-spec-protocols
+torchtitan/protocols/model_spec#ModelSpec.pipelining_fn	torchtitan/protocols/model_spec.py	46	member	70	788a35ee4637e4ed	34	model-spec-protocols
+torchtitan/protocols/model_spec#ModelSpec.post_optimizer_build_fn	torchtitan/protocols/model_spec.py	47	member	60	e06ffd1c7b877ade	28	model-spec-protocols
+torchtitan/protocols/model_spec#ModelSpec.state_dict_adapter	torchtitan/protocols/model_spec.py	48	member	75	730c34a350e3cb94	32	model-spec-protocols
+torchtitan/protocols/model_spec#ModelSpec.traverse	torchtitan/protocols/model_spec.py	50	method	20	7e234fd625e4cb12	0	
+torchtitan/protocols/module#Module	torchtitan/protocols/module.py	43	class	991	cf2432e98ceb9081	212	config-overrides
+torchtitan/protocols/module#Module._param_init	torchtitan/protocols/module.py	54	member	10	ad4d0a62b349ae82	2	
+torchtitan/protocols/module#Module._sharding_config	torchtitan/protocols/module.py	55	member	25	83b45da169f16d33	7	model-spec-protocols
+torchtitan/protocols/module#Module._pos_arg_list	torchtitan/protocols/module.py	56	member	8	3f4ca5e94232ffdf	1	
+torchtitan/protocols/module#Module._parallelized	torchtitan/protocols/module.py	57	member	4	9c2592f8c0896d1c	1	
+torchtitan/protocols/module#Module._remat_module_fqn	torchtitan/protocols/module.py	60	member	6	9e3633e4d356b84d	2	
+torchtitan/protocols/module#Module._remat_save_patterns	torchtitan/protocols/module.py	61	member	4	da632252d44f394c	2	
+torchtitan/protocols/module#Module.remat_region_name	torchtitan/protocols/module.py	63	method	21	791754baa783bd1d	4	
+torchtitan/protocols/module#Module.remat_should_recompute	torchtitan/protocols/module.py	69	method	22	b5008bb74918a9dc	2	
+torchtitan/protocols/module#Module.configure_remat_regions	torchtitan/protocols/module.py	76	method	17	59ff580d8fd8ca97	1	model-spec-protocols
+torchtitan/protocols/module#Module.Config	torchtitan/protocols/module.py	94	class	244	248637e435b453f5	105	model-spec-protocols
+torchtitan/protocols/module#Module.Config.param_init	torchtitan/protocols/module.py	95	member	652	eb38a17e9e9f9b33	125	model-spec-protocols
+torchtitan/protocols/module#Module.Config.sharding_config	torchtitan/protocols/module.py	96	member	267	77dbae44f8cf83cf	33	model-spec-protocols
+torchtitan/protocols/module#Module.Config.build	torchtitan/protocols/module.py	98	method	839	80929a246b591f53	385	config-overrides
+torchtitan/protocols/module#Module.init_states	torchtitan/protocols/module.py	109	method	50	176ee0bdda5ccadb	4	model-spec-protocols
+torchtitan/protocols/module#Module._apply	torchtitan/protocols/module.py	158	method	5	58ba9988210b98f7	0	
+torchtitan/protocols/module#Module._preserve_buffer_spmd_types	torchtitan/protocols/module.py	164	method	9	e632adc8a05a5b99	2	
+torchtitan/protocols/module#Module._init_self_parameters	torchtitan/protocols/module.py	191	method	12	e6a18ba285819eb2	1	
+torchtitan/protocols/module#Module._init_param	torchtitan/protocols/module.py	223	method	16	f0efc1067c61e374	2	
+torchtitan/protocols/module#Module._init_self_buffers	torchtitan/protocols/module.py	242	method	42	60d2a9220371a64e	1	model-spec-protocols
+torchtitan/protocols/module#Module._cache_pos_arg_names	torchtitan/protocols/module.py	253	method	16	8bcc73cb85f11198	3	
+torchtitan/protocols/module#Module.parallelize	torchtitan/protocols/module.py	279	method	100	3180e5300767a4c8	15	model-spec-protocols
+torchtitan/protocols/module#Module.forward_with_redistribution	torchtitan/protocols/module.py	320	method	12	a613dcb330de2505	1	
+torchtitan/protocols/module#Module.forward	torchtitan/protocols/module.py	325	member	9	25f258e2b03a0b1b	2	
+torchtitan/protocols/module#Module._spmd_distribute_state	torchtitan/protocols/module.py	327	method	29	bb3c4677d746dd91	1	
+torchtitan/protocols/module#Module._validate_even_model_parallel_param_sharding	torchtitan/protocols/module.py	362	method	37	06b111b3c97a62a3	1	
+torchtitan/protocols/module#Module._distribute_states	torchtitan/protocols/module.py	401	method	54	a3e6426e4db54f2f	2	model-spec-protocols
+torchtitan/protocols/module#Module._maybe_wrap_with_local_region	torchtitan/protocols/module.py	489	method	57	acbd60d71870cd5b	1	model-spec-protocols
+torchtitan/protocols/module#Module._apply_local_map	torchtitan/protocols/module.py	528	method	32	c0bd462c459f932b	1	
+torchtitan/protocols/module#Module._spmd_apply_local_map	torchtitan/protocols/module.py	574	method	2	11c222c11d73c138	1	
+torchtitan/protocols/module#Module._redistribute_inputs	torchtitan/protocols/module.py	594	method	57	c078405e649ceca1	1	model-spec-protocols
+torchtitan/protocols/module#Module._redistribute_outputs	torchtitan/protocols/module.py	695	method	52	11fb3d7b5691db12	1	model-spec-protocols
+torchtitan/protocols/module#ModuleList	torchtitan/protocols/module.py	768	class	59	e35c024ce57f91c4	11	model-spec-protocols
+torchtitan/protocols/module#ModuleDict	torchtitan/protocols/module.py	774	class	57	9bfb577d6367e0ec	11	model-spec-protocols
+torchtitan/protocols/module#Sequential	torchtitan/protocols/module.py	780	class	13	eaef2fddeee6f0f4	4	
+torchtitan/protocols/sharding#__all__	torchtitan/protocols/sharding.py	26	value	0	939bc565afdcd76c	0	
+torchtitan/protocols/sharding#LocalMapConfig	torchtitan/protocols/sharding.py	34	class	64	c46cb91cf89e7b18	18	model-spec-protocols
+torchtitan/protocols/sharding#LocalMapConfig.in_grad_placements	torchtitan/protocols/sharding.py	53	member	38	05555ecf721873f8	18	
+torchtitan/protocols/sharding#LocalMapConfig.to_dict	torchtitan/protocols/sharding.py	55	method	0	fa8a2b737eba9644	0	
+torchtitan/protocols/sharding#ShardingConfig	torchtitan/protocols/sharding.py	60	class	314	43baeab5099185bd	62	config-overrides
+torchtitan/protocols/sharding#ShardingConfig.state_shardings	torchtitan/protocols/sharding.py	108	member	160	b6d006b2ec0bcec4	54	model-spec-protocols
+torchtitan/protocols/sharding#ShardingConfig.in_src_shardings	torchtitan/protocols/sharding.py	109	member	134	63b419dd849a9244	46	model-spec-protocols
+torchtitan/protocols/sharding#ShardingConfig.in_dst_shardings	torchtitan/protocols/sharding.py	110	member	108	5a0bd86fa86be953	41	model-spec-protocols
+torchtitan/protocols/sharding#ShardingConfig.out_src_shardings	torchtitan/protocols/sharding.py	111	member	122	3582be0bfc30e82c	44	model-spec-protocols
+torchtitan/protocols/sharding#ShardingConfig.out_dst_shardings	torchtitan/protocols/sharding.py	112	member	76	60621fa8fe59c43e	32	model-spec-protocols
+torchtitan/protocols/sharding#ShardingConfig.local_map	torchtitan/protocols/sharding.py	113	member	41	380f4178c4a9a84e	17	model-spec-protocols
+torchtitan/protocols/sharding#ShardingConfig.to_dict	torchtitan/protocols/sharding.py	115	method	0	4a5602f93465bb7c	0	
+torchtitan/protocols/sharding#resolve_placements	torchtitan/protocols/sharding.py	120	function	50	ad51e76d4c83ff87	6	model-spec-protocols
+torchtitan/protocols/state_dict_adapter#BaseStateDictAdapter	torchtitan/protocols/state_dict_adapter.py	19	class	40	7fb7ab46facf4de9	8	
+torchtitan/protocols/state_dict_adapter#BaseStateDictAdapter.fqn_to_index_mapping	torchtitan/protocols/state_dict_adapter.py	29	member	48	382f3c0720f537d7	12	model-spec-protocols
+torchtitan/protocols/state_dict_adapter#BaseStateDictAdapter.hf_assets_path	torchtitan/protocols/state_dict_adapter.py	30	member	18	653b9c92efc3dace	7	
+torchtitan/protocols/state_dict_adapter#BaseStateDictAdapter.__init__	torchtitan/protocols/state_dict_adapter.py	33	method	10	7d3ff57e540066ed	0	
+torchtitan/protocols/state_dict_adapter#BaseStateDictAdapter.to_hf	torchtitan/protocols/state_dict_adapter.py	41	method	67	058c2a4dd285a9fe	6	model-spec-protocols
+torchtitan/protocols/state_dict_adapter#BaseStateDictAdapter.from_hf	torchtitan/protocols/state_dict_adapter.py	53	method	63	65ccec2ea7cb04e1	4	model-spec-protocols
+torchtitan/protocols/state_dict_adapter#BaseStateDictAdapter.get_hf_storage_reader	torchtitan/protocols/state_dict_adapter.py	65	method	18	10786a441e95e031	4	
+torchtitan/protocols/state_dict_adapter#StateDictAdapter	torchtitan/protocols/state_dict_adapter.py	80	class	70	94ca129c60425cfc	9	model-spec-protocols
+torchtitan/protocols/state_dict_adapter#StateDictAdapter.__init__	torchtitan/protocols/state_dict_adapter.py	83	method	24	21ef6e5fc02042a7	7	
+torchtitan/protocols/state_dict_adapter#StateDictAdapter.model_config	torchtitan/protocols/state_dict_adapter.py	88	member	19	40e94ec819b7ecbd	2	
+torchtitan/protocols/state_dict_adapter#StateDictAdapter._validate_hf_rope_config	torchtitan/protocols/state_dict_adapter.py	113	method	15	5967c1c301cb02c3	5	
+torchtitan/protocols/state_dict_adapter#StateDictAdapter.get_hf_storage_reader	torchtitan/protocols/state_dict_adapter.py	129	method	17	55187c9cecc0d08f	2	

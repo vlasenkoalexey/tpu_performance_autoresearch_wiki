@@ -1,0 +1,42 @@
+---
+title: 'Module: csrc/ops/view_decomposition/strided_layout.h'
+type: catalog
+provenance: extracted
+module: csrc/ops/view_decomposition/strided_layout.h
+status: fresh
+symbol_base: cxx . . $ torch_tpu/
+symbols:
+  StridedLayout: StridedLayout#
+  StridedLayout.strided_dims: StridedLayout#strided_dims.
+  StridedDimension.size: StridedDimension#size.
+  StridedDimension.stride: StridedDimension#stride.
+  StridedLayout.storage_offset: StridedLayout#storage_offset.
+  operator: '`operator!=`(23ee3ea7d19ab7a8).'
+  StridedDimension: StridedDimension#
+---
+# Module: [`csrc/ops/view_decomposition/strided_layout.h`](../../../../../../../raw/code/torch_tpu/csrc/ops/view_decomposition/strided_layout.h)
+
+## Classes
+### <a id="StridedDimension"></a>`StridedDimension`
+- def: [`csrc/ops/view_decomposition/strided_layout.h:49`](../../../../../../../raw/code/torch_tpu/csrc/ops/view_decomposition/strided_layout.h#L49)
+- doc: One axis of a tensor, including both the dimension size and the stride.
+- signature: `struct StridedDimension`
+- members:
+  - <a id="StridedDimension.size"></a>`size` — [`L51`](../../../../../../../raw/code/torch_tpu/csrc/ops/view_decomposition/strided_layout.h#L51) — avoid uninitialized values — documented in [view-decomposition](../../../../concepts/view-decomposition.md)
+  - <a id="StridedDimension.stride"></a>`stride` — [`L53`](../../../../../../../raw/code/torch_tpu/csrc/ops/view_decomposition/strided_layout.h#L53) — avoid uninitialized values — documented in [view-decomposition](../../../../concepts/view-decomposition.md)
+- uses (calls/refs, reference-scoped): [`operator==`](strided_layout.cc.md#operator)
+- used by: [`operator<<`](strided_layout.cc.md#operator), [`StridedLayout`](strided_layout.h.md#StridedLayout), [`MakeContiguousBaseLayout`](strided_layout.cc.md#MakeContiguousBaseLayout), [`UpdateLayout`](reshape_primitive.cc.md#UpdateLayout), [`DecomposeIntoViewSequence`](decomposition.cc.md#DecomposeIntoViewSequence), [`UpdateLayout`](slice_primitive.cc.md#UpdateLayout), [`UpdateLayout`](bitcast_primitive.cc.md#UpdateLayout), [`CheckViewPreconditions`](decomposition.cc.md#CheckViewPreconditions), [`operator==`](strided_layout.cc.md#operator), [`BuildBodyStepOverlapping`](decomposition.cc.md#BuildBodyStepOverlapping), [`CheckStridesAreDivisible`](bitcast_primitive.cc.md#CheckStridesAreDivisible), [`BuildBodyStepNonOverlapping`](decomposition.cc.md#BuildBodyStepNonOverlapping), [`BuildFinalDimension`](decomposition.cc.md#BuildFinalDimension), [`UpdateLayout`](bitcast_primitive.cc.md#UpdateLayout), [`UpdateLayout`](pad_primitive.cc.md#UpdateLayout), [`ReplaceStridedSlice`](inversion.cc.md#ReplaceStridedSlice), [`UpdateLayout`](bitcast_primitive.cc.md#UpdateLayout), [`operator==`](strided_layout.cc.md#operator), [`BuildHead`](decomposition.cc.md#BuildHead), [`InvertViewPrimitive`](inversion.cc.md#InvertViewPrimitive), [`InvertAndPartition`](inversion.cc.md#InvertAndPartition), [`UpdateLayout`](unfold_primitive.cc.md#UpdateLayout), [`UpdateLayout`](broadcast_primitive.cc.md#UpdateLayout), [`CreateTrailingDimension`](decomposition.cc.md#CreateTrailingDimension), [`UpdateLayout`](transpose_primitive.cc.md#UpdateLayout), [`RemoveExtraDim`](decomposition.cc.md#RemoveExtraDim), [`GetBitcastSequenceToWritable`](inversion.cc.md#GetBitcastSequenceToWritable), [`BuildTailNoBroadcast`](decomposition.cc.md#BuildTailNoBroadcast), [`BuildTail`](decomposition.cc.md#BuildTail), [`MaybeAddComplexToRealBitcast`](decomposition.cc.md#MaybeAddComplexToRealBitcast), [`TestBody`](bitcast_primitive_test.cc.md#UpdateLayoutComplexToReal_TensorImagPart_Test.TestBody), [`TestBody`](bitcast_primitive_test.cc.md#UpdateLayoutComplexToReal_TensorRealPart_Test.TestBody), [`BuildHeadFlatten`](decomposition.cc.md#BuildHeadFlatten), [`ShiftInitialViewWindow`](decomposition.cc.md#ShiftInitialViewWindow), [`CheckNumberOfElements`](reshape_primitive.cc.md#CheckNumberOfElements), [`MaybeAddViewAsComplex`](decomposition.cc.md#MaybeAddViewAsComplex), [`ShiftInitialViewWindow`](decomposition.cc.md#ShiftInitialViewWindow), [`BuildTailBroadcast`](decomposition.cc.md#BuildTailBroadcast), [`BuildBodyStep`](decomposition.cc.md#BuildBodyStep), [`FromTensor`](strided_layout.cc.md#StridedLayout.FromTensor)  (+5 more)
+
+### <a id="StridedLayout"></a>`StridedLayout`
+- def: [`csrc/ops/view_decomposition/strided_layout.h:65`](../../../../../../../raw/code/torch_tpu/csrc/ops/view_decomposition/strided_layout.h#L65) — documented in [view-decomposition](../../../../concepts/view-decomposition.md)
+- doc: A struct representing a strided layout of a tensor, with a size and stride
+- signature: `struct StridedLayout`
+- members:
+  - <a id="StridedLayout.storage_offset"></a>`storage_offset` — [`L72`](../../../../../../../raw/code/torch_tpu/csrc/ops/view_decomposition/strided_layout.h#L72) — The offset of the first element in the tensor in the 1D storage array.
+  - <a id="StridedLayout.strided_dims"></a>`strided_dims` — [`L70`](../../../../../../../raw/code/torch_tpu/csrc/ops/view_decomposition/strided_layout.h#L70) — The dimensions of the tensor in strided layout. — documented in [view-decomposition](../../../../concepts/view-decomposition.md)
+- uses (calls/refs, reference-scoped): [`operator==`](strided_layout.cc.md#operator), [`FromTensor`](strided_layout.cc.md#StridedLayout.FromTensor), [`StridedDimension`](strided_layout.h.md#StridedDimension)
+- used by: [`operator<<`](strided_layout.cc.md#operator), [`MakeContiguousBaseLayout`](strided_layout.cc.md#MakeContiguousBaseLayout), [`ComputeInverseViewOperation`](inversion.cc.md#ComputeInverseViewOperation), [`final_shape`](inversion.h.md#InverseViewOperation.final_shape), [`CreateViewDeviceBufferRef`](../../eager/device_buffer_utils.cc.md#CreateViewDeviceBufferRef), [`ContiguousToView`](contiguous_to_view.cc.md#ContiguousToView), [`UpdateLayout`](reshape_primitive.cc.md#UpdateLayout), [`CreateInverseViewDeviceBufferRef`](../../eager/device_buffer_utils.cc.md#CreateInverseViewDeviceBufferRef), [`DecomposeIntoViewSequence`](decomposition.cc.md#DecomposeIntoViewSequence), [`PrepareCompiledModeArgumentsImpl`](../../internal/compile/compiled_mode.cc.md#PrepareCompiledModeArgumentsImpl), [`InvertViewSequence`](inversion.cc.md#InvertViewSequence), [`slice_dims`](slice_primitive.h.md#SlicePrimitive.slice_dims), [`UpdateLayout`](slice_primitive.cc.md#UpdateLayout), [`UpdateLayout`](bitcast_primitive.cc.md#UpdateLayout), [`CheckViewPreconditions`](decomposition.cc.md#CheckViewPreconditions), [`DecompositionTest`](decomposition_test.cc.md#DecompositionTest), [`ViewPrimitive`](view_sequence.h.md#ViewPrimitive), [`ReplaceStridedSlices`](inversion.cc.md#ReplaceStridedSlices), [`operator==`](strided_layout.cc.md#operator), [`BuildBodyStepOverlapping`](decomposition.cc.md#BuildBodyStepOverlapping), [`CheckStridesAreDivisible`](bitcast_primitive.cc.md#CheckStridesAreDivisible), [`BuildBodyStepNonOverlapping`](decomposition.cc.md#BuildBodyStepNonOverlapping), [`BuildFinalDimension`](decomposition.cc.md#BuildFinalDimension), [`UpdateLayout`](bitcast_primitive.cc.md#UpdateLayout), [`UpdateLayout`](view_sequence.cc.md#UpdateLayout), [`UpdateLayout`](pad_primitive.cc.md#UpdateLayout), [`ReplaceStridedSlice`](inversion.cc.md#ReplaceStridedSlice), [`UpdateLayout`](bitcast_primitive.cc.md#UpdateLayout), [`operator==`](strided_layout.cc.md#operator), [`BuildHead`](decomposition.cc.md#BuildHead), [`InvertViewPrimitive`](inversion.cc.md#InvertViewPrimitive), [`GetUpdateLayoutBugSuffix`](view_primitive_error_utils.h.md#GetUpdateLayoutBugSuffix), [`InvertAndPartition`](inversion.cc.md#InvertAndPartition), [`TestBody`](inversion_test.cc.md#ComputeInverseViewOperation_ImaginaryPartPreserveBase_Test.TestBody), [`TestBody`](inversion_test.cc.md#ComputeInverseViewOperation_RealPartPreserveBase_Test.TestBody), [`new_sizes`](reshape_primitive.h.md#ReshapePrimitive.new_sizes), [`TestBody`](inversion_test.cc.md#ComputeInverseViewOperation_ComplexF32ToComplexF64PreserveBase_Test.TestBody), [`TestBody`](inversion_test.cc.md#ComputeInverseViewOperation_ComplexF32ToComplexF64_Test.TestBody), [`TestBody`](inversion_test.cc.md#ComputeInverseViewOperation_ComplexF64ToComplexF32PreserveBase_Test.TestBody), [`TestBody`](inversion_test.cc.md#ComputeInverseViewOperation_ComplexF64ToComplexF32_Test.TestBody)  (+206 more)
+
+## Functions
+- <a id="operator"></a>`operator!=(const StridedLayout& lhs, const StridedLayout& rhs)` — [`L80`](../../../../../../../raw/code/torch_tpu/csrc/ops/view_decomposition/strided_layout.h#L80)
+

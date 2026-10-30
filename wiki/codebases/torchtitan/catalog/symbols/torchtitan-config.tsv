@@ -1,0 +1,155 @@
+# wikify symbol index: torchtitan @ 2ad96c9390, shard torchtitan/config, 147 rows. Grep it by anchor; never read it whole.
+# columns: anchor	path	line	kind	rank	hash	callers	pages
+# one symbol:  grep -P '^torchtitan/config/configurable#Configurable\t' catalog/symbols/*.tsv
+# by name:     grep -P '[#.]Configurable\t' catalog/symbols/*.tsv | sort -t$'\t' -k5 -nr | head -20   (matches Class.Configurable too)
+# by area:     grep -P '^torchtitan/config/.*#Configurable\t' catalog/symbols/*.tsv | head -20
+# one module:  awk -F'\t' '$2=="torchtitan/config/configurable.py"' catalog/symbols/*.tsv | cut -f1,3,4 | head -40
+# to prose:    grep -P '^torchtitan/config/configurable#Configurable\t' catalog/symbols/*.tsv | cut -f1,8   (column 8: concept pages citing it)
+# callers:     column 7 is the count; the list lives in catalog/edges/*.tsv, see its header (count, narrow, head)
+torchtitan/config/__init__#TORCH_DTYPE_MAP	torchtitan/config/__init__.py	9	value	269	359505e2165266f5	38	job-config
+torchtitan/config/__init__#__all__	torchtitan/config/__init__.py	34	value	0	939bc565afdcd76c	0	
+torchtitan/config/configs#TrainingConfig	torchtitan/config/configs.py	36	class	474	9fa3d52245a77335	167	flux-diffusion-model
+torchtitan/config/configs#TrainingConfig.num_tokens_per_microbatch_per_dp_rank	torchtitan/config/configs.py	37	member	370	c5b4296bfda01c92	175	job-config
+torchtitan/config/configs#TrainingConfig.num_tokens_per_train_step	torchtitan/config/configs.py	43	member	46	e701c19fb104bb20	21	
+torchtitan/config/configs#TrainingConfig.max_context_length	torchtitan/config/configs.py	51	member	378	6e5f08081da1526f	173	flux-diffusion-model
+torchtitan/config/configs#TrainingConfig.__post_init__	torchtitan/config/configs.py	54	method	20	12204ca14c203e5a	0	job-config
+torchtitan/config/configs#TrainingConfig.max_norm	torchtitan/config/configs.py	66	member	26	80ca332cacf6cbd0	13	
+torchtitan/config/configs#TrainingConfig.steps	torchtitan/config/configs.py	69	member	278	12a17d9d13cc41e6	135	job-config
+torchtitan/config/configs#TrainingConfig.enable_cpu_offload	torchtitan/config/configs.py	72	member	70	ed15e3e41e773d52	24	job-config
+torchtitan/config/configs#TrainingConfig.disable_cuda_graphs	torchtitan/config/configs.py	77	member	150	7674f2442cd73f05	74	job-config
+torchtitan/config/configs#TrainingConfig.dtype	torchtitan/config/configs.py	89	member	40	5c3daf2877643051	19	
+torchtitan/config/configs#TrainingConfig.mixed_precision_param	torchtitan/config/configs.py	96	member	86	2cb0828b5e60cb59	35	job-config
+torchtitan/config/configs#TrainingConfig.mixed_precision_reduce	torchtitan/config/configs.py	104	member	102	17c11511cc01cb14	43	job-config
+torchtitan/config/configs#TrainingConfig.gc_freq	torchtitan/config/configs.py	110	member	4	8ec420ef4f640d23	2	
+torchtitan/config/configs#TrainingConfig.gc_debug	torchtitan/config/configs.py	113	member	4	3fc7f30e4811dd47	2	
+torchtitan/config/configs#ParallelismConfig	torchtitan/config/configs.py	123	class	540	567f74c48e277add	185	job-config
+torchtitan/config/configs#ParallelismConfig.use_simple_fsdp	torchtitan/config/configs.py	124	member	60	52928fe8d53670b8	26	job-config
+torchtitan/config/configs#ParallelismConfig.enable_tpu_topo_mesh	torchtitan/config/configs.py	127	member	22	5fbbfb109a301ed7	11	
+torchtitan/config/configs#ParallelismConfig.enable_min_cost_redistribute	torchtitan/config/configs.py	132	member	2	4cd0b734c921b984	1	
+torchtitan/config/configs#ParallelismConfig.data_parallel_replicate_degree	torchtitan/config/configs.py	149	member	62	2d3fd4a05ec53ae3	31	job-config
+torchtitan/config/configs#ParallelismConfig.data_parallel_shard_degree	torchtitan/config/configs.py	160	member	224	57ab335077e61682	112	job-config
+torchtitan/config/configs#ParallelismConfig.fsdp_reshard_after_forward	torchtitan/config/configs.py	172	member	80	5df2bb18a0a08d3b	35	job-config
+torchtitan/config/configs#ParallelismConfig.enable_fsdp_symm_mem	torchtitan/config/configs.py	187	member	34	15baaef320f92da4	17	
+torchtitan/config/configs#ParallelismConfig.tensor_parallel_degree	torchtitan/config/configs.py	193	member	212	0cca38b35221c35f	103	job-config
+torchtitan/config/configs#ParallelismConfig.enable_sequence_parallel	torchtitan/config/configs.py	196	member	34	934149054c4facce	15	
+torchtitan/config/configs#ParallelismConfig.spmd_backend	torchtitan/config/configs.py	199	member	166	43c2fdc79fb26874	65	job-config
+torchtitan/config/configs#ParallelismConfig.pipeline_parallel_degree	torchtitan/config/configs.py	207	member	112	5b6980c251996448	54	job-config
+torchtitan/config/configs#ParallelismConfig.module_fqns_per_model_part	torchtitan/config/configs.py	214	member	8	c4cf0410c661d108	4	
+torchtitan/config/configs#ParallelismConfig.pipeline_parallel_first_stage_less_layers	torchtitan/config/configs.py	224	member	4	3b648b374f04c0b8	2	
+torchtitan/config/configs#ParallelismConfig.pipeline_parallel_last_stage_less_layers	torchtitan/config/configs.py	230	member	4	59579bd1dc15d1e5	2	
+torchtitan/config/configs#ParallelismConfig.pipeline_parallel_layers_per_stage	torchtitan/config/configs.py	236	member	8	50a7ee6251e94a43	4	
+torchtitan/config/configs#ParallelismConfig.pipeline_parallel_schedule	torchtitan/config/configs.py	243	member	98	55a79a99bc8f2d9a	44	job-config
+torchtitan/config/configs#ParallelismConfig.pipeline_parallel_schedule_csv	torchtitan/config/configs.py	252	member	6	50f14ccdea89db59	3	
+torchtitan/config/configs#ParallelismConfig.num_pp_microbatches	torchtitan/config/configs.py	259	member	60	b49465abb22b1838	30	job-config
+torchtitan/config/configs#ParallelismConfig.context_parallel_degree	torchtitan/config/configs.py	266	member	118	564cc4b176005336	54	job-config
+torchtitan/config/configs#ParallelismConfig.context_parallel_load_balancer	torchtitan/config/configs.py	269	member	42	9ad4dcb3d1364c7d	17	
+torchtitan/config/configs#ParallelismConfig.context_parallel_ptrr_mask_key	torchtitan/config/configs.py	277	member	12	3d75930373567c29	6	
+torchtitan/config/configs#ParallelismConfig.__post_init__	torchtitan/config/configs.py	286	method	20	575631a9bf960c95	0	job-config
+torchtitan/config/configs#ParallelismConfig.expert_parallel_degree	torchtitan/config/configs.py	326	member	172	1deb4428bde4717d	83	job-config
+torchtitan/config/configs#CompileConfig	torchtitan/config/configs.py	338	class	296	97c37be6c5482eb4	95	job-config
+torchtitan/config/configs#CompileConfig.enable	torchtitan/config/configs.py	339	member	318	c219c265a2dc719f	142	job-config
+torchtitan/config/configs#CompileConfig.enable_async_tensor_parallel	torchtitan/config/configs.py	342	member	14	f003ae77ee2af25a	7	
+torchtitan/config/configs#CompileConfig.components	torchtitan/config/configs.py	345	member	136	e8dedc58759870e8	64	job-config
+torchtitan/config/configs#CompileConfig.backend	torchtitan/config/configs.py	348	member	74	5053f440c20e766b	33	job-config
+torchtitan/config/configs#CompileConfig.__post_init__	torchtitan/config/configs.py	350	method	15	5557fa10736c517d	0	
+torchtitan/config/configs#CommConfig	torchtitan/config/configs.py	368	class	34	ef5b424792548f81	8	
+torchtitan/config/configs#CommConfig.init_timeout_seconds	torchtitan/config/configs.py	369	member	2	fac2de08eaae23ef	1	
+torchtitan/config/configs#CommConfig.train_timeout_seconds	torchtitan/config/configs.py	372	member	8	beba52a94788ccf8	4	
+torchtitan/config/configs#CommConfig.trace_buf_size	torchtitan/config/configs.py	378	member	6	798ed3e4b0a47bdf	2	
+torchtitan/config/configs#CommConfig.save_traces_folder	torchtitan/config/configs.py	381	member	2	41c0da11fce28701	1	
+torchtitan/config/configs#CommConfig.save_traces_file_prefix	torchtitan/config/configs.py	384	member	2	1a917885802024d0	1	
+torchtitan/config/configs#CommConfig.mode	torchtitan/config/configs.py	387	member	4	c1f96ddf9fe648a2	1	
+torchtitan/config/configs#DebugConfig	torchtitan/config/configs.py	398	class	56	854f7596cf4f4d6e	16	job-config
+torchtitan/config/configs#DebugConfig.seed	torchtitan/config/configs.py	399	member	40	fd1bbe2be2b85aa1	15	
+torchtitan/config/configs#DebugConfig.spmd_typechecking	torchtitan/config/configs.py	402	member	10	d1251b18df25babd	4	
+torchtitan/config/configs#DebugConfig.deterministic	torchtitan/config/configs.py	405	member	28	1355d9ed963e5bb4	14	
+torchtitan/config/configs#DebugConfig.deterministic_warn_only	torchtitan/config/configs.py	408	member	6	bdad9aaaaf4fcf01	3	
+torchtitan/config/configs#DebugConfig.moe_force_load_balance	torchtitan/config/configs.py	411	member	2	592feb620ddebf0f	1	
+torchtitan/config/configs#DebugConfig.detect_anomaly	torchtitan/config/configs.py	414	member	2	fb22a29eec5c1c1c	1	
+torchtitan/config/configs#DebugConfig.batch_invariant	torchtitan/config/configs.py	418	member	24	c694dbe02378f53f	11	
+torchtitan/config/configs#DebugConfig.print_config	torchtitan/config/configs.py	422	member	10	e6fda6decb79beaf	5	
+torchtitan/config/configs#DebugConfig.save_config_file	torchtitan/config/configs.py	425	member	4	4a59ea7ecfdf639e	1	
+torchtitan/config/configs#DebugConfig.enable_structured_logging	torchtitan/config/configs.py	428	member	8	6e22a930b80d0458	4	
+torchtitan/config/configurable#logger	torchtitan/config/configurable.py	15	value	2	1d3e0a15b4833a53	1	
+torchtitan/config/configurable#Configurable	torchtitan/config/configurable.py	18	class	572	271ff77dcf2c3cc0	120	job-config
+torchtitan/config/configurable#Configurable.Config	torchtitan/config/configurable.py	41	class	152	0e6726f0f8c46c80	74	job-config
+torchtitan/config/configurable#Configurable.Config._owner	torchtitan/config/configurable.py	44	member	30	47a806d7e1d6c766	11	job-config
+torchtitan/config/configurable#Configurable.Config.to_dict	torchtitan/config/configurable.py	46	method	13	8d4683507960f4c2	4	
+torchtitan/config/configurable#Configurable.Config._convert	torchtitan/config/configurable.py	49	method	18	db655c7ebdd3c534	2	
+torchtitan/config/configurable#Configurable.Config.traverse	torchtitan/config/configurable.py	75	method	89	06e652180e4fa932	31	job-config
+torchtitan/config/configurable#Configurable.Config._traverse_child	torchtitan/config/configurable.py	104	method	8	057fc8cf09eae947	1	
+torchtitan/config/configurable#Configurable.Config.build	torchtitan/config/configurable.py	134	method	400	0c6053e4d34c677a	165	config-overrides
+torchtitan/config/configurable#Configurable.__init_subclass__	torchtitan/config/configurable.py	162	method	15	c1de956e64369e5f	0	
+torchtitan/config/function#R	torchtitan/config/function.py	13	value	6	af1362dc2f5fa7d0	3	
+torchtitan/config/function#Function	torchtitan/config/function.py	16	class	16	0aed4511db7a9ddf	3	
+torchtitan/config/function#Function.Config	torchtitan/config/function.py	33	class	14	0983539eb17552ad	2	
+torchtitan/config/function#Function.Config.fn	torchtitan/config/function.py	34	member	7	5540963c58794c60	1	
+torchtitan/config/function#Function.__init__	torchtitan/config/function.py	36	method	10	604267346d1b043e	0	
+torchtitan/config/function#Function.fn	torchtitan/config/function.py	37	member	2	9a33cd555b589946	1	
+torchtitan/config/function#Function.__call__	torchtitan/config/function.py	39	method	10	68f404bc1888c1f8	0	
+torchtitan/config/manager#_reconstruct_config	torchtitan/config/manager.py	19	function	12	73f2ed17edfe80bb	1	
+torchtitan/config/manager#ConfigManager	torchtitan/config/manager.py	29	class	92	965b0e7e3040c731	33	job-config
+torchtitan/config/manager#ConfigManager.__init__	torchtitan/config/manager.py	41	method	10	cc70fb47e53ce0ec	0	
+torchtitan/config/manager#ConfigManager.parse_args	torchtitan/config/manager.py	44	method	67	efc5b7134fafdb5e	30	job-config
+torchtitan/config/manager#ConfigManager.config	torchtitan/config/manager.py	50	member	25	dc11af6ba5cc3cb0	2	
+torchtitan/config/manager#ConfigManager._load_config	torchtitan/config/manager.py	58	method	12	0982aa19945e3a13	1	
+torchtitan/config/manager#ConfigManager._merge_configs	torchtitan/config/manager.py	172	method	19	c45905236e643bb0	2	
+torchtitan/config/manager#ConfigManager.__reduce__	torchtitan/config/manager.py	217	method	7	f18246b90bceab33	1	
+torchtitan/config/manager#ConfigManager._validate_config	torchtitan/config/manager.py	223	method	12	eb60c47b32c038d2	1	
+torchtitan/config/manager#ConfigManager.register_tyro_rules	torchtitan/config/manager.py	255	method	2	e66a62c90752735d	1	
+torchtitan/config/manager#ConfigManager.list_str_rule	torchtitan/config/manager.py	257	method	0	1b2631a146401888	0	
+torchtitan/config/manager#ConfigManager.override_imports_rule	torchtitan/config/manager.py	270	method	15	a3a4ca27680f034e	0	
+torchtitan/config/manager#custom_registry	torchtitan/config/manager.py	308	value	12	e104a17ea8abd335	4	
+torchtitan/config/manager#config_manager	torchtitan/config/manager.py	329	value	11	e24f280dcef396a4	1	
+torchtitan/config/manager#config	torchtitan/config/manager.py	330	value	31	c90960cbda6b8900	1	
+torchtitan/config/override#_ConfigT	torchtitan/config/override.py	49	value	6	b278755cb3a4fefd	1	
+torchtitan/config/override#OverrideImport	torchtitan/config/override.py	57	value	12	534f5b98b3fb5c7f	4	
+torchtitan/config/override#OverrideConfig	torchtitan/config/override.py	61	class	59	0645c5aa5c880352	13	job-config
+torchtitan/config/override#OverrideConfig.imports	torchtitan/config/override.py	62	member	102	9b1270bdddfdeae2	40	job-config
+torchtitan/config/override#parse_cli_imports	torchtitan/config/override.py	94	function	9	cb0b70fd9779746e	1	
+torchtitan/config/override#format_cli_imports	torchtitan/config/override.py	128	function	9	31dd8b975ef510ed	1	
+torchtitan/config/override#Override	torchtitan/config/override.py	137	class	14	27393f5b28fca09b	6	
+torchtitan/config/override#Override.target_cls	torchtitan/config/override.py	148	member	16	a74f37ff40d069b8	2	
+torchtitan/config/override#Override.factory	torchtitan/config/override.py	149	member	16	2a8c5f7426fcbe50	3	
+torchtitan/config/override#Override.fqns	torchtitan/config/override.py	150	member	6	2d02fe8f4ef4b155	2	
+torchtitan/config/override#Override.description	torchtitan/config/override.py	151	member	2	5b60f860fb338068	1	
+torchtitan/config/override#Override.origin_module	torchtitan/config/override.py	152	member	4	ab23d01b298e5e24	2	
+torchtitan/config/override#Override.exact	torchtitan/config/override.py	153	member	4	d74531a0d1e03fea	2	
+torchtitan/config/override#Override.name	torchtitan/config/override.py	156	method	28	9d54d00d50d7bf77	2	
+torchtitan/config/override#Override.matches	torchtitan/config/override.py	160	method	7	a11770391d7421e2	1	
+torchtitan/config/override#_REGISTRY._REGISTRY	torchtitan/config/override.py	172	value	13	20018090a6a0c57f	3	
+torchtitan/config/override#override	torchtitan/config/override.py	175	function	61	bc663750ae900969	14	job-config
+torchtitan/config/override#override.decorator	torchtitan/config/override.py	227	function	42	ee80af2b51a179bc	1	
+torchtitan/config/override#derive	torchtitan/config/override.py	249	function	95	e86c3a0926f59e4b	22	job-config
+torchtitan/config/override#_resolve_target	torchtitan/config/override.py	313	function	2	8d9ad397ff1f8c24	1	
+torchtitan/config/override#_resolve_active	torchtitan/config/override.py	339	function	12	665c85c97e326478	1	
+torchtitan/config/override#_Claim	torchtitan/config/override.py	371	class	8	22b0b386cefd2632	2	
+torchtitan/config/override#_Claim.ov	torchtitan/config/override.py	378	member	27	2b9e3e67623cab7a	3	
+torchtitan/config/override#_Claim.fqn	torchtitan/config/override.py	379	member	16	238818c6a6f7c288	3	
+torchtitan/config/override#_Claim.cfg	torchtitan/config/override.py	380	member	16	3c25a1c3dda396e7	2	
+torchtitan/config/override#_Claim.parent	torchtitan/config/override.py	381	member	10	f6542f3c3b5f2169	3	
+torchtitan/config/override#_Claim.attr	torchtitan/config/override.py	382	member	12	86d06e87d6696501	3	
+torchtitan/config/override#_Claim.kwargs	torchtitan/config/override.py	383	member	8	330143de77f03362	2	
+torchtitan/config/override#_collect_claims	torchtitan/config/override.py	386	function	72	79d623d49b6e5003	1	job-config
+torchtitan/config/override#_check_node_conflicts	torchtitan/config/override.py	414	function	32	3c0ebb2d526ac69a	1	
+torchtitan/config/override#apply_overrides	torchtitan/config/override.py	448	function	131	f7522b0ff48d9e45	15	job-config
+torchtitan/config/override#clear_overrides	torchtitan/config/override.py	518	function	7	5b6a8e367958b915	1	
+torchtitan/config/transform/__init__#__all__	torchtitan/config/transform/__init__.py	13	value	0	939bc565afdcd76c	0	
+torchtitan/config/transform/apply#__all__	torchtitan/config/transform/apply.py	20	value	0	101f3fcd73b4c23a	0	
+torchtitan/config/transform/apply#_ordered	torchtitan/config/transform/apply.py	23	function	12	8746bc8e0a3f6680	1	
+torchtitan/config/transform/apply#_reject_conflicts	torchtitan/config/transform/apply.py	49	function	12	24cbc7592021ffd9	1	
+torchtitan/config/transform/apply#transform_model_config_	torchtitan/config/transform/apply.py	61	function	34	5ba2996407a35c85	1	
+torchtitan/config/transform/apply#apply_transforms	torchtitan/config/transform/apply.py	76	function	87	c6eae2ac6adb01e0	20	job-config
+torchtitan/config/transform/base#__all__	torchtitan/config/transform/base.py	15	value	0	2d087ee5ec0abd43	0	
+torchtitan/config/transform/base#ModelConfigTransform	torchtitan/config/transform/base.py	18	class	29	75deeea3dedf9988	7	
+torchtitan/config/transform/base#ModelConfigTransform.run_after	torchtitan/config/transform/base.py	25	member	7	d37dfd696e50c213	1	
+torchtitan/config/transform/base#ModelConfigTransform.conflicts_with	torchtitan/config/transform/base.py	26	member	7	fb9150f415c44868	1	
+torchtitan/config/transform/base#ModelConfigTransform.transform	torchtitan/config/transform/base.py	29	method	17	39ee6afe1ba041a3	1	
+torchtitan/config/transform/base#convert_config_type	torchtitan/config/transform/base.py	37	function	16	8f8a3986e3ebd606	1	
+torchtitan/config/transform/context_parallel#__all__	torchtitan/config/transform/context_parallel.py	18	value	0	337c32a37adb908e	0	
+torchtitan/config/transform/context_parallel#ContextParallelTransform	torchtitan/config/transform/context_parallel.py	22	class	57	52cef4bd4fa78b46	21	job-config
+torchtitan/config/transform/context_parallel#ContextParallelTransform.inner_attention	torchtitan/config/transform/context_parallel.py	32	member	53	7fba2da08785b450	22	job-config
+torchtitan/config/transform/context_parallel#ContextParallelTransform.__post_init__	torchtitan/config/transform/context_parallel.py	35	method	10	a613ebf953206777	0	
+torchtitan/config/transform/context_parallel#ContextParallelTransform.transform	torchtitan/config/transform/context_parallel.py	41	method	40	4e52684ed531e43a	1	
+torchtitan/config/validation#__all__	torchtitan/config/validation.py	17	value	0	c37c1b099048c67f	0	
+torchtitan/config/validation#validate_context_parallel	torchtitan/config/validation.py	20	function	79	3f51c58a680ea31c	1	job-config

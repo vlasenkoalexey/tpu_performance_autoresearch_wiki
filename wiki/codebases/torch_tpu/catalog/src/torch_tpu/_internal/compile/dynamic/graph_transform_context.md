@@ -1,0 +1,41 @@
+---
+title: 'Module: src/torch_tpu/_internal/compile/dynamic/graph_transform_context.py'
+type: catalog
+provenance: extracted
+module: src/torch_tpu/_internal/compile/dynamic/graph_transform_context.py
+status: fresh
+symbol_base: scip-python python torch_tpu 0.0.0 `src.torch_tpu._internal.compile.dynamic.graph_transform_context`/GraphTransformContext#
+symbols:
+  GraphTransformContext.ensure_tensor: ensure_tensor().
+  GraphTransformContext.get_upper_bound: get_upper_bound().
+  GraphTransformContext._get_or_create_tensor_node: _get_or_create_tensor_node().
+  GraphTransformContext: ''
+  GraphTransformContext._symbol_bounds: _symbol_bounds.
+  GraphTransformContext.register_symint_placeholder: register_symint_placeholder().
+  GraphTransformContext.get_symint_bounds: get_symint_bounds().
+  GraphTransformContext._symint_node_to_tensor_node: _symint_node_to_tensor_node.
+  GraphTransformContext._symint_to_placeholder: _symint_to_placeholder.
+  GraphTransformContext._sym_str_to_tensor_node: _sym_str_to_tensor_node.
+  GraphTransformContext.__init__: __init__().
+  GraphTransformContext.example_inputs: example_inputs().
+  GraphTransformContext._graph_module: _graph_module.
+  GraphTransformContext._example_inputs: _example_inputs.
+---
+# Module: [`src/torch_tpu/_internal/compile/dynamic/graph_transform_context.py`](../../../../../../../../../raw/code/torch_tpu/src/torch_tpu/_internal/compile/dynamic/graph_transform_context.py)
+
+## Classes
+### <a id="GraphTransformContext"></a>`GraphTransformContext`
+- def: [`src/torch_tpu/_internal/compile/dynamic/graph_transform_context.py:27`](../../../../../../../../../raw/code/torch_tpu/src/torch_tpu/_internal/compile/dynamic/graph_transform_context.py#L27) — documented in [dynamic-shapes-compiler](../../../../../../concepts/dynamic-shapes-compiler.md)
+- doc: Context shared across FX graph transformation passes for dynamic shapes.
+- signature: `class GraphTransformContext:`
+- members:
+  - <a id="GraphTransformContext._get_or_create_tensor_node"></a>`_get_or_create_tensor_node(self, scalar_node: torch.fx.Node | torch.SymInt, consumer_node: torch.fx.Node)` — [`L87`](../../../../../../../../../raw/code/torch_tpu/src/torch_tpu/_internal/compile/dynamic/graph_transform_context.py#L87) — Gets or creates a tensor node for a symbolic argument. — documented in [dynamic-shapes-compiler](../../../../../../concepts/dynamic-shapes-compiler.md)
+  - <a id="GraphTransformContext.ensure_tensor"></a>`ensure_tensor(self, graph_module: torch.fx.GraphModule, val: Any, consumer_node: torch.fx.Node, dtype: torch.dtype | None = None)` — [`L146`](../../../../../../../../../raw/code/torch_tpu/src/torch_tpu/_internal/compile/dynamic/graph_transform_context.py#L146) — Ensures the value is a tensor node, promoting scalars if needed. — documented in [dynamic-shapes-compiler](../../../../../../concepts/dynamic-shapes-compiler.md)
+  - <a id="GraphTransformContext.example_inputs"></a>`example_inputs(self)` — [`L75`](../../../../../../../../../raw/code/torch_tpu/src/torch_tpu/_internal/compile/dynamic/graph_transform_context.py#L75) — The example inputs used to create the GraphTransformContext.
+  - <a id="GraphTransformContext.get_symint_bounds"></a>`get_symint_bounds(self, sym_int: torch.SymInt)` — [`L79`](../../../../../../../../../raw/code/torch_tpu/src/torch_tpu/_internal/compile/dynamic/graph_transform_context.py#L79) — Gets lower and upper bounds for a given SymInt or symbolic expression.
+  - <a id="GraphTransformContext.get_upper_bound"></a>`get_upper_bound(self, val: Any)` — [`L83`](../../../../../../../../../raw/code/torch_tpu/src/torch_tpu/_internal/compile/dynamic/graph_transform_context.py#L83) — Gets the upper bound for an int, SymInt, or SymInt FX node. — documented in [dynamic-shapes-compiler](../../../../../../concepts/dynamic-shapes-compiler.md)
+  - <a id="GraphTransformContext.register_symint_placeholder"></a>`register_symint_placeholder(self, sym_str: str, node: torch.fx.Node, size_ph: torch.fx.Node)` — [`L67`](../../../../../../../../../raw/code/torch_tpu/src/torch_tpu/_internal/compile/dynamic/graph_transform_context.py#L67) — Registers the runtime size placeholder tensor node for a SymInt node.
+- protocol/private: <a id="GraphTransformContext.__init__"></a>`__init__`[`L54`](../../../../../../../../../raw/code/torch_tpu/src/torch_tpu/_internal/compile/dynamic/graph_transform_context.py#L54), <a id="GraphTransformContext._example_inputs"></a>`_example_inputs`[`L61`](../../../../../../../../../raw/code/torch_tpu/src/torch_tpu/_internal/compile/dynamic/graph_transform_context.py#L61), <a id="GraphTransformContext._graph_module"></a>`_graph_module`[`L60`](../../../../../../../../../raw/code/torch_tpu/src/torch_tpu/_internal/compile/dynamic/graph_transform_context.py#L60), <a id="GraphTransformContext._sym_str_to_tensor_node"></a>`_sym_str_to_tensor_node`[`L52`](../../../../../../../../../raw/code/torch_tpu/src/torch_tpu/_internal/compile/dynamic/graph_transform_context.py#L52), <a id="GraphTransformContext._symbol_bounds"></a>`_symbol_bounds`[`L62`](../../../../../../../../../raw/code/torch_tpu/src/torch_tpu/_internal/compile/dynamic/graph_transform_context.py#L62), <a id="GraphTransformContext._symint_node_to_tensor_node"></a>`_symint_node_to_tensor_node`[`L49`](../../../../../../../../../raw/code/torch_tpu/src/torch_tpu/_internal/compile/dynamic/graph_transform_context.py#L49), <a id="GraphTransformContext._symint_to_placeholder"></a>`_symint_to_placeholder`[`L46`](../../../../../../../../../raw/code/torch_tpu/src/torch_tpu/_internal/compile/dynamic/graph_transform_context.py#L46)
+- uses (calls/refs, reference-scoped): [`SymbolBounds`](symbol_bounds.md#SymbolBounds), [`is_symint_node`](sym_utils.md#is_symint_node), [`get_upper_bound`](symbol_bounds.md#SymbolBounds.get_upper_bound), [`get_symint_bounds`](symbol_bounds.md#SymbolBounds.get_symint_bounds), [`symexpr_to_aten`](sym_utils.md#symexpr_to_aten), [`get_target_device`](sym_utils.md#get_target_device), [`is_scalar`](sym_utils.md#is_scalar)
+- used by: [`_process_slice_op`](view_ops_passes.md#HandleSliceLikeOpsPass._process_slice_op), [`apply_dynamism_transformations`](graph_transformations.md#apply_dynamism_transformations), [`_process_select_op`](view_ops_passes.md#HandleSliceLikeOpsPass._process_select_op), [`_process_bounded_size_op`](generative_ops_pass.md#HandleGenerativeOpsPass._process_bounded_size_op), [`_process_slice_backward_op`](view_ops_passes.md#HandleSliceLikeOpsPass._process_slice_backward_op), [`__call__`](graph_transformations.md#HandleSymIntUsagesPass.__call__), [`_prepare_slice_operand`](view_ops_passes.md#HandleSliceLikeOpsPass._prepare_slice_operand), [`_process_like_op`](generative_ops_pass.md#HandleGenerativeOpsPass._process_like_op), [`_extract_shape_tensors_and_bounds`](view_ops_passes.md#_extract_shape_tensors_and_bounds), [`__call__`](graph_transformations.md#HandleDynamicInputTensorPass.__call__), [`__call__`](graph_transformations.md#ScanInputsCreatePlaceholdersPass.__call__), [`_build_constant_tensor`](view_ops_passes.md#HandleSliceLikeOpsPass._build_constant_tensor), [`_dynamic_output_dim_sizes`](view_ops_passes.md#HandleSliceLikeOpsPass._dynamic_output_dim_sizes), [`_is_negative`](view_ops_passes.md#HandleSliceLikeOpsPass._is_negative), [`_process_arange_dynamic_length`](generative_ops_pass.md#HandleGenerativeOpsPass._process_arange_dynamic_length), [`_process_node`](graph_transformations.md#HandleDynamicInputTensorSetDimensionSizePass._process_node), [`_process_arange_static_length`](generative_ops_pass.md#HandleGenerativeOpsPass._process_arange_static_length), [`_process_node`](graph_transformations.md#HandleDynamicInputTensorPass._process_node), [`__init__`](generative_ops_pass.md#HandleGenerativeOpsPass.__init__), [`__init__`](graph_transformations.md#HandleDynamicInputTensorPass.__init__), [`__init__`](graph_transformations.md#HandleDynamicInputTensorSetDimensionSizePass.__init__), [`__init__`](graph_transformations.md#HandleSymIntUsagesPass.__init__), [`__init__`](graph_transformations.md#ScanInputsCreatePlaceholdersPass.__init__), [`__init__`](view_ops_passes.md#HandleBroadcastLikeOpsPass.__init__), [`__init__`](view_ops_passes.md#HandleReshapeLikeOpsPass.__init__), [`__init__`](view_ops_passes.md#HandleSliceLikeOpsPass.__init__)
+

@@ -1,0 +1,372 @@
+# wikify symbol index: torch_tpu @ 005903d0ef, shard csrc/distributed, 364 rows (494 symbols; overloads share a row). Grep it by anchor; never read it whole.
+# columns: anchor	path	line	kind	rank	hash	callers	pages
+# one symbol:  grep -P '^csrc/distributed/types.cc#operator\t' catalog/symbols/*.tsv
+# by name:     grep -P '[#.]operator\t' catalog/symbols/*.tsv | sort -t$'\t' -k5 -nr | head -20   (matches Class.operator too)
+# by area:     grep -P '^csrc/distributed/.*#operator\t' catalog/symbols/*.tsv | head -20
+# one module:  awk -F'\t' '$2=="csrc/distributed/types.cc"' catalog/symbols/*.tsv | cut -f1,3,4 | head -40
+# to prose:    grep -P '^csrc/distributed/types.cc#operator\t' catalog/symbols/*.tsv | cut -f1,8   (column 8: concept pages citing it)
+# callers:     column 7 is the count; the list lives in catalog/edges/*.tsv, see its header (count, narrow, head)
+csrc/distributed/allgather.cc#BuildDistributedAllGatherShlo	csrc/distributed/allgather.cc	35	function	109	24c6e921e5bb9eaf	4	
+csrc/distributed/allgather.h#AllGatherOutputMode	csrc/distributed/allgather.h	29	class	18	ca23c70ed1a1d5f2	5	
+csrc/distributed/allgather.h#AllGatherOutputMode.kList	csrc/distributed/allgather.h	30	member	6	2e7d3e8a194bd536	3	
+csrc/distributed/allgather.h#AllGatherOutputMode.kConcat	csrc/distributed/allgather.h	31	member	6	1b4a167a0fd986f1	3	
+csrc/distributed/allgather.h#AllGatherOutputMode.kStack	csrc/distributed/allgather.h	32	member	39	271b994f5f1084a1	2	
+csrc/distributed/allreduce.cc#BuildDistributedAllReduceShlo	csrc/distributed/allreduce.cc	38	function	99	93b0bcd1f9e0e608	1	
+csrc/distributed/alltoall.cc#BuildDistributedAllToAllBaseShlo	csrc/distributed/alltoall.cc	42	function	46	3a176f5a6ae6c0bf	2	
+csrc/distributed/alltoall.cc#BuildDistributedAllToAllBaseUnevenSplitsShlo	csrc/distributed/alltoall.cc	71	function	35	227270e965c4ae66	1	
+csrc/distributed/alltoall.cc#BuildDistributedAllToAllShlo	csrc/distributed/alltoall.cc	108	function	89	130a29740786b8b0	1	
+csrc/distributed/alltoall.cc#ConcatenateTensorsAlongDim0	csrc/distributed/alltoall.cc	154	function	29	4459747f91db96e6	1	
+csrc/distributed/alltoall.cc#SliceTensorsAlongDim0	csrc/distributed/alltoall.cc	163	function	29	bf73e089b70f8ebf	1	
+csrc/distributed/handshake.cc#GetHandshakeStageEnvVarOnce	csrc/distributed/handshake.cc	24	function	53	eaaa1066ae29992e	3	
+csrc/distributed/handshake.h#HandshakeStage	csrc/distributed/handshake.h	23	class	58	2090079c6ad65f25	3	
+csrc/distributed/handshake.h#HandshakeStage.kOff	csrc/distributed/handshake.h	24	member	12	63644085b3e6f5fb	2	
+csrc/distributed/handshake.h#HandshakeStage.kCompileStage	csrc/distributed/handshake.h	25	member	12	d2727c904cdcaa4d	2	
+csrc/distributed/handshake.h#HandshakeStage.kDispatchStage	csrc/distributed/handshake.h	26	member	22	1e5f976eb7db26e6	2	
+csrc/distributed/handshake_test.cc#HandshakeDeathTest_FatalOnInvalidHandshakeStage_Test	csrc/distributed/handshake_test.cc	25	class	40	3887af4502a5e1e5	1	
+csrc/distributed/handshake_test.cc#HandshakeDeathTest_FatalOnInvalidHandshakeStage_Test.-HandshakeDeathTest_FatalOnInvalidHandshakeStage_Test	csrc/distributed/handshake_test.cc	25	method	0	3887af4502a5e1e5	0	
+csrc/distributed/handshake_test.cc#HandshakeDeathTest_FatalOnInvalidHandshakeStage_Test.HandshakeDeathTest_FatalOnInvalidHandshakeStage_Test	csrc/distributed/handshake_test.cc	25	method	0	3887af4502a5e1e5	0	
+csrc/distributed/handshake_test.cc#HandshakeDeathTest_FatalOnInvalidHandshakeStage_Test.TestBody	csrc/distributed/handshake_test.cc	25	method	28	3887af4502a5e1e5	1	
+csrc/distributed/handshake_test.cc#HandshakeDeathTest_FatalOnInvalidHandshakeStage_Test.operator	csrc/distributed/handshake_test.cc	25	method	0	3887af4502a5e1e5	0	
+csrc/distributed/handshake_test.cc#HandshakeDeathTest_FatalOnInvalidHandshakeStage_Test.test_info_	csrc/distributed/handshake_test.cc	25	member	0	3887af4502a5e1e5	0	
+csrc/distributed/process_group_tpu.cc#TpuWork	csrc/distributed/process_group_tpu.cc	119	class	42	993ba8298a633616	19	
+csrc/distributed/process_group_tpu.cc#TpuWork.TpuWork	csrc/distributed/process_group_tpu.cc	121	method	95	4144113d392e99b2	0	
+csrc/distributed/process_group_tpu.cc#TpuWork.operator	csrc/distributed/process_group_tpu.cc	150	method	5	5c55965c8f8ba559	0	
+csrc/distributed/process_group_tpu.cc#TpuWork.isCompleted	csrc/distributed/process_group_tpu.cc	153	method	5	0f5cd326d4fdab35	0	
+csrc/distributed/process_group_tpu.cc#TpuWork.isSuccess	csrc/distributed/process_group_tpu.cc	155	method	5	a673cd4459a39560	0	
+csrc/distributed/process_group_tpu.cc#TpuWork.wait	csrc/distributed/process_group_tpu.cc	159	method	90	e35cedd81bdd5151	0	
+csrc/distributed/process_group_tpu.cc#TpuWork.result	csrc/distributed/process_group_tpu.cc	166	method	5	7ab1b8eb3576d027	0	
+csrc/distributed/process_group_tpu.cc#TpuWork.abort	csrc/distributed/process_group_tpu.cc	168	method	0	c64da6325bff70c9	0	
+csrc/distributed/process_group_tpu.cc#TpuWork.getFuture	csrc/distributed/process_group_tpu.cc	170	method	10	371a42295242ce96	0	
+csrc/distributed/process_group_tpu.cc#TpuWork.results_	csrc/distributed/process_group_tpu.cc	175	member	8	7714ebc192a41f5b	2	
+csrc/distributed/process_group_tpu.cc#TpuWork.results_future_	csrc/distributed/process_group_tpu.cc	176	member	32	2b6b62bf44b8f471	5	
+csrc/distributed/process_group_tpu.cc#DeviceBufferRefDebugString	csrc/distributed/process_group_tpu.cc	181	function	35	3b2269c9f24a9bc4	5	
+csrc/distributed/process_group_tpu.cc#ValidateTensorsUniformShape	csrc/distributed/process_group_tpu.cc	189	function	100	7163f00e2a5110cb	4	process-group-and-collectives
+csrc/distributed/process_group_tpu.cc#ReduceScatterShapeMode	csrc/distributed/process_group_tpu.cc	207	class	8	be89fee151cbed76	3	
+csrc/distributed/process_group_tpu.cc#ReduceScatterShapeMode.kConcat	csrc/distributed/process_group_tpu.cc	208	member	4	68a781cd80f27254	2	
+csrc/distributed/process_group_tpu.cc#ReduceScatterShapeMode.kStack	csrc/distributed/process_group_tpu.cc	209	member	12	c3806d012651ae5d	1	
+csrc/distributed/process_group_tpu.cc#ValidateReduceScatterInputTensorShape	csrc/distributed/process_group_tpu.cc	214	function	202	01be0b8a3c7b40ab	1	process-group-and-collectives
+csrc/distributed/process_group_tpu.cc#ValidateSplitSizesForAllToAllSingle	csrc/distributed/process_group_tpu.cc	253	function	97	e52e9b3954514b1e	1	process-group-and-collectives
+csrc/distributed/process_group_tpu.cc#IsEqualSplits	csrc/distributed/process_group_tpu.cc	281	function	7	bcd52ae69652c22d	1	
+csrc/distributed/process_group_tpu.cc#ValidateAllToAllTensors	csrc/distributed/process_group_tpu.cc	297	function	100	669eb636e34d0c7a	1	process-group-and-collectives
+csrc/distributed/process_group_tpu.cc#IsUniformAllToAll	csrc/distributed/process_group_tpu.cc	341	function	12	6dfeec0f35f7a6a5	1	
+csrc/distributed/process_group_tpu.cc#RaggedAllToAllOffsets	csrc/distributed/process_group_tpu.cc	355	class	6	e87f87eb068211aa	3	
+csrc/distributed/process_group_tpu.cc#RaggedAllToAllOffsets.input_offsets	csrc/distributed/process_group_tpu.cc	356	member	6	11e3cd7616f1477f	3	
+csrc/distributed/process_group_tpu.cc#RaggedAllToAllOffsets.send_sizes	csrc/distributed/process_group_tpu.cc	357	member	4	ae4ae60d8a00cee3	2	
+csrc/distributed/process_group_tpu.cc#RaggedAllToAllOffsets.output_offsets	csrc/distributed/process_group_tpu.cc	358	member	6	9869c35e4fd24fc7	3	
+csrc/distributed/process_group_tpu.cc#RaggedAllToAllOffsets.recv_sizes	csrc/distributed/process_group_tpu.cc	359	member	9	18c703704e8516f5	2	
+csrc/distributed/process_group_tpu.cc#SynchronizeOutputOffsets	csrc/distributed/process_group_tpu.cc	387	function	107	35c1f6bd4b88164a	1	process-group-and-collectives
+csrc/distributed/process_group_tpu.cc#ComputeRaggedAllToAllOffsets	csrc/distributed/process_group_tpu.cc	484	function	62	23969c8ce856994f	1	
+csrc/distributed/process_group_tpu.cc#SetRaggedAllToAllParamKeys	csrc/distributed/process_group_tpu.cc	517	function	87	0063b33dc3895f97	1	
+csrc/distributed/process_group_tpu.cc#GetCollectiveSplitMode	csrc/distributed/process_group_tpu.cc	530	function	104	5bc98feb6f0a2724	8	process-group-and-collectives
+csrc/distributed/process_group_tpu.cc#GetCrossHostTransferKey	csrc/distributed/process_group_tpu.cc	542	function	118	a7aa5f892af9fd05	5	process-group-and-collectives
+csrc/distributed/process_group_tpu.cc#GetCrossHostTransferDescriptorStoreKey	csrc/distributed/process_group_tpu.cc	553	function	9	cbfb9e56c575a67e	2	
+csrc/distributed/process_group_tpu.cc#SerializeDeviceAttributes	csrc/distributed/process_group_tpu.cc	560	function	42	0404027df3d48cbb	1	
+csrc/distributed/process_group_tpu.cc#DeserializeDeviceAttributes	csrc/distributed/process_group_tpu.cc	573	function	137	33bfedf0aa482767	1	
+csrc/distributed/process_group_tpu.cc#ProcessGroupTpu.CrossHostSendBuffers	csrc/distributed/process_group_tpu.cc	604	method	143	3b66bca518203c66	2	process-group-and-collectives
+csrc/distributed/process_group_tpu.cc#ProcessGroupTpu.CrossHostReceiveBuffers	csrc/distributed/process_group_tpu.cc	673	method	164	4b4b0446f04d9f05	2	
+csrc/distributed/process_group_tpu.cc#WorldTopologyState	csrc/distributed/process_group_tpu.cc	749	class	9	089447001b4493bc	2	
+csrc/distributed/process_group_tpu.cc#WorldTopologyState.device_attrs	csrc/distributed/process_group_tpu.cc	750	member	4	2468bea607da921a	2	
+csrc/distributed/process_group_tpu.cc#WorldTopologyState.rank_to_device_id	csrc/distributed/process_group_tpu.cc	751	member	14	4bb6cce2b2f80f22	4	
+csrc/distributed/process_group_tpu.cc#WorldTopologyState.rank_to_topo_order	csrc/distributed/process_group_tpu.cc	754	member	18	4461be15f66086aa	4	
+csrc/distributed/process_group_tpu.cc#WorldTopologyState.world_rank	csrc/distributed/process_group_tpu.cc	755	member	17	89ea55a4b7ec27a1	3	
+csrc/distributed/process_group_tpu.cc#WorldTopology	csrc/distributed/process_group_tpu.cc	758	function	31	bb757d742338889e	7	
+csrc/distributed/process_group_tpu.cc#GetGlobalDeviceAttributes	csrc/distributed/process_group_tpu.cc	765	function	18	7f2046cb15fccfbd	1	
+csrc/distributed/process_group_tpu.cc#GetGlobalRankToDeviceId	csrc/distributed/process_group_tpu.cc	769	function	30	ebd5f4b216f63c38	1	
+csrc/distributed/process_group_tpu.cc#GetGlobalRankToTopologyOrder	csrc/distributed/process_group_tpu.cc	773	function	18	58402ca247b9d0df	0	
+csrc/distributed/process_group_tpu.cc#ComputeRankToTopologyOrder	csrc/distributed/process_group_tpu.cc	777	function	48	3eeaa7a6c889dd2f	3	
+csrc/distributed/process_group_tpu.cc#ComputeRankToTopologyOrder.TopologyKey	csrc/distributed/process_group_tpu.cc	781	class	44	20a801e78b685e10	1	
+csrc/distributed/process_group_tpu.cc#PermuteDeviceAssignmentForSubgroups	csrc/distributed/process_group_tpu.cc	809	function	33	fb92ade4826795d7	3	
+csrc/distributed/process_group_tpu.cc#NowMs	csrc/distributed/process_group_tpu.cc	833	function	12	ccc999e06189c017	2	
+csrc/distributed/process_group_tpu.cc#PrefixStoreAccessor	csrc/distributed/process_group_tpu.cc	839	class	4	a77eb703a1bc210a	2	
+csrc/distributed/process_group_tpu.cc#PrefixStoreAccessor.GetPrefix	csrc/distributed/process_group_tpu.cc	841	method	7	de992072cd0479ae	1	
+csrc/distributed/process_group_tpu.cc#UnwrappedStoreChain	csrc/distributed/process_group_tpu.cc	846	class	6	01338f17eac86793	3	
+csrc/distributed/process_group_tpu.cc#UnwrappedStoreChain.root_store	csrc/distributed/process_group_tpu.cc	847	member	6	2b71cd7c05602d80	2	
+csrc/distributed/process_group_tpu.cc#UnwrappedStoreChain.full_prefix	csrc/distributed/process_group_tpu.cc	848	member	13	542d01c37703560e	2	
+csrc/distributed/process_group_tpu.cc#UnwrapPrefixStoreChain	csrc/distributed/process_group_tpu.cc	851	function	32	5ebd5c4babf6315e	1	
+csrc/distributed/process_group_tpu.cc#CallStore	csrc/distributed/process_group_tpu.cc	873	function	44	317aef8c631d22a4	3	
+csrc/distributed/process_group_tpu.cc#CallStore.R	csrc/distributed/process_group_tpu.cc	874	class	106	52cc116ba0884b66	1	process-group-and-collectives
+csrc/distributed/process_group_tpu.cc#ByteVector	csrc/distributed/process_group_tpu.cc	901	class	44	21d31bbf270012d3	6	
+csrc/distributed/process_group_tpu.cc#PackKeyAndValue	csrc/distributed/process_group_tpu.cc	903	function	5	9d34c7032d38dac6	1	
+csrc/distributed/process_group_tpu.cc#KeyAndValue	csrc/distributed/process_group_tpu.cc	909	class	8	6fa2a2a4b4b34e03	3	
+csrc/distributed/process_group_tpu.cc#KeyAndValue.key	csrc/distributed/process_group_tpu.cc	910	member	8	2f571045a63e54e2	1	
+csrc/distributed/process_group_tpu.cc#KeyAndValue.value	csrc/distributed/process_group_tpu.cc	911	member	12	6aa1db2776884a3c	1	
+csrc/distributed/process_group_tpu.cc#UnpackKeyAndValue	csrc/distributed/process_group_tpu.cc	914	function	99	192db522f7b6c581	1	
+csrc/distributed/process_group_tpu.cc#PackValueList	csrc/distributed/process_group_tpu.cc	936	function	10	39264838afd47e0b	2	
+csrc/distributed/process_group_tpu.cc#UnpackAllValues	csrc/distributed/process_group_tpu.cc	946	function	97	2c84c2bd27828323	2	
+csrc/distributed/process_group_tpu.cc#kNodeLocalTableOkPrefix	csrc/distributed/process_group_tpu.cc	971	value	8	dfc01fc458629419	2	
+csrc/distributed/process_group_tpu.cc#kNodeLocalTableErrPrefix	csrc/distributed/process_group_tpu.cc	972	value	6	7b31bbfa1c47c9d8	2	
+csrc/distributed/process_group_tpu.cc#EncodeOkTable	csrc/distributed/process_group_tpu.cc	974	function	20	eb082a9000943240	1	
+csrc/distributed/process_group_tpu.cc#EncodeErrTable	csrc/distributed/process_group_tpu.cc	982	function	17	88f17f21e45254c2	1	
+csrc/distributed/process_group_tpu.cc#DecodeTable	csrc/distributed/process_group_tpu.cc	989	function	144	d4323f8e62e6f1c3	1	
+csrc/distributed/process_group_tpu.cc#DescribeMissingKeys	csrc/distributed/process_group_tpu.cc	1014	function	7	8aed094105debf32	1	
+csrc/distributed/process_group_tpu.cc#AllGatherViaNodeLocalStore	csrc/distributed/process_group_tpu.cc	1054	function	211	5893d6fb2bb5cadd	3	process-group-and-collectives
+csrc/distributed/process_group_tpu.cc#NodeLocalStoreConfig	csrc/distributed/process_group_tpu.cc	1278	class	14	b06e08b29970b1dd	4	
+csrc/distributed/process_group_tpu.cc#NodeLocalStoreConfig.store	csrc/distributed/process_group_tpu.cc	1279	member	4	5f4e9530b05b6d1d	2	
+csrc/distributed/process_group_tpu.cc#NodeLocalStoreConfig.local_rank	csrc/distributed/process_group_tpu.cc	1280	member	4	7e647acc9b1a89d1	2	
+csrc/distributed/process_group_tpu.cc#NodeLocalStoreConfig.local_world_size	csrc/distributed/process_group_tpu.cc	1281	member	14	b8ff21c838e9ee2a	2	
+csrc/distributed/process_group_tpu.cc#GetNodeLocalStore	csrc/distributed/process_group_tpu.cc	1288	function	89	dc218bbbe92605a5	2	
+csrc/distributed/process_group_tpu.cc#next_subgroup_gather_id	csrc/distributed/process_group_tpu.cc	1336	value	9	d562252fd210c6d2	2	
+csrc/distributed/process_group_tpu.cc#GatherSubgroupsViaNodeLocalStore	csrc/distributed/process_group_tpu.cc	1340	function	160	de17952799168a03	3	process-group-and-collectives
+csrc/distributed/process_group_tpu.cc#ProcessGroupTpu.InitializeRankToDeviceMappings	csrc/distributed/process_group_tpu.cc	1448	method	207	08dd32c14eea7244	2	process-group-and-collectives
+csrc/distributed/process_group_tpu.cc#ProcessGroupTpu.GatherMemberWorldRanks	csrc/distributed/process_group_tpu.cc	1498	method	179	b6e234c668c48c39	2	process-group-and-collectives
+csrc/distributed/process_group_tpu.cc#ProcessGroupTpu.GatherAllSubgroups	csrc/distributed/process_group_tpu.cc	1567	method	158	3e9324a0a2bf462b	2	process-group-and-collectives
+csrc/distributed/process_group_tpu.cc#ProcessGroupTpu.ProcessGroupTpu	csrc/distributed/process_group_tpu.cc	1675	method	325	2e931963432d588d	1	process-group-and-collectives
+csrc/distributed/process_group_tpu.cc#ProcessGroupTpu.shutdown	csrc/distributed/process_group_tpu.cc	1772	method	31	ae29d91d6364fe31	2	
+csrc/distributed/process_group_tpu.cc#ProcessGroupTpu.-ProcessGroupTpu	csrc/distributed/process_group_tpu.cc	1774	method	22	cb12d48f47440e61	1	
+csrc/distributed/process_group_tpu.cc#ProcessGroupTpu.GetReplicaGroups	csrc/distributed/process_group_tpu.cc	1781	method	40	0c5150807efdae77	3	
+csrc/distributed/process_group_tpu.cc#ProcessGroupTpu.allreduce	csrc/distributed/process_group_tpu.cc	1785	method	396	c150d23bc5dfbe22	3	process-group-and-collectives
+csrc/distributed/process_group_tpu.cc#ProcessGroupTpu.broadcast	csrc/distributed/process_group_tpu.cc	1834	method	308	c0e35fea4e680d4b	1	process-group-and-collectives
+csrc/distributed/process_group_tpu.cc#ProcessGroupTpu.experimental_send	csrc/distributed/process_group_tpu.cc	1886	method	133	5e123be1432f6673	3	
+csrc/distributed/process_group_tpu.cc#ProcessGroupTpu.experimental_recv	csrc/distributed/process_group_tpu.cc	1920	method	183	b3a0803067ab98de	2	process-group-and-collectives
+csrc/distributed/process_group_tpu.cc#ProcessGroupTpu.allgather	csrc/distributed/process_group_tpu.cc	1959	method	418	c9c260a62dd1a662	2	op-names-and-python-context
+csrc/distributed/process_group_tpu.cc#ProcessGroupTpu._allgather_base	csrc/distributed/process_group_tpu.cc	2053	method	408	170e41c53740dbf7	2	op-names-and-python-context
+csrc/distributed/process_group_tpu.cc#ProcessGroupTpu.allgather_into_tensor_coalesced	csrc/distributed/process_group_tpu.cc	2161	method	260	db72b1cdb53d43ed	1	process-group-and-collectives
+csrc/distributed/process_group_tpu.cc#ProcessGroupTpu.gather	csrc/distributed/process_group_tpu.cc	2187	method	385	b28e7a96537526b4	1	process-group-and-collectives
+csrc/distributed/process_group_tpu.cc#ProcessGroupTpu.scatter	csrc/distributed/process_group_tpu.cc	2265	method	340	e542b9e486f0de64	1	process-group-and-collectives
+csrc/distributed/process_group_tpu.cc#ProcessGroupTpu.reduce_scatter	csrc/distributed/process_group_tpu.cc	2336	method	320	1800c073dedf99ed	1	process-group-and-collectives
+csrc/distributed/process_group_tpu.cc#ProcessGroupTpu._reduce_scatter_base	csrc/distributed/process_group_tpu.cc	2385	method	379	0783de3daeec8f14	4	process-group-and-collectives
+csrc/distributed/process_group_tpu.cc#ProcessGroupTpu.reduce_scatter_tensor_coalesced	csrc/distributed/process_group_tpu.cc	2450	method	290	2a10af370cce3c0f	1	process-group-and-collectives
+csrc/distributed/process_group_tpu.cc#ProcessGroupTpu.alltoall_base	csrc/distributed/process_group_tpu.cc	2478	method	293	e8793e5cd1851ec4	2	process-group-and-collectives
+csrc/distributed/process_group_tpu.cc#ProcessGroupTpu.AllToAllBaseEqualSplits	csrc/distributed/process_group_tpu.cc	2528	method	229	b166faf9365c6d02	2	process-group-and-collectives
+csrc/distributed/process_group_tpu.cc#ProcessGroupTpu.AllToAllBaseUnevenSplits	csrc/distributed/process_group_tpu.cc	2555	method	337	e0dcf0298f4b4ee3	3	process-group-and-collectives
+csrc/distributed/process_group_tpu.cc#ProcessGroupTpu.alltoall	csrc/distributed/process_group_tpu.cc	2652	method	483	9d0f4684f2b87aab	1	deferred-execution-and-materialization
+csrc/distributed/process_group_tpu.cc#ProcessGroupTpu.barrier	csrc/distributed/process_group_tpu.cc	2820	method	265	6c76e0f6c9bc3e79	1	process-group-and-collectives
+csrc/distributed/process_group_tpu.h#ProcessGroupTpu	csrc/distributed/process_group_tpu.h	134	class	104	64d77e69c9b86892	39	process-group-and-collectives
+csrc/distributed/process_group_tpu.h#ProcessGroupTpu.ProcessGroupTpu	csrc/distributed/process_group_tpu.h	151	method	5	d306eef23abca31a	0	
+csrc/distributed/process_group_tpu.h#ProcessGroupTpu.operator	csrc/distributed/process_group_tpu.h	152	method	15	78eeb5d98a37043a	0	
+csrc/distributed/process_group_tpu.h#ProcessGroupTpu.getBackendName	csrc/distributed/process_group_tpu.h	157	method	0	ffcb5a7a64981d95	0	
+csrc/distributed/process_group_tpu.h#ProcessGroupTpu.rank_to_device_id	csrc/distributed/process_group_tpu.h	160	method	5	12cddf66b9abcef9	1	
+csrc/distributed/process_group_tpu.h#ProcessGroupTpu.device_assignment	csrc/distributed/process_group_tpu.h	164	method	150	9106d65f4624c7ab	9	process-group-and-collectives
+csrc/distributed/process_group_tpu.h#ProcessGroupTpu.send	csrc/distributed/process_group_tpu.h	315	method	10	f1446a007f196be3	0	
+csrc/distributed/process_group_tpu.h#ProcessGroupTpu.recv	csrc/distributed/process_group_tpu.h	320	method	30	4548164d620070dc	0	
+csrc/distributed/process_group_tpu.h#ProcessGroupTpu.OpDebugString	csrc/distributed/process_group_tpu.h	360	method	95	c30d554c74ac1784	5	
+csrc/distributed/process_group_tpu.h#ProcessGroupTpu.store_	csrc/distributed/process_group_tpu.h	415	member	28	1e9865333264f421	7	
+csrc/distributed/process_group_tpu.h#ProcessGroupTpu.addressable_device_id_	csrc/distributed/process_group_tpu.h	417	member	17	961337feb088a232	5	
+csrc/distributed/process_group_tpu.h#ProcessGroupTpu.member_world_ranks_	csrc/distributed/process_group_tpu.h	422	member	23	c12ea03b49febff6	1	
+csrc/distributed/process_group_tpu.h#ProcessGroupTpu.member_device_ids_	csrc/distributed/process_group_tpu.h	427	member	18	0163dd345b186711	6	
+csrc/distributed/process_group_tpu.h#ProcessGroupTpu.device_assignment_	csrc/distributed/process_group_tpu.h	432	member	9	000401308f579ecd	2	
+csrc/distributed/process_group_tpu.h#ProcessGroupTpu.replica_groups_	csrc/distributed/process_group_tpu.h	437	member	30	cc1c632aa4dd767f	11	
+csrc/distributed/process_group_tpu.h#ProcessGroupTpu.alltoall_seq_	csrc/distributed/process_group_tpu.h	441	member	2	59f5e9572398cc5c	1	
+csrc/distributed/process_group_tpu_test.cc#CountingHashStore	csrc/distributed/process_group_tpu_test.cc	47	class	8	c116e3c04759a6b1	2	
+csrc/distributed/process_group_tpu_test.cc#CountingHashStore.set	csrc/distributed/process_group_tpu_test.cc	49	method	5	ef3dd138e6c67f9c	0	
+csrc/distributed/process_group_tpu_test.cc#CountingHashStore.get	csrc/distributed/process_group_tpu_test.cc	54	method	5	d0688c02993b0dbb	0	
+csrc/distributed/process_group_tpu_test.cc#CountingHashStore.add	csrc/distributed/process_group_tpu_test.cc	59	method	5	fa94fc9cc05e9022	0	
+csrc/distributed/process_group_tpu_test.cc#CountingHashStore.multiSet	csrc/distributed/process_group_tpu_test.cc	66	method	5	de6b43d0d0f04c9e	0	
+csrc/distributed/process_group_tpu_test.cc#CountingHashStore.multiGet	csrc/distributed/process_group_tpu_test.cc	72	method	5	dec3d3a49b91eb96	0	
+csrc/distributed/process_group_tpu_test.cc#CountingHashStore.set_calls	csrc/distributed/process_group_tpu_test.cc	78	method	13	9135f2a18ae0aaa4	2	
+csrc/distributed/process_group_tpu_test.cc#CountingHashStore.get_calls	csrc/distributed/process_group_tpu_test.cc	81	method	13	248459f271f1a416	2	
+csrc/distributed/process_group_tpu_test.cc#CountingHashStore.add_increment_calls	csrc/distributed/process_group_tpu_test.cc	84	method	13	6a5964712438f7cf	2	
+csrc/distributed/process_group_tpu_test.cc#CountingHashStore.multi_set_calls	csrc/distributed/process_group_tpu_test.cc	87	method	13	f905bbe383e3560a	2	
+csrc/distributed/process_group_tpu_test.cc#CountingHashStore.multi_get_calls	csrc/distributed/process_group_tpu_test.cc	90	method	21	c6c7094f9334ad6e	2	
+csrc/distributed/process_group_tpu_test.cc#CountingHashStore.set_calls_	csrc/distributed/process_group_tpu_test.cc	95	member	8	44952663359d034d	2	
+csrc/distributed/process_group_tpu_test.cc#CountingHashStore.get_calls_	csrc/distributed/process_group_tpu_test.cc	96	member	8	00dc693b98aaf76e	2	
+csrc/distributed/process_group_tpu_test.cc#CountingHashStore.add_increment_calls_	csrc/distributed/process_group_tpu_test.cc	97	member	8	bf6a7b157371684b	2	
+csrc/distributed/process_group_tpu_test.cc#CountingHashStore.multi_set_calls_	csrc/distributed/process_group_tpu_test.cc	98	member	8	8eec17cee865417f	2	
+csrc/distributed/process_group_tpu_test.cc#CountingHashStore.multi_get_calls_	csrc/distributed/process_group_tpu_test.cc	99	member	8	71cbd83f1f78f223	2	
+csrc/distributed/process_group_tpu_test.cc#AllGatherRankSpec	csrc/distributed/process_group_tpu_test.cc	103	class	48	77a7853a284c20df	10	
+csrc/distributed/process_group_tpu_test.cc#AllGatherRankSpec.local_store	csrc/distributed/process_group_tpu_test.cc	104	member	8	f9f6fc25e0138499	2	
+csrc/distributed/process_group_tpu_test.cc#AllGatherRankSpec.local_rank	csrc/distributed/process_group_tpu_test.cc	105	member	8	7e647acc9b1a89d1	2	
+csrc/distributed/process_group_tpu_test.cc#AllGatherRankSpec.local_world_size	csrc/distributed/process_group_tpu_test.cc	106	member	8	b8ff21c838e9ee2a	2	
+csrc/distributed/process_group_tpu_test.cc#AllGatherRankSpec.my_key	csrc/distributed/process_group_tpu_test.cc	107	member	4	9867e3813c589cbb	1	
+csrc/distributed/process_group_tpu_test.cc#AllGatherRankSpec.my_value	csrc/distributed/process_group_tpu_test.cc	108	member	4	395a7ad188605971	1	
+csrc/distributed/process_group_tpu_test.cc#AllGatherRankResult	csrc/distributed/process_group_tpu_test.cc	112	class	49	8fe18f14eae2f563	11	
+csrc/distributed/process_group_tpu_test.cc#AllGatherRankResult.status	csrc/distributed/process_group_tpu_test.cc	113	member	44	cd67beb658c38544	6	
+csrc/distributed/process_group_tpu_test.cc#AllGatherRankResult.values	csrc/distributed/process_group_tpu_test.cc	114	member	13	3de59e52894e67ed	2	
+csrc/distributed/process_group_tpu_test.cc#RunAllGather	csrc/distributed/process_group_tpu_test.cc	118	function	83	0520381b75fb5bce	7	
+csrc/distributed/process_group_tpu_test.cc#TestKey	csrc/distributed/process_group_tpu_test.cc	145	function	33	bc19a6dbdee3c2e6	6	
+csrc/distributed/process_group_tpu_test.cc#TestValue	csrc/distributed/process_group_tpu_test.cc	146	function	25	38e23b72f803c243	5	
+csrc/distributed/process_group_tpu_test.cc#TestKeys	csrc/distributed/process_group_tpu_test.cc	148	function	33	72a3c3bdc267dbd2	7	
+csrc/distributed/process_group_tpu_test.cc#TestValues	csrc/distributed/process_group_tpu_test.cc	156	function	21	7b0c313cc9c41ee0	4	
+csrc/distributed/process_group_tpu_test.cc#kTestStoreTimeout	csrc/distributed/process_group_tpu_test.cc	164	value	28	9012c58fccc1266d	7	
+csrc/distributed/process_group_tpu_test.cc#MakeNodeLocalStore	csrc/distributed/process_group_tpu_test.cc	167	function	14	524b6801218ab14f	1	
+csrc/distributed/process_group_tpu_test.cc#NodeLayout	csrc/distributed/process_group_tpu_test.cc	178	class	20	f66e595ae60cfc59	3	
+csrc/distributed/process_group_tpu_test.cc#NodeLayout.size	csrc/distributed/process_group_tpu_test.cc	179	member	12	5eab948a52363f08	1	
+csrc/distributed/process_group_tpu_test.cc#NodeLayout.use_local_store	csrc/distributed/process_group_tpu_test.cc	182	member	9	f1585d290b69854d	1	
+csrc/distributed/process_group_tpu_test.cc#MakeLayoutSpecs	csrc/distributed/process_group_tpu_test.cc	188	function	66	2b5b6f4da12d9ce8	4	
+csrc/distributed/process_group_tpu_test.cc#ExpectAllSucceeded	csrc/distributed/process_group_tpu_test.cc	212	function	31	cbb619aba43d2fd9	4	
+csrc/distributed/process_group_tpu_test.cc#ExpectAllFailedWith	csrc/distributed/process_group_tpu_test.cc	221	function	18	7c5b4400f319b945	2	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_GetCrossHostTransferKeyDeterministic_Test	csrc/distributed/process_group_tpu_test.cc	230	class	40	8d78c60ad7dd54ca	1	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_GetCrossHostTransferKeyDeterministic_Test.-ProcessGroupTpuTest_GetCrossHostTransferKeyDeterministic_Test	csrc/distributed/process_group_tpu_test.cc	230	method	0	8d78c60ad7dd54ca	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_GetCrossHostTransferKeyDeterministic_Test.ProcessGroupTpuTest_GetCrossHostTransferKeyDeterministic_Test	csrc/distributed/process_group_tpu_test.cc	230	method	0	8d78c60ad7dd54ca	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_GetCrossHostTransferKeyDeterministic_Test.TestBody	csrc/distributed/process_group_tpu_test.cc	230	method	23	8d78c60ad7dd54ca	1	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_GetCrossHostTransferKeyDeterministic_Test.operator	csrc/distributed/process_group_tpu_test.cc	230	method	0	8d78c60ad7dd54ca	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_GetCrossHostTransferKeyDeterministic_Test.test_info_	csrc/distributed/process_group_tpu_test.cc	230	member	0	8d78c60ad7dd54ca	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_GetCrossHostTransferKeyOrderDependent_Test	csrc/distributed/process_group_tpu_test.cc	237	class	40	0ad4d588e4368795	1	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_GetCrossHostTransferKeyOrderDependent_Test.-ProcessGroupTpuTest_GetCrossHostTransferKeyOrderDependent_Test	csrc/distributed/process_group_tpu_test.cc	237	method	0	0ad4d588e4368795	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_GetCrossHostTransferKeyOrderDependent_Test.ProcessGroupTpuTest_GetCrossHostTransferKeyOrderDependent_Test	csrc/distributed/process_group_tpu_test.cc	237	method	0	0ad4d588e4368795	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_GetCrossHostTransferKeyOrderDependent_Test.TestBody	csrc/distributed/process_group_tpu_test.cc	237	method	23	0ad4d588e4368795	1	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_GetCrossHostTransferKeyOrderDependent_Test.operator	csrc/distributed/process_group_tpu_test.cc	237	method	0	0ad4d588e4368795	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_GetCrossHostTransferKeyOrderDependent_Test.test_info_	csrc/distributed/process_group_tpu_test.cc	237	member	0	0ad4d588e4368795	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_GetCrossHostTransferKeyDistinctInputs_Test	csrc/distributed/process_group_tpu_test.cc	244	class	40	0db7b01b132e9723	1	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_GetCrossHostTransferKeyDistinctInputs_Test.-ProcessGroupTpuTest_GetCrossHostTransferKeyDistinctInputs_Test	csrc/distributed/process_group_tpu_test.cc	244	method	0	0db7b01b132e9723	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_GetCrossHostTransferKeyDistinctInputs_Test.ProcessGroupTpuTest_GetCrossHostTransferKeyDistinctInputs_Test	csrc/distributed/process_group_tpu_test.cc	244	method	0	0db7b01b132e9723	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_GetCrossHostTransferKeyDistinctInputs_Test.TestBody	csrc/distributed/process_group_tpu_test.cc	244	method	23	0db7b01b132e9723	1	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_GetCrossHostTransferKeyDistinctInputs_Test.operator	csrc/distributed/process_group_tpu_test.cc	244	method	0	0db7b01b132e9723	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_GetCrossHostTransferKeyDistinctInputs_Test.test_info_	csrc/distributed/process_group_tpu_test.cc	244	member	0	0db7b01b132e9723	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_PermuteDeviceAssignmentForSubgroupsMultiSlicePermutedLauncherRanks_Test	csrc/distributed/process_group_tpu_test.cc	262	class	40	975adb7bf13bb13c	1	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_PermuteDeviceAssignmentForSubgroupsMultiSlicePermutedLauncherRanks_Test.-ProcessGroupTpuTest_PermuteDeviceAssignmentForSubgroupsMultiSlicePermutedLauncherRanks_Test	csrc/distributed/process_group_tpu_test.cc	262	method	0	975adb7bf13bb13c	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_PermuteDeviceAssignmentForSubgroupsMultiSlicePermutedLauncherRanks_Test.ProcessGroupTpuTest_PermuteDeviceAssignmentForSubgroupsMultiSlicePermutedLauncherRanks_Test	csrc/distributed/process_group_tpu_test.cc	262	method	0	975adb7bf13bb13c	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_PermuteDeviceAssignmentForSubgroupsMultiSlicePermutedLauncherRanks_Test.TestBody	csrc/distributed/process_group_tpu_test.cc	262	method	38	975adb7bf13bb13c	1	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_PermuteDeviceAssignmentForSubgroupsMultiSlicePermutedLauncherRanks_Test.operator	csrc/distributed/process_group_tpu_test.cc	262	method	0	975adb7bf13bb13c	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_PermuteDeviceAssignmentForSubgroupsMultiSlicePermutedLauncherRanks_Test.test_info_	csrc/distributed/process_group_tpu_test.cc	262	member	0	975adb7bf13bb13c	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_AllGatherViaNodeLocalStorePublishesOneBlobPerNode_Test	csrc/distributed/process_group_tpu_test.cc	303	class	40	a21b7c7d9f9a71fc	1	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_AllGatherViaNodeLocalStorePublishesOneBlobPerNode_Test.-ProcessGroupTpuTest_AllGatherViaNodeLocalStorePublishesOneBlobPerNode_Test	csrc/distributed/process_group_tpu_test.cc	303	method	0	a21b7c7d9f9a71fc	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_AllGatherViaNodeLocalStorePublishesOneBlobPerNode_Test.ProcessGroupTpuTest_AllGatherViaNodeLocalStorePublishesOneBlobPerNode_Test	csrc/distributed/process_group_tpu_test.cc	303	method	0	a21b7c7d9f9a71fc	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_AllGatherViaNodeLocalStorePublishesOneBlobPerNode_Test.TestBody	csrc/distributed/process_group_tpu_test.cc	303	method	103	a21b7c7d9f9a71fc	1	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_AllGatherViaNodeLocalStorePublishesOneBlobPerNode_Test.operator	csrc/distributed/process_group_tpu_test.cc	303	method	0	a21b7c7d9f9a71fc	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_AllGatherViaNodeLocalStorePublishesOneBlobPerNode_Test.test_info_	csrc/distributed/process_group_tpu_test.cc	303	member	0	a21b7c7d9f9a71fc	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_GatherSubgroupsViaNodeLocalStoreCrossNodeSubgroups_Test	csrc/distributed/process_group_tpu_test.cc	334	class	40	35e3758cb65fcb39	1	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_GatherSubgroupsViaNodeLocalStoreCrossNodeSubgroups_Test.-ProcessGroupTpuTest_GatherSubgroupsViaNodeLocalStoreCrossNodeSubgroups_Test	csrc/distributed/process_group_tpu_test.cc	334	method	0	35e3758cb65fcb39	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_GatherSubgroupsViaNodeLocalStoreCrossNodeSubgroups_Test.ProcessGroupTpuTest_GatherSubgroupsViaNodeLocalStoreCrossNodeSubgroups_Test	csrc/distributed/process_group_tpu_test.cc	334	method	0	35e3758cb65fcb39	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_GatherSubgroupsViaNodeLocalStoreCrossNodeSubgroups_Test.TestBody	csrc/distributed/process_group_tpu_test.cc	334	method	23	35e3758cb65fcb39	1	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_GatherSubgroupsViaNodeLocalStoreCrossNodeSubgroups_Test.operator	csrc/distributed/process_group_tpu_test.cc	334	method	0	35e3758cb65fcb39	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_GatherSubgroupsViaNodeLocalStoreCrossNodeSubgroups_Test.test_info_	csrc/distributed/process_group_tpu_test.cc	334	member	0	35e3758cb65fcb39	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_GatherSubgroupsViaNodeLocalStoreCrossNodeSubgroups_Test.TestBody.RankSubgroupSpec	csrc/distributed/process_group_tpu_test.cc	368	class	8	f8c5733375963d44	1	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_GatherSubgroupsViaNodeLocalStoreCrossNodeSubgroups_Test.TestBody.RankSubgroupSpec.group_name	csrc/distributed/process_group_tpu_test.cc	369	member	4	0b246b46cfd71754	1	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_GatherSubgroupsViaNodeLocalStoreCrossNodeSubgroups_Test.TestBody.RankSubgroupSpec.pg_rank	csrc/distributed/process_group_tpu_test.cc	370	member	9	cfc25a7494c37489	1	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_GatherSubgroupsViaNodeLocalStoreCrossNodeSubgroups_Test.TestBody.RankSubgroupSpec.expected_local_subgroup	csrc/distributed/process_group_tpu_test.cc	371	member	59	4023960f0523c168	1	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_GatherSubgroupsViaNodeLocalStoreWorldSizedPreservesOrder_Test	csrc/distributed/process_group_tpu_test.cc	458	class	40	975adb7bf13bb13c	1	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_GatherSubgroupsViaNodeLocalStoreWorldSizedPreservesOrder_Test.-ProcessGroupTpuTest_GatherSubgroupsViaNodeLocalStoreWorldSizedPreservesOrder_Test	csrc/distributed/process_group_tpu_test.cc	458	method	0	975adb7bf13bb13c	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_GatherSubgroupsViaNodeLocalStoreWorldSizedPreservesOrder_Test.ProcessGroupTpuTest_GatherSubgroupsViaNodeLocalStoreWorldSizedPreservesOrder_Test	csrc/distributed/process_group_tpu_test.cc	458	method	0	975adb7bf13bb13c	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_GatherSubgroupsViaNodeLocalStoreWorldSizedPreservesOrder_Test.TestBody	csrc/distributed/process_group_tpu_test.cc	458	method	43	975adb7bf13bb13c	1	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_GatherSubgroupsViaNodeLocalStoreWorldSizedPreservesOrder_Test.operator	csrc/distributed/process_group_tpu_test.cc	458	method	0	975adb7bf13bb13c	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_GatherSubgroupsViaNodeLocalStoreWorldSizedPreservesOrder_Test.test_info_	csrc/distributed/process_group_tpu_test.cc	458	member	0	975adb7bf13bb13c	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_AllGatherViaNodeLocalStoreAllDegraded_Test	csrc/distributed/process_group_tpu_test.cc	532	class	40	b99eb2c88c4a197d	1	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_AllGatherViaNodeLocalStoreAllDegraded_Test.-ProcessGroupTpuTest_AllGatherViaNodeLocalStoreAllDegraded_Test	csrc/distributed/process_group_tpu_test.cc	532	method	0	b99eb2c88c4a197d	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_AllGatherViaNodeLocalStoreAllDegraded_Test.ProcessGroupTpuTest_AllGatherViaNodeLocalStoreAllDegraded_Test	csrc/distributed/process_group_tpu_test.cc	532	method	0	b99eb2c88c4a197d	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_AllGatherViaNodeLocalStoreAllDegraded_Test.TestBody	csrc/distributed/process_group_tpu_test.cc	532	method	93	b99eb2c88c4a197d	1	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_AllGatherViaNodeLocalStoreAllDegraded_Test.operator	csrc/distributed/process_group_tpu_test.cc	532	method	0	b99eb2c88c4a197d	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_AllGatherViaNodeLocalStoreAllDegraded_Test.test_info_	csrc/distributed/process_group_tpu_test.cc	532	member	0	b99eb2c88c4a197d	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_AllGatherViaNodeLocalStoreMixedLocalAndDegraded_Test	csrc/distributed/process_group_tpu_test.cc	554	class	40	b5f8bc336e6f623b	1	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_AllGatherViaNodeLocalStoreMixedLocalAndDegraded_Test.-ProcessGroupTpuTest_AllGatherViaNodeLocalStoreMixedLocalAndDegraded_Test	csrc/distributed/process_group_tpu_test.cc	554	method	0	b5f8bc336e6f623b	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_AllGatherViaNodeLocalStoreMixedLocalAndDegraded_Test.ProcessGroupTpuTest_AllGatherViaNodeLocalStoreMixedLocalAndDegraded_Test	csrc/distributed/process_group_tpu_test.cc	554	method	0	b5f8bc336e6f623b	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_AllGatherViaNodeLocalStoreMixedLocalAndDegraded_Test.TestBody	csrc/distributed/process_group_tpu_test.cc	554	method	58	b5f8bc336e6f623b	1	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_AllGatherViaNodeLocalStoreMixedLocalAndDegraded_Test.operator	csrc/distributed/process_group_tpu_test.cc	554	method	0	b5f8bc336e6f623b	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_AllGatherViaNodeLocalStoreMixedLocalAndDegraded_Test.test_info_	csrc/distributed/process_group_tpu_test.cc	554	member	0	b5f8bc336e6f623b	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_AllGatherViaNodeLocalStoreFourNodesByFour_Test	csrc/distributed/process_group_tpu_test.cc	571	class	40	53531bb599e4ef12	1	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_AllGatherViaNodeLocalStoreFourNodesByFour_Test.-ProcessGroupTpuTest_AllGatherViaNodeLocalStoreFourNodesByFour_Test	csrc/distributed/process_group_tpu_test.cc	571	method	0	53531bb599e4ef12	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_AllGatherViaNodeLocalStoreFourNodesByFour_Test.ProcessGroupTpuTest_AllGatherViaNodeLocalStoreFourNodesByFour_Test	csrc/distributed/process_group_tpu_test.cc	571	method	0	53531bb599e4ef12	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_AllGatherViaNodeLocalStoreFourNodesByFour_Test.TestBody	csrc/distributed/process_group_tpu_test.cc	571	method	63	53531bb599e4ef12	1	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_AllGatherViaNodeLocalStoreFourNodesByFour_Test.operator	csrc/distributed/process_group_tpu_test.cc	571	method	0	53531bb599e4ef12	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_AllGatherViaNodeLocalStoreFourNodesByFour_Test.test_info_	csrc/distributed/process_group_tpu_test.cc	571	member	0	53531bb599e4ef12	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_AllGatherViaNodeLocalStoreDuplicateKeyFailsEveryRank_Test	csrc/distributed/process_group_tpu_test.cc	595	class	40	975adb7bf13bb13c	1	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_AllGatherViaNodeLocalStoreDuplicateKeyFailsEveryRank_Test.-ProcessGroupTpuTest_AllGatherViaNodeLocalStoreDuplicateKeyFailsEveryRank_Test	csrc/distributed/process_group_tpu_test.cc	595	method	0	975adb7bf13bb13c	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_AllGatherViaNodeLocalStoreDuplicateKeyFailsEveryRank_Test.ProcessGroupTpuTest_AllGatherViaNodeLocalStoreDuplicateKeyFailsEveryRank_Test	csrc/distributed/process_group_tpu_test.cc	595	method	0	975adb7bf13bb13c	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_AllGatherViaNodeLocalStoreDuplicateKeyFailsEveryRank_Test.TestBody	csrc/distributed/process_group_tpu_test.cc	595	method	68	975adb7bf13bb13c	1	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_AllGatherViaNodeLocalStoreDuplicateKeyFailsEveryRank_Test.operator	csrc/distributed/process_group_tpu_test.cc	595	method	0	975adb7bf13bb13c	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_AllGatherViaNodeLocalStoreDuplicateKeyFailsEveryRank_Test.test_info_	csrc/distributed/process_group_tpu_test.cc	595	member	0	975adb7bf13bb13c	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_AllGatherViaNodeLocalStoreUnknownKeyFailsEveryRank_Test	csrc/distributed/process_group_tpu_test.cc	612	class	40	eb9a735ba720fdb9	1	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_AllGatherViaNodeLocalStoreUnknownKeyFailsEveryRank_Test.-ProcessGroupTpuTest_AllGatherViaNodeLocalStoreUnknownKeyFailsEveryRank_Test	csrc/distributed/process_group_tpu_test.cc	612	method	0	eb9a735ba720fdb9	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_AllGatherViaNodeLocalStoreUnknownKeyFailsEveryRank_Test.ProcessGroupTpuTest_AllGatherViaNodeLocalStoreUnknownKeyFailsEveryRank_Test	csrc/distributed/process_group_tpu_test.cc	612	method	0	eb9a735ba720fdb9	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_AllGatherViaNodeLocalStoreUnknownKeyFailsEveryRank_Test.TestBody	csrc/distributed/process_group_tpu_test.cc	612	method	73	eb9a735ba720fdb9	1	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_AllGatherViaNodeLocalStoreUnknownKeyFailsEveryRank_Test.operator	csrc/distributed/process_group_tpu_test.cc	612	method	0	eb9a735ba720fdb9	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_AllGatherViaNodeLocalStoreUnknownKeyFailsEveryRank_Test.test_info_	csrc/distributed/process_group_tpu_test.cc	612	member	0	eb9a735ba720fdb9	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_AllGatherViaNodeLocalStoreMissingRankTimesOutWithDiagnostics_Test	csrc/distributed/process_group_tpu_test.cc	629	class	40	975adb7bf13bb13c	1	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_AllGatherViaNodeLocalStoreMissingRankTimesOutWithDiagnostics_Test.-ProcessGroupTpuTest_AllGatherViaNodeLocalStoreMissingRankTimesOutWithDiagnostics_Test	csrc/distributed/process_group_tpu_test.cc	629	method	0	975adb7bf13bb13c	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_AllGatherViaNodeLocalStoreMissingRankTimesOutWithDiagnostics_Test.ProcessGroupTpuTest_AllGatherViaNodeLocalStoreMissingRankTimesOutWithDiagnostics_Test	csrc/distributed/process_group_tpu_test.cc	629	method	0	975adb7bf13bb13c	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_AllGatherViaNodeLocalStoreMissingRankTimesOutWithDiagnostics_Test.TestBody	csrc/distributed/process_group_tpu_test.cc	629	method	53	975adb7bf13bb13c	1	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_AllGatherViaNodeLocalStoreMissingRankTimesOutWithDiagnostics_Test.operator	csrc/distributed/process_group_tpu_test.cc	629	method	0	975adb7bf13bb13c	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_AllGatherViaNodeLocalStoreMissingRankTimesOutWithDiagnostics_Test.test_info_	csrc/distributed/process_group_tpu_test.cc	629	member	0	975adb7bf13bb13c	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_ComputeRankToTopologyOrderTwoSliceTpu7x_Test	csrc/distributed/process_group_tpu_test.cc	653	class	40	eaf68ea3f0ccbd53	1	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_ComputeRankToTopologyOrderTwoSliceTpu7x_Test.-ProcessGroupTpuTest_ComputeRankToTopologyOrderTwoSliceTpu7x_Test	csrc/distributed/process_group_tpu_test.cc	653	method	0	eaf68ea3f0ccbd53	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_ComputeRankToTopologyOrderTwoSliceTpu7x_Test.ProcessGroupTpuTest_ComputeRankToTopologyOrderTwoSliceTpu7x_Test	csrc/distributed/process_group_tpu_test.cc	653	method	0	eaf68ea3f0ccbd53	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_ComputeRankToTopologyOrderTwoSliceTpu7x_Test.TestBody	csrc/distributed/process_group_tpu_test.cc	653	method	58	eaf68ea3f0ccbd53	1	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_ComputeRankToTopologyOrderTwoSliceTpu7x_Test.operator	csrc/distributed/process_group_tpu_test.cc	653	method	0	eaf68ea3f0ccbd53	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_ComputeRankToTopologyOrderTwoSliceTpu7x_Test.test_info_	csrc/distributed/process_group_tpu_test.cc	653	member	0	eaf68ea3f0ccbd53	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_ComputeRankToTopologyOrderMissingAttributes_Test	csrc/distributed/process_group_tpu_test.cc	729	class	40	4585ad723f6a8f76	1	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_ComputeRankToTopologyOrderMissingAttributes_Test.-ProcessGroupTpuTest_ComputeRankToTopologyOrderMissingAttributes_Test	csrc/distributed/process_group_tpu_test.cc	729	method	0	4585ad723f6a8f76	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_ComputeRankToTopologyOrderMissingAttributes_Test.ProcessGroupTpuTest_ComputeRankToTopologyOrderMissingAttributes_Test	csrc/distributed/process_group_tpu_test.cc	729	method	0	4585ad723f6a8f76	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_ComputeRankToTopologyOrderMissingAttributes_Test.TestBody	csrc/distributed/process_group_tpu_test.cc	729	method	38	4585ad723f6a8f76	1	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_ComputeRankToTopologyOrderMissingAttributes_Test.operator	csrc/distributed/process_group_tpu_test.cc	729	method	0	4585ad723f6a8f76	0	
+csrc/distributed/process_group_tpu_test.cc#ProcessGroupTpuTest_ComputeRankToTopologyOrderMissingAttributes_Test.test_info_	csrc/distributed/process_group_tpu_test.cc	729	member	0	4585ad723f6a8f76	0	
+csrc/distributed/reduce_scatter.cc#BuildDistributedReduceScatterShlo	csrc/distributed/reduce_scatter.cc	37	function	112	fb55479aa35ee5ab	2	process-group-and-collectives
+csrc/distributed/slicebuilder/discovery.cc#ValidateRequiredDistributedEnvVars	csrc/distributed/slicebuilder/discovery.cc	32	function	127	03ccb8a06b983ecf	1	process-group-and-collectives
+csrc/distributed/slicebuilder/discovery.cc#GetDistributedWorkerConfiguration	csrc/distributed/slicebuilder/discovery.cc	65	function	236	2c202171de8364f2	5	process-group-and-collectives
+csrc/distributed/slicebuilder/discovery.h#DistributedWorkerConfiguration	csrc/distributed/slicebuilder/discovery.h	29	class	104	18f3f73a0ca88768	27	process-group-and-collectives
+csrc/distributed/slicebuilder/discovery.h#DistributedWorkerConfiguration.rank	csrc/distributed/slicebuilder/discovery.h	30	member	84	11fa3ae7c60e090e	21	
+csrc/distributed/slicebuilder/discovery.h#DistributedWorkerConfiguration.local_rank	csrc/distributed/slicebuilder/discovery.h	31	member	74	c5c361c8b34e4867	19	
+csrc/distributed/slicebuilder/discovery.h#DistributedWorkerConfiguration.world_size	csrc/distributed/slicebuilder/discovery.h	32	member	12	6deb25ec02526732	4	
+csrc/distributed/slicebuilder/discovery.h#DistributedWorkerConfiguration.sb_addrs	csrc/distributed/slicebuilder/discovery.h	33	member	82	55256bcfa30117b7	21	
+csrc/distributed/slicebuilder/discovery.h#DistributedWorkerConfiguration.sb_port	csrc/distributed/slicebuilder/discovery.h	36	member	80	9abde573af6b1160	21	
+csrc/distributed/slicebuilder/discovery.h#DistributedWorkerConfiguration.topology	csrc/distributed/slicebuilder/discovery.h	37	member	76	22c9cbcd1e43056f	19	
+csrc/distributed/slicebuilder/discovery.h#SlicebuilderMeshConfig	csrc/distributed/slicebuilder/discovery.h	40	class	2	e1b293e7e8caffec	1	
+csrc/distributed/slicebuilder/discovery.h#SlicebuilderMeshConfig.address	csrc/distributed/slicebuilder/discovery.h	41	member	0	af29b4a107b79241	0	
+csrc/distributed/slicebuilder/discovery.h#SlicebuilderMeshConfig.port	csrc/distributed/slicebuilder/discovery.h	42	member	20	e01954d1884df436	0	
+csrc/distributed/slicebuilder/discovery_test.cc#ExitedWithCode	csrc/distributed/slicebuilder/discovery_test.cc	36	class	12	f56011b8f421d8f1	3	
+csrc/distributed/slicebuilder/discovery_test.cc#DiscoveryDeathTest_GetDistributedWorkerConfigurationMissingVars_Test	csrc/distributed/slicebuilder/discovery_test.cc	38	class	40	6d631485513d2a50	1	
+csrc/distributed/slicebuilder/discovery_test.cc#DiscoveryDeathTest_GetDistributedWorkerConfigurationMissingVars_Test.-DiscoveryDeathTest_GetDistributedWorkerConfigurationMissingVars_Test	csrc/distributed/slicebuilder/discovery_test.cc	38	method	0	6d631485513d2a50	0	
+csrc/distributed/slicebuilder/discovery_test.cc#DiscoveryDeathTest_GetDistributedWorkerConfigurationMissingVars_Test.DiscoveryDeathTest_GetDistributedWorkerConfigurationMissingVars_Test	csrc/distributed/slicebuilder/discovery_test.cc	38	method	0	6d631485513d2a50	0	
+csrc/distributed/slicebuilder/discovery_test.cc#DiscoveryDeathTest_GetDistributedWorkerConfigurationMissingVars_Test.TestBody	csrc/distributed/slicebuilder/discovery_test.cc	38	method	83	6d631485513d2a50	1	
+csrc/distributed/slicebuilder/discovery_test.cc#DiscoveryDeathTest_GetDistributedWorkerConfigurationMissingVars_Test.operator	csrc/distributed/slicebuilder/discovery_test.cc	38	method	0	6d631485513d2a50	0	
+csrc/distributed/slicebuilder/discovery_test.cc#DiscoveryDeathTest_GetDistributedWorkerConfigurationMissingVars_Test.test_info_	csrc/distributed/slicebuilder/discovery_test.cc	38	member	0	6d631485513d2a50	0	
+csrc/distributed/slicebuilder/discovery_test.cc#DiscoveryDeathTest_GetDistributedWorkerConfiguration_Test	csrc/distributed/slicebuilder/discovery_test.cc	73	class	40	ae338b62fb52b65e	1	
+csrc/distributed/slicebuilder/discovery_test.cc#DiscoveryDeathTest_GetDistributedWorkerConfiguration_Test.-DiscoveryDeathTest_GetDistributedWorkerConfiguration_Test	csrc/distributed/slicebuilder/discovery_test.cc	73	method	0	ae338b62fb52b65e	0	
+csrc/distributed/slicebuilder/discovery_test.cc#DiscoveryDeathTest_GetDistributedWorkerConfiguration_Test.DiscoveryDeathTest_GetDistributedWorkerConfiguration_Test	csrc/distributed/slicebuilder/discovery_test.cc	73	method	0	ae338b62fb52b65e	0	
+csrc/distributed/slicebuilder/discovery_test.cc#DiscoveryDeathTest_GetDistributedWorkerConfiguration_Test.TestBody	csrc/distributed/slicebuilder/discovery_test.cc	73	method	88	ae338b62fb52b65e	1	
+csrc/distributed/slicebuilder/discovery_test.cc#DiscoveryDeathTest_GetDistributedWorkerConfiguration_Test.operator	csrc/distributed/slicebuilder/discovery_test.cc	73	method	0	ae338b62fb52b65e	0	
+csrc/distributed/slicebuilder/discovery_test.cc#DiscoveryDeathTest_GetDistributedWorkerConfiguration_Test.test_info_	csrc/distributed/slicebuilder/discovery_test.cc	73	member	0	ae338b62fb52b65e	0	
+csrc/distributed/slicebuilder/discovery_test.cc#DiscoveryDeathTest_GetDistributedWorkerConfigurationMultislice_Test	csrc/distributed/slicebuilder/discovery_test.cc	103	class	40	faaba652c2a10c58	1	
+csrc/distributed/slicebuilder/discovery_test.cc#DiscoveryDeathTest_GetDistributedWorkerConfigurationMultislice_Test.-DiscoveryDeathTest_GetDistributedWorkerConfigurationMultislice_Test	csrc/distributed/slicebuilder/discovery_test.cc	103	method	0	faaba652c2a10c58	0	
+csrc/distributed/slicebuilder/discovery_test.cc#DiscoveryDeathTest_GetDistributedWorkerConfigurationMultislice_Test.DiscoveryDeathTest_GetDistributedWorkerConfigurationMultislice_Test	csrc/distributed/slicebuilder/discovery_test.cc	103	method	0	faaba652c2a10c58	0	
+csrc/distributed/slicebuilder/discovery_test.cc#DiscoveryDeathTest_GetDistributedWorkerConfigurationMultislice_Test.TestBody	csrc/distributed/slicebuilder/discovery_test.cc	103	method	88	faaba652c2a10c58	1	
+csrc/distributed/slicebuilder/discovery_test.cc#DiscoveryDeathTest_GetDistributedWorkerConfigurationMultislice_Test.operator	csrc/distributed/slicebuilder/discovery_test.cc	103	method	0	faaba652c2a10c58	0	
+csrc/distributed/slicebuilder/discovery_test.cc#DiscoveryDeathTest_GetDistributedWorkerConfigurationMultislice_Test.test_info_	csrc/distributed/slicebuilder/discovery_test.cc	103	member	0	faaba652c2a10c58	0	
+csrc/distributed/types.cc#Normalize	csrc/distributed/types.cc	34	function	12	14db3811ba29be80	1	
+csrc/distributed/types.cc#DeviceGroupList.DeviceGroupList	csrc/distributed/types.cc	51	method	71	e9c27189bffda99a	12	
+csrc/distributed/types.cc#operator	csrc/distributed/types.cc	54	function	687	329a71d10c74bde4	54	process-group-and-collectives
+csrc/distributed/types.h#DeviceGroup	csrc/distributed/types.h	31	class	110	cde52e62073521fd	21	process-group-and-collectives
+csrc/distributed/types.h#DeviceGroupList	csrc/distributed/types.h	49	class	158	739c0468c58a9877	35	process-group-and-collectives
+csrc/distributed/types.h#DeviceGroupList.DeviceGroupList	csrc/distributed/types.h	51	method	29	0ac7636283609a54	4	
+csrc/distributed/types.h#DeviceGroupList.groups	csrc/distributed/types.h	59	method	24	b53cbc1a34a5db05	3	
+csrc/distributed/types.h#DeviceGroupList.fingerprint	csrc/distributed/types.h	61	method	7	4be938f785c0cd85	1	
+csrc/distributed/types.h#DeviceGroupList.size	csrc/distributed/types.h	63	method	11	75365073cedd2463	3	
+csrc/distributed/types.h#DeviceGroupList.empty	csrc/distributed/types.h	64	method	16	b07ab8a59a62da28	3	
+csrc/distributed/types.h#DeviceGroupList.operator	csrc/distributed/types.h	66	method	28	7d137d60199de184	8	
+csrc/distributed/types.h#DeviceGroupList.at	csrc/distributed/types.h	67	method	5	59ada1dfcef6c1e4	0	
+csrc/distributed/types.h#DeviceGroupList.begin	csrc/distributed/types.h	69	method	5	899d4b985e59ca6c	0	
+csrc/distributed/types.h#DeviceGroupList.end	csrc/distributed/types.h	70	method	5	db8c00fc419dcf5e	0	
+csrc/distributed/types.h#DeviceGroupList.cbegin	csrc/distributed/types.h	71	method	5	5b587884f419ee25	0	
+csrc/distributed/types.h#DeviceGroupList.cend	csrc/distributed/types.h	72	method	5	1a39050dfcdc6768	0	
+csrc/distributed/types.h#DeviceGroupList.groups_	csrc/distributed/types.h	81	member	27	3ab8c14196b128e5	10	
+csrc/distributed/types.h#DeviceGroupList.fingerprint_	csrc/distributed/types.h	83	member	19	53c4a261d1957b74	2	
+csrc/distributed/types.h#EncodeParamCacheKey	csrc/distributed/types.h	88	function	10	d2454025ec931be2	0	compilation-cache-key
+csrc/distributed/types.h#Fingerprint64Impl.Compute	csrc/distributed/types.h	96	method	10	8a91f2cc31694766	0	
+csrc/distributed/types_test.cc#DeviceGroupListTest_SubgroupsFingerprintGoldenValues_Test	csrc/distributed/types_test.cc	25	class	40	e8366f5d0b4eb76c	1	
+csrc/distributed/types_test.cc#DeviceGroupListTest_SubgroupsFingerprintGoldenValues_Test.-DeviceGroupListTest_SubgroupsFingerprintGoldenValues_Test	csrc/distributed/types_test.cc	25	method	0	e8366f5d0b4eb76c	0	
+csrc/distributed/types_test.cc#DeviceGroupListTest_SubgroupsFingerprintGoldenValues_Test.DeviceGroupListTest_SubgroupsFingerprintGoldenValues_Test	csrc/distributed/types_test.cc	25	method	0	e8366f5d0b4eb76c	0	
+csrc/distributed/types_test.cc#DeviceGroupListTest_SubgroupsFingerprintGoldenValues_Test.TestBody	csrc/distributed/types_test.cc	25	method	38	e8366f5d0b4eb76c	1	
+csrc/distributed/types_test.cc#DeviceGroupListTest_SubgroupsFingerprintGoldenValues_Test.operator	csrc/distributed/types_test.cc	25	method	0	e8366f5d0b4eb76c	0	
+csrc/distributed/types_test.cc#DeviceGroupListTest_SubgroupsFingerprintGoldenValues_Test.test_info_	csrc/distributed/types_test.cc	25	member	0	e8366f5d0b4eb76c	0	
+csrc/distributed/types_test.cc#DeviceGroupListTest_Normalization_Test	csrc/distributed/types_test.cc	36	class	40	d9a16b0000234006	1	
+csrc/distributed/types_test.cc#DeviceGroupListTest_Normalization_Test.-DeviceGroupListTest_Normalization_Test	csrc/distributed/types_test.cc	36	method	0	d9a16b0000234006	0	
+csrc/distributed/types_test.cc#DeviceGroupListTest_Normalization_Test.DeviceGroupListTest_Normalization_Test	csrc/distributed/types_test.cc	36	method	0	d9a16b0000234006	0	
+csrc/distributed/types_test.cc#DeviceGroupListTest_Normalization_Test.TestBody	csrc/distributed/types_test.cc	36	method	33	d9a16b0000234006	1	
+csrc/distributed/types_test.cc#DeviceGroupListTest_Normalization_Test.operator	csrc/distributed/types_test.cc	36	method	0	d9a16b0000234006	0	
+csrc/distributed/types_test.cc#DeviceGroupListTest_Normalization_Test.test_info_	csrc/distributed/types_test.cc	36	member	0	d9a16b0000234006	0	
+csrc/distributed/types_test.cc#DeviceGroupListTest_EqualityAndInequality_Test	csrc/distributed/types_test.cc	54	class	40	ef54d47f766320c0	1	
+csrc/distributed/types_test.cc#DeviceGroupListTest_EqualityAndInequality_Test.-DeviceGroupListTest_EqualityAndInequality_Test	csrc/distributed/types_test.cc	54	method	0	ef54d47f766320c0	0	
+csrc/distributed/types_test.cc#DeviceGroupListTest_EqualityAndInequality_Test.DeviceGroupListTest_EqualityAndInequality_Test	csrc/distributed/types_test.cc	54	method	0	ef54d47f766320c0	0	
+csrc/distributed/types_test.cc#DeviceGroupListTest_EqualityAndInequality_Test.TestBody	csrc/distributed/types_test.cc	54	method	28	ef54d47f766320c0	1	
+csrc/distributed/types_test.cc#DeviceGroupListTest_EqualityAndInequality_Test.operator	csrc/distributed/types_test.cc	54	method	0	ef54d47f766320c0	0	
+csrc/distributed/types_test.cc#DeviceGroupListTest_EqualityAndInequality_Test.test_info_	csrc/distributed/types_test.cc	54	member	0	ef54d47f766320c0	0	
+csrc/distributed/types_test.cc#DeviceGroupListTest_PreservesOrderWhenNormalizeIsFalse_Test	csrc/distributed/types_test.cc	62	class	40	2609507239b8c918	1	
+csrc/distributed/types_test.cc#DeviceGroupListTest_PreservesOrderWhenNormalizeIsFalse_Test.-DeviceGroupListTest_PreservesOrderWhenNormalizeIsFalse_Test	csrc/distributed/types_test.cc	62	method	0	2609507239b8c918	0	
+csrc/distributed/types_test.cc#DeviceGroupListTest_PreservesOrderWhenNormalizeIsFalse_Test.DeviceGroupListTest_PreservesOrderWhenNormalizeIsFalse_Test	csrc/distributed/types_test.cc	62	method	0	2609507239b8c918	0	
+csrc/distributed/types_test.cc#DeviceGroupListTest_PreservesOrderWhenNormalizeIsFalse_Test.TestBody	csrc/distributed/types_test.cc	62	method	38	2609507239b8c918	1	
+csrc/distributed/types_test.cc#DeviceGroupListTest_PreservesOrderWhenNormalizeIsFalse_Test.operator	csrc/distributed/types_test.cc	62	method	0	2609507239b8c918	0	
+csrc/distributed/types_test.cc#DeviceGroupListTest_PreservesOrderWhenNormalizeIsFalse_Test.test_info_	csrc/distributed/types_test.cc	62	member	0	2609507239b8c918	0	
+csrc/distributed/utils.cc#BuildReplicaGroupsAttr	csrc/distributed/utils.cc	40	function	73	f2807525a8622f8c	6	
+csrc/distributed/utils.cc#BuildChannelHandleAttr	csrc/distributed/utils.cc	60	function	22	6878886defcd45ff	4	
+csrc/distributed/utils.cc#ValidateReductionOp	csrc/distributed/utils.cc	66	function	152	743ff1ba1ae4b4dc	3	process-group-and-collectives
+csrc/distributed/utils.cc#EnterSpmdSafeRegion	csrc/distributed/utils.cc	87	function	37	087e8842d57070b4	1	
+csrc/distributed/utils.cc#ExitSpmdSafeRegion	csrc/distributed/utils.cc	92	function	32	a4dc7b5a53a7e7ae	1	
+csrc/distributed/utils.cc#IsSpmdSafe	csrc/distributed/utils.cc	94	function	37	d3a9e846748b5480	1	
+csrc/distributed/window_tpu.cc#g_window_num_stripes	csrc/distributed/window_tpu.cc	47	value	4	31f0f2f2d287d33c	2	
+csrc/distributed/window_tpu.cc#g_window_stripe_chunk_mb	csrc/distributed/window_tpu.cc	48	value	4	7b38165722acba91	2	
+csrc/distributed/window_tpu.cc#PySetWindowNumStripes	csrc/distributed/window_tpu.cc	50	function	111	7071d4c82fffcaf3	0	process-group-and-collectives
+csrc/distributed/window_tpu.cc#PyGetWindowNumStripes	csrc/distributed/window_tpu.cc	56	function	19	41248f96444e3086	1	
+csrc/distributed/window_tpu.cc#PySetWindowStripeChunkMb	csrc/distributed/window_tpu.cc	58	function	111	ccb4382ece616786	0	
+csrc/distributed/window_tpu.cc#PyGetWindowStripeChunkMb	csrc/distributed/window_tpu.cc	64	function	19	0d0dc21e64df1094	1	
+csrc/distributed/window_tpu.cc#GetStripeChunkSizeBytes	csrc/distributed/window_tpu.cc	70	function	7	28068c8dc042c8a7	1	
+csrc/distributed/window_tpu.cc#GetMaxStripes	csrc/distributed/window_tpu.cc	76	function	7	ab60220b63191de5	1	
+csrc/distributed/window_tpu.cc#PyComputeWindowStripeCount	csrc/distributed/window_tpu.cc	86	function	21	caf7644ab518eb7b	0	

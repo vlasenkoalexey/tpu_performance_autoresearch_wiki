@@ -1,0 +1,150 @@
+# wikify symbol index: torchtitan @ 2ad96c9390, shard torchtitan/overrides, 142 rows. Grep it by anchor; never read it whole.
+# columns: anchor	path	line	kind	rank	hash	callers	pages
+# one symbol:  grep -P '^torchtitan/overrides/fused_mla#FusedMLAAttention.forward\t' catalog/symbols/*.tsv
+# by name:     grep -P '[#.]forward\t' catalog/symbols/*.tsv | sort -t$'\t' -k5 -nr | head -20   (matches Class.forward too)
+# by area:     grep -P '^torchtitan/overrides/.*#forward\t' catalog/symbols/*.tsv | head -20
+# one module:  awk -F'\t' '$2=="torchtitan/overrides/fused_mla.py"' catalog/symbols/*.tsv | cut -f1,3,4 | head -40
+# to prose:    grep -P '^torchtitan/overrides/fused_mla#FusedMLAAttention.forward\t' catalog/symbols/*.tsv | cut -f1,8   (column 8: concept pages citing it)
+# callers:     column 7 is the count; the list lives in catalog/edges/*.tsv, see its header (count, narrow, head)
+torchtitan/overrides/fused_mla#__all__	torchtitan/overrides/fused_mla.py	77	value	0	939bc565afdcd76c	0	
+torchtitan/overrides/fused_mla#_fused_q_rope_kernel	torchtitan/overrides/fused_mla.py	86	function	2	c10f0a0e00e378a2	1	
+torchtitan/overrides/fused_mla#_fused_k_rope_kernel	torchtitan/overrides/fused_mla.py	172	function	2	2770e04b0260c438	1	
+torchtitan/overrides/fused_mla#_fused_kv_backward_kernel	torchtitan/overrides/fused_mla.py	269	function	2	264d34b84e16edb4	1	
+torchtitan/overrides/fused_mla#_fused_mla_q_rope_op	torchtitan/overrides/fused_mla.py	407	function	9	2b92cef657087b28	2	
+torchtitan/overrides/fused_mla#_fused_mla_k_rope_op	torchtitan/overrides/fused_mla.py	452	function	9	c6b6c628e3eb65b1	2	
+torchtitan/overrides/fused_mla#_fused_mla_k_rope_op_fake	torchtitan/overrides/fused_mla.py	506	function	5	e4d7f07ed2400a61	0	
+torchtitan/overrides/fused_mla#_fused_mla_kv_backward_op	torchtitan/overrides/fused_mla.py	525	function	9	e8a762b206b29d94	2	
+torchtitan/overrides/fused_mla#_fused_mla_kv_backward_op_fake	torchtitan/overrides/fused_mla.py	590	function	5	59814529b01c5793	0	
+torchtitan/overrides/fused_mla#_FusedMLAQ	torchtitan/overrides/fused_mla.py	612	class	2	ad6fb2cf28df8277	1	
+torchtitan/overrides/fused_mla#_FusedMLAQ.spmd_typecheck	torchtitan/overrides/fused_mla.py	614	method	0	53eb8dacde309084	0	
+torchtitan/overrides/fused_mla#_FusedMLAQ.forward	torchtitan/overrides/fused_mla.py	629	method	10	56335e3674dc26e0	0	
+torchtitan/overrides/fused_mla#_FusedMLAQ.backward	torchtitan/overrides/fused_mla.py	651	method	10	c450f14cbbca246d	0	
+torchtitan/overrides/fused_mla#_FusedMLAKV	torchtitan/overrides/fused_mla.py	668	class	2	72f0565315745f60	1	
+torchtitan/overrides/fused_mla#_FusedMLAKV.spmd_typecheck	torchtitan/overrides/fused_mla.py	670	method	0	f0879807fdcd48f0	0	
+torchtitan/overrides/fused_mla#_FusedMLAKV.forward	torchtitan/overrides/fused_mla.py	690	method	5	f27d5e88f370a410	0	
+torchtitan/overrides/fused_mla#_FusedMLAKV.backward	torchtitan/overrides/fused_mla.py	709	method	5	1f28721d41445921	0	
+torchtitan/overrides/fused_mla#_to_local	torchtitan/overrides/fused_mla.py	722	function	12	ad04799ba6350fb8	3	
+torchtitan/overrides/fused_mla#_to_local_for_mutation	torchtitan/overrides/fused_mla.py	726	function	4	c2e3d11b258f8a6d	2	
+torchtitan/overrides/fused_mla#_from_local	torchtitan/overrides/fused_mla.py	738	function	4	a6ba89a90bc1bbf6	1	
+torchtitan/overrides/fused_mla#_resolve_positions	torchtitan/overrides/fused_mla.py	749	function	9	aecd8eb444b21382	2	config-overrides
+torchtitan/overrides/fused_mla#fused_mla_q	torchtitan/overrides/fused_mla.py	766	function	17	0d79c03822741a11	1	config-overrides
+torchtitan/overrides/fused_mla#fused_mla_kv	torchtitan/overrides/fused_mla.py	780	function	22	44328637fc7ddeef	1	config-overrides
+torchtitan/overrides/fused_mla#FusedMLAAttention	torchtitan/overrides/fused_mla.py	803	class	9	507fbb4ed96530dd	2	
+torchtitan/overrides/fused_mla#FusedMLAAttention.Config	torchtitan/overrides/fused_mla.py	807	class	16	94e31370b858fe0f	2	
+torchtitan/overrides/fused_mla#FusedMLAAttention.__init__	torchtitan/overrides/fused_mla.py	810	method	20	d96b8c55f13e70ff	0	config-overrides
+torchtitan/overrides/fused_mla#FusedMLAAttention.forward	torchtitan/overrides/fused_mla.py	818	method	115	17db205c04d38ab6	1	config-overrides
+torchtitan/overrides/fused_mla#fused_mla	torchtitan/overrides/fused_mla.py	899	function	30	f057286cca066e88	0	config-overrides
+torchtitan/overrides/fused_swiglu#__all__	torchtitan/overrides/fused_swiglu.py	79	value	0	939bc565afdcd76c	0	
+torchtitan/overrides/fused_swiglu#_MAX_BLOCK_N	torchtitan/overrides/fused_swiglu.py	91	value	4	e36167715c7089f7	2	
+torchtitan/overrides/fused_swiglu#_SILU_AND_MUL_BLOCK_M	torchtitan/overrides/fused_swiglu.py	92	value	4	0f3537222648fae1	2	
+torchtitan/overrides/fused_swiglu#_silu_and_mul_forward_kernel	torchtitan/overrides/fused_swiglu.py	96	function	2	c81798ee6e9acd43	1	
+torchtitan/overrides/fused_swiglu#_silu_and_mul_backward_kernel	torchtitan/overrides/fused_swiglu.py	145	function	2	8f53bc353e7e50d8	1	
+torchtitan/overrides/fused_swiglu#silu_and_mul_forward_kernel	torchtitan/overrides/fused_swiglu.py	219	function	17	34f55e2d4af12e2d	1	config-overrides
+torchtitan/overrides/fused_swiglu#silu_and_mul_backward_kernel	torchtitan/overrides/fused_swiglu.py	254	function	17	6072445028e00913	1	
+torchtitan/overrides/fused_swiglu#silu_and_mul_op	torchtitan/overrides/fused_swiglu.py	301	function	15	79e9d354e65cb93d	4	config-overrides
+torchtitan/overrides/fused_swiglu#silu_and_mul_op_fake	torchtitan/overrides/fused_swiglu.py	311	function	5	577deda8bcc8d623	0	
+torchtitan/overrides/fused_swiglu#silu_and_mul_backward_op	torchtitan/overrides/fused_swiglu.py	324	function	9	c626e33440341d4f	2	
+torchtitan/overrides/fused_swiglu#silu_and_mul_backward_op_fake	torchtitan/overrides/fused_swiglu.py	335	function	5	21e5a1145abc2d98	0	
+torchtitan/overrides/fused_swiglu#silu_and_mul_autograd_backward	torchtitan/overrides/fused_swiglu.py	347	function	7	8a3499b09fb4bdf8	0	
+torchtitan/overrides/fused_swiglu#silu_and_mul_setup_context	torchtitan/overrides/fused_swiglu.py	362	function	2	d5bf938ff3098fc1	0	
+torchtitan/overrides/fused_swiglu#_make_fused_gate_up_init	torchtitan/overrides/fused_swiglu.py	377	function	9	7e0fdd9216ebe532	2	
+torchtitan/overrides/fused_swiglu#_make_fused_gate_up_init._init	torchtitan/overrides/fused_swiglu.py	393	function	2	02add15ddfec5dda	1	
+torchtitan/overrides/fused_swiglu#_make_fused_linear_init	torchtitan/overrides/fused_swiglu.py	404	function	12	aaced7a5d5c97e4a	1	
+torchtitan/overrides/fused_swiglu#_make_fused_linear_init._init	torchtitan/overrides/fused_swiglu.py	408	function	2	d01307aee54436b6	1	
+torchtitan/overrides/fused_swiglu#_fused_silu_and_mul	torchtitan/overrides/fused_swiglu.py	414	function	7	4bfff7edb5a96029	1	config-overrides
+torchtitan/overrides/fused_swiglu#_silu_and_mul_2d	torchtitan/overrides/fused_swiglu.py	430	function	9	c1bece8de4495e0c	1	
+torchtitan/overrides/fused_swiglu#FusedSwiGLU	torchtitan/overrides/fused_swiglu.py	450	class	22	d4fd756860578ece	5	config-overrides
+torchtitan/overrides/fused_swiglu#FusedSwiGLU.Config	torchtitan/overrides/fused_swiglu.py	461	class	22	20ca1db4a04c88fc	4	config-overrides
+torchtitan/overrides/fused_swiglu#FusedSwiGLU.Config.w13	torchtitan/overrides/fused_swiglu.py	462	member	12	87481f138a7c5db0	1	config-overrides
+torchtitan/overrides/fused_swiglu#FusedSwiGLU.Config.w2	torchtitan/overrides/fused_swiglu.py	463	member	12	2e63f8bfcecda8ee	1	config-overrides
+torchtitan/overrides/fused_swiglu#FusedSwiGLU.__init__	torchtitan/overrides/fused_swiglu.py	465	method	10	ceea092bcfefd398	0	
+torchtitan/overrides/fused_swiglu#FusedSwiGLU.w2	torchtitan/overrides/fused_swiglu.py	467	member	16	066fc8b6096e3741	2	config-overrides
+torchtitan/overrides/fused_swiglu#FusedSwiGLU.w13	torchtitan/overrides/fused_swiglu.py	468	member	26	fd60498dd0eaa983	2	config-overrides
+torchtitan/overrides/fused_swiglu#FusedSwiGLU.forward	torchtitan/overrides/fused_swiglu.py	472	method	22	964dcebf42ae0d13	2	config-overrides
+torchtitan/overrides/fused_swiglu#FusedSwiGLU._split_w13_on_save	torchtitan/overrides/fused_swiglu.py	478	method	2	47cdc5bec48669da	1	
+torchtitan/overrides/fused_swiglu#FusedSwiGLU._merge_w13_on_load	torchtitan/overrides/fused_swiglu.py	490	method	2	f119e58a7f9cd41f	1	
+torchtitan/overrides/fused_swiglu#DistGEMMFusedSwiGLU	torchtitan/overrides/fused_swiglu.py	507	class	9	30d74e28860d38db	2	config-overrides
+torchtitan/overrides/fused_swiglu#DistGEMMFusedSwiGLU.Config	torchtitan/overrides/fused_swiglu.py	525	class	14	74a834a4cbf036c0	1	config-overrides
+torchtitan/overrides/fused_swiglu#DistGEMMFusedSwiGLU.forward	torchtitan/overrides/fused_swiglu.py	529	method	40	98c7cd544a13f011	1	config-overrides
+torchtitan/overrides/fused_swiglu#_fused_swiglu_config	torchtitan/overrides/fused_swiglu.py	561	function	54	40d872294341c13d	2	config-overrides
+torchtitan/overrides/fused_swiglu#fused_swiglu	torchtitan/overrides/fused_swiglu.py	585	function	30	8174f09fa4701200	0	config-overrides
+torchtitan/overrides/fused_swiglu#dist_gemm_fused_swiglu	torchtitan/overrides/fused_swiglu.py	594	function	30	84c44a61a11ac728	0	config-overrides
+torchtitan/overrides/fused_swiglu#FusedGroupedExperts	torchtitan/overrides/fused_swiglu.py	600	class	7	2fcce2881aece73b	2	
+torchtitan/overrides/fused_swiglu#FusedGroupedExperts.Config	torchtitan/overrides/fused_swiglu.py	618	class	14	4297711059be6efc	2	
+torchtitan/overrides/fused_swiglu#FusedGroupedExperts.__init__	torchtitan/overrides/fused_swiglu.py	621	method	20	be8e380a3fd07ff5	0	config-overrides
+torchtitan/overrides/fused_swiglu#FusedGroupedExperts.w13	torchtitan/overrides/fused_swiglu.py	627	member	31	6da9459fea416bc0	1	config-overrides
+torchtitan/overrides/fused_swiglu#FusedGroupedExperts.forward	torchtitan/overrides/fused_swiglu.py	634	method	20	b5569b35bc43b540	1	config-overrides
+torchtitan/overrides/fused_swiglu#FusedGroupedExperts._split_w13_on_save	torchtitan/overrides/fused_swiglu.py	661	method	2	10d386bacf4ed325	1	
+torchtitan/overrides/fused_swiglu#FusedGroupedExperts._merge_w13_on_load	torchtitan/overrides/fused_swiglu.py	668	method	2	1c1afa548c735d2e	1	
+torchtitan/overrides/fused_swiglu#_fuse_w13_grouped_experts_param_init	torchtitan/overrides/fused_swiglu.py	677	function	7	8fb3a50e1356beb7	1	
+torchtitan/overrides/fused_swiglu#_fuse_w13_grouped_experts_sharding	torchtitan/overrides/fused_swiglu.py	692	function	12	06e26c61434b62f6	1	
+torchtitan/overrides/fused_swiglu#fused_grouped_experts	torchtitan/overrides/fused_swiglu.py	710	function	54	1e7eb1d55326b49a	1	config-overrides
+torchtitan/overrides/helion_rope#_HELION_IMPORT_ERROR	torchtitan/overrides/helion_rope.py	59	value	12	bde7ed9523f3d06f	3	
+torchtitan/overrides/helion_rope#__all__	torchtitan/overrides/helion_rope.py	69	value	5	bec5932eb4879849	0	
+torchtitan/overrides/helion_rope#_DEFAULT_CONFIG	torchtitan/overrides/helion_rope.py	76	value	13	072f532fc1566592	4	
+torchtitan/overrides/helion_rope#_rope_cos_sin_fwd	torchtitan/overrides/helion_rope.py	79	function	2	2ec117d8e8149217	1	
+torchtitan/overrides/helion_rope#_rope_cos_sin_bwd	torchtitan/overrides/helion_rope.py	149	function	7	44600975afa74448	1	
+torchtitan/overrides/helion_rope#_rope_complex_fwd	torchtitan/overrides/helion_rope.py	222	function	7	7758d93b9c54a5f3	1	
+torchtitan/overrides/helion_rope#_rope_complex_bwd	torchtitan/overrides/helion_rope.py	277	function	7	e5d8c13656d23ad4	1	
+torchtitan/overrides/helion_rope#_config	torchtitan/overrides/helion_rope.py	334	function	54	9f459bae68c868fb	4	config-overrides
+torchtitan/overrides/helion_rope#_cossin_fwd_config	torchtitan/overrides/helion_rope.py	360	function	7	02111227da5c3a43	1	
+torchtitan/overrides/helion_rope#_cossin_bwd_config	torchtitan/overrides/helion_rope.py	393	function	7	202f8787bbb80102	1	
+torchtitan/overrides/helion_rope#_complex_fwd_config	torchtitan/overrides/helion_rope.py	416	function	7	fd12f3ce3259378f	1	
+torchtitan/overrides/helion_rope#_complex_bwd_config	torchtitan/overrides/helion_rope.py	458	function	7	f1a47bd28b5705d9	1	
+torchtitan/overrides/helion_rope#_BOUND_KERNELS	torchtitan/overrides/helion_rope.py	478	value	4	bd492e445f09c3ae	1	
+torchtitan/overrides/helion_rope#_run_tuned	torchtitan/overrides/helion_rope.py	480	function	13	e79eeb130d64e536	4	
+torchtitan/overrides/helion_rope#_run_complex_bwd	torchtitan/overrides/helion_rope.py	498	function	17	8638827fc43d3303	1	
+torchtitan/overrides/helion_rope#_helion_cossin_rope_fwd	torchtitan/overrides/helion_rope.py	520	function	21	2f28188079441d77	2	config-overrides
+torchtitan/overrides/helion_rope#_helion_cossin_rope_fwd_fake	torchtitan/overrides/helion_rope.py	536	function	5	90a5098d8f8ffc3d	0	
+torchtitan/overrides/helion_rope#_helion_cossin_rope_bwd	torchtitan/overrides/helion_rope.py	550	function	19	0571281dedf50d18	2	config-overrides
+torchtitan/overrides/helion_rope#_helion_cossin_rope_bwd_fake	torchtitan/overrides/helion_rope.py	570	function	5	91f17289bbeda26c	0	
+torchtitan/overrides/helion_rope#_cossin_fwd_setup_context	torchtitan/overrides/helion_rope.py	590	function	2	0d9ef2ff870b2c13	0	
+torchtitan/overrides/helion_rope#_cossin_fwd_backward	torchtitan/overrides/helion_rope.py	596	function	7	6ede418b9dc3a417	0	
+torchtitan/overrides/helion_rope#_helion_complex_rope_fwd	torchtitan/overrides/helion_rope.py	624	function	21	426358cb51a9e262	2	config-overrides
+torchtitan/overrides/helion_rope#_helion_complex_rope_fwd_fake	torchtitan/overrides/helion_rope.py	640	function	5	ccf495ec88e5874c	0	
+torchtitan/overrides/helion_rope#_helion_complex_rope_bwd	torchtitan/overrides/helion_rope.py	654	function	9	3b0f47121e9fb68d	2	
+torchtitan/overrides/helion_rope#_helion_complex_rope_bwd_fake	torchtitan/overrides/helion_rope.py	663	function	5	32d3f7be5a28c5cc	0	
+torchtitan/overrides/helion_rope#_complex_fwd_setup_context	torchtitan/overrides/helion_rope.py	682	function	2	ff55750cdc518717	0	
+torchtitan/overrides/helion_rope#_complex_fwd_backward	torchtitan/overrides/helion_rope.py	688	function	7	c7dbedd282e855fc	0	
+torchtitan/overrides/helion_rope#_to_local	torchtitan/overrides/helion_rope.py	712	function	14	ad04799ba6350fb8	3	config-overrides
+torchtitan/overrides/helion_rope#_from_local	torchtitan/overrides/helion_rope.py	716	function	8	48d9b13229a7e6db	2	
+torchtitan/overrides/helion_rope#_resolve_positions	torchtitan/overrides/helion_rope.py	724	function	9	ca15e5a675eb34fb	2	
+torchtitan/overrides/helion_rope#_cossin_eligible	torchtitan/overrides/helion_rope.py	736	function	2	15a8c8fb64334c72	1	
+torchtitan/overrides/helion_rope#_complex_eligible	torchtitan/overrides/helion_rope.py	774	function	2	d591ed79dce879ea	1	
+torchtitan/overrides/helion_rope#_helion_cossin_rope_fwd_thk	torchtitan/overrides/helion_rope.py	806	function	7	a7d0fdc14eb7d98a	1	
+torchtitan/overrides/helion_rope#_helion_complex_rope_fwd_thk	torchtitan/overrides/helion_rope.py	812	function	7	0a71ad9604eb4243	1	
+torchtitan/overrides/helion_rope#_apply_helion_cossin_rope	torchtitan/overrides/helion_rope.py	818	function	44	327806213eac109c	1	config-overrides
+torchtitan/overrides/helion_rope#_apply_helion_complex_rope	torchtitan/overrides/helion_rope.py	887	function	44	c5dd25988a860371	1	config-overrides
+torchtitan/overrides/helion_rope#HelionCosSinRoPE	torchtitan/overrides/helion_rope.py	972	class	11	bd6f58354da84309	3	config-overrides
+torchtitan/overrides/helion_rope#HelionCosSinRoPE.Config	torchtitan/overrides/helion_rope.py	982	class	14	042f81885f03e405	1	
+torchtitan/overrides/helion_rope#HelionCosSinRoPE.forward	torchtitan/overrides/helion_rope.py	985	method	15	fb876a6ecda6c063	1	config-overrides
+torchtitan/overrides/helion_rope#HelionRoPE	torchtitan/overrides/helion_rope.py	1003	value	5	fa1e090d9acb63be	0	
+torchtitan/overrides/helion_rope#HelionComplexRoPE	torchtitan/overrides/helion_rope.py	1006	class	9	16f53f51a304f77b	2	
+torchtitan/overrides/helion_rope#HelionComplexRoPE.Config	torchtitan/overrides/helion_rope.py	1017	class	14	4dd0e867caa2e830	1	
+torchtitan/overrides/helion_rope#HelionComplexRoPE.forward	torchtitan/overrides/helion_rope.py	1020	method	15	c4620f691f9436e0	1	config-overrides
+torchtitan/overrides/helion_rope#helion_cos_sin_rope	torchtitan/overrides/helion_rope.py	1041	function	35	1905b39e3571d13e	0	config-overrides
+torchtitan/overrides/helion_rope#helion_complex_rope	torchtitan/overrides/helion_rope.py	1055	function	35	86fa8de68e5aa8b7	0	config-overrides
+torchtitan/overrides/moe_token_dispatcher#deepep_override	torchtitan/overrides/moe_token_dispatcher.py	55	function	15	4b7f08ed088cf4d4	0	
+torchtitan/overrides/moe_token_dispatcher#hybridep_override	torchtitan/overrides/moe_token_dispatcher.py	69	function	15	1e706ddd35a64cdc	0	
+torchtitan/overrides/offset_rmsnorm#__all__	torchtitan/overrides/offset_rmsnorm.py	30	value	0	939bc565afdcd76c	0	
+torchtitan/overrides/offset_rmsnorm#_SUPPORTED_DTYPES	torchtitan/overrides/offset_rmsnorm.py	37	value	2	9cbf90899016116b	1	
+torchtitan/overrides/offset_rmsnorm#_MAX_BLOCK_SIZE	torchtitan/overrides/offset_rmsnorm.py	38	value	4	a3e4676973d88fc2	1	
+torchtitan/overrides/offset_rmsnorm#_DW_BLOCK_M	torchtitan/overrides/offset_rmsnorm.py	39	value	4	352fec3d1de5b7f6	1	
+torchtitan/overrides/offset_rmsnorm#_DW_BLOCK_N	torchtitan/overrides/offset_rmsnorm.py	40	value	6	3c0f9ecc747401f8	1	
+torchtitan/overrides/offset_rmsnorm#_num_warps	torchtitan/overrides/offset_rmsnorm.py	43	function	6	1da17c9070409879	2	
+torchtitan/overrides/offset_rmsnorm#_offset_rms_norm_forward_kernel	torchtitan/overrides/offset_rmsnorm.py	52	function	2	dfeee00e7fc55d3b	1	
+torchtitan/overrides/offset_rmsnorm#_offset_rms_norm_input_grad_kernel	torchtitan/overrides/offset_rmsnorm.py	78	function	2	2890664debd3af18	1	
+torchtitan/overrides/offset_rmsnorm#_offset_rms_norm_weight_grad_partial_kernel	torchtitan/overrides/offset_rmsnorm.py	109	function	2	585b9848d67132f2	1	
+torchtitan/overrides/offset_rmsnorm#_offset_rms_norm_weight_grad_reduce_kernel	torchtitan/overrides/offset_rmsnorm.py	148	function	2	99e24ccb7fdd4610	1	
+torchtitan/overrides/offset_rmsnorm#_triton_offset_rms_norm_op	torchtitan/overrides/offset_rmsnorm.py	175	function	19	31d1f2061ed93784	1	config-overrides
+torchtitan/overrides/offset_rmsnorm#_triton_offset_rms_norm_backward_op	torchtitan/overrides/offset_rmsnorm.py	204	function	32	db112736933c4c24	1	config-overrides
+torchtitan/overrides/offset_rmsnorm#_triton_offset_rms_norm_setup_context	torchtitan/overrides/offset_rmsnorm.py	265	function	2	814d87a714db72bc	0	
+torchtitan/overrides/offset_rmsnorm#_triton_offset_rms_norm_autograd_backward	torchtitan/overrides/offset_rmsnorm.py	271	function	7	70765eb70ee8b82d	0	
+torchtitan/overrides/offset_rmsnorm#triton_offset_rms_norm	torchtitan/overrides/offset_rmsnorm.py	292	function	7	d50c6fa12a7ca6f9	1	config-overrides
+torchtitan/overrides/offset_rmsnorm#TritonOffsetRMSNorm	torchtitan/overrides/offset_rmsnorm.py	306	class	9	ca679ba399890b3f	2	
+torchtitan/overrides/offset_rmsnorm#TritonOffsetRMSNorm.Config	torchtitan/overrides/offset_rmsnorm.py	310	class	16	fdf57a20c297906a	2	
+torchtitan/overrides/offset_rmsnorm#TritonOffsetRMSNorm.Config.weight_grad_sharding	torchtitan/overrides/offset_rmsnorm.py	311	member	2	6a5ed7875b883ceb	1	
+torchtitan/overrides/offset_rmsnorm#TritonOffsetRMSNorm.__init__	torchtitan/overrides/offset_rmsnorm.py	313	method	10	38d14e9bb1f82dcd	0	
+torchtitan/overrides/offset_rmsnorm#TritonOffsetRMSNorm.weight_grad_sharding	torchtitan/overrides/offset_rmsnorm.py	315	member	9	11bd9730e9dd4677	1	config-overrides
+torchtitan/overrides/offset_rmsnorm#TritonOffsetRMSNorm.forward	torchtitan/overrides/offset_rmsnorm.py	317	method	35	06c70ea92744cbd0	1	config-overrides
+torchtitan/overrides/offset_rmsnorm#triton_offset_rmsnorm	torchtitan/overrides/offset_rmsnorm.py	343	function	70	fb9c2a2ec9459270	0	config-overrides

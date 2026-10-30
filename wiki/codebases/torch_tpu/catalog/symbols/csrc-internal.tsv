@@ -1,0 +1,1135 @@
+# wikify symbol index: torch_tpu @ 005903d0ef, shard csrc/internal, 1127 rows (1417 symbols; overloads share a row). Grep it by anchor; never read it whole.
+# columns: anchor	path	line	kind	rank	hash	callers	pages
+# one symbol:  grep -P '^csrc/internal/mosaic/kiln/core/tile.h#Tile\t' catalog/symbols/*.tsv
+# by name:     grep -P '[#.]Tile\t' catalog/symbols/*.tsv | sort -t$'\t' -k5 -nr | head -20   (matches Class.Tile too)
+# by area:     grep -P '^csrc/internal/mosaic/kiln/core/.*#Tile\t' catalog/symbols/*.tsv | head -20
+# one module:  awk -F'\t' '$2=="csrc/internal/mosaic/kiln/core/tile.h"' catalog/symbols/*.tsv | cut -f1,3,4 | head -40
+# to prose:    grep -P '^csrc/internal/mosaic/kiln/core/tile.h#Tile\t' catalog/symbols/*.tsv | cut -f1,8   (column 8: concept pages citing it)
+# callers:     column 7 is the count; the list lives in catalog/edges/*.tsv, see its header (count, narrow, head)
+csrc/internal/batch_transfer/batch_transfer_impl.cc#PyBatchTransferD2HSync	csrc/internal/batch_transfer/batch_transfer_impl.cc	36	function	74	66ae2925784beda4	1	
+csrc/internal/batch_transfer/batch_transfer_impl.cc#PyBatchTransferH2DSync	csrc/internal/batch_transfer/batch_transfer_impl.cc	53	function	79	9e5bbffaf7a3cf61	1	
+csrc/internal/batch_transfer/batch_transfer_impl.cc#PyBatchTransferD2H	csrc/internal/batch_transfer/batch_transfer_impl.cc	70	function	64	3c026c718322dcc1	1	
+csrc/internal/batch_transfer/batch_transfer_impl.cc#PyBatchTransferH2D	csrc/internal/batch_transfer/batch_transfer_impl.cc	89	function	59	910bd0612dbab86b	1	
+csrc/internal/batch_transfer/batch_transfer_impl.cc#PyAwaitAll	csrc/internal/batch_transfer/batch_transfer_impl.cc	108	function	14	d9826f4e765b348f	1	
+csrc/internal/batch_transfer/batch_transfer_impl.cc#TorchTpuPyBindInitModule_batch_transfer_impl	csrc/internal/batch_transfer/batch_transfer_impl.cc	115	function	106	cab9c3872a648600	1	
+csrc/internal/batch_transfer/batch_transfer_impl.cc#pybind11_exec_batch_transfer_impl	csrc/internal/batch_transfer/batch_transfer_impl.cc	115	function	16	cab9c3872a648600	1	
+csrc/internal/batch_transfer/batch_transfer_impl.cc#pybind11_init_batch_transfer_impl	csrc/internal/batch_transfer/batch_transfer_impl.cc	115	function	16	cab9c3872a648600	1	
+csrc/internal/compile/compiled_mode.cc#DerefTensor	csrc/internal/compile/compiled_mode.cc	84	function	11	b4484d5e568ceb7a	3	
+csrc/internal/compile/compiled_mode.cc#NeedsMaterialize	csrc/internal/compile/compiled_mode.cc	94	function	33	c450751b21db57ec	3	
+csrc/internal/compile/compiled_mode.cc#PrepareCompiledModeArgumentsNonSequentialFallback	csrc/internal/compile/compiled_mode.cc	180	function	187	6826213281a0478b	1	compiled-mode
+csrc/internal/compile/compiled_mode.cc#PrepareCompiledModeArgumentsImpl	csrc/internal/compile/compiled_mode.cc	211	function	355	cddade3298df2a31	2	compiled-mode
+csrc/internal/compile/compiled_mode.cc#MakePlaceholder	csrc/internal/compile/compiled_mode.cc	263	function	157	f510aaf769c69908	3	compiled-mode
+csrc/internal/compile/compiled_mode.cc#ExtractMlirFromGraph	csrc/internal/compile/compiled_mode.cc	299	function	322	f5ae934bf71921e2	1	compiled-mode
+csrc/internal/compile/compiled_mode.cc#TraverseAndCompile	csrc/internal/compile/compiled_mode.cc	357	function	427	2ca82580198175c6	2	compiled-mode
+csrc/internal/compile/compiled_mode.cc#AsyncCompileResult.AsyncCompileResult	csrc/internal/compile/compiled_mode.cc	508	method	42	984651e77df2d8f0	2	
+csrc/internal/compile/compiled_mode.cc#AsyncCompileResult.IsReady	csrc/internal/compile/compiled_mode.cc	518	method	34	7286feea9cb63753	2	
+csrc/internal/compile/compiled_mode.cc#AsyncCompileResult.Get	csrc/internal/compile/compiled_mode.cc	524	method	62	9e4f4670341a14b7	3	
+csrc/internal/compile/compiled_mode.cc#CompileMlirExecutable	csrc/internal/compile/compiled_mode.cc	564	function	97	0ee236917136f761	5	
+csrc/internal/compile/compiled_mode.cc#GetOutputShapes	csrc/internal/compile/compiled_mode.cc	598	function	322	aafb527bc96a77ab	1	compiled-mode
+csrc/internal/compile/compiled_mode.cc#ExecuteCompiledModelImpl	csrc/internal/compile/compiled_mode.cc	650	function	219	ef319bf082b4b7c8	2	compiled-mode
+csrc/internal/compile/compiled_mode.cc#ExecuteCompiledModel	csrc/internal/compile/compiled_mode.cc	691	function	34	c268f87a28df6b49	4	
+csrc/internal/compile/compiled_mode.cc#MakeConstantTensor	csrc/internal/compile/compiled_mode.cc	705	function	155	189de9e76c2f329e	3	compiled-mode
+csrc/internal/compile/compiled_mode.cc#AssignConstantTensor	csrc/internal/compile/compiled_mode.cc	741	function	144	02d94b82785ad0e2	2	compiled-mode
+csrc/internal/compile/compiled_mode.h#CompileResult	csrc/internal/compile/compiled_mode.h	91	class	61	72c3c4ad14ad6b07	10	
+csrc/internal/compile/compiled_mode.h#CompileResult.module	csrc/internal/compile/compiled_mode.h	92	member	9	f15df3374730f864	1	
+csrc/internal/compile/compiled_mode.h#CompileResult.executable	csrc/internal/compile/compiled_mode.h	93	member	4	5092f986f388ec40	1	
+csrc/internal/compile/compiled_mode.h#AsyncCompileResult	csrc/internal/compile/compiled_mode.h	101	class	81	7c3bc28cf63e1f88	13	compiled-mode
+csrc/internal/compile/compiled_mode.h#AsyncCompileResult.AsyncCompileResult	csrc/internal/compile/compiled_mode.h	128	method	13	61177a1c41d5d2db	1	
+csrc/internal/compile/compiled_mode.h#AsyncCompileResult.operator	csrc/internal/compile/compiled_mode.h	129	method	10	1407b1724d32702d	0	
+csrc/internal/compile/compiled_mode.h#AsyncCompileResult.module	csrc/internal/compile/compiled_mode.h	131	method	33	627a54a900fb754c	2	
+csrc/internal/compile/compiled_mode.h#AsyncCompileResult.once_	csrc/internal/compile/compiled_mode.h	147	member	14	74f76660f7c3b5b8	1	
+csrc/internal/compile/compiled_mode.h#AsyncCompileResult.module_	csrc/internal/compile/compiled_mode.h	148	member	9	b6fb6fc3c17f8f4e	2	
+csrc/internal/compile/compiled_mode.h#AsyncCompileResult.executable_future_	csrc/internal/compile/compiled_mode.h	149	member	17	88fff3b0a98fa402	3	
+csrc/internal/compile/compiled_mode.h#AsyncCompileResult.argument_indices_	csrc/internal/compile/compiled_mode.h	150	member	16	df2173a8c8ea7957	2	
+csrc/internal/compile/compiled_mode.h#AsyncCompileResult.resolved_executable_	csrc/internal/compile/compiled_mode.h	152	member	6	825d80cf69d79b5b	1	
+csrc/internal/compile/compiled_mode.h#TraverseAndCompileOptions	csrc/internal/compile/compiled_mode.h	155	class	17	4fd7c557a02a26fc	4	
+csrc/internal/compile/compiled_mode.h#TraverseAndCompileOptions.compilation_mode	csrc/internal/compile/compiled_mode.h	157	member	12	147b8c09e41e96f4	1	
+csrc/internal/compile/compiled_mode.h#TraverseAndCompileOptions.build_mlir_module	csrc/internal/compile/compiled_mode.h	159	member	2	2f5d71de63045ecc	1	
+csrc/internal/compile/compiled_mode.h#TraverseAndCompileOptions.use_stablehlo_bounds	csrc/internal/compile/compiled_mode.h	162	member	9	189278e2fc15c614	1	
+csrc/internal/compile/compiled_mode.h#TraverseAndCompileOptions.argument_layouts	csrc/internal/compile/compiled_mode.h	164	member	15	46ec920297d14704	1	
+csrc/internal/compile/compiled_mode.h#TraverseAndCompileOptions.donated_inputs	csrc/internal/compile/compiled_mode.h	166	member	4	9799b1dd67f12c2e	1	
+csrc/internal/compile/compiled_mode.h#TraverseAndCompileOptions.module_name	csrc/internal/compile/compiled_mode.h	168	member	64	bec49b00358ec1ac	1	
+csrc/internal/compile/compiled_mode.h#OutputShape	csrc/internal/compile/compiled_mode.h	247	class	74	d3edc3a8492de43b	13	
+csrc/internal/compile/compiled_mode.h#OutputShape.dimensions	csrc/internal/compile/compiled_mode.h	248	member	10	af57c86df3a8c2f2	2	
+csrc/internal/compile/compiled_mode.h#OutputShape.is_dynamic	csrc/internal/compile/compiled_mode.h	249	member	60	943752c15cda1c33	2	
+csrc/internal/compile/dispatch_scan.cc#GetInputBuffers	csrc/internal/compile/dispatch_scan.cc	82	function	70	e252ba8a421a8b95	1	
+csrc/internal/compile/dispatch_scan.cc#GetOutputShapes	csrc/internal/compile/dispatch_scan.cc	99	function	105	f2265c587ded8fdd	1	compiled-mode
+csrc/internal/compile/dispatch_scan.cc#InitZeroOutputAccumulators	csrc/internal/compile/dispatch_scan.cc	123	function	25	da74594114c5d739	1	
+csrc/internal/compile/dispatch_scan.cc#ImportStepFunctionCallees	csrc/internal/compile/dispatch_scan.cc	158	function	84	e6793142e8faf48e	2	
+csrc/internal/compile/dispatch_scan.cc#BuildLoopBody	csrc/internal/compile/dispatch_scan.cc	196	function	19	bad5feaa5cf50b2c	2	
+csrc/internal/compile/dispatch_scan.cc#BuildAssociativeLoopBody	csrc/internal/compile/dispatch_scan.cc	245	function	62	8df9f90820a8ed81	1	
+csrc/internal/compile/dispatch_scan.cc#IsSupportedChloScanBodyOp	csrc/internal/compile/dispatch_scan.cc	269	function	7	250aa93ac32c14a6	1	
+csrc/internal/compile/dispatch_scan.cc#AllRankedWithShape	csrc/internal/compile/dispatch_scan.cc	275	function	9	f74ae9e9f57b0d61	1	
+csrc/internal/compile/dispatch_scan.cc#ScannedInputsAreUniformStatic	csrc/internal/compile/dispatch_scan.cc	285	function	17	351ccbfdb28eb798	1	
+csrc/internal/compile/dispatch_scan.cc#CanLowerToChloScan	csrc/internal/compile/dispatch_scan.cc	312	function	30	f53d04ef7e09ce2d	1	
+csrc/internal/compile/dispatch_scan.cc#IdentityKind	csrc/internal/compile/dispatch_scan.cc	349	class	40	bb5e4e7a1eacee0c	6	
+csrc/internal/compile/dispatch_scan.cc#IdentityKind.kMaxValue	csrc/internal/compile/dispatch_scan.cc	349	member	6	bb5e4e7a1eacee0c	3	
+csrc/internal/compile/dispatch_scan.cc#IdentityKind.kMinValue	csrc/internal/compile/dispatch_scan.cc	349	member	6	bb5e4e7a1eacee0c	3	
+csrc/internal/compile/dispatch_scan.cc#IdentityKind.kOne	csrc/internal/compile/dispatch_scan.cc	349	member	6	bb5e4e7a1eacee0c	3	
+csrc/internal/compile/dispatch_scan.cc#IdentityKind.kZero	csrc/internal/compile/dispatch_scan.cc	349	member	6	bb5e4e7a1eacee0c	3	
+csrc/internal/compile/dispatch_scan.cc#SymVal	csrc/internal/compile/dispatch_scan.cc	358	class	176	fb460b7c3131a229	20	compiled-mode
+csrc/internal/compile/dispatch_scan.cc#SymVal.Tag	csrc/internal/compile/dispatch_scan.cc	359	class	40	b3f16bacd8740cd8	16	
+csrc/internal/compile/dispatch_scan.cc#SymVal.Tag.kConst	csrc/internal/compile/dispatch_scan.cc	359	member	10	b3f16bacd8740cd8	5	
+csrc/internal/compile/dispatch_scan.cc#SymVal.Tag.kNegInf	csrc/internal/compile/dispatch_scan.cc	359	member	6	b3f16bacd8740cd8	3	
+csrc/internal/compile/dispatch_scan.cc#SymVal.Tag.kPosInf	csrc/internal/compile/dispatch_scan.cc	359	member	6	b3f16bacd8740cd8	3	
+csrc/internal/compile/dispatch_scan.cc#SymVal.Tag.kUnknown	csrc/internal/compile/dispatch_scan.cc	359	member	13	b3f16bacd8740cd8	4	
+csrc/internal/compile/dispatch_scan.cc#SymVal.Tag.kVar	csrc/internal/compile/dispatch_scan.cc	359	member	8	b3f16bacd8740cd8	4	
+csrc/internal/compile/dispatch_scan.cc#SymVal.tag	csrc/internal/compile/dispatch_scan.cc	360	member	30	5f20de74d2125b52	9	
+csrc/internal/compile/dispatch_scan.cc#SymVal.const_val	csrc/internal/compile/dispatch_scan.cc	361	member	28	122044eace1566ec	9	
+csrc/internal/compile/dispatch_scan.cc#SymVal.var_id	csrc/internal/compile/dispatch_scan.cc	362	member	9	b922340029deb45d	2	
+csrc/internal/compile/dispatch_scan.cc#SymVal.Const	csrc/internal/compile/dispatch_scan.cc	364	method	60	18517c6569d9d2d8	11	
+csrc/internal/compile/dispatch_scan.cc#SymVal.Var	csrc/internal/compile/dispatch_scan.cc	371	method	17	395da03e38987d5d	1	
+csrc/internal/compile/dispatch_scan.cc#SymVal.NegInf	csrc/internal/compile/dispatch_scan.cc	372	method	27	f31f09b7ae0f4fa9	6	
+csrc/internal/compile/dispatch_scan.cc#SymVal.PosInf	csrc/internal/compile/dispatch_scan.cc	373	method	23	63d2c6be6a9a5824	4	
+csrc/internal/compile/dispatch_scan.cc#SymVal.Unknown	csrc/internal/compile/dispatch_scan.cc	374	method	44	b7ba8fe4dd733b91	13	
+csrc/internal/compile/dispatch_scan.cc#SymVal.IsZero	csrc/internal/compile/dispatch_scan.cc	376	method	40	de6ed7d8126de9a5	7	
+csrc/internal/compile/dispatch_scan.cc#SymVal.IsOne	csrc/internal/compile/dispatch_scan.cc	377	method	26	fc7cbcbec5bdac8e	2	
+csrc/internal/compile/dispatch_scan.cc#SymVal.IsConst	csrc/internal/compile/dispatch_scan.cc	378	method	39	793541d31e43164c	7	
+csrc/internal/compile/dispatch_scan.cc#SymVal.IsNegInf	csrc/internal/compile/dispatch_scan.cc	379	method	37	1a2f5bdec3195201	7	
+csrc/internal/compile/dispatch_scan.cc#SymVal.IsPosInf	csrc/internal/compile/dispatch_scan.cc	380	method	35	248640bf23e2d16b	6	
+csrc/internal/compile/dispatch_scan.cc#SymVal.IsUnknown	csrc/internal/compile/dispatch_scan.cc	381	method	21	5fdb2e79b781a87d	2	
+csrc/internal/compile/dispatch_scan.cc#SymVal.IsFinite	csrc/internal/compile/dispatch_scan.cc	384	method	24	360b6701377a1412	1	
+csrc/internal/compile/dispatch_scan.cc#SymVal.IsVar	csrc/internal/compile/dispatch_scan.cc	385	method	24	eb9f80b5d786a435	2	
+csrc/internal/compile/dispatch_scan.cc#SymVal.IsSameVar	csrc/internal/compile/dispatch_scan.cc	388	method	36	aeea9a7d338e76b0	3	
+csrc/internal/compile/dispatch_scan.cc#IdentityKindToSymVal	csrc/internal/compile/dispatch_scan.cc	393	function	47	c411ed1cf5f012b9	1	
+csrc/internal/compile/dispatch_scan.cc#EvalNeg	csrc/internal/compile/dispatch_scan.cc	406	function	47	c05be181332ee3ca	1	
+csrc/internal/compile/dispatch_scan.cc#EvalAbs	csrc/internal/compile/dispatch_scan.cc	413	function	42	b551c75f78898c5f	1	
+csrc/internal/compile/dispatch_scan.cc#EvalExp	csrc/internal/compile/dispatch_scan.cc	419	function	27	8dd12c0b6c703aaf	1	
+csrc/internal/compile/dispatch_scan.cc#EvalLog	csrc/internal/compile/dispatch_scan.cc	425	function	32	36cb0f49923b11b5	1	
+csrc/internal/compile/dispatch_scan.cc#EvalLog1p	csrc/internal/compile/dispatch_scan.cc	431	function	22	4af309007ee2f085	1	
+csrc/internal/compile/dispatch_scan.cc#EvalAdd	csrc/internal/compile/dispatch_scan.cc	435	function	47	c9629fbce9737b6b	1	
+csrc/internal/compile/dispatch_scan.cc#EvalSubtract	csrc/internal/compile/dispatch_scan.cc	449	function	52	381732fcdae9a677	1	
+csrc/internal/compile/dispatch_scan.cc#EvalMul	csrc/internal/compile/dispatch_scan.cc	463	function	42	1a44208b40370d27	1	
+csrc/internal/compile/dispatch_scan.cc#EvalMax	csrc/internal/compile/dispatch_scan.cc	476	function	47	b38ed07fa9ee7456	1	
+csrc/internal/compile/dispatch_scan.cc#EvalMin	csrc/internal/compile/dispatch_scan.cc	487	function	47	8c5956d89408a3a0	1	
+csrc/internal/compile/dispatch_scan.cc#EvalOrXor	csrc/internal/compile/dispatch_scan.cc	498	function	17	c06e9362e70f5245	1	
+csrc/internal/compile/dispatch_scan.cc#EvalSymbolicOp	csrc/internal/compile/dispatch_scan.cc	506	function	77	bf9b69c88858425a	1	
+csrc/internal/compile/dispatch_scan.cc#IdentitySide	csrc/internal/compile/dispatch_scan.cc	546	class	8	2f016904c57c154e	2	
+csrc/internal/compile/dispatch_scan.cc#IdentitySide.kLeft	csrc/internal/compile/dispatch_scan.cc	546	member	4	2f016904c57c154e	2	
+csrc/internal/compile/dispatch_scan.cc#IdentitySide.kRight	csrc/internal/compile/dispatch_scan.cc	546	member	2	2f016904c57c154e	1	
+csrc/internal/compile/dispatch_scan.cc#IdentityHoldsOnSide	csrc/internal/compile/dispatch_scan.cc	552	function	59	b9138826f5823f96	1	
+csrc/internal/compile/dispatch_scan.cc#IsSymbolicIdentityCandidate	csrc/internal/compile/dispatch_scan.cc	594	function	32	90bbb32467de528e	1	
+csrc/internal/compile/dispatch_scan.cc#InferAssociativeIdentity	csrc/internal/compile/dispatch_scan.cc	618	function	42	23151564f95a89d3	1	
+csrc/internal/compile/dispatch_scan.cc#CreateIdentityConstant	csrc/internal/compile/dispatch_scan.cc	642	function	67	d798418e4aea10ee	1	
+csrc/internal/compile/dispatch_scan.cc#ContiguousStrides	csrc/internal/compile/dispatch_scan.cc	694	function	7	a0c0b35a0d86a437	1	
+csrc/internal/compile/dispatch_scan.cc#IsMovedimViewOfDim	csrc/internal/compile/dispatch_scan.cc	711	function	12	94061dee80c2f4a6	1	
+csrc/internal/compile/dispatch_scan.cc#MatchMovedimToZeroView	csrc/internal/compile/dispatch_scan.cc	730	function	47	e2ef7585a492cfa6	1	
+csrc/internal/compile/dispatch_scan.cc#TryDetectMovedimToZeroScanDim	csrc/internal/compile/dispatch_scan.cc	778	function	12	769132a5e4406e97	1	
+csrc/internal/compile/dispatch_scan.cc#AssociativeScanBuffers	csrc/internal/compile/dispatch_scan.cc	796	class	11	e9f4d5e2348a2aa5	3	
+csrc/internal/compile/dispatch_scan.cc#AssociativeScanBuffers.inputs	csrc/internal/compile/dispatch_scan.cc	797	member	13	b70419f189b3fea5	2	
+csrc/internal/compile/dispatch_scan.cc#AssociativeScanBuffers.output_shapes	csrc/internal/compile/dispatch_scan.cc	798	member	11	e13b6d78fd48855d	2	
+csrc/internal/compile/dispatch_scan.cc#CollectAssociativeScanBuffers	csrc/internal/compile/dispatch_scan.cc	804	function	95	a093c18faea777b2	1	
+csrc/internal/compile/dispatch_scan.cc#SliceAlongDim	csrc/internal/compile/dispatch_scan.cc	826	function	24	4d8aae1bfcf57027	1	
+csrc/internal/compile/dispatch_scan.cc#EmitIdentityInitChloScan	csrc/internal/compile/dispatch_scan.cc	840	function	80	94c251c8dc95cb3c	1	
+csrc/internal/compile/dispatch_scan.cc#EmitSliceInitScan	csrc/internal/compile/dispatch_scan.cc	869	function	107	ed1af20379d7b905	1	compiled-mode
+csrc/internal/compile/dispatch_scan.cc#BuildAssociativeScan	csrc/internal/compile/dispatch_scan.cc	920	function	197	315f4fa4d1f7a549	1	compiled-mode
+csrc/internal/compile/dispatch_scan.cc#PyCreateScanOp	csrc/internal/compile/dispatch_scan.cc	984	function	322	d16b4c2bfb413b59	19	compiled-mode
+csrc/internal/compile/dispatch_scan.cc#PyCreateAssociativeScanOp	csrc/internal/compile/dispatch_scan.cc	1124	function	394	d49adef45b7c7ded	11	compiled-mode
+csrc/internal/compile/dispatch_scan_test.cc#StatusIs	csrc/internal/compile/dispatch_scan_test.cc	68	function	8	0b589192a6a2246e	2	
+csrc/internal/compile/dispatch_scan_test.cc#ElementsAre	csrc/internal/compile/dispatch_scan_test.cc	69	function	28	be3439b61d0ba642	3	
+csrc/internal/compile/dispatch_scan_test.cc#HasSubstr	csrc/internal/compile/dispatch_scan_test.cc	70	function	192	befdf2c79741c70b	22	
+csrc/internal/compile/dispatch_scan_test.cc#Property	csrc/internal/compile/dispatch_scan_test.cc	71	function	44	80de028db6e065c6	8	
+csrc/internal/compile/dispatch_scan_test.cc#Throws	csrc/internal/compile/dispatch_scan_test.cc	72	function	44	feca937c80955d96	8	
+csrc/internal/compile/dispatch_scan_test.cc#kAddStepMlir	csrc/internal/compile/dispatch_scan_test.cc	79	value	4	d4b3ee13b2061a83	1	
+csrc/internal/compile/dispatch_scan_test.cc#kCalleeStepMlir	csrc/internal/compile/dispatch_scan_test.cc	95	value	4	e577a3147e09c1e4	1	
+csrc/internal/compile/dispatch_scan_test.cc#kNestedCalleeStepMlir	csrc/internal/compile/dispatch_scan_test.cc	115	value	4	53b80d92b02fffb8	1	
+csrc/internal/compile/dispatch_scan_test.cc#kMultiCarryAddStepMlir	csrc/internal/compile/dispatch_scan_test.cc	138	value	4	59f8e2f3d52c3550	1	
+csrc/internal/compile/dispatch_scan_test.cc#kStaticInputAddStepMlir	csrc/internal/compile/dispatch_scan_test.cc	156	value	4	0b3aba06aa55dbb0	1	
+csrc/internal/compile/dispatch_scan_test.cc#kMultiScannedInputsStepMlir	csrc/internal/compile/dispatch_scan_test.cc	173	value	4	e6db8fec24f97054	1	
+csrc/internal/compile/dispatch_scan_test.cc#kNoMainStepMlir	csrc/internal/compile/dispatch_scan_test.cc	190	value	4	11ed90ba3f37859c	1	
+csrc/internal/compile/dispatch_scan_test.cc#kEmptyInputsStepMlir	csrc/internal/compile/dispatch_scan_test.cc	204	value	4	adfc3569466fac39	1	
+csrc/internal/compile/dispatch_scan_test.cc#kAddStep2DMlir	csrc/internal/compile/dispatch_scan_test.cc	218	value	4	b95482033d1bf789	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest	csrc/internal/compile/dispatch_scan_test.cc	227	class	369	350a4615c8c75d5e	29	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest.DispatchScanTest	csrc/internal/compile/dispatch_scan_test.cc	229	method	25	05c6bc3df55281c1	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest.-DispatchScanTest	csrc/internal/compile/dispatch_scan_test.cc	236	method	155	0300dc2dce1363b6	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest.CreateBodyModule	csrc/internal/compile/dispatch_scan_test.cc	238	method	62	a4e932d2583e6722	12	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest.Standard1DInputs	csrc/internal/compile/dispatch_scan_test.cc	249	class	9	4e2557f492429a51	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest.Standard1DInputs.input	csrc/internal/compile/dispatch_scan_test.cc	250	member	9	168df20ddd8b4f99	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest.Standard1DInputs.carry	csrc/internal/compile/dispatch_scan_test.cc	251	member	5	bedb40a98810436c	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest.Standard1DInputs.dummy_output	csrc/internal/compile/dispatch_scan_test.cc	252	member	5	ec19ed33f7e28bec	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest.Standard1DInputs.body_module	csrc/internal/compile/dispatch_scan_test.cc	253	member	9	97936a74b854551c	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest.GetStandard1DInputs	csrc/internal/compile/dispatch_scan_test.cc	256	method	88	4dc2b31752309df7	17	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest.MakePlaceholderI32	csrc/internal/compile/dispatch_scan_test.cc	264	method	147	47e84f069db99dab	17	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest.GetTensorType	csrc/internal/compile/dispatch_scan_test.cc	271	method	49	2b63d9db7ba6e301	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest.LoweringResults	csrc/internal/compile/dispatch_scan_test.cc	282	class	34	37d0cb7ca84ec3c9	6	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest.LoweringResults.results_or	csrc/internal/compile/dispatch_scan_test.cc	283	member	21	12eb15b318371bc9	4	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest.LoweringResults.context	csrc/internal/compile/dispatch_scan_test.cc	284	member	9	2ed0852936eaaa72	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest.LoweringResults.module	csrc/internal/compile/dispatch_scan_test.cc	285	member	25	9caae121bb29f4cc	3	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest.LowerToMlir	csrc/internal/compile/dispatch_scan_test.cc	288	method	51	8aaa9866bbe0ed12	4	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest.LowerAndVerify	csrc/internal/compile/dispatch_scan_test.cc	320	method	138	8261d765bfafe8e3	16	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest.prev_mode_	csrc/internal/compile/dispatch_scan_test.cc	343	member	8	e56257ecc914b70a	2	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_With1D_Test	csrc/internal/compile/dispatch_scan_test.cc	346	class	40	6870884e564bba77	2	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_With1D_Test.-DispatchScanTest_With1D_Test	csrc/internal/compile/dispatch_scan_test.cc	346	method	0	6870884e564bba77	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_With1D_Test.DispatchScanTest_With1D_Test	csrc/internal/compile/dispatch_scan_test.cc	346	method	0	6870884e564bba77	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_With1D_Test.TestBody	csrc/internal/compile/dispatch_scan_test.cc	346	method	88	6870884e564bba77	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_With1D_Test.operator	csrc/internal/compile/dispatch_scan_test.cc	346	method	0	6870884e564bba77	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_With1D_Test.test_info_	csrc/internal/compile/dispatch_scan_test.cc	346	member	0	6870884e564bba77	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_StepFunctionCalleeIsImported_Test	csrc/internal/compile/dispatch_scan_test.cc	367	class	40	ccc2c54282205473	2	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_StepFunctionCalleeIsImported_Test.-DispatchScanTest_StepFunctionCalleeIsImported_Test	csrc/internal/compile/dispatch_scan_test.cc	367	method	0	ccc2c54282205473	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_StepFunctionCalleeIsImported_Test.DispatchScanTest_StepFunctionCalleeIsImported_Test	csrc/internal/compile/dispatch_scan_test.cc	367	method	0	ccc2c54282205473	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_StepFunctionCalleeIsImported_Test.TestBody	csrc/internal/compile/dispatch_scan_test.cc	367	method	63	ccc2c54282205473	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_StepFunctionCalleeIsImported_Test.operator	csrc/internal/compile/dispatch_scan_test.cc	367	method	0	ccc2c54282205473	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_StepFunctionCalleeIsImported_Test.test_info_	csrc/internal/compile/dispatch_scan_test.cc	367	member	0	ccc2c54282205473	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_NestedStepFunctionCalleesAreImported_Test	csrc/internal/compile/dispatch_scan_test.cc	387	class	40	2bde39eadbe6a2b5	2	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_NestedStepFunctionCalleesAreImported_Test.-DispatchScanTest_NestedStepFunctionCalleesAreImported_Test	csrc/internal/compile/dispatch_scan_test.cc	387	method	0	2bde39eadbe6a2b5	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_NestedStepFunctionCalleesAreImported_Test.DispatchScanTest_NestedStepFunctionCalleesAreImported_Test	csrc/internal/compile/dispatch_scan_test.cc	387	method	0	2bde39eadbe6a2b5	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_NestedStepFunctionCalleesAreImported_Test.TestBody	csrc/internal/compile/dispatch_scan_test.cc	387	method	63	2bde39eadbe6a2b5	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_NestedStepFunctionCalleesAreImported_Test.operator	csrc/internal/compile/dispatch_scan_test.cc	387	method	0	2bde39eadbe6a2b5	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_NestedStepFunctionCalleesAreImported_Test.test_info_	csrc/internal/compile/dispatch_scan_test.cc	387	member	0	2bde39eadbe6a2b5	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_With2D_Test	csrc/internal/compile/dispatch_scan_test.cc	409	class	40	a592198b55b1a37c	2	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_With2D_Test.-DispatchScanTest_With2D_Test	csrc/internal/compile/dispatch_scan_test.cc	409	method	0	a592198b55b1a37c	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_With2D_Test.DispatchScanTest_With2D_Test	csrc/internal/compile/dispatch_scan_test.cc	409	method	0	a592198b55b1a37c	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_With2D_Test.TestBody	csrc/internal/compile/dispatch_scan_test.cc	409	method	108	a592198b55b1a37c	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_With2D_Test.operator	csrc/internal/compile/dispatch_scan_test.cc	409	method	0	a592198b55b1a37c	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_With2D_Test.test_info_	csrc/internal/compile/dispatch_scan_test.cc	409	member	0	a592198b55b1a37c	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_WithMultiCarries_Test	csrc/internal/compile/dispatch_scan_test.cc	442	class	40	9e12e01cda2c8021	2	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_WithMultiCarries_Test.-DispatchScanTest_WithMultiCarries_Test	csrc/internal/compile/dispatch_scan_test.cc	442	method	0	9e12e01cda2c8021	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_WithMultiCarries_Test.DispatchScanTest_WithMultiCarries_Test	csrc/internal/compile/dispatch_scan_test.cc	442	method	0	9e12e01cda2c8021	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_WithMultiCarries_Test.TestBody	csrc/internal/compile/dispatch_scan_test.cc	442	method	63	9e12e01cda2c8021	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_WithMultiCarries_Test.operator	csrc/internal/compile/dispatch_scan_test.cc	442	method	0	9e12e01cda2c8021	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_WithMultiCarries_Test.test_info_	csrc/internal/compile/dispatch_scan_test.cc	442	member	0	9e12e01cda2c8021	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_WithStaticInputs_Test	csrc/internal/compile/dispatch_scan_test.cc	460	class	40	11181fb733868dc1	2	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_WithStaticInputs_Test.-DispatchScanTest_WithStaticInputs_Test	csrc/internal/compile/dispatch_scan_test.cc	460	method	0	11181fb733868dc1	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_WithStaticInputs_Test.DispatchScanTest_WithStaticInputs_Test	csrc/internal/compile/dispatch_scan_test.cc	460	method	0	11181fb733868dc1	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_WithStaticInputs_Test.TestBody	csrc/internal/compile/dispatch_scan_test.cc	460	method	63	11181fb733868dc1	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_WithStaticInputs_Test.operator	csrc/internal/compile/dispatch_scan_test.cc	460	method	0	11181fb733868dc1	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_WithStaticInputs_Test.test_info_	csrc/internal/compile/dispatch_scan_test.cc	460	member	0	11181fb733868dc1	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_WithMultiScannedInputs_Test	csrc/internal/compile/dispatch_scan_test.cc	475	class	40	5c4caeb35716ad35	2	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_WithMultiScannedInputs_Test.-DispatchScanTest_WithMultiScannedInputs_Test	csrc/internal/compile/dispatch_scan_test.cc	475	method	0	5c4caeb35716ad35	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_WithMultiScannedInputs_Test.DispatchScanTest_WithMultiScannedInputs_Test	csrc/internal/compile/dispatch_scan_test.cc	475	method	0	5c4caeb35716ad35	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_WithMultiScannedInputs_Test.TestBody	csrc/internal/compile/dispatch_scan_test.cc	475	method	63	5c4caeb35716ad35	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_WithMultiScannedInputs_Test.operator	csrc/internal/compile/dispatch_scan_test.cc	475	method	0	5c4caeb35716ad35	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_WithMultiScannedInputs_Test.test_info_	csrc/internal/compile/dispatch_scan_test.cc	475	member	0	5c4caeb35716ad35	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_WithReverse_Test	csrc/internal/compile/dispatch_scan_test.cc	489	class	40	495d84becd6846a5	2	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_WithReverse_Test.-DispatchScanTest_WithReverse_Test	csrc/internal/compile/dispatch_scan_test.cc	489	method	0	495d84becd6846a5	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_WithReverse_Test.DispatchScanTest_WithReverse_Test	csrc/internal/compile/dispatch_scan_test.cc	489	method	0	495d84becd6846a5	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_WithReverse_Test.TestBody	csrc/internal/compile/dispatch_scan_test.cc	489	method	53	495d84becd6846a5	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_WithReverse_Test.operator	csrc/internal/compile/dispatch_scan_test.cc	489	method	0	495d84becd6846a5	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_WithReverse_Test.test_info_	csrc/internal/compile/dispatch_scan_test.cc	489	member	0	495d84becd6846a5	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_VerifyCacheKeys_Test	csrc/internal/compile/dispatch_scan_test.cc	501	class	40	fe6668ebc52c71dd	2	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_VerifyCacheKeys_Test.-DispatchScanTest_VerifyCacheKeys_Test	csrc/internal/compile/dispatch_scan_test.cc	501	method	0	fe6668ebc52c71dd	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_VerifyCacheKeys_Test.DispatchScanTest_VerifyCacheKeys_Test	csrc/internal/compile/dispatch_scan_test.cc	501	method	0	fe6668ebc52c71dd	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_VerifyCacheKeys_Test.TestBody	csrc/internal/compile/dispatch_scan_test.cc	501	method	93	fe6668ebc52c71dd	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_VerifyCacheKeys_Test.operator	csrc/internal/compile/dispatch_scan_test.cc	501	method	0	fe6668ebc52c71dd	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_VerifyCacheKeys_Test.test_info_	csrc/internal/compile/dispatch_scan_test.cc	501	member	0	fe6668ebc52c71dd	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_CpuTensorInputsError_Test	csrc/internal/compile/dispatch_scan_test.cc	524	class	40	a5080325af04760e	2	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_CpuTensorInputsError_Test.-DispatchScanTest_CpuTensorInputsError_Test	csrc/internal/compile/dispatch_scan_test.cc	524	method	0	a5080325af04760e	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_CpuTensorInputsError_Test.DispatchScanTest_CpuTensorInputsError_Test	csrc/internal/compile/dispatch_scan_test.cc	524	method	0	a5080325af04760e	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_CpuTensorInputsError_Test.TestBody	csrc/internal/compile/dispatch_scan_test.cc	524	method	73	a5080325af04760e	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_CpuTensorInputsError_Test.operator	csrc/internal/compile/dispatch_scan_test.cc	524	method	0	a5080325af04760e	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_CpuTensorInputsError_Test.test_info_	csrc/internal/compile/dispatch_scan_test.cc	524	member	0	a5080325af04760e	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_InvalidMlirModuleError_Test	csrc/internal/compile/dispatch_scan_test.cc	538	class	40	2261490d9fa2c8b1	2	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_InvalidMlirModuleError_Test.-DispatchScanTest_InvalidMlirModuleError_Test	csrc/internal/compile/dispatch_scan_test.cc	538	method	0	2261490d9fa2c8b1	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_InvalidMlirModuleError_Test.DispatchScanTest_InvalidMlirModuleError_Test	csrc/internal/compile/dispatch_scan_test.cc	538	method	0	2261490d9fa2c8b1	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_InvalidMlirModuleError_Test.TestBody	csrc/internal/compile/dispatch_scan_test.cc	538	method	78	2261490d9fa2c8b1	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_InvalidMlirModuleError_Test.operator	csrc/internal/compile/dispatch_scan_test.cc	538	method	0	2261490d9fa2c8b1	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_InvalidMlirModuleError_Test.test_info_	csrc/internal/compile/dispatch_scan_test.cc	538	member	0	2261490d9fa2c8b1	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_MissingMainError_Test	csrc/internal/compile/dispatch_scan_test.cc	555	class	40	0468c4243ded1911	2	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_MissingMainError_Test.-DispatchScanTest_MissingMainError_Test	csrc/internal/compile/dispatch_scan_test.cc	555	method	0	0468c4243ded1911	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_MissingMainError_Test.DispatchScanTest_MissingMainError_Test	csrc/internal/compile/dispatch_scan_test.cc	555	method	0	0468c4243ded1911	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_MissingMainError_Test.TestBody	csrc/internal/compile/dispatch_scan_test.cc	555	method	68	0468c4243ded1911	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_MissingMainError_Test.operator	csrc/internal/compile/dispatch_scan_test.cc	555	method	0	0468c4243ded1911	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_MissingMainError_Test.test_info_	csrc/internal/compile/dispatch_scan_test.cc	555	member	0	0468c4243ded1911	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_EmptyInputsError_Test	csrc/internal/compile/dispatch_scan_test.cc	569	class	40	a2a46137d54e138a	2	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_EmptyInputsError_Test.-DispatchScanTest_EmptyInputsError_Test	csrc/internal/compile/dispatch_scan_test.cc	569	method	0	a2a46137d54e138a	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_EmptyInputsError_Test.DispatchScanTest_EmptyInputsError_Test	csrc/internal/compile/dispatch_scan_test.cc	569	method	0	a2a46137d54e138a	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_EmptyInputsError_Test.TestBody	csrc/internal/compile/dispatch_scan_test.cc	569	method	68	a2a46137d54e138a	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_EmptyInputsError_Test.operator	csrc/internal/compile/dispatch_scan_test.cc	569	method	0	a2a46137d54e138a	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_EmptyInputsError_Test.test_info_	csrc/internal/compile/dispatch_scan_test.cc	569	member	0	a2a46137d54e138a	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_MismatchedDummyOutputsError_Test	csrc/internal/compile/dispatch_scan_test.cc	584	class	40	eee9de47d86ee131	2	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_MismatchedDummyOutputsError_Test.-DispatchScanTest_MismatchedDummyOutputsError_Test	csrc/internal/compile/dispatch_scan_test.cc	584	method	0	eee9de47d86ee131	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_MismatchedDummyOutputsError_Test.DispatchScanTest_MismatchedDummyOutputsError_Test	csrc/internal/compile/dispatch_scan_test.cc	584	method	0	eee9de47d86ee131	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_MismatchedDummyOutputsError_Test.TestBody	csrc/internal/compile/dispatch_scan_test.cc	584	method	73	eee9de47d86ee131	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_MismatchedDummyOutputsError_Test.operator	csrc/internal/compile/dispatch_scan_test.cc	584	method	0	eee9de47d86ee131	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_MismatchedDummyOutputsError_Test.test_info_	csrc/internal/compile/dispatch_scan_test.cc	584	member	0	eee9de47d86ee131	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_TooFewResultsError_Test	csrc/internal/compile/dispatch_scan_test.cc	602	class	40	2e3432dcd41b3a3a	2	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_TooFewResultsError_Test.-DispatchScanTest_TooFewResultsError_Test	csrc/internal/compile/dispatch_scan_test.cc	602	method	0	2e3432dcd41b3a3a	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_TooFewResultsError_Test.DispatchScanTest_TooFewResultsError_Test	csrc/internal/compile/dispatch_scan_test.cc	602	method	0	2e3432dcd41b3a3a	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_TooFewResultsError_Test.TestBody	csrc/internal/compile/dispatch_scan_test.cc	602	method	73	2e3432dcd41b3a3a	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_TooFewResultsError_Test.operator	csrc/internal/compile/dispatch_scan_test.cc	602	method	0	2e3432dcd41b3a3a	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_TooFewResultsError_Test.test_info_	csrc/internal/compile/dispatch_scan_test.cc	602	member	0	2e3432dcd41b3a3a	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_MismatchedInputsDuringLowering_Test	csrc/internal/compile/dispatch_scan_test.cc	624	class	40	9dd8ae253b75fd01	2	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_MismatchedInputsDuringLowering_Test.-DispatchScanTest_MismatchedInputsDuringLowering_Test	csrc/internal/compile/dispatch_scan_test.cc	624	method	0	9dd8ae253b75fd01	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_MismatchedInputsDuringLowering_Test.DispatchScanTest_MismatchedInputsDuringLowering_Test	csrc/internal/compile/dispatch_scan_test.cc	624	method	0	9dd8ae253b75fd01	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_MismatchedInputsDuringLowering_Test.TestBody	csrc/internal/compile/dispatch_scan_test.cc	624	method	113	9dd8ae253b75fd01	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_MismatchedInputsDuringLowering_Test.operator	csrc/internal/compile/dispatch_scan_test.cc	624	method	0	9dd8ae253b75fd01	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_MismatchedInputsDuringLowering_Test.test_info_	csrc/internal/compile/dispatch_scan_test.cc	624	member	0	9dd8ae253b75fd01	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_DtypeMismatchError_Test	csrc/internal/compile/dispatch_scan_test.cc	641	class	40	e0ddcdfdbb04fe9f	2	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_DtypeMismatchError_Test.-DispatchScanTest_DtypeMismatchError_Test	csrc/internal/compile/dispatch_scan_test.cc	641	method	0	e0ddcdfdbb04fe9f	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_DtypeMismatchError_Test.DispatchScanTest_DtypeMismatchError_Test	csrc/internal/compile/dispatch_scan_test.cc	641	method	0	e0ddcdfdbb04fe9f	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_DtypeMismatchError_Test.TestBody	csrc/internal/compile/dispatch_scan_test.cc	641	method	153	e0ddcdfdbb04fe9f	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_DtypeMismatchError_Test.operator	csrc/internal/compile/dispatch_scan_test.cc	641	method	0	e0ddcdfdbb04fe9f	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_DtypeMismatchError_Test.test_info_	csrc/internal/compile/dispatch_scan_test.cc	641	member	0	e0ddcdfdbb04fe9f	0	
+csrc/internal/compile/dispatch_scan_test.cc#NumScanInputsParam	csrc/internal/compile/dispatch_scan_test.cc	675	class	32	8a1fe0100b5fe735	3	
+csrc/internal/compile/dispatch_scan_test.cc#NumScanInputsParam.num_scan_inputs	csrc/internal/compile/dispatch_scan_test.cc	676	member	4	f4f613ab02ffe9f7	1	
+csrc/internal/compile/dispatch_scan_test.cc#NumScanInputsParam.expected_error	csrc/internal/compile/dispatch_scan_test.cc	677	member	4	8fd14080b6dedd00	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanNumScanInputsTest	csrc/internal/compile/dispatch_scan_test.cc	680	class	43	a25ba110475bb53d	3	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanNumScanInputsTest_InvalidNumScanInputs_Test	csrc/internal/compile/dispatch_scan_test.cc	684	class	16	8f9cad7c2f2ff7b7	3	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanNumScanInputsTest_InvalidNumScanInputs_Test.AddToRegistry	csrc/internal/compile/dispatch_scan_test.cc	684	method	4	8f9cad7c2f2ff7b7	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanNumScanInputsTest_InvalidNumScanInputs_Test.DispatchScanNumScanInputsTest_InvalidNumScanInputs_Test	csrc/internal/compile/dispatch_scan_test.cc	684	method	0	8f9cad7c2f2ff7b7	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanNumScanInputsTest_InvalidNumScanInputs_Test.TestBody	csrc/internal/compile/dispatch_scan_test.cc	684	method	83	8f9cad7c2f2ff7b7	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanNumScanInputsTest_InvalidNumScanInputs_Test.gtest_registering_dummy_	csrc/internal/compile/dispatch_scan_test.cc	684	member	0	8f9cad7c2f2ff7b7	0	
+csrc/internal/compile/dispatch_scan_test.cc#gtest_DispatchScanTestDispatchScanNumScanInputsTest_EvalGenerateName_	csrc/internal/compile/dispatch_scan_test.cc	700	function	4	138c0db72c10b2a5	1	
+csrc/internal/compile/dispatch_scan_test.cc#gtest_DispatchScanTestDispatchScanNumScanInputsTest_EvalGenerator_	csrc/internal/compile/dispatch_scan_test.cc	700	function	4	138c0db72c10b2a5	1	
+csrc/internal/compile/dispatch_scan_test.cc#gtest_DispatchScanTestDispatchScanNumScanInputsTest_dummy_	csrc/internal/compile/dispatch_scan_test.cc	700	value	25	138c0db72c10b2a5	0	
+csrc/internal/compile/dispatch_scan_test.cc#kAssociativeAddCombineMlir	csrc/internal/compile/dispatch_scan_test.cc	714	value	16	414b8700c4b6a712	4	
+csrc/internal/compile/dispatch_scan_test.cc#kAssociativeMulCombineMlir	csrc/internal/compile/dispatch_scan_test.cc	723	value	4	9f2327249984235e	1	
+csrc/internal/compile/dispatch_scan_test.cc#kAssociativeMaxF32CombineMlir	csrc/internal/compile/dispatch_scan_test.cc	732	value	4	40748c5b57aa0006	1	
+csrc/internal/compile/dispatch_scan_test.cc#kAssociativeMinF32CombineMlir	csrc/internal/compile/dispatch_scan_test.cc	741	value	4	661b643cc2f2c49c	1	
+csrc/internal/compile/dispatch_scan_test.cc#kAssociativeXorCombineMlir	csrc/internal/compile/dispatch_scan_test.cc	750	value	4	a84ed7e714929e8d	1	
+csrc/internal/compile/dispatch_scan_test.cc#kAssociativeMambaSsmCombineMlir	csrc/internal/compile/dispatch_scan_test.cc	759	value	4	e3f3345bfd40be12	1	
+csrc/internal/compile/dispatch_scan_test.cc#kAssociativeSubtractCombineMlir	csrc/internal/compile/dispatch_scan_test.cc	770	value	4	b7c7aed7c892a4d7	1	
+csrc/internal/compile/dispatch_scan_test.cc#kAssociativeAffineAddCombineMlir	csrc/internal/compile/dispatch_scan_test.cc	779	value	4	e53963bfd31501a0	1	
+csrc/internal/compile/dispatch_scan_test.cc#kAssociativeAddWithStaticInputCombineMlir	csrc/internal/compile/dispatch_scan_test.cc	790	value	4	9248f44f8eafbb2f	1	
+csrc/internal/compile/dispatch_scan_test.cc#kAssociativeAdd4DCombineMlir	csrc/internal/compile/dispatch_scan_test.cc	801	value	4	4f59240602f1867e	1	
+csrc/internal/compile/dispatch_scan_test.cc#kAssociativeAndCombineMlir	csrc/internal/compile/dispatch_scan_test.cc	810	value	4	2349f24555c88f68	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanInfersIdentityAndEmitsChloScan_Test	csrc/internal/compile/dispatch_scan_test.cc	819	class	40	2be680aa434287f0	2	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanInfersIdentityAndEmitsChloScan_Test.-DispatchScanTest_AssociativeScanInfersIdentityAndEmitsChloScan_Test	csrc/internal/compile/dispatch_scan_test.cc	819	method	0	2be680aa434287f0	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanInfersIdentityAndEmitsChloScan_Test.DispatchScanTest_AssociativeScanInfersIdentityAndEmitsChloScan_Test	csrc/internal/compile/dispatch_scan_test.cc	819	method	0	2be680aa434287f0	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanInfersIdentityAndEmitsChloScan_Test.TestBody	csrc/internal/compile/dispatch_scan_test.cc	819	method	123	2be680aa434287f0	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanInfersIdentityAndEmitsChloScan_Test.operator	csrc/internal/compile/dispatch_scan_test.cc	819	method	0	2be680aa434287f0	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanInfersIdentityAndEmitsChloScan_Test.test_info_	csrc/internal/compile/dispatch_scan_test.cc	819	member	0	2be680aa434287f0	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanMambaSsmTupleInfersIdentity_Test	csrc/internal/compile/dispatch_scan_test.cc	861	class	40	36c52af14fd0260a	2	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanMambaSsmTupleInfersIdentity_Test.-DispatchScanTest_AssociativeScanMambaSsmTupleInfersIdentity_Test	csrc/internal/compile/dispatch_scan_test.cc	861	method	0	36c52af14fd0260a	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanMambaSsmTupleInfersIdentity_Test.DispatchScanTest_AssociativeScanMambaSsmTupleInfersIdentity_Test	csrc/internal/compile/dispatch_scan_test.cc	861	method	0	36c52af14fd0260a	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanMambaSsmTupleInfersIdentity_Test.TestBody	csrc/internal/compile/dispatch_scan_test.cc	861	method	73	36c52af14fd0260a	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanMambaSsmTupleInfersIdentity_Test.operator	csrc/internal/compile/dispatch_scan_test.cc	861	method	0	36c52af14fd0260a	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanMambaSsmTupleInfersIdentity_Test.test_info_	csrc/internal/compile/dispatch_scan_test.cc	861	member	0	36c52af14fd0260a	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanTier2SliceInitFallback_Test	csrc/internal/compile/dispatch_scan_test.cc	880	class	40	b048a90ebbe40013	2	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanTier2SliceInitFallback_Test.-DispatchScanTest_AssociativeScanTier2SliceInitFallback_Test	csrc/internal/compile/dispatch_scan_test.cc	880	method	0	b048a90ebbe40013	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanTier2SliceInitFallback_Test.DispatchScanTest_AssociativeScanTier2SliceInitFallback_Test	csrc/internal/compile/dispatch_scan_test.cc	880	method	0	b048a90ebbe40013	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanTier2SliceInitFallback_Test.TestBody	csrc/internal/compile/dispatch_scan_test.cc	880	method	78	b048a90ebbe40013	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanTier2SliceInitFallback_Test.operator	csrc/internal/compile/dispatch_scan_test.cc	880	method	0	b048a90ebbe40013	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanTier2SliceInitFallback_Test.test_info_	csrc/internal/compile/dispatch_scan_test.cc	880	member	0	b048a90ebbe40013	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanTier2WhileFallbackWithConstants_Test	csrc/internal/compile/dispatch_scan_test.cc	903	class	40	4e0344229cce839b	2	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanTier2WhileFallbackWithConstants_Test.-DispatchScanTest_AssociativeScanTier2WhileFallbackWithConstants_Test	csrc/internal/compile/dispatch_scan_test.cc	903	method	0	4e0344229cce839b	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanTier2WhileFallbackWithConstants_Test.DispatchScanTest_AssociativeScanTier2WhileFallbackWithConstants_Test	csrc/internal/compile/dispatch_scan_test.cc	903	method	0	4e0344229cce839b	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanTier2WhileFallbackWithConstants_Test.TestBody	csrc/internal/compile/dispatch_scan_test.cc	903	method	73	4e0344229cce839b	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanTier2WhileFallbackWithConstants_Test.operator	csrc/internal/compile/dispatch_scan_test.cc	903	method	0	4e0344229cce839b	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanTier2WhileFallbackWithConstants_Test.test_info_	csrc/internal/compile/dispatch_scan_test.cc	903	member	0	4e0344229cce839b	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanWithStaticInputsUsesWhile_Test	csrc/internal/compile/dispatch_scan_test.cc	921	class	40	55f5dccfcac1804e	2	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanWithStaticInputsUsesWhile_Test.-DispatchScanTest_AssociativeScanWithStaticInputsUsesWhile_Test	csrc/internal/compile/dispatch_scan_test.cc	921	method	0	55f5dccfcac1804e	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanWithStaticInputsUsesWhile_Test.DispatchScanTest_AssociativeScanWithStaticInputsUsesWhile_Test	csrc/internal/compile/dispatch_scan_test.cc	921	method	0	55f5dccfcac1804e	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanWithStaticInputsUsesWhile_Test.TestBody	csrc/internal/compile/dispatch_scan_test.cc	921	method	73	55f5dccfcac1804e	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanWithStaticInputsUsesWhile_Test.operator	csrc/internal/compile/dispatch_scan_test.cc	921	method	0	55f5dccfcac1804e	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanWithStaticInputsUsesWhile_Test.test_info_	csrc/internal/compile/dispatch_scan_test.cc	921	member	0	55f5dccfcac1804e	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanUnwrapsMovedimView_Test	csrc/internal/compile/dispatch_scan_test.cc	940	class	40	346577b7a43c7a0a	2	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanUnwrapsMovedimView_Test.-DispatchScanTest_AssociativeScanUnwrapsMovedimView_Test	csrc/internal/compile/dispatch_scan_test.cc	940	method	0	346577b7a43c7a0a	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanUnwrapsMovedimView_Test.DispatchScanTest_AssociativeScanUnwrapsMovedimView_Test	csrc/internal/compile/dispatch_scan_test.cc	940	method	0	346577b7a43c7a0a	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanUnwrapsMovedimView_Test.TestBody	csrc/internal/compile/dispatch_scan_test.cc	940	method	138	346577b7a43c7a0a	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanUnwrapsMovedimView_Test.operator	csrc/internal/compile/dispatch_scan_test.cc	940	method	0	346577b7a43c7a0a	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanUnwrapsMovedimView_Test.test_info_	csrc/internal/compile/dispatch_scan_test.cc	940	member	0	346577b7a43c7a0a	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanHighRankScansOriginalDim_Test	csrc/internal/compile/dispatch_scan_test.cc	975	class	40	c4b4b37353a49428	2	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanHighRankScansOriginalDim_Test.-DispatchScanTest_AssociativeScanHighRankScansOriginalDim_Test	csrc/internal/compile/dispatch_scan_test.cc	975	method	0	c4b4b37353a49428	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanHighRankScansOriginalDim_Test.DispatchScanTest_AssociativeScanHighRankScansOriginalDim_Test	csrc/internal/compile/dispatch_scan_test.cc	975	method	0	c4b4b37353a49428	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanHighRankScansOriginalDim_Test.TestBody	csrc/internal/compile/dispatch_scan_test.cc	975	method	73	c4b4b37353a49428	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanHighRankScansOriginalDim_Test.operator	csrc/internal/compile/dispatch_scan_test.cc	975	method	0	c4b4b37353a49428	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanHighRankScansOriginalDim_Test.test_info_	csrc/internal/compile/dispatch_scan_test.cc	975	member	0	c4b4b37353a49428	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanBitwiseAndUsesSliceInit_Test	csrc/internal/compile/dispatch_scan_test.cc	995	class	40	84f2f8b899483afb	2	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanBitwiseAndUsesSliceInit_Test.-DispatchScanTest_AssociativeScanBitwiseAndUsesSliceInit_Test	csrc/internal/compile/dispatch_scan_test.cc	995	method	0	84f2f8b899483afb	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanBitwiseAndUsesSliceInit_Test.DispatchScanTest_AssociativeScanBitwiseAndUsesSliceInit_Test	csrc/internal/compile/dispatch_scan_test.cc	995	method	0	84f2f8b899483afb	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanBitwiseAndUsesSliceInit_Test.TestBody	csrc/internal/compile/dispatch_scan_test.cc	995	method	73	84f2f8b899483afb	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanBitwiseAndUsesSliceInit_Test.operator	csrc/internal/compile/dispatch_scan_test.cc	995	method	0	84f2f8b899483afb	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanBitwiseAndUsesSliceInit_Test.test_info_	csrc/internal/compile/dispatch_scan_test.cc	995	member	0	84f2f8b899483afb	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanSeqLenOneShortCircuits_Test	csrc/internal/compile/dispatch_scan_test.cc	1014	class	40	53200216c4b5d414	2	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanSeqLenOneShortCircuits_Test.-DispatchScanTest_AssociativeScanSeqLenOneShortCircuits_Test	csrc/internal/compile/dispatch_scan_test.cc	1014	method	0	53200216c4b5d414	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanSeqLenOneShortCircuits_Test.DispatchScanTest_AssociativeScanSeqLenOneShortCircuits_Test	csrc/internal/compile/dispatch_scan_test.cc	1014	method	0	53200216c4b5d414	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanSeqLenOneShortCircuits_Test.TestBody	csrc/internal/compile/dispatch_scan_test.cc	1014	method	73	53200216c4b5d414	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanSeqLenOneShortCircuits_Test.operator	csrc/internal/compile/dispatch_scan_test.cc	1014	method	0	53200216c4b5d414	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanSeqLenOneShortCircuits_Test.test_info_	csrc/internal/compile/dispatch_scan_test.cc	1014	member	0	53200216c4b5d414	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanErrorValidation_Test	csrc/internal/compile/dispatch_scan_test.cc	1031	class	40	da5b31e81ed404ab	2	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanErrorValidation_Test.-DispatchScanTest_AssociativeScanErrorValidation_Test	csrc/internal/compile/dispatch_scan_test.cc	1031	method	0	da5b31e81ed404ab	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanErrorValidation_Test.DispatchScanTest_AssociativeScanErrorValidation_Test	csrc/internal/compile/dispatch_scan_test.cc	1031	method	0	da5b31e81ed404ab	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanErrorValidation_Test.TestBody	csrc/internal/compile/dispatch_scan_test.cc	1031	method	83	da5b31e81ed404ab	1	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanErrorValidation_Test.operator	csrc/internal/compile/dispatch_scan_test.cc	1031	method	0	da5b31e81ed404ab	0	
+csrc/internal/compile/dispatch_scan_test.cc#DispatchScanTest_AssociativeScanErrorValidation_Test.test_info_	csrc/internal/compile/dispatch_scan_test.cc	1031	member	0	da5b31e81ed404ab	0	
+csrc/internal/compile/tpu_torch_compile.cc#TensorInfo	csrc/internal/compile/tpu_torch_compile.cc	114	class	36	8e78c680badbffa3	5	
+csrc/internal/compile/tpu_torch_compile.cc#TensorInfo.shape	csrc/internal/compile/tpu_torch_compile.cc	115	member	13	e2ede1af6d2badec	2	
+csrc/internal/compile/tpu_torch_compile.cc#TensorInfo.dtype	csrc/internal/compile/tpu_torch_compile.cc	116	member	8	9eadadde9e16fd42	2	
+csrc/internal/compile/tpu_torch_compile.cc#TensorBounds	csrc/internal/compile/tpu_torch_compile.cc	119	class	40	6e30538030c3335e	6	
+csrc/internal/compile/tpu_torch_compile.cc#TensorBounds.dynamic_dims	csrc/internal/compile/tpu_torch_compile.cc	120	member	20	08f036d6b360015a	3	
+csrc/internal/compile/tpu_torch_compile.cc#TensorBounds.upper_bounds	csrc/internal/compile/tpu_torch_compile.cc	121	member	12	709ee5c98f6b6fe1	3	
+csrc/internal/compile/tpu_torch_compile.cc#PyLayout	csrc/internal/compile/tpu_torch_compile.cc	124	class	40	771282e70f591bfa	9	
+csrc/internal/compile/tpu_torch_compile.cc#IsValidLayout	csrc/internal/compile/tpu_torch_compile.cc	129	function	8	e0831899ee2e6f2f	2	
+csrc/internal/compile/tpu_torch_compile.cc#PyIsPinnedHost	csrc/internal/compile/tpu_torch_compile.cc	147	function	23	f474dbc99053fbf6	2	
+csrc/internal/compile/tpu_torch_compile.cc#PyMakePlaceholder	csrc/internal/compile/tpu_torch_compile.cc	155	function	69	6700f220a793c083	1	compiled-mode
+csrc/internal/compile/tpu_torch_compile.cc#PyMakeDynamicPlaceholder	csrc/internal/compile/tpu_torch_compile.cc	165	function	119	9acfa048dcceb2c9	1	compiled-mode
+csrc/internal/compile/tpu_torch_compile.cc#PyMakePlaceholderLike	csrc/internal/compile/tpu_torch_compile.cc	186	function	108	824c619f29bac06e	2	compiled-mode
+csrc/internal/compile/tpu_torch_compile.cc#ToPyLayout	csrc/internal/compile/tpu_torch_compile.cc	232	function	17	dbed92867cc21858	3	
+csrc/internal/compile/tpu_torch_compile.cc#ToPyLayouts	csrc/internal/compile/tpu_torch_compile.cc	245	function	18	ae6b364d76180a41	2	
+csrc/internal/compile/tpu_torch_compile.cc#PyGetDeviceLayoutIfMaterialized	csrc/internal/compile/tpu_torch_compile.cc	259	function	84	979430c878a21782	1	
+csrc/internal/compile/tpu_torch_compile.cc#PyGetDefaultLayout	csrc/internal/compile/tpu_torch_compile.cc	283	function	79	cd7cec2c1fbe9472	1	
+csrc/internal/compile/tpu_torch_compile.cc#PyIsDeviceShapeDynamic	csrc/internal/compile/tpu_torch_compile.cc	301	function	74	83382a13f6c5fe34	1	
+csrc/internal/compile/tpu_torch_compile.cc#PyGetParameterLayouts	csrc/internal/compile/tpu_torch_compile.cc	306	function	58	5525af151e9458e1	2	
+csrc/internal/compile/tpu_torch_compile.cc#PyGetOutputLayouts	csrc/internal/compile/tpu_torch_compile.cc	312	function	58	8cf188e47e5ef792	2	
+csrc/internal/compile/tpu_torch_compile.cc#PyGetParameterLayoutsFromMetadata	csrc/internal/compile/tpu_torch_compile.cc	318	function	24	a3a767d6a26176f2	1	
+csrc/internal/compile/tpu_torch_compile.cc#PyGetOutputLayoutsFromMetadata	csrc/internal/compile/tpu_torch_compile.cc	325	function	24	93e196b95292a47c	1	
+csrc/internal/compile/tpu_torch_compile.cc#PyBuildMlir	csrc/internal/compile/tpu_torch_compile.cc	334	function	184	876f3cec8253bf11	1	compiled-mode
+csrc/internal/compile/tpu_torch_compile.cc#PyParseMlirText	csrc/internal/compile/tpu_torch_compile.cc	357	function	174	0e6a75b3e6abfb20	1	compiled-mode
+csrc/internal/compile/tpu_torch_compile.cc#PySerializeMlirText	csrc/internal/compile/tpu_torch_compile.cc	382	function	34	d17bf75cb540b9a1	1	
+csrc/internal/compile/tpu_torch_compile.cc#PySerializeMlirBytecode	csrc/internal/compile/tpu_torch_compile.cc	390	function	59	c6f02ebcdeca42d4	1	
+csrc/internal/compile/tpu_torch_compile.cc#PySerializePortableArtifact	csrc/internal/compile/tpu_torch_compile.cc	396	function	59	0b30bc389691f13b	1	
+csrc/internal/compile/tpu_torch_compile.cc#HasSpmdShardingInstructions	csrc/internal/compile/tpu_torch_compile.cc	404	function	9	2ae3fd3e89b58fc0	1	
+csrc/internal/compile/tpu_torch_compile.cc#HasSparseCoreCustomCall	csrc/internal/compile/tpu_torch_compile.cc	424	function	14	17b159d9c6e2ee20	1	
+csrc/internal/compile/tpu_torch_compile.cc#PyCompileMlir	csrc/internal/compile/tpu_torch_compile.cc	450	function	234	98981f56c0921e25	1	compiled-mode
+csrc/internal/compile/tpu_torch_compile.cc#ParseTupleLayout	csrc/internal/compile/tpu_torch_compile.cc	540	function	24	2fe6aa8834028253	1	
+csrc/internal/compile/tpu_torch_compile.cc#ParseCustomLayout	csrc/internal/compile/tpu_torch_compile.cc	556	function	124	22d6a7c2ab809536	1	compiled-mode
+csrc/internal/compile/tpu_torch_compile.cc#ConvertArgumentLayouts	csrc/internal/compile/tpu_torch_compile.cc	582	function	104	6f6c953133cb1de0	1	
+csrc/internal/compile/tpu_torch_compile.cc#ConvertTraverseAndCompileOptions	csrc/internal/compile/tpu_torch_compile.cc	605	function	44	b0473e8a8c003b39	1	
+csrc/internal/compile/tpu_torch_compile.cc#PyAsyncTraverseAndCompile	csrc/internal/compile/tpu_torch_compile.cc	623	function	113	03a28659968c9e79	2	compiled-mode
+csrc/internal/compile/tpu_torch_compile.cc#PyTraverseAndCompile	csrc/internal/compile/tpu_torch_compile.cc	653	function	79	9a008c8196c323d8	1	
+csrc/internal/compile/tpu_torch_compile.cc#PyPushEnableTracebacks	csrc/internal/compile/tpu_torch_compile.cc	677	function	34	c529738986bb9960	1	
+csrc/internal/compile/tpu_torch_compile.cc#PyGetDeviceStateTensor	csrc/internal/compile/tpu_torch_compile.cc	689	function	57	a4a50734f6222eb3	6	compiled-mode
+csrc/internal/compile/tpu_torch_compile.cc#PySetDeviceStateTensor	csrc/internal/compile/tpu_torch_compile.cc	695	function	112	6f6ab177405c317d	6	compiled-mode
+csrc/internal/compile/tpu_torch_compile.cc#PyMakeExportModeDeviceGenerator	csrc/internal/compile/tpu_torch_compile.cc	702	function	29	09a7aa5d9fe01cc1	1	
+csrc/internal/compile/tpu_torch_compile.cc#PySetExportModeDefaultDeviceGenerator	csrc/internal/compile/tpu_torch_compile.cc	719	function	14	0e3f72f1de6a943f	1	
+csrc/internal/compile/tpu_torch_compile.cc#PyClearExportModeDefaultDeviceGenerators	csrc/internal/compile/tpu_torch_compile.cc	725	function	9	9aca0d587f33729d	1	
+csrc/internal/compile/tpu_torch_compile.cc#MakePadDynamicShapes	csrc/internal/compile/tpu_torch_compile.cc	730	function	187	3f636a4722ecbc93	3	compiled-mode
+csrc/internal/compile/tpu_torch_compile.cc#ToStaticShapes	csrc/internal/compile/tpu_torch_compile.cc	776	function	28	14cc8da1698055f7	2	
+csrc/internal/compile/tpu_torch_compile.cc#ToPaddedShapes	csrc/internal/compile/tpu_torch_compile.cc	785	function	48	0fcfc9088422c105	2	
+csrc/internal/compile/tpu_torch_compile.cc#SliceSubgraphInputs	csrc/internal/compile/tpu_torch_compile.cc	798	class	21	6ba49de9569a23e8	4	
+csrc/internal/compile/tpu_torch_compile.cc#SliceSubgraphInputs.target_dims	csrc/internal/compile/tpu_torch_compile.cc	801	member	29	fce0189b000f07ce	3	
+csrc/internal/compile/tpu_torch_compile.cc#SliceSubgraphInputs.padded_dims	csrc/internal/compile/tpu_torch_compile.cc	802	member	29	f97a2cf0d65145f3	3	
+csrc/internal/compile/tpu_torch_compile.cc#SliceSubgraphInputs.element_types	csrc/internal/compile/tpu_torch_compile.cc	803	member	29	ed337f3fa963c9b0	3	
+csrc/internal/compile/tpu_torch_compile.cc#SliceSubgraphInputs.input_shapes	csrc/internal/compile/tpu_torch_compile.cc	804	member	21	db119cb9d308362f	3	
+csrc/internal/compile/tpu_torch_compile.cc#SliceSubgraphInputs.output_shapes	csrc/internal/compile/tpu_torch_compile.cc	805	member	21	e13b6d78fd48855d	3	
+csrc/internal/compile/tpu_torch_compile.cc#UnpackSliceInputs	csrc/internal/compile/tpu_torch_compile.cc	808	function	183	faf35adcc21d2102	2	compiled-mode
+csrc/internal/compile/tpu_torch_compile.cc#CompileModuleWithCache	csrc/internal/compile/tpu_torch_compile.cc	868	function	128	bfb5037fdf6d38d1	2	compiled-mode
+csrc/internal/compile/tpu_torch_compile.cc#PyPrecompilePadModule	csrc/internal/compile/tpu_torch_compile.cc	926	function	164	0f8e41e6b90b08a2	1	compiled-mode
+csrc/internal/compile/tpu_torch_compile.cc#PyGetOrCompilePadModule	csrc/internal/compile/tpu_torch_compile.cc	982	function	149	061510517c650a4b	1	compiled-mode
+csrc/internal/compile/tpu_torch_compile.cc#PyGetDynamicPadModule	csrc/internal/compile/tpu_torch_compile.cc	1044	function	149	97b54ecc55d3bca7	1	compiled-mode
+csrc/internal/compile/tpu_torch_compile.cc#PyPrecompileSliceModule	csrc/internal/compile/tpu_torch_compile.cc	1083	function	174	c1765a8156aa38fd	1	compiled-mode
+csrc/internal/compile/tpu_torch_compile.cc#PyGetOrCompileSliceModule	csrc/internal/compile/tpu_torch_compile.cc	1144	function	164	433f272786969b0a	1	compiled-mode
+csrc/internal/compile/tpu_torch_compile.cc#PySerializeExecutable	csrc/internal/compile/tpu_torch_compile.cc	1181	function	69	6262e92ac1d5e07f	1	
+csrc/internal/compile/tpu_torch_compile.cc#LoadSerializedExecutableImpl	csrc/internal/compile/tpu_torch_compile.cc	1189	function	69	2e2620a094d97492	1	
+csrc/internal/compile/tpu_torch_compile.cc#PyLoadSerializedExecutable	csrc/internal/compile/tpu_torch_compile.cc	1201	function	74	e9a6052fd120ae60	1	
+csrc/internal/compile/tpu_torch_compile.cc#PyMakeConstantTensor	csrc/internal/compile/tpu_torch_compile.cc	1210	function	54	e210565e594f82eb	1	
+csrc/internal/compile/tpu_torch_compile.cc#PyAssignConstantTensor	csrc/internal/compile/tpu_torch_compile.cc	1215	function	69	f2cb815e07b96bc7	1	
+csrc/internal/compile/tpu_torch_compile.cc#PyIsConstantTensor	csrc/internal/compile/tpu_torch_compile.cc	1220	function	39	762651343a75c362	1	
+csrc/internal/compile/tpu_torch_compile.cc#IsPhysicallyContiguousLayout	csrc/internal/compile/tpu_torch_compile.cc	1238	function	18	fcf26507a15c2a80	2	
+csrc/internal/compile/tpu_torch_compile.cc#ForceStrides	csrc/internal/compile/tpu_torch_compile.cc	1256	function	163	bcd9a4cb657bf0b1	2	compiled-mode
+csrc/internal/compile/tpu_torch_compile.cc#PyForceStrides	csrc/internal/compile/tpu_torch_compile.cc	1298	function	19	acea2924aa7137a3	1	
+csrc/internal/compile/tpu_torch_compile.cc#MultiGeneratorLocker	csrc/internal/compile/tpu_torch_compile.cc	1313	class	36	8675c58b0023355d	5	
+csrc/internal/compile/tpu_torch_compile.cc#MultiGeneratorLocker.MultiGeneratorLocker	csrc/internal/compile/tpu_torch_compile.cc	1318	method	10	6cb43b8413e165c9	0	
+csrc/internal/compile/tpu_torch_compile.cc#MultiGeneratorLocker.operator	csrc/internal/compile/tpu_torch_compile.cc	1340	method	5	2f068888e6d3a62e	0	
+csrc/internal/compile/tpu_torch_compile.cc#MultiGeneratorLocker.Enter	csrc/internal/compile/tpu_torch_compile.cc	1346	method	19	9ca62576ab768d2a	1	
+csrc/internal/compile/tpu_torch_compile.cc#MultiGeneratorLocker.Exit	csrc/internal/compile/tpu_torch_compile.cc	1361	method	9	e36acf9909a298ad	1	
+csrc/internal/compile/tpu_torch_compile.cc#MultiGeneratorLocker.sorted_unique_mutexes_	csrc/internal/compile/tpu_torch_compile.cc	1370	member	36	f54117707782e834	2	
+csrc/internal/compile/tpu_torch_compile.cc#MultiGeneratorLocker.locks_	csrc/internal/compile/tpu_torch_compile.cc	1371	member	16	415bb1fa0ebd6f0d	2	
+csrc/internal/compile/tpu_torch_compile.cc#RawPyObjPtr	csrc/internal/compile/tpu_torch_compile.cc	1383	class	93	34f57aaffb524f70	14	
+csrc/internal/compile/tpu_torch_compile.cc#AsFastSequence	csrc/internal/compile/tpu_torch_compile.cc	1388	function	13	64fcb9ef3403a672	2	
+csrc/internal/compile/tpu_torch_compile.cc#FxOutputReconstructor	csrc/internal/compile/tpu_torch_compile.cc	1400	class	32	eef31515fa93d855	4	
+csrc/internal/compile/tpu_torch_compile.cc#FxOutputReconstructor.EntryType	csrc/internal/compile/tpu_torch_compile.cc	1404	class	36	3ffee305ec65fd84	5	
+csrc/internal/compile/tpu_torch_compile.cc#FxOutputReconstructor.EntryType.kDedupedTensor	csrc/internal/compile/tpu_torch_compile.cc	1405	member	16	15d7f04a9c6a9aeb	3	
+csrc/internal/compile/tpu_torch_compile.cc#FxOutputReconstructor.EntryType.kNonTensorPassthrough	csrc/internal/compile/tpu_torch_compile.cc	1406	member	8	1be66d7d580d68c7	2	
+csrc/internal/compile/tpu_torch_compile.cc#FxOutputReconstructor.EntryType.kNone	csrc/internal/compile/tpu_torch_compile.cc	1407	member	8	1cfbb0523456d61c	2	
+csrc/internal/compile/tpu_torch_compile.cc#FxOutputReconstructor.Entry	csrc/internal/compile/tpu_torch_compile.cc	1410	class	29	a4b2e8f6dded668e	4	
+csrc/internal/compile/tpu_torch_compile.cc#FxOutputReconstructor.Entry.type	csrc/internal/compile/tpu_torch_compile.cc	1411	member	20	254b03f60c88416e	3	
+csrc/internal/compile/tpu_torch_compile.cc#FxOutputReconstructor.Entry.index	csrc/internal/compile/tpu_torch_compile.cc	1412	member	40	d626190e6a01dcc5	3	
+csrc/internal/compile/tpu_torch_compile.cc#FxOutputReconstructor.Entry.needs_clone	csrc/internal/compile/tpu_torch_compile.cc	1413	member	8	f2fc2bcd0d78fc85	2	
+csrc/internal/compile/tpu_torch_compile.cc#FxOutputReconstructor.Entry.can_move	csrc/internal/compile/tpu_torch_compile.cc	1414	member	12	9ae149b913ff9c3d	2	
+csrc/internal/compile/tpu_torch_compile.cc#FxOutputReconstructor.Entry.needs_layout_check	csrc/internal/compile/tpu_torch_compile.cc	1415	member	8	25feab643d1c388a	2	
+csrc/internal/compile/tpu_torch_compile.cc#FxOutputReconstructor.ExpectedTensorLayout	csrc/internal/compile/tpu_torch_compile.cc	1419	class	21	c8884dc2bac33569	3	
+csrc/internal/compile/tpu_torch_compile.cc#FxOutputReconstructor.ExpectedTensorLayout.dtype	csrc/internal/compile/tpu_torch_compile.cc	1420	member	17	f01f05c871547e73	2	
+csrc/internal/compile/tpu_torch_compile.cc#FxOutputReconstructor.ExpectedTensorLayout.shape	csrc/internal/compile/tpu_torch_compile.cc	1421	member	45	0481d1b85e77e059	3	
+csrc/internal/compile/tpu_torch_compile.cc#FxOutputReconstructor.ExpectedTensorLayout.stride	csrc/internal/compile/tpu_torch_compile.cc	1422	member	36	3d3d06dede150baa	3	
+csrc/internal/compile/tpu_torch_compile.cc#FxOutputReconstructor.ExpectedTensorLayout.storage_offset	csrc/internal/compile/tpu_torch_compile.cc	1423	member	24	f3541373de2784f7	3	
+csrc/internal/compile/tpu_torch_compile.cc#FxOutputReconstructor.ExpectedTensorLayout.is_dynamic	csrc/internal/compile/tpu_torch_compile.cc	1424	member	12	d36fb5fb979ba67f	2	
+csrc/internal/compile/tpu_torch_compile.cc#FxOutputReconstructor.ExpectedTensorLayout.is_standard_contiguous	csrc/internal/compile/tpu_torch_compile.cc	1425	member	12	6320585ecbb7226b	2	
+csrc/internal/compile/tpu_torch_compile.cc#FxOutputReconstructor.ExpectedTensorLayout.is_physically_contiguous	csrc/internal/compile/tpu_torch_compile.cc	1426	member	8	895eb7642d1e07e5	2	
+csrc/internal/compile/tpu_torch_compile.cc#FxOutputReconstructor.ExpectedTensorLayout.MatchesTensor	csrc/internal/compile/tpu_torch_compile.cc	1428	method	34	8d8bb7caa1d3d657	1	
+csrc/internal/compile/tpu_torch_compile.cc#FxOutputReconstructor.IsStandardContiguousLayout	csrc/internal/compile/tpu_torch_compile.cc	1441	method	9	b3415ea961804777	1	
+csrc/internal/compile/tpu_torch_compile.cc#FxOutputReconstructor.SpecKind	csrc/internal/compile/tpu_torch_compile.cc	1458	class	36	7c22034ff09524d7	4	
+csrc/internal/compile/tpu_torch_compile.cc#FxOutputReconstructor.SpecKind.kLeaf	csrc/internal/compile/tpu_torch_compile.cc	1459	member	8	3e0ae9e6ebae2571	2	
+csrc/internal/compile/tpu_torch_compile.cc#FxOutputReconstructor.SpecKind.kFlatTuple	csrc/internal/compile/tpu_torch_compile.cc	1460	member	8	bbc0488feb6f5004	2	
+csrc/internal/compile/tpu_torch_compile.cc#FxOutputReconstructor.SpecKind.kFlatList	csrc/internal/compile/tpu_torch_compile.cc	1461	member	8	99ac2ee887a7c025	2	
+csrc/internal/compile/tpu_torch_compile.cc#FxOutputReconstructor.SpecKind.kGeneral	csrc/internal/compile/tpu_torch_compile.cc	1462	member	9	d832bdeb7aca3401	1	
+csrc/internal/compile/tpu_torch_compile.cc#FxOutputReconstructor.ParseDimensions	csrc/internal/compile/tpu_torch_compile.cc	1465	method	18	ec941edd68504078	1	
+csrc/internal/compile/tpu_torch_compile.cc#FxOutputReconstructor.ParseEntry	csrc/internal/compile/tpu_torch_compile.cc	1473	method	29	60bfc267ab6066a3	1	
+csrc/internal/compile/tpu_torch_compile.cc#FxOutputReconstructor.DetermineSpecKind	csrc/internal/compile/tpu_torch_compile.cc	1487	method	29	54e43bc2b524e247	1	
+csrc/internal/compile/tpu_torch_compile.cc#FxOutputReconstructor.FxOutputReconstructor	csrc/internal/compile/tpu_torch_compile.cc	1508	method	85	25177ccd606c60a6	0	
+csrc/internal/compile/tpu_torch_compile.cc#FxOutputReconstructor.InitExpectedLayouts	csrc/internal/compile/tpu_torch_compile.cc	1538	method	124	05373e8ba7d60d8e	1	compiled-mode
+csrc/internal/compile/tpu_torch_compile.cc#FxOutputReconstructor.Reconstruct	csrc/internal/compile/tpu_torch_compile.cc	1598	method	147	8d9641dc4bc1fc35	3	compiled-mode
+csrc/internal/compile/tpu_torch_compile.cc#FxOutputReconstructor.Call	csrc/internal/compile/tpu_torch_compile.cc	1645	method	19	c7dc1f50d6299634	1	
+csrc/internal/compile/tpu_torch_compile.cc#FxOutputReconstructor.Reduce	csrc/internal/compile/tpu_torch_compile.cc	1652	method	24	556028a87b7e85fa	1	
+csrc/internal/compile/tpu_torch_compile.cc#FxOutputReconstructor.CheckInputIndex	csrc/internal/compile/tpu_torch_compile.cc	1662	method	89	e02b3c93fbcc41e9	1	
+csrc/internal/compile/tpu_torch_compile.cc#FxOutputReconstructor.GetInputItemNewRef	csrc/internal/compile/tpu_torch_compile.cc	1669	method	19	04cbc7a7f9b3cbef	1	
+csrc/internal/compile/tpu_torch_compile.cc#FxOutputReconstructor.GetReconstructedLeafNewRef	csrc/internal/compile/tpu_torch_compile.cc	1679	method	127	58b8bdc94091ccce	1	compiled-mode
+csrc/internal/compile/tpu_torch_compile.cc#FxOutputReconstructor.entries_	csrc/internal/compile/tpu_torch_compile.cc	1716	member	45	1d85fc49f6be952d	4	
+csrc/internal/compile/tpu_torch_compile.cc#FxOutputReconstructor.layouts_	csrc/internal/compile/tpu_torch_compile.cc	1717	member	20	a5b6e1982c475dc1	2	
+csrc/internal/compile/tpu_torch_compile.cc#FxOutputReconstructor.num_output_tensors_	csrc/internal/compile/tpu_torch_compile.cc	1719	member	21	d7dd9887c6bc9f8b	2	
+csrc/internal/compile/tpu_torch_compile.cc#FxOutputReconstructor.spec_kind_	csrc/internal/compile/tpu_torch_compile.cc	1720	member	16	df1b0ba39bcb6014	2	
+csrc/internal/compile/tpu_torch_compile.cc#FxOutputReconstructor.output_map_py_	csrc/internal/compile/tpu_torch_compile.cc	1721	member	12	d54cbab6d4a4352d	2	
+csrc/internal/compile/tpu_torch_compile.cc#FxOutputReconstructor.expected_layouts_py_	csrc/internal/compile/tpu_torch_compile.cc	1722	member	12	4dc2126b85a02248	3	
+csrc/internal/compile/tpu_torch_compile.cc#FxOutputReconstructor.spec_py_	csrc/internal/compile/tpu_torch_compile.cc	1723	member	12	277229cce7c3cbba	3	
+csrc/internal/compile/tpu_torch_compile.cc#FxOutputReconstructor.dynamic_outputs_py_	csrc/internal/compile/tpu_torch_compile.cc	1724	member	21	4dfe28bd673ee862	3	
+csrc/internal/compile/tpu_torch_compile.cc#UnboxSingleSequenceArg	csrc/internal/compile/tpu_torch_compile.cc	1733	function	18	c200c39b970b34eb	2	
+csrc/internal/compile/tpu_torch_compile.cc#UnpackInputTensorPointers	csrc/internal/compile/tpu_torch_compile.cc	1758	function	33	03d13fb06f6e50ea	2	
+csrc/internal/compile/tpu_torch_compile.cc#ParseOutputShapes	csrc/internal/compile/tpu_torch_compile.cc	1776	function	18	5d2e9a57787fd00e	2	
+csrc/internal/compile/tpu_torch_compile.cc#PyExecuteCompiledModel	csrc/internal/compile/tpu_torch_compile.cc	1791	function	59	bf9e1f1b097d0a09	1	
+csrc/internal/compile/tpu_torch_compile.cc#ScopedGeneratorLocks	csrc/internal/compile/tpu_torch_compile.cc	1838	class	4	6a263d6bc0188b2d	1	
+csrc/internal/compile/tpu_torch_compile.cc#ScopedGeneratorLocks.ScopedGeneratorLocks	csrc/internal/compile/tpu_torch_compile.cc	1840	method	19	4da25d22ed599067	1	
+csrc/internal/compile/tpu_torch_compile.cc#ScopedGeneratorLocks.locks_	csrc/internal/compile/tpu_torch_compile.cc	1866	member	12	67873175c60e7c28	1	
+csrc/internal/compile/tpu_torch_compile.cc#CompiledExecutableRunner	csrc/internal/compile/tpu_torch_compile.cc	1888	class	4	941b3d3f1e42fe20	1	
+csrc/internal/compile/tpu_torch_compile.cc#CompiledExecutableRunner.CompiledExecutableRunner	csrc/internal/compile/tpu_torch_compile.cc	1890	method	45	8ab5cd1dc1cc4916	0	
+csrc/internal/compile/tpu_torch_compile.cc#CompiledExecutableRunner.RunFast	csrc/internal/compile/tpu_torch_compile.cc	1913	method	64	48a4a2b641317c80	1	
+csrc/internal/compile/tpu_torch_compile.cc#CompiledExecutableRunner.FormatUserOutputs	csrc/internal/compile/tpu_torch_compile.cc	1938	method	38	7cc62b91c1bc6691	2	
+csrc/internal/compile/tpu_torch_compile.cc#CompiledExecutableRunner.RunWithGenerators	csrc/internal/compile/tpu_torch_compile.cc	1956	method	74	9923a7942471c6f0	1	compiled-mode
+csrc/internal/compile/tpu_torch_compile.cc#CompiledExecutableRunner.executable_	csrc/internal/compile/tpu_torch_compile.cc	2006	member	17	34e7c27c0f02305f	3	
+csrc/internal/compile/tpu_torch_compile.cc#CompiledExecutableRunner.cached_output_shapes_	csrc/internal/compile/tpu_torch_compile.cc	2007	member	37	19f3b46c4a04ed30	3	
+csrc/internal/compile/tpu_torch_compile.cc#CompiledExecutableRunner.cached_output_shapes_with_1_gen_	csrc/internal/compile/tpu_torch_compile.cc	2008	member	16	98bc54b44c8d78d5	2	
+csrc/internal/compile/tpu_torch_compile.cc#CompiledExecutableRunner.reconstruct_fn_	csrc/internal/compile/tpu_torch_compile.cc	2009	member	29	271a967e402cf4cb	2	
+csrc/internal/compile/tpu_torch_compile.cc#CompiledExecutableRunner.reconstructor_ptr_	csrc/internal/compile/tpu_torch_compile.cc	2010	member	12	ab0dd13b9fedeccb	2	
+csrc/internal/compile/tpu_torch_compile.cc#CompiledExecutableRunner.updates_default_generator_state_	csrc/internal/compile/tpu_torch_compile.cc	2011	member	8	27d8d43ec370d813	2	
+csrc/internal/compile/tpu_torch_compile.cc#TorchTpuPyBindInitModule_tpu_torch_compile	csrc/internal/compile/tpu_torch_compile.cc	2014	function	551	e4a2c9ddc0d5a2d6	1	compiled-mode
+csrc/internal/compile/tpu_torch_compile.cc#pybind11_exec_tpu_torch_compile	csrc/internal/compile/tpu_torch_compile.cc	2014	function	16	e4a2c9ddc0d5a2d6	1	
+csrc/internal/compile/tpu_torch_compile.cc#pybind11_init_tpu_torch_compile	csrc/internal/compile/tpu_torch_compile.cc	2014	function	16	e4a2c9ddc0d5a2d6	1	
+csrc/internal/compiler_options/compiler_options_impl.cc#PushCompilerOptions	csrc/internal/compiler_options/compiler_options_impl.cc	29	function	69	6124e1937cd7dabf	1	
+csrc/internal/compiler_options/compiler_options_impl.cc#TorchTpuPyBindInitModule_compiler_options_impl	csrc/internal/compiler_options/compiler_options_impl.cc	33	function	66	b5e0f6109f475c3c	1	
+csrc/internal/compiler_options/compiler_options_impl.cc#pybind11_exec_compiler_options_impl	csrc/internal/compiler_options/compiler_options_impl.cc	33	function	16	b5e0f6109f475c3c	1	
+csrc/internal/compiler_options/compiler_options_impl.cc#pybind11_init_compiler_options_impl	csrc/internal/compiler_options/compiler_options_impl.cc	33	function	16	b5e0f6109f475c3c	1	
+csrc/internal/distributed/tpu_distributed.cc#MakeProcessGroup	csrc/internal/distributed/tpu_distributed.cc	49	function	9	9a797a1ef1d068f5	1	
+csrc/internal/distributed/tpu_distributed.cc#GetRankToDeviceId	csrc/internal/distributed/tpu_distributed.cc	55	function	14	32669c483d53541d	1	
+csrc/internal/distributed/tpu_distributed.cc#GetGlobalDeviceId	csrc/internal/distributed/tpu_distributed.cc	65	function	69	37c17fc62651211e	1	
+csrc/internal/distributed/tpu_distributed.cc#GetAllGlobalDeviceIds	csrc/internal/distributed/tpu_distributed.cc	72	function	59	1d155b0edfcaf365	1	
+csrc/internal/distributed/tpu_distributed.cc#DeviceDebugString	csrc/internal/distributed/tpu_distributed.cc	86	function	59	765bed9018a9f236	1	
+csrc/internal/distributed/tpu_distributed.cc#GetLocalDeviceCoords	csrc/internal/distributed/tpu_distributed.cc	95	function	59	855773f86f1feb22	1	
+csrc/internal/distributed/tpu_distributed.cc#TorchTpuPyBindInitModule_tpu_distributed	csrc/internal/distributed/tpu_distributed.cc	111	function	146	069d07260c3a88fe	1	
+csrc/internal/distributed/tpu_distributed.cc#pybind11_exec_tpu_distributed	csrc/internal/distributed/tpu_distributed.cc	111	function	16	069d07260c3a88fe	1	
+csrc/internal/distributed/tpu_distributed.cc#pybind11_init_tpu_distributed	csrc/internal/distributed/tpu_distributed.cc	111	function	16	069d07260c3a88fe	1	
+csrc/internal/dynamism/dynamism.cc#MarkDynamic	csrc/internal/dynamism/dynamism.cc	38	function	254	aa2a833ea6bf0cef	1	
+csrc/internal/dynamism/dynamism.cc#GetDynamismInfo	csrc/internal/dynamism/dynamism.cc	86	function	159	fc3193f34309e7ba	1	
+csrc/internal/dynamism/dynamism_ops.cc#Pad	csrc/internal/dynamism/dynamism_ops.cc	51	function	189	296af88c499c415b	2	
+csrc/internal/dynamism/dynamism_ops.cc#Slice	csrc/internal/dynamism/dynamism_ops.cc	92	function	217	7b282548a49c8819	1	
+csrc/internal/dynamism/dynamism_ops.cc#MakeDynamicTensorType	csrc/internal/dynamism/dynamism_ops.cc	147	function	17	5a80d87b2c5477e8	1	
+csrc/internal/dynamism/dynamism_ops.cc#GetPadModule	csrc/internal/dynamism/dynamism_ops.cc	171	function	179	141076df5bd3e403	4	
+csrc/internal/dynamism/dynamism_ops.cc#GetDynamicPadModule	csrc/internal/dynamism/dynamism_ops.cc	214	function	159	f7a5a9585725d79f	1	
+csrc/internal/dynamism/dynamism_ops.cc#GetSliceModule	csrc/internal/dynamism/dynamism_ops.cc	269	function	154	1cb4e4e41437032d	4	
+csrc/internal/dynamism/dynamism_ops_test.cc#DynamismOpsBuilder	csrc/internal/dynamism/dynamism_ops_test.cc	37	class	8	850ab5b1a7054f6a	2	
+csrc/internal/dynamism/dynamism_ops_test.cc#DynamismOpsBuilder.DynamismOpsBuilder	csrc/internal/dynamism/dynamism_ops_test.cc	39	method	18	5ba95f8c9c780fd4	2	
+csrc/internal/dynamism/dynamism_ops_test.cc#DynamismOpsBuilder.getContext	csrc/internal/dynamism/dynamism_ops_test.cc	46	method	18	5053391f7cd59f60	2	
+csrc/internal/dynamism/dynamism_ops_test.cc#DynamismOpsBuilder.context_	csrc/internal/dynamism/dynamism_ops_test.cc	49	member	16	f33c42c062603507	2	
+csrc/internal/dynamism/dynamism_ops_test.cc#DynamismOpsTest_GetPadModuleDocstringExample_Test	csrc/internal/dynamism/dynamism_ops_test.cc	52	class	40	4d526630858c2a10	1	
+csrc/internal/dynamism/dynamism_ops_test.cc#DynamismOpsTest_GetPadModuleDocstringExample_Test.-DynamismOpsTest_GetPadModuleDocstringExample_Test	csrc/internal/dynamism/dynamism_ops_test.cc	52	method	0	4d526630858c2a10	0	
+csrc/internal/dynamism/dynamism_ops_test.cc#DynamismOpsTest_GetPadModuleDocstringExample_Test.DynamismOpsTest_GetPadModuleDocstringExample_Test	csrc/internal/dynamism/dynamism_ops_test.cc	52	method	0	4d526630858c2a10	0	
+csrc/internal/dynamism/dynamism_ops_test.cc#DynamismOpsTest_GetPadModuleDocstringExample_Test.TestBody	csrc/internal/dynamism/dynamism_ops_test.cc	52	method	73	4d526630858c2a10	1	
+csrc/internal/dynamism/dynamism_ops_test.cc#DynamismOpsTest_GetPadModuleDocstringExample_Test.operator	csrc/internal/dynamism/dynamism_ops_test.cc	52	method	0	4d526630858c2a10	0	
+csrc/internal/dynamism/dynamism_ops_test.cc#DynamismOpsTest_GetPadModuleDocstringExample_Test.test_info_	csrc/internal/dynamism/dynamism_ops_test.cc	52	member	0	4d526630858c2a10	0	
+csrc/internal/dynamism/dynamism_ops_test.cc#DynamismOpsTest_GetSliceModuleDocstringExample_Test	csrc/internal/dynamism/dynamism_ops_test.cc	95	class	40	2bae743a5247b889	1	
+csrc/internal/dynamism/dynamism_ops_test.cc#DynamismOpsTest_GetSliceModuleDocstringExample_Test.-DynamismOpsTest_GetSliceModuleDocstringExample_Test	csrc/internal/dynamism/dynamism_ops_test.cc	95	method	0	2bae743a5247b889	0	
+csrc/internal/dynamism/dynamism_ops_test.cc#DynamismOpsTest_GetSliceModuleDocstringExample_Test.DynamismOpsTest_GetSliceModuleDocstringExample_Test	csrc/internal/dynamism/dynamism_ops_test.cc	95	method	0	2bae743a5247b889	0	
+csrc/internal/dynamism/dynamism_ops_test.cc#DynamismOpsTest_GetSliceModuleDocstringExample_Test.TestBody	csrc/internal/dynamism/dynamism_ops_test.cc	95	method	58	2bae743a5247b889	1	
+csrc/internal/dynamism/dynamism_ops_test.cc#DynamismOpsTest_GetSliceModuleDocstringExample_Test.operator	csrc/internal/dynamism/dynamism_ops_test.cc	95	method	0	2bae743a5247b889	0	
+csrc/internal/dynamism/dynamism_ops_test.cc#DynamismOpsTest_GetSliceModuleDocstringExample_Test.test_info_	csrc/internal/dynamism/dynamism_ops_test.cc	95	member	0	2bae743a5247b889	0	
+csrc/internal/dynamism/dynamism_py.cc#PyMarkDynamic	csrc/internal/dynamism/dynamism_py.cc	36	function	124	2463d45167ef9469	1	
+csrc/internal/dynamism/dynamism_py.cc#PyGetDynamismInfo	csrc/internal/dynamism/dynamism_py.cc	48	function	104	6b88ae56766a5f29	1	
+csrc/internal/dynamism/dynamism_py.cc#TorchTpuPyBindInitModule__tpu_torch_dynamism	csrc/internal/dynamism/dynamism_py.cc	63	function	96	592a1b707674edcc	1	
+csrc/internal/dynamism/dynamism_py.cc#pybind11_exec__tpu_torch_dynamism	csrc/internal/dynamism/dynamism_py.cc	63	function	16	592a1b707674edcc	1	
+csrc/internal/dynamism/dynamism_py.cc#pybind11_init__tpu_torch_dynamism	csrc/internal/dynamism/dynamism_py.cc	63	function	16	592a1b707674edcc	1	
+csrc/internal/env.cc#PyGetBooleanEnvOnce	csrc/internal/env.cc	40	function	39	c65d24061b29c2c4	1	
+csrc/internal/env.cc#PyGetIntegerEnvOnce	csrc/internal/env.cc	66	function	59	e52efe1015f15d20	1	
+csrc/internal/env.cc#PyGetStringEnvOnce	csrc/internal/env.cc	100	function	59	f66eb8aed28fe5bc	1	
+csrc/internal/env.cc#TorchTpuPyBindInitModule_env	csrc/internal/env.cc	132	function	101	0d5fc8b870515d8b	1	
+csrc/internal/env.cc#pybind11_exec_env	csrc/internal/env.cc	132	function	16	0d5fc8b870515d8b	1	
+csrc/internal/env.cc#pybind11_init_env	csrc/internal/env.cc	132	function	16	0d5fc8b870515d8b	1	
+csrc/internal/execution_mode/execution_mode_impl.cc#TorchTpuPyBindInitModule_execution_mode_impl	csrc/internal/execution_mode/execution_mode_impl.cc	28	function	136	cf13ee915095ab96	1	
+csrc/internal/execution_mode/execution_mode_impl.cc#pybind11_exec_execution_mode_impl	csrc/internal/execution_mode/execution_mode_impl.cc	28	function	16	cf13ee915095ab96	1	
+csrc/internal/execution_mode/execution_mode_impl.cc#pybind11_init_execution_mode_impl	csrc/internal/execution_mode/execution_mode_impl.cc	28	function	16	cf13ee915095ab96	1	
+csrc/internal/mosaic/dialect/torch_tpu_mosaic_dialect.cc#TorchTpuMosaicDialect.initialize	csrc/internal/mosaic/dialect/torch_tpu_mosaic_dialect.cc	21	method	0	c080f8425cd84d45	0	
+csrc/internal/mosaic/kiln/core/cond.cc#Cond.Cond	csrc/internal/mosaic/kiln/core/cond.cc	29	method	46	56cc3feb6186900f	1	
+csrc/internal/mosaic/kiln/core/cond.cc#operator	csrc/internal/mosaic/kiln/core/cond.cc	49	function	41	c4d038b175294a5f	1	
+csrc/internal/mosaic/kiln/core/cond.h#Cond	csrc/internal/mosaic/kiln/core/cond.h	26	class	169	4f5886ab3edf8f2f	15	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/context.cc#tls_builder	csrc/internal/mosaic/kiln/core/context.cc	37	value	25	f6191fb95c1153bb	3	
+csrc/internal/mosaic/kiln/core/context.cc#WithElementType	csrc/internal/mosaic/kiln/core/context.cc	39	function	23	1cd5d3eb16b63139	2	
+csrc/internal/mosaic/kiln/core/context.cc#EmitIntCast	csrc/internal/mosaic/kiln/core/context.cc	47	function	29	f8abd243a8d2702b	1	
+csrc/internal/mosaic/kiln/core/context.cc#CurrentBuilder	csrc/internal/mosaic/kiln/core/context.cc	70	function	299	2c344dfbea078a0f	38	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/context.cc#BuilderScope.BuilderScope	csrc/internal/mosaic/kiln/core/context.cc	76	method	36	9e00bdc6e93f8789	2	
+csrc/internal/mosaic/kiln/core/context.cc#BuilderScope.-BuilderScope	csrc/internal/mosaic/kiln/core/context.cc	81	method	24	fd8f832564cfb5bc	1	
+csrc/internal/mosaic/kiln/core/context.cc#ToMlirType	csrc/internal/mosaic/kiln/core/context.cc	83	function	102	42afcbf9a11632ab	13	
+csrc/internal/mosaic/kiln/core/context.cc#LiteralToAttr	csrc/internal/mosaic/kiln/core/context.cc	102	function	71	88811d15c69b7ac1	4	
+csrc/internal/mosaic/kiln/core/context.cc#EmitCast	csrc/internal/mosaic/kiln/core/context.cc	112	function	74	0b518ee1b6aae495	2	
+csrc/internal/mosaic/kiln/core/context.cc#EmitBitcast	csrc/internal/mosaic/kiln/core/context.cc	148	function	49	cd882a722b9125a9	2	
+csrc/internal/mosaic/kiln/core/context.h#BuilderScope	csrc/internal/mosaic/kiln/core/context.h	32	class	44	d5744a6088e10868	7	
+csrc/internal/mosaic/kiln/core/context.h#BuilderScope.BuilderScope	csrc/internal/mosaic/kiln/core/context.h	37	method	5	fa4c8fb52ee2c03f	0	
+csrc/internal/mosaic/kiln/core/context.h#BuilderScope.operator	csrc/internal/mosaic/kiln/core/context.h	38	method	10	8a53742857af0119	0	
+csrc/internal/mosaic/kiln/core/context.h#BuilderScope.prev_	csrc/internal/mosaic/kiln/core/context.h	41	member	33	992331f88bdbe7b9	2	
+csrc/internal/mosaic/kiln/core/context.h#ValueAccess	csrc/internal/mosaic/kiln/core/context.h	51	class	57	ead608837a4cfa21	7	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/context.h#ValueAccess.Get	csrc/internal/mosaic/kiln/core/context.h	52	method	17	0de22d8e54e14a6f	1	
+csrc/internal/mosaic/kiln/core/context.h#ValueAccess.Make	csrc/internal/mosaic/kiln/core/context.h	56	method	12	57629f84ccc0b8dc	1	
+csrc/internal/mosaic/kiln/core/context.h#unwrap	csrc/internal/mosaic/kiln/core/context.h	61	function	205	92bd6ad148cabdee	40	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/context.h#wrap	csrc/internal/mosaic/kiln/core/context.h	64	function	160	4e354b1a693f2e89	33	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/control_flow.cc#ToIndex	csrc/internal/mosaic/kiln/core/control_flow.cc	33	function	43	ad480c84d947f2ae	1	
+csrc/internal/mosaic/kiln/core/control_flow.cc#If	csrc/internal/mosaic/kiln/core/control_flow.cc	43	function	90	7d6c5f668e621b66	5	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/control_flow.cc#For	csrc/internal/mosaic/kiln/core/control_flow.cc	64	function	77	9c4ef79e84484d6f	3	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/control_flow.h#For	csrc/internal/mosaic/kiln/core/control_flow.h	32	function	33	00cd1f6a78ae2a03	2	
+csrc/internal/mosaic/kiln/core/dtype.h#Shape	csrc/internal/mosaic/kiln/core/dtype.h	28	class	32	2e3da8c1ab3bac83	9	
+csrc/internal/mosaic/kiln/core/dtype.h#DType	csrc/internal/mosaic/kiln/core/dtype.h	31	class	372	72aa70b77cd6153a	69	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/dtype.h#DType.Kind	csrc/internal/mosaic/kiln/core/dtype.h	33	class	114	5a0ac80c2d279169	21	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/dtype.h#DType.Kind.kBool	csrc/internal/mosaic/kiln/core/dtype.h	34	member	8	85be927fa5057c67	4	
+csrc/internal/mosaic/kiln/core/dtype.h#DType.Kind.kI8	csrc/internal/mosaic/kiln/core/dtype.h	35	member	8	39ab64a0e788082c	4	
+csrc/internal/mosaic/kiln/core/dtype.h#DType.Kind.kI16	csrc/internal/mosaic/kiln/core/dtype.h	36	member	8	8903c7f28e6c152f	4	
+csrc/internal/mosaic/kiln/core/dtype.h#DType.Kind.kI32	csrc/internal/mosaic/kiln/core/dtype.h	37	member	8	b9210e8b28832c40	4	
+csrc/internal/mosaic/kiln/core/dtype.h#DType.Kind.kI64	csrc/internal/mosaic/kiln/core/dtype.h	38	member	8	e96cad82f109529b	4	
+csrc/internal/mosaic/kiln/core/dtype.h#DType.Kind.kU8	csrc/internal/mosaic/kiln/core/dtype.h	39	member	8	b9ff036d231e12cd	4	
+csrc/internal/mosaic/kiln/core/dtype.h#DType.Kind.kU16	csrc/internal/mosaic/kiln/core/dtype.h	40	member	8	821d52c1adaeefac	4	
+csrc/internal/mosaic/kiln/core/dtype.h#DType.Kind.kU32	csrc/internal/mosaic/kiln/core/dtype.h	41	member	8	fe4b6509ce3024fb	4	
+csrc/internal/mosaic/kiln/core/dtype.h#DType.Kind.kU64	csrc/internal/mosaic/kiln/core/dtype.h	42	member	8	e1eb6dce8c66cdb3	4	
+csrc/internal/mosaic/kiln/core/dtype.h#DType.Kind.kF16	csrc/internal/mosaic/kiln/core/dtype.h	43	member	12	a09077f333c9fc1b	5	
+csrc/internal/mosaic/kiln/core/dtype.h#DType.Kind.kBF16	csrc/internal/mosaic/kiln/core/dtype.h	44	member	12	244022613c25e797	5	
+csrc/internal/mosaic/kiln/core/dtype.h#DType.Kind.kF32	csrc/internal/mosaic/kiln/core/dtype.h	45	member	12	bdf09fcf4569e37f	5	
+csrc/internal/mosaic/kiln/core/dtype.h#DType.DType	csrc/internal/mosaic/kiln/core/dtype.h	48	method	34	7ce67493a796fd5f	12	
+csrc/internal/mosaic/kiln/core/dtype.h#DType.kind	csrc/internal/mosaic/kiln/core/dtype.h	50	method	9	c7fc4abcc1b648b8	1	
+csrc/internal/mosaic/kiln/core/dtype.h#DType.IsBool	csrc/internal/mosaic/kiln/core/dtype.h	52	method	43	368229f071271bdc	7	
+csrc/internal/mosaic/kiln/core/dtype.h#DType.IsFloat	csrc/internal/mosaic/kiln/core/dtype.h	54	method	95	4ceb9e1d7a5e6469	10	
+csrc/internal/mosaic/kiln/core/dtype.h#DType.IsSigned	csrc/internal/mosaic/kiln/core/dtype.h	57	method	62	69d7c479bfe40f7d	6	
+csrc/internal/mosaic/kiln/core/dtype.h#DType.IsUnsigned	csrc/internal/mosaic/kiln/core/dtype.h	61	method	82	1a4807253b507da2	7	
+csrc/internal/mosaic/kiln/core/dtype.h#DType.IsInt	csrc/internal/mosaic/kiln/core/dtype.h	65	method	52	7ccf0858ec58b00e	9	
+csrc/internal/mosaic/kiln/core/dtype.h#DType.IsIntOrFloat	csrc/internal/mosaic/kiln/core/dtype.h	66	method	54	27d75ae7b424e02c	8	
+csrc/internal/mosaic/kiln/core/dtype.h#DType.IsInteger	csrc/internal/mosaic/kiln/core/dtype.h	67	method	18	0dfbdcb68a3c7999	1	
+csrc/internal/mosaic/kiln/core/dtype.h#DType.IsSignedInteger	csrc/internal/mosaic/kiln/core/dtype.h	70	method	38	805f815af902f479	2	
+csrc/internal/mosaic/kiln/core/dtype.h#DType.IsUnsignedInteger	csrc/internal/mosaic/kiln/core/dtype.h	73	method	46	c0d2ed3d8c34174e	2	
+csrc/internal/mosaic/kiln/core/dtype.h#DType.GetIntOrFloatBitWidth	csrc/internal/mosaic/kiln/core/dtype.h	76	method	148	01652a74e4486fac	10	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/dtype.h#DType.ToString	csrc/internal/mosaic/kiln/core/dtype.h	98	method	98	3938465fc69fbdc7	3	
+csrc/internal/mosaic/kiln/core/dtype.h#DType.operator	csrc/internal/mosaic/kiln/core/dtype.h	127	method	14	45c406bc334fc80a	1	
+csrc/internal/mosaic/kiln/core/dtype.h#AbslStringify	csrc/internal/mosaic/kiln/core/dtype.h	131	function	15	274083a8f989cfcf	0	
+csrc/internal/mosaic/kiln/core/dtype.h#DType.kind_	csrc/internal/mosaic/kiln/core/dtype.h	136	member	40	5a7c9ebd4bbdda4b	10	
+csrc/internal/mosaic/kiln/core/dtype.h#operator	csrc/internal/mosaic/kiln/core/dtype.h	139	function	26	7386cab35d0cf73d	4	
+csrc/internal/mosaic/kiln/core/dtype.h#BoolType	csrc/internal/mosaic/kiln/core/dtype.h	144	function	52	f6667e7e38aa0bf4	7	
+csrc/internal/mosaic/kiln/core/dtype.h#Int8Type	csrc/internal/mosaic/kiln/core/dtype.h	145	function	28	6eb6d65f6bdd2494	2	
+csrc/internal/mosaic/kiln/core/dtype.h#Int16Type	csrc/internal/mosaic/kiln/core/dtype.h	146	function	24	a51570fe3f773153	1	
+csrc/internal/mosaic/kiln/core/dtype.h#Int32Type	csrc/internal/mosaic/kiln/core/dtype.h	147	function	82	190812d74613af99	16	
+csrc/internal/mosaic/kiln/core/dtype.h#Int64Type	csrc/internal/mosaic/kiln/core/dtype.h	148	function	24	71c64106688db5b0	1	
+csrc/internal/mosaic/kiln/core/dtype.h#UInt8Type	csrc/internal/mosaic/kiln/core/dtype.h	149	function	34	4f1c9542d23adf2b	4	
+csrc/internal/mosaic/kiln/core/dtype.h#UInt16Type	csrc/internal/mosaic/kiln/core/dtype.h	150	function	30	54a761c82cb9429a	3	
+csrc/internal/mosaic/kiln/core/dtype.h#UInt32Type	csrc/internal/mosaic/kiln/core/dtype.h	151	function	50	29199fa0ca5fd974	8	
+csrc/internal/mosaic/kiln/core/dtype.h#UInt64Type	csrc/internal/mosaic/kiln/core/dtype.h	152	function	30	045f91756c57e896	3	
+csrc/internal/mosaic/kiln/core/dtype.h#Float16Type	csrc/internal/mosaic/kiln/core/dtype.h	153	function	28	027d13ebaa1cf69f	1	
+csrc/internal/mosaic/kiln/core/dtype.h#BFloat16Type	csrc/internal/mosaic/kiln/core/dtype.h	154	function	38	dadbf19ee30ee50c	4	
+csrc/internal/mosaic/kiln/core/dtype.h#Float32Type	csrc/internal/mosaic/kiln/core/dtype.h	155	function	102	7931c3db64c35cc3	17	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/elementwise.h#ElementwiseOps	csrc/internal/mosaic/kiln/core/elementwise.h	41	class	245	a09ebe35da251ce3	32	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/elementwise.h#WithElementwiseOps	csrc/internal/mosaic/kiln/core/elementwise.h	93	class	14	a3d930d0d8c13d14	2	
+csrc/internal/mosaic/kiln/core/elementwise.h#WithElementwiseOps.Ops	csrc/internal/mosaic/kiln/core/elementwise.h	94	class	70	a49465295c9a29a3	30	
+csrc/internal/mosaic/kiln/core/elementwise.h#WithElementwiseOps.AsType	csrc/internal/mosaic/kiln/core/elementwise.h	98	method	96	b23fcc44220da833	13	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/elementwise.h#WithElementwiseOps.Bitcast	csrc/internal/mosaic/kiln/core/elementwise.h	101	method	26	17c3a66aee727851	2	
+csrc/internal/mosaic/kiln/core/elementwise.h#WithElementwiseOps.ToI32	csrc/internal/mosaic/kiln/core/elementwise.h	104	method	26	58190205dbdff881	4	
+csrc/internal/mosaic/kiln/core/elementwise.h#WithElementwiseOps.ToU8	csrc/internal/mosaic/kiln/core/elementwise.h	105	method	10	cfa8585bcfcc5fab	0	
+csrc/internal/mosaic/kiln/core/elementwise.h#WithElementwiseOps.ToU16	csrc/internal/mosaic/kiln/core/elementwise.h	106	method	10	6144006c6ed23d09	0	
+csrc/internal/mosaic/kiln/core/elementwise.h#WithElementwiseOps.ToU32	csrc/internal/mosaic/kiln/core/elementwise.h	107	method	10	80ae7ce944b6f5a3	0	
+csrc/internal/mosaic/kiln/core/elementwise.h#WithElementwiseOps.ToU64	csrc/internal/mosaic/kiln/core/elementwise.h	108	method	10	fb2b96b6c3788a22	0	
+csrc/internal/mosaic/kiln/core/elementwise.h#WithElementwiseOps.ToF32	csrc/internal/mosaic/kiln/core/elementwise.h	109	method	42	973559bd7e153d24	3	
+csrc/internal/mosaic/kiln/core/elementwise.h#WithElementwiseOps.ToBF16	csrc/internal/mosaic/kiln/core/elementwise.h	110	method	18	accecfe632115388	2	
+csrc/internal/mosaic/kiln/core/elementwise.h#operator	csrc/internal/mosaic/kiln/core/elementwise.h	114	function	229	4848ee929ab63509	11	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/elementwise.h#Min	csrc/internal/mosaic/kiln/core/elementwise.h	171	function	17	b54a2f1c9a345f25	3	
+csrc/internal/mosaic/kiln/core/elementwise.h#Max	csrc/internal/mosaic/kiln/core/elementwise.h	172	function	13	330d8334ec2f43f8	2	
+csrc/internal/mosaic/kiln/core/elementwise.h#Select	csrc/internal/mosaic/kiln/core/elementwise.h	173	function	41	f7d47a1697ff545b	2	
+csrc/internal/mosaic/kiln/core/elementwise.h#Exp	csrc/internal/mosaic/kiln/core/elementwise.h	178	function	9	000f6ee222bb3a5e	1	
+csrc/internal/mosaic/kiln/core/elementwise.h#Exp2	csrc/internal/mosaic/kiln/core/elementwise.h	179	function	5	bdd408ecbd71946c	0	
+csrc/internal/mosaic/kiln/core/elementwise.h#Log	csrc/internal/mosaic/kiln/core/elementwise.h	180	function	9	cc76b43bd73877ae	1	
+csrc/internal/mosaic/kiln/core/elementwise.h#Log2	csrc/internal/mosaic/kiln/core/elementwise.h	181	function	5	1985b5cd5caa8c18	0	
+csrc/internal/mosaic/kiln/core/elementwise.h#Sqrt	csrc/internal/mosaic/kiln/core/elementwise.h	182	function	9	84484494b5d1bd91	1	
+csrc/internal/mosaic/kiln/core/elementwise.h#Rsqrt	csrc/internal/mosaic/kiln/core/elementwise.h	183	function	9	74a0c02bed8f0703	1	
+csrc/internal/mosaic/kiln/core/elementwise.h#Tanh	csrc/internal/mosaic/kiln/core/elementwise.h	184	function	5	9107db850685c367	0	
+csrc/internal/mosaic/kiln/core/elementwise.h#Abs	csrc/internal/mosaic/kiln/core/elementwise.h	185	function	13	59397b532e236afb	2	
+csrc/internal/mosaic/kiln/core/elementwise.h#Bitcast	csrc/internal/mosaic/kiln/core/elementwise.h	186	function	13	7d1c22460b517aa4	1	
+csrc/internal/mosaic/kiln/core/elementwise.h#WithElementwiseOps.derived	csrc/internal/mosaic/kiln/core/elementwise.h	189	method	4	e7af42f65dc86343	2	
+csrc/internal/mosaic/kiln/core/elementwise_impl.cc#ShapeOf	csrc/internal/mosaic/kiln/core/elementwise_impl.cc	37	function	22	e394806c2f9d207a	2	
+csrc/internal/mosaic/kiln/core/elementwise_impl.cc#BroadcastShapes	csrc/internal/mosaic/kiln/core/elementwise_impl.cc	46	function	23	6967f5adb3c612d7	2	
+csrc/internal/mosaic/kiln/core/elementwise_impl.cc#EmitBroadcast	csrc/internal/mosaic/kiln/core/elementwise_impl.cc	66	function	53	bf9d14efb0237e69	3	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/elementwise_impl.cc#AlignShapes	csrc/internal/mosaic/kiln/core/elementwise_impl.cc	77	function	35	5249f5654f086860	3	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/elementwise_impl.h#CheckSameDType	csrc/internal/mosaic/kiln/core/elementwise_impl.h	52	function	15	bc8fc976dd65f4ac	5	
+csrc/internal/mosaic/kiln/core/elementwise_impl.h#CheckIntOrFloat	csrc/internal/mosaic/kiln/core/elementwise_impl.h	58	function	13	0705e281d09642b4	4	
+csrc/internal/mosaic/kiln/core/elementwise_impl.h#EmitBinary	csrc/internal/mosaic/kiln/core/elementwise_impl.h	66	function	37	c4eee509a150a92e	3	
+csrc/internal/mosaic/kiln/core/elementwise_impl.h#Arith	csrc/internal/mosaic/kiln/core/elementwise_impl.h	77	function	27	a473817098c122a3	6	
+csrc/internal/mosaic/kiln/core/elementwise_impl.h#Bitwise	csrc/internal/mosaic/kiln/core/elementwise_impl.h	91	function	27	b5f03efa787c428a	5	
+csrc/internal/mosaic/kiln/core/elementwise_impl.h#Compare	csrc/internal/mosaic/kiln/core/elementwise_impl.h	99	function	54	1cac675a6b4edd56	7	
+csrc/internal/mosaic/kiln/core/elementwise_impl.h#UnaryFloat	csrc/internal/mosaic/kiln/core/elementwise_impl.h	125	function	39	e49c4b61744f0657	7	
+csrc/internal/mosaic/kiln/core/elementwise_impl.h#ElementwiseOps.AsType	csrc/internal/mosaic/kiln/core/elementwise_impl.h	132	method	27	4a927ef97104733f	1	
+csrc/internal/mosaic/kiln/core/elementwise_impl.h#ElementwiseOps.Bitcast	csrc/internal/mosaic/kiln/core/elementwise_impl.h	137	method	27	503e57d99cbe94e6	1	
+csrc/internal/mosaic/kiln/core/elementwise_impl.h#ElementwiseOps.Neg	csrc/internal/mosaic/kiln/core/elementwise_impl.h	142	method	32	e953e35acb3b6af5	1	
+csrc/internal/mosaic/kiln/core/elementwise_impl.h#ElementwiseOps.Add	csrc/internal/mosaic/kiln/core/elementwise_impl.h	152	method	17	90f51f322951cd14	1	
+csrc/internal/mosaic/kiln/core/elementwise_impl.h#ElementwiseOps.Sub	csrc/internal/mosaic/kiln/core/elementwise_impl.h	157	method	17	a86e2539807577b6	1	
+csrc/internal/mosaic/kiln/core/elementwise_impl.h#ElementwiseOps.Mul	csrc/internal/mosaic/kiln/core/elementwise_impl.h	162	method	17	21e4e84f7c6c9d3a	1	
+csrc/internal/mosaic/kiln/core/elementwise_impl.h#ElementwiseOps.Div	csrc/internal/mosaic/kiln/core/elementwise_impl.h	167	method	17	bb71f94c342dbd62	1	
+csrc/internal/mosaic/kiln/core/elementwise_impl.h#ElementwiseOps.Rem	csrc/internal/mosaic/kiln/core/elementwise_impl.h	173	method	27	c300f94fc1b44ec5	1	
+csrc/internal/mosaic/kiln/core/elementwise_impl.h#ElementwiseOps.Min	csrc/internal/mosaic/kiln/core/elementwise_impl.h	183	method	17	2b0668384ef59c39	1	
+csrc/internal/mosaic/kiln/core/elementwise_impl.h#ElementwiseOps.Max	csrc/internal/mosaic/kiln/core/elementwise_impl.h	192	method	17	534c26911b159ece	1	
+csrc/internal/mosaic/kiln/core/elementwise_impl.h#ElementwiseOps.And	csrc/internal/mosaic/kiln/core/elementwise_impl.h	201	method	17	4f2b6633688e9079	1	
+csrc/internal/mosaic/kiln/core/elementwise_impl.h#ElementwiseOps.Or	csrc/internal/mosaic/kiln/core/elementwise_impl.h	206	method	17	6fbef4f8fd3e4cc3	1	
+csrc/internal/mosaic/kiln/core/elementwise_impl.h#ElementwiseOps.Xor	csrc/internal/mosaic/kiln/core/elementwise_impl.h	211	method	17	b84771965cca10da	1	
+csrc/internal/mosaic/kiln/core/elementwise_impl.h#ElementwiseOps.ShiftLeft	csrc/internal/mosaic/kiln/core/elementwise_impl.h	216	method	17	e62787bca59828e8	1	
+csrc/internal/mosaic/kiln/core/elementwise_impl.h#ElementwiseOps.ShiftRight	csrc/internal/mosaic/kiln/core/elementwise_impl.h	221	method	17	91d7a2d09f60bb21	1	
+csrc/internal/mosaic/kiln/core/elementwise_impl.h#ElementwiseOps.Eq	csrc/internal/mosaic/kiln/core/elementwise_impl.h	229	method	22	66ab2703d66cd14a	1	
+csrc/internal/mosaic/kiln/core/elementwise_impl.h#ElementwiseOps.Ne	csrc/internal/mosaic/kiln/core/elementwise_impl.h	235	method	22	bb546dcec2593fd5	1	
+csrc/internal/mosaic/kiln/core/elementwise_impl.h#ElementwiseOps.Lt	csrc/internal/mosaic/kiln/core/elementwise_impl.h	241	method	22	91d710aa11b2270d	1	
+csrc/internal/mosaic/kiln/core/elementwise_impl.h#ElementwiseOps.Le	csrc/internal/mosaic/kiln/core/elementwise_impl.h	248	method	22	f53a1b49d3ad7aa3	1	
+csrc/internal/mosaic/kiln/core/elementwise_impl.h#ElementwiseOps.Gt	csrc/internal/mosaic/kiln/core/elementwise_impl.h	255	method	22	9362fba44ce49dd1	1	
+csrc/internal/mosaic/kiln/core/elementwise_impl.h#ElementwiseOps.Ge	csrc/internal/mosaic/kiln/core/elementwise_impl.h	262	method	22	325d8f17a160731a	1	
+csrc/internal/mosaic/kiln/core/elementwise_impl.h#ElementwiseOps.Select	csrc/internal/mosaic/kiln/core/elementwise_impl.h	269	method	42	af0a9be984cd5bae	1	
+csrc/internal/mosaic/kiln/core/elementwise_impl.h#ElementwiseOps.Exp	csrc/internal/mosaic/kiln/core/elementwise_impl.h	281	method	17	f676a6c5ba0f8d0e	1	
+csrc/internal/mosaic/kiln/core/elementwise_impl.h#ElementwiseOps.Exp2	csrc/internal/mosaic/kiln/core/elementwise_impl.h	286	method	17	f4415afa6654cfca	1	
+csrc/internal/mosaic/kiln/core/elementwise_impl.h#ElementwiseOps.Log	csrc/internal/mosaic/kiln/core/elementwise_impl.h	291	method	17	823accb00a14baa1	1	
+csrc/internal/mosaic/kiln/core/elementwise_impl.h#ElementwiseOps.Log2	csrc/internal/mosaic/kiln/core/elementwise_impl.h	296	method	17	7eb522fc40f0cf4c	1	
+csrc/internal/mosaic/kiln/core/elementwise_impl.h#ElementwiseOps.Sqrt	csrc/internal/mosaic/kiln/core/elementwise_impl.h	301	method	17	c50cd6479c1cd0d4	1	
+csrc/internal/mosaic/kiln/core/elementwise_impl.h#ElementwiseOps.Rsqrt	csrc/internal/mosaic/kiln/core/elementwise_impl.h	306	method	17	48ce7e5bfdd572e7	1	
+csrc/internal/mosaic/kiln/core/elementwise_impl.h#ElementwiseOps.Tanh	csrc/internal/mosaic/kiln/core/elementwise_impl.h	311	method	17	d2b07ff0eba10c4f	1	
+csrc/internal/mosaic/kiln/core/elementwise_impl.h#ElementwiseOps.Abs	csrc/internal/mosaic/kiln/core/elementwise_impl.h	316	method	27	e877ebaf0ff8ba77	1	
+csrc/internal/mosaic/kiln/core/index_arg.h#IndexArg	csrc/internal/mosaic/kiln/core/index_arg.h	30	class	40	6040d96835c9271a	12	
+csrc/internal/mosaic/kiln/core/index_arg.h#IndexArg.IndexArg	csrc/internal/mosaic/kiln/core/index_arg.h	36	method	53	29566ce0dc7bb6f5	7	
+csrc/internal/mosaic/kiln/core/index_arg.h#IndexArg.IsInt	csrc/internal/mosaic/kiln/core/index_arg.h	42	method	13	df3eb8bf38f427ec	2	
+csrc/internal/mosaic/kiln/core/index_arg.h#IndexArg.AsInt	csrc/internal/mosaic/kiln/core/index_arg.h	43	method	18	e81130dea8dc23d9	2	
+csrc/internal/mosaic/kiln/core/index_arg.h#IndexArg.ToScalar	csrc/internal/mosaic/kiln/core/index_arg.h	44	method	36	3ac0071f89828983	4	
+csrc/internal/mosaic/kiln/core/index_arg.h#IndexArg.val_	csrc/internal/mosaic/kiln/core/index_arg.h	52	member	14	315eb872c34bc01b	5	
+csrc/internal/mosaic/kiln/core/index_map.h#IndexIndices	csrc/internal/mosaic/kiln/core/index_map.h	28	class	33	fadb607fff9ed927	5	
+csrc/internal/mosaic/kiln/core/index_map.h#IndexMap	csrc/internal/mosaic/kiln/core/index_map.h	32	class	38	32ffc9100ceb822b	5	
+csrc/internal/mosaic/kiln/core/index_map.h#IndexMap.IndexFn	csrc/internal/mosaic/kiln/core/index_map.h	34	class	9	eb7f70ac48d0ee80	2	
+csrc/internal/mosaic/kiln/core/index_map.h#IndexMap.IndexMap	csrc/internal/mosaic/kiln/core/index_map.h	37	method	30	81cc1f2a9aa566b2	3	
+csrc/internal/mosaic/kiln/core/index_map.h#IndexMap.has_mapping	csrc/internal/mosaic/kiln/core/index_map.h	39	method	14	9eaa620dfa5b62c5	1	
+csrc/internal/mosaic/kiln/core/index_map.h#IndexMap.Invoke	csrc/internal/mosaic/kiln/core/index_map.h	40	method	14	b67116fd58291b2f	1	
+csrc/internal/mosaic/kiln/core/index_map.h#IndexMap.mapping_	csrc/internal/mosaic/kiln/core/index_map.h	43	member	6	a51b65da199ae4b7	3	
+csrc/internal/mosaic/kiln/core/kernel.cc#is_status_or_ref	csrc/internal/mosaic/kiln/core/kernel.cc	63	class	5	32fc09a320c647e0	0	
+csrc/internal/mosaic/kiln/core/kernel.cc#KernelScope	csrc/internal/mosaic/kiln/core/kernel.cc	67	class	40	dddc46cec325bdd2	7	
+csrc/internal/mosaic/kiln/core/kernel.cc#KernelScope.KernelScope	csrc/internal/mosaic/kiln/core/kernel.cc	68	method	133	b2f93f8c43a39768	2	
+csrc/internal/mosaic/kiln/core/kernel.cc#KernelScope.-KernelScope	csrc/internal/mosaic/kiln/core/kernel.cc	96	method	20	91a4c78fbdd6bde9	0	
+csrc/internal/mosaic/kiln/core/kernel.cc#KernelScope.builder	csrc/internal/mosaic/kiln/core/kernel.cc	98	member	25	84b8e9ad4e557913	3	
+csrc/internal/mosaic/kiln/core/kernel.cc#KernelScope.spec	csrc/internal/mosaic/kiln/core/kernel.cc	99	member	58	3417aacdbf7c17f2	3	
+csrc/internal/mosaic/kiln/core/kernel.cc#KernelScope.builder_scope	csrc/internal/mosaic/kiln/core/kernel.cc	100	member	9	42a43b0401161737	1	
+csrc/internal/mosaic/kiln/core/kernel.cc#KernelScope.program_ids	csrc/internal/mosaic/kiln/core/kernel.cc	101	member	13	bc888bb75f17801c	2	
+csrc/internal/mosaic/kiln/core/kernel.cc#KernelScope.scalar_prefetch	csrc/internal/mosaic/kiln/core/kernel.cc	102	member	13	20959f9d3f4c86d5	2	
+csrc/internal/mosaic/kiln/core/kernel.cc#KernelScope.inputs	csrc/internal/mosaic/kiln/core/kernel.cc	103	member	13	6dbeb39407cf8034	2	
+csrc/internal/mosaic/kiln/core/kernel.cc#KernelScope.outputs	csrc/internal/mosaic/kiln/core/kernel.cc	104	member	13	5afa3c626a5bdd25	2	
+csrc/internal/mosaic/kiln/core/kernel.cc#KernelScope.scratch	csrc/internal/mosaic/kiln/core/kernel.cc	105	member	13	4b8ef45c6ce98e33	2	
+csrc/internal/mosaic/kiln/core/kernel.cc#KernelScope.prev	csrc/internal/mosaic/kiln/core/kernel.cc	106	member	13	0f596de04278d1a4	2	
+csrc/internal/mosaic/kiln/core/kernel.cc#KernelScope.tls_scope	csrc/internal/mosaic/kiln/core/kernel.cc	108	member	45	8544b06fcf33e546	3	
+csrc/internal/mosaic/kiln/core/kernel.cc#CurrentScope	csrc/internal/mosaic/kiln/core/kernel.cc	114	function	48	4d4b3dd7c11136c9	7	
+csrc/internal/mosaic/kiln/core/kernel.cc#BlockType	csrc/internal/mosaic/kiln/core/kernel.cc	120	function	58	df721f2b1dadfcb7	1	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/kernel.cc#ToMlirDimensionSemantics	csrc/internal/mosaic/kiln/core/kernel.cc	129	function	44	1488c1daebaa0a3c	1	mosaic-matmul
+csrc/internal/mosaic/kiln/core/kernel.cc#PrintModule	csrc/internal/mosaic/kiln/core/kernel.cc	139	function	14	da3daf5d14ea3e96	1	
+csrc/internal/mosaic/kiln/core/kernel.cc#EmitIndexMapFunction	csrc/internal/mosaic/kiln/core/kernel.cc	147	function	149	ba39b35b2e1d0ebb	1	
+csrc/internal/mosaic/kiln/core/kernel.cc#SetGridAttributes	csrc/internal/mosaic/kiln/core/kernel.cc	175	function	124	144049b6b68e154c	1	mosaic-matmul
+csrc/internal/mosaic/kiln/core/kernel.cc#GetAt	csrc/internal/mosaic/kiln/core/kernel.cc	221	function	39	af8db52bdb577349	6	
+csrc/internal/mosaic/kiln/core/kernel.cc#Kernel.Impl	csrc/internal/mosaic/kiln/core/kernel.cc	230	class	33	8bdd773188e7ac42	3	
+csrc/internal/mosaic/kiln/core/kernel.cc#Kernel.Impl.context	csrc/internal/mosaic/kiln/core/kernel.cc	231	member	13	3d2f95ca99b95418	1	
+csrc/internal/mosaic/kiln/core/kernel.cc#Kernel.Impl.module	csrc/internal/mosaic/kiln/core/kernel.cc	232	member	25	902aaabbade1edfb	4	
+csrc/internal/mosaic/kiln/core/kernel.cc#Kernel.Kernel	csrc/internal/mosaic/kiln/core/kernel.cc	235	method	23	7b6cf831e60fed68	2	
+csrc/internal/mosaic/kiln/core/kernel.cc#Kernel.operator	csrc/internal/mosaic/kiln/core/kernel.cc	237	method	9	8c54edebab11065d	1	
+csrc/internal/mosaic/kiln/core/kernel.cc#Kernel.-Kernel	csrc/internal/mosaic/kiln/core/kernel.cc	238	method	9	6f7cad4663ccbae6	1	
+csrc/internal/mosaic/kiln/core/kernel.cc#Kernel.ToString	csrc/internal/mosaic/kiln/core/kernel.cc	240	method	49	c6e9cb60fa86df74	4	
+csrc/internal/mosaic/kiln/core/kernel.cc#Kernel.Serialize	csrc/internal/mosaic/kiln/core/kernel.cc	242	method	112	dc17a39f6c048c73	2	
+csrc/internal/mosaic/kiln/core/kernel.cc#Kernel.Verify	csrc/internal/mosaic/kiln/core/kernel.cc	251	method	102	dac03fad736d3970	2	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/kernel.cc#ProgramId	csrc/internal/mosaic/kiln/core/kernel.cc	260	function	131	7ac30620a1a571a2	7	
+csrc/internal/mosaic/kiln/core/kernel.cc#NumPrograms	csrc/internal/mosaic/kiln/core/kernel.cc	263	function	37	a46cdca90717f20e	1	
+csrc/internal/mosaic/kiln/core/kernel.cc#GridRank	csrc/internal/mosaic/kiln/core/kernel.cc	266	function	29	8a55b144cb33095e	0	
+csrc/internal/mosaic/kiln/core/kernel.cc#ScalarPrefetch	csrc/internal/mosaic/kiln/core/kernel.cc	268	function	41	754d9cc171337013	2	
+csrc/internal/mosaic/kiln/core/kernel.cc#In	csrc/internal/mosaic/kiln/core/kernel.cc	271	function	33	45fe5e018545f215	1	
+csrc/internal/mosaic/kiln/core/kernel.cc#Out	csrc/internal/mosaic/kiln/core/kernel.cc	272	function	33	137d58464ba5322c	1	
+csrc/internal/mosaic/kiln/core/kernel.cc#Scratch	csrc/internal/mosaic/kiln/core/kernel.cc	273	function	38	64e77cc4fc261cb5	1	
+csrc/internal/mosaic/kiln/core/kernel.cc#BuildKernel	csrc/internal/mosaic/kiln/core/kernel.cc	275	function	285	a3fdffc6e44030a8	2	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/kernel.h#Kernel	csrc/internal/mosaic/kiln/core/kernel.h	56	class	192	28da5bd108c45781	31	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/kernel.h#Kernel.impl_	csrc/internal/mosaic/kiln/core/kernel.h	75	member	36	c1e0d8e3241b4714	4	
+csrc/internal/mosaic/kiln/core/kernel.h#RegisterSpec	csrc/internal/mosaic/kiln/core/kernel.h	98	function	46	8fdc93ea2c9dbf10	2	
+csrc/internal/mosaic/kiln/core/kernel.h#RegisterSpec.Resolver	csrc/internal/mosaic/kiln/core/kernel.h	110	class	47	48a77bf0d9863ff0	1	
+csrc/internal/mosaic/kiln/core/kernel.h#CreateKernelImpl	csrc/internal/mosaic/kiln/core/kernel.h	122	function	52	ef8b6bd14248b37e	1	
+csrc/internal/mosaic/kiln/core/kernel.h#CreateKernel	csrc/internal/mosaic/kiln/core/kernel.h	150	function	80	5340fc81f72863bf	15	
+csrc/internal/mosaic/kiln/core/kernel.h#ToString	csrc/internal/mosaic/kiln/core/kernel.h	158	function	14	0526f697cd38bc53	1	
+csrc/internal/mosaic/kiln/core/literal.h#Literal	csrc/internal/mosaic/kiln/core/literal.h	29	class	124	2aaaa22362589a1b	50	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/literal.h#Literal.Literal	csrc/internal/mosaic/kiln/core/literal.h	33	method	271	f1c50b649f2218a8	13	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/literal.h#Literal.IsInt	csrc/internal/mosaic/kiln/core/literal.h	41	method	5	b5bdda696f9e6159	0	
+csrc/internal/mosaic/kiln/core/literal.h#Literal.IsDouble	csrc/internal/mosaic/kiln/core/literal.h	42	method	5	d558187f341363b7	0	
+csrc/internal/mosaic/kiln/core/literal.h#Literal.AsInt	csrc/internal/mosaic/kiln/core/literal.h	44	method	9	1f8e0d76b90f43ce	1	
+csrc/internal/mosaic/kiln/core/literal.h#Literal.AsDouble	csrc/internal/mosaic/kiln/core/literal.h	47	method	9	5339818ff3e7a998	1	
+csrc/internal/mosaic/kiln/core/literal.h#Literal.value_	csrc/internal/mosaic/kiln/core/literal.h	52	member	12	522cfa7cf269c2c6	5	
+csrc/internal/mosaic/kiln/core/literal.h#WithLiteralOps	csrc/internal/mosaic/kiln/core/literal.h	59	class	14	6384b523e8f0615c	2	
+csrc/internal/mosaic/kiln/core/literal.h#Min	csrc/internal/mosaic/kiln/core/literal.h	116	function	13	d1fe143422f6bc5f	2	
+csrc/internal/mosaic/kiln/core/literal.h#Max	csrc/internal/mosaic/kiln/core/literal.h	122	function	17	08adcda6b57970c0	3	
+csrc/internal/mosaic/kiln/core/literal.h#Select	csrc/internal/mosaic/kiln/core/literal.h	128	function	29	069ca4623074f33e	5	
+csrc/internal/mosaic/kiln/core/literal.h#operator	csrc/internal/mosaic/kiln/core/literal.h	136	function	37	c8962727ec69ceaf	8	
+csrc/internal/mosaic/kiln/core/ref.cc#ZeroIndices	csrc/internal/mosaic/kiln/core/ref.cc	49	function	13	777f71a682ac5f01	2	
+csrc/internal/mosaic/kiln/core/ref.cc#MemRefTypeOf	csrc/internal/mosaic/kiln/core/ref.cc	55	function	40	16c27ba21dd10608	5	
+csrc/internal/mosaic/kiln/core/ref.cc#HasMemorySpace	csrc/internal/mosaic/kiln/core/ref.cc	59	function	18	b3d993d4cabca18a	2	
+csrc/internal/mosaic/kiln/core/ref.cc#IsSmemRef	csrc/internal/mosaic/kiln/core/ref.cc	65	function	18	23c04cc6d974fd06	2	
+csrc/internal/mosaic/kiln/core/ref.cc#IsVmemRef	csrc/internal/mosaic/kiln/core/ref.cc	69	function	18	e749112132a7c801	2	
+csrc/internal/mosaic/kiln/core/ref.cc#Ref.Ref	csrc/internal/mosaic/kiln/core/ref.cc	75	method	46	2fa63cd25dcfaa1e	1	
+csrc/internal/mosaic/kiln/core/ref.cc#Ref.operator	csrc/internal/mosaic/kiln/core/ref.cc	81	method	165	41b981f687fc81bd	15	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/ref.cc#Ref.operator-Scalar	csrc/internal/mosaic/kiln/core/ref.cc	97	method	61	8c8595eb97cf24e3	1	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/ref.cc#Ref.operator-Tile	csrc/internal/mosaic/kiln/core/ref.cc	108	method	76	9ed601c45ea18ef8	1	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/ref.cc#Ref.Store	csrc/internal/mosaic/kiln/core/ref.cc	119	method	100	b419fdd243f7120f	3	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/ref.cc#Ref.shape	csrc/internal/mosaic/kiln/core/ref.cc	140	method	48	91c3a79871c6ddd8	4	
+csrc/internal/mosaic/kiln/core/ref.cc#Ref.rank	csrc/internal/mosaic/kiln/core/ref.cc	144	method	75	5a1a8e68f2e2b4ce	6	
+csrc/internal/mosaic/kiln/core/ref.cc#SliceRefImpl	csrc/internal/mosaic/kiln/core/ref.cc	148	function	117	6b724c78ad33b8d7	2	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/ref.h#All	csrc/internal/mosaic/kiln/core/ref.h	35	class	9	4faf6427500b3a3b	2	
+csrc/internal/mosaic/kiln/core/ref.h#all	csrc/internal/mosaic/kiln/core/ref.h	36	value	20	708e80d5040c8d51	3	
+csrc/internal/mosaic/kiln/core/ref.h#SliceDim	csrc/internal/mosaic/kiln/core/ref.h	38	class	11	0a799910d7470532	3	
+csrc/internal/mosaic/kiln/core/ref.h#SliceDim.offset	csrc/internal/mosaic/kiln/core/ref.h	39	member	2	f7d835d931eb3756	1	
+csrc/internal/mosaic/kiln/core/ref.h#SliceDim.size	csrc/internal/mosaic/kiln/core/ref.h	40	member	7	e702402661aebe4f	1	
+csrc/internal/mosaic/kiln/core/ref.h#Slice	csrc/internal/mosaic/kiln/core/ref.h	43	function	31	2e0139b41c9ed434	3	
+csrc/internal/mosaic/kiln/core/ref.h#DimDesc	csrc/internal/mosaic/kiln/core/ref.h	51	class	43	ff6811526c59a9b8	6	
+csrc/internal/mosaic/kiln/core/ref.h#DimDesc.offset	csrc/internal/mosaic/kiln/core/ref.h	52	member	17	887162b91c7a8548	1	
+csrc/internal/mosaic/kiln/core/ref.h#DimDesc.size	csrc/internal/mosaic/kiln/core/ref.h	53	member	4	8f157c4118fad7c6	1	
+csrc/internal/mosaic/kiln/core/ref.h#DimDesc.is_all	csrc/internal/mosaic/kiln/core/ref.h	54	member	8	6c701693cff0c2b2	1	
+csrc/internal/mosaic/kiln/core/ref.h#DimDesc.collapsed	csrc/internal/mosaic/kiln/core/ref.h	55	member	9	90c87016d49e1d58	1	
+csrc/internal/mosaic/kiln/core/ref.h#DimDesc.From	csrc/internal/mosaic/kiln/core/ref.h	60	method	22	ad7376228abbb609	2	
+csrc/internal/mosaic/kiln/core/ref.h#Ref	csrc/internal/mosaic/kiln/core/ref.h	79	class	637	6d43be267ccc09b7	42	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/ref.h#Ref.Ref	csrc/internal/mosaic/kiln/core/ref.h	81	method	25	2bcb88816a73091a	5	
+csrc/internal/mosaic/kiln/core/ref.h#Ref.operator	csrc/internal/mosaic/kiln/core/ref.h	102	method	97	e4257aadc2fbe94d	5	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/ref.h#Store	csrc/internal/mosaic/kiln/core/ref.h	115	function	19	3990b96e8d497d38	1	
+csrc/internal/mosaic/kiln/core/scalar.cc#MakeScalarConstant	csrc/internal/mosaic/kiln/core/scalar.cc	36	function	56	9a95414b3a0097b5	4	stablehlo-op-builder
+csrc/internal/mosaic/kiln/core/scalar.cc#Scalar.Scalar	csrc/internal/mosaic/kiln/core/scalar.cc	46	method	52	9be7a715e20aa185	3	
+csrc/internal/mosaic/kiln/core/scalar.cc#Scalar.operator-Cond	csrc/internal/mosaic/kiln/core/scalar.cc	57	method	53	137b8d42097ffdb5	1	
+csrc/internal/mosaic/kiln/core/scalar.cc#Scalar.MakeConstant	csrc/internal/mosaic/kiln/core/scalar.cc	62	method	28	2390577b6113d6d3	1	stablehlo-op-builder
+csrc/internal/mosaic/kiln/core/scalar.cc#I32	csrc/internal/mosaic/kiln/core/scalar.cc	66	function	84	de107f75c1ef34d5	6	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/scalar.cc#U32	csrc/internal/mosaic/kiln/core/scalar.cc	67	function	76	b9470088bcb05668	3	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/scalar.cc#F32	csrc/internal/mosaic/kiln/core/scalar.cc	68	function	47	60868b9d01715e4a	4	
+csrc/internal/mosaic/kiln/core/scalar.h#Scalar	csrc/internal/mosaic/kiln/core/scalar.h	35	class	448	04fd949275247d76	42	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/specs.h#MemorySpace	csrc/internal/mosaic/kiln/core/specs.h	28	class	24	264b0fcab296339b	6	
+csrc/internal/mosaic/kiln/core/specs.h#MemorySpace.kSmem	csrc/internal/mosaic/kiln/core/specs.h	28	member	8	264b0fcab296339b	1	
+csrc/internal/mosaic/kiln/core/specs.h#MemorySpace.kVmem	csrc/internal/mosaic/kiln/core/specs.h	28	member	8	264b0fcab296339b	3	
+csrc/internal/mosaic/kiln/core/specs.h#DimensionSemantics	csrc/internal/mosaic/kiln/core/specs.h	32	class	34	bfdb63ef6cd9ef69	4	mosaic-matmul
+csrc/internal/mosaic/kiln/core/specs.h#DimensionSemantics.kParallel	csrc/internal/mosaic/kiln/core/specs.h	35	member	16	8cb3008a31ab1a8a	3	
+csrc/internal/mosaic/kiln/core/specs.h#DimensionSemantics.kArbitrary	csrc/internal/mosaic/kiln/core/specs.h	38	member	8	5d03fde48f7a0f25	2	
+csrc/internal/mosaic/kiln/core/specs.h#BlockRole	csrc/internal/mosaic/kiln/core/specs.h	41	class	8	fb5377933964533a	3	
+csrc/internal/mosaic/kiln/core/specs.h#BlockRole.kIn	csrc/internal/mosaic/kiln/core/specs.h	41	member	2	fb5377933964533a	1	
+csrc/internal/mosaic/kiln/core/specs.h#BlockRole.kNone	csrc/internal/mosaic/kiln/core/specs.h	41	member	2	fb5377933964533a	1	
+csrc/internal/mosaic/kiln/core/specs.h#BlockRole.kOut	csrc/internal/mosaic/kiln/core/specs.h	41	member	12	fb5377933964533a	1	
+csrc/internal/mosaic/kiln/core/specs.h#BasicBlockSpec	csrc/internal/mosaic/kiln/core/specs.h	46	class	11	ca2f54877ec43cb0	3	
+csrc/internal/mosaic/kiln/core/specs.h#BasicBlockSpec.block_shape	csrc/internal/mosaic/kiln/core/specs.h	47	member	21	b0a4a6dc4e40ba65	4	
+csrc/internal/mosaic/kiln/core/specs.h#BasicBlockSpec.dtype	csrc/internal/mosaic/kiln/core/specs.h	48	member	21	d58b0a06ef6db3c7	4	
+csrc/internal/mosaic/kiln/core/specs.h#BasicBlockSpec.index_map	csrc/internal/mosaic/kiln/core/specs.h	49	member	17	abb8c8a2230d934b	3	
+csrc/internal/mosaic/kiln/core/specs.h#BasicBlockSpec.memory_space	csrc/internal/mosaic/kiln/core/specs.h	50	member	18	9b8527a5662c58b8	3	
+csrc/internal/mosaic/kiln/core/specs.h#BlockSpec	csrc/internal/mosaic/kiln/core/specs.h	53	class	25	54b8b48fa652aae4	4	
+csrc/internal/mosaic/kiln/core/specs.h#InSpec	csrc/internal/mosaic/kiln/core/specs.h	54	class	109	e764750c155c698b	16	
+csrc/internal/mosaic/kiln/core/specs.h#OutSpec	csrc/internal/mosaic/kiln/core/specs.h	55	class	77	76e4c3b2d2a86a43	16	
+csrc/internal/mosaic/kiln/core/specs.h#ScratchSpec	csrc/internal/mosaic/kiln/core/specs.h	57	class	17	d6a0670dc7e3bec8	4	
+csrc/internal/mosaic/kiln/core/specs.h#ScratchSpec.shape	csrc/internal/mosaic/kiln/core/specs.h	58	member	9	04d5dfcd2827c414	1	
+csrc/internal/mosaic/kiln/core/specs.h#ScratchSpec.dtype	csrc/internal/mosaic/kiln/core/specs.h	59	member	13	d58b0a06ef6db3c7	2	
+csrc/internal/mosaic/kiln/core/specs.h#ScratchSpec.memory_space	csrc/internal/mosaic/kiln/core/specs.h	60	member	14	9b8527a5662c58b8	1	
+csrc/internal/mosaic/kiln/core/specs.h#ScalarPrefetchSpec	csrc/internal/mosaic/kiln/core/specs.h	63	class	17	5dfb42ff186f5f50	4	
+csrc/internal/mosaic/kiln/core/specs.h#ScalarPrefetchSpec.shape	csrc/internal/mosaic/kiln/core/specs.h	64	member	9	04d5dfcd2827c414	1	
+csrc/internal/mosaic/kiln/core/specs.h#ScalarPrefetchSpec.dtype	csrc/internal/mosaic/kiln/core/specs.h	65	member	8	d58b0a06ef6db3c7	2	
+csrc/internal/mosaic/kiln/core/specs.h#GridSpec	csrc/internal/mosaic/kiln/core/specs.h	68	class	66	10e6ffa4a19e7725	18	
+csrc/internal/mosaic/kiln/core/specs.h#GridSpec.name	csrc/internal/mosaic/kiln/core/specs.h	69	member	13	b60eea337fe6bc47	2	
+csrc/internal/mosaic/kiln/core/specs.h#GridSpec.grid	csrc/internal/mosaic/kiln/core/specs.h	70	member	33	bb6879d6a5535daf	6	mosaic-matmul
+csrc/internal/mosaic/kiln/core/specs.h#GridSpec.dimension_semantics	csrc/internal/mosaic/kiln/core/specs.h	72	member	16	cd99b1fe009a8b7e	2	
+csrc/internal/mosaic/kiln/core/specs.h#KernelSpec	csrc/internal/mosaic/kiln/core/specs.h	75	class	41	47b221a9ade2ae16	12	
+csrc/internal/mosaic/kiln/core/specs.h#KernelSpec.grid	csrc/internal/mosaic/kiln/core/specs.h	76	member	57	f06c4ffab882c31e	6	
+csrc/internal/mosaic/kiln/core/specs.h#KernelSpec.scalar_prefetch	csrc/internal/mosaic/kiln/core/specs.h	77	member	29	1386a44880f0a241	3	
+csrc/internal/mosaic/kiln/core/specs.h#KernelSpec.in_specs	csrc/internal/mosaic/kiln/core/specs.h	78	member	25	d225beb0b5ce3593	4	
+csrc/internal/mosaic/kiln/core/specs.h#KernelSpec.out_specs	csrc/internal/mosaic/kiln/core/specs.h	79	member	25	3ab29249b60e04c7	4	
+csrc/internal/mosaic/kiln/core/specs.h#KernelSpec.scratch	csrc/internal/mosaic/kiln/core/specs.h	80	member	20	527c33f571b7a62d	3	
+csrc/internal/mosaic/kiln/core/tile.cc#VectorTypeOf	csrc/internal/mosaic/kiln/core/tile.cc	55	function	32	c80edb4b81eaa7d4	3	
+csrc/internal/mosaic/kiln/core/tile.cc#SplatConstant	csrc/internal/mosaic/kiln/core/tile.cc	59	function	17	f6fc7b6c217de293	3	
+csrc/internal/mosaic/kiln/core/tile.cc#MinValue	csrc/internal/mosaic/kiln/core/tile.cc	68	function	53	94885c54abdd2237	2	
+csrc/internal/mosaic/kiln/core/tile.cc#Reduce	csrc/internal/mosaic/kiln/core/tile.cc	85	function	78	6f96cccb27d9e728	2	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/tile.cc#Tile.Tile	csrc/internal/mosaic/kiln/core/tile.cc	111	method	115	511a12d0394c2a1f	5	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/tile.cc#Tile.shape	csrc/internal/mosaic/kiln/core/tile.cc	113	method	134	ce4cda94a216214c	12	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/tile.cc#Tile.rank	csrc/internal/mosaic/kiln/core/tile.cc	117	method	198	fb7b22c340df8906	11	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/tile.cc#Tile.num_elements	csrc/internal/mosaic/kiln/core/tile.cc	119	method	30	f66eff1e8bd89a21	3	
+csrc/internal/mosaic/kiln/core/tile.cc#Tile.Reshape	csrc/internal/mosaic/kiln/core/tile.cc	123	method	83	48eeacd822fa1991	4	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/tile.cc#Tile.Squeeze	csrc/internal/mosaic/kiln/core/tile.cc	136	method	19	992e2b243c4440bc	1	
+csrc/internal/mosaic/kiln/core/tile.cc#Tile.ToShape	csrc/internal/mosaic/kiln/core/tile.cc	142	method	40	8bad2a1aa30f2b05	2	
+csrc/internal/mosaic/kiln/core/tile.cc#Tile.BroadcastTo	csrc/internal/mosaic/kiln/core/tile.cc	150	method	58	625b547eb670b7b1	4	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/tile.cc#Tile.Lanes	csrc/internal/mosaic/kiln/core/tile.cc	155	method	87	09c8f75903f6e00e	2	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/tile.cc#Tile.Slice	csrc/internal/mosaic/kiln/core/tile.cc	173	method	65	f9c384b9373e7460	3	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/tile.cc#Tile.Rotate	csrc/internal/mosaic/kiln/core/tile.cc	194	method	73	4705fc7cbe6fc771	2	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/tile.cc#Tile.Gather	csrc/internal/mosaic/kiln/core/tile.cc	207	method	77	5415aae1d36a0bbd	3	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/tile.cc#Tile.Extract	csrc/internal/mosaic/kiln/core/tile.cc	228	method	58	5954560369364808	2	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/tile.cc#Tile.Full	csrc/internal/mosaic/kiln/core/tile.cc	242	method	43	53e346bd3e2c55a9	2	
+csrc/internal/mosaic/kiln/core/tile.cc#Zeros	csrc/internal/mosaic/kiln/core/tile.cc	246	function	56	8b957ffc65432bee	5	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/tile.cc#Full	csrc/internal/mosaic/kiln/core/tile.cc	250	function	70	78ebba3cd1de965c	3	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/tile.cc#NInf	csrc/internal/mosaic/kiln/core/tile.cc	259	function	59	92928e3cb50bf877	1	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/tile.cc#Iota	csrc/internal/mosaic/kiln/core/tile.cc	270	function	75	d27cb0863f1c7dfb	3	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/tile.cc#Splat	csrc/internal/mosaic/kiln/core/tile.cc	285	function	63	8d8de431313128f1	4	
+csrc/internal/mosaic/kiln/core/tile.cc#Reciprocal	csrc/internal/mosaic/kiln/core/tile.cc	290	function	44	06cde3dad6c2cdb9	1	
+csrc/internal/mosaic/kiln/core/tile.cc#MaxReduce	csrc/internal/mosaic/kiln/core/tile.cc	299	function	62	4e7a9092afb73f80	2	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/tile.cc#SumReduce	csrc/internal/mosaic/kiln/core/tile.cc	314	function	54	c486e1329c22d1cc	1	
+csrc/internal/mosaic/kiln/core/tile.cc#Transpose	csrc/internal/mosaic/kiln/core/tile.cc	322	function	44	cca67e42128b925f	1	
+csrc/internal/mosaic/kiln/core/tile.cc#Dot	csrc/internal/mosaic/kiln/core/tile.cc	331	function	132	02896825dbad70f0	2	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/tile.h#Tile	csrc/internal/mosaic/kiln/core/tile.h	41	class	778	ba48839716d1a0b6	59	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/tile.h#Tile.MakeConstant	csrc/internal/mosaic/kiln/core/tile.h	48	method	75	33a50bd50a57bd36	0	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/tile.h#Tile.Gather	csrc/internal/mosaic/kiln/core/tile.h	73	method	77	c21857a37e7ccfd5	1	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/tile.h#Rotate	csrc/internal/mosaic/kiln/core/tile.h	93	function	19	a3b427a8071d05e5	1	
+csrc/internal/mosaic/kiln/core/tile.h#Gather	csrc/internal/mosaic/kiln/core/tile.h	100	function	19	33e9d724d8347157	1	
+csrc/internal/mosaic/kiln/core/tile.h#Extract	csrc/internal/mosaic/kiln/core/tile.h	103	function	34	6da0759385e95b5b	1	
+csrc/internal/mosaic/kiln/core/tile.h#ContractPrecision	csrc/internal/mosaic/kiln/core/tile.h	117	class	14	316d5aafe728edf9	2	
+csrc/internal/mosaic/kiln/core/tile.h#ContractPrecision.kBF16	csrc/internal/mosaic/kiln/core/tile.h	118	member	4	167993a5453ecfb6	1	
+csrc/internal/mosaic/kiln/core/tile.h#ContractPrecision.kFP32	csrc/internal/mosaic/kiln/core/tile.h	119	member	4	1f74bcb01e3615c6	1	
+csrc/internal/mosaic/kiln/core/tile.h#ContractPrecision.kBF16x3	csrc/internal/mosaic/kiln/core/tile.h	120	member	4	5678d362164d75bc	1	
+csrc/internal/mosaic/kiln/core/tile.h#DotOptions	csrc/internal/mosaic/kiln/core/tile.h	123	class	6	79aa571a12dce5fe	2	
+csrc/internal/mosaic/kiln/core/tile.h#DotOptions.transpose_lhs	csrc/internal/mosaic/kiln/core/tile.h	124	member	8	37b5ba36de32aa37	1	
+csrc/internal/mosaic/kiln/core/tile.h#DotOptions.transpose_rhs	csrc/internal/mosaic/kiln/core/tile.h	125	member	13	8677ab21e8948c17	1	
+csrc/internal/mosaic/kiln/core/tile.h#DotOptions.precision	csrc/internal/mosaic/kiln/core/tile.h	126	member	23	d1d248fefa072566	1	
+csrc/internal/mosaic/kiln/core/value_base.h#ValueBase	csrc/internal/mosaic/kiln/core/value_base.h	30	class	53	6e6502eec0e8bc59	10	
+csrc/internal/mosaic/kiln/core/value_base.h#ValueBase.dtype	csrc/internal/mosaic/kiln/core/value_base.h	32	method	263	91a8e95f9ad943ff	31	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/core/value_base.h#ValueBase.ValueBase	csrc/internal/mosaic/kiln/core/value_base.h	35	method	31	01ecce3124fd291b	4	
+csrc/internal/mosaic/kiln/core/value_base.h#ValueBase.impl	csrc/internal/mosaic/kiln/core/value_base.h	36	method	17	00ec4e6af907ef72	1	
+csrc/internal/mosaic/kiln/core/value_base.h#ValueBase.impl_	csrc/internal/mosaic/kiln/core/value_base.h	40	member	9	d48e0442ef635ecb	2	
+csrc/internal/mosaic/kiln/core/value_base.h#ValueBase.dtype_	csrc/internal/mosaic/kiln/core/value_base.h	41	member	4	015e15d1eed1c17c	2	
+csrc/internal/mosaic/kiln/kiln_test.cc#IsOk	csrc/internal/mosaic/kiln/kiln_test.cc	41	function	68	927ddf2ae3c6c7cd	16	
+csrc/internal/mosaic/kiln/kiln_test.cc#IsOkAndHolds	csrc/internal/mosaic/kiln/kiln_test.cc	42	function	4	8f0202a910b7cbed	1	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest	csrc/internal/mosaic/kiln/kiln_test.cc	44	class	208	6acd3e0d1d4fb551	16	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest.ExpectKernelMatches	csrc/internal/mosaic/kiln/kiln_test.cc	51	method	87	dc9a65b32cbc2795	13	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_BlockwiseMatmul_Test	csrc/internal/mosaic/kiln/kiln_test.cc	62	class	40	05cc13ece1fb0d42	2	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_BlockwiseMatmul_Test.-KilnTest_BlockwiseMatmul_Test	csrc/internal/mosaic/kiln/kiln_test.cc	62	method	0	05cc13ece1fb0d42	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_BlockwiseMatmul_Test.KilnTest_BlockwiseMatmul_Test	csrc/internal/mosaic/kiln/kiln_test.cc	62	method	0	05cc13ece1fb0d42	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_BlockwiseMatmul_Test.TestBody	csrc/internal/mosaic/kiln/kiln_test.cc	62	method	178	05cc13ece1fb0d42	1	mosaic-matmul
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_BlockwiseMatmul_Test.operator	csrc/internal/mosaic/kiln/kiln_test.cc	62	method	0	05cc13ece1fb0d42	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_BlockwiseMatmul_Test.test_info_	csrc/internal/mosaic/kiln/kiln_test.cc	62	member	0	05cc13ece1fb0d42	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_ScalarPrefetchAndLoop_Test	csrc/internal/mosaic/kiln/kiln_test.cc	140	class	40	ea3e0e966ca85a00	2	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_ScalarPrefetchAndLoop_Test.-KilnTest_ScalarPrefetchAndLoop_Test	csrc/internal/mosaic/kiln/kiln_test.cc	140	method	0	ea3e0e966ca85a00	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_ScalarPrefetchAndLoop_Test.KilnTest_ScalarPrefetchAndLoop_Test	csrc/internal/mosaic/kiln/kiln_test.cc	140	method	0	ea3e0e966ca85a00	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_ScalarPrefetchAndLoop_Test.TestBody	csrc/internal/mosaic/kiln/kiln_test.cc	140	method	158	ea3e0e966ca85a00	1	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_ScalarPrefetchAndLoop_Test.operator	csrc/internal/mosaic/kiln/kiln_test.cc	140	method	0	ea3e0e966ca85a00	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_ScalarPrefetchAndLoop_Test.test_info_	csrc/internal/mosaic/kiln/kiln_test.cc	140	member	0	ea3e0e966ca85a00	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_RefSliceRankCollapsing_Test	csrc/internal/mosaic/kiln/kiln_test.cc	197	class	40	4b10533d38062216	2	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_RefSliceRankCollapsing_Test.-KilnTest_RefSliceRankCollapsing_Test	csrc/internal/mosaic/kiln/kiln_test.cc	197	method	0	4b10533d38062216	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_RefSliceRankCollapsing_Test.KilnTest_RefSliceRankCollapsing_Test	csrc/internal/mosaic/kiln/kiln_test.cc	197	method	0	4b10533d38062216	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_RefSliceRankCollapsing_Test.TestBody	csrc/internal/mosaic/kiln/kiln_test.cc	197	method	103	4b10533d38062216	1	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_RefSliceRankCollapsing_Test.operator	csrc/internal/mosaic/kiln/kiln_test.cc	197	method	0	4b10533d38062216	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_RefSliceRankCollapsing_Test.test_info_	csrc/internal/mosaic/kiln/kiln_test.cc	197	member	0	4b10533d38062216	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_LiteralOverloads_Test	csrc/internal/mosaic/kiln/kiln_test.cc	222	class	40	8371e5ac53000263	2	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_LiteralOverloads_Test.-KilnTest_LiteralOverloads_Test	csrc/internal/mosaic/kiln/kiln_test.cc	222	method	0	8371e5ac53000263	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_LiteralOverloads_Test.KilnTest_LiteralOverloads_Test	csrc/internal/mosaic/kiln/kiln_test.cc	222	method	0	8371e5ac53000263	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_LiteralOverloads_Test.TestBody	csrc/internal/mosaic/kiln/kiln_test.cc	222	method	188	8371e5ac53000263	1	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_LiteralOverloads_Test.operator	csrc/internal/mosaic/kiln/kiln_test.cc	222	method	0	8371e5ac53000263	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_LiteralOverloads_Test.test_info_	csrc/internal/mosaic/kiln/kiln_test.cc	222	member	0	8371e5ac53000263	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_ScalarFloatOperations_Test	csrc/internal/mosaic/kiln/kiln_test.cc	303	class	40	6f96c08db7548e60	2	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_ScalarFloatOperations_Test.-KilnTest_ScalarFloatOperations_Test	csrc/internal/mosaic/kiln/kiln_test.cc	303	method	0	6f96c08db7548e60	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_ScalarFloatOperations_Test.KilnTest_ScalarFloatOperations_Test	csrc/internal/mosaic/kiln/kiln_test.cc	303	method	0	6f96c08db7548e60	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_ScalarFloatOperations_Test.TestBody	csrc/internal/mosaic/kiln/kiln_test.cc	303	method	208	6f96c08db7548e60	1	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_ScalarFloatOperations_Test.operator	csrc/internal/mosaic/kiln/kiln_test.cc	303	method	0	6f96c08db7548e60	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_ScalarFloatOperations_Test.test_info_	csrc/internal/mosaic/kiln/kiln_test.cc	303	member	0	6f96c08db7548e60	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#Fmix32	csrc/internal/mosaic/kiln/kiln_test.cc	373	function	8	5da6b3bafd342394	1	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_BitwiseOperations_Test	csrc/internal/mosaic/kiln/kiln_test.cc	382	class	40	2ddee27615ef6e0d	2	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_BitwiseOperations_Test.-KilnTest_BitwiseOperations_Test	csrc/internal/mosaic/kiln/kiln_test.cc	382	method	0	2ddee27615ef6e0d	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_BitwiseOperations_Test.KilnTest_BitwiseOperations_Test	csrc/internal/mosaic/kiln/kiln_test.cc	382	method	0	2ddee27615ef6e0d	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_BitwiseOperations_Test.TestBody	csrc/internal/mosaic/kiln/kiln_test.cc	382	method	163	2ddee27615ef6e0d	1	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_BitwiseOperations_Test.operator	csrc/internal/mosaic/kiln/kiln_test.cc	382	method	0	2ddee27615ef6e0d	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_BitwiseOperations_Test.test_info_	csrc/internal/mosaic/kiln/kiln_test.cc	382	member	0	2ddee27615ef6e0d	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_TileScalarOperations_Test	csrc/internal/mosaic/kiln/kiln_test.cc	434	class	40	e9f26ae8cb80676d	2	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_TileScalarOperations_Test.-KilnTest_TileScalarOperations_Test	csrc/internal/mosaic/kiln/kiln_test.cc	434	method	0	e9f26ae8cb80676d	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_TileScalarOperations_Test.KilnTest_TileScalarOperations_Test	csrc/internal/mosaic/kiln/kiln_test.cc	434	method	0	e9f26ae8cb80676d	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_TileScalarOperations_Test.TestBody	csrc/internal/mosaic/kiln/kiln_test.cc	434	method	233	e9f26ae8cb80676d	1	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_TileScalarOperations_Test.operator	csrc/internal/mosaic/kiln/kiln_test.cc	434	method	0	e9f26ae8cb80676d	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_TileScalarOperations_Test.test_info_	csrc/internal/mosaic/kiln/kiln_test.cc	434	member	0	e9f26ae8cb80676d	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_RotateGatherExtractBitcastAndMaskedStore_Test	csrc/internal/mosaic/kiln/kiln_test.cc	531	class	40	e60489e0f1d45df3	2	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_RotateGatherExtractBitcastAndMaskedStore_Test.-KilnTest_RotateGatherExtractBitcastAndMaskedStore_Test	csrc/internal/mosaic/kiln/kiln_test.cc	531	method	0	e60489e0f1d45df3	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_RotateGatherExtractBitcastAndMaskedStore_Test.KilnTest_RotateGatherExtractBitcastAndMaskedStore_Test	csrc/internal/mosaic/kiln/kiln_test.cc	531	method	0	e60489e0f1d45df3	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_RotateGatherExtractBitcastAndMaskedStore_Test.TestBody	csrc/internal/mosaic/kiln/kiln_test.cc	531	method	178	e60489e0f1d45df3	1	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_RotateGatherExtractBitcastAndMaskedStore_Test.operator	csrc/internal/mosaic/kiln/kiln_test.cc	531	method	0	e60489e0f1d45df3	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_RotateGatherExtractBitcastAndMaskedStore_Test.test_info_	csrc/internal/mosaic/kiln/kiln_test.cc	531	member	0	e60489e0f1d45df3	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_ForLoopWithInductionVarAndBounds_Test	csrc/internal/mosaic/kiln/kiln_test.cc	577	class	40	9387a16f09e12d1a	2	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_ForLoopWithInductionVarAndBounds_Test.-KilnTest_ForLoopWithInductionVarAndBounds_Test	csrc/internal/mosaic/kiln/kiln_test.cc	577	method	0	9387a16f09e12d1a	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_ForLoopWithInductionVarAndBounds_Test.KilnTest_ForLoopWithInductionVarAndBounds_Test	csrc/internal/mosaic/kiln/kiln_test.cc	577	method	0	9387a16f09e12d1a	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_ForLoopWithInductionVarAndBounds_Test.TestBody	csrc/internal/mosaic/kiln/kiln_test.cc	577	method	163	9387a16f09e12d1a	1	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_ForLoopWithInductionVarAndBounds_Test.operator	csrc/internal/mosaic/kiln/kiln_test.cc	577	method	0	9387a16f09e12d1a	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_ForLoopWithInductionVarAndBounds_Test.test_info_	csrc/internal/mosaic/kiln/kiln_test.cc	577	member	0	9387a16f09e12d1a	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_ScalarMismatchedTypesFail_Test	csrc/internal/mosaic/kiln/kiln_test.cc	634	class	40	1f31ed1f79b776cf	2	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_ScalarMismatchedTypesFail_Test.-KilnTest_ScalarMismatchedTypesFail_Test	csrc/internal/mosaic/kiln/kiln_test.cc	634	method	0	1f31ed1f79b776cf	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_ScalarMismatchedTypesFail_Test.KilnTest_ScalarMismatchedTypesFail_Test	csrc/internal/mosaic/kiln/kiln_test.cc	634	method	0	1f31ed1f79b776cf	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_ScalarMismatchedTypesFail_Test.TestBody	csrc/internal/mosaic/kiln/kiln_test.cc	634	method	158	1f31ed1f79b776cf	1	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_ScalarMismatchedTypesFail_Test.operator	csrc/internal/mosaic/kiln/kiln_test.cc	634	method	0	1f31ed1f79b776cf	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_ScalarMismatchedTypesFail_Test.test_info_	csrc/internal/mosaic/kiln/kiln_test.cc	634	member	0	1f31ed1f79b776cf	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_DTypeProperties_Test	csrc/internal/mosaic/kiln/kiln_test.cc	671	class	40	c8e94f5525578aad	2	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_DTypeProperties_Test.-KilnTest_DTypeProperties_Test	csrc/internal/mosaic/kiln/kiln_test.cc	671	method	0	c8e94f5525578aad	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_DTypeProperties_Test.KilnTest_DTypeProperties_Test	csrc/internal/mosaic/kiln/kiln_test.cc	671	method	0	c8e94f5525578aad	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_DTypeProperties_Test.TestBody	csrc/internal/mosaic/kiln/kiln_test.cc	671	method	113	c8e94f5525578aad	1	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_DTypeProperties_Test.operator	csrc/internal/mosaic/kiln/kiln_test.cc	671	method	0	c8e94f5525578aad	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_DTypeProperties_Test.test_info_	csrc/internal/mosaic/kiln/kiln_test.cc	671	member	0	c8e94f5525578aad	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_TypeHelpersInsideKernel_Test	csrc/internal/mosaic/kiln/kiln_test.cc	735	class	40	3da830443280978b	2	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_TypeHelpersInsideKernel_Test.-KilnTest_TypeHelpersInsideKernel_Test	csrc/internal/mosaic/kiln/kiln_test.cc	735	method	0	3da830443280978b	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_TypeHelpersInsideKernel_Test.KilnTest_TypeHelpersInsideKernel_Test	csrc/internal/mosaic/kiln/kiln_test.cc	735	method	0	3da830443280978b	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_TypeHelpersInsideKernel_Test.TestBody	csrc/internal/mosaic/kiln/kiln_test.cc	735	method	168	3da830443280978b	1	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_TypeHelpersInsideKernel_Test.operator	csrc/internal/mosaic/kiln/kiln_test.cc	735	method	0	3da830443280978b	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_TypeHelpersInsideKernel_Test.test_info_	csrc/internal/mosaic/kiln/kiln_test.cc	735	member	0	3da830443280978b	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_DTypeInTileAndScalarOps_Test	csrc/internal/mosaic/kiln/kiln_test.cc	761	class	40	c3defd8268bd976c	2	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_DTypeInTileAndScalarOps_Test.-KilnTest_DTypeInTileAndScalarOps_Test	csrc/internal/mosaic/kiln/kiln_test.cc	761	method	0	c3defd8268bd976c	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_DTypeInTileAndScalarOps_Test.KilnTest_DTypeInTileAndScalarOps_Test	csrc/internal/mosaic/kiln/kiln_test.cc	761	method	0	c3defd8268bd976c	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_DTypeInTileAndScalarOps_Test.TestBody	csrc/internal/mosaic/kiln/kiln_test.cc	761	method	138	c3defd8268bd976c	1	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_DTypeInTileAndScalarOps_Test.operator	csrc/internal/mosaic/kiln/kiln_test.cc	761	method	0	c3defd8268bd976c	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_DTypeInTileAndScalarOps_Test.test_info_	csrc/internal/mosaic/kiln/kiln_test.cc	761	member	0	c3defd8268bd976c	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_SimplifiedOverloadsAndBounds_Test	csrc/internal/mosaic/kiln/kiln_test.cc	805	class	40	32d0125a0c196c69	2	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_SimplifiedOverloadsAndBounds_Test.-KilnTest_SimplifiedOverloadsAndBounds_Test	csrc/internal/mosaic/kiln/kiln_test.cc	805	method	0	32d0125a0c196c69	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_SimplifiedOverloadsAndBounds_Test.KilnTest_SimplifiedOverloadsAndBounds_Test	csrc/internal/mosaic/kiln/kiln_test.cc	805	method	0	32d0125a0c196c69	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_SimplifiedOverloadsAndBounds_Test.TestBody	csrc/internal/mosaic/kiln/kiln_test.cc	805	method	228	32d0125a0c196c69	1	kiln-kernel-dsl
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_SimplifiedOverloadsAndBounds_Test.operator	csrc/internal/mosaic/kiln/kiln_test.cc	805	method	0	32d0125a0c196c69	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_SimplifiedOverloadsAndBounds_Test.test_info_	csrc/internal/mosaic/kiln/kiln_test.cc	805	member	0	32d0125a0c196c69	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_UnsignedOperations_Test	csrc/internal/mosaic/kiln/kiln_test.cc	912	class	40	b3ea660d843a0e4e	2	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_UnsignedOperations_Test.-KilnTest_UnsignedOperations_Test	csrc/internal/mosaic/kiln/kiln_test.cc	912	method	0	b3ea660d843a0e4e	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_UnsignedOperations_Test.KilnTest_UnsignedOperations_Test	csrc/internal/mosaic/kiln/kiln_test.cc	912	method	0	b3ea660d843a0e4e	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_UnsignedOperations_Test.TestBody	csrc/internal/mosaic/kiln/kiln_test.cc	912	method	213	b3ea660d843a0e4e	1	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_UnsignedOperations_Test.operator	csrc/internal/mosaic/kiln/kiln_test.cc	912	method	0	b3ea660d843a0e4e	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_UnsignedOperations_Test.test_info_	csrc/internal/mosaic/kiln/kiln_test.cc	912	member	0	b3ea660d843a0e4e	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_UnsignedAndSignedCasts_Test	csrc/internal/mosaic/kiln/kiln_test.cc	998	class	40	19cace4d1b2943db	2	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_UnsignedAndSignedCasts_Test.-KilnTest_UnsignedAndSignedCasts_Test	csrc/internal/mosaic/kiln/kiln_test.cc	998	method	0	19cace4d1b2943db	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_UnsignedAndSignedCasts_Test.KilnTest_UnsignedAndSignedCasts_Test	csrc/internal/mosaic/kiln/kiln_test.cc	998	method	0	19cace4d1b2943db	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_UnsignedAndSignedCasts_Test.TestBody	csrc/internal/mosaic/kiln/kiln_test.cc	998	method	128	19cace4d1b2943db	1	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_UnsignedAndSignedCasts_Test.operator	csrc/internal/mosaic/kiln/kiln_test.cc	998	method	0	19cace4d1b2943db	0	
+csrc/internal/mosaic/kiln/kiln_test.cc#KilnTest_UnsignedAndSignedCasts_Test.test_info_	csrc/internal/mosaic/kiln/kiln_test.cc	998	member	0	19cace4d1b2943db	0	
+csrc/internal/mosaic/op_builders.cc#CreateMatmul	csrc/internal/mosaic/op_builders.cc	49	function	86	421bf80b3475a191	6	mosaic-matmul
+csrc/internal/mosaic/op_builders.cc#CreateIotaOp	csrc/internal/mosaic/op_builders.cc	82	function	46	057dc7bad54ddaf9	4	
+csrc/internal/mosaic/op_builders.cc#CreateRepeatOp	csrc/internal/mosaic/op_builders.cc	87	function	44	1490ec2e588f6180	3	
+csrc/internal/mosaic/op_builders.cc#CreateReciprocal	csrc/internal/mosaic/op_builders.cc	106	function	31	95fdf71f8ac0c49d	2	
+csrc/internal/mosaic/op_builders.cc#GetVmemMemRefType	csrc/internal/mosaic/op_builders.cc	111	function	211	51ef0652baa9eb8a	5	mosaic-matmul
+csrc/internal/mosaic/op_builders.cc#GetSmemMemRefType	csrc/internal/mosaic/op_builders.cc	118	function	43	14b47cb1480fde03	4	
+csrc/internal/mosaic/op_builders.cc#GetDimensionSemanticsAttr	csrc/internal/mosaic/op_builders.cc	125	function	85	ddcb263e6ec5cc52	5	
+csrc/internal/mosaic/op_builders.cc#CreateMlirContextWithDialects	csrc/internal/mosaic/op_builders.cc	137	function	42	f01ffa2d52e4ae11	6	
+csrc/internal/mosaic/op_builders.cc#SetTcCoreTypeAttr	csrc/internal/mosaic/op_builders.cc	148	function	30	5acfc69a814884a8	5	
+csrc/internal/mosaic/op_builders.cc#SerializeMosaicKernel	csrc/internal/mosaic/op_builders.cc	153	function	40	a6630cdf8bb08c57	4	
+csrc/internal/mosaic/op_builders.h#kDefaultSerializationVersion	csrc/internal/mosaic/op_builders.h	37	value	4	4969d153b9a22f53	1	
+csrc/internal/mosaic/op_builders.h#DimensionSemantics	csrc/internal/mosaic/op_builders.h	39	class	34	bfdb63ef6cd9ef69	7	mosaic-matmul
+csrc/internal/mosaic/op_builders.h#DimensionSemantics.kParallel	csrc/internal/mosaic/op_builders.h	40	member	12	8cb3008a31ab1a8a	5	
+csrc/internal/mosaic/op_builders.h#DimensionSemantics.kArbitrary	csrc/internal/mosaic/op_builders.h	41	member	14	5d03fde48f7a0f25	5	
+csrc/internal/mosaic/op_builders.h#MatmulOptions	csrc/internal/mosaic/op_builders.h	44	class	26	611600c11a90b087	7	mosaic-matmul
+csrc/internal/mosaic/op_builders.h#MatmulOptions.transpose_lhs	csrc/internal/mosaic/op_builders.h	45	member	4	37b5ba36de32aa37	1	mosaic-matmul
+csrc/internal/mosaic/op_builders.h#MatmulOptions.transpose_rhs	csrc/internal/mosaic/op_builders.h	46	member	4	8677ab21e8948c17	1	mosaic-matmul
+csrc/internal/mosaic/op_builders.h#MatmulOptions.precision	csrc/internal/mosaic/op_builders.h	48	member	99	360fd73dad44b15a	1	mosaic-matmul
+csrc/internal/pallas/pallas_py.cc#PyRegisterCustomKernel	csrc/internal/pallas/pallas_py.cc	49	function	14	d1a07651667facbe	1	
+csrc/internal/pallas/pallas_py.cc#PyLookupCustomKernel	csrc/internal/pallas/pallas_py.cc	60	function	14	bab63eaeef6bf5fb	1	
+csrc/internal/pallas/pallas_py.cc#PyCallCustomKernel	csrc/internal/pallas/pallas_py.cc	129	function	259	db1a83cac18ed533	1	
+csrc/internal/pallas/pallas_py.cc#TorchTpuPyBindInitModule_tpu_torch_pallas	csrc/internal/pallas/pallas_py.cc	199	function	71	6b3a3bbd438ae048	1	
+csrc/internal/pallas/pallas_py.cc#pybind11_exec_tpu_torch_pallas	csrc/internal/pallas/pallas_py.cc	199	function	16	6b3a3bbd438ae048	1	
+csrc/internal/pallas/pallas_py.cc#pybind11_init_tpu_torch_pallas	csrc/internal/pallas/pallas_py.cc	199	function	16	6b3a3bbd438ae048	1	
+csrc/internal/precision/precision_impl.cc#Precision	csrc/internal/precision/precision_impl.cc	25	class	26	0560ed8c17d71bb1	1	
+csrc/internal/precision/precision_impl.cc#TorchTpuPyBindInitModule_precision_impl	csrc/internal/precision/precision_impl.cc	28	function	91	b85e1c101f25cfdb	1	
+csrc/internal/precision/precision_impl.cc#pybind11_exec_precision_impl	csrc/internal/precision/precision_impl.cc	28	function	16	b85e1c101f25cfdb	1	
+csrc/internal/precision/precision_impl.cc#pybind11_init_precision_impl	csrc/internal/precision/precision_impl.cc	28	function	16	b85e1c101f25cfdb	1	
+csrc/internal/profiler/profiler_api.cc#TpuProfilerServer	csrc/internal/profiler/profiler_api.cc	47	class	48	e0cd68ad14e0f8a9	9	profiler
+csrc/internal/profiler/profiler_api.cc#TpuProfilerServer.TpuProfilerServer	csrc/internal/profiler/profiler_api.cc	53	method	5	254a878ffe82dc33	0	
+csrc/internal/profiler/profiler_api.cc#TpuProfilerServer.operator	csrc/internal/profiler/profiler_api.cc	56	method	25	962871f88302d9ce	0	
+csrc/internal/profiler/profiler_api.cc#TpuProfilerServer.GetInstance	csrc/internal/profiler/profiler_api.cc	67	method	18	0a7c433f9f86f9e1	2	
+csrc/internal/profiler/profiler_api.cc#TpuProfilerServer.mutex_	csrc/internal/profiler/profiler_api.cc	73	member	36	d41a1e97e8eedf83	4	profiler
+csrc/internal/profiler/profiler_api.cc#TpuProfilerServer.server_	csrc/internal/profiler/profiler_api.cc	74	member	25	abf3c19e7f1903a8	2	profiler
+csrc/internal/profiler/profiler_api.cc#TpuProfilerSession	csrc/internal/profiler/profiler_api.cc	79	class	48	341e7a5a36f9b506	9	profiler
+csrc/internal/profiler/profiler_api.cc#TpuProfilerSession.TpuProfilerSession	csrc/internal/profiler/profiler_api.cc	85	method	5	b1ceb4fb2523c2de	0	
+csrc/internal/profiler/profiler_api.cc#TpuProfilerSession.operator	csrc/internal/profiler/profiler_api.cc	88	method	25	4d7c221ce691b841	0	profiler
+csrc/internal/profiler/profiler_api.cc#TpuProfilerSession.GetInstance	csrc/internal/profiler/profiler_api.cc	100	method	18	bd89adab7acf4706	2	profiler
+csrc/internal/profiler/profiler_api.cc#TpuProfilerSession.mutex_	csrc/internal/profiler/profiler_api.cc	106	member	32	d41a1e97e8eedf83	4	profiler
+csrc/internal/profiler/profiler_api.cc#TpuProfilerSession.session_	csrc/internal/profiler/profiler_api.cc	107	member	35	869e3772250fb159	2	profiler
+csrc/internal/profiler/profiler_api.cc#TpuProfilerServer.Start	csrc/internal/profiler/profiler_api.cc	111	method	106	9af51c96aa8286ef	2	profiler
+csrc/internal/profiler/profiler_api.cc#TpuProfilerServer.Stop	csrc/internal/profiler/profiler_api.cc	121	method	96	3ad9fb40da250519	2	profiler
+csrc/internal/profiler/profiler_api.cc#TpuProfilerSession.Start	csrc/internal/profiler/profiler_api.cc	130	method	126	9ef524a560dac4aa	2	profiler
+csrc/internal/profiler/profiler_api.cc#TpuProfilerSession.Stop	csrc/internal/profiler/profiler_api.cc	166	method	126	671693dd4410f0bf	2	profiler
+csrc/internal/profiler/profiler_api.cc#PyStartProfilerServer	csrc/internal/profiler/profiler_api.cc	216	function	74	0a98defee7e6c060	1	profiler
+csrc/internal/profiler/profiler_api.cc#PyStopProfilerServer	csrc/internal/profiler/profiler_api.cc	220	function	74	a25cc7bee365071c	1	profiler
+csrc/internal/profiler/profiler_api.cc#PyStartTrace	csrc/internal/profiler/profiler_api.cc	224	function	74	d1a5a7f1f7c0db3d	1	profiler
+csrc/internal/profiler/profiler_api.cc#PyStopTrace	csrc/internal/profiler/profiler_api.cc	229	function	74	76a6be80e72daa0a	1	profiler
+csrc/internal/profiler/profiler_api.cc#TorchTpuPyBindInitModule__profiler_backend	csrc/internal/profiler/profiler_api.cc	233	function	106	4c8aa83596847d3d	1	profiler
+csrc/internal/profiler/profiler_api.cc#pybind11_exec__profiler_backend	csrc/internal/profiler/profiler_api.cc	233	function	16	4c8aa83596847d3d	1	profiler
+csrc/internal/profiler/profiler_api.cc#pybind11_init__profiler_backend	csrc/internal/profiler/profiler_api.cc	233	function	16	4c8aa83596847d3d	1	profiler
+csrc/internal/profiler/tpu_profiler_plugin.cc#PrivateUse1ProfilerFactory	csrc/internal/profiler/tpu_profiler_plugin.cc	75	class	2	f689747a9aca58d2	1	
+csrc/internal/profiler/tpu_profiler_plugin.cc#PrivateUse1ProfilerRegistry	csrc/internal/profiler/tpu_profiler_plugin.cc	78	class	16	b2d0b3ca664443c7	2	
+csrc/internal/profiler/tpu_profiler_plugin.cc#kDeviceTracerLevel	csrc/internal/profiler/tpu_profiler_plugin.cc	89	value	2	51add4aaec48541b	1	
+csrc/internal/profiler/tpu_profiler_plugin.cc#kHostTracerLevel	csrc/internal/profiler/tpu_profiler_plugin.cc	90	value	2	452aaca86465d024	1	
+csrc/internal/profiler/tpu_profiler_plugin.cc#kPythonTracerLevel	csrc/internal/profiler/tpu_profiler_plugin.cc	91	value	2	bfc409a6d473a995	1	
+csrc/internal/profiler/tpu_profiler_plugin.cc#kRunDir	csrc/internal/profiler/tpu_profiler_plugin.cc	92	value	2	90acc31a43bd0af7	1	
+csrc/internal/profiler/tpu_profiler_plugin.cc#kWorkerRank	csrc/internal/profiler/tpu_profiler_plugin.cc	93	value	2	cf43a0c7e1f75e19	1	
+csrc/internal/profiler/tpu_profiler_plugin.cc#ProfilerOption	csrc/internal/profiler/tpu_profiler_plugin.cc	96	class	6	96fc7fb9326857dc	3	
+csrc/internal/profiler/tpu_profiler_plugin.cc#ProfilerOption.name	csrc/internal/profiler/tpu_profiler_plugin.cc	97	member	0	159bcae4a816b8bf	0	
+csrc/internal/profiler/tpu_profiler_plugin.cc#ProfilerOption.value	csrc/internal/profiler/tpu_profiler_plugin.cc	98	member	5	f8f29558317d59b0	0	
+csrc/internal/profiler/tpu_profiler_plugin.cc#ParseAndSetUint	csrc/internal/profiler/tpu_profiler_plugin.cc	102	function	86	ee71697a35d9b476	1	profiler
+csrc/internal/profiler/tpu_profiler_plugin.cc#UnescapeString	csrc/internal/profiler/tpu_profiler_plugin.cc	140	function	84	4f5ef0cf1b62cb47	2	profiler
+csrc/internal/profiler/tpu_profiler_plugin.cc#SetAdvancedConfigValue	csrc/internal/profiler/tpu_profiler_plugin.cc	168	function	87	557ec77d4aba0353	1	profiler
+csrc/internal/profiler/tpu_profiler_plugin.cc#UpdateProfileOption	csrc/internal/profiler/tpu_profiler_plugin.cc	202	function	27	c6621136161d55b8	1	profiler
+csrc/internal/profiler/tpu_profiler_plugin.cc#FindNextSeparator	csrc/internal/profiler/tpu_profiler_plugin.cc	221	function	4	9acb2f7d3a3a4ddc	2	
+csrc/internal/profiler/tpu_profiler_plugin.cc#SplitConfig	csrc/internal/profiler/tpu_profiler_plugin.cc	243	function	17	4b0e96c6ec10d102	1	
+csrc/internal/profiler/tpu_profiler_plugin.cc#SplitConfigItem	csrc/internal/profiler/tpu_profiler_plugin.cc	262	function	92	32baf3e1b85774a5	1	profiler
+csrc/internal/profiler/tpu_profiler_plugin.cc#UpdateProfileOptions	csrc/internal/profiler/tpu_profiler_plugin.cc	280	function	160	284eb5eb3996dbef	3	profiler
+csrc/internal/profiler/tpu_profiler_plugin.cc#GetProfilerBaseOutputDir	csrc/internal/profiler/tpu_profiler_plugin.cc	332	function	27	cb43e70f6b0a30a9	2	profiler
+csrc/internal/profiler/tpu_profiler_plugin.cc#GetXPlaneOutputPath	csrc/internal/profiler/tpu_profiler_plugin.cc	365	function	17	9dc8abeca757f441	1	
+csrc/internal/profiler/tpu_profiler_plugin.cc#TpuKinetoProfilerSession.TpuKinetoProfilerSession	csrc/internal/profiler/tpu_profiler_plugin.cc	404	method	17	b2c165f5d594dd94	1	
+csrc/internal/profiler/tpu_profiler_plugin.cc#TpuKinetoProfilerSession.start	csrc/internal/profiler/tpu_profiler_plugin.cc	409	method	129	ac419e20033fa114	1	profiler
+csrc/internal/profiler/tpu_profiler_plugin.cc#SynchronizeTpuDevicesBeforeStop	csrc/internal/profiler/tpu_profiler_plugin.cc	464	function	22	01ebd431e0fb32ec	1	
+csrc/internal/profiler/tpu_profiler_plugin.cc#TpuKinetoProfilerSession.stop	csrc/internal/profiler/tpu_profiler_plugin.cc	485	method	74	ea593f12be75eccc	1	profiler
+csrc/internal/profiler/tpu_profiler_plugin.cc#GetXProfSessionStartTimeNs	csrc/internal/profiler/tpu_profiler_plugin.cc	551	function	2	772b5574072f878d	1	
+csrc/internal/profiler/tpu_profiler_plugin.cc#SanitizeStatString	csrc/internal/profiler/tpu_profiler_plugin.cc	581	function	12	d83fe30799e24460	2	
+csrc/internal/profiler/tpu_profiler_plugin.cc#AddActivityStringMetadata	csrc/internal/profiler/tpu_profiler_plugin.cc	589	function	22	f7e1abe7ec6c06e4	2	
+csrc/internal/profiler/tpu_profiler_plugin.cc#TpuKinetoProfilerSession.processTrace	csrc/internal/profiler/tpu_profiler_plugin.cc	594	method	29	9e95deeaa5ff2879	1	profiler
+csrc/internal/profiler/tpu_profiler_plugin.cc#TpuProfilerRegisterer	csrc/internal/profiler/tpu_profiler_plugin.cc	790	class	2	20fceb2119202405	1	
+csrc/internal/profiler/tpu_profiler_plugin.cc#TpuProfilerRegisterer.TpuProfilerRegisterer	csrc/internal/profiler/tpu_profiler_plugin.cc	791	method	37	b9390c59e110df20	1	profiler
+csrc/internal/profiler/tpu_profiler_plugin.cc#registerer	csrc/internal/profiler/tpu_profiler_plugin.cc	807	value	5	ed1f127e130e2e8d	0	
+csrc/internal/profiler/tpu_profiler_plugin.h#TpuKinetoProfilerSession	csrc/internal/profiler/tpu_profiler_plugin.h	42	class	35	d187f1eeedb4dd67	5	profiler
+csrc/internal/profiler/tpu_profiler_plugin.h#TpuKinetoProfilerSession.errors	csrc/internal/profiler/tpu_profiler_plugin.h	49	method	20	ad4c7889dea11e70	0	
+csrc/internal/profiler/tpu_profiler_plugin.h#TpuKinetoProfilerSession.getDeviceInfo	csrc/internal/profiler/tpu_profiler_plugin.h	54	method	0	3ce366b089ff3ef5	0	
+csrc/internal/profiler/tpu_profiler_plugin.h#TpuKinetoProfilerSession.getResourceInfos	csrc/internal/profiler/tpu_profiler_plugin.h	62	method	5	352f62dbb05229ca	0	
+csrc/internal/profiler/tpu_profiler_plugin.h#TpuKinetoProfilerSession.getTraceBuffer	csrc/internal/profiler/tpu_profiler_plugin.h	65	method	5	7eba7367654ae9ba	0	
+csrc/internal/profiler/tpu_profiler_plugin.h#TpuKinetoProfilerSession.mutex_	csrc/internal/profiler/tpu_profiler_plugin.h	70	member	18	d41a1e97e8eedf83	7	profiler
+csrc/internal/profiler/tpu_profiler_plugin.h#TpuKinetoProfilerSession.session_	csrc/internal/profiler/tpu_profiler_plugin.h	71	member	20	4f2b85a63f50602e	2	profiler
+csrc/internal/profiler/tpu_profiler_plugin.h#TpuKinetoProfilerSession.xspace_	csrc/internal/profiler/tpu_profiler_plugin.h	72	member	16	0432e4fb256a2656	2	
+csrc/internal/profiler/tpu_profiler_plugin.h#TpuKinetoProfilerSession.errors_	csrc/internal/profiler/tpu_profiler_plugin.h	73	member	17	1725397dd3ffa790	3	profiler
+csrc/internal/profiler/tpu_profiler_plugin.h#TpuKinetoProfilerSession.config_	csrc/internal/profiler/tpu_profiler_plugin.h	74	member	8	40d4aa07b809d50f	3	
+csrc/internal/profiler/tpu_profiler_plugin.h#TpuKinetoProfilerSession.activity_types_	csrc/internal/profiler/tpu_profiler_plugin.h	75	member	7	2e65bc011761df36	1	
+csrc/internal/profiler/tpu_profiler_plugin.h#TpuKinetoProfilerSession.callback_handler_	csrc/internal/profiler/tpu_profiler_plugin.h	76	member	4	eacf38c197e57557	2	
+csrc/internal/profiler/tpu_profiler_plugin.h#TpuKinetoProfilerSession.run_dir_	csrc/internal/profiler/tpu_profiler_plugin.h	77	member	11	12109699b4ad86ec	2	profiler
+csrc/internal/profiler/tpu_profiler_plugin.h#TpuKinetoProfilerSession.worker_rank_	csrc/internal/profiler/tpu_profiler_plugin.h	78	member	15	eb8ebd895da6bc79	2	profiler
+csrc/internal/profiler/tpu_profiler_plugin.h#TpuKinetoProfilerSession.start_time_ns_	csrc/internal/profiler/tpu_profiler_plugin.h	79	member	2	1dde35028d55f5ac	1	
+csrc/internal/profiler/tpu_profiler_plugin.h#TpuKinetoProfilerSession.resource_infos_	csrc/internal/profiler/tpu_profiler_plugin.h	80	member	4	31998b7827db6c79	2	
+csrc/internal/profiler/tpu_profiler_plugin.h#TpuProfiler	csrc/internal/profiler/tpu_profiler_plugin.h	85	class	2	f479966a73cd26a9	1	
+csrc/internal/profiler/tpu_profiler_plugin.h#TpuProfiler.name	csrc/internal/profiler/tpu_profiler_plugin.h	87	method	5	252b5134de7f6e57	0	
+csrc/internal/profiler/tpu_profiler_plugin.h#TpuProfiler.availableActivities	csrc/internal/profiler/tpu_profiler_plugin.h	91	method	5	fa5922202ef2737b	0	
+csrc/internal/profiler/tpu_profiler_plugin.h#TpuProfiler.configure	csrc/internal/profiler/tpu_profiler_plugin.h	104	method	35	a0819a85b4a3654d	1	profiler
+csrc/internal/profiler/xprof_callback_handler.cc#XProfObserverContext	csrc/internal/profiler/xprof_callback_handler.cc	40	class	7	110f0b208147cfe9	1	
+csrc/internal/profiler/xprof_callback_handler.cc#XProfObserverContext.XProfObserverContext	csrc/internal/profiler/xprof_callback_handler.cc	42	method	5	07b441ef3effb94d	0	
+csrc/internal/profiler/xprof_callback_handler.cc#XProfObserverContext.traceme_	csrc/internal/profiler/xprof_callback_handler.cc	46	member	2	8ed1353523c2310b	1	
+csrc/internal/profiler/xprof_callback_handler.cc#IsProfilerEnabled	csrc/internal/profiler/xprof_callback_handler.cc	59	function	52	729c35ac15c865fe	1	profiler
+csrc/internal/profiler/xprof_callback_handler.cc#OnFunctionEnter	csrc/internal/profiler/xprof_callback_handler.cc	79	function	15	be066c7204029cb9	1	
+csrc/internal/profiler/xprof_callback_handler.cc#OnFunctionExit	csrc/internal/profiler/xprof_callback_handler.cc	95	function	12	2d9923eadab8f08d	1	
+csrc/internal/profiler/xprof_callback_handler.cc#XProfCallbackHandler.XProfCallbackHandler	csrc/internal/profiler/xprof_callback_handler.cc	102	method	31	0ddef0cb7f29f027	1	profiler
+csrc/internal/profiler/xprof_callback_handler.cc#XProfCallbackHandler.Register	csrc/internal/profiler/xprof_callback_handler.cc	111	method	32	ee201ad209572ea5	3	profiler
+csrc/internal/profiler/xprof_callback_handler.h#XProfCallbackHandler	csrc/internal/profiler/xprof_callback_handler.h	33	class	35	f6be66a5a8c290bc	11	profiler
+csrc/internal/profiler/xprof_callback_handler.h#XProfCallbackHandler.-XProfCallbackHandler	csrc/internal/profiler/xprof_callback_handler.h	36	method	15	759e581dd0083ffd	0	
+csrc/internal/profiler/xprof_callback_handler.h#XProfCallbackHandler.XProfCallbackHandler	csrc/internal/profiler/xprof_callback_handler.h	41	method	5	5676d667e26f0cc4	0	
+csrc/internal/profiler/xprof_callback_handler.h#XProfCallbackHandler.operator	csrc/internal/profiler/xprof_callback_handler.h	42	method	15	4c2ffcb6810e426f	0	
+csrc/internal/profiler/xprof_callback_handler.h#XProfCallbackHandler.handle_	csrc/internal/profiler/xprof_callback_handler.h	49	member	11	950d1053fa397ec2	2	
+csrc/internal/sync/sync.cc#DerefTensor	csrc/internal/sync/sync.cc	53	function	9	f3dccbd62e3a69a9	1	tensor-synchronization
+csrc/internal/sync/sync.cc#NeedsExplicitSyncMaterialization	csrc/internal/sync/sync.cc	57	function	29	2698fc402d5fc6bf	1	tensor-synchronization
+csrc/internal/sync/sync.cc#AwaitUniqueDeviceBufferLists	csrc/internal/sync/sync.cc	63	function	67	dd0bc24d301b3af5	1	tensor-synchronization
+csrc/internal/sync/sync.cc#SynchronizeTensorsImpl	csrc/internal/sync/sync.cc	89	function	159	e86d3b493e1137a5	2	tensor-synchronization
+csrc/internal/sync/sync.cc#SynchronizeTensors	csrc/internal/sync/sync.cc	130	function	37	b7c8b29809c5ea57	3	tensor-synchronization
+csrc/internal/sync/sync.cc#IsMaterializing	csrc/internal/sync/sync.cc	138	function	82	b0f35b53a722ec39	3	tensor-synchronization
+csrc/internal/sync/sync.cc#IsMaterialized	csrc/internal/sync/sync.cc	146	function	69	2f010056f286a741	2	tensor-synchronization
+csrc/internal/sync/sync.cc#GetTraversal	csrc/internal/sync/sync.cc	156	function	119	3d3f8647208959d1	2	tensor-synchronization
+csrc/internal/sync/sync.cc#GetComputationGraphviz	csrc/internal/sync/sync.cc	179	function	67	4d13fe80971c16db	2	tensor-synchronization
+csrc/internal/sync/sync.cc#GetComputationMlir	csrc/internal/sync/sync.cc	188	function	74	91ccc45ae8d2fda2	2	tensor-synchronization
+csrc/internal/sync/sync.h#WaitOnExecution	csrc/internal/sync/sync.h	53	class	0	67c836b11acbb897	0	tensor-synchronization
+csrc/internal/sync/sync.h#WaitOnExecution.kNo	csrc/internal/sync/sync.h	56	member	0	e337d741c652652f	0	tensor-synchronization
+csrc/internal/sync/sync.h#WaitOnExecution.kYes	csrc/internal/sync/sync.h	59	member	40	174f932e94695437	0	tensor-synchronization
+csrc/internal/sync/sync_py.cc#BufferRefToVarMap	csrc/internal/sync/sync_py.cc	47	class	16	9ef6d36bf52abc28	2	tensor-synchronization
+csrc/internal/sync/sync_py.cc#UnwrapTensor	csrc/internal/sync/sync_py.cc	51	function	37	b18f59127e533085	5	tensor-synchronization
+csrc/internal/sync/sync_py.cc#AllTensorsAreDenseOnDevice	csrc/internal/sync/sync_py.cc	67	function	19	d79abdeefff52a61	1	tensor-synchronization
+csrc/internal/sync/sync_py.cc#PySyncSpanNoWait	csrc/internal/sync/sync_py.cc	77	function	154	6dac322bfd0258e2	1	tensor-synchronization
+csrc/internal/sync/sync_py.cc#PySyncSpan	csrc/internal/sync/sync_py.cc	123	function	109	f476251b3db9b902	4	tensor-synchronization
+csrc/internal/sync/sync_py.cc#PySync	csrc/internal/sync/sync_py.cc	159	function	14	107b9fe49c8073c7	1	tensor-synchronization
+csrc/internal/sync/sync_py.cc#TrySyncSingleTensorFast	csrc/internal/sync/sync_py.cc	180	function	183	da27a140f73cc4d2	2	tensor-synchronization
+csrc/internal/sync/sync_py.cc#TrySyncTensorArrayFast	csrc/internal/sync/sync_py.cc	235	function	169	ef01a2abb81bb502	1	tensor-synchronization
+csrc/internal/sync/sync_py.cc#PySynchronizeDevice	csrc/internal/sync/sync_py.cc	305	function	79	7477754962e3e019	1	tensor-synchronization
+csrc/internal/sync/sync_py.cc#PySynchronizeSequence	csrc/internal/sync/sync_py.cc	330	function	34	dabf215010599fef	1	tensor-synchronization
+csrc/internal/sync/sync_py.cc#PySynchronize	csrc/internal/sync/sync_py.cc	367	function	39	3d7f78aa6e0dab04	1	tensor-synchronization
+csrc/internal/sync/sync_py.cc#PyIsMaterializing	csrc/internal/sync/sync_py.cc	393	function	128	b5e22d14b4af39d2	1	tensor-synchronization
+csrc/internal/sync/sync_py.cc#PyIsMaterialized	csrc/internal/sync/sync_py.cc	402	function	138	f9bf5cdf808c75ca	1	tensor-synchronization
+csrc/internal/sync/sync_py.cc#GetComputationBuffers	csrc/internal/sync/sync_py.cc	415	function	63	758b48d42be9bfe1	2	tensor-synchronization
+csrc/internal/sync/sync_py.cc#GetComputationGraph	csrc/internal/sync/sync_py.cc	426	function	24	17ba540a39a202b3	1	tensor-synchronization
+csrc/internal/sync/sync_py.cc#PyGetComputationGraphviz	csrc/internal/sync/sync_py.cc	443	function	99	56aa5f15eb922735	1	tensor-synchronization
+csrc/internal/sync/sync_py.cc#PyGetComputationMlir	csrc/internal/sync/sync_py.cc	456	function	94	d9366d1582c23ce8	1	tensor-synchronization
+csrc/internal/sync/sync_py.cc#TorchTpuPyBindInitModule__tpu_torch_sync	csrc/internal/sync/sync_py.cc	467	function	101	0d2dfe4b3711bbaf	1	tensor-synchronization
+csrc/internal/sync/sync_py.cc#pybind11_exec__tpu_torch_sync	csrc/internal/sync/sync_py.cc	467	function	16	0d2dfe4b3711bbaf	1	
+csrc/internal/sync/sync_py.cc#pybind11_init__tpu_torch_sync	csrc/internal/sync/sync_py.cc	467	function	16	0d2dfe4b3711bbaf	1	
+csrc/internal/testing.cc#ResetEagerState	csrc/internal/testing.cc	45	function	14	bc82b12db5a8c0cd	1	
+csrc/internal/testing.cc#ResetDefaultDeviceGenerators	csrc/internal/testing.cc	55	function	24	816ec58880b164c7	1	
+csrc/internal/testing.cc#PyGetMemoryKind	csrc/internal/testing.cc	74	function	79	9dd6c39976d4ffdf	1	
+csrc/internal/testing.cc#TestErrorClass	csrc/internal/testing.cc	87	class	8	e58868753d268314	1	
+csrc/internal/testing.cc#TestErrorClass.ThrowTtErrorInMemberFunction	csrc/internal/testing.cc	88	method	84	ede34f76086e01fc	1	
+csrc/internal/testing.cc#ThrowTtErrorInFreeFunction	csrc/internal/testing.cc	95	function	88	cdfe8b75a3ddcd93	1	
+csrc/internal/testing.cc#ThrowTtErrorIndexError	csrc/internal/testing.cc	101	function	84	c0f4421d6a427c6e	1	
+csrc/internal/testing.cc#TestMembersClass	csrc/internal/testing.cc	109	class	12	26a8d52885a58d20	1	
+csrc/internal/testing.cc#TestMembersClass.read_only_field	csrc/internal/testing.cc	110	member	4	c2013d39adf9587f	1	
+csrc/internal/testing.cc#TestMembersClass.read_write_field	csrc/internal/testing.cc	111	member	4	892508babf654357	1	
+csrc/internal/testing.cc#EmitTorchWarn	csrc/internal/testing.cc	114	function	9	9e36e6c9752b077c	1	
+csrc/internal/testing.cc#EmitTorchWarnOnce	csrc/internal/testing.cc	120	function	9	ac9b7c94a7c5b0e6	1	
+csrc/internal/testing.cc#EmitTorchWarnDeprecation	csrc/internal/testing.cc	126	function	9	6f5b70292f7a11c3	1	
+csrc/internal/testing.cc#EmitTtWarn	csrc/internal/testing.cc	132	function	34	17186c6731f67a30	1	
+csrc/internal/testing.cc#EmitTtWarnOnce	csrc/internal/testing.cc	138	function	34	e078134332314ffb	1	
+csrc/internal/testing.cc#TorchTpuPyBindInitModule_testing	csrc/internal/testing.cc	147	function	196	c545a2cc399016d9	1	
+csrc/internal/testing.cc#pybind11_exec_testing	csrc/internal/testing.cc	147	function	16	c545a2cc399016d9	1	
+csrc/internal/testing.cc#pybind11_init_testing	csrc/internal/testing.cc	147	function	16	c545a2cc399016d9	1	
+csrc/internal/warnings_impl.cc#TorchTpuPyBindInitModule_warnings_impl	csrc/internal/warnings_impl.cc	27	function	121	98888e4819fc9850	1	
+csrc/internal/warnings_impl.cc#pybind11_exec_warnings_impl	csrc/internal/warnings_impl.cc	27	function	16	98888e4819fc9850	1	
+csrc/internal/warnings_impl.cc#pybind11_init_warnings_impl	csrc/internal/warnings_impl.cc	27	function	16	98888e4819fc9850	1	

@@ -36,6 +36,11 @@ Grounded implementations of **splash-attention** across the ingested repos (gene
 - [tokamax](../codebases/tokamax/concepts/tokamax-_src-ops-experimental-tpu-splash_attention-splash_attention_kernel_test.md) — tokamax._src.ops.experimental.tpu.splash_attention.splash_attention_kernel_test — hypothesis-based property testing across MQA/MHA/segmented configs
 - [tokamax](../codebases/tokamax/concepts/tokamax-_src-ops-experimental-tpu-splash_attention-splash_attention_mask.md) — tokamax._src.ops.experimental.tpu.splash_attention.splash_attention_mask — lazy composable Mask algebra
 - [tokamax](../codebases/tokamax/concepts/tokamax-_src-ops-experimental-tpu-splash_attention-splash_attention_mask_info.md) — tokamax._src.ops.experimental.tpu.splash_attention.splash_attention_mask_info — MaskInfo block-sparsity compilation
+- [torchtitan](../codebases/torchtitan/concepts/jax-lane.md) — JAX lane: pure-JAX / Flax NNX trainer (experiments/jax)
+- [torchtitan](../codebases/torchtitan/concepts/tpu-context-parallel-attention.md) — TPU context-parallel attention (head-tail KV all-gather and Ulysses CP)
+- [torchtitan](../codebases/torchtitan/concepts/tpu-layer-loop-remat-and-layouts.md) — TPU layer loop, remat policies and layouts (experiments/tpu)
+- [torchtitan](../codebases/torchtitan/concepts/tpu-pallas-kernels.md) — TPU Pallas kernels: splash attention (stock, Tokamax, SBD fork), grouped matmul, FP8 GMM and fused linear cross-entropy
+- [torchtitan](../codebases/torchtitan/concepts/tpu-trainer-and-job-config.md) — TPU trainer and job config (experiments/tpu)
 - [maxdiffusion](../codebases/maxdiffusion/concepts/maxdiffusion-kernels-splash_attention-splash_attention_kernel.md) — maxdiffusion/kernels/splash_attention/splash_attention_kernel — block-sparse flash attention (+ ring-attention merge variant)
 - [maxdiffusion](../codebases/maxdiffusion/concepts/maxdiffusion-kernels-splash_attention-splash_attention_kernel_test.md) — maxdiffusion/kernels/splash_attention/splash_attention_kernel_test — property-based correctness suite (and its numerical-tolerance map)
 - [maxdiffusion](../codebases/maxdiffusion/concepts/maxdiffusion-kernels-splash_attention-splash_attention_mask.md) — maxdiffusion/kernels/splash_attention/splash_attention_mask — lazy, composable attention masks
@@ -46,4 +51,5 @@ Grounded implementations of **splash-attention** across the ingested repos (gene
 - [maxtext](../codebases/maxtext/concepts/maxtext-kernels-attention-splash_attention_kernel.md) — SplashAttention backward — sparse flash-attention gradient kernels
 - [maxtext](../codebases/maxtext/concepts/maxtext-layers-attention_op.md) — MaxText AttentionOp — kernel selection, Splash config, masking, sharding
 - [learning-machine](../codebases/learning-machine/concepts/jax_perf-splash_attention_debug.md) — jax_perf/splash_attention_debug — Splash vs flash attention mask-mode benchmark
+- [torch_tpu](../codebases/torch_tpu/concepts/python-ops.md) — Python-side TPU ops (torch.tpu.ops) - splash attention and block-scaled FP8 matmul kernels
 <!-- connect:auto:end -->

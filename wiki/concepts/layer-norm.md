@@ -28,4 +28,6 @@ Grounded implementations of **layer-norm** across the ingested repos (generated 
 
 - [easydel](../codebases/easydel/concepts/easydel-layers-norms-_norms.md) — easydel/layers/norms/_norms — RMSNorm / LayerNorm with mixed-precision discipline
 - [maxtext](../codebases/maxtext/concepts/maxtext-layers-attentions.md) — MaxText Attention layer (projection → norm → RoPE → KV-cache → op dispatch)
+- [torch_tpu](../codebases/torch_tpu/concepts/mlir-optimization-passes.md) — TorchTPU MLIR optimization passes - the StableHLO pass pipeline run on every module before XLA
+- [torchtitan](../codebases/torchtitan/concepts/config-overrides.md) — Config overrides (torchtitan/overrides) - opt-in kernel swaps registered with @override
 <!-- connect:auto:end -->

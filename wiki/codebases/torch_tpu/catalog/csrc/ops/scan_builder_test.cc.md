@@ -1,0 +1,459 @@
+---
+title: 'Module: csrc/ops/scan_builder_test.cc'
+type: catalog
+provenance: extracted
+module: csrc/ops/scan_builder_test.cc
+status: fresh
+symbol_base: cxx . . $ torch_tpu/`$anonymous_namespace_csrc/ops/scan_builder_test.cc`/
+symbols:
+  ScanBuilderTest.builder: ScanBuilderTest#builder(e8d8c8ab08d2b40e).
+  ScanBuilderTest: ScanBuilderTest#
+  ScanBuilderTest.op_builder: ScanBuilderTest#op_builder(36d490be45bc9e35).
+  MultiScanBuilderTest: MultiScanBuilderTest#
+  MultiScanBuilderTest_BodyBuilderError_Test.TestBody: MultiScanBuilderTest_BodyBuilderError_Test#TestBody(49f6e7a06ebc5aa8).
+  ScanBuilderTest_BodyBuilderError_Test.TestBody: ScanBuilderTest_BodyBuilderError_Test#TestBody(49f6e7a06ebc5aa8).
+  ScanBuilderTest.module_builder: ScanBuilderTest#module_builder(70975d751b8d9efd).
+  MultiScanBuilderTest_ReverseScan_Test.TestBody: MultiScanBuilderTest_ReverseScan_Test#TestBody(49f6e7a06ebc5aa8).
+  ScanBuilderTest.Scan: ScanBuilderTest#Scan(c712b8d57f345657).
+  ScanBuilderTest.CreateAddBodyBuilder: ScanBuilderTest#CreateAddBodyBuilder(76465fb4ba0ab001).
+  MultiScanBuilderTest_MismatchedOutputsError_Test.TestBody: MultiScanBuilderTest_MismatchedOutputsError_Test#TestBody(49f6e7a06ebc5aa8).
+  MultiScanBuilderTest_MismatchedCarriesError_Test.TestBody: MultiScanBuilderTest_MismatchedCarriesError_Test#TestBody(49f6e7a06ebc5aa8).
+  MultiScanBuilderTest_Squeeze1DTo0DTensor_Test.TestBody: MultiScanBuilderTest_Squeeze1DTo0DTensor_Test#TestBody(49f6e7a06ebc5aa8).
+  MultiScanBuilderTest_WithStaticInput_Test.TestBody: MultiScanBuilderTest_WithStaticInput_Test#TestBody(49f6e7a06ebc5aa8).
+  MultiScanBuilderTest_TooManyScanInputsError_Test.TestBody: MultiScanBuilderTest_TooManyScanInputsError_Test#TestBody(49f6e7a06ebc5aa8).
+  MultiScanBuilderTest_InvalidDimension_Test.TestBody: MultiScanBuilderTest_InvalidDimension_Test#TestBody(49f6e7a06ebc5aa8).
+  MultiScanBuilderTest_SqueezeScan_Test.TestBody: MultiScanBuilderTest_SqueezeScan_Test#TestBody(49f6e7a06ebc5aa8).
+  MultiScanBuilderTest_MismatchedInputScanDimSizeError_Test.TestBody: MultiScanBuilderTest_MismatchedInputScanDimSizeError_Test#TestBody(49f6e7a06ebc5aa8).
+  MultiScanBuilderTest_EmptyInputsListError_Test.TestBody: MultiScanBuilderTest_EmptyInputsListError_Test#TestBody(49f6e7a06ebc5aa8).
+  ScanBuilderTest_StaticShape1D_Test.TestBody: ScanBuilderTest_StaticShape1D_Test#TestBody(49f6e7a06ebc5aa8).
+  ScanBuilderTest_MismatchedInits_Test.TestBody: ScanBuilderTest_MismatchedInits_Test#TestBody(49f6e7a06ebc5aa8).
+  ScanBuilderTest_InvalidDimension_Test.TestBody: ScanBuilderTest_InvalidDimension_Test#TestBody(49f6e7a06ebc5aa8).
+  ScanBuilderTest_DynamicShapeScanDim_Test.TestBody: ScanBuilderTest_DynamicShapeScanDim_Test#TestBody(49f6e7a06ebc5aa8).
+  MultiScanBuilderTest_MismatchedInitsAllowed_Test.TestBody: MultiScanBuilderTest_MismatchedInitsAllowed_Test#TestBody(49f6e7a06ebc5aa8).
+  MultiScanBuilderTest_DynamicShapeNonScanDim_Test.TestBody: MultiScanBuilderTest_DynamicShapeNonScanDim_Test#TestBody(49f6e7a06ebc5aa8).
+  MultiScanBuilderTest_StaticShape3D_Test.TestBody: MultiScanBuilderTest_StaticShape3D_Test#TestBody(49f6e7a06ebc5aa8).
+  MultiScanBuilderTest_StaticShape2D_Test.TestBody: MultiScanBuilderTest_StaticShape2D_Test#TestBody(49f6e7a06ebc5aa8).
+  MultiScanBuilderTest_DynamicShapeScanDim_Test.TestBody: MultiScanBuilderTest_DynamicShapeScanDim_Test#TestBody(49f6e7a06ebc5aa8).
+  ScanBuilderTest_DynamicShapeNonScanDim_Test.TestBody: ScanBuilderTest_DynamicShapeNonScanDim_Test#TestBody(49f6e7a06ebc5aa8).
+  MultiScanBuilderTest_StaticShape2D_ScanDim1_Test.TestBody: MultiScanBuilderTest_StaticShape2D_ScanDim1_Test#TestBody(49f6e7a06ebc5aa8).
+  ScanBuilderTest_MismatchedCarries_Test.TestBody: ScanBuilderTest_MismatchedCarries_Test#TestBody(49f6e7a06ebc5aa8).
+  MultiScanBuilderTest_StaticShape1D_Test.TestBody: MultiScanBuilderTest_StaticShape1D_Test#TestBody(49f6e7a06ebc5aa8).
+  ScanBuilderTest_StaticShape3D_Test.TestBody: ScanBuilderTest_StaticShape3D_Test#TestBody(49f6e7a06ebc5aa8).
+  ScanBuilderTest_StaticShape2D_ScanDim1_Test.TestBody: ScanBuilderTest_StaticShape2D_ScanDim1_Test#TestBody(49f6e7a06ebc5aa8).
+  ScanBuilderTest_StaticShape2D_Test.TestBody: ScanBuilderTest_StaticShape2D_Test#TestBody(49f6e7a06ebc5aa8).
+  MultiScanBuilderTest_EmptyTensor_Test.TestBody: MultiScanBuilderTest_EmptyTensor_Test#TestBody(49f6e7a06ebc5aa8).
+  ScanBuilderTest_EmptyTensor_Test.TestBody: ScanBuilderTest_EmptyTensor_Test#TestBody(49f6e7a06ebc5aa8).
+  CreateRankReducedConstantLikeTest: CreateRankReducedConstantLikeTest#
+  CreateRankReducedConstantLikeTest_OutOfBoundsScanDimFails_Test.TestBody: CreateRankReducedConstantLikeTest_OutOfBoundsScanDimFails_Test#TestBody(49f6e7a06ebc5aa8).
+  MakeDenseConstant: MakeDenseConstant(7182bfac922cbd84).
+  CreateRankReducedConstantLikeTest_BoundedDynamicShapeUsesConstantLike_Test.TestBody: CreateRankReducedConstantLikeTest_BoundedDynamicShapeUsesConstantLike_Test#TestBody(49f6e7a06ebc5aa8).
+  CreateRankReducedConstantLikeTest_StaticShapeDirectConstantWithoutDeadOps_Test.TestBody: CreateRankReducedConstantLikeTest_StaticShapeDirectConstantWithoutDeadOps_Test#TestBody(49f6e7a06ebc5aa8).
+  CreateRankReducedConstantLikeTest_StaticShapeNegativeScanDim_Test.TestBody: CreateRankReducedConstantLikeTest_StaticShapeNegativeScanDim_Test#TestBody(49f6e7a06ebc5aa8).
+  CreateRankReducedConstantLikeTest_StaticShape1DTo0D_Test.TestBody: CreateRankReducedConstantLikeTest_StaticShape1DTo0D_Test#TestBody(49f6e7a06ebc5aa8).
+  ScanBuilderTest.CreateMultiAddBodyBuilder: ScanBuilderTest#CreateMultiAddBodyBuilder(5232f5131b928c50).
+  StatusIs: StatusIs(fc97c94e754d81e5).
+  ScanBuilderTest.ExpectScanLoweringOp: ScanBuilderTest#ExpectScanLoweringOp(28feebf5e5169fb9).
+  HasSubstr: HasSubstr(ab85812450a1a9b3).
+  ScanBuilderTest.CreateBoundedTensorArg: ScanBuilderTest#CreateBoundedTensorArg(6ff45c409437efa3).
+  ScanBuilderTest.CreateIdentityBodyBuilder: ScanBuilderTest#CreateIdentityBodyBuilder(5232f5131b928c50).
+  ScanBuilderTest.EvaluateAndVerifyOutputs: ScanBuilderTest#EvaluateAndVerifyOutputs(3968670722ac3e50).
+  CreateRankReducedConstantLikeTest_BoundedDynamicShapeUsesConstantLike_Test: CreateRankReducedConstantLikeTest_BoundedDynamicShapeUsesConstantLike_Test#
+  CreateRankReducedConstantLikeTest_StaticShape1DTo0D_Test: CreateRankReducedConstantLikeTest_StaticShape1DTo0D_Test#
+  CreateRankReducedConstantLikeTest_StaticShapeNegativeScanDim_Test: CreateRankReducedConstantLikeTest_StaticShapeNegativeScanDim_Test#
+  CreateRankReducedConstantLikeTest_OutOfBoundsScanDimFails_Test: CreateRankReducedConstantLikeTest_OutOfBoundsScanDimFails_Test#
+  CreateRankReducedConstantLikeTest_StaticShapeDirectConstantWithoutDeadOps_Test: CreateRankReducedConstantLikeTest_StaticShapeDirectConstantWithoutDeadOps_Test#
+  ScanBuilderTest.LegalizeChlo: ScanBuilderTest#LegalizeChlo(1eec3824a7432d71).
+  ScanBuilderTest.EvaluateAndVerifyMultiOutputs: ScanBuilderTest#EvaluateAndVerifyMultiOutputs(4e0cbf77097c12ff).
+  CreateRankReducedConstantLikeTest.op_builder: CreateRankReducedConstantLikeTest#op_builder(36d490be45bc9e35).
+  CreateRankReducedConstantLikeTest.module_builder: CreateRankReducedConstantLikeTest#module_builder(70975d751b8d9efd).
+  CreateRankReducedConstantLikeTest.context_: CreateRankReducedConstantLikeTest#context_.
+  ScanBuilderTest.context_: ScanBuilderTest#context_.
+  ScanBuilderTest.context: ScanBuilderTest#context(5d94b7698480361a).
+  gtest_ScanLoweringScanBuilderTest_dummy_: gtest_ScanLoweringScanBuilderTest_dummy_.
+  gtest_ScanLoweringMultiScanBuilderTest_dummy_: gtest_ScanLoweringMultiScanBuilderTest_dummy_.
+  CreateRankReducedConstantLikeTest.CreateBoundedTensorArg: CreateRankReducedConstantLikeTest#CreateBoundedTensorArg(6ff45c409437efa3).
+  CreateRankReducedConstantLikeTest.context: CreateRankReducedConstantLikeTest#context(5d94b7698480361a).
+  ScanBuilderTest_EmptyTensor_Test: ScanBuilderTest_EmptyTensor_Test#
+  ScanBuilderTest_MismatchedInits_Test: ScanBuilderTest_MismatchedInits_Test#
+  MultiScanBuilderTest_StaticShape3D_Test: MultiScanBuilderTest_StaticShape3D_Test#
+  MultiScanBuilderTest_MismatchedCarriesError_Test: MultiScanBuilderTest_MismatchedCarriesError_Test#
+  ScanBuilderTest_StaticShape2D_Test: ScanBuilderTest_StaticShape2D_Test#
+  MultiScanBuilderTest_ReverseScan_Test: MultiScanBuilderTest_ReverseScan_Test#
+  ScanBuilderTest_StaticShape2D_ScanDim1_Test: ScanBuilderTest_StaticShape2D_ScanDim1_Test#
+  ScanBuilderTest_DynamicShapeScanDim_Test: ScanBuilderTest_DynamicShapeScanDim_Test#
+  ScanBuilderTest_StaticShape3D_Test: ScanBuilderTest_StaticShape3D_Test#
+  ScanBuilderTest_InvalidDimension_Test: ScanBuilderTest_InvalidDimension_Test#
+  MultiScanBuilderTest_WithStaticInput_Test: MultiScanBuilderTest_WithStaticInput_Test#
+  CreateRankReducedConstantLikeTest.module_builder_: CreateRankReducedConstantLikeTest#module_builder_.
+  ScanBuilderTest_MismatchedCarries_Test: ScanBuilderTest_MismatchedCarries_Test#
+  MultiScanBuilderTest_MismatchedInputScanDimSizeError_Test: MultiScanBuilderTest_MismatchedInputScanDimSizeError_Test#
+  MultiScanBuilderTest_Squeeze1DTo0DTensor_Test: MultiScanBuilderTest_Squeeze1DTo0DTensor_Test#
+  ScanBuilderTest_DynamicShapeNonScanDim_Test: ScanBuilderTest_DynamicShapeNonScanDim_Test#
+  MultiScanBuilderTest_EmptyTensor_Test: MultiScanBuilderTest_EmptyTensor_Test#
+  MultiScanBuilderTest_StaticShape1D_Test: MultiScanBuilderTest_StaticShape1D_Test#
+  MultiScanBuilderTest_InvalidDimension_Test: MultiScanBuilderTest_InvalidDimension_Test#
+  MultiScanBuilderTest_TooManyScanInputsError_Test: MultiScanBuilderTest_TooManyScanInputsError_Test#
+  ScanBuilderTest_BodyBuilderError_Test: ScanBuilderTest_BodyBuilderError_Test#
+  MultiScanBuilderTest_StaticShape2D_Test: MultiScanBuilderTest_StaticShape2D_Test#
+  MultiScanBuilderTest_MismatchedOutputsError_Test: MultiScanBuilderTest_MismatchedOutputsError_Test#
+  MultiScanBuilderTest_StaticShape2D_ScanDim1_Test: MultiScanBuilderTest_StaticShape2D_ScanDim1_Test#
+  ScanBuilderTest.module_builder_: ScanBuilderTest#module_builder_.
+  MultiScanBuilderTest_BodyBuilderError_Test: MultiScanBuilderTest_BodyBuilderError_Test#
+  MultiScanBuilderTest_DynamicShapeScanDim_Test: MultiScanBuilderTest_DynamicShapeScanDim_Test#
+  MultiScanBuilderTest_SqueezeScan_Test: MultiScanBuilderTest_SqueezeScan_Test#
+  ScanBuilderTest.IsEmitter: ScanBuilderTest#IsEmitter(50ce9a9e25b4a850).
+  MultiScanBuilderTest_DynamicShapeNonScanDim_Test: MultiScanBuilderTest_DynamicShapeNonScanDim_Test#
+  MultiScanBuilderTest_EmptyInputsListError_Test: MultiScanBuilderTest_EmptyInputsListError_Test#
+  MultiScanBuilderTest_MismatchedInitsAllowed_Test: MultiScanBuilderTest_MismatchedInitsAllowed_Test#
+  ScanBuilderTest_StaticShape1D_Test: ScanBuilderTest_StaticShape1D_Test#
+  CreateRankReducedConstantLikeTest.CreateRankReducedConstantLikeTest: CreateRankReducedConstantLikeTest#CreateRankReducedConstantLikeTest(49f6e7a06ebc5aa8).
+  ScanBuilderTest.ScanBuilderTest: ScanBuilderTest#ScanBuilderTest(49f6e7a06ebc5aa8).
+  CreateRankReducedConstantLikeTest.builder: CreateRankReducedConstantLikeTest#builder(e8d8c8ab08d2b40e).
+  ScanBuilderTest.RewriteStaticRealDynamicSlices: ScanBuilderTest#RewriteStaticRealDynamicSlices(1eec3824a7432d71).
+  ScanBuilderTest.RewriteDeprecatedBroadcasts: ScanBuilderTest#RewriteDeprecatedBroadcasts(1eec3824a7432d71).
+  MultiScanBuilderTest_StaticShape3D_Test.AddToRegistry: MultiScanBuilderTest_StaticShape3D_Test#AddToRegistry(b126dc7c1de90089).
+  MultiScanBuilderTest_StaticShape1D_Test.AddToRegistry: MultiScanBuilderTest_StaticShape1D_Test#AddToRegistry(b126dc7c1de90089).
+  ScanBuilderTest_MismatchedInits_Test.AddToRegistry: ScanBuilderTest_MismatchedInits_Test#AddToRegistry(b126dc7c1de90089).
+  MultiScanBuilderTest_InvalidDimension_Test.AddToRegistry: MultiScanBuilderTest_InvalidDimension_Test#AddToRegistry(b126dc7c1de90089).
+  MultiScanBuilderTest_StaticShape2D_ScanDim1_Test.AddToRegistry: MultiScanBuilderTest_StaticShape2D_ScanDim1_Test#AddToRegistry(b126dc7c1de90089).
+  MultiScanBuilderTest_BodyBuilderError_Test.AddToRegistry: MultiScanBuilderTest_BodyBuilderError_Test#AddToRegistry(b126dc7c1de90089).
+  MultiScanBuilderTest_TooManyScanInputsError_Test.AddToRegistry: MultiScanBuilderTest_TooManyScanInputsError_Test#AddToRegistry(b126dc7c1de90089).
+  MultiScanBuilderTest_WithStaticInput_Test.AddToRegistry: MultiScanBuilderTest_WithStaticInput_Test#AddToRegistry(b126dc7c1de90089).
+  MultiScanBuilderTest_EmptyInputsListError_Test.AddToRegistry: MultiScanBuilderTest_EmptyInputsListError_Test#AddToRegistry(b126dc7c1de90089).
+  ScanBuilderTest_StaticShape2D_ScanDim1_Test.AddToRegistry: ScanBuilderTest_StaticShape2D_ScanDim1_Test#AddToRegistry(b126dc7c1de90089).
+  ScanBuilderTest_StaticShape3D_Test.AddToRegistry: ScanBuilderTest_StaticShape3D_Test#AddToRegistry(b126dc7c1de90089).
+  gtest_ScanLoweringMultiScanBuilderTest_EvalGenerateName_: gtest_ScanLoweringMultiScanBuilderTest_EvalGenerateName_(d9f152774eb8669f).
+  ScanBuilderTest_MismatchedCarries_Test.AddToRegistry: ScanBuilderTest_MismatchedCarries_Test#AddToRegistry(b126dc7c1de90089).
+  MultiScanBuilderTest_EmptyTensor_Test.AddToRegistry: MultiScanBuilderTest_EmptyTensor_Test#AddToRegistry(b126dc7c1de90089).
+  ScanBuilderTest_EmptyTensor_Test.AddToRegistry: ScanBuilderTest_EmptyTensor_Test#AddToRegistry(b126dc7c1de90089).
+  gtest_ScanLoweringScanBuilderTest_EvalGenerateName_: gtest_ScanLoweringScanBuilderTest_EvalGenerateName_(d9f152774eb8669f).
+  MultiScanBuilderTest_DynamicShapeScanDim_Test.AddToRegistry: MultiScanBuilderTest_DynamicShapeScanDim_Test#AddToRegistry(b126dc7c1de90089).
+  MultiScanBuilderTest_MismatchedInitsAllowed_Test.AddToRegistry: MultiScanBuilderTest_MismatchedInitsAllowed_Test#AddToRegistry(b126dc7c1de90089).
+  MultiScanBuilderTest_MismatchedInputScanDimSizeError_Test.AddToRegistry: MultiScanBuilderTest_MismatchedInputScanDimSizeError_Test#AddToRegistry(b126dc7c1de90089).
+  ScanBuilderTest_StaticShape2D_Test.AddToRegistry: ScanBuilderTest_StaticShape2D_Test#AddToRegistry(b126dc7c1de90089).
+  MultiScanBuilderTest_DynamicShapeNonScanDim_Test.AddToRegistry: MultiScanBuilderTest_DynamicShapeNonScanDim_Test#AddToRegistry(b126dc7c1de90089).
+  ScanBuilderTest_StaticShape1D_Test.AddToRegistry: ScanBuilderTest_StaticShape1D_Test#AddToRegistry(b126dc7c1de90089).
+  MultiScanBuilderTest_MismatchedOutputsError_Test.AddToRegistry: MultiScanBuilderTest_MismatchedOutputsError_Test#AddToRegistry(b126dc7c1de90089).
+  MultiScanBuilderTest_SqueezeScan_Test.AddToRegistry: MultiScanBuilderTest_SqueezeScan_Test#AddToRegistry(b126dc7c1de90089).
+  ScanBuilderTest_DynamicShapeScanDim_Test.AddToRegistry: ScanBuilderTest_DynamicShapeScanDim_Test#AddToRegistry(b126dc7c1de90089).
+  gtest_ScanLoweringMultiScanBuilderTest_EvalGenerator_: gtest_ScanLoweringMultiScanBuilderTest_EvalGenerator_(6eb2e9579182d2d2).
+  gtest_ScanLoweringScanBuilderTest_EvalGenerator_: gtest_ScanLoweringScanBuilderTest_EvalGenerator_(6eb2e9579182d2d2).
+  MultiScanBuilderTest_MismatchedCarriesError_Test.AddToRegistry: MultiScanBuilderTest_MismatchedCarriesError_Test#AddToRegistry(b126dc7c1de90089).
+  MultiScanBuilderTest_Squeeze1DTo0DTensor_Test.AddToRegistry: MultiScanBuilderTest_Squeeze1DTo0DTensor_Test#AddToRegistry(b126dc7c1de90089).
+  MultiScanBuilderTest_ReverseScan_Test.AddToRegistry: MultiScanBuilderTest_ReverseScan_Test#AddToRegistry(b126dc7c1de90089).
+  ScanBuilderTest_BodyBuilderError_Test.AddToRegistry: ScanBuilderTest_BodyBuilderError_Test#AddToRegistry(b126dc7c1de90089).
+  MultiScanBuilderTest_StaticShape2D_Test.AddToRegistry: MultiScanBuilderTest_StaticShape2D_Test#AddToRegistry(b126dc7c1de90089).
+  ScanBuilderTest_DynamicShapeNonScanDim_Test.AddToRegistry: ScanBuilderTest_DynamicShapeNonScanDim_Test#AddToRegistry(b126dc7c1de90089).
+  ScanBuilderTest_InvalidDimension_Test.AddToRegistry: ScanBuilderTest_InvalidDimension_Test#AddToRegistry(b126dc7c1de90089).
+  CreateRankReducedConstantLikeTest_OutOfBoundsScanDimFails_Test.test_info_: CreateRankReducedConstantLikeTest_OutOfBoundsScanDimFails_Test#test_info_.
+  ? CreateRankReducedConstantLikeTest_StaticShapeNegativeScanDim_Test.-CreateRankReducedConstantLikeTest_StaticShapeNegativeScanDim_Test
+  : CreateRankReducedConstantLikeTest_StaticShapeNegativeScanDim_Test#`~CreateRankReducedConstantLikeTest_StaticShapeNegativeScanDim_Test`(ced63f7c635d850d).
+  ScanBuilderTest_DynamicShapeNonScanDim_Test.ScanBuilderTest_DynamicShapeNonScanDim_Test: ScanBuilderTest_DynamicShapeNonScanDim_Test#ScanBuilderTest_DynamicShapeNonScanDim_Test(49f6e7a06ebc5aa8).
+  ? CreateRankReducedConstantLikeTest_BoundedDynamicShapeUsesConstantLike_Test.CreateRankReducedConstantLikeTest_BoundedDynamicShapeUsesConstantLike_Test
+  : CreateRankReducedConstantLikeTest_BoundedDynamicShapeUsesConstantLike_Test#CreateRankReducedConstantLikeTest_BoundedDynamicShapeUsesConstantLike_Test(49f6e7a06ebc5aa8).
+  CreateRankReducedConstantLikeTest_StaticShape1DTo0D_Test.CreateRankReducedConstantLikeTest_StaticShape1DTo0D_Test: CreateRankReducedConstantLikeTest_StaticShape1DTo0D_Test#CreateRankReducedConstantLikeTest_StaticShape1DTo0D_Test(49f6e7a06ebc5aa8).
+  MultiScanBuilderTest_TooManyScanInputsError_Test.gtest_registering_dummy_: MultiScanBuilderTest_TooManyScanInputsError_Test#gtest_registering_dummy_.
+  CreateRankReducedConstantLikeTest_BoundedDynamicShapeUsesConstantLike_Test.test_info_: CreateRankReducedConstantLikeTest_BoundedDynamicShapeUsesConstantLike_Test#test_info_.
+  ScanBuilderTest_MismatchedCarries_Test.ScanBuilderTest_MismatchedCarries_Test: ScanBuilderTest_MismatchedCarries_Test#ScanBuilderTest_MismatchedCarries_Test(49f6e7a06ebc5aa8).
+  ScanBuilderTest_StaticShape2D_Test.ScanBuilderTest_StaticShape2D_Test: ScanBuilderTest_StaticShape2D_Test#ScanBuilderTest_StaticShape2D_Test(49f6e7a06ebc5aa8).
+  MultiScanBuilderTest_EmptyInputsListError_Test.MultiScanBuilderTest_EmptyInputsListError_Test: MultiScanBuilderTest_EmptyInputsListError_Test#MultiScanBuilderTest_EmptyInputsListError_Test(49f6e7a06ebc5aa8).
+  CreateRankReducedConstantLikeTest_StaticShape1DTo0D_Test.-CreateRankReducedConstantLikeTest_StaticShape1DTo0D_Test: CreateRankReducedConstantLikeTest_StaticShape1DTo0D_Test#`~CreateRankReducedConstantLikeTest_StaticShape1DTo0D_Test`(ced63f7c635d850d).
+  ? CreateRankReducedConstantLikeTest_OutOfBoundsScanDimFails_Test.CreateRankReducedConstantLikeTest_OutOfBoundsScanDimFails_Test
+  : CreateRankReducedConstantLikeTest_OutOfBoundsScanDimFails_Test#CreateRankReducedConstantLikeTest_OutOfBoundsScanDimFails_Test(49f6e7a06ebc5aa8).
+  ScanBuilderTest_StaticShape2D_ScanDim1_Test.ScanBuilderTest_StaticShape2D_ScanDim1_Test: ScanBuilderTest_StaticShape2D_ScanDim1_Test#ScanBuilderTest_StaticShape2D_ScanDim1_Test(49f6e7a06ebc5aa8).
+  MultiScanBuilderTest_WithStaticInput_Test.MultiScanBuilderTest_WithStaticInput_Test: MultiScanBuilderTest_WithStaticInput_Test#MultiScanBuilderTest_WithStaticInput_Test(49f6e7a06ebc5aa8).
+  ScanBuilderTest_DynamicShapeScanDim_Test.gtest_registering_dummy_: ScanBuilderTest_DynamicShapeScanDim_Test#gtest_registering_dummy_.
+  CreateRankReducedConstantLikeTest_StaticShape1DTo0D_Test.operator: CreateRankReducedConstantLikeTest_StaticShape1DTo0D_Test#`operator=`(b82a6f7f82ff4486).
+  MultiScanBuilderTest_DynamicShapeScanDim_Test.gtest_registering_dummy_: MultiScanBuilderTest_DynamicShapeScanDim_Test#gtest_registering_dummy_.
+  MultiScanBuilderTest_StaticShape2D_ScanDim1_Test.MultiScanBuilderTest_StaticShape2D_ScanDim1_Test: MultiScanBuilderTest_StaticShape2D_ScanDim1_Test#MultiScanBuilderTest_StaticShape2D_ScanDim1_Test(49f6e7a06ebc5aa8).
+  MultiScanBuilderTest_EmptyTensor_Test.MultiScanBuilderTest_EmptyTensor_Test: MultiScanBuilderTest_EmptyTensor_Test#MultiScanBuilderTest_EmptyTensor_Test(49f6e7a06ebc5aa8).
+  MultiScanBuilderTest_SqueezeScan_Test.MultiScanBuilderTest_SqueezeScan_Test: MultiScanBuilderTest_SqueezeScan_Test#MultiScanBuilderTest_SqueezeScan_Test(49f6e7a06ebc5aa8).
+  CreateRankReducedConstantLikeTest_OutOfBoundsScanDimFails_Test.operator: CreateRankReducedConstantLikeTest_OutOfBoundsScanDimFails_Test#`operator=`(dcb3775a35fa4004).
+  ScanBuilderTest_MismatchedInits_Test.ScanBuilderTest_MismatchedInits_Test: ScanBuilderTest_MismatchedInits_Test#ScanBuilderTest_MismatchedInits_Test(49f6e7a06ebc5aa8).
+  ScanBuilderTest_InvalidDimension_Test.gtest_registering_dummy_: ScanBuilderTest_InvalidDimension_Test#gtest_registering_dummy_.
+  ? CreateRankReducedConstantLikeTest_StaticShapeDirectConstantWithoutDeadOps_Test.CreateRankReducedConstantLikeTest_StaticShapeDirectConstantWithoutDeadOps_Test
+  : CreateRankReducedConstantLikeTest_StaticShapeDirectConstantWithoutDeadOps_Test#CreateRankReducedConstantLikeTest_StaticShapeDirectConstantWithoutDeadOps_Test(49f6e7a06ebc5aa8).
+  MultiScanBuilderTest_StaticShape1D_Test.MultiScanBuilderTest_StaticShape1D_Test: MultiScanBuilderTest_StaticShape1D_Test#MultiScanBuilderTest_StaticShape1D_Test(49f6e7a06ebc5aa8).
+  ? CreateRankReducedConstantLikeTest_StaticShapeDirectConstantWithoutDeadOps_Test.-CreateRankReducedConstantLikeTest_StaticShapeDirectConstantWithoutDeadOps_Test
+  : CreateRankReducedConstantLikeTest_StaticShapeDirectConstantWithoutDeadOps_Test#`~CreateRankReducedConstantLikeTest_StaticShapeDirectConstantWithoutDeadOps_Test`(ced63f7c635d850d).
+  ScanBuilderTest_StaticShape2D_Test.gtest_registering_dummy_: ScanBuilderTest_StaticShape2D_Test#gtest_registering_dummy_.
+  ScanBuilderTest_BodyBuilderError_Test.gtest_registering_dummy_: ScanBuilderTest_BodyBuilderError_Test#gtest_registering_dummy_.
+  MultiScanBuilderTest_MismatchedCarriesError_Test.MultiScanBuilderTest_MismatchedCarriesError_Test: MultiScanBuilderTest_MismatchedCarriesError_Test#MultiScanBuilderTest_MismatchedCarriesError_Test(49f6e7a06ebc5aa8).
+  MultiScanBuilderTest_InvalidDimension_Test.MultiScanBuilderTest_InvalidDimension_Test: MultiScanBuilderTest_InvalidDimension_Test#MultiScanBuilderTest_InvalidDimension_Test(49f6e7a06ebc5aa8).
+  ScanBuilderTest_InvalidDimension_Test.ScanBuilderTest_InvalidDimension_Test: ScanBuilderTest_InvalidDimension_Test#ScanBuilderTest_InvalidDimension_Test(49f6e7a06ebc5aa8).
+  MultiScanBuilderTest_StaticShape2D_Test.MultiScanBuilderTest_StaticShape2D_Test: MultiScanBuilderTest_StaticShape2D_Test#MultiScanBuilderTest_StaticShape2D_Test(49f6e7a06ebc5aa8).
+  MultiScanBuilderTest_StaticShape1D_Test.gtest_registering_dummy_: MultiScanBuilderTest_StaticShape1D_Test#gtest_registering_dummy_.
+  MultiScanBuilderTest_EmptyInputsListError_Test.gtest_registering_dummy_: MultiScanBuilderTest_EmptyInputsListError_Test#gtest_registering_dummy_.
+  ? CreateRankReducedConstantLikeTest_StaticShapeNegativeScanDim_Test.CreateRankReducedConstantLikeTest_StaticShapeNegativeScanDim_Test
+  : CreateRankReducedConstantLikeTest_StaticShapeNegativeScanDim_Test#CreateRankReducedConstantLikeTest_StaticShapeNegativeScanDim_Test(5e4a6700943fa8b9).
+  MultiScanBuilderTest_DynamicShapeNonScanDim_Test.MultiScanBuilderTest_DynamicShapeNonScanDim_Test: MultiScanBuilderTest_DynamicShapeNonScanDim_Test#MultiScanBuilderTest_DynamicShapeNonScanDim_Test(49f6e7a06ebc5aa8).
+  MultiScanBuilderTest_SqueezeScan_Test.gtest_registering_dummy_: MultiScanBuilderTest_SqueezeScan_Test#gtest_registering_dummy_.
+  ScanBuilderTest_EmptyTensor_Test.ScanBuilderTest_EmptyTensor_Test: ScanBuilderTest_EmptyTensor_Test#ScanBuilderTest_EmptyTensor_Test(49f6e7a06ebc5aa8).
+  MultiScanBuilderTest_StaticShape3D_Test.MultiScanBuilderTest_StaticShape3D_Test: MultiScanBuilderTest_StaticShape3D_Test#MultiScanBuilderTest_StaticShape3D_Test(49f6e7a06ebc5aa8).
+  MultiScanBuilderTest_DynamicShapeScanDim_Test.MultiScanBuilderTest_DynamicShapeScanDim_Test: MultiScanBuilderTest_DynamicShapeScanDim_Test#MultiScanBuilderTest_DynamicShapeScanDim_Test(49f6e7a06ebc5aa8).
+  MultiScanBuilderTest_MismatchedInitsAllowed_Test.MultiScanBuilderTest_MismatchedInitsAllowed_Test: MultiScanBuilderTest_MismatchedInitsAllowed_Test#MultiScanBuilderTest_MismatchedInitsAllowed_Test(49f6e7a06ebc5aa8).
+  CreateRankReducedConstantLikeTest_BoundedDynamicShapeUsesConstantLike_Test.operator: CreateRankReducedConstantLikeTest_BoundedDynamicShapeUsesConstantLike_Test#`operator=`(c1628ad5c3dd7d21).
+  MultiScanBuilderTest_StaticShape2D_Test.gtest_registering_dummy_: MultiScanBuilderTest_StaticShape2D_Test#gtest_registering_dummy_.
+  MultiScanBuilderTest_WithStaticInput_Test.gtest_registering_dummy_: MultiScanBuilderTest_WithStaticInput_Test#gtest_registering_dummy_.
+  CreateRankReducedConstantLikeTest_StaticShapeNegativeScanDim_Test.operator: CreateRankReducedConstantLikeTest_StaticShapeNegativeScanDim_Test#`operator=`(e77fc420f34549f8).
+  ScanBuilderTest_StaticShape2D_ScanDim1_Test.gtest_registering_dummy_: ScanBuilderTest_StaticShape2D_ScanDim1_Test#gtest_registering_dummy_.
+  CreateRankReducedConstantLikeTest_StaticShapeNegativeScanDim_Test.test_info_: CreateRankReducedConstantLikeTest_StaticShapeNegativeScanDim_Test#test_info_.
+  MultiScanBuilderTest_Squeeze1DTo0DTensor_Test.gtest_registering_dummy_: MultiScanBuilderTest_Squeeze1DTo0DTensor_Test#gtest_registering_dummy_.
+  MultiScanBuilderTest_MismatchedOutputsError_Test.MultiScanBuilderTest_MismatchedOutputsError_Test: MultiScanBuilderTest_MismatchedOutputsError_Test#MultiScanBuilderTest_MismatchedOutputsError_Test(49f6e7a06ebc5aa8).
+  CreateRankReducedConstantLikeTest_StaticShapeDirectConstantWithoutDeadOps_Test.operator: CreateRankReducedConstantLikeTest_StaticShapeDirectConstantWithoutDeadOps_Test#`operator=`(844ba77779a9e9a1).
+  MultiScanBuilderTest_TooManyScanInputsError_Test.MultiScanBuilderTest_TooManyScanInputsError_Test: MultiScanBuilderTest_TooManyScanInputsError_Test#MultiScanBuilderTest_TooManyScanInputsError_Test(49f6e7a06ebc5aa8).
+  MultiScanBuilderTest_MismatchedCarriesError_Test.gtest_registering_dummy_: MultiScanBuilderTest_MismatchedCarriesError_Test#gtest_registering_dummy_.
+  MultiScanBuilderTest_InvalidDimension_Test.gtest_registering_dummy_: MultiScanBuilderTest_InvalidDimension_Test#gtest_registering_dummy_.
+  ScanBuilderTest_BodyBuilderError_Test.ScanBuilderTest_BodyBuilderError_Test: ScanBuilderTest_BodyBuilderError_Test#ScanBuilderTest_BodyBuilderError_Test(49f6e7a06ebc5aa8).
+  ? CreateRankReducedConstantLikeTest_OutOfBoundsScanDimFails_Test.-CreateRankReducedConstantLikeTest_OutOfBoundsScanDimFails_Test
+  : CreateRankReducedConstantLikeTest_OutOfBoundsScanDimFails_Test#`~CreateRankReducedConstantLikeTest_OutOfBoundsScanDimFails_Test`(ced63f7c635d850d).
+  MultiScanBuilderTest_ReverseScan_Test.MultiScanBuilderTest_ReverseScan_Test: MultiScanBuilderTest_ReverseScan_Test#MultiScanBuilderTest_ReverseScan_Test(49f6e7a06ebc5aa8).
+  MultiScanBuilderTest_EmptyTensor_Test.gtest_registering_dummy_: MultiScanBuilderTest_EmptyTensor_Test#gtest_registering_dummy_.
+  MultiScanBuilderTest_MismatchedInitsAllowed_Test.gtest_registering_dummy_: MultiScanBuilderTest_MismatchedInitsAllowed_Test#gtest_registering_dummy_.
+  ScanBuilderTest_StaticShape3D_Test.gtest_registering_dummy_: ScanBuilderTest_StaticShape3D_Test#gtest_registering_dummy_.
+  ScanBuilderTest_DynamicShapeScanDim_Test.ScanBuilderTest_DynamicShapeScanDim_Test: ScanBuilderTest_DynamicShapeScanDim_Test#ScanBuilderTest_DynamicShapeScanDim_Test(49f6e7a06ebc5aa8).
+  ScanBuilderTest_StaticShape1D_Test.gtest_registering_dummy_: ScanBuilderTest_StaticShape1D_Test#gtest_registering_dummy_.
+  MultiScanBuilderTest_Squeeze1DTo0DTensor_Test.MultiScanBuilderTest_Squeeze1DTo0DTensor_Test: MultiScanBuilderTest_Squeeze1DTo0DTensor_Test#MultiScanBuilderTest_Squeeze1DTo0DTensor_Test(49f6e7a06ebc5aa8).
+  ? CreateRankReducedConstantLikeTest_BoundedDynamicShapeUsesConstantLike_Test.-CreateRankReducedConstantLikeTest_BoundedDynamicShapeUsesConstantLike_Test
+  : CreateRankReducedConstantLikeTest_BoundedDynamicShapeUsesConstantLike_Test#`~CreateRankReducedConstantLikeTest_BoundedDynamicShapeUsesConstantLike_Test`(ced63f7c635d850d).
+  ScanBuilderTest_StaticShape1D_Test.ScanBuilderTest_StaticShape1D_Test: ScanBuilderTest_StaticShape1D_Test#ScanBuilderTest_StaticShape1D_Test(49f6e7a06ebc5aa8).
+  ScanBuilderTest_DynamicShapeNonScanDim_Test.gtest_registering_dummy_: ScanBuilderTest_DynamicShapeNonScanDim_Test#gtest_registering_dummy_.
+  CreateRankReducedConstantLikeTest_StaticShape1DTo0D_Test.test_info_: CreateRankReducedConstantLikeTest_StaticShape1DTo0D_Test#test_info_.
+  MultiScanBuilderTest_StaticShape3D_Test.gtest_registering_dummy_: MultiScanBuilderTest_StaticShape3D_Test#gtest_registering_dummy_.
+  MultiScanBuilderTest_StaticShape2D_ScanDim1_Test.gtest_registering_dummy_: MultiScanBuilderTest_StaticShape2D_ScanDim1_Test#gtest_registering_dummy_.
+  MultiScanBuilderTest_BodyBuilderError_Test.gtest_registering_dummy_: MultiScanBuilderTest_BodyBuilderError_Test#gtest_registering_dummy_.
+  ScanBuilderTest_MismatchedCarries_Test.gtest_registering_dummy_: ScanBuilderTest_MismatchedCarries_Test#gtest_registering_dummy_.
+  MultiScanBuilderTest_MismatchedInputScanDimSizeError_Test.MultiScanBuilderTest_MismatchedInputScanDimSizeError_Test: MultiScanBuilderTest_MismatchedInputScanDimSizeError_Test#MultiScanBuilderTest_MismatchedInputScanDimSizeError_Test(49f6e7a06ebc5aa8).
+  MultiScanBuilderTest_MismatchedInputScanDimSizeError_Test.gtest_registering_dummy_: MultiScanBuilderTest_MismatchedInputScanDimSizeError_Test#gtest_registering_dummy_.
+  MultiScanBuilderTest_ReverseScan_Test.gtest_registering_dummy_: MultiScanBuilderTest_ReverseScan_Test#gtest_registering_dummy_.
+  ScanBuilderTest_MismatchedInits_Test.gtest_registering_dummy_: ScanBuilderTest_MismatchedInits_Test#gtest_registering_dummy_.
+  ScanBuilderTest_EmptyTensor_Test.gtest_registering_dummy_: ScanBuilderTest_EmptyTensor_Test#gtest_registering_dummy_.
+  CreateRankReducedConstantLikeTest_StaticShapeDirectConstantWithoutDeadOps_Test.test_info_: CreateRankReducedConstantLikeTest_StaticShapeDirectConstantWithoutDeadOps_Test#test_info_.
+  MultiScanBuilderTest_MismatchedOutputsError_Test.gtest_registering_dummy_: MultiScanBuilderTest_MismatchedOutputsError_Test#gtest_registering_dummy_.
+  ScanBuilderTest_StaticShape3D_Test.ScanBuilderTest_StaticShape3D_Test: ScanBuilderTest_StaticShape3D_Test#ScanBuilderTest_StaticShape3D_Test(49f6e7a06ebc5aa8).
+  MultiScanBuilderTest_BodyBuilderError_Test.MultiScanBuilderTest_BodyBuilderError_Test: MultiScanBuilderTest_BodyBuilderError_Test#MultiScanBuilderTest_BodyBuilderError_Test(49f6e7a06ebc5aa8).
+  MultiScanBuilderTest_DynamicShapeNonScanDim_Test.gtest_registering_dummy_: MultiScanBuilderTest_DynamicShapeNonScanDim_Test#gtest_registering_dummy_.
+---
+# Module: [`csrc/ops/scan_builder_test.cc`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc)
+
+> **Collapsed catalog** (237 symbols) — one row per symbol with its source line; member detail omitted. See the source link above, or the curated codebase page, for depth.
+
+- <a id="CreateRankReducedConstantLikeTest"></a>`CreateRankReducedConstantLikeTest` — [`L1270`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1270)
+- <a id="CreateRankReducedConstantLikeTest.CreateBoundedTensorArg"></a>`CreateRankReducedConstantLikeTest.CreateBoundedTensorArg` — [`L1285`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1285)
+- <a id="CreateRankReducedConstantLikeTest.CreateRankReducedConstantLikeTest"></a>`CreateRankReducedConstantLikeTest.CreateRankReducedConstantLikeTest` — [`L1272`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1272)
+- <a id="CreateRankReducedConstantLikeTest.builder"></a>`CreateRankReducedConstantLikeTest.builder` — [`L1280`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1280)
+- <a id="CreateRankReducedConstantLikeTest.context"></a>`CreateRankReducedConstantLikeTest.context` — [`L1283`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1283)
+- <a id="CreateRankReducedConstantLikeTest.context_"></a>`CreateRankReducedConstantLikeTest.context_` — [`L1310`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1310)
+- <a id="CreateRankReducedConstantLikeTest.module_builder"></a>`CreateRankReducedConstantLikeTest.module_builder` — [`L1281`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1281)
+- <a id="CreateRankReducedConstantLikeTest.module_builder_"></a>`CreateRankReducedConstantLikeTest.module_builder_` — [`L1311`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1311)
+- <a id="CreateRankReducedConstantLikeTest.op_builder"></a>`CreateRankReducedConstantLikeTest.op_builder` — [`L1282`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1282)
+- <a id="CreateRankReducedConstantLikeTest_BoundedDynamicShapeUsesConstantLike_Test"></a>`CreateRankReducedConstantLikeTest_BoundedDynamicShapeUsesConstantLike_Test` — [`L1384`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1384)
+- <a id="CreateRankReducedConstantLikeTest_BoundedDynamicShapeUsesConstantLike_Test.-CreateRankReducedConstantLikeTest_BoundedDynamicShapeUsesConstantLike_Test"></a>`CreateRankReducedConstantLikeTest_BoundedDynamicShapeUsesConstantLike_Test.-CreateRankReducedConstantLikeTest_BoundedDynamicShapeUsesConstantLike_Test` — [`L1384`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1384)
+- <a id="CreateRankReducedConstantLikeTest_BoundedDynamicShapeUsesConstantLike_Test.CreateRankReducedConstantLikeTest_BoundedDynamicShapeUsesConstantLike_Test"></a>`CreateRankReducedConstantLikeTest_BoundedDynamicShapeUsesConstantLike_Test.CreateRankReducedConstantLikeTest_BoundedDynamicShapeUsesConstantLike_Test` — [`L1384`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1384)
+- <a id="CreateRankReducedConstantLikeTest_BoundedDynamicShapeUsesConstantLike_Test.TestBody"></a>`CreateRankReducedConstantLikeTest_BoundedDynamicShapeUsesConstantLike_Test.TestBody` — [`L1384`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1384)
+- <a id="CreateRankReducedConstantLikeTest_BoundedDynamicShapeUsesConstantLike_Test.operator"></a>`CreateRankReducedConstantLikeTest_BoundedDynamicShapeUsesConstantLike_Test.operator` — [`L1384`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1384)
+- <a id="CreateRankReducedConstantLikeTest_BoundedDynamicShapeUsesConstantLike_Test.test_info_"></a>`CreateRankReducedConstantLikeTest_BoundedDynamicShapeUsesConstantLike_Test.test_info_` — [`L1384`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1384)
+- <a id="CreateRankReducedConstantLikeTest_OutOfBoundsScanDimFails_Test"></a>`CreateRankReducedConstantLikeTest_OutOfBoundsScanDimFails_Test` — [`L1375`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1375)
+- <a id="CreateRankReducedConstantLikeTest_OutOfBoundsScanDimFails_Test.-CreateRankReducedConstantLikeTest_OutOfBoundsScanDimFails_Test"></a>`CreateRankReducedConstantLikeTest_OutOfBoundsScanDimFails_Test.-CreateRankReducedConstantLikeTest_OutOfBoundsScanDimFails_Test` — [`L1375`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1375)
+- <a id="CreateRankReducedConstantLikeTest_OutOfBoundsScanDimFails_Test.CreateRankReducedConstantLikeTest_OutOfBoundsScanDimFails_Test"></a>`CreateRankReducedConstantLikeTest_OutOfBoundsScanDimFails_Test.CreateRankReducedConstantLikeTest_OutOfBoundsScanDimFails_Test` — [`L1375`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1375)
+- <a id="CreateRankReducedConstantLikeTest_OutOfBoundsScanDimFails_Test.TestBody"></a>`CreateRankReducedConstantLikeTest_OutOfBoundsScanDimFails_Test.TestBody` — [`L1375`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1375)
+- <a id="CreateRankReducedConstantLikeTest_OutOfBoundsScanDimFails_Test.operator"></a>`CreateRankReducedConstantLikeTest_OutOfBoundsScanDimFails_Test.operator` — [`L1375`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1375)
+- <a id="CreateRankReducedConstantLikeTest_OutOfBoundsScanDimFails_Test.test_info_"></a>`CreateRankReducedConstantLikeTest_OutOfBoundsScanDimFails_Test.test_info_` — [`L1375`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1375)
+- <a id="CreateRankReducedConstantLikeTest_StaticShape1DTo0D_Test"></a>`CreateRankReducedConstantLikeTest_StaticShape1DTo0D_Test` — [`L1341`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1341)
+- <a id="CreateRankReducedConstantLikeTest_StaticShape1DTo0D_Test.-CreateRankReducedConstantLikeTest_StaticShape1DTo0D_Test"></a>`CreateRankReducedConstantLikeTest_StaticShape1DTo0D_Test.-CreateRankReducedConstantLikeTest_StaticShape1DTo0D_Test` — [`L1341`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1341)
+- <a id="CreateRankReducedConstantLikeTest_StaticShape1DTo0D_Test.CreateRankReducedConstantLikeTest_StaticShape1DTo0D_Test"></a>`CreateRankReducedConstantLikeTest_StaticShape1DTo0D_Test.CreateRankReducedConstantLikeTest_StaticShape1DTo0D_Test` — [`L1341`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1341)
+- <a id="CreateRankReducedConstantLikeTest_StaticShape1DTo0D_Test.TestBody"></a>`CreateRankReducedConstantLikeTest_StaticShape1DTo0D_Test.TestBody` — [`L1341`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1341)
+- <a id="CreateRankReducedConstantLikeTest_StaticShape1DTo0D_Test.operator"></a>`CreateRankReducedConstantLikeTest_StaticShape1DTo0D_Test.operator` — [`L1341`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1341)
+- <a id="CreateRankReducedConstantLikeTest_StaticShape1DTo0D_Test.test_info_"></a>`CreateRankReducedConstantLikeTest_StaticShape1DTo0D_Test.test_info_` — [`L1341`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1341)
+- <a id="CreateRankReducedConstantLikeTest_StaticShapeDirectConstantWithoutDeadOps_Test"></a>`CreateRankReducedConstantLikeTest_StaticShapeDirectConstantWithoutDeadOps_Test` — [`L1314`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1314)
+- <a id="CreateRankReducedConstantLikeTest_StaticShapeDirectConstantWithoutDeadOps_Test.-CreateRankReducedConstantLikeTest_StaticShapeDirectConstantWithoutDeadOps_Test"></a>`CreateRankReducedConstantLikeTest_StaticShapeDirectConstantWithoutDeadOps_Test.-CreateRankReducedConstantLikeTest_StaticShapeDirectConstantWithoutDeadOps_Test` — [`L1314`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1314)
+- <a id="CreateRankReducedConstantLikeTest_StaticShapeDirectConstantWithoutDeadOps_Test.CreateRankReducedConstantLikeTest_StaticShapeDirectConstantWithoutDeadOps_Test"></a>`CreateRankReducedConstantLikeTest_StaticShapeDirectConstantWithoutDeadOps_Test.CreateRankReducedConstantLikeTest_StaticShapeDirectConstantWithoutDeadOps_Test` — [`L1314`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1314)
+- <a id="CreateRankReducedConstantLikeTest_StaticShapeDirectConstantWithoutDeadOps_Test.TestBody"></a>`CreateRankReducedConstantLikeTest_StaticShapeDirectConstantWithoutDeadOps_Test.TestBody` — [`L1314`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1314)
+- <a id="CreateRankReducedConstantLikeTest_StaticShapeDirectConstantWithoutDeadOps_Test.operator"></a>`CreateRankReducedConstantLikeTest_StaticShapeDirectConstantWithoutDeadOps_Test.operator` — [`L1314`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1314)
+- <a id="CreateRankReducedConstantLikeTest_StaticShapeDirectConstantWithoutDeadOps_Test.test_info_"></a>`CreateRankReducedConstantLikeTest_StaticShapeDirectConstantWithoutDeadOps_Test.test_info_` — [`L1314`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1314)
+- <a id="CreateRankReducedConstantLikeTest_StaticShapeNegativeScanDim_Test"></a>`CreateRankReducedConstantLikeTest_StaticShapeNegativeScanDim_Test` — [`L1361`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1361)
+- <a id="CreateRankReducedConstantLikeTest_StaticShapeNegativeScanDim_Test.-CreateRankReducedConstantLikeTest_StaticShapeNegativeScanDim_Test"></a>`CreateRankReducedConstantLikeTest_StaticShapeNegativeScanDim_Test.-CreateRankReducedConstantLikeTest_StaticShapeNegativeScanDim_Test` — [`L1361`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1361)
+- <a id="CreateRankReducedConstantLikeTest_StaticShapeNegativeScanDim_Test.CreateRankReducedConstantLikeTest_StaticShapeNegativeScanDim_Test"></a>`CreateRankReducedConstantLikeTest_StaticShapeNegativeScanDim_Test.CreateRankReducedConstantLikeTest_StaticShapeNegativeScanDim_Test` — [`L1361`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1361)
+- <a id="CreateRankReducedConstantLikeTest_StaticShapeNegativeScanDim_Test.TestBody"></a>`CreateRankReducedConstantLikeTest_StaticShapeNegativeScanDim_Test.TestBody` — [`L1361`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1361)
+- <a id="CreateRankReducedConstantLikeTest_StaticShapeNegativeScanDim_Test.operator"></a>`CreateRankReducedConstantLikeTest_StaticShapeNegativeScanDim_Test.operator` — [`L1361`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1361)
+- <a id="CreateRankReducedConstantLikeTest_StaticShapeNegativeScanDim_Test.test_info_"></a>`CreateRankReducedConstantLikeTest_StaticShapeNegativeScanDim_Test.test_info_` — [`L1361`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1361)
+- <a id="HasSubstr"></a>`HasSubstr` — [`L80`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L80)
+- <a id="MakeDenseConstant"></a>`MakeDenseConstant` — [`L70`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L70)
+- <a id="MultiScanBuilderTest"></a>`MultiScanBuilderTest` — [`L341`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L341)
+- <a id="MultiScanBuilderTest_BodyBuilderError_Test"></a>`MultiScanBuilderTest_BodyBuilderError_Test` — [`L756`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L756)
+- <a id="MultiScanBuilderTest_BodyBuilderError_Test.AddToRegistry"></a>`MultiScanBuilderTest_BodyBuilderError_Test.AddToRegistry` — [`L756`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L756)
+- <a id="MultiScanBuilderTest_BodyBuilderError_Test.MultiScanBuilderTest_BodyBuilderError_Test"></a>`MultiScanBuilderTest_BodyBuilderError_Test.MultiScanBuilderTest_BodyBuilderError_Test` — [`L756`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L756)
+- <a id="MultiScanBuilderTest_BodyBuilderError_Test.TestBody"></a>`MultiScanBuilderTest_BodyBuilderError_Test.TestBody` — [`L756`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L756)
+- <a id="MultiScanBuilderTest_BodyBuilderError_Test.gtest_registering_dummy_"></a>`MultiScanBuilderTest_BodyBuilderError_Test.gtest_registering_dummy_` — [`L756`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L756)
+- <a id="MultiScanBuilderTest_DynamicShapeNonScanDim_Test"></a>`MultiScanBuilderTest_DynamicShapeNonScanDim_Test` — [`L1171`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1171)
+- <a id="MultiScanBuilderTest_DynamicShapeNonScanDim_Test.AddToRegistry"></a>`MultiScanBuilderTest_DynamicShapeNonScanDim_Test.AddToRegistry` — [`L1171`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1171)
+- <a id="MultiScanBuilderTest_DynamicShapeNonScanDim_Test.MultiScanBuilderTest_DynamicShapeNonScanDim_Test"></a>`MultiScanBuilderTest_DynamicShapeNonScanDim_Test.MultiScanBuilderTest_DynamicShapeNonScanDim_Test` — [`L1171`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1171)
+- <a id="MultiScanBuilderTest_DynamicShapeNonScanDim_Test.TestBody"></a>`MultiScanBuilderTest_DynamicShapeNonScanDim_Test.TestBody` — [`L1171`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1171)
+- <a id="MultiScanBuilderTest_DynamicShapeNonScanDim_Test.gtest_registering_dummy_"></a>`MultiScanBuilderTest_DynamicShapeNonScanDim_Test.gtest_registering_dummy_` — [`L1171`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1171)
+- <a id="MultiScanBuilderTest_DynamicShapeScanDim_Test"></a>`MultiScanBuilderTest_DynamicShapeScanDim_Test` — [`L1132`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1132)
+- <a id="MultiScanBuilderTest_DynamicShapeScanDim_Test.AddToRegistry"></a>`MultiScanBuilderTest_DynamicShapeScanDim_Test.AddToRegistry` — [`L1132`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1132)
+- <a id="MultiScanBuilderTest_DynamicShapeScanDim_Test.MultiScanBuilderTest_DynamicShapeScanDim_Test"></a>`MultiScanBuilderTest_DynamicShapeScanDim_Test.MultiScanBuilderTest_DynamicShapeScanDim_Test` — [`L1132`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1132)
+- <a id="MultiScanBuilderTest_DynamicShapeScanDim_Test.TestBody"></a>`MultiScanBuilderTest_DynamicShapeScanDim_Test.TestBody` — [`L1132`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1132)
+- <a id="MultiScanBuilderTest_DynamicShapeScanDim_Test.gtest_registering_dummy_"></a>`MultiScanBuilderTest_DynamicShapeScanDim_Test.gtest_registering_dummy_` — [`L1132`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1132)
+- <a id="MultiScanBuilderTest_EmptyInputsListError_Test"></a>`MultiScanBuilderTest_EmptyInputsListError_Test` — [`L661`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L661)
+- <a id="MultiScanBuilderTest_EmptyInputsListError_Test.AddToRegistry"></a>`MultiScanBuilderTest_EmptyInputsListError_Test.AddToRegistry` — [`L661`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L661)
+- <a id="MultiScanBuilderTest_EmptyInputsListError_Test.MultiScanBuilderTest_EmptyInputsListError_Test"></a>`MultiScanBuilderTest_EmptyInputsListError_Test.MultiScanBuilderTest_EmptyInputsListError_Test` — [`L661`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L661)
+- <a id="MultiScanBuilderTest_EmptyInputsListError_Test.TestBody"></a>`MultiScanBuilderTest_EmptyInputsListError_Test.TestBody` — [`L661`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L661)
+- <a id="MultiScanBuilderTest_EmptyInputsListError_Test.gtest_registering_dummy_"></a>`MultiScanBuilderTest_EmptyInputsListError_Test.gtest_registering_dummy_` — [`L661`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L661)
+- <a id="MultiScanBuilderTest_EmptyTensor_Test"></a>`MultiScanBuilderTest_EmptyTensor_Test` — [`L783`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L783)
+- <a id="MultiScanBuilderTest_EmptyTensor_Test.AddToRegistry"></a>`MultiScanBuilderTest_EmptyTensor_Test.AddToRegistry` — [`L783`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L783)
+- <a id="MultiScanBuilderTest_EmptyTensor_Test.MultiScanBuilderTest_EmptyTensor_Test"></a>`MultiScanBuilderTest_EmptyTensor_Test.MultiScanBuilderTest_EmptyTensor_Test` — [`L783`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L783)
+- <a id="MultiScanBuilderTest_EmptyTensor_Test.TestBody"></a>`MultiScanBuilderTest_EmptyTensor_Test.TestBody` — [`L783`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L783)
+- <a id="MultiScanBuilderTest_EmptyTensor_Test.gtest_registering_dummy_"></a>`MultiScanBuilderTest_EmptyTensor_Test.gtest_registering_dummy_` — [`L783`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L783)
+- <a id="MultiScanBuilderTest_InvalidDimension_Test"></a>`MultiScanBuilderTest_InvalidDimension_Test` — [`L643`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L643)
+- <a id="MultiScanBuilderTest_InvalidDimension_Test.AddToRegistry"></a>`MultiScanBuilderTest_InvalidDimension_Test.AddToRegistry` — [`L643`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L643)
+- <a id="MultiScanBuilderTest_InvalidDimension_Test.MultiScanBuilderTest_InvalidDimension_Test"></a>`MultiScanBuilderTest_InvalidDimension_Test.MultiScanBuilderTest_InvalidDimension_Test` — [`L643`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L643)
+- <a id="MultiScanBuilderTest_InvalidDimension_Test.TestBody"></a>`MultiScanBuilderTest_InvalidDimension_Test.TestBody` — [`L643`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L643)
+- <a id="MultiScanBuilderTest_InvalidDimension_Test.gtest_registering_dummy_"></a>`MultiScanBuilderTest_InvalidDimension_Test.gtest_registering_dummy_` — [`L643`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L643)
+- <a id="MultiScanBuilderTest_MismatchedCarriesError_Test"></a>`MultiScanBuilderTest_MismatchedCarriesError_Test` — [`L702`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L702)
+- <a id="MultiScanBuilderTest_MismatchedCarriesError_Test.AddToRegistry"></a>`MultiScanBuilderTest_MismatchedCarriesError_Test.AddToRegistry` — [`L702`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L702)
+- <a id="MultiScanBuilderTest_MismatchedCarriesError_Test.MultiScanBuilderTest_MismatchedCarriesError_Test"></a>`MultiScanBuilderTest_MismatchedCarriesError_Test.MultiScanBuilderTest_MismatchedCarriesError_Test` — [`L702`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L702)
+- <a id="MultiScanBuilderTest_MismatchedCarriesError_Test.TestBody"></a>`MultiScanBuilderTest_MismatchedCarriesError_Test.TestBody` — [`L702`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L702)
+- <a id="MultiScanBuilderTest_MismatchedCarriesError_Test.gtest_registering_dummy_"></a>`MultiScanBuilderTest_MismatchedCarriesError_Test.gtest_registering_dummy_` — [`L702`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L702)
+- <a id="MultiScanBuilderTest_MismatchedInitsAllowed_Test"></a>`MultiScanBuilderTest_MismatchedInitsAllowed_Test` — [`L1076`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1076)
+- <a id="MultiScanBuilderTest_MismatchedInitsAllowed_Test.AddToRegistry"></a>`MultiScanBuilderTest_MismatchedInitsAllowed_Test.AddToRegistry` — [`L1076`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1076)
+- <a id="MultiScanBuilderTest_MismatchedInitsAllowed_Test.MultiScanBuilderTest_MismatchedInitsAllowed_Test"></a>`MultiScanBuilderTest_MismatchedInitsAllowed_Test.MultiScanBuilderTest_MismatchedInitsAllowed_Test` — [`L1076`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1076)
+- <a id="MultiScanBuilderTest_MismatchedInitsAllowed_Test.TestBody"></a>`MultiScanBuilderTest_MismatchedInitsAllowed_Test.TestBody` — [`L1076`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1076)
+- <a id="MultiScanBuilderTest_MismatchedInitsAllowed_Test.gtest_registering_dummy_"></a>`MultiScanBuilderTest_MismatchedInitsAllowed_Test.gtest_registering_dummy_` — [`L1076`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1076)
+- <a id="MultiScanBuilderTest_MismatchedInputScanDimSizeError_Test"></a>`MultiScanBuilderTest_MismatchedInputScanDimSizeError_Test` — [`L1210`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1210)
+- <a id="MultiScanBuilderTest_MismatchedInputScanDimSizeError_Test.AddToRegistry"></a>`MultiScanBuilderTest_MismatchedInputScanDimSizeError_Test.AddToRegistry` — [`L1210`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1210)
+- <a id="MultiScanBuilderTest_MismatchedInputScanDimSizeError_Test.MultiScanBuilderTest_MismatchedInputScanDimSizeError_Test"></a>`MultiScanBuilderTest_MismatchedInputScanDimSizeError_Test.MultiScanBuilderTest_MismatchedInputScanDimSizeError_Test` — [`L1210`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1210)
+- <a id="MultiScanBuilderTest_MismatchedInputScanDimSizeError_Test.TestBody"></a>`MultiScanBuilderTest_MismatchedInputScanDimSizeError_Test.TestBody` — [`L1210`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1210)
+- <a id="MultiScanBuilderTest_MismatchedInputScanDimSizeError_Test.gtest_registering_dummy_"></a>`MultiScanBuilderTest_MismatchedInputScanDimSizeError_Test.gtest_registering_dummy_` — [`L1210`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1210)
+- <a id="MultiScanBuilderTest_MismatchedOutputsError_Test"></a>`MultiScanBuilderTest_MismatchedOutputsError_Test` — [`L729`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L729)
+- <a id="MultiScanBuilderTest_MismatchedOutputsError_Test.AddToRegistry"></a>`MultiScanBuilderTest_MismatchedOutputsError_Test.AddToRegistry` — [`L729`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L729)
+- <a id="MultiScanBuilderTest_MismatchedOutputsError_Test.MultiScanBuilderTest_MismatchedOutputsError_Test"></a>`MultiScanBuilderTest_MismatchedOutputsError_Test.MultiScanBuilderTest_MismatchedOutputsError_Test` — [`L729`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L729)
+- <a id="MultiScanBuilderTest_MismatchedOutputsError_Test.TestBody"></a>`MultiScanBuilderTest_MismatchedOutputsError_Test.TestBody` — [`L729`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L729)
+- <a id="MultiScanBuilderTest_MismatchedOutputsError_Test.gtest_registering_dummy_"></a>`MultiScanBuilderTest_MismatchedOutputsError_Test.gtest_registering_dummy_` — [`L729`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L729)
+- <a id="MultiScanBuilderTest_ReverseScan_Test"></a>`MultiScanBuilderTest_ReverseScan_Test` — [`L946`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L946)
+- <a id="MultiScanBuilderTest_ReverseScan_Test.AddToRegistry"></a>`MultiScanBuilderTest_ReverseScan_Test.AddToRegistry` — [`L946`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L946)
+- <a id="MultiScanBuilderTest_ReverseScan_Test.MultiScanBuilderTest_ReverseScan_Test"></a>`MultiScanBuilderTest_ReverseScan_Test.MultiScanBuilderTest_ReverseScan_Test` — [`L946`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L946)
+- <a id="MultiScanBuilderTest_ReverseScan_Test.TestBody"></a>`MultiScanBuilderTest_ReverseScan_Test.TestBody` — [`L946`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L946)
+- <a id="MultiScanBuilderTest_ReverseScan_Test.gtest_registering_dummy_"></a>`MultiScanBuilderTest_ReverseScan_Test.gtest_registering_dummy_` — [`L946`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L946)
+- <a id="MultiScanBuilderTest_Squeeze1DTo0DTensor_Test"></a>`MultiScanBuilderTest_Squeeze1DTo0DTensor_Test` — [`L1237`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1237)
+- <a id="MultiScanBuilderTest_Squeeze1DTo0DTensor_Test.AddToRegistry"></a>`MultiScanBuilderTest_Squeeze1DTo0DTensor_Test.AddToRegistry` — [`L1237`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1237)
+- <a id="MultiScanBuilderTest_Squeeze1DTo0DTensor_Test.MultiScanBuilderTest_Squeeze1DTo0DTensor_Test"></a>`MultiScanBuilderTest_Squeeze1DTo0DTensor_Test.MultiScanBuilderTest_Squeeze1DTo0DTensor_Test` — [`L1237`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1237)
+- <a id="MultiScanBuilderTest_Squeeze1DTo0DTensor_Test.TestBody"></a>`MultiScanBuilderTest_Squeeze1DTo0DTensor_Test.TestBody` — [`L1237`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1237)
+- <a id="MultiScanBuilderTest_Squeeze1DTo0DTensor_Test.gtest_registering_dummy_"></a>`MultiScanBuilderTest_Squeeze1DTo0DTensor_Test.gtest_registering_dummy_` — [`L1237`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1237)
+- <a id="MultiScanBuilderTest_SqueezeScan_Test"></a>`MultiScanBuilderTest_SqueezeScan_Test` — [`L998`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L998)
+- <a id="MultiScanBuilderTest_SqueezeScan_Test.AddToRegistry"></a>`MultiScanBuilderTest_SqueezeScan_Test.AddToRegistry` — [`L998`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L998)
+- <a id="MultiScanBuilderTest_SqueezeScan_Test.MultiScanBuilderTest_SqueezeScan_Test"></a>`MultiScanBuilderTest_SqueezeScan_Test.MultiScanBuilderTest_SqueezeScan_Test` — [`L998`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L998)
+- <a id="MultiScanBuilderTest_SqueezeScan_Test.TestBody"></a>`MultiScanBuilderTest_SqueezeScan_Test.TestBody` — [`L998`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L998)
+- <a id="MultiScanBuilderTest_SqueezeScan_Test.gtest_registering_dummy_"></a>`MultiScanBuilderTest_SqueezeScan_Test.gtest_registering_dummy_` — [`L998`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L998)
+- <a id="MultiScanBuilderTest_StaticShape1D_Test"></a>`MultiScanBuilderTest_StaticShape1D_Test` — [`L803`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L803)
+- <a id="MultiScanBuilderTest_StaticShape1D_Test.AddToRegistry"></a>`MultiScanBuilderTest_StaticShape1D_Test.AddToRegistry` — [`L803`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L803)
+- <a id="MultiScanBuilderTest_StaticShape1D_Test.MultiScanBuilderTest_StaticShape1D_Test"></a>`MultiScanBuilderTest_StaticShape1D_Test.MultiScanBuilderTest_StaticShape1D_Test` — [`L803`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L803)
+- <a id="MultiScanBuilderTest_StaticShape1D_Test.TestBody"></a>`MultiScanBuilderTest_StaticShape1D_Test.TestBody` — [`L803`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L803)
+- <a id="MultiScanBuilderTest_StaticShape1D_Test.gtest_registering_dummy_"></a>`MultiScanBuilderTest_StaticShape1D_Test.gtest_registering_dummy_` — [`L803`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L803)
+- <a id="MultiScanBuilderTest_StaticShape2D_ScanDim1_Test"></a>`MultiScanBuilderTest_StaticShape2D_ScanDim1_Test` — [`L872`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L872)
+- <a id="MultiScanBuilderTest_StaticShape2D_ScanDim1_Test.AddToRegistry"></a>`MultiScanBuilderTest_StaticShape2D_ScanDim1_Test.AddToRegistry` — [`L872`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L872)
+- <a id="MultiScanBuilderTest_StaticShape2D_ScanDim1_Test.MultiScanBuilderTest_StaticShape2D_ScanDim1_Test"></a>`MultiScanBuilderTest_StaticShape2D_ScanDim1_Test.MultiScanBuilderTest_StaticShape2D_ScanDim1_Test` — [`L872`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L872)
+- <a id="MultiScanBuilderTest_StaticShape2D_ScanDim1_Test.TestBody"></a>`MultiScanBuilderTest_StaticShape2D_ScanDim1_Test.TestBody` — [`L872`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L872)
+- <a id="MultiScanBuilderTest_StaticShape2D_ScanDim1_Test.gtest_registering_dummy_"></a>`MultiScanBuilderTest_StaticShape2D_ScanDim1_Test.gtest_registering_dummy_` — [`L872`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L872)
+- <a id="MultiScanBuilderTest_StaticShape2D_Test"></a>`MultiScanBuilderTest_StaticShape2D_Test` — [`L835`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L835)
+- <a id="MultiScanBuilderTest_StaticShape2D_Test.AddToRegistry"></a>`MultiScanBuilderTest_StaticShape2D_Test.AddToRegistry` — [`L835`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L835)
+- <a id="MultiScanBuilderTest_StaticShape2D_Test.MultiScanBuilderTest_StaticShape2D_Test"></a>`MultiScanBuilderTest_StaticShape2D_Test.MultiScanBuilderTest_StaticShape2D_Test` — [`L835`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L835)
+- <a id="MultiScanBuilderTest_StaticShape2D_Test.TestBody"></a>`MultiScanBuilderTest_StaticShape2D_Test.TestBody` — [`L835`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L835)
+- <a id="MultiScanBuilderTest_StaticShape2D_Test.gtest_registering_dummy_"></a>`MultiScanBuilderTest_StaticShape2D_Test.gtest_registering_dummy_` — [`L835`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L835)
+- <a id="MultiScanBuilderTest_StaticShape3D_Test"></a>`MultiScanBuilderTest_StaticShape3D_Test` — [`L909`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L909)
+- <a id="MultiScanBuilderTest_StaticShape3D_Test.AddToRegistry"></a>`MultiScanBuilderTest_StaticShape3D_Test.AddToRegistry` — [`L909`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L909)
+- <a id="MultiScanBuilderTest_StaticShape3D_Test.MultiScanBuilderTest_StaticShape3D_Test"></a>`MultiScanBuilderTest_StaticShape3D_Test.MultiScanBuilderTest_StaticShape3D_Test` — [`L909`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L909)
+- <a id="MultiScanBuilderTest_StaticShape3D_Test.TestBody"></a>`MultiScanBuilderTest_StaticShape3D_Test.TestBody` — [`L909`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L909)
+- <a id="MultiScanBuilderTest_StaticShape3D_Test.gtest_registering_dummy_"></a>`MultiScanBuilderTest_StaticShape3D_Test.gtest_registering_dummy_` — [`L909`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L909)
+- <a id="MultiScanBuilderTest_TooManyScanInputsError_Test"></a>`MultiScanBuilderTest_TooManyScanInputsError_Test` — [`L678`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L678)
+- <a id="MultiScanBuilderTest_TooManyScanInputsError_Test.AddToRegistry"></a>`MultiScanBuilderTest_TooManyScanInputsError_Test.AddToRegistry` — [`L678`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L678)
+- <a id="MultiScanBuilderTest_TooManyScanInputsError_Test.MultiScanBuilderTest_TooManyScanInputsError_Test"></a>`MultiScanBuilderTest_TooManyScanInputsError_Test.MultiScanBuilderTest_TooManyScanInputsError_Test` — [`L678`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L678)
+- <a id="MultiScanBuilderTest_TooManyScanInputsError_Test.TestBody"></a>`MultiScanBuilderTest_TooManyScanInputsError_Test.TestBody` — [`L678`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L678)
+- <a id="MultiScanBuilderTest_TooManyScanInputsError_Test.gtest_registering_dummy_"></a>`MultiScanBuilderTest_TooManyScanInputsError_Test.gtest_registering_dummy_` — [`L678`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L678)
+- <a id="MultiScanBuilderTest_WithStaticInput_Test"></a>`MultiScanBuilderTest_WithStaticInput_Test` — [`L1025`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1025)
+- <a id="MultiScanBuilderTest_WithStaticInput_Test.AddToRegistry"></a>`MultiScanBuilderTest_WithStaticInput_Test.AddToRegistry` — [`L1025`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1025)
+- <a id="MultiScanBuilderTest_WithStaticInput_Test.MultiScanBuilderTest_WithStaticInput_Test"></a>`MultiScanBuilderTest_WithStaticInput_Test.MultiScanBuilderTest_WithStaticInput_Test` — [`L1025`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1025)
+- <a id="MultiScanBuilderTest_WithStaticInput_Test.TestBody"></a>`MultiScanBuilderTest_WithStaticInput_Test.TestBody` — [`L1025`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1025)
+- <a id="MultiScanBuilderTest_WithStaticInput_Test.gtest_registering_dummy_"></a>`MultiScanBuilderTest_WithStaticInput_Test.gtest_registering_dummy_` — [`L1025`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L1025)
+- <a id="ScanBuilderTest"></a>`ScanBuilderTest` — [`L85`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L85)
+- <a id="ScanBuilderTest.CreateAddBodyBuilder"></a>`ScanBuilderTest.CreateAddBodyBuilder` — [`L136`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L136)
+- <a id="ScanBuilderTest.CreateBoundedTensorArg"></a>`ScanBuilderTest.CreateBoundedTensorArg` — [`L100`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L100)
+- <a id="ScanBuilderTest.CreateIdentityBodyBuilder"></a>`ScanBuilderTest.CreateIdentityBodyBuilder` — [`L167`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L167)
+- <a id="ScanBuilderTest.CreateMultiAddBodyBuilder"></a>`ScanBuilderTest.CreateMultiAddBodyBuilder` — [`L152`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L152)
+- <a id="ScanBuilderTest.EvaluateAndVerifyMultiOutputs"></a>`ScanBuilderTest.EvaluateAndVerifyMultiOutputs` — [`L318`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L318)
+- <a id="ScanBuilderTest.EvaluateAndVerifyOutputs"></a>`ScanBuilderTest.EvaluateAndVerifyOutputs` — [`L303`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L303)
+- <a id="ScanBuilderTest.ExpectScanLoweringOp"></a>`ScanBuilderTest.ExpectScanLoweringOp` — [`L181`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L181)
+- <a id="ScanBuilderTest.IsEmitter"></a>`ScanBuilderTest.IsEmitter` — [`L177`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L177)
+- <a id="ScanBuilderTest.LegalizeChlo"></a>`ScanBuilderTest.LegalizeChlo` — [`L218`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L218)
+- <a id="ScanBuilderTest.RewriteDeprecatedBroadcasts"></a>`ScanBuilderTest.RewriteDeprecatedBroadcasts` — [`L237`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L237)
+- <a id="ScanBuilderTest.RewriteStaticRealDynamicSlices"></a>`ScanBuilderTest.RewriteStaticRealDynamicSlices` — [`L265`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L265)
+- <a id="ScanBuilderTest.Scan"></a>`ScanBuilderTest.Scan` — [`L205`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L205)
+- <a id="ScanBuilderTest.ScanBuilderTest"></a>`ScanBuilderTest.ScanBuilderTest` — [`L87`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L87)
+- <a id="ScanBuilderTest.builder"></a>`ScanBuilderTest.builder` — [`L95`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L95)
+- <a id="ScanBuilderTest.context"></a>`ScanBuilderTest.context` — [`L98`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L98)
+- <a id="ScanBuilderTest.context_"></a>`ScanBuilderTest.context_` — [`L337`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L337)
+- <a id="ScanBuilderTest.module_builder"></a>`ScanBuilderTest.module_builder` — [`L96`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L96)
+- <a id="ScanBuilderTest.module_builder_"></a>`ScanBuilderTest.module_builder_` — [`L338`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L338)
+- <a id="ScanBuilderTest.op_builder"></a>`ScanBuilderTest.op_builder` — [`L97`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L97)
+- <a id="ScanBuilderTest_BodyBuilderError_Test"></a>`ScanBuilderTest_BodyBuilderError_Test` — [`L507`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L507)
+- <a id="ScanBuilderTest_BodyBuilderError_Test.AddToRegistry"></a>`ScanBuilderTest_BodyBuilderError_Test.AddToRegistry` — [`L507`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L507)
+- <a id="ScanBuilderTest_BodyBuilderError_Test.ScanBuilderTest_BodyBuilderError_Test"></a>`ScanBuilderTest_BodyBuilderError_Test.ScanBuilderTest_BodyBuilderError_Test` — [`L507`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L507)
+- <a id="ScanBuilderTest_BodyBuilderError_Test.TestBody"></a>`ScanBuilderTest_BodyBuilderError_Test.TestBody` — [`L507`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L507)
+- <a id="ScanBuilderTest_BodyBuilderError_Test.gtest_registering_dummy_"></a>`ScanBuilderTest_BodyBuilderError_Test.gtest_registering_dummy_` — [`L507`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L507)
+- <a id="ScanBuilderTest_DynamicShapeNonScanDim_Test"></a>`ScanBuilderTest_DynamicShapeNonScanDim_Test` — [`L614`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L614)
+- <a id="ScanBuilderTest_DynamicShapeNonScanDim_Test.AddToRegistry"></a>`ScanBuilderTest_DynamicShapeNonScanDim_Test.AddToRegistry` — [`L614`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L614)
+- <a id="ScanBuilderTest_DynamicShapeNonScanDim_Test.ScanBuilderTest_DynamicShapeNonScanDim_Test"></a>`ScanBuilderTest_DynamicShapeNonScanDim_Test.ScanBuilderTest_DynamicShapeNonScanDim_Test` — [`L614`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L614)
+- <a id="ScanBuilderTest_DynamicShapeNonScanDim_Test.TestBody"></a>`ScanBuilderTest_DynamicShapeNonScanDim_Test.TestBody` — [`L614`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L614)
+- <a id="ScanBuilderTest_DynamicShapeNonScanDim_Test.gtest_registering_dummy_"></a>`ScanBuilderTest_DynamicShapeNonScanDim_Test.gtest_registering_dummy_` — [`L614`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L614)
+- <a id="ScanBuilderTest_DynamicShapeScanDim_Test"></a>`ScanBuilderTest_DynamicShapeScanDim_Test` — [`L585`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L585)
+- <a id="ScanBuilderTest_DynamicShapeScanDim_Test.AddToRegistry"></a>`ScanBuilderTest_DynamicShapeScanDim_Test.AddToRegistry` — [`L585`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L585)
+- <a id="ScanBuilderTest_DynamicShapeScanDim_Test.ScanBuilderTest_DynamicShapeScanDim_Test"></a>`ScanBuilderTest_DynamicShapeScanDim_Test.ScanBuilderTest_DynamicShapeScanDim_Test` — [`L585`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L585)
+- <a id="ScanBuilderTest_DynamicShapeScanDim_Test.TestBody"></a>`ScanBuilderTest_DynamicShapeScanDim_Test.TestBody` — [`L585`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L585)
+- <a id="ScanBuilderTest_DynamicShapeScanDim_Test.gtest_registering_dummy_"></a>`ScanBuilderTest_DynamicShapeScanDim_Test.gtest_registering_dummy_` — [`L585`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L585)
+- <a id="ScanBuilderTest_EmptyTensor_Test"></a>`ScanBuilderTest_EmptyTensor_Test` — [`L371`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L371)
+- <a id="ScanBuilderTest_EmptyTensor_Test.AddToRegistry"></a>`ScanBuilderTest_EmptyTensor_Test.AddToRegistry` — [`L371`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L371)
+- <a id="ScanBuilderTest_EmptyTensor_Test.ScanBuilderTest_EmptyTensor_Test"></a>`ScanBuilderTest_EmptyTensor_Test.ScanBuilderTest_EmptyTensor_Test` — [`L371`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L371)
+- <a id="ScanBuilderTest_EmptyTensor_Test.TestBody"></a>`ScanBuilderTest_EmptyTensor_Test.TestBody` — [`L371`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L371)
+- <a id="ScanBuilderTest_EmptyTensor_Test.gtest_registering_dummy_"></a>`ScanBuilderTest_EmptyTensor_Test.gtest_registering_dummy_` — [`L371`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L371)
+- <a id="ScanBuilderTest_InvalidDimension_Test"></a>`ScanBuilderTest_InvalidDimension_Test` — [`L352`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L352)
+- <a id="ScanBuilderTest_InvalidDimension_Test.AddToRegistry"></a>`ScanBuilderTest_InvalidDimension_Test.AddToRegistry` — [`L352`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L352)
+- <a id="ScanBuilderTest_InvalidDimension_Test.ScanBuilderTest_InvalidDimension_Test"></a>`ScanBuilderTest_InvalidDimension_Test.ScanBuilderTest_InvalidDimension_Test` — [`L352`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L352)
+- <a id="ScanBuilderTest_InvalidDimension_Test.TestBody"></a>`ScanBuilderTest_InvalidDimension_Test.TestBody` — [`L352`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L352)
+- <a id="ScanBuilderTest_InvalidDimension_Test.gtest_registering_dummy_"></a>`ScanBuilderTest_InvalidDimension_Test.gtest_registering_dummy_` — [`L352`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L352)
+- <a id="ScanBuilderTest_MismatchedCarries_Test"></a>`ScanBuilderTest_MismatchedCarries_Test` — [`L559`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L559)
+- <a id="ScanBuilderTest_MismatchedCarries_Test.AddToRegistry"></a>`ScanBuilderTest_MismatchedCarries_Test.AddToRegistry` — [`L559`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L559)
+- <a id="ScanBuilderTest_MismatchedCarries_Test.ScanBuilderTest_MismatchedCarries_Test"></a>`ScanBuilderTest_MismatchedCarries_Test.ScanBuilderTest_MismatchedCarries_Test` — [`L559`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L559)
+- <a id="ScanBuilderTest_MismatchedCarries_Test.TestBody"></a>`ScanBuilderTest_MismatchedCarries_Test.TestBody` — [`L559`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L559)
+- <a id="ScanBuilderTest_MismatchedCarries_Test.gtest_registering_dummy_"></a>`ScanBuilderTest_MismatchedCarries_Test.gtest_registering_dummy_` — [`L559`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L559)
+- <a id="ScanBuilderTest_MismatchedInits_Test"></a>`ScanBuilderTest_MismatchedInits_Test` — [`L536`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L536)
+- <a id="ScanBuilderTest_MismatchedInits_Test.AddToRegistry"></a>`ScanBuilderTest_MismatchedInits_Test.AddToRegistry` — [`L536`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L536)
+- <a id="ScanBuilderTest_MismatchedInits_Test.ScanBuilderTest_MismatchedInits_Test"></a>`ScanBuilderTest_MismatchedInits_Test.ScanBuilderTest_MismatchedInits_Test` — [`L536`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L536)
+- <a id="ScanBuilderTest_MismatchedInits_Test.TestBody"></a>`ScanBuilderTest_MismatchedInits_Test.TestBody` — [`L536`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L536)
+- <a id="ScanBuilderTest_MismatchedInits_Test.gtest_registering_dummy_"></a>`ScanBuilderTest_MismatchedInits_Test.gtest_registering_dummy_` — [`L536`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L536)
+- <a id="ScanBuilderTest_StaticShape1D_Test"></a>`ScanBuilderTest_StaticShape1D_Test` — [`L393`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L393)
+- <a id="ScanBuilderTest_StaticShape1D_Test.AddToRegistry"></a>`ScanBuilderTest_StaticShape1D_Test.AddToRegistry` — [`L393`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L393)
+- <a id="ScanBuilderTest_StaticShape1D_Test.ScanBuilderTest_StaticShape1D_Test"></a>`ScanBuilderTest_StaticShape1D_Test.ScanBuilderTest_StaticShape1D_Test` — [`L393`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L393)
+- <a id="ScanBuilderTest_StaticShape1D_Test.TestBody"></a>`ScanBuilderTest_StaticShape1D_Test.TestBody` — [`L393`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L393)
+- <a id="ScanBuilderTest_StaticShape1D_Test.gtest_registering_dummy_"></a>`ScanBuilderTest_StaticShape1D_Test.gtest_registering_dummy_` — [`L393`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L393)
+- <a id="ScanBuilderTest_StaticShape2D_ScanDim1_Test"></a>`ScanBuilderTest_StaticShape2D_ScanDim1_Test` — [`L447`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L447)
+- <a id="ScanBuilderTest_StaticShape2D_ScanDim1_Test.AddToRegistry"></a>`ScanBuilderTest_StaticShape2D_ScanDim1_Test.AddToRegistry` — [`L447`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L447)
+- <a id="ScanBuilderTest_StaticShape2D_ScanDim1_Test.ScanBuilderTest_StaticShape2D_ScanDim1_Test"></a>`ScanBuilderTest_StaticShape2D_ScanDim1_Test.ScanBuilderTest_StaticShape2D_ScanDim1_Test` — [`L447`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L447)
+- <a id="ScanBuilderTest_StaticShape2D_ScanDim1_Test.TestBody"></a>`ScanBuilderTest_StaticShape2D_ScanDim1_Test.TestBody` — [`L447`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L447)
+- <a id="ScanBuilderTest_StaticShape2D_ScanDim1_Test.gtest_registering_dummy_"></a>`ScanBuilderTest_StaticShape2D_ScanDim1_Test.gtest_registering_dummy_` — [`L447`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L447)
+- <a id="ScanBuilderTest_StaticShape2D_Test"></a>`ScanBuilderTest_StaticShape2D_Test` — [`L418`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L418)
+- <a id="ScanBuilderTest_StaticShape2D_Test.AddToRegistry"></a>`ScanBuilderTest_StaticShape2D_Test.AddToRegistry` — [`L418`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L418)
+- <a id="ScanBuilderTest_StaticShape2D_Test.ScanBuilderTest_StaticShape2D_Test"></a>`ScanBuilderTest_StaticShape2D_Test.ScanBuilderTest_StaticShape2D_Test` — [`L418`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L418)
+- <a id="ScanBuilderTest_StaticShape2D_Test.TestBody"></a>`ScanBuilderTest_StaticShape2D_Test.TestBody` — [`L418`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L418)
+- <a id="ScanBuilderTest_StaticShape2D_Test.gtest_registering_dummy_"></a>`ScanBuilderTest_StaticShape2D_Test.gtest_registering_dummy_` — [`L418`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L418)
+- <a id="ScanBuilderTest_StaticShape3D_Test"></a>`ScanBuilderTest_StaticShape3D_Test` — [`L476`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L476)
+- <a id="ScanBuilderTest_StaticShape3D_Test.AddToRegistry"></a>`ScanBuilderTest_StaticShape3D_Test.AddToRegistry` — [`L476`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L476)
+- <a id="ScanBuilderTest_StaticShape3D_Test.ScanBuilderTest_StaticShape3D_Test"></a>`ScanBuilderTest_StaticShape3D_Test.ScanBuilderTest_StaticShape3D_Test` — [`L476`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L476)
+- <a id="ScanBuilderTest_StaticShape3D_Test.TestBody"></a>`ScanBuilderTest_StaticShape3D_Test.TestBody` — [`L476`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L476)
+- <a id="ScanBuilderTest_StaticShape3D_Test.gtest_registering_dummy_"></a>`ScanBuilderTest_StaticShape3D_Test.gtest_registering_dummy_` — [`L476`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L476)
+- <a id="StatusIs"></a>`StatusIs` — [`L68`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L68)
+- <a id="gtest_ScanLoweringMultiScanBuilderTest_EvalGenerateName_"></a>`gtest_ScanLoweringMultiScanBuilderTest_EvalGenerateName_` — [`L347`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L347)
+- <a id="gtest_ScanLoweringMultiScanBuilderTest_EvalGenerator_"></a>`gtest_ScanLoweringMultiScanBuilderTest_EvalGenerator_` — [`L347`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L347)
+- <a id="gtest_ScanLoweringMultiScanBuilderTest_dummy_"></a>`gtest_ScanLoweringMultiScanBuilderTest_dummy_` — [`L347`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L347)
+- <a id="gtest_ScanLoweringScanBuilderTest_EvalGenerateName_"></a>`gtest_ScanLoweringScanBuilderTest_EvalGenerateName_` — [`L343`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L343)
+- <a id="gtest_ScanLoweringScanBuilderTest_EvalGenerator_"></a>`gtest_ScanLoweringScanBuilderTest_EvalGenerator_` — [`L343`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L343)
+- <a id="gtest_ScanLoweringScanBuilderTest_dummy_"></a>`gtest_ScanLoweringScanBuilderTest_dummy_` — [`L343`](../../../../../../raw/code/torch_tpu/csrc/ops/scan_builder_test.cc#L343)

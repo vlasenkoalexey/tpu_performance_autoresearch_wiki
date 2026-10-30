@@ -85,3 +85,9 @@
 [submodule "raw/code/accelerator-agents"]
 	path = raw/code/accelerator-agents
 	url = https://github.com/AI-Hypercomputer/accelerator-agents
+[submodule "raw/code/torch_tpu"]
+	path = raw/code/torch_tpu
+	url = https://github.com/google-pytorch/torch_tpu
+[submodule "raw/code/torchtitan"]
+	path = raw/code/torchtitan
+	url = https://github.com/google-pytorch/torchtitan

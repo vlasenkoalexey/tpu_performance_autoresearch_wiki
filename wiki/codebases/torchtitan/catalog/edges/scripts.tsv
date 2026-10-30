@@ -1,0 +1,70 @@
+# wikify edge list: torchtitan @ 2ad96c9390, shard scripts, 63 caller edges. Grep it by anchor; never read it whole.
+# columns: callee	caller   (one edge per line). Hubs have hundreds of callers and a search tool
+#          shows about 50 lines, so: count, then narrow, then head.
+# count first:   grep -c -P '^scripts/loss_compare#log_print\t' catalog/edges/*.tsv
+# by caller dir: grep -P '^scripts/loss_compare#log_print\t' catalog/edges/*.tsv | cut -f2 | cut -d/ -f1-2 | sort | uniq -c
+# who calls X:   grep -P '^scripts/loss_compare#log_print\tscripts/loss_compare#assert_losses_equal/' catalog/edges/*.tsv | cut -f2 | head -20   (narrowed to one directory)
+# what X calls:  grep -P '\tscripts/loss_compare#log_print$' catalog/edges/*.tsv | cut -f1 | head -20
+scripts/loss_compare#DEFAULT_METRICS	scripts/loss_compare#parse_arguments
+scripts/loss_compare#FIXED_OPTIONS	scripts/loss_compare#build_training_command
+scripts/loss_compare#FIXED_OPTIONS	scripts/loss_compare#create_seed_checkpoint
+scripts/loss_compare#LOG_PREFIX	scripts/loss_compare#generate_step_comparison
+scripts/loss_compare#LOG_PREFIX	scripts/loss_compare#generate_summary_statistics
+scripts/loss_compare#LOG_PREFIX	scripts/loss_compare#log_print
+scripts/loss_compare#LOG_PREFIX	scripts/loss_compare#perform_loss_analysis
+scripts/loss_compare#SEED_PARALLELISM_OPTIONS	scripts/loss_compare#create_seed_checkpoint
+scripts/loss_compare#TB_TAGS	scripts/loss_compare#extract_metrics_from_tensorboard
+scripts/loss_compare#TB_TAGS	scripts/loss_compare#main
+scripts/loss_compare#TB_TAGS	scripts/loss_compare#parse_arguments
+scripts/loss_compare#assert_losses_equal	scripts/loss_compare#assert_metrics_equal
+scripts/loss_compare#assert_losses_equal.LossEqualityTest	scripts/loss_compare#assert_losses_equal
+scripts/loss_compare#assert_metrics_equal	scripts/loss_compare#main
+scripts/loss_compare#build_base_command	scripts/loss_compare#build_training_command
+scripts/loss_compare#build_training_command	scripts/loss_compare#print_configuration
+scripts/loss_compare#build_training_command	scripts/loss_compare#run_training
+scripts/loss_compare#check_git_clean_state	scripts/loss_compare#main
+scripts/loss_compare#checkout_commit	scripts/loss_compare#run_scenario
+scripts/loss_compare#create_seed_checkpoint	scripts/loss_compare#main
+scripts/loss_compare#create_seed_checkpoint	torchtitan/experiments/graph_trainer/tests/test_numerics#_run_graph_pp_deepseek_v3_loss_compare
+scripts/loss_compare#export_metrics_to_file	scripts/loss_compare#main
+scripts/loss_compare#export_metrics_to_file	torchtitan/experiments/rl/scripts/loss_compare#main
+scripts/loss_compare#extract_metrics_from_tensorboard	scripts/loss_compare#main
+scripts/loss_compare#extract_scalar_from_tensorboard	scripts/loss_compare#extract_metrics_from_tensorboard
+scripts/loss_compare#generate_step_comparison	scripts/loss_compare#perform_loss_analysis
+scripts/loss_compare#generate_summary_statistics	scripts/loss_compare#perform_loss_analysis
+scripts/loss_compare#generate_summary_statistics.calculate_average	scripts/loss_compare#generate_summary_statistics
+scripts/loss_compare#get_current_commit	scripts/loss_compare#main
+scripts/loss_compare#get_log_path	scripts/loss_compare#create_seed_checkpoint
+scripts/loss_compare#get_log_path	scripts/loss_compare#run_training
+scripts/loss_compare#log_and_save	scripts/loss_compare#generate_step_comparison
+scripts/loss_compare#log_and_save	scripts/loss_compare#generate_summary_statistics
+scripts/loss_compare#log_and_save	scripts/loss_compare#perform_loss_analysis
+scripts/loss_compare#log_print	scripts/loss_compare#assert_losses_equal
+scripts/loss_compare#log_print	scripts/loss_compare#assert_metrics_equal
+scripts/loss_compare#log_print	scripts/loss_compare#check_git_clean_state
+scripts/loss_compare#log_print	scripts/loss_compare#checkout_commit
+scripts/loss_compare#log_print	scripts/loss_compare#create_seed_checkpoint
+scripts/loss_compare#log_print	scripts/loss_compare#export_metrics_to_file
+scripts/loss_compare#log_print	scripts/loss_compare#extract_scalar_from_tensorboard
+scripts/loss_compare#log_print	scripts/loss_compare#main
+scripts/loss_compare#log_print	scripts/loss_compare#print_completion_summary
+scripts/loss_compare#log_print	scripts/loss_compare#print_configuration
+scripts/loss_compare#log_print	scripts/loss_compare#restore_original_commit
+scripts/loss_compare#log_print	scripts/loss_compare#run_training
+scripts/loss_compare#log_print	scripts/loss_compare#run_with_realtime_output
+scripts/loss_compare#log_print	scripts/loss_compare#setup_output_directory
+scripts/loss_compare#log_print	scripts/loss_compare#validate_arguments
+scripts/loss_compare#parse_arguments	scripts/loss_compare#main
+scripts/loss_compare#perform_loss_analysis	scripts/loss_compare#main
+scripts/loss_compare#print_completion_summary	scripts/loss_compare#main
+scripts/loss_compare#print_configuration	scripts/loss_compare#main
+scripts/loss_compare#read_metrics_from_file	scripts/loss_compare#assert_metrics_equal
+scripts/loss_compare#read_metrics_from_file	torchtitan/experiments/rl/scripts/loss_compare#main
+scripts/loss_compare#restore_original_commit	scripts/loss_compare#main
+scripts/loss_compare#run_scenario	scripts/loss_compare#main
+scripts/loss_compare#run_training	scripts/loss_compare#run_scenario
+scripts/loss_compare#run_training	torchtitan/experiments/graph_trainer/tests/test_numerics#_run_graph_pp_deepseek_v3_loss_compare
+scripts/loss_compare#run_with_realtime_output	scripts/loss_compare#create_seed_checkpoint
+scripts/loss_compare#run_with_realtime_output	scripts/loss_compare#run_training
+scripts/loss_compare#setup_output_directory	scripts/loss_compare#main
+scripts/loss_compare#validate_arguments	scripts/loss_compare#main

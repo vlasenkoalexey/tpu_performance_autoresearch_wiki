@@ -64,4 +64,6 @@ Grounded implementations of **vmem-budget** across the ingested repos (generated
 
 - [sglang-jax](../codebases/sglang-jax/concepts/python-sgl_jax-srt-kernels-fused_moe-v2-bench_v2.md) — sgl_jax.srt.kernels.fused_moe.v2.bench_v2 — VMEM-budget-aware block-config tuning search for fused_ep_moe_v2
 - [tokamax](../codebases/tokamax/concepts/tokamax-_src-ops-ragged_dot-pallas_mosaic_tpu_v2_tgmm_kernel.md) — tokamax._src.ops.ragged_dot.pallas_mosaic_tpu_v2_tgmm_kernel — TGMM (lhs.T @ dout) tiling, VMEM-budget-aware, XLU-transpose-cache-aware
+- [torch_tpu](../codebases/torch_tpu/concepts/scaled-dot-product-attention.md) — Scaled dot-product attention - backend choice, Mosaic flash kernels, and the StableHLO fallback
+- [torchtitan](../codebases/torchtitan/concepts/tpu-pallas-kernels.md) — TPU Pallas kernels: splash attention (stock, Tokamax, SBD fork), grouped matmul, FP8 GMM and fused linear cross-entropy
 <!-- connect:auto:end -->

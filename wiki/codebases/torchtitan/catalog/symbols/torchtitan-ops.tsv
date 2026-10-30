@@ -1,0 +1,11 @@
+# wikify symbol index: torchtitan @ 2ad96c9390, shard torchtitan/ops, 3 rows. Grep it by anchor; never read it whole.
+# columns: anchor	path	line	kind	rank	hash	callers	pages
+# one symbol:  grep -P '^torchtitan/ops/scatter_add#deterministic_scatter_add\t' catalog/symbols/*.tsv
+# by name:     grep -P '[#.]deterministic_scatter_add\t' catalog/symbols/*.tsv | sort -t$'\t' -k5 -nr | head -20   (matches Class.deterministic_scatter_add too)
+# by area:     grep -P '^torchtitan/ops/.*#deterministic_scatter_add\t' catalog/symbols/*.tsv | head -20
+# one module:  awk -F'\t' '$2=="torchtitan/ops/scatter_add.py"' catalog/symbols/*.tsv | cut -f1,3,4 | head -40
+# to prose:    grep -P '^torchtitan/ops/scatter_add#deterministic_scatter_add\t' catalog/symbols/*.tsv | cut -f1,8   (column 8: concept pages citing it)
+# callers:     column 7 is the count; the list lives in catalog/edges/*.tsv, see its header (count, narrow, head)
+torchtitan/ops/scatter_add#deterministic_scatter_add	torchtitan/ops/scatter_add.py	11	function	12	9c2b927cc16dcb62	3	
+torchtitan/ops/scatter_add#_backward	torchtitan/ops/scatter_add.py	28	function	2	2c3fbebfb02eb166	0	
+torchtitan/ops/scatter_add#_setup_context	torchtitan/ops/scatter_add.py	36	function	2	c9865e9f53c76e0a	0	

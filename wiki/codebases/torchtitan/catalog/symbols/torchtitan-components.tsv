@@ -1,0 +1,782 @@
+# wikify symbol index: torchtitan @ 2ad96c9390, shard torchtitan/components, 774 rows. Grep it by anchor; never read it whole.
+# columns: anchor	path	line	kind	rank	hash	callers	pages
+# one symbol:  grep -P '^torchtitan/components/checkpointer/dcp#CheckpointManager\t' catalog/symbols/*.tsv
+# by name:     grep -P '[#.]CheckpointManager\t' catalog/symbols/*.tsv | sort -t$'\t' -k5 -nr | head -20   (matches Class.CheckpointManager too)
+# by area:     grep -P '^torchtitan/components/checkpointer/.*#CheckpointManager\t' catalog/symbols/*.tsv | head -20
+# one module:  awk -F'\t' '$2=="torchtitan/components/checkpointer/dcp.py"' catalog/symbols/*.tsv | cut -f1,3,4 | head -40
+# to prose:    grep -P '^torchtitan/components/checkpointer/dcp#CheckpointManager\t' catalog/symbols/*.tsv | cut -f1,8   (column 8: concept pages citing it)
+# callers:     column 7 is the count; the list lives in catalog/edges/*.tsv, see its header (count, narrow, head)
+torchtitan/components/checkpointer/__init__#__all__	torchtitan/components/checkpointer/__init__.py	19	value	0	939bc565afdcd76c	0	
+torchtitan/components/checkpointer/base#MODEL	torchtitan/components/checkpointer/base.py	33	value	56	e03a7a5280e8c0b5	11	checkpointing
+torchtitan/components/checkpointer/base#OPTIMIZER	torchtitan/components/checkpointer/base.py	34	value	20	c63176332ca422c9	5	
+torchtitan/components/checkpointer/base#LR_SCHEDULER	torchtitan/components/checkpointer/base.py	35	value	18	22797edeb4165294	4	
+torchtitan/components/checkpointer/base#DATALOADER	torchtitan/components/checkpointer/base.py	36	value	16	0b302f0222d9ca91	4	
+torchtitan/components/checkpointer/base#TRAIN_STATE	torchtitan/components/checkpointer/base.py	37	value	6	fcd8a628738c3b96	1	
+torchtitan/components/checkpointer/base#purge_thread	torchtitan/components/checkpointer/base.py	40	function	13	2feb24952505bbb9	2	
+torchtitan/components/checkpointer/base#_shares_storage	torchtitan/components/checkpointer/base.py	78	function	2	1596a1cdb8981029	1	
+torchtitan/components/checkpointer/base#ModelWrapper	torchtitan/components/checkpointer/base.py	93	class	10	1e030b1f4e057356	2	
+torchtitan/components/checkpointer/base#ModelWrapper.__init__	torchtitan/components/checkpointer/base.py	122	method	0	abfc3ac015f8e003	0	
+torchtitan/components/checkpointer/base#ModelWrapper.model	torchtitan/components/checkpointer/base.py	123	member	4	03dfa96153520583	2	
+torchtitan/components/checkpointer/base#ModelWrapper.cached_state_dict	torchtitan/components/checkpointer/base.py	124	member	13	d775e8675f62a046	2	
+torchtitan/components/checkpointer/base#ModelWrapper._get_state_dict	torchtitan/components/checkpointer/base.py	126	method	11	b73e2c2ff351c86a	3	
+torchtitan/components/checkpointer/base#ModelWrapper.state_dict	torchtitan/components/checkpointer/base.py	130	method	15	4ecbc39691666eb0	0	
+torchtitan/components/checkpointer/base#ModelWrapper.load_state_dict	torchtitan/components/checkpointer/base.py	145	method	15	bf90ca08f323de86	0	
+torchtitan/components/checkpointer/base#CheckpointStorage	torchtitan/components/checkpointer/base.py	155	class	4	729426d1c7d2ca2b	1	
+torchtitan/components/checkpointer/base#CheckpointStorage.isdir	torchtitan/components/checkpointer/base.py	177	method	12	474ac091551e5618	3	checkpointing
+torchtitan/components/checkpointer/base#CheckpointStorage.isfile	torchtitan/components/checkpointer/base.py	181	method	8	4de0cfb8485e00df	4	
+torchtitan/components/checkpointer/base#CheckpointStorage.listdir	torchtitan/components/checkpointer/base.py	185	method	4	967af72f62ad336c	2	
+torchtitan/components/checkpointer/base#CheckpointStorage.remove	torchtitan/components/checkpointer/base.py	189	method	0	eda0004bdb2a8d6b	0	
+torchtitan/components/checkpointer/base#BaseCheckpointManager	torchtitan/components/checkpointer/base.py	194	class	37	e6e901753cb34236	8	checkpointing
+torchtitan/components/checkpointer/base#BaseCheckpointManager.enable	torchtitan/components/checkpointer/base.py	203	member	26	8b88e7320e46ffe4	11	checkpointing
+torchtitan/components/checkpointer/base#BaseCheckpointManager.load_only	torchtitan/components/checkpointer/base.py	204	member	10	75bb4d6cfda248bf	5	
+torchtitan/components/checkpointer/base#BaseCheckpointManager.interval	torchtitan/components/checkpointer/base.py	205	member	6	134433d1d52825dc	3	
+torchtitan/components/checkpointer/base#BaseCheckpointManager.enable_first_step_checkpoint	torchtitan/components/checkpointer/base.py	206	member	6	e0774483015b0f63	3	
+torchtitan/components/checkpointer/base#BaseCheckpointManager.staging_future	torchtitan/components/checkpointer/base.py	207	member	0	5483a8d65dc49731	0	
+torchtitan/components/checkpointer/base#BaseCheckpointManager.save_future	torchtitan/components/checkpointer/base.py	208	member	0	0b5f6b2225e3aee4	0	
+torchtitan/components/checkpointer/base#BaseCheckpointManager.folder	torchtitan/components/checkpointer/base.py	209	member	26	675f5bba3059df86	10	checkpointing
+torchtitan/components/checkpointer/base#BaseCheckpointManager.keep_latest_k	torchtitan/components/checkpointer/base.py	210	member	12	4e4beeafdf9520ee	6	
+torchtitan/components/checkpointer/base#BaseCheckpointManager.states	torchtitan/components/checkpointer/base.py	211	member	30	3901cc58c2d2d2f6	9	checkpointing
+torchtitan/components/checkpointer/base#BaseCheckpointManager.exclude_from_loading	torchtitan/components/checkpointer/base.py	212	member	8	1afdee56667717ed	3	
+torchtitan/components/checkpointer/base#BaseCheckpointManager.initial_load_path	torchtitan/components/checkpointer/base.py	213	member	8	1da86401d8fef705	3	
+torchtitan/components/checkpointer/base#BaseCheckpointManager.initial_load_model_only	torchtitan/components/checkpointer/base.py	214	member	6	5e9586bf5022fbc8	3	
+torchtitan/components/checkpointer/base#BaseCheckpointManager.initial_load_in_hf	torchtitan/components/checkpointer/base.py	215	member	6	21197b29f2e2fcf0	3	
+torchtitan/components/checkpointer/base#BaseCheckpointManager.initial_load_in_hf_quantized	torchtitan/components/checkpointer/base.py	216	member	6	075e0bc4d800746a	3	
+torchtitan/components/checkpointer/base#BaseCheckpointManager.sd_adapter	torchtitan/components/checkpointer/base.py	217	member	39	6e2c68b90f4f2ec3	6	checkpointing
+torchtitan/components/checkpointer/base#BaseCheckpointManager.purge_exempt	torchtitan/components/checkpointer/base.py	218	member	8	a1fdd1d8207f6e56	3	
+torchtitan/components/checkpointer/base#BaseCheckpointManager.purge_thread	torchtitan/components/checkpointer/base.py	219	member	4	9769d4c326ac02aa	1	
+torchtitan/components/checkpointer/base#BaseCheckpointManager.purge_queue	torchtitan/components/checkpointer/base.py	220	member	4	eae5440da538fff9	1	
+torchtitan/components/checkpointer/base#BaseCheckpointManager._storage	torchtitan/components/checkpointer/base.py	221	member	37	1ad6a8f390f3513f	12	checkpointing
+torchtitan/components/checkpointer/base#BaseCheckpointManager._STEP_DIR_PATTERN	torchtitan/components/checkpointer/base.py	223	member	2	b6036efdf65270ad	1	
+torchtitan/components/checkpointer/base#BaseCheckpointManager.load	torchtitan/components/checkpointer/base.py	230	method	103	37af35702e4d3fff	4	checkpointing
+torchtitan/components/checkpointer/base#BaseCheckpointManager.save	torchtitan/components/checkpointer/base.py	321	method	31	5ea4be642bea7bc9	6	
+torchtitan/components/checkpointer/base#BaseCheckpointManager.maybe_wait_for_staging	torchtitan/components/checkpointer/base.py	328	method	18	26572ef42a9f165d	4	
+torchtitan/components/checkpointer/base#BaseCheckpointManager.close	torchtitan/components/checkpointer/base.py	334	method	31	1e4ac5e4f5200d11	7	checkpointing
+torchtitan/components/checkpointer/base#BaseCheckpointManager.maybe_wait_for_saving	torchtitan/components/checkpointer/base.py	347	method	20	29ee60679bba9c14	5	
+torchtitan/components/checkpointer/base#BaseCheckpointManager._wait_for_saving	torchtitan/components/checkpointer/base.py	358	method	12	9cc0ead77f9a8427	1	
+torchtitan/components/checkpointer/base#BaseCheckpointManager._should_save	torchtitan/components/checkpointer/base.py	365	method	24	276de94d5d604e33	2	
+torchtitan/components/checkpointer/base#BaseCheckpointManager._create_checkpoint_id	torchtitan/components/checkpointer/base.py	373	method	26	f0e14cc87624e879	8	checkpointing
+torchtitan/components/checkpointer/base#BaseCheckpointManager._load_checkpoint	torchtitan/components/checkpointer/base.py	379	method	12	f68f56fe9ab53ca2	1	
+torchtitan/components/checkpointer/base#BaseCheckpointManager._states_to_load	torchtitan/components/checkpointer/base.py	389	method	24	511c4882df42a8a8	2	checkpointing
+torchtitan/components/checkpointer/base#BaseCheckpointManager._save	torchtitan/components/checkpointer/base.py	404	method	12	eb1b3c2052b5a1f3	1	
+torchtitan/components/checkpointer/base#BaseCheckpointManager._maybe_wait_for_staging	torchtitan/components/checkpointer/base.py	408	method	12	ad56870c3be7ac93	1	
+torchtitan/components/checkpointer/base#BaseCheckpointManager._close	torchtitan/components/checkpointer/base.py	412	method	12	73c6961c0be8a7ae	1	
+torchtitan/components/checkpointer/base#BaseCheckpointManager._should_purge	torchtitan/components/checkpointer/base.py	415	method	29	1bce705b212bbfef	2	
+torchtitan/components/checkpointer/base#BaseCheckpointManager._is_purge_exempt	torchtitan/components/checkpointer/base.py	423	method	7	3b47bef8ce24d36b	1	
+torchtitan/components/checkpointer/base#BaseCheckpointManager._parse_step	torchtitan/components/checkpointer/base.py	427	method	9	89525a47917849ce	2	
+torchtitan/components/checkpointer/base#BaseCheckpointManager._is_valid_checkpoint	torchtitan/components/checkpointer/base.py	433	method	12	e0d985247876949b	1	
+torchtitan/components/checkpointer/base#BaseCheckpointManager._is_resumable_checkpoint	torchtitan/components/checkpointer/base.py	441	method	12	bb28c78fffc219a3	1	
+torchtitan/components/checkpointer/base#BaseCheckpointManager._find_load_step	torchtitan/components/checkpointer/base.py	444	method	39	5fad378268fefab0	2	checkpointing
+torchtitan/components/checkpointer/base#BaseCheckpointManager._purge_stale_checkpoints	torchtitan/components/checkpointer/base.py	472	method	64	2a03f5e754913ff8	2	checkpointing
+torchtitan/components/checkpointer/base#BaseCheckpointManager.Config	torchtitan/components/checkpointer/base.py	529	class	18	b32374233e4034c9	4	checkpointing
+torchtitan/components/checkpointer/base#BaseCheckpointManager.Config.enable	torchtitan/components/checkpointer/base.py	532	member	138	de25eae183a65ac4	50	checkpointing
+torchtitan/components/checkpointer/base#BaseCheckpointManager.Config.folder	torchtitan/components/checkpointer/base.py	535	member	18	f1a399aef33b52cd	7	
+torchtitan/components/checkpointer/base#BaseCheckpointManager.Config.interval	torchtitan/components/checkpointer/base.py	538	member	210	31f06c21d4e663af	105	checkpointing
+torchtitan/components/checkpointer/base#BaseCheckpointManager.Config.initial_load_path	torchtitan/components/checkpointer/base.py	541	member	40	d69e91009cf21c3c	9	checkpointing
+torchtitan/components/checkpointer/base#BaseCheckpointManager.Config.initial_load_model_only	torchtitan/components/checkpointer/base.py	544	member	24	81e7f9a3903e6ec8	11	
+torchtitan/components/checkpointer/base#BaseCheckpointManager.Config.initial_load_in_hf	torchtitan/components/checkpointer/base.py	547	member	48	fe581458dfb139dd	22	checkpointing
+torchtitan/components/checkpointer/base#BaseCheckpointManager.Config.initial_load_in_hf_quantized	torchtitan/components/checkpointer/base.py	550	member	6	9ac789e5c6717a26	3	
+torchtitan/components/checkpointer/base#BaseCheckpointManager.Config.last_save_model_only	torchtitan/components/checkpointer/base.py	553	member	180	fab459ae7b57166a	90	checkpointing
+torchtitan/components/checkpointer/base#BaseCheckpointManager.Config.last_save_in_hf	torchtitan/components/checkpointer/base.py	556	member	10	25267cf0c861b82e	4	
+torchtitan/components/checkpointer/base#BaseCheckpointManager.Config.export_dtype	torchtitan/components/checkpointer/base.py	559	member	24	78c013b917b5dd10	12	checkpointing
+torchtitan/components/checkpointer/base#BaseCheckpointManager.Config.keep_latest_k	torchtitan/components/checkpointer/base.py	562	member	24	fdb84b79fe0409bb	11	
+torchtitan/components/checkpointer/base#BaseCheckpointManager.Config.purge_exempt	torchtitan/components/checkpointer/base.py	565	member	18	8902cf14581b7d47	2	
+torchtitan/components/checkpointer/base#BaseCheckpointManager.Config.load_step	torchtitan/components/checkpointer/base.py	568	member	8	f2025a2d06be4657	4	
+torchtitan/components/checkpointer/base#BaseCheckpointManager.Config.exclude_from_loading	torchtitan/components/checkpointer/base.py	572	member	16	a44beb8f4b8f51d0	6	
+torchtitan/components/checkpointer/base#BaseCheckpointManager.Config.enable_first_step_checkpoint	torchtitan/components/checkpointer/base.py	575	member	6	063787da36ecb816	3	
+torchtitan/components/checkpointer/base#BaseCheckpointManager.Config.create_seed_checkpoint	torchtitan/components/checkpointer/base.py	578	member	12	2a8616be93f55ab7	6	
+torchtitan/components/checkpointer/base#BaseCheckpointManager.Config.load_only	torchtitan/components/checkpointer/base.py	581	member	8	0d3a634733b71f0d	4	
+torchtitan/components/checkpointer/base#BaseCheckpointManager.Config.__post_init__	torchtitan/components/checkpointer/base.py	584	method	92	b6c725d6b6f94ecd	1	checkpointing
+torchtitan/components/checkpointer/dcp#AsyncMode	torchtitan/components/checkpointer/dcp.py	58	class	34	9d9a803de49d0c5e	9	checkpointing
+torchtitan/components/checkpointer/dcp#AsyncMode.DISABLED	torchtitan/components/checkpointer/dcp.py	59	member	8	1ae8a0e9aa84b28c	3	
+torchtitan/components/checkpointer/dcp#AsyncMode.ASYNC	torchtitan/components/checkpointer/dcp.py	60	member	8	5f8ab4060a5294fd	4	
+torchtitan/components/checkpointer/dcp#AsyncMode.ASYNC_WITH_PINNED_MEM	torchtitan/components/checkpointer/dcp.py	61	member	10	69fd582f0e3f851e	5	
+torchtitan/components/checkpointer/dcp#SaveDone	torchtitan/components/checkpointer/dcp.py	64	class	0	c1f7234fe3b4115c	0	
+torchtitan/components/checkpointer/dcp#_FilesystemCheckpointStorage	torchtitan/components/checkpointer/dcp.py	68	class	2	cec3fa773c6e7651	1	
+torchtitan/components/checkpointer/dcp#_FilesystemCheckpointStorage.isdir	torchtitan/components/checkpointer/dcp.py	76	method	5	250c9b2f75b7bb9b	0	
+torchtitan/components/checkpointer/dcp#_FilesystemCheckpointStorage.isfile	torchtitan/components/checkpointer/dcp.py	79	method	5	cf4cf0265f1764e3	0	
+torchtitan/components/checkpointer/dcp#_FilesystemCheckpointStorage.listdir	torchtitan/components/checkpointer/dcp.py	82	method	5	3f19a5a7fffcb1e8	0	
+torchtitan/components/checkpointer/dcp#_FilesystemCheckpointStorage.remove	torchtitan/components/checkpointer/dcp.py	85	method	7	ddac595c464367ec	1	
+torchtitan/components/checkpointer/dcp#CheckpointManager	torchtitan/components/checkpointer/dcp.py	89	class	358	de355402a94a815f	118	checkpointing
+torchtitan/components/checkpointer/dcp#CheckpointManager.Config	torchtitan/components/checkpointer/dcp.py	136	class	286	3160a87bb3772c61	117	checkpointing
+torchtitan/components/checkpointer/dcp#CheckpointManager.Config.async_mode	torchtitan/components/checkpointer/dcp.py	137	member	12	65476a75305cb257	4	
+torchtitan/components/checkpointer/dcp#CheckpointManager.Config.__post_init__	torchtitan/components/checkpointer/dcp.py	140	method	20	62ea4aa9e398dfc5	0	checkpointing
+torchtitan/components/checkpointer/dcp#CheckpointManager.__init__	torchtitan/components/checkpointer/dcp.py	151	method	172	4620ad2ed6b0632d	1	checkpointing
+torchtitan/components/checkpointer/dcp#CheckpointManager.last_save_model_only	torchtitan/components/checkpointer/dcp.py	191	member	9	6b88cf52c08c98fa	1	
+torchtitan/components/checkpointer/dcp#CheckpointManager.last_save_in_hf	torchtitan/components/checkpointer/dcp.py	192	member	11	4d9e4a278ea14d49	2	
+torchtitan/components/checkpointer/dcp#CheckpointManager.export_dtype	torchtitan/components/checkpointer/dcp.py	193	member	26	c4cdb87406eede40	1	checkpointing
+torchtitan/components/checkpointer/dcp#CheckpointManager.async_mode	torchtitan/components/checkpointer/dcp.py	203	member	28	1fcc46f433f6d5a4	5	
+torchtitan/components/checkpointer/dcp#CheckpointManager.pg	torchtitan/components/checkpointer/dcp.py	209	member	35	4ce42b3f7add3de5	3	checkpointing
+torchtitan/components/checkpointer/dcp#CheckpointManager.stager	torchtitan/components/checkpointer/dcp.py	213	member	10	f594a1c6b05fb716	3	
+torchtitan/components/checkpointer/dcp#CheckpointManager.staging_future	torchtitan/components/checkpointer/dcp.py	214	member	8	de6655bd286511de	2	
+torchtitan/components/checkpointer/dcp#CheckpointManager.save_future	torchtitan/components/checkpointer/dcp.py	215	member	57	344bf06e998c945e	5	checkpointing
+torchtitan/components/checkpointer/dcp#CheckpointManager.purge_thread	torchtitan/components/checkpointer/dcp.py	222	member	15	3f284ef330b6b621	2	
+torchtitan/components/checkpointer/dcp#CheckpointManager.purge_queue	torchtitan/components/checkpointer/dcp.py	224	member	39	54cdde6745183237	2	checkpointing
+torchtitan/components/checkpointer/dcp#CheckpointManager.__del__	torchtitan/components/checkpointer/dcp.py	237	method	5	1e6449216841af5d	0	
+torchtitan/components/checkpointer/dcp#CheckpointManager._close	torchtitan/components/checkpointer/dcp.py	240	method	15	54e128e41472574c	1	
+torchtitan/components/checkpointer/dcp#CheckpointManager.dcp_save	torchtitan/components/checkpointer/dcp.py	252	method	60	d8e2101b85f02d84	3	checkpointing
+torchtitan/components/checkpointer/dcp#CheckpointManager._load_checkpoint	torchtitan/components/checkpointer/dcp.py	354	method	32	42955c8ba6025aa4	2	checkpointing
+torchtitan/components/checkpointer/dcp#CheckpointManager._save	torchtitan/components/checkpointer/dcp.py	405	method	107	acff62c213fd57cb	2	checkpointing
+torchtitan/components/checkpointer/dcp#CheckpointManager._maybe_wait_for_staging	torchtitan/components/checkpointer/dcp.py	512	method	20	41a32de976951924	1	
+torchtitan/components/checkpointer/dcp#CheckpointManager._wait_for_saving	torchtitan/components/checkpointer/dcp.py	541	method	25	67ff112987f5aed5	1	
+torchtitan/components/checkpointer/dcp#CheckpointManager._is_resumable_checkpoint	torchtitan/components/checkpointer/dcp.py	565	method	17	be69c9fb88ecb91b	2	
+torchtitan/components/checkpointer/dcp#CheckpointManager._is_valid_checkpoint	torchtitan/components/checkpointer/dcp.py	568	method	20	0b100cc81b0dc33f	1	
+torchtitan/components/checkpointer/dcp#CheckpointManager._flattened_model_states_sd	torchtitan/components/checkpointer/dcp.py	575	method	16	b57a10978e4d19ab	3	
+torchtitan/components/checkpointer/dcp#CheckpointManager._save_last_step	torchtitan/components/checkpointer/dcp.py	598	method	57	25df3964a888e305	1	checkpointing
+torchtitan/components/checkpointer/torch_checkpointing#DEFAULT_TORCH_CHECKPOINTING_BARRIER_TCPSTORE_PORT	torchtitan/components/checkpointer/torch_checkpointing.py	64	value	2	71b5356d1fbf003b	1	
+torchtitan/components/checkpointer/torch_checkpointing#_DEFAULT_BARRIER_INIT_TIMEOUT_SEC	torchtitan/components/checkpointer/torch_checkpointing.py	65	value	2	d55bacaaaba0168e	1	
+torchtitan/components/checkpointer/torch_checkpointing#_DEFAULT_BARRIER_TIMEOUT_SEC	torchtitan/components/checkpointer/torch_checkpointing.py	66	value	6	8507092665e648ed	3	
+torchtitan/components/checkpointer/torch_checkpointing#_HF_INDEX_FILE_NAME	torchtitan/components/checkpointer/torch_checkpointing.py	70	value	7	1e6da59e80cca05e	1	
+torchtitan/components/checkpointer/torch_checkpointing#CHECKPOINTING_LOGGER_NAME	torchtitan/components/checkpointer/torch_checkpointing.py	73	value	2	6f2e69c7d94b2c6b	1	
+torchtitan/components/checkpointer/torch_checkpointing#_BackendCheckpointStorage	torchtitan/components/checkpointer/torch_checkpointing.py	76	class	2	145d8ca7e9f4bb60	1	
+torchtitan/components/checkpointer/torch_checkpointing#_BackendCheckpointStorage.__init__	torchtitan/components/checkpointer/torch_checkpointing.py	94	method	0	cede455e81025cbb	0	
+torchtitan/components/checkpointer/torch_checkpointing#_BackendCheckpointStorage._storage	torchtitan/components/checkpointer/torch_checkpointing.py	95	member	10	37d957905767efaf	4	
+torchtitan/components/checkpointer/torch_checkpointing#_BackendCheckpointStorage.isdir	torchtitan/components/checkpointer/torch_checkpointing.py	97	method	5	00873373c0d70836	0	
+torchtitan/components/checkpointer/torch_checkpointing#_BackendCheckpointStorage.isfile	torchtitan/components/checkpointer/torch_checkpointing.py	100	method	5	6e75c64df5fce25e	0	
+torchtitan/components/checkpointer/torch_checkpointing#_BackendCheckpointStorage.listdir	torchtitan/components/checkpointer/torch_checkpointing.py	104	method	5	215595c3b0386130	0	
+torchtitan/components/checkpointer/torch_checkpointing#_BackendCheckpointStorage.remove	torchtitan/components/checkpointer/torch_checkpointing.py	107	method	7	4c1c73dbc58fe2e1	1	
+torchtitan/components/checkpointer/torch_checkpointing#_init_subprocess_logging	torchtitan/components/checkpointer/torch_checkpointing.py	111	function	7	f4cffe5a825be9c3	1	
+torchtitan/components/checkpointer/torch_checkpointing#_item_specs	torchtitan/components/checkpointer/torch_checkpointing.py	133	function	14	76720dec4f2ea392	2	
+torchtitan/components/checkpointer/torch_checkpointing#_writer_config	torchtitan/components/checkpointer/torch_checkpointing.py	149	function	19	98f17d7857f984d9	2	
+torchtitan/components/checkpointer/torch_checkpointing#_async_save_config	torchtitan/components/checkpointer/torch_checkpointing.py	165	function	12	5d62e1da7c825369	1	
+torchtitan/components/checkpointer/torch_checkpointing#_sync_save_config	torchtitan/components/checkpointer/torch_checkpointing.py	173	function	14	bd90da05b301424d	2	
+torchtitan/components/checkpointer/torch_checkpointing#_default_backend_config	torchtitan/components/checkpointer/torch_checkpointing.py	180	function	19	d2aa4ab7a01e6a93	2	
+torchtitan/components/checkpointer/torch_checkpointing#TorchCheckpointingManager	torchtitan/components/checkpointer/torch_checkpointing.py	209	class	5	7631ca1fab79ba59	1	
+torchtitan/components/checkpointer/torch_checkpointing#TorchCheckpointingManager.Config	torchtitan/components/checkpointer/torch_checkpointing.py	221	class	12	0af7050d08d22bd0	1	checkpointing
+torchtitan/components/checkpointer/torch_checkpointing#TorchCheckpointingManager.__init__	torchtitan/components/checkpointer/torch_checkpointing.py	224	method	35	6047ef59e567f7ba	0	checkpointing
+torchtitan/components/checkpointer/torch_checkpointing#TorchCheckpointingManager.save_future	torchtitan/components/checkpointer/torch_checkpointing.py	240	member	6	3f238be3dbac71dc	2	
+torchtitan/components/checkpointer/torch_checkpointing#TorchCheckpointingManager.purge_thread	torchtitan/components/checkpointer/torch_checkpointing.py	241	member	140	3f284ef330b6b621	2	training-components
+torchtitan/components/checkpointer/torch_checkpointing#TorchCheckpointingManager.last_save_model_only	torchtitan/components/checkpointer/torch_checkpointing.py	275	member	7	6b88cf52c08c98fa	1	
+torchtitan/components/checkpointer/torch_checkpointing#TorchCheckpointingManager.last_save_in_hf	torchtitan/components/checkpointer/torch_checkpointing.py	276	member	9	4d9e4a278ea14d49	2	
+torchtitan/components/checkpointer/torch_checkpointing#TorchCheckpointingManager.export_dtype	torchtitan/components/checkpointer/torch_checkpointing.py	277	member	61	c4cdb87406eede40	1	
+torchtitan/components/checkpointer/torch_checkpointing#TorchCheckpointingManager._manager_config	torchtitan/components/checkpointer/torch_checkpointing.py	292	member	25	eac3d8df5aa05900	5	
+torchtitan/components/checkpointer/torch_checkpointing#TorchCheckpointingManager._prewarmed	torchtitan/components/checkpointer/torch_checkpointing.py	297	member	16	f23172c22d52bbd0	2	
+torchtitan/components/checkpointer/torch_checkpointing#TorchCheckpointingManager._manager	torchtitan/components/checkpointer/torch_checkpointing.py	305	member	22	6afeebc0c022c1eb	5	checkpointing
+torchtitan/components/checkpointer/torch_checkpointing#TorchCheckpointingManager.purge_queue	torchtitan/components/checkpointer/torch_checkpointing.py	308	member	39	54cdde6745183237	2	
+torchtitan/components/checkpointer/torch_checkpointing#TorchCheckpointingManager.__del__	torchtitan/components/checkpointer/torch_checkpointing.py	321	method	5	a9affc2d1af0ed50	0	
+torchtitan/components/checkpointer/torch_checkpointing#TorchCheckpointingManager._load_checkpoint	torchtitan/components/checkpointer/torch_checkpointing.py	327	method	10	624758ee1e5f6f9d	1	
+torchtitan/components/checkpointer/torch_checkpointing#TorchCheckpointingManager._save	torchtitan/components/checkpointer/torch_checkpointing.py	365	method	60	b5dcfccbb355b041	1	checkpointing
+torchtitan/components/checkpointer/torch_checkpointing#TorchCheckpointingManager._is_resumable_checkpoint	torchtitan/components/checkpointer/torch_checkpointing.py	400	method	17	6c95798dea28d498	2	
+torchtitan/components/checkpointer/torch_checkpointing#TorchCheckpointingManager._is_valid_checkpoint	torchtitan/components/checkpointer/torch_checkpointing.py	411	method	27	54e50783352dd4ac	2	checkpointing
+torchtitan/components/checkpointer/torch_checkpointing#TorchCheckpointingManager._maybe_wait_for_staging	torchtitan/components/checkpointer/torch_checkpointing.py	429	method	5	c107372cf4cbd4db	1	
+torchtitan/components/checkpointer/torch_checkpointing#TorchCheckpointingManager._wait_for_saving	torchtitan/components/checkpointer/torch_checkpointing.py	436	method	10	13f7ed285088d756	1	
+torchtitan/components/checkpointer/torch_checkpointing#TorchCheckpointingManager._close	torchtitan/components/checkpointer/torch_checkpointing.py	443	method	20	dad7582605d29109	1	
+torchtitan/components/checkpointer/torch_checkpointing#TorchCheckpointingManager._save_last_step	torchtitan/components/checkpointer/torch_checkpointing.py	456	method	92	8472ae5a456219cf	1	checkpointing
+torchtitan/components/checkpointer/torch_checkpointing#TorchCheckpointingManager._should_prewarm	torchtitan/components/checkpointer/torch_checkpointing.py	542	method	17	015ce998daf0b95d	1	
+torchtitan/components/checkpointer/utils#__all__	torchtitan/components/checkpointer/utils.py	9	value	0	939bc565afdcd76c	0	
+torchtitan/components/checkpointer/utils#_WRAPPER_PREFIXES._WRAPPER_PREFIXES	torchtitan/components/checkpointer/utils.py	16	value	2	67ac327e6c7d3e28	1	
+torchtitan/components/checkpointer/utils#canonical_fqn	torchtitan/components/checkpointer/utils.py	19	function	13	7d4389a9992811a0	2	
+torchtitan/components/data/__init__#__all__	torchtitan/components/data/__init__.py	31	value	0	939bc565afdcd76c	0	
+torchtitan/components/data/collators#TrainerBatch.TrainerBatch	torchtitan/components/data/collators.py	27	value	34	9c69dcd50924b304	9	data-loading
+torchtitan/components/data/collators#HAS_PIN_MEMORY	torchtitan/components/data/collators.py	33	value	22	92a81a604e254ed6	3	
+torchtitan/components/data/collators#Collator	torchtitan/components/data/collators.py	36	class	42	e2e46da8417ec5a7	8	data-loading
+torchtitan/components/data/collators#Collator.Config	torchtitan/components/data/collators.py	40	class	18	1cfcd6bbb0ebb34c	4	
+torchtitan/components/data/collators#Collator.__call__	torchtitan/components/data/collators.py	44	method	5	921695bd38462db4	0	
+torchtitan/components/data/collators#Collator.num_rows_per_batch	torchtitan/components/data/collators.py	47	method	5	02f888af451a33e2	0	
+torchtitan/components/data/collators#TextCollator	torchtitan/components/data/collators.py	52	class	11	8ea9ecfe0e5c665e	2	data-loading
+torchtitan/components/data/collators#TextCollator.Config	torchtitan/components/data/collators.py	56	class	14	bc1a79e02bd146e8	2	data-loading
+torchtitan/components/data/collators#TextCollator.__init__	torchtitan/components/data/collators.py	59	method	10	b708ddeae9dc9e12	0	
+torchtitan/components/data/collators#TextCollator._num_tokens_per_batch	torchtitan/components/data/collators.py	61	member	11	dbbb3d12186d88de	1	
+torchtitan/components/data/collators#TextCollator._max_context_length	torchtitan/components/data/collators.py	62	member	7	9e4666ba4b6c67c6	1	
+torchtitan/components/data/collators#TextCollator.__call__	torchtitan/components/data/collators.py	64	method	50	1182c9fce7f71a64	0	data-loading
+torchtitan/components/data/dataset#GrainDataset.GrainDataset	torchtitan/components/data/dataset.py	23	value	8	178bfa537b0767b6	3	
+torchtitan/components/data/dataset#DatasetConfig	torchtitan/components/data/dataset.py	26	class	24	5396b0e32dd7912a	7	data-loading
+torchtitan/components/data/dataset#DatasetConfig.build	torchtitan/components/data/dataset.py	29	method	29	58ea2885de7098c1	7	
+torchtitan/components/data/dataset#TextSequence	torchtitan/components/data/dataset.py	39	class	38	a095055dc893e926	9	data-loading
+torchtitan/components/data/dataset#TextSequence.input_ids	torchtitan/components/data/dataset.py	46	member	40	c9ff14dc950a6214	8	data-loading
+torchtitan/components/data/dataset#TextSequence.labels	torchtitan/components/data/dataset.py	48	member	20	f0c218ac4c5eba56	8	
+torchtitan/components/data/dataset#TextSequence.positions	torchtitan/components/data/dataset.py	50	member	24	f21e8fc2883957ba	6	
+torchtitan/components/data/dataset#TextSequence.padding_mask	torchtitan/components/data/dataset.py	52	member	20	42514fcd25529c0e	6	
+torchtitan/components/data/dataset#TextSequence.__post_init__	torchtitan/components/data/dataset.py	55	method	20	20096e16d105281a	0	
+torchtitan/components/data/dataset#SampleProcessor	torchtitan/components/data/dataset.py	67	class	51	9f648f1365659d87	10	data-loading
+torchtitan/components/data/dataset#SampleProcessor.Config	torchtitan/components/data/dataset.py	71	class	20	1cfcd6bbb0ebb34c	5	
+torchtitan/components/data/dataset#SampleProcessor.__call__	torchtitan/components/data/dataset.py	75	method	0	621a0e0f8cabae9c	0	
+torchtitan/components/data/dataset#SingleDatasetConfig	torchtitan/components/data/dataset.py	84	class	82	a9d794c66ee46475	15	data-loading
+torchtitan/components/data/dataset#SingleDatasetConfig.source	torchtitan/components/data/dataset.py	91	member	69	cbd4a9d7574d55ea	15	data-loading
+torchtitan/components/data/dataset#SingleDatasetConfig.pre_filters	torchtitan/components/data/dataset.py	92	member	4	40b6dc47438480ca	2	
+torchtitan/components/data/dataset#SingleDatasetConfig.processor	torchtitan/components/data/dataset.py	93	member	66	c813c308ee4a3f05	18	data-loading
+torchtitan/components/data/dataset#SingleDatasetConfig.post_filters	torchtitan/components/data/dataset.py	94	member	36	4da472837fa1b7cb	10	data-loading
+torchtitan/components/data/dataset#SingleDatasetConfig.build	torchtitan/components/data/dataset.py	96	method	40	c96ba79fb9966f37	0	data-loading
+torchtitan/components/data/dataset#SingleDatasetConfig._build_map_dataset	torchtitan/components/data/dataset.py	126	method	57	408cabb1a10ee69f	1	data-loading
+torchtitan/components/data/dataset#SingleDatasetConfig._build_iter_dataset	torchtitan/components/data/dataset.py	173	method	52	2948a34db3cf5372	1	data-loading
+torchtitan/components/data/dataset#WeightedDataset	torchtitan/components/data/dataset.py	203	class	4	723ad68661020d17	1	
+torchtitan/components/data/dataset#WeightedDataset.dataset	torchtitan/components/data/dataset.py	206	member	7	9ce580ad2037cdb1	1	
+torchtitan/components/data/dataset#WeightedDataset.weight	torchtitan/components/data/dataset.py	207	member	6	0488759dc6dfd5b1	1	
+torchtitan/components/data/dataset#DatasetMixConfig	torchtitan/components/data/dataset.py	211	class	2	1f66a21fda7e58d5	0	
+torchtitan/components/data/dataset#DatasetMixConfig.datasets	torchtitan/components/data/dataset.py	224	member	13	f97f4170d8c94a73	1	
+torchtitan/components/data/dataset#DatasetMixConfig.build	torchtitan/components/data/dataset.py	226	method	45	be78cb79b29e76bf	0	data-loading
+torchtitan/components/data/dataset#DatasetConcatConfig	torchtitan/components/data/dataset.py	267	class	2	224f742f0e51852d	0	
+torchtitan/components/data/dataset#DatasetConcatConfig.datasets	torchtitan/components/data/dataset.py	270	member	7	d726c54c84a606c8	1	
+torchtitan/components/data/dataset#DatasetConcatConfig.build	torchtitan/components/data/dataset.py	272	method	45	fd742a3d4ac1a982	0	data-loading
+torchtitan/components/data/loader#DataloaderExhaustedError	torchtitan/components/data/loader.py	33	class	16	d74e35d7010030ad	4	
+torchtitan/components/data/loader#BaseDataLoader	torchtitan/components/data/loader.py	39	class	40	ad681008c6b38768	10	data-loading
+torchtitan/components/data/loader#BaseDataLoader.max_num_documents	torchtitan/components/data/loader.py	42	member	10	65fb332abf58494a	4	
+torchtitan/components/data/loader#BaseDataLoader.Config	torchtitan/components/data/loader.py	45	class	18	779a3e28b07c6dca	3	data-loading
+torchtitan/components/data/loader#BaseDataLoader.Config.max_num_documents	torchtitan/components/data/loader.py	46	member	22	35afcd14419a6e55	9	
+torchtitan/components/data/loader#BaseDataLoader.Config.__post_init__	torchtitan/components/data/loader.py	49	method	5	4d4979d9525b84e1	0	
+torchtitan/components/data/loader#BaseDataLoader.__iter__	torchtitan/components/data/loader.py	54	method	5	34dd285275f1127c	0	
+torchtitan/components/data/loader#BaseDataLoader.close	torchtitan/components/data/loader.py	57	method	9	645b385443ca4462	2	
+torchtitan/components/data/loader#GrainDataLoader	torchtitan/components/data/loader.py	61	class	206	55f7ce0bce45d242	70	data-loading
+torchtitan/components/data/loader#GrainDataLoader.Config	torchtitan/components/data/loader.py	65	class	162	08b5156b6f5ab864	69	data-loading
+torchtitan/components/data/loader#GrainDataLoader.Config.dataset	torchtitan/components/data/loader.py	66	member	143	4348893857b92bf1	66	data-loading
+torchtitan/components/data/loader#GrainDataLoader.Config.collator	torchtitan/components/data/loader.py	67	member	74	1f6d2daf33e694af	24	data-loading
+torchtitan/components/data/loader#GrainDataLoader.Config.seed	torchtitan/components/data/loader.py	70	member	2	2203e5cbd470b371	1	
+torchtitan/components/data/loader#GrainDataLoader.Config.shuffle	torchtitan/components/data/loader.py	71	member	18	6dcb7f073473261d	8	
+torchtitan/components/data/loader#GrainDataLoader.Config.repeat	torchtitan/components/data/loader.py	72	member	8	d0e09c4fa370d440	3	
+torchtitan/components/data/loader#GrainDataLoader.Config.streaming_shuffle_buffer_size	torchtitan/components/data/loader.py	73	member	48	6263ffb986399379	21	data-loading
+torchtitan/components/data/loader#GrainDataLoader.Config.read_options	torchtitan/components/data/loader.py	75	member	2	48555cded595b52e	1	
+torchtitan/components/data/loader#GrainDataLoader.Config.num_prefetch_batches	torchtitan/components/data/loader.py	79	member	2	001b597a1c1a8782	1	
+torchtitan/components/data/loader#GrainDataLoader.__init__	torchtitan/components/data/loader.py	82	method	17	a3c03e3c1a86debf	1	data-loading
+torchtitan/components/data/loader#GrainDataLoader._dp_world_size	torchtitan/components/data/loader.py	105	member	4	4a8ba081a91784ef	2	
+torchtitan/components/data/loader#GrainDataLoader._rank_id	torchtitan/components/data/loader.py	106	member	133	7584323f3c65f87e	2	data-loading
+torchtitan/components/data/loader#GrainDataLoader._iterator	torchtitan/components/data/loader.py	153	member	8	9233e3d583de7c5e	4	
+torchtitan/components/data/loader#GrainDataLoader.__iter__	torchtitan/components/data/loader.py	155	method	10	4aed6b595ddebc03	0	
+torchtitan/components/data/loader#GrainDataLoader.state_dict	torchtitan/components/data/loader.py	158	method	15	aae6442971c7db5e	0	
+torchtitan/components/data/loader#GrainDataLoader.load_state_dict	torchtitan/components/data/loader.py	165	method	20	0b8673457a4fd3b2	0	
+torchtitan/components/data/loader#GrainDataLoader.close	torchtitan/components/data/loader.py	186	method	7	a80e06984badfe6c	2	
+torchtitan/components/data/packing#ConcatThenSplitPackingConfig	torchtitan/components/data/packing.py	22	class	104	5bc8df94f9ed19c8	37	data-loading
+torchtitan/components/data/packing#ConcatThenSplitPackingConfig.dataset	torchtitan/components/data/packing.py	25	member	81	9ce580ad2037cdb1	38	
+torchtitan/components/data/packing#ConcatThenSplitPackingConfig.build	torchtitan/components/data/packing.py	27	method	60	9a22648afef3a40f	0	data-loading
+torchtitan/components/data/packing#_DocumentAwareConcatThenSplitIterDataset	torchtitan/components/data/packing.py	72	class	2	576ed016475d6835	1	
+torchtitan/components/data/packing#_DocumentAwareConcatThenSplitIterDataset.__init__	torchtitan/components/data/packing.py	75	method	0	27db9442e71ddeb0	0	
+torchtitan/components/data/packing#_DocumentAwareConcatThenSplitIterDataset._max_num_documents_per_row	torchtitan/components/data/packing.py	84	member	2	7e30b81fc77d7545	1	
+torchtitan/components/data/packing#_DocumentAwareConcatThenSplitIterDataset._max_context_length	torchtitan/components/data/packing.py	85	member	2	d1a5a6624fd8efb0	1	
+torchtitan/components/data/packing#_DocumentAwareConcatThenSplitIterDataset._num_tokens_per_row	torchtitan/components/data/packing.py	86	member	2	3c7f6d1ea9e25e37	1	
+torchtitan/components/data/packing#_DocumentAwareConcatThenSplitIterDataset.__iter__	torchtitan/components/data/packing.py	88	method	20	501d94e277bbf566	0	
+torchtitan/components/data/packing#_DocumentAwareConcatThenSplitIterator	torchtitan/components/data/packing.py	97	class	2	5991f529e83f3558	1	
+torchtitan/components/data/packing#_DocumentAwareConcatThenSplitIterator.__init__	torchtitan/components/data/packing.py	100	method	0	d319f96826647e45	0	
+torchtitan/components/data/packing#_DocumentAwareConcatThenSplitIterator._max_num_documents_per_row	torchtitan/components/data/packing.py	109	member	2	7e30b81fc77d7545	1	
+torchtitan/components/data/packing#_DocumentAwareConcatThenSplitIterator._max_context_length	torchtitan/components/data/packing.py	110	member	4	d1a5a6624fd8efb0	1	
+torchtitan/components/data/packing#_DocumentAwareConcatThenSplitIterator._num_tokens_per_row	torchtitan/components/data/packing.py	111	member	6	3c7f6d1ea9e25e37	1	
+torchtitan/components/data/packing#_DocumentAwareConcatThenSplitIterator._remainder	torchtitan/components/data/packing.py	112	member	21	c860c3b13af2eaa1	3	
+torchtitan/components/data/packing#_DocumentAwareConcatThenSplitIterator._remainder_parent_state	torchtitan/components/data/packing.py	113	member	12	09b3a51e3adf3b11	3	
+torchtitan/components/data/packing#_DocumentAwareConcatThenSplitIterator._remainder_offset	torchtitan/components/data/packing.py	114	member	22	e1e6a9b445e483dc	3	
+torchtitan/components/data/packing#_DocumentAwareConcatThenSplitIterator._finished	torchtitan/components/data/packing.py	115	member	8	8b62b825213014c5	3	
+torchtitan/components/data/packing#_DocumentAwareConcatThenSplitIterator.__next__	torchtitan/components/data/packing.py	117	method	70	bdfed7f8c96d2bd8	0	data-loading
+torchtitan/components/data/packing#_DocumentAwareConcatThenSplitIterator.get_state	torchtitan/components/data/packing.py	199	method	20	c2ad54f00adf6c40	0	
+torchtitan/components/data/packing#_DocumentAwareConcatThenSplitIterator.set_state	torchtitan/components/data/packing.py	212	method	20	6ce138cab1f647de	0	
+torchtitan/components/data/packing#FirstFitPackingConfig	torchtitan/components/data/packing.py	225	class	20	0464a002a88b192f	5	
+torchtitan/components/data/packing#FirstFitPackingConfig.dataset	torchtitan/components/data/packing.py	228	member	17	9ce580ad2037cdb1	6	
+torchtitan/components/data/packing#FirstFitPackingConfig.num_packing_bins	torchtitan/components/data/packing.py	229	member	4	c587718c6e838d9b	2	
+torchtitan/components/data/packing#FirstFitPackingConfig.__post_init__	torchtitan/components/data/packing.py	232	method	5	23ef3f3b2acd493f	0	
+torchtitan/components/data/packing#FirstFitPackingConfig.build	torchtitan/components/data/packing.py	236	method	75	10d4dd3c3afe8f20	0	data-loading
+torchtitan/components/data/packing#_SplitTextSequenceDocuments	torchtitan/components/data/packing.py	294	class	2	67c9b3a6be948bd0	1	
+torchtitan/components/data/packing#_SplitTextSequenceDocuments.__init__	torchtitan/components/data/packing.py	297	method	0	16a1fcf048545ae1	0	
+torchtitan/components/data/packing#_SplitTextSequenceDocuments._max_context_length	torchtitan/components/data/packing.py	302	member	2	d1a5a6624fd8efb0	1	
+torchtitan/components/data/packing#_SplitTextSequenceDocuments.max_fan_out	torchtitan/components/data/packing.py	303	member	0	4b3731906877a425	0	
+torchtitan/components/data/packing#_SplitTextSequenceDocuments.flat_map	torchtitan/components/data/packing.py	305	method	35	b471bec28a45a99c	0	data-loading
+torchtitan/components/data/packing#_next_document_chunk_end	torchtitan/components/data/packing.py	335	function	4	2fe51ed302e846bb	2	
+torchtitan/components/data/packing#_packing_output_is_full	torchtitan/components/data/packing.py	351	function	2	465722c06e3da0d2	1	
+torchtitan/components/data/packing#_text_sequence_to_packing_input	torchtitan/components/data/packing.py	356	function	29	b4bdfe024bbd359d	2	
+torchtitan/components/data/packing#_packing_output_to_text_sequence	torchtitan/components/data/packing.py	381	function	34	743e0bb7cf779cc2	2	data-loading
+torchtitan/components/data/sources#cache_dir	torchtitan/components/data/sources.py	20	value	14	b204097e16a2be69	2	
+torchtitan/components/data/sources#RandomAccessDataSource	torchtitan/components/data/sources.py	29	class	8	d327584f832d5ef7	2	
+torchtitan/components/data/sources#RandomAccessDataSource.__len__	torchtitan/components/data/sources.py	32	method	0	ec47baacf704f42e	0	
+torchtitan/components/data/sources#RandomAccessDataSource.__getitem__	torchtitan/components/data/sources.py	35	method	0	cb0ddb64a337e0a4	0	
+torchtitan/components/data/sources#SourceConfig	torchtitan/components/data/sources.py	39	class	6	a663fac41193e9e2	1	
+torchtitan/components/data/sources#SourceConfig.build	torchtitan/components/data/sources.py	42	method	12	2f2bd044682994a0	1	
+torchtitan/components/data/sources#IndexedJsonlSource	torchtitan/components/data/sources.py	50	class	7	59b9ed786c36bdc8	1	
+torchtitan/components/data/sources#IndexedJsonlSource.Config	torchtitan/components/data/sources.py	54	class	12	4620c6a60979250f	1	
+torchtitan/components/data/sources#IndexedJsonlSource.Config.patterns	torchtitan/components/data/sources.py	55	member	2	10396f1eda36ca41	1	
+torchtitan/components/data/sources#IndexedJsonlSource.__init__	torchtitan/components/data/sources.py	57	method	10	43abc44e01fc58e3	0	
+torchtitan/components/data/sources#IndexedJsonlSource._paths	torchtitan/components/data/sources.py	64	member	14	9d3c9bafa4c6cbb2	2	
+torchtitan/components/data/sources#IndexedJsonlSource._path_ids	torchtitan/components/data/sources.py	65	member	4	f14e07b8271a6f9e	2	
+torchtitan/components/data/sources#IndexedJsonlSource._byte_offsets	torchtitan/components/data/sources.py	66	member	21	1cf4f372a6d7c1ed	3	
+torchtitan/components/data/sources#IndexedJsonlSource.__len__	torchtitan/components/data/sources.py	80	method	5	5fe7cf2f4deab0da	0	
+torchtitan/components/data/sources#IndexedJsonlSource.__getitem__	torchtitan/components/data/sources.py	83	method	15	ef8b2e012c1f727a	0	
+torchtitan/components/data/sources#HuggingFaceRandomAccessSource	torchtitan/components/data/sources.py	94	class	29	a84756e7e1c2932d	7	data-loading
+torchtitan/components/data/sources#HuggingFaceRandomAccessSource.Config	torchtitan/components/data/sources.py	98	class	24	07b49499ed21e42a	7	
+torchtitan/components/data/sources#HuggingFaceRandomAccessSource.Config.path	torchtitan/components/data/sources.py	99	member	14	9d232014518aa1d6	7	
+torchtitan/components/data/sources#HuggingFaceRandomAccessSource.Config.split	torchtitan/components/data/sources.py	100	member	14	5c392bb1110695e2	7	
+torchtitan/components/data/sources#HuggingFaceRandomAccessSource.Config.name	torchtitan/components/data/sources.py	101	member	4	d6f5ef57ef6b74aa	2	
+torchtitan/components/data/sources#HuggingFaceRandomAccessSource.Config.revision	torchtitan/components/data/sources.py	102	member	2	7a1f792123dd11fb	1	
+torchtitan/components/data/sources#HuggingFaceRandomAccessSource.Config.load_dataset_kwargs	torchtitan/components/data/sources.py	103	member	12	e5ab253facac78d5	6	
+torchtitan/components/data/sources#HuggingFaceRandomAccessSource.Config.__post_init__	torchtitan/components/data/sources.py	105	method	5	cbe291f2442bca6a	0	
+torchtitan/components/data/sources#HuggingFaceRandomAccessSource.__init__	torchtitan/components/data/sources.py	115	method	40	d143d16c297d013b	0	
+torchtitan/components/data/sources#HuggingFaceRandomAccessSource._dataset	torchtitan/components/data/sources.py	136	member	4	fa399761b79d8c04	2	
+torchtitan/components/data/sources#HuggingFaceRandomAccessSource.__len__	torchtitan/components/data/sources.py	138	method	5	b2ae4e10851fb0a8	0	
+torchtitan/components/data/sources#HuggingFaceRandomAccessSource.__getitem__	torchtitan/components/data/sources.py	141	method	5	c2243a1d2b6ee622	0	
+torchtitan/components/data/sources#HuggingFaceStreamingSource	torchtitan/components/data/sources.py	145	class	33	73e071bb54b19132	4	data-loading
+torchtitan/components/data/sources#HuggingFaceStreamingSource.Config	torchtitan/components/data/sources.py	149	class	32	07b49499ed21e42a	4	
+torchtitan/components/data/sources#HuggingFaceStreamingSource.Config.path	torchtitan/components/data/sources.py	150	member	22	9d232014518aa1d6	4	
+torchtitan/components/data/sources#HuggingFaceStreamingSource.Config.split	torchtitan/components/data/sources.py	151	member	22	5c392bb1110695e2	4	
+torchtitan/components/data/sources#HuggingFaceStreamingSource.Config.name	torchtitan/components/data/sources.py	152	member	6	d6f5ef57ef6b74aa	2	
+torchtitan/components/data/sources#HuggingFaceStreamingSource.Config.revision	torchtitan/components/data/sources.py	153	member	2	7a1f792123dd11fb	1	
+torchtitan/components/data/sources#HuggingFaceStreamingSource.Config.load_dataset_kwargs	torchtitan/components/data/sources.py	154	member	12	e5ab253facac78d5	4	
+torchtitan/components/data/sources#HuggingFaceStreamingSource.Config.__post_init__	torchtitan/components/data/sources.py	156	method	5	cbe291f2442bca6a	0	
+torchtitan/components/data/sources#HuggingFaceStreamingSource.__init__	torchtitan/components/data/sources.py	166	method	40	f4b9c5dbb6220bf4	0	data-loading
+torchtitan/components/data/sources#HuggingFaceStreamingSource._dataset	torchtitan/components/data/sources.py	193	member	12	2e2016bdb85414ed	1	
+torchtitan/components/data/sources#HuggingFaceStreamingSource._repeat	torchtitan/components/data/sources.py	198	member	7	052eb1827dda1e52	1	
+torchtitan/components/data/sources#HuggingFaceStreamingSource._shuffle	torchtitan/components/data/sources.py	199	member	7	a941f0c76a5f0fd3	1	
+torchtitan/components/data/sources#HuggingFaceStreamingSource.__iter__	torchtitan/components/data/sources.py	201	method	20	5d68881f8b350aff	0	
+torchtitan/components/data/sources#_file_patterns_to_paths	torchtitan/components/data/sources.py	209	function	2	6961246d959f771b	1	
+torchtitan/components/data/sources#_HuggingFaceCursorIterator	torchtitan/components/data/sources.py	226	class	2	444a2a156b8d0962	1	
+torchtitan/components/data/sources#_HuggingFaceCursorIterator.__init__	torchtitan/components/data/sources.py	229	method	0	1ea94bb50cf4457a	0	
+torchtitan/components/data/sources#_HuggingFaceCursorIterator._dataset	torchtitan/components/data/sources.py	237	member	14	b751358a6e70d7ad	3	
+torchtitan/components/data/sources#_HuggingFaceCursorIterator._repeat	torchtitan/components/data/sources.py	238	member	2	8ee128a44a5dd747	1	
+torchtitan/components/data/sources#_HuggingFaceCursorIterator._shuffle	torchtitan/components/data/sources.py	239	member	4	8df6c32167db593f	2	
+torchtitan/components/data/sources#_HuggingFaceCursorIterator._epoch	torchtitan/components/data/sources.py	240	member	10	ffd8afff87f28a48	3	
+torchtitan/components/data/sources#_HuggingFaceCursorIterator._initial_state	torchtitan/components/data/sources.py	241	member	2	f7b0d44c56e3b91c	1	
+torchtitan/components/data/sources#_HuggingFaceCursorIterator._iterator	torchtitan/components/data/sources.py	242	member	8	54643e7428c63c51	2	
+torchtitan/components/data/sources#_HuggingFaceCursorIterator.__next__	torchtitan/components/data/sources.py	244	method	30	9cca338371c01580	0	data-loading
+torchtitan/components/data/sources#_HuggingFaceCursorIterator.get_state	torchtitan/components/data/sources.py	257	method	10	397c9f132e7e6619	0	
+torchtitan/components/data/sources#_HuggingFaceCursorIterator.set_state	torchtitan/components/data/sources.py	263	method	20	28a674415a306fb5	0	
+torchtitan/components/data/types#DatasetBuildContext	torchtitan/components/data/types.py	17	class	54	814552f228b45cab	18	data-loading
+torchtitan/components/data/types#DatasetBuildContext.tokenizer	torchtitan/components/data/types.py	20	member	25	2e9c410eae848616	10	
+torchtitan/components/data/types#DatasetBuildContext.max_context_length	torchtitan/components/data/types.py	21	member	28	a96dd19cf6668bde	9	
+torchtitan/components/data/types#DatasetBuildContext.num_tokens_per_batch	torchtitan/components/data/types.py	22	member	32	c19fee162ece9b26	7	data-loading
+torchtitan/components/data/types#DatasetBuildContext.read_options	torchtitan/components/data/types.py	23	member	14	45fdb0e1f836f0e8	6	
+torchtitan/components/data/types#DatasetBuildContext.max_num_documents	torchtitan/components/data/types.py	24	member	10	65fb332abf58494a	3	
+torchtitan/components/data/types#DatasetIterationPolicy	torchtitan/components/data/types.py	28	class	44	ced39bdb91d3650a	16	data-loading
+torchtitan/components/data/types#DatasetIterationPolicy.seed	torchtitan/components/data/types.py	31	member	18	4258ab0dc60b0e8a	7	
+torchtitan/components/data/types#DatasetIterationPolicy.shuffle	torchtitan/components/data/types.py	32	member	14	c42777bd3f4c421e	7	
+torchtitan/components/data/types#DatasetIterationPolicy.repeat	torchtitan/components/data/types.py	33	member	8	5d348f7ac107d5b6	4	
+torchtitan/components/data/types#DatasetIterationPolicy.dp_rank	torchtitan/components/data/types.py	34	member	18	043053e3f59c27cc	5	
+torchtitan/components/data/types#DatasetIterationPolicy.dp_world_size	torchtitan/components/data/types.py	35	member	16	b23b4be9a708a118	4	
+torchtitan/components/data/types#DatasetIterationPolicy.streaming_shuffle_buffer_size	torchtitan/components/data/types.py	36	member	4	c418aaccb981cafe	2	
+torchtitan/components/lora#_lora_adapter_sharding	torchtitan/components/lora.py	23	function	17	be08f645e54da7ff	1	
+torchtitan/components/lora#_lora_class_cache._lora_class_cache	torchtitan/components/lora.py	57	value	6	387ecf8b255c9657	1	
+torchtitan/components/lora#_frozen_config_class_cache._frozen_config_class_cache	torchtitan/components/lora.py	58	value	6	1f48a63127baba6c	1	
+torchtitan/components/lora#_get_lora_cls	torchtitan/components/lora.py	61	function	12	f1dcc3db065abca4	1	
+torchtitan/components/lora#_get_lora_cls.LoRALinear	torchtitan/components/lora.py	73	class	8	0a65689278c332a7	1	
+torchtitan/components/lora#_get_lora_cls.LoRALinear.Config	torchtitan/components/lora.py	75	class	2	e6682b8ab8c20b98	1	
+torchtitan/components/lora#_get_lora_cls.LoRALinear.Config.rank	torchtitan/components/lora.py	76	member	6	f66a5461398f3a52	3	
+torchtitan/components/lora#_get_lora_cls.LoRALinear.Config.alpha	torchtitan/components/lora.py	77	member	2	0eb313ed3c3d5cc2	1	
+torchtitan/components/lora#_get_lora_cls.LoRALinear.__init__	torchtitan/components/lora.py	79	method	5	b809d56d68a6dab8	0	
+torchtitan/components/lora#LoRALinear._lora_scaling	torchtitan/components/lora.py	83	member	17	b5eae5448782c949	1	
+torchtitan/components/lora#LoRALinear.lora_a	torchtitan/components/lora.py	87	member	47	7fea9368543e0b27	1	
+torchtitan/components/lora#LoRALinear.lora_b	torchtitan/components/lora.py	96	member	47	11b60b6ea75ea3a6	1	
+torchtitan/components/lora#_get_lora_cls.LoRALinear.forward	torchtitan/components/lora.py	104	method	15	789f681d779bc658	0	
+torchtitan/components/lora#_get_frozen_config_cls	torchtitan/components/lora.py	115	function	22	ae4ee748f6b6028e	1	
+torchtitan/components/lora#_get_frozen_config_cls.FrozenConfig	torchtitan/components/lora.py	122	class	8	4ad9c033eb5d0c3d	1	
+torchtitan/components/lora#_get_frozen_config_cls.FrozenConfig.build	torchtitan/components/lora.py	123	method	5	962c45ea124b777e	0	
+torchtitan/components/lora#_make_frozen_config	torchtitan/components/lora.py	135	function	17	648c846b0bd6fae5	1	
+torchtitan/components/lora#LoRAConverter	torchtitan/components/lora.py	141	class	13	849e1bca32e7f9ac	3	
+torchtitan/components/lora#LoRAConverter.Config	torchtitan/components/lora.py	155	class	16	17318cfaee62017c	3	
+torchtitan/components/lora#LoRAConverter.Config.rank	torchtitan/components/lora.py	156	member	8	d11a5336dee344d8	3	
+torchtitan/components/lora#LoRAConverter.Config.alpha	torchtitan/components/lora.py	159	member	4	e945f8f16423b32f	2	
+torchtitan/components/lora#LoRAConverter.Config.target_modules	torchtitan/components/lora.py	162	member	6	06166926ed097600	2	
+torchtitan/components/lora#LoRAConverter.__init__	torchtitan/components/lora.py	166	method	10	7106d57e334e7cab	0	
+torchtitan/components/lora#LoRAConverter.config	torchtitan/components/lora.py	169	member	0	8857d6c4a0a01b4c	0	
+torchtitan/components/lora#LoRAConverter.rank	torchtitan/components/lora.py	170	member	11	b74dd54e1216b658	2	
+torchtitan/components/lora#LoRAConverter.alpha	torchtitan/components/lora.py	171	member	11	f5b5099ddbb98fc2	2	
+torchtitan/components/lora#LoRAConverter.target_modules	torchtitan/components/lora.py	172	member	35	f0ce66416559bf6f	2	
+torchtitan/components/lora#LoRAConverter._make_lora_config	torchtitan/components/lora.py	186	method	32	c7b3f6fd708dac83	1	
+torchtitan/components/lora#LoRAConverter.convert	torchtitan/components/lora.py	196	method	45	1fbe42df514f0fa1	1	
+torchtitan/components/loss#IGNORE_INDEX	torchtitan/components/loss.py	32	value	82	2be3ea96f6451cb6	24	
+torchtitan/components/loss#LossFunction.LossFunction	torchtitan/components/loss.py	34	value	28	bbc1e7b7e200e428	9	
+torchtitan/components/loss#cross_entropy_loss	torchtitan/components/loss.py	37	function	45	c288e5b170bc7d02	6	
+torchtitan/components/loss#_LossParallelCrossEntropy	torchtitan/components/loss.py	74	class	4	ac732d9f0bec48fb	1	
+torchtitan/components/loss#_LossParallelCrossEntropy.spmd_typecheck	torchtitan/components/loss.py	91	method	0	d1f32a959d98302d	0	
+torchtitan/components/loss#_LossParallelCrossEntropy.forward	torchtitan/components/loss.py	112	method	5	45a83bf6a7a17a32	0	
+torchtitan/components/loss#_LossParallelCrossEntropy.backward	torchtitan/components/loss.py	199	method	5	cca4e56f7c33c178	0	
+torchtitan/components/loss#mse_loss	torchtitan/components/loss.py	229	function	2	9ea0fb7c934967dd	1	
+torchtitan/components/loss#BaseLoss	torchtitan/components/loss.py	236	class	83	609fc525cf993e9c	19	training-components
+torchtitan/components/loss#BaseLoss.fn	torchtitan/components/loss.py	245	member	19	37044a08864bb27d	5	
+torchtitan/components/loss#BaseLoss.Config	torchtitan/components/loss.py	248	class	34	1cfcd6bbb0ebb34c	11	
+torchtitan/components/loss#BaseLoss.__init__	torchtitan/components/loss.py	252	method	10	5d6d82ea9a8bc647	0	
+torchtitan/components/loss#BaseLoss._maybe_compile	torchtitan/components/loss.py	255	method	36	1002cdcf06df6972	3	
+torchtitan/components/loss#BaseLoss.__call__	torchtitan/components/loss.py	264	method	15	c733b0f7aebc4bea	0	
+torchtitan/components/loss#CrossEntropyLoss	torchtitan/components/loss.py	287	class	264	57bc26e070efce81	98	training-components
+torchtitan/components/loss#CrossEntropyLoss.Config	torchtitan/components/loss.py	291	class	204	57d417d11e94e94d	97	training-components
+torchtitan/components/loss#CrossEntropyLoss.Config.global_vocab_size	torchtitan/components/loss.py	292	member	114	2c343ba39109982c	57	training-components
+torchtitan/components/loss#CrossEntropyLoss.__init__	torchtitan/components/loss.py	295	method	12	613fe215c3950f25	1	
+torchtitan/components/loss#CrossEntropyLoss.fn	torchtitan/components/loss.py	296	member	17	cf69868c20e0cff6	1	
+torchtitan/components/loss#CrossEntropyLoss.global_vocab_size	torchtitan/components/loss.py	298	member	7	40ca943779ff2ed3	1	
+torchtitan/components/loss#CrossEntropyLoss.__call__	torchtitan/components/loss.py	300	method	24	a46c8e2994bb6e37	1	
+torchtitan/components/loss#MSELoss	torchtitan/components/loss.py	322	class	13	d1357fa8ab564e9b	4	
+torchtitan/components/loss#MSELoss.Config	torchtitan/components/loss.py	326	class	18	643e28af32bf59b8	4	
+torchtitan/components/loss#MSELoss.__init__	torchtitan/components/loss.py	329	method	25	2e735e2a53862979	0	
+torchtitan/components/loss#MSELoss.fn	torchtitan/components/loss.py	330	member	0	7c602bf37e41450f	0	
+torchtitan/components/loss#compute_logprobs	torchtitan/components/loss.py	334	function	29	e65c4edc867c1547	5	
+torchtitan/components/loss#GradAccumulator	torchtitan/components/loss.py	397	class	2	98b6e3e6a3f7f159	1	
+torchtitan/components/loss#GradAccumulator.__init__	torchtitan/components/loss.py	422	method	0	0c4a1129bb10c2c1	0	
+torchtitan/components/loss#GradAccumulator.num_chunks	torchtitan/components/loss.py	433	member	4	cbcd546637f1c996	1	
+torchtitan/components/loss#GradAccumulator.seq_dim	torchtitan/components/loss.py	434	member	4	0c7f83b74df87a7a	1	
+torchtitan/components/loss#GradAccumulator._next_idx	torchtitan/components/loss.py	435	member	6	cc48d73dd1dd7b25	1	
+torchtitan/components/loss#GradAccumulator._device_mesh	torchtitan/components/loss.py	436	member	6	6894dec37c0c0213	2	
+torchtitan/components/loss#GradAccumulator._placements	torchtitan/components/loss.py	438	member	21	197dc3e66ec641eb	2	
+torchtitan/components/loss#GradAccumulator._buffer	torchtitan/components/loss.py	446	member	12	ac659b6cfbef05cb	2	
+torchtitan/components/loss#GradAccumulator.add	torchtitan/components/loss.py	448	method	27	1863b75ea1a7eb36	1	
+torchtitan/components/loss#GradAccumulator.result	torchtitan/components/loss.py	491	method	17	a78d2073ca516903	1	
+torchtitan/components/loss#ChunkedLossWrapper	torchtitan/components/loss.py	515	class	242	1a79777bfbe8475e	86	graph-trainer
+torchtitan/components/loss#ChunkedLossWrapper.Config	torchtitan/components/loss.py	560	class	168	206749a8aee46231	79	training-components
+torchtitan/components/loss#ChunkedLossWrapper.Config.num_chunks	torchtitan/components/loss.py	561	member	50	15fc5c926380c22a	24	
+torchtitan/components/loss#ChunkedLossWrapper.Config.loss_fn	torchtitan/components/loss.py	564	member	164	6e9a5ac09c4d921a	71	training-components
+torchtitan/components/loss#ChunkedLossWrapper.__init__	torchtitan/components/loss.py	567	method	10	9a8fe45a37938c08	0	
+torchtitan/components/loss#ChunkedLossWrapper.num_chunks	torchtitan/components/loss.py	573	member	7	95e2cc90900b59f3	1	
+torchtitan/components/loss#ChunkedLossWrapper.loss_fn	torchtitan/components/loss.py	574	member	17	40048114c870f3d5	1	
+torchtitan/components/loss#ChunkedLossWrapper.lm_head	torchtitan/components/loss.py	575	member	10	7e70353058ccf969	5	
+torchtitan/components/loss#ChunkedLossWrapper.set_lm_head	torchtitan/components/loss.py	577	method	27	ae5fa508f4421f34	8	
+torchtitan/components/loss#ChunkedLossWrapper.__call__	torchtitan/components/loss.py	581	method	50	7ec496b32b2f67a3	0	
+torchtitan/components/loss#ChunkedLossWrapper._chunk_local	torchtitan/components/loss.py	638	method	4	b7f35e5d29f186a1	1	
+torchtitan/components/loss#ChunkedLossWrapper._chunk	torchtitan/components/loss.py	649	method	11	121618c067fc2df6	1	
+torchtitan/components/loss#ChunkedLossWrapper._combine_chunk_metrics	torchtitan/components/loss.py	778	method	2	81cd2f61b0028241	1	
+torchtitan/components/loss#ChunkedLossWrapper._gradient_backprop	torchtitan/components/loss.py	806	method	12	4bb71d4b6f3145b5	1	
+torchtitan/components/loss#_DecoderOutputGradientBackProp	torchtitan/components/loss.py	827	class	2	714b8acd58fde43e	1	
+torchtitan/components/loss#_DecoderOutputGradientBackProp.forward	torchtitan/components/loss.py	841	method	0	35b58679af021759	0	
+torchtitan/components/loss#_DecoderOutputGradientBackProp.backward	torchtitan/components/loss.py	855	method	0	2144ffe070bde269	0	
+torchtitan/components/metrics#DeviceMemStats	torchtitan/components/metrics.py	25	value	2	65a9b3461d56facc	1	
+torchtitan/components/metrics#DeviceMemoryMonitor	torchtitan/components/metrics.py	38	class	4	c8f4f5c8efac7904	2	
+torchtitan/components/metrics#DeviceMemoryMonitor.__init__	torchtitan/components/metrics.py	39	method	5	bbac74e58932e366	0	
+torchtitan/components/metrics#DeviceMemoryMonitor.device	torchtitan/components/metrics.py	43	member	6	fdbc5dc99df80111	3	
+torchtitan/components/metrics#DeviceMemoryMonitor.device_name	torchtitan/components/metrics.py	44	member	14	e077c03c15a74a6f	2	
+torchtitan/components/metrics#DeviceMemoryMonitor.device_index	torchtitan/components/metrics.py	45	member	5	4449216a32c87f78	0	
+torchtitan/components/metrics#DeviceMemoryMonitor.device_capacity	torchtitan/components/metrics.py	46	member	14	3a26c1755699c399	2	
+torchtitan/components/metrics#DeviceMemoryMonitor.device_capacity_gib	torchtitan/components/metrics.py	49	member	17	40ded6231a5790c6	1	
+torchtitan/components/metrics#DeviceMemoryMonitor._to_gib	torchtitan/components/metrics.py	54	method	6	3072602875769232	2	
+torchtitan/components/metrics#DeviceMemoryMonitor._to_pct	torchtitan/components/metrics.py	60	method	9	aa2b3ff468e719ab	1	
+torchtitan/components/metrics#DeviceMemoryMonitor.get_peak_stats	torchtitan/components/metrics.py	63	method	39	97ed000ddf25ece7	2	
+torchtitan/components/metrics#DeviceMemoryMonitor.reset_peak_stats	torchtitan/components/metrics.py	93	method	11	fce241be1a8ba50b	3	
+torchtitan/components/metrics#build_device_memory_monitor	torchtitan/components/metrics.py	97	function	27	865198a7513cddfe	1	
+torchtitan/components/metrics#BaseLogger	torchtitan/components/metrics.py	106	class	53	4d9f513540a5ada7	9	
+torchtitan/components/metrics#BaseLogger.log	torchtitan/components/metrics.py	109	method	33	6cedd912d7a63256	4	
+torchtitan/components/metrics#BaseLogger.close	torchtitan/components/metrics.py	112	method	31	645b385443ca4462	3	
+torchtitan/components/metrics#TensorBoardLogger	torchtitan/components/metrics.py	116	class	15	75e94b6f08c54dd7	4	
+torchtitan/components/metrics#TensorBoardLogger.__init__	torchtitan/components/metrics.py	119	method	0	fc545e0cc3001968	0	
+torchtitan/components/metrics#TensorBoardLogger.tag	torchtitan/components/metrics.py	120	member	4	faacc3e68374720a	1	
+torchtitan/components/metrics#TensorBoardLogger.writer	torchtitan/components/metrics.py	121	member	11	847622e2691f4832	2	
+torchtitan/components/metrics#TensorBoardLogger.log	torchtitan/components/metrics.py	124	method	10	8a33720836873472	1	
+torchtitan/components/metrics#TensorBoardLogger.close	torchtitan/components/metrics.py	132	method	5	00af8deaae706764	1	
+torchtitan/components/metrics#WandBLogger	torchtitan/components/metrics.py	136	class	15	49389aa0d0896de5	4	
+torchtitan/components/metrics#WandBLogger.__init__	torchtitan/components/metrics.py	139	method	0	db422f91b8dd7617	0	
+torchtitan/components/metrics#WandBLogger.wandb	torchtitan/components/metrics.py	148	member	8	3b2635136734e050	3	
+torchtitan/components/metrics#WandBLogger.tag	torchtitan/components/metrics.py	149	member	14	faacc3e68374720a	1	
+torchtitan/components/metrics#WandBLogger.log	torchtitan/components/metrics.py	170	method	10	e9bc454324f8b2b3	1	
+torchtitan/components/metrics#WandBLogger.close	torchtitan/components/metrics.py	177	method	5	7b4e43fb6200e5d6	1	
+torchtitan/components/metrics#LoggerContainer	torchtitan/components/metrics.py	182	class	7	d5246850f1668524	2	
+torchtitan/components/metrics#LoggerContainer.__init__	torchtitan/components/metrics.py	185	method	5	b844c0d49d384980	0	
+torchtitan/components/metrics#LoggerContainer._loggers	torchtitan/components/metrics.py	186	member	8	1ff2a6af9f81a2c0	4	
+torchtitan/components/metrics#LoggerContainer.add_logger	torchtitan/components/metrics.py	188	method	14	ec690261bb4c3e76	1	
+torchtitan/components/metrics#LoggerContainer.log	torchtitan/components/metrics.py	191	method	10	d7fdae5f0b50e021	1	
+torchtitan/components/metrics#LoggerContainer.number_of_loggers	torchtitan/components/metrics.py	196	method	7	30101f73c51b01f2	1	
+torchtitan/components/metrics#LoggerContainer.close	torchtitan/components/metrics.py	199	method	10	aca9368aaa565bc1	1	
+torchtitan/components/metrics#ensure_pp_loss_visible	torchtitan/components/metrics.py	204	function	53	c583de462378c6a9	3	
+torchtitan/components/metrics#_get_metrics_rank	torchtitan/components/metrics.py	237	function	22	56b6c80ee1930ea2	1	
+torchtitan/components/metrics#MetricsProcessor	torchtitan/components/metrics.py	265	class	195	bde302f72a86b35a	70	training-components
+torchtitan/components/metrics#MetricsProcessor.Config	torchtitan/components/metrics.py	283	class	148	54d8c8b22ac5d4ea	68	
+torchtitan/components/metrics#MetricsProcessor.Config.log_freq	torchtitan/components/metrics.py	284	member	134	7ce667948f8bcc5a	67	training-components
+torchtitan/components/metrics#MetricsProcessor.Config.enable_moe_routing	torchtitan/components/metrics.py	287	member	10	72edce962a0271ce	5	
+torchtitan/components/metrics#MetricsProcessor.Config.enable_tensorboard	torchtitan/components/metrics.py	290	member	16	8cf8827833fabe69	6	
+torchtitan/components/metrics#MetricsProcessor.Config.disable_color_printing	torchtitan/components/metrics.py	293	member	2	b1c5ec6b83a146f6	1	
+torchtitan/components/metrics#MetricsProcessor.Config.save_tb_folder	torchtitan/components/metrics.py	296	member	4	dd28b593cf90a99c	2	
+torchtitan/components/metrics#MetricsProcessor.Config.save_for_all_ranks	torchtitan/components/metrics.py	299	member	4	5c6094f7d7daec1a	1	
+torchtitan/components/metrics#MetricsProcessor.Config.enable_wandb	torchtitan/components/metrics.py	307	member	8	adeee3b8128c448b	2	
+torchtitan/components/metrics#MetricsProcessor.Config.__post_init__	torchtitan/components/metrics.py	310	method	5	92331466cafc2c06	0	
+torchtitan/components/metrics#MetricsProcessor.config	torchtitan/components/metrics.py	314	member	9	237cea18238d0b49	2	
+torchtitan/components/metrics#MetricsProcessor.logger	torchtitan/components/metrics.py	315	member	13	e8473b1d642808c5	4	
+torchtitan/components/metrics#MetricsProcessor.parallel_dims	torchtitan/components/metrics.py	316	member	11	1a9b4525a6bb7660	3	
+torchtitan/components/metrics#MetricsProcessor.device_memory_monitor	torchtitan/components/metrics.py	317	member	19	2374c3dffe5a8449	3	
+torchtitan/components/metrics#MetricsProcessor.color	torchtitan/components/metrics.py	318	member	16	31748358e0adab15	3	
+torchtitan/components/metrics#MetricsProcessor.gpu_peak_flops	torchtitan/components/metrics.py	320	member	4	bfc8a2f294fcecd7	2	
+torchtitan/components/metrics#MetricsProcessor.ntokens_since_last_log	torchtitan/components/metrics.py	321	member	18	d5436ac244680638	7	
+torchtitan/components/metrics#MetricsProcessor.data_loading_times	torchtitan/components/metrics.py	322	member	14	7497b4b3b17dfb5a	4	
+torchtitan/components/metrics#MetricsProcessor.time_last_log	torchtitan/components/metrics.py	323	member	10	e8bf859eed6b8f0b	3	
+torchtitan/components/metrics#MetricsProcessor.step_last_log	torchtitan/components/metrics.py	324	member	14	f74e0350d902d34a	4	
+torchtitan/components/metrics#MetricsProcessor.num_flops_per_token	torchtitan/components/metrics.py	326	member	8	7d7a21fcb2ea4fbc	2	
+torchtitan/components/metrics#MetricsProcessor.has_quantization	torchtitan/components/metrics.py	327	member	4	a1306a1a07b6ac66	2	
+torchtitan/components/metrics#MetricsProcessor.optimizers	torchtitan/components/metrics.py	328	member	7	8a1efc943195b175	1	
+torchtitan/components/metrics#MetricsProcessor.model_parts	torchtitan/components/metrics.py	329	member	2	9fd8ad5cadba01ed	1	
+torchtitan/components/metrics#MetricsProcessor.__init__	torchtitan/components/metrics.py	331	method	120	2fca73ba3956418f	0	
+torchtitan/components/metrics#MetricsProcessor.should_log	torchtitan/components/metrics.py	376	method	23	c5a1b48c31a9529a	4	
+torchtitan/components/metrics#MetricsProcessor._build_metric_logger	torchtitan/components/metrics.py	381	method	72	bcd26f6782dd9e22	1	
+torchtitan/components/metrics#MetricsProcessor.log	torchtitan/components/metrics.py	467	method	135	a48828dbe959fef4	5	training-components
+torchtitan/components/metrics#MetricsProcessor.log_validation	torchtitan/components/metrics.py	558	method	89	7e0213532f8ee455	2	
+torchtitan/components/metrics#MetricsProcessor.close	torchtitan/components/metrics.py	598	method	12	8e031fd84e4fb12c	1	
+torchtitan/components/optimizer/__init__#__all__	torchtitan/components/optimizer/__init__.py	15	value	0	939bc565afdcd76c	0	
+torchtitan/components/optimizer/lr_scheduler#__all__	torchtitan/components/optimizer/lr_scheduler.py	20	value	0	939bc565afdcd76c	0	
+torchtitan/components/optimizer/lr_scheduler#LRSchedulersContainer	torchtitan/components/optimizer/lr_scheduler.py	25	class	303	179c4d2d839b661f	115	jax-lane
+torchtitan/components/optimizer/lr_scheduler#LRSchedulersContainer.Config	torchtitan/components/optimizer/lr_scheduler.py	51	class	232	8cb1b46a53b67aab	109	optimizers-and-lr-schedulers
+torchtitan/components/optimizer/lr_scheduler#LRSchedulersContainer.Config.warmup_steps	torchtitan/components/optimizer/lr_scheduler.py	52	member	222	ea61500b61ea782e	111	optimizers-and-lr-schedulers
+torchtitan/components/optimizer/lr_scheduler#LRSchedulersContainer.Config.total_steps	torchtitan/components/optimizer/lr_scheduler.py	57	member	6	62cafae2a9bea3ef	2	
+torchtitan/components/optimizer/lr_scheduler#LRSchedulersContainer.Config.decay_ratio	torchtitan/components/optimizer/lr_scheduler.py	65	member	118	5754c4c1b30d2929	58	optimizers-and-lr-schedulers
+torchtitan/components/optimizer/lr_scheduler#LRSchedulersContainer.Config.decay_type	torchtitan/components/optimizer/lr_scheduler.py	74	member	146	9df0fac18b7f909b	73	optimizers-and-lr-schedulers
+torchtitan/components/optimizer/lr_scheduler#LRSchedulersContainer.Config.min_lr_factor	torchtitan/components/optimizer/lr_scheduler.py	82	member	132	6491e76ce12cdf3e	66	optimizers-and-lr-schedulers
+torchtitan/components/optimizer/lr_scheduler#LRSchedulersContainer.Config.build	torchtitan/components/optimizer/lr_scheduler.py	90	method	50	a1e60ed7bc6234ba	5	optimizers-and-lr-schedulers
+torchtitan/components/optimizer/lr_scheduler#LRSchedulersContainer.Config.linear_warmup_stable_decay	torchtitan/components/optimizer/lr_scheduler.py	130	method	2	4e539b86c60e58a3	1	
+torchtitan/components/optimizer/lr_scheduler#LRSchedulersContainer.schedulers	torchtitan/components/optimizer/lr_scheduler.py	196	member	24	797f4ee7d78c5d6d	12	optimizers-and-lr-schedulers
+torchtitan/components/optimizer/lr_scheduler#LRSchedulersContainer.__init__	torchtitan/components/optimizer/lr_scheduler.py	198	method	10	60f4931a485f2b53	0	optimizers-and-lr-schedulers
+torchtitan/components/optimizer/lr_scheduler#LRSchedulersContainer.__iter__	torchtitan/components/optimizer/lr_scheduler.py	205	method	5	62194a6f0da4f235	0	
+torchtitan/components/optimizer/lr_scheduler#LRSchedulersContainer.__len__	torchtitan/components/optimizer/lr_scheduler.py	208	method	5	725cc9ea05967f9d	0	
+torchtitan/components/optimizer/lr_scheduler#LRSchedulersContainer.get_metrics	torchtitan/components/optimizer/lr_scheduler.py	211	method	7	dce723c2b3148876	1	optimizers-and-lr-schedulers
+torchtitan/components/optimizer/lr_scheduler#LRSchedulersContainer.step	torchtitan/components/optimizer/lr_scheduler.py	222	method	15	fa440458e1054321	5	optimizers-and-lr-schedulers
+torchtitan/components/optimizer/lr_scheduler#LRSchedulersContainer.state_dict	torchtitan/components/optimizer/lr_scheduler.py	226	method	5	5717939749c66ee7	0	
+torchtitan/components/optimizer/lr_scheduler#LRSchedulersContainer.load_state_dict	torchtitan/components/optimizer/lr_scheduler.py	233	method	5	551286ba2d0051bc	0	
+torchtitan/components/optimizer/optimizer#__all__	torchtitan/components/optimizer/optimizer.py	33	value	0	939bc565afdcd76c	0	
+torchtitan/components/optimizer/optimizer#ParamGroupConfig	torchtitan/components/optimizer/optimizer.py	46	class	34	4b8066921da49ca1	9	optimizers-and-lr-schedulers
+torchtitan/components/optimizer/optimizer#ParamGroupConfig.pattern	torchtitan/components/optimizer/optimizer.py	63	member	24	ec4a01d1a8b70f65	7	optimizers-and-lr-schedulers
+torchtitan/components/optimizer/optimizer#ParamGroupConfig.optimizer_name	torchtitan/components/optimizer/optimizer.py	67	member	22	a419f1d061ffca56	7	optimizers-and-lr-schedulers
+torchtitan/components/optimizer/optimizer#ParamGroupConfig.optimizer_kwargs	torchtitan/components/optimizer/optimizer.py	70	member	20	ac119eccc62b50d5	7	optimizers-and-lr-schedulers
+torchtitan/components/optimizer/optimizer#T	torchtitan/components/optimizer/optimizer.py	75	value	8	682da4d9d35a9b22	4	optimizers-and-lr-schedulers
+torchtitan/components/optimizer/optimizer#_MoELike	torchtitan/components/optimizer/optimizer.py	78	class	4	0e371e9f451a3631	1	
+torchtitan/components/optimizer/optimizer#_MoELike.load_balance_coeff	torchtitan/components/optimizer/optimizer.py	79	member	6	c3d53f7fcea9c532	2	
+torchtitan/components/optimizer/optimizer#_MoELike.tokens_per_expert_E	torchtitan/components/optimizer/optimizer.py	80	member	4	df851687f9533690	1	
+torchtitan/components/optimizer/optimizer#_MoELike.expert_bias_E	torchtitan/components/optimizer/optimizer.py	81	member	2	c006c3dc1ee010b3	1	
+torchtitan/components/optimizer/optimizer#OptimizersContainer	torchtitan/components/optimizer/optimizer.py	84	class	117	5f9fe7591c26d9c3	23	optimizers-and-lr-schedulers
+torchtitan/components/optimizer/optimizer#OptimizersContainer.Config	torchtitan/components/optimizer/optimizer.py	108	class	42	ae91404c8432d3b0	11	optimizers-and-lr-schedulers
+torchtitan/components/optimizer/optimizer#OptimizersContainer.Config.param_groups	torchtitan/components/optimizer/optimizer.py	109	member	23	3f0a7005c51ef482	8	optimizers-and-lr-schedulers
+torchtitan/components/optimizer/optimizer#OptimizersContainer.Config.implementation	torchtitan/components/optimizer/optimizer.py	114	member	44	3409d5a99ea74838	18	optimizers-and-lr-schedulers
+torchtitan/components/optimizer/optimizer#OptimizersContainer.Config.optimizer_factory_kwargs_by_name	torchtitan/components/optimizer/optimizer.py	132	member	6	1463947b3cb88ea5	3	
+torchtitan/components/optimizer/optimizer#OptimizersContainer.optimizers	torchtitan/components/optimizer/optimizer.py	143	member	39	84ca1ee958f8ddbf	14	optimizers-and-lr-schedulers
+torchtitan/components/optimizer/optimizer#OptimizersContainer.model_parts	torchtitan/components/optimizer/optimizer.py	144	member	6	11910087fa1ec717	2	
+torchtitan/components/optimizer/optimizer#OptimizersContainer._resolve_optimizer_factory	torchtitan/components/optimizer/optimizer.py	147	method	7	564ac8e3031007e9	1	flex-shard
+torchtitan/components/optimizer/optimizer#OptimizersContainer._build_impl_kwargs	torchtitan/components/optimizer/optimizer.py	158	method	12	6944fb9b895a53fd	1	optimizers-and-lr-schedulers
+torchtitan/components/optimizer/optimizer#OptimizersContainer._build_param_groups	torchtitan/components/optimizer/optimizer.py	173	method	27	8a12dea7ab9d30a7	1	optimizers-and-lr-schedulers
+torchtitan/components/optimizer/optimizer#OptimizersContainer.__init__	torchtitan/components/optimizer/optimizer.py	223	method	72	8d9f60274b67ce91	1	optimizers-and-lr-schedulers
+torchtitan/components/optimizer/optimizer#OptimizersContainer._log_optimizer	torchtitan/components/optimizer/optimizer.py	250	method	7	a739069e3b933f8c	1	optimizers-and-lr-schedulers
+torchtitan/components/optimizer/optimizer#OptimizersContainer._validate_params	torchtitan/components/optimizer/optimizer.py	273	method	7	c78ac1e4bc9295e2	1	
+torchtitan/components/optimizer/optimizer#OptimizersContainer.__iter__	torchtitan/components/optimizer/optimizer.py	287	method	10	e676bc93af740c86	0	optimizers-and-lr-schedulers
+torchtitan/components/optimizer/optimizer#OptimizersContainer.__len__	torchtitan/components/optimizer/optimizer.py	290	method	5	d513d3b3afa92609	0	
+torchtitan/components/optimizer/optimizer#OptimizersContainer.step	torchtitan/components/optimizer/optimizer.py	294	method	21	968b7d9ba3b2e74f	6	optimizers-and-lr-schedulers
+torchtitan/components/optimizer/optimizer#OptimizersContainer.zero_grad	torchtitan/components/optimizer/optimizer.py	307	method	22	77d7797a83b9102c	6	optimizers-and-lr-schedulers
+torchtitan/components/optimizer/optimizer#OptimizersContainer.state_dict	torchtitan/components/optimizer/optimizer.py	311	method	22	fe4b1a5955e0f2b8	1	optimizers-and-lr-schedulers
+torchtitan/components/optimizer/optimizer#OptimizersContainer.load_state_dict	torchtitan/components/optimizer/optimizer.py	325	method	22	fec85e1b12a2b55e	1	optimizers-and-lr-schedulers
+torchtitan/components/optimizer/optimizer#OptimizersContainer._post_init	torchtitan/components/optimizer/optimizer.py	332	method	2	c042be1712154c3d	1	
+torchtitan/components/optimizer/optimizer#OptimizersContainer._register_bf16_optimizer_state_hook	torchtitan/components/optimizer/optimizer.py	337	method	17	2068fde90a72cb82	1	optimizers-and-lr-schedulers
+torchtitan/components/optimizer/optimizer#OptimizersContainer._bf16_state_init_hook	torchtitan/components/optimizer/optimizer.py	350	method	2	848d1b7879fb0f07	1	
+torchtitan/components/optimizer/optimizer#OptimizersContainer._bf16_state_load_hook	torchtitan/components/optimizer/optimizer.py	377	method	2	8c7f218205fe9d87	1	
+torchtitan/components/optimizer/optimizer#OptimizersContainer.init_cache_state_dict	torchtitan/components/optimizer/optimizer.py	391	method	7	1336c1333c59679a	1	
+torchtitan/components/optimizer/optimizer#default_adamw	torchtitan/components/optimizer/optimizer.py	396	function	307	f485da89f2e2b724	107	llama3-model
+torchtitan/components/optimizer/optimizer#_iter_moe_layers	torchtitan/components/optimizer/optimizer.py	425	function	19	d6f393d67228e398	6	optimizers-and-lr-schedulers
+torchtitan/components/optimizer/optimizer#register_moe_load_balancing_hook	torchtitan/components/optimizer/optimizer.py	449	function	76	55d57958c17de5d4	14	optimizers-and-lr-schedulers
+torchtitan/components/optimizer/optimizer#register_moe_load_balancing_hook._should_register_moe_balancing_hook	torchtitan/components/optimizer/optimizer.py	465	function	12	d21b0a45221310d7	1	optimizers-and-lr-schedulers
+torchtitan/components/optimizer/optimizer#register_moe_load_balancing_hook._is_recomputation_enabled	torchtitan/components/optimizer/optimizer.py	481	function	2	8f17bf38becd187d	1	
+torchtitan/components/optimizer/optimizer#register_moe_load_balancing_hook._update_expert_bias	torchtitan/components/optimizer/optimizer.py	484	function	52	eb2268c9c944138e	1	optimizers-and-lr-schedulers
+torchtitan/components/optimizer/optimizer#_moe_routing_metrics_aux_loss	torchtitan/components/optimizer/optimizer.py	558	function	8	ff80741d752b83be	4	optimizers-and-lr-schedulers
+torchtitan/components/optimizer/optimizer#configure_moe_routing_metrics	torchtitan/components/optimizer/optimizer.py	570	function	14	d05b774d6ea3a5c1	1	optimizers-and-lr-schedulers
+torchtitan/components/optimizer/optimizer#_local_metric_tensor	torchtitan/components/optimizer/optimizer.py	588	function	4	07489b0b7af7ada2	1	
+torchtitan/components/optimizer/optimizer#collect_moe_routing_metric_tensors	torchtitan/components/optimizer/optimizer.py	594	function	25	023236aad5966b98	3	optimizers-and-lr-schedulers
+torchtitan/components/optimizer/optimizer#set_moe_routing_metric_tensors	torchtitan/components/optimizer/optimizer.py	625	function	22	6e67809ed7ab411d	3	optimizers-and-lr-schedulers
+torchtitan/components/optimizer/optimizer#get_moe_load_balancing_metrics	torchtitan/components/optimizer/optimizer.py	654	function	24	eee60156267091ed	1	optimizers-and-lr-schedulers
+torchtitan/components/optimizer/optimizer#_all_reduce_moe_metric_sums	torchtitan/components/optimizer/optimizer.py	730	function	2	84c1639e1bc63453	1	
+torchtitan/components/optimizer/utils#__all__	torchtitan/components/optimizer/utils.py	22	value	0	939bc565afdcd76c	0	
+torchtitan/components/optimizer/utils#init_optim_state	torchtitan/components/optimizer/utils.py	29	function	16	603c878a84b109e7	5	optimizers-and-lr-schedulers
+torchtitan/components/optimizer/utils#get_flat_optim_state_dict	torchtitan/components/optimizer/utils.py	88	function	24	9941afc6f3bca943	4	optimizers-and-lr-schedulers
+torchtitan/components/optimizer/utils#load_flat_optim_state_dict	torchtitan/components/optimizer/utils.py	110	function	9	47963a015cae2ec8	1	optimizers-and-lr-schedulers
+torchtitan/components/optimizer/utils#_optim_state_dict_to_fqn_keys	torchtitan/components/optimizer/utils.py	123	function	2	882884679ecb250a	1	
+torchtitan/components/optimizer/utils#_unflatten_optim_state_dict	torchtitan/components/optimizer/utils.py	157	function	7	6c374d7212d74601	1	
+torchtitan/components/optimizer/utils#_flatten_state_nested	torchtitan/components/optimizer/utils.py	208	function	9	e7b30e97e4f573e2	2	optimizers-and-lr-schedulers
+torchtitan/components/optimizer/utils#_reconstruct_nested	torchtitan/components/optimizer/utils.py	220	function	2	795368176ab92cf1	1	
+torchtitan/components/quantization/__init__#QuantizationConverter	torchtitan/components/quantization/__init__.py	21	class	60	10d8cf30bcdc1295	12	quantization
+torchtitan/components/quantization/__init__#QuantizationConverter.Config	torchtitan/components/quantization/__init__.py	29	class	22	db790edc5eea553c	6	quantization
+torchtitan/components/quantization/__init__#QuantizationConverter.Config.model_compile_enabled	torchtitan/components/quantization/__init__.py	30	member	82	f0033793add0fe17	20	quantization
+torchtitan/components/quantization/__init__#__all__	torchtitan/components/quantization/__init__.py	47	value	0	939bc565afdcd76c	0	
+torchtitan/components/quantization/_fsdp_tensor#__all__.__all__	torchtitan/components/quantization/_fsdp_tensor.py	150	value	0	ab9ecff94592b804	0	
+torchtitan/components/quantization/_fsdp_tensor#_FSDP_SHARDED_OPS	torchtitan/components/quantization/_fsdp_tensor.py	154	value	2	924a496ed71a407f	1	
+torchtitan/components/quantization/_fsdp_tensor#_FSDP_UNSHARDED_VIEW_OPS	torchtitan/components/quantization/_fsdp_tensor.py	174	value	2	605bbf63818610d8	1	
+torchtitan/components/quantization/_fsdp_tensor#_FSDP_UNSHARDED_FACTORY_OPS	torchtitan/components/quantization/_fsdp_tensor.py	181	value	2	2caf0427441fef0e	1	
+torchtitan/components/quantization/_fsdp_tensor#_unsharded_inner_tensor_names	torchtitan/components/quantization/_fsdp_tensor.py	188	function	8	69b160d4fba3f58f	4	
+torchtitan/components/quantization/_fsdp_tensor#_unsharded_inner_tensors	torchtitan/components/quantization/_fsdp_tensor.py	198	function	13	9af7df123cd49432	2	
+torchtitan/components/quantization/_fsdp_tensor#_validate_refilled_tensor_identity	torchtitan/components/quantization/_fsdp_tensor.py	222	function	2	6b16b88850d47327	1	
+torchtitan/components/quantization/_fsdp_tensor#_FSDPTensorBase	torchtitan/components/quantization/_fsdp_tensor.py	238	class	9	15123dbc8fd8426d	2	
+torchtitan/components/quantization/_fsdp_tensor#_FSDPTensorBase.__new__	torchtitan/components/quantization/_fsdp_tensor.py	242	method	0	6ba020203a823402	0	
+torchtitan/components/quantization/_fsdp_tensor#_ShardedFSDPTensor	torchtitan/components/quantization/_fsdp_tensor.py	259	class	22	2d356019aa461136	5	quantization
+torchtitan/components/quantization/_fsdp_tensor#_ShardedFSDPTensor.__init__	torchtitan/components/quantization/_fsdp_tensor.py	287	method	0	33680f6a9e34686a	0	
+torchtitan/components/quantization/_fsdp_tensor#_ShardedFSDPTensor._tensor	torchtitan/components/quantization/_fsdp_tensor.py	289	member	22	1f60770e56e3d91e	3	quantization
+torchtitan/components/quantization/_fsdp_tensor#_ShardedFSDPTensor.__tensor_flatten__	torchtitan/components/quantization/_fsdp_tensor.py	291	method	0	05973cc794a0af3c	0	
+torchtitan/components/quantization/_fsdp_tensor#_ShardedFSDPTensor.__tensor_unflatten__	torchtitan/components/quantization/_fsdp_tensor.py	295	method	0	8c2bc66ed98fef56	0	
+torchtitan/components/quantization/_fsdp_tensor#_ShardedFSDPTensor.__torch_dispatch__	torchtitan/components/quantization/_fsdp_tensor.py	301	method	10	347a0d4f799d270f	0	
+torchtitan/components/quantization/_fsdp_tensor#_ShardedFSDPTensor.unwrap	torchtitan/components/quantization/_fsdp_tensor.py	306	method	14	3c240122460e9855	1	
+torchtitan/components/quantization/_fsdp_tensor#_ShardedFSDPTensor._build_operands	torchtitan/components/quantization/_fsdp_tensor.py	323	method	11	8e0f7a80b5945990	2	
+torchtitan/components/quantization/_fsdp_tensor#_ShardedFSDPTensor.fsdp_should_release_all_gather_outputs_after_post_all_gather	torchtitan/components/quantization/_fsdp_tensor.py	331	method	0	cc2c9e8053053f14	0	
+torchtitan/components/quantization/_fsdp_tensor#_ShardedFSDPTensor.fsdp_pre_all_gather	torchtitan/components/quantization/_fsdp_tensor.py	335	method	5	9ce2ecb7b58e60f7	0	
+torchtitan/components/quantization/_fsdp_tensor#_ShardedFSDPTensor.fsdp_post_all_gather	torchtitan/components/quantization/_fsdp_tensor.py	398	method	30	4a2a86e7d85c78c4	0	quantization
+torchtitan/components/quantization/_fsdp_tensor#_UnshardedFSDPTensor	torchtitan/components/quantization/_fsdp_tensor.py	446	class	29	8c4382d0360a2c33	9	quantization
+torchtitan/components/quantization/_fsdp_tensor#_UnshardedFSDPTensor.__init__	torchtitan/components/quantization/_fsdp_tensor.py	462	method	0	d3cbc255efc1a37b	0	
+torchtitan/components/quantization/_fsdp_tensor#_UnshardedFSDPTensor._operands	torchtitan/components/quantization/_fsdp_tensor.py	473	member	17	eddcde3e5e88faf5	6	
+torchtitan/components/quantization/_fsdp_tensor#_UnshardedFSDPTensor.__repr__	torchtitan/components/quantization/_fsdp_tensor.py	484	method	5	aef6533b9738c609	0	
+torchtitan/components/quantization/_fsdp_tensor#_UnshardedFSDPTensor.__tensor_flatten__	torchtitan/components/quantization/_fsdp_tensor.py	497	method	10	1f9bb96d75529335	0	
+torchtitan/components/quantization/_fsdp_tensor#_UnshardedFSDPTensor.__tensor_unflatten__	torchtitan/components/quantization/_fsdp_tensor.py	503	method	10	30a0ee9941f878fd	0	
+torchtitan/components/quantization/_fsdp_tensor#_UnshardedFSDPTensor.__torch_dispatch__	torchtitan/components/quantization/_fsdp_tensor.py	522	method	20	e11bb35d042add35	0	quantization
+torchtitan/components/quantization/_fsdp_tensor#_UnshardedFSDPTensor.unwrap	torchtitan/components/quantization/_fsdp_tensor.py	526	method	12	1f20f45de6729ab0	1	
+torchtitan/components/quantization/_fsdp_tensor#_UnshardedFSDPTensor.wrap_view	torchtitan/components/quantization/_fsdp_tensor.py	542	method	17	f45c5be94438ce43	1	
+torchtitan/components/quantization/_fsdp_tensor#_UnshardedFSDPTensor.operands	torchtitan/components/quantization/_fsdp_tensor.py	580	method	11	ab4bcb7fc8e05c20	3	
+torchtitan/components/quantization/float8#Float8Linear	torchtitan/components/quantization/float8.py	27	class	29	f4946fdce1d8ec87	8	quantization
+torchtitan/components/quantization/float8#Float8Linear.Config	torchtitan/components/quantization/float8.py	35	class	18	88bdd92903f3820d	4	
+torchtitan/components/quantization/float8#Float8Linear.Config._torchao_config	torchtitan/components/quantization/float8.py	38	member	4	07490dc990e3e76a	2	
+torchtitan/components/quantization/float8#Float8Linear.__init__	torchtitan/components/quantization/float8.py	40	method	25	3babe9a9596ffee2	0	quantization
+torchtitan/components/quantization/float8#Float8LinearConverter	torchtitan/components/quantization/float8.py	53	class	34	2fad8e07027910f7	9	quantization
+torchtitan/components/quantization/float8#Float8LinearConverter.Config	torchtitan/components/quantization/float8.py	57	class	24	5e26b6d7546e87fd	7	quantization
+torchtitan/components/quantization/float8#Float8LinearConverter.Config.recipe_name	torchtitan/components/quantization/float8.py	58	member	22	9a1d55441f9fd666	8	quantization
+torchtitan/components/quantization/float8#Float8LinearConverter.Config.filter_fqns	torchtitan/components/quantization/float8.py	61	member	18	6dce7518272a7b62	9	
+torchtitan/components/quantization/float8#Float8LinearConverter.Config.emulate	torchtitan/components/quantization/float8.py	68	member	10	8d79ef9e310130ee	5	
+torchtitan/components/quantization/float8#Float8LinearConverter.__init__	torchtitan/components/quantization/float8.py	74	method	5	8da3992577b3cbbd	0	
+torchtitan/components/quantization/float8#Float8LinearConverter.config	torchtitan/components/quantization/float8.py	75	member	42	8857d6c4a0a01b4c	1	quantization
+torchtitan/components/quantization/float8#Float8LinearConverter.enabled	torchtitan/components/quantization/float8.py	110	member	4	70f0fe601683d4c6	2	
+torchtitan/components/quantization/float8#Float8LinearConverter.torchao_config	torchtitan/components/quantization/float8.py	113	member	24	a568dbcb1d3331b7	2	quantization
+torchtitan/components/quantization/float8#Float8LinearConverter.filter_fn	torchtitan/components/quantization/float8.py	137	member	31	e97a57408c5da733	2	quantization
+torchtitan/components/quantization/float8#Float8LinearConverter.convert	torchtitan/components/quantization/float8.py	151	method	80	78b61f15aa58af26	1	quantization
+torchtitan/components/quantization/float8#_float8_experts_cache._float8_experts_cache	torchtitan/components/quantization/float8.py	181	value	10	934f8e6ac53b880c	2	
+torchtitan/components/quantization/float8#_get_float8_grouped_experts_cls	torchtitan/components/quantization/float8.py	184	function	12	f92e9ca200dc4b55	1	
+torchtitan/components/quantization/float8#_get_float8_grouped_experts_cls.Float8GroupedExperts	torchtitan/components/quantization/float8.py	195	class	8	3874672d0597d2ed	1	
+torchtitan/components/quantization/float8#_get_float8_grouped_experts_cls.Float8GroupedExperts.Config	torchtitan/components/quantization/float8.py	197	class	2	99890797df18d302	1	
+torchtitan/components/quantization/float8#_get_float8_grouped_experts_cls.Float8GroupedExperts.__init__	torchtitan/components/quantization/float8.py	200	method	5	e894f2fb62d0bdbb	0	
+torchtitan/components/quantization/float8#Float8GroupedExperts._float8_op_config	torchtitan/components/quantization/float8.py	204	member	2	70bf5535f847b09c	1	
+torchtitan/components/quantization/float8#_get_float8_grouped_experts_cls.Float8GroupedExperts._grouped_mm	torchtitan/components/quantization/float8.py	206	method	5	d098dc891d2b1a55	0	
+torchtitan/components/quantization/float8#Float8GroupedExpertsConverter	torchtitan/components/quantization/float8.py	224	class	11	44a78b8f270fbe65	3	quantization
+torchtitan/components/quantization/float8#Float8GroupedExpertsConverter.PAD_MULTIPLE	torchtitan/components/quantization/float8.py	228	member	2	322f67d9f1272969	1	
+torchtitan/components/quantization/float8#Float8GroupedExpertsConverter.Config	torchtitan/components/quantization/float8.py	231	class	14	6c41625292dcdc26	2	
+torchtitan/components/quantization/float8#Float8GroupedExpertsConverter.__init__	torchtitan/components/quantization/float8.py	234	method	30	c485d3b40e53da9e	0	
+torchtitan/components/quantization/float8#Float8GroupedExpertsConverter.config	torchtitan/components/quantization/float8.py	235	member	2	8857d6c4a0a01b4c	1	
+torchtitan/components/quantization/float8#Float8GroupedExpertsConverter.convert	torchtitan/components/quantization/float8.py	254	method	40	5746fca3e2a6c206	1	quantization
+torchtitan/components/quantization/mxfp8/__init__#__all__	torchtitan/components/quantization/mxfp8/__init__.py	10	value	0	939bc565afdcd76c	0	
+torchtitan/components/quantization/mxfp8/converter#_mxfp8_linear_import_error._mxfp8_linear_import_error	torchtitan/components/quantization/mxfp8/converter.py	21	value	9	70565d94c3c88a0b	2	
+torchtitan/components/quantization/mxfp8/converter#import_error	torchtitan/components/quantization/mxfp8/converter.py	32	value	17	ce30b31718bc1b34	1	
+torchtitan/components/quantization/mxfp8/converter#_torchao_nightly_install_command	torchtitan/components/quantization/mxfp8/converter.py	37	function	2	46b17c3d825e0a31	1	
+torchtitan/components/quantization/mxfp8/converter#MXFP8LinearConverter	torchtitan/components/quantization/mxfp8/converter.py	58	class	27	e6561719481c9491	6	quantization
+torchtitan/components/quantization/mxfp8/converter#MXFP8LinearConverter.Config	torchtitan/components/quantization/mxfp8/converter.py	62	class	24	47296c2148fbfade	5	quantization
+torchtitan/components/quantization/mxfp8/converter#MXFP8LinearConverter.Config.fqns	torchtitan/components/quantization/mxfp8/converter.py	63	member	8	feb50820abcba020	4	
+torchtitan/components/quantization/mxfp8/converter#MXFP8LinearConverter.Config.linears_saving_inputs_for_backward_in_mxfp8	torchtitan/components/quantization/mxfp8/converter.py	69	member	8	e966cd8f7a6fb2d2	4	
+torchtitan/components/quantization/mxfp8/converter#MXFP8LinearConverter.Config.__post_init__	torchtitan/components/quantization/mxfp8/converter.py	100	method	5	60da668ffd0749e1	0	
+torchtitan/components/quantization/mxfp8/converter#MXFP8LinearConverter.__init__	torchtitan/components/quantization/mxfp8/converter.py	107	method	25	228d10973c277477	0	quantization
+torchtitan/components/quantization/mxfp8/converter#MXFP8LinearConverter.config	torchtitan/components/quantization/mxfp8/converter.py	108	member	4	8857d6c4a0a01b4c	1	
+torchtitan/components/quantization/mxfp8/converter#MXFP8LinearConverter.convert	torchtitan/components/quantization/mxfp8/converter.py	121	method	80	d07b1b903491cd49	1	quantization
+torchtitan/components/quantization/mxfp8/converter#_mxfp8_experts_cache._mxfp8_experts_cache	torchtitan/components/quantization/mxfp8/converter.py	185	value	10	6642492fdbfc59eb	2	
+torchtitan/components/quantization/mxfp8/converter#_get_mxfp8_grouped_experts_cls	torchtitan/components/quantization/mxfp8/converter.py	188	function	12	f933bc7e82da4fb7	1	
+torchtitan/components/quantization/mxfp8/converter#_get_mxfp8_grouped_experts_cls.MXFP8GroupedExperts	torchtitan/components/quantization/mxfp8/converter.py	203	class	8	f4a150f526641346	1	
+torchtitan/components/quantization/mxfp8/converter#_get_mxfp8_grouped_experts_cls.MXFP8GroupedExperts.Config	torchtitan/components/quantization/mxfp8/converter.py	205	class	2	4aa1a04c53441866	1	
+torchtitan/components/quantization/mxfp8/converter#_get_mxfp8_grouped_experts_cls.MXFP8GroupedExperts.Config.recipe_name	torchtitan/components/quantization/mxfp8/converter.py	206	member	2	3e71fe11c389129b	1	
+torchtitan/components/quantization/mxfp8/converter#_get_mxfp8_grouped_experts_cls.MXFP8GroupedExperts.__init__	torchtitan/components/quantization/mxfp8/converter.py	208	method	10	3333df09fcb05b96	0	
+torchtitan/components/quantization/mxfp8/converter#MXFP8GroupedExperts._mxfp8_op_config	torchtitan/components/quantization/mxfp8/converter.py	216	member	2	de68453720007945	1	
+torchtitan/components/quantization/mxfp8/converter#_get_mxfp8_grouped_experts_cls.MXFP8GroupedExperts._grouped_mm	torchtitan/components/quantization/mxfp8/converter.py	218	method	5	c2d0c46742f5c6bb	0	
+torchtitan/components/quantization/mxfp8/converter#MXFP8GroupedExpertsConverter	torchtitan/components/quantization/mxfp8/converter.py	236	class	17	8ea20721c8327b5f	4	quantization
+torchtitan/components/quantization/mxfp8/converter#MXFP8GroupedExpertsConverter.Config	torchtitan/components/quantization/mxfp8/converter.py	240	class	16	0cacfb9c3b54fdf1	3	
+torchtitan/components/quantization/mxfp8/converter#MXFP8GroupedExpertsConverter.Config.recipe_name	torchtitan/components/quantization/mxfp8/converter.py	241	member	4	3dc01c7ce7de5be7	1	
+torchtitan/components/quantization/mxfp8/converter#MXFP8GroupedExpertsConverter.Config.pad_multiple	torchtitan/components/quantization/mxfp8/converter.py	248	member	6	12f7cc695538f198	3	
+torchtitan/components/quantization/mxfp8/converter#MXFP8GroupedExpertsConverter.__init__	torchtitan/components/quantization/mxfp8/converter.py	254	method	25	04b4372f164fa63c	0	
+torchtitan/components/quantization/mxfp8/converter#MXFP8GroupedExpertsConverter.config	torchtitan/components/quantization/mxfp8/converter.py	255	member	8	8857d6c4a0a01b4c	2	
+torchtitan/components/quantization/mxfp8/converter#MXFP8GroupedExpertsConverter.convert	torchtitan/components/quantization/mxfp8/converter.py	271	method	50	579e9b6d41a8e9a4	1	quantization
+torchtitan/components/quantization/mxfp8/linear#__all__	torchtitan/components/quantization/mxfp8/linear.py	40	value	0	e0985935daf4c9aa	0	
+torchtitan/components/quantization/mxfp8/linear#_MXFP8_SCALING_MODE	torchtitan/components/quantization/mxfp8/linear.py	46	value	6	5f015ec69a1b5768	2	
+torchtitan/components/quantization/mxfp8/linear#InputActivationFormatForBackward	torchtitan/components/quantization/mxfp8/linear.py	48	value	4	150e12455f59b60c	2	
+torchtitan/components/quantization/mxfp8/linear#_INPUT_ACTIVATION_FORMATS_FOR_BACKWARD	torchtitan/components/quantization/mxfp8/linear.py	49	value	4	619a75d12c5a713f	1	
+torchtitan/components/quantization/mxfp8/linear#_pad_rows	torchtitan/components/quantization/mxfp8/linear.py	52	function	11	e90a831d71dfc1e8	2	
+torchtitan/components/quantization/mxfp8/linear#_MXFP8LinearFunction	torchtitan/components/quantization/mxfp8/linear.py	66	class	4	3fd76f5e4bc71abe	1	
+torchtitan/components/quantization/mxfp8/linear#_MXFP8LinearFunction.forward	torchtitan/components/quantization/mxfp8/linear.py	69	method	25	6f4703999ce3f6b2	0	quantization
+torchtitan/components/quantization/mxfp8/linear#_MXFP8LinearFunction.backward	torchtitan/components/quantization/mxfp8/linear.py	201	method	20	c08461c1800430d6	0	quantization
+torchtitan/components/quantization/mxfp8/linear#MXFP8Linear	torchtitan/components/quantization/mxfp8/linear.py	303	class	25	77dca718d5959a44	7	quantization
+torchtitan/components/quantization/mxfp8/linear#MXFP8Linear.Config	torchtitan/components/quantization/mxfp8/linear.py	307	class	16	ea540c2838b7a76d	3	
+torchtitan/components/quantization/mxfp8/linear#MXFP8Linear.Config.input_activation_format_for_backward	torchtitan/components/quantization/mxfp8/linear.py	310	member	13	6883824e9903ef02	3	
+torchtitan/components/quantization/mxfp8/linear#MXFP8Linear.Config.__post_init__	torchtitan/components/quantization/mxfp8/linear.py	318	method	15	5d5ade1b14c4f05c	0	
+torchtitan/components/quantization/mxfp8/linear#MXFP8Linear.Config.build	torchtitan/components/quantization/mxfp8/linear.py	336	method	20	9be5917c39a3bf91	0	quantization
+torchtitan/components/quantization/mxfp8/linear#MXFP8Linear.__init__	torchtitan/components/quantization/mxfp8/linear.py	354	method	10	1d46f0493b93055f	0	
+torchtitan/components/quantization/mxfp8/linear#MXFP8Linear.input_activation_format_for_backward	torchtitan/components/quantization/mxfp8/linear.py	356	member	7	15fbf2e7212b0e0e	1	
+torchtitan/components/quantization/mxfp8/linear#MXFP8Linear.weight	torchtitan/components/quantization/mxfp8/linear.py	363	member	16	fd9c89ec718378fb	2	
+torchtitan/components/quantization/mxfp8/linear#MXFP8Linear.forward	torchtitan/components/quantization/mxfp8/linear.py	368	method	60	acb013e7e704b2e8	0	quantization
+torchtitan/components/quantization/mxfp8/tensor#__all__.__all__	torchtitan/components/quantization/mxfp8/tensor.py	23	value	0	ab9ecff94592b804	0	
+torchtitan/components/quantization/mxfp8/tensor#_MXFP8_BLOCK_SIZE	torchtitan/components/quantization/mxfp8/tensor.py	30	value	20	ba275f0c02f372e3	4	
+torchtitan/components/quantization/mxfp8/tensor#_MXFP8LinearOperands	torchtitan/components/quantization/mxfp8/tensor.py	34	class	8	23db85b4e499995d	2	
+torchtitan/components/quantization/mxfp8/tensor#_MXFP8LinearOperands.weight_qdata_dgrad_NK	torchtitan/components/quantization/mxfp8/tensor.py	45	member	10	d8cf7d8eedb24376	4	
+torchtitan/components/quantization/mxfp8/tensor#_MXFP8LinearOperands.weight_scale_fprop_swizzled	torchtitan/components/quantization/mxfp8/tensor.py	46	member	8	50f3a9a35e2ce8ab	3	
+torchtitan/components/quantization/mxfp8/tensor#_MXFP8LinearOperands.weight_scale_dgrad_swizzled	torchtitan/components/quantization/mxfp8/tensor.py	47	member	8	9a4b9762b0df9132	3	
+torchtitan/components/quantization/mxfp8/tensor#_MXFP8LinearOperands.weight_qdata_fprop_KN	torchtitan/components/quantization/mxfp8/tensor.py	50	method	7	fd19d80bbb5cd938	1	
+torchtitan/components/quantization/mxfp8/tensor#_quantize_mxfp8_weight	torchtitan/components/quantization/mxfp8/tensor.py	54	function	31	9762074df943eb81	2	quantization
+torchtitan/components/quantization/mxfp8/tensor#_LinearShardedTensorWithMXFP8Compute	torchtitan/components/quantization/mxfp8/tensor.py	83	class	11	ea001daead0370ed	3	
+torchtitan/components/quantization/mxfp8/tensor#_LinearShardedTensorWithMXFP8Compute._build_operands	torchtitan/components/quantization/mxfp8/tensor.py	92	method	25	007909dd5e955a25	1	quantization
+torchtitan/components/quantization/nvfp4#TP	torchtitan/components/quantization/nvfp4.py	36	value	14	4a9e6b9114717edf	1	
+torchtitan/components/quantization/nvfp4#_NVFP4_BLOCK	torchtitan/components/quantization/nvfp4.py	40	value	4	92f652b8a6c03022	1	
+torchtitan/components/quantization/nvfp4#_HARDCODED_SIGN_VECTOR	torchtitan/components/quantization/nvfp4.py	48	value	2	54904c688398fad6	1	
+torchtitan/components/quantization/nvfp4#NVFP4Linear	torchtitan/components/quantization/nvfp4.py	84	class	21	2c12eb529a076a6a	5	quantization
+torchtitan/components/quantization/nvfp4#NVFP4Linear.Config	torchtitan/components/quantization/nvfp4.py	95	class	14	dfa3992180ce228f	2	
+torchtitan/components/quantization/nvfp4#NVFP4Linear.Config.__post_init__	torchtitan/components/quantization/nvfp4.py	98	method	5	3b1abcb17f09a1f9	0	
+torchtitan/components/quantization/nvfp4#NVFP4Linear.Config.build	torchtitan/components/quantization/nvfp4.py	113	method	50	91bc8ce56eff3a0e	0	quantization
+torchtitan/components/quantization/nvfp4#NVFP4Linear.__init__	torchtitan/components/quantization/nvfp4.py	159	method	25	50ab5ec0f294a805	0	quantization
+torchtitan/components/quantization/nvfp4#NVFP4Linear._rht_sign_vector_tuple	torchtitan/components/quantization/nvfp4.py	184	member	8	e7032dd19bb655df	2	
+torchtitan/components/quantization/nvfp4#NVFP4Linear._local_rht_sign_vector	torchtitan/components/quantization/nvfp4.py	186	method	7	ef2bba757bf4ce29	1	
+torchtitan/components/quantization/nvfp4#NVFP4Linear._refresh_rht_sign_vector_tuple	torchtitan/components/quantization/nvfp4.py	192	method	16	03deb95558c77b85	3	
+torchtitan/components/quantization/nvfp4#NVFP4Linear._load_from_state_dict	torchtitan/components/quantization/nvfp4.py	198	method	5	974f35baf3327c4e	0	
+torchtitan/components/quantization/nvfp4#NVFP4Linear.rht_sign_vector	torchtitan/components/quantization/nvfp4.py	203	method	12	251cfa324daed3a8	1	
+torchtitan/components/quantization/nvfp4#NVFP4Linear._init_self_buffers	torchtitan/components/quantization/nvfp4.py	210	method	0	ca7a8f40da5e12e9	0	
+torchtitan/components/quantization/nvfp4#NVFP4Linear._sr_seed	torchtitan/components/quantization/nvfp4.py	220	member	2	dea4f26975045ff7	1	
+torchtitan/components/quantization/nvfp4#NVFP4Linear._rht_sign_vector	torchtitan/components/quantization/nvfp4.py	229	member	12	a4f6ca686452c41e	1	
+torchtitan/components/quantization/nvfp4#NVFP4Linear.forward	torchtitan/components/quantization/nvfp4.py	234	method	10	f9a62953da7121af	0	
+torchtitan/components/quantization/nvfp4#nvfp4_bf16_tail_fqns	torchtitan/components/quantization/nvfp4.py	247	function	12	9a899da57b086ebe	4	
+torchtitan/components/quantization/nvfp4#NVFP4LinearConverter	torchtitan/components/quantization/nvfp4.py	267	class	23	654d3ce7ebf00dec	8	quantization
+torchtitan/components/quantization/nvfp4#NVFP4LinearConverter.Config	torchtitan/components/quantization/nvfp4.py	271	class	24	dede0c0ad1fe5631	7	quantization
+torchtitan/components/quantization/nvfp4#NVFP4LinearConverter.Config.fqns	torchtitan/components/quantization/nvfp4.py	272	member	14	feb50820abcba020	7	quantization
+torchtitan/components/quantization/nvfp4#NVFP4LinearConverter.__init__	torchtitan/components/quantization/nvfp4.py	280	method	30	46255526fdd24297	0	quantization
+torchtitan/components/quantization/nvfp4#NVFP4LinearConverter.config	torchtitan/components/quantization/nvfp4.py	281	member	4	8857d6c4a0a01b4c	2	
+torchtitan/components/quantization/nvfp4#NVFP4LinearConverter.convert	torchtitan/components/quantization/nvfp4.py	299	method	70	dd40a79733ce3784	1	quantization
+torchtitan/components/quantization/utils#module_filter_fn	torchtitan/components/quantization/utils.py	16	function	30	1b89a33567580496	2	quantization
+torchtitan/components/quantization/utils#swap_token_dispatcher	torchtitan/components/quantization/utils.py	33	function	73	96870d387426f4e0	2	quantization
+torchtitan/components/quantization/utils#has_quantization	torchtitan/components/quantization/utils.py	67	function	64	7e46fef2c1d8e0e7	1	quantization
+torchtitan/components/tokenizer#BaseTokenizer	torchtitan/components/tokenizer.py	19	class	55	36a0d883d7c45348	15	training-components
+torchtitan/components/tokenizer#BaseTokenizer.Config	torchtitan/components/tokenizer.py	21	class	16	1cfcd6bbb0ebb34c	3	
+torchtitan/components/tokenizer#BaseTokenizer.eos_id	torchtitan/components/tokenizer.py	25	member	28	cac9d767d3509051	12	
+torchtitan/components/tokenizer#BaseTokenizer.__init__	torchtitan/components/tokenizer.py	27	method	11	7917c20a37aa3990	3	
+torchtitan/components/tokenizer#BaseTokenizer._chat_template	torchtitan/components/tokenizer.py	29	member	6	5adc2789ed442f7c	2	
+torchtitan/components/tokenizer#BaseTokenizer.encode	torchtitan/components/tokenizer.py	32	method	30	9508f7df419cddc7	3	
+torchtitan/components/tokenizer#BaseTokenizer.decode	torchtitan/components/tokenizer.py	36	method	24	0db9f2fac873b06b	1	
+torchtitan/components/tokenizer#BaseTokenizer.get_vocab_size	torchtitan/components/tokenizer.py	40	method	22	8bf6c879fa4c4526	1	
+torchtitan/components/tokenizer#BaseTokenizer.set_chat_template	torchtitan/components/tokenizer.py	43	method	41	37a07dc692af7b97	2	
+torchtitan/components/tokenizer#BaseTokenizer.raise_exception	torchtitan/components/tokenizer.py	51	method	2	980afba1a21e62d1	1	
+torchtitan/components/tokenizer#BaseTokenizer.tojson	torchtitan/components/tokenizer.py	54	method	2	c5c156276dc39071	1	
+torchtitan/components/tokenizer#BaseTokenizer.strftime_now	torchtitan/components/tokenizer.py	65	method	2	5fd4a6501e0bf24b	1	
+torchtitan/components/tokenizer#BaseTokenizer.apply_chat_template	torchtitan/components/tokenizer.py	80	method	16	5e0864d426ede762	2	
+torchtitan/components/tokenizer#HuggingFaceTokenizer	torchtitan/components/tokenizer.py	94	class	107	4de3c391b4b6310e	30	training-components
+torchtitan/components/tokenizer#HuggingFaceTokenizer.CHAT_TEMPLATE_FILE	torchtitan/components/tokenizer.py	111	member	2	d6b86daa5ddada09	1	
+torchtitan/components/tokenizer#HuggingFaceTokenizer.Config	torchtitan/components/tokenizer.py	114	class	36	4cdf2996e7302ff7	12	
+torchtitan/components/tokenizer#HuggingFaceTokenizer.__init__	torchtitan/components/tokenizer.py	117	method	14	c4ed92ed03cbd7ed	2	
+torchtitan/components/tokenizer#HuggingFaceTokenizer.tokenizer_path	torchtitan/components/tokenizer.py	124	member	4	072cbe88534b30f1	2	
+torchtitan/components/tokenizer#HuggingFaceTokenizer.bos_id	torchtitan/components/tokenizer.py	127	member	23	0a3e6d549e99fad2	6	
+torchtitan/components/tokenizer#HuggingFaceTokenizer.bos_token	torchtitan/components/tokenizer.py	129	member	14	f847e4554f67efb3	5	
+torchtitan/components/tokenizer#HuggingFaceTokenizer.eos_token	torchtitan/components/tokenizer.py	130	member	10	ca6c3e9483daa7c0	4	
+torchtitan/components/tokenizer#HuggingFaceTokenizer.tokenizer	torchtitan/components/tokenizer.py	133	member	39	21b4e898a85e1b5c	13	
+torchtitan/components/tokenizer#HuggingFaceTokenizer._hf_config	torchtitan/components/tokenizer.py	136	member	71	892c2b0aa8dfd03c	5	
+torchtitan/components/tokenizer#HuggingFaceTokenizer._load_config	torchtitan/components/tokenizer.py	162	method	2	5410200b30704a9e	1	
+torchtitan/components/tokenizer#HuggingFaceTokenizer._load_tokenizer_from_path	torchtitan/components/tokenizer.py	169	method	7	51ab5d4dd253b1fb	1	
+torchtitan/components/tokenizer#HuggingFaceTokenizer._get_token_from_config	torchtitan/components/tokenizer.py	263	method	8	92d535fba7607920	3	
+torchtitan/components/tokenizer#HuggingFaceTokenizer._process_special_token	torchtitan/components/tokenizer.py	279	method	39	c396b6e326f6db2c	1	
+torchtitan/components/tokenizer#HuggingFaceTokenizer._infer_special_tokens	torchtitan/components/tokenizer.py	337	method	42	edc181c69425858e	1	
+torchtitan/components/tokenizer#HuggingFaceTokenizer._infer_should_add_bos_eos	torchtitan/components/tokenizer.py	392	method	2	5fbbdab027494d28	1	
+torchtitan/components/tokenizer#HuggingFaceTokenizer.default_add_bos	torchtitan/components/tokenizer.py	400	member	4	e802b9750be1c049	2	
+torchtitan/components/tokenizer#HuggingFaceTokenizer.default_add_eos	torchtitan/components/tokenizer.py	401	member	4	d1743af4d44f56e9	2	
+torchtitan/components/tokenizer#HuggingFaceTokenizer.hf_adds_bos	torchtitan/components/tokenizer.py	402	member	4	27df70273f5111f2	2	
+torchtitan/components/tokenizer#HuggingFaceTokenizer.hf_adds_eos	torchtitan/components/tokenizer.py	403	member	44	33040bcb1f17fdaa	2	
+torchtitan/components/tokenizer#HuggingFaceTokenizer.encode	torchtitan/components/tokenizer.py	421	method	50	fa8f875253252369	4	
+torchtitan/components/tokenizer#HuggingFaceTokenizer.decode	torchtitan/components/tokenizer.py	455	method	7	47b28d104cf04aea	2	
+torchtitan/components/tokenizer#HuggingFaceTokenizer.vocab_size	torchtitan/components/tokenizer.py	478	method	13	0ef3203b93d20702	2	
+torchtitan/components/tokenizer#HuggingFaceTokenizer.get_vocab_size	torchtitan/components/tokenizer.py	482	method	5	e2980a4ab4bbc989	1	
+torchtitan/components/tokenizer#HuggingFaceTokenizer.get_vocab	torchtitan/components/tokenizer.py	486	method	5	718b7d7353930452	0	
+torchtitan/components/tokenizer#HuggingFaceTokenizer.token_to_id	torchtitan/components/tokenizer.py	490	method	13	f4ba9324a062b31c	2	
+torchtitan/components/tokenizer#HuggingFaceTokenizer.id_to_token	torchtitan/components/tokenizer.py	494	method	5	641600529ab68d58	0	
+torchtitan/components/tokenizer#MultiModalTokenizer	torchtitan/components/tokenizer.py	499	class	73	792d7e14ebde9643	27	
+torchtitan/components/tokenizer#MultiModalTokenizer.Config	torchtitan/components/tokenizer.py	516	class	56	eff9bf57548e464c	23	
+torchtitan/components/tokenizer#MultiModalTokenizer.Config.image_token	torchtitan/components/tokenizer.py	517	member	0	d9a9036eb0c8d372	0	
+torchtitan/components/tokenizer#MultiModalTokenizer.Config.video_token	torchtitan/components/tokenizer.py	520	member	0	27e3e24647317482	0	
+torchtitan/components/tokenizer#MultiModalTokenizer.Config.vision_start_token	torchtitan/components/tokenizer.py	523	member	0	e368cdb6a18eb6d1	0	
+torchtitan/components/tokenizer#MultiModalTokenizer.Config.vision_end_token	torchtitan/components/tokenizer.py	526	member	0	81363f3788af4aed	0	
+torchtitan/components/tokenizer#MultiModalTokenizer.Config.pad_token	torchtitan/components/tokenizer.py	529	member	0	21295c8f95045586	0	
+torchtitan/components/tokenizer#MultiModalTokenizer.TOKEN_FIELDS	torchtitan/components/tokenizer.py	533	member	4	ca72ee6706f94f5b	2	
+torchtitan/components/tokenizer#MultiModalTokenizer.__init__	torchtitan/components/tokenizer.py	535	method	20	0ee09bb09205550e	0	
+torchtitan/components/validate#ValidationContext.ValidationContext	torchtitan/components/validate.py	28	value	6	4576d68d33e80d99	2	
+torchtitan/components/validate#BaseValidator	torchtitan/components/validate.py	31	class	20	65ceee0956b33e06	5	
+torchtitan/components/validate#BaseValidator.Config	torchtitan/components/validate.py	33	class	16	19517ac86499052d	3	
+torchtitan/components/validate#BaseValidator.Config.freq	torchtitan/components/validate.py	34	member	46	29c64e29fafc0bdc	22	
+torchtitan/components/validate#BaseValidator.Config.__post_init__	torchtitan/components/validate.py	37	method	7	dee2a738b5e0d997	1	
+torchtitan/components/validate#BaseValidator.__init__	torchtitan/components/validate.py	43	method	7	a676571054a0b6c0	1	
+torchtitan/components/validate#BaseValidator.config	torchtitan/components/validate.py	48	member	6	8857d6c4a0a01b4c	2	
+torchtitan/components/validate#BaseValidator.validate	torchtitan/components/validate.py	50	method	9	22c4b3ed1fd50ca5	2	
+torchtitan/components/validate#BaseValidator.should_validate	torchtitan/components/validate.py	53	method	14	25ec166d71fd6976	2	
+torchtitan/components/validate#Validator	torchtitan/components/validate.py	57	class	86	6bbd0b02aab371ce	27	training-components
+torchtitan/components/validate#Validator.Config	torchtitan/components/validate.py	77	class	64	8ad935a568b91cf7	26	
+torchtitan/components/validate#Validator.Config.enable	torchtitan/components/validate.py	78	member	40	de25eae183a65ac4	20	
+torchtitan/components/validate#Validator.Config.steps	torchtitan/components/validate.py	81	member	54	41c3cd453650e443	25	
+torchtitan/components/validate#Validator.Config.dataloader	torchtitan/components/validate.py	87	member	59	67a38d98c122c672	6	training-components
+torchtitan/components/validate#Validator.Config.__post_init__	torchtitan/components/validate.py	97	method	20	eeb1ef1bb5b38a6d	0	
+torchtitan/components/validate#Validator.__init__	torchtitan/components/validate.py	104	method	40	86dd7b5b588d9542	0	
+torchtitan/components/validate#Validator.parallelism	torchtitan/components/validate.py	124	member	6	fdd3f359c5ee4384	1	
+torchtitan/components/validate#Validator.tokenizer	torchtitan/components/validate.py	125	member	2	69a0bf3e2733a9b5	1	
+torchtitan/components/validate#Validator.parallel_dims	torchtitan/components/validate.py	126	member	6	1b1758c8387b4857	1	
+torchtitan/components/validate#Validator.loss_fn	torchtitan/components/validate.py	127	member	2	5187dd31da1d7019	1	
+torchtitan/components/validate#Validator.dl_config	torchtitan/components/validate.py	129	member	12	d5c935a3a3af747d	1	
+torchtitan/components/validate#Validator.dp_world_size	torchtitan/components/validate.py	130	member	2	ecae0a522f3f17bf	1	
+torchtitan/components/validate#Validator.dp_rank	torchtitan/components/validate.py	131	member	2	96acfde53b5df8e3	1	
+torchtitan/components/validate#Validator.seq_len	torchtitan/components/validate.py	132	member	2	87402a358c193b48	1	
+torchtitan/components/validate#Validator.num_tokens_per_batch	torchtitan/components/validate.py	133	member	2	535e74da8d52c1e1	1	
+torchtitan/components/validate#Validator.validation_context	torchtitan/components/validate.py	134	member	4	3c22ba982488b2b9	1	
+torchtitan/components/validate#Validator.metrics_processor	torchtitan/components/validate.py	135	member	4	5c7d42d12ff0af6f	1	
+torchtitan/components/validate#Validator.pp_schedule	torchtitan/components/validate.py	136	member	4	94736d223f7d19b3	1	
+torchtitan/components/validate#Validator.pp_has_first_stage	torchtitan/components/validate.py	137	member	6	1ba2971357f44229	1	
+torchtitan/components/validate#Validator.pp_has_last_stage	torchtitan/components/validate.py	138	member	13	44b7130c0f6b17d4	1	
+torchtitan/components/validate#Validator.validate	torchtitan/components/validate.py	142	method	160	5e2509fc4462facf	1	training-components
+torchtitan/components/validate#iterate_and_close_dataloader	torchtitan/components/validate.py	288	function	21	c9dac05ccf6c9fe6	2	

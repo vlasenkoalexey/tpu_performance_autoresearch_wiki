@@ -1,0 +1,12 @@
+# wikify symbol index: torchtitan @ 2ad96c9390, shard tests, 4 rows. Grep it by anchor; never read it whole.
+# columns: anchor	path	line	kind	rank	hash	callers	pages
+# one symbol:  grep -P '^tests/utils#hash_model\t' catalog/symbols/*.tsv
+# by name:     grep -P '[#.]hash_model\t' catalog/symbols/*.tsv | sort -t$'\t' -k5 -nr | head -20   (matches Class.hash_model too)
+# by area:     grep -P '^tests/.*#hash_model\t' catalog/symbols/*.tsv | head -20
+# one module:  awk -F'\t' '$2=="tests/utils.py"' catalog/symbols/*.tsv | cut -f1,3,4 | head -40
+# to prose:    grep -P '^tests/utils#hash_model\t' catalog/symbols/*.tsv | cut -f1,8   (column 8: concept pages citing it)
+# callers:     column 7 is the count; the list lives in catalog/edges/*.tsv, see its header (count, narrow, head)
+tests/utils#_hash_model_impl	tests/utils.py	14	function	9	64e4d6680ac46eef	2	
+tests/utils#_hash_model_impl.hash_named_tensor	tests/utils.py	30	function	6	61dd1f8a380ac789	1	
+tests/utils#hash_model	tests/utils.py	64	function	11	8cabfb4ac917cb7f	2	
+tests/utils#hash_gradient	tests/utils.py	94	function	11	c7b7d8b29fa4cf99	2	

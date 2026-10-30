@@ -9,6 +9,9 @@ status: fresh
 ---
 # train — time-budgeted single-GPU GPT pretraining (FA3 attention, MFU accounting)
 
+<!-- connect:up:begin -->
+> **Cross-repo concept:** part of [flash-attention](../../../concepts/flash-attention.md) across this wiki's repos.
+<!-- connect:up:end -->
 Single-file, single-GPU GPT pretrainer that trains for a fixed wall-clock budget and reports one number (validation bits-per-byte) plus a hardware-efficiency (MFU) readout.
 
 ## Overview

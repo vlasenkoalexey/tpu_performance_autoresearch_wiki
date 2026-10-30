@@ -1,0 +1,49 @@
+# wikify symbol index: torchtitan @ 2ad96c9390, shard tests/integration_tests, 41 rows. Grep it by anchor; never read it whole.
+# columns: anchor	path	line	kind	rank	hash	callers	pages
+# one symbol:  grep -P '^tests/integration_tests/__init__#OverrideDefinitions\t' catalog/symbols/*.tsv
+# by name:     grep -P '[#.]OverrideDefinitions\t' catalog/symbols/*.tsv | sort -t$'\t' -k5 -nr | head -20   (matches Class.OverrideDefinitions too)
+# by area:     grep -P '^tests/integration_tests/.*#OverrideDefinitions\t' catalog/symbols/*.tsv | head -20
+# one module:  awk -F'\t' '$2=="tests/integration_tests/__init__.py"' catalog/symbols/*.tsv | cut -f1,3,4 | head -40
+# to prose:    grep -P '^tests/integration_tests/__init__#OverrideDefinitions\t' catalog/symbols/*.tsv | cut -f1,8   (column 8: concept pages citing it)
+# callers:     column 7 is the count; the list lives in catalog/edges/*.tsv, see its header (count, narrow, head)
+tests/integration_tests/__init__#__all__	tests/integration_tests/__init__.py	12	value	0	939bc565afdcd76c	0	
+tests/integration_tests/__init__#OverrideDefinitions	tests/integration_tests/__init__.py	19	class	334	7a68bea104c430a0	29	
+tests/integration_tests/__init__#OverrideDefinitions.override_args	tests/integration_tests/__init__.py	24	member	18	69635365b16998fe	5	
+tests/integration_tests/__init__#OverrideDefinitions.test_descr	tests/integration_tests/__init__.py	33	member	182	2f6bc874ed37d5ee	10	
+tests/integration_tests/__init__#OverrideDefinitions.test_name	tests/integration_tests/__init__.py	34	member	212	d5cc7bb1b94b1358	18	
+tests/integration_tests/__init__#OverrideDefinitions.ngpu	tests/integration_tests/__init__.py	35	member	244	251fb4e831de7235	23	
+tests/integration_tests/__init__#OverrideDefinitions.disabled	tests/integration_tests/__init__.py	36	member	58	e10f4c45d5393bb5	10	
+tests/integration_tests/__init__#OverrideDefinitions.skip_rocm_test	tests/integration_tests/__init__.py	37	member	38	0e1db4009a385f95	6	
+tests/integration_tests/__init__#OverrideDefinitions.timeout	tests/integration_tests/__init__.py	38	member	10	6ffdb8bccc8ad31c	3	
+tests/integration_tests/__init__#OverrideDefinitions.golden_numerics_path	tests/integration_tests/__init__.py	39	member	26	232ddcdad4b4ce5e	3	
+tests/integration_tests/__init__#OverrideDefinitions.use_real_pg	tests/integration_tests/__init__.py	41	member	64	2994cbec0500430c	4	
+tests/integration_tests/__init__#OverrideDefinitions.configs	tests/integration_tests/__init__.py	43	member	194	b075354e2c68165c	8	
+tests/integration_tests/__init__#OverrideDefinitions.__post_init__	tests/integration_tests/__init__.py	50	method	15	06928b14aaec3be2	0	
+tests/integration_tests/__init__#OverrideDefinitions.__repr__	tests/integration_tests/__init__.py	61	method	5	7f492bbb04c1c2fc	0	
+tests/integration_tests/__init__#validate_fake_pg_compatibility	tests/integration_tests/__init__.py	65	function	54	5e0222d618ed14ce	1	
+tests/integration_tests/b200#build_b200_tests_list	tests/integration_tests/b200.py	12	function	39	dc92d5e1d542cbc8	1	
+tests/integration_tests/features#build_features_test_list	tests/integration_tests/features.py	13	function	294	5721a12f7c6f6cf7	1	
+tests/integration_tests/h100#build_h100_tests_list	tests/integration_tests/h100.py	13	function	84	ffeac8a1dea4be83	1	
+tests/integration_tests/models#build_model_tests_list	tests/integration_tests/models.py	13	function	184	9403d33e77642231	1	
+tests/integration_tests/run_tests#_TEST_SUITES_FUNCTION	tests/integration_tests/run_tests.py	27	value	26	4927bc0a9fa34220	2	
+tests/integration_tests/run_tests#_OUTPUT_LOCK	tests/integration_tests/run_tests.py	36	value	2	b2cec3babd56507f	1	
+tests/integration_tests/run_tests#_parse_test_suites	tests/integration_tests/run_tests.py	39	function	7	d417f8c9b1f4bb10	1	
+tests/integration_tests/run_tests#GPUPool	tests/integration_tests/run_tests.py	54	class	2	3df3199f89817ca0	1	
+tests/integration_tests/run_tests#GPUPool.__init__	tests/integration_tests/run_tests.py	61	method	0	9aa03060aff31733	0	
+tests/integration_tests/run_tests#GPUPool._free	tests/integration_tests/run_tests.py	62	member	10	af2288d4f51af62f	2	
+tests/integration_tests/run_tests#GPUPool._cond	tests/integration_tests/run_tests.py	63	member	8	5e3df5fdfefef341	2	
+tests/integration_tests/run_tests#GPUPool.total	tests/integration_tests/run_tests.py	64	member	0	3a02d32ec20c96ea	0	
+tests/integration_tests/run_tests#GPUPool.acquire	tests/integration_tests/run_tests.py	66	method	12	d855348b6ea473cb	1	
+tests/integration_tests/run_tests#GPUPool.release	tests/integration_tests/run_tests.py	74	method	12	63151a117a6c476b	1	
+tests/integration_tests/run_tests#_run_cmd	tests/integration_tests/run_tests.py	80	function	2	35ae389597bc47b7	1	
+tests/integration_tests/run_tests#_emit_block	tests/integration_tests/run_tests.py	115	function	7	d26aa72cbbefca73	1	
+tests/integration_tests/run_tests#_join_override_args	tests/integration_tests/run_tests.py	130	function	4	edc859c8801fcb48	1	
+tests/integration_tests/run_tests#_read_golden_spec	tests/integration_tests/run_tests.py	137	function	2	1dbe69626dc2826d	1	
+tests/integration_tests/run_tests#_parallelism_summary	tests/integration_tests/run_tests.py	154	function	47	086be27045c5982e	1	
+tests/integration_tests/run_tests#_add_parallelism_header	tests/integration_tests/run_tests.py	179	function	2	526a3822be07e2aa	1	
+tests/integration_tests/run_tests#run_single_test	tests/integration_tests/run_tests.py	189	function	89	1b32bb0aa7bfca51	2	
+tests/integration_tests/run_tests#_filter_tests	tests/integration_tests/run_tests.py	335	function	32	1786841c693fe9b2	1	
+tests/integration_tests/run_tests#run_tests	tests/integration_tests/run_tests.py	373	function	60	eb09fb363ccecee6	3	
+tests/integration_tests/run_tests#run_tests.physical_ngpu	tests/integration_tests/run_tests.py	389	function	14	d4d5117c5153fe13	2	
+tests/integration_tests/run_tests#run_tests._runner	tests/integration_tests/run_tests.py	406	function	42	046bb8aef23cefe6	1	
+tests/integration_tests/run_tests#main	tests/integration_tests/run_tests.py	472	function	17	3fd6ea4fa87b0d7d	0	

@@ -45,9 +45,16 @@ Grounded implementations of **pallas-kernel** across the ingested repos (generat
 - [tokamax](../codebases/tokamax/concepts/tokamax-_src-ops-experimental-mla-pallas_mosaic_tpu_kernel.md) — tokamax._src.ops.experimental.mla.pallas_mosaic_tpu_kernel — MLA ragged+paged attention, MlaCase dispatch
 - [tokamax](../codebases/tokamax/concepts/tokamax-_src-ops-ragged_dot-pallas_mosaic_tpu_v2_gmm_kernel.md) — tokamax._src.ops.ragged_dot.pallas_mosaic_tpu_v2_gmm_kernel — GMM v2, MXU-column-size-gated dequantization timing
 - [tokamax](../codebases/tokamax/concepts/tokamax-_src-ops-ragged_dot-pallas_mosaic_tpu_v2_tgmm_kernel.md) — tokamax._src.ops.ragged_dot.pallas_mosaic_tpu_v2_tgmm_kernel — TGMM (lhs.T @ dout) tiling, VMEM-budget-aware, XLU-transpose-cache-aware
+- [torchtitan](../codebases/torchtitan/concepts/jax-lane.md) — JAX lane: pure-JAX / Flax NNX trainer (experiments/jax)
+- [torchtitan](../codebases/torchtitan/concepts/tpu-moe-dispatch-and-grouped-experts.md) — TPU MoE dispatch and grouped experts (local reorder VJPs, fixed-K combine, Pallas grouped matmul)
+- [torchtitan](../codebases/torchtitan/concepts/tpu-pallas-kernels.md) — TPU Pallas kernels: splash attention (stock, Tokamax, SBD fork), grouped matmul, FP8 GMM and fused linear cross-entropy
+- [torchtitan](../codebases/torchtitan/concepts/tpu-trainer-and-job-config.md) — TPU trainer and job config (experiments/tpu)
 - [jax](../codebases/jax/concepts/jax-_src-pallas-fuser-block_spec.md) — jax._src.pallas.fuser.block_spec — backward BlockSpec propagation for kernel fusion
 - [jax](../codebases/jax/concepts/jax-_src-pallas-mosaic-lowering.md) — jax._src.pallas.mosaic.lowering — jaxpr-to-Mosaic lowering via per-(kernel_type, primitive) rules
 - [jax](../codebases/jax/concepts/jax-_src-pallas-mosaic_gpu-core.md) — jax._src.pallas.mosaic_gpu.core — MemorySpace hierarchy and the kernel() entry point
+- [torch_tpu](../codebases/torch_tpu/concepts/pallas-custom-kernels.md) — Pallas / JAX custom kernels as torch ops (torch.tpu.pallas.jax_op)
+- [torch_tpu](../codebases/torch_tpu/concepts/python-ops.md) — Python-side TPU ops (torch.tpu.ops) - splash attention and block-scaled FP8 matmul kernels
+- [torch_tpu](../codebases/torch_tpu/concepts/kiln-kernel-dsl.md) — KILN - the Pallas-shaped C++ DSL for authoring Mosaic TPU kernels
 - [easydel](../codebases/easydel/concepts/easydel-caching-ragged_page-cache.md) — easydel/caching/ragged_page/cache — paged KV cache with a TPU Pallas update kernel
 - [maxtext](../codebases/maxtext/concepts/maxtext-kernels-megablox-pallas_mosaic_tpu_v2_gmm_kernel.md) — MegaBlox GMM v2 — pipelined grouped-matmul kernel for MoE
 - [pallas-forge](../codebases/pallas-forge/concepts/pallas_forge-tune-runner.md) — pallas_forge/tune/runner — warmup-disciplined kernel benchmarking

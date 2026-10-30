@@ -188,7 +188,7 @@ These are the shared substrates a hypothesis is most often grounded in. Cite the
 | **xprof-mcp** | [codebases/xprof-mcp.md](codebases/xprof-mcp.md) | Diagnostic playbook: roofline, per-gen critical intensity, profile-signature → cause decision tree, tool invocation order. See [`sources/2026-xprof-mcp-tpu-optimization.md`](sources/2026-xprof-mcp-tpu-optimization.md) — the highest-density "what to check and why" doc in the wiki. |
 | **ultrascale-playbook** | [sources/2025-ultrascale-playbook.md](sources/2025-ultrascale-playbook.md) | Hugging Face multi-thousand-GPU training playbook. FSDP / TP / PP / sequence-parallelism systematically with formulas. GPU-primary but the parallelism logic transfers. |
 | **JAX** | [codebases/jax.md](codebases/jax.md) | JAX runtime + compiler (XLA). The default lane for high-performance TPU work. |
-| **torchtitan** | [codebases/torchtitan.md](codebases/torchtitan.md) | PyTorch reference training stack used by this autoresearch project's experiments. |
+| **torchtitan** | [codebases/torchtitan/overview.md](codebases/torchtitan/overview.md) | PyTorch reference training stack (google-pytorch fork with the TorchTPU backend under `experiments/tpu`). |
 | **pallas-forge** | [codebases/pallas-forge.md](codebases/pallas-forge.md) | Pallas kernel infrastructure (autotuning, autotune-result caching). |
 | **ejkernel** | [codebases/ejkernel.md](codebases/ejkernel.md) | Pallas kernel collection. |
 | **ringattention** | [codebases/ringattention.md](codebases/ringattention.md) | Ring attention reference implementation. |
@@ -698,7 +698,7 @@ Long-form compilation strategies that reduce HLO-module count and compile time.
 - [concepts/spmd-safe-compile-mode-opt-in.md](concepts/spmd-safe-compile-mode-opt-in.md)
 - [concepts/jaxpr-hash-cache-keys.md](concepts/jaxpr-hash-cache-keys.md)
 - [concepts/graph-trainer.md](concepts/graph-trainer.md)
-- [concepts/torchtitan-tpu-trainer-options.md](concepts/torchtitan-tpu-trainer-options.md)
+- [codebases/torchtitan/concepts/tpu-trainer-and-job-config.md](codebases/torchtitan/concepts/tpu-trainer-and-job-config.md)
 - [concepts/mark-step-sync.md](concepts/mark-step-sync.md)
 
 **Generic principles**:

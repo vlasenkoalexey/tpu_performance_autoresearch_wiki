@@ -1,0 +1,131 @@
+# wikify symbol index: torchtitan @ 2ad96c9390, shard torchtitan/tools, 123 rows. Grep it by anchor; never read it whole.
+# columns: anchor	path	line	kind	rank	hash	callers	pages
+# one symbol:  grep -P '^torchtitan/tools/logging#logger\t' catalog/symbols/*.tsv
+# by name:     grep -P '[#.]logger\t' catalog/symbols/*.tsv | sort -t$'\t' -k5 -nr | head -20   (matches Class.logger too)
+# by area:     grep -P '^torchtitan/tools/.*#logger\t' catalog/symbols/*.tsv | head -20
+# one module:  awk -F'\t' '$2=="torchtitan/tools/logging.py"' catalog/symbols/*.tsv | cut -f1,3,4 | head -40
+# to prose:    grep -P '^torchtitan/tools/logging#logger\t' catalog/symbols/*.tsv | cut -f1,8   (column 8: concept pages citing it)
+# callers:     column 7 is the count; the list lives in catalog/edges/*.tsv, see its header (count, narrow, head)
+torchtitan/tools/filesystem#is_remote	torchtitan/tools/filesystem.py	22	function	22	215aa12d038dcb79	8	debug-and-profiling-tools
+torchtitan/tools/filesystem#_resolve	torchtitan/tools/filesystem.py	31	function	10	2e4cddf198ec7908	5	
+torchtitan/tools/filesystem#exists	torchtitan/tools/filesystem.py	43	function	10	9b633363b820c82e	0	
+torchtitan/tools/filesystem#isdir	torchtitan/tools/filesystem.py	50	function	12	a861776a5271a5d1	1	debug-and-profiling-tools
+torchtitan/tools/filesystem#isfile	torchtitan/tools/filesystem.py	57	function	12	c17e01f472dead5e	1	debug-and-profiling-tools
+torchtitan/tools/filesystem#listdir	torchtitan/tools/filesystem.py	64	function	12	364eaf5e66228f16	1	debug-and-profiling-tools
+torchtitan/tools/filesystem#rmtree	torchtitan/tools/filesystem.py	87	function	12	54884ca3ede0ff56	1	
+torchtitan/tools/filesystem#join	torchtitan/tools/filesystem.py	101	function	27	560d77308b0a7ef7	11	debug-and-profiling-tools
+torchtitan/tools/logging#logger	torchtitan/tools/logging.py	12	value	1158	4f6aeead2750de2b	277	debug-and-profiling-tools
+torchtitan/tools/logging#init_logger	torchtitan/tools/logging.py	15	function	35	1b32bc6a6952c492	8	debug-and-profiling-tools
+torchtitan/tools/logging#_logged._logged	torchtitan/tools/logging.py	30	value	8	08b91e6e90828b24	2	
+torchtitan/tools/logging#warn_once	torchtitan/tools/logging.py	33	function	19	5d81e9eada48c0d7	4	debug-and-profiling-tools
+torchtitan/tools/profiler#_EXPORT_SUPPORTS_ANNOTATIONS	torchtitan/tools/profiler.py	25	value	6	7350ad71ea8ec05b	2	
+torchtitan/tools/profiler#PROFILE_DIR	torchtitan/tools/profiler.py	31	value	2	730ac59fe8cb0a31	1	
+torchtitan/tools/profiler#PROFILE_ITER_DIR	torchtitan/tools/profiler.py	32	value	2	1436507504d40b9d	1	
+torchtitan/tools/profiler#PROFILE_FILE	torchtitan/tools/profiler.py	33	value	2	2b3d6e84b758d91e	1	
+torchtitan/tools/profiler#MEMORY_DIR	torchtitan/tools/profiler.py	35	value	2	385c86de0958b403	1	
+torchtitan/tools/profiler#MEMORY_STEP_DIR	torchtitan/tools/profiler.py	38	value	2	dd3ad4f867c393a2	1	
+torchtitan/tools/profiler#MEMORY_EXIT_DIR	torchtitan/tools/profiler.py	39	value	2	602241c6cdbfa6a6	1	
+torchtitan/tools/profiler#MEMORY_FILE	torchtitan/tools/profiler.py	40	value	2	d0d87952721989d1	1	
+torchtitan/tools/profiler#MemoryProfiler	torchtitan/tools/profiler.py	45	class	2	56ab6c179513ae90	1	
+torchtitan/tools/profiler#MemoryProfiler.__init__	torchtitan/tools/profiler.py	53	method	5	d82d52348d68ba8a	0	debug-and-profiling-tools
+torchtitan/tools/profiler#MemoryProfiler.step_num	torchtitan/tools/profiler.py	71	member	8	e4a5a19de6851454	1	
+torchtitan/tools/profiler#MemoryProfiler.freq	torchtitan/tools/profiler.py	72	member	2	0b5df0d78e0610f4	1	
+torchtitan/tools/profiler#MemoryProfiler._snapshot_dir	torchtitan/tools/profiler.py	73	member	2	a6032426d30790f8	1	
+torchtitan/tools/profiler#MemoryProfiler._leaf_folder	torchtitan/tools/profiler.py	74	member	2	8b8f484b35f9e4fb	1	
+torchtitan/tools/profiler#MemoryProfiler._rank	torchtitan/tools/profiler.py	75	member	2	2cdd2276f8603e2d	1	
+torchtitan/tools/profiler#MemoryProfiler.step	torchtitan/tools/profiler.py	77	method	58	a70bf382de69fedb	4	debug-and-profiling-tools
+torchtitan/tools/profiler#Profiler	torchtitan/tools/profiler.py	106	class	109	b57737aa33e3a365	34	debug-and-profiling-tools
+torchtitan/tools/profiler#Profiler.Config	torchtitan/tools/profiler.py	129	class	58	ae07a02d3115f201	21	debug-and-profiling-tools
+torchtitan/tools/profiler#Profiler.Config.enable_profiling	torchtitan/tools/profiler.py	130	member	38	0c71b9ffd2e934cf	19	debug-and-profiling-tools
+torchtitan/tools/profiler#Profiler.Config.save_traces_folder	torchtitan/tools/profiler.py	133	member	15	9fd92f43e86a5517	5	debug-and-profiling-tools
+torchtitan/tools/profiler#Profiler.Config.profile_freq	torchtitan/tools/profiler.py	136	member	46	530cb98178e32d9f	20	debug-and-profiling-tools
+torchtitan/tools/profiler#Profiler.Config.profiler_repeat	torchtitan/tools/profiler.py	139	member	2	3824943b0d625988	1	
+torchtitan/tools/profiler#Profiler.Config.profiler_skip_first	torchtitan/tools/profiler.py	146	member	2	476dcc1a6cb816e0	1	
+torchtitan/tools/profiler#Profiler.Config.profiler_skip_first_wait	torchtitan/tools/profiler.py	153	member	2	88c2645adf5e26b3	1	
+torchtitan/tools/profiler#Profiler.Config.profiler_active	torchtitan/tools/profiler.py	160	member	26	bc22ee36314a0cab	12	debug-and-profiling-tools
+torchtitan/tools/profiler#Profiler.Config.profiler_warmup	torchtitan/tools/profiler.py	167	member	28	4387cdcffadb11ac	12	debug-and-profiling-tools
+torchtitan/tools/profiler#Profiler.Config.enable_memory_snapshot	torchtitan/tools/profiler.py	174	member	2	f56ed09c69c4aa1e	1	
+torchtitan/tools/profiler#Profiler.Config.memory_snapshot_freq	torchtitan/tools/profiler.py	177	member	4	43b9ce76e9b73a91	1	
+torchtitan/tools/profiler#Profiler.Config.save_memory_snapshot_folder	torchtitan/tools/profiler.py	183	member	7	5f9cae1b130242c2	1	
+torchtitan/tools/profiler#Profiler.Config.memory_snapshot_max_entries	torchtitan/tools/profiler.py	186	member	2	7bda5cd8472d7c75	1	
+torchtitan/tools/profiler#Profiler.Config.__post_init__	torchtitan/tools/profiler.py	193	method	20	363120bd1d30b88d	0	debug-and-profiling-tools
+torchtitan/tools/profiler#Profiler.__init__	torchtitan/tools/profiler.py	202	method	9	6892f207ac9d230b	1	debug-and-profiling-tools
+torchtitan/tools/profiler#Profiler._config	torchtitan/tools/profiler.py	210	member	10	c96754e8705e6db2	5	
+torchtitan/tools/profiler#Profiler._global_step	torchtitan/tools/profiler.py	211	member	12	1d38c286074e53c5	4	
+torchtitan/tools/profiler#Profiler._base_folder	torchtitan/tools/profiler.py	212	member	10	079f6d70c48e71c6	4	
+torchtitan/tools/profiler#Profiler._leaf_folder	torchtitan/tools/profiler.py	213	member	10	8b8f484b35f9e4fb	4	
+torchtitan/tools/profiler#Profiler.torch_profiler	torchtitan/tools/profiler.py	214	member	14	2ce9fc7ffd1726e2	4	debug-and-profiling-tools
+torchtitan/tools/profiler#Profiler.memory_profiler	torchtitan/tools/profiler.py	215	member	24	1842c8dfdf039d25	6	debug-and-profiling-tools
+torchtitan/tools/profiler#Profiler.active	torchtitan/tools/profiler.py	217	method	20	13cfc0a29d4ebb7e	0	debug-and-profiling-tools
+torchtitan/tools/profiler#Profiler.__enter__	torchtitan/tools/profiler.py	239	method	44	64efc3810f0f52ed	1	debug-and-profiling-tools
+torchtitan/tools/profiler#Profiler.__exit__	torchtitan/tools/profiler.py	252	method	24	9bb91cf00ab09e63	1	debug-and-profiling-tools
+torchtitan/tools/profiler#Profiler.caused_by_oom	torchtitan/tools/profiler.py	253	method	2	5507d590fa744c91	1	
+torchtitan/tools/profiler#Profiler.step	torchtitan/tools/profiler.py	276	method	30	d4b5964ea78b8e93	4	debug-and-profiling-tools
+torchtitan/tools/profiler#Profiler.build_torch_profiler	torchtitan/tools/profiler.py	286	method	62	14ce92d93fe0cce4	1	debug-and-profiling-tools
+torchtitan/tools/profiler#Profiler.trace_handler	torchtitan/tools/profiler.py	311	method	27	d164c5290da3c4f5	1	debug-and-profiling-tools
+torchtitan/tools/profiler#Profiler.build_memory_profiler	torchtitan/tools/profiler.py	388	method	44	b14466f59acf8864	2	debug-and-profiling-tools
+torchtitan/tools/utils#round_up	torchtitan/tools/utils.py	25	function	4	ca5731a3684c93eb	1	
+torchtitan/tools/utils#has_cuda_capability	torchtitan/tools/utils.py	29	function	56	e7cc26e571eca0cd	19	debug-and-profiling-tools
+torchtitan/tools/utils#get_cuda_flash_attention_impl	torchtitan/tools/utils.py	38	function	17	a1799bd71148f150	3	debug-and-profiling-tools
+torchtitan/tools/utils#has_rocm_capability	torchtitan/tools/utils.py	51	function	6	29d6862da5d8a888	2	
+torchtitan/tools/utils#_patch_cpu_device_module	torchtitan/tools/utils.py	59	function	32	6528826929ddaa2b	1	debug-and-profiling-tools
+torchtitan/tools/utils#_patch_cpu_device_module.get_device_name	torchtitan/tools/utils.py	62	function	2	261c0c965c830231	1	
+torchtitan/tools/utils#_patch_cpu_device_module.current_device	torchtitan/tools/utils.py	65	function	2	2a7cdbb05e2a63f4	1	
+torchtitan/tools/utils#_patch_cpu_device_module.get_device_properties	torchtitan/tools/utils.py	71	function	2	e494d5b974ac12aa	1	
+torchtitan/tools/utils#_patch_cpu_device_module.reset_peak_memory_stats	torchtitan/tools/utils.py	74	function	2	31695bb9dc7c1e87	1	
+torchtitan/tools/utils#_patch_cpu_device_module.empty_cache	torchtitan/tools/utils.py	77	function	2	3600683d85dd93e7	1	
+torchtitan/tools/utils#_patch_cpu_device_module.memory_stats	torchtitan/tools/utils.py	80	function	2	b9de684832a6e431	1	
+torchtitan/tools/utils#_use_accelerator_device_apis	torchtitan/tools/utils.py	91	function	2	37648150e3c1b778	1	
+torchtitan/tools/utils#_TpuDeviceModule	torchtitan/tools/utils.py	103	class	4	53bbfdabc6b4f576	2	
+torchtitan/tools/utils#_TpuDeviceModule.__init__	torchtitan/tools/utils.py	118	method	0	fde2e2b6e488e5c0	0	
+torchtitan/tools/utils#_TpuDeviceModule._tpu_module	torchtitan/tools/utils.py	120	member	2	83155399f1a1a9b5	1	
+torchtitan/tools/utils#_TpuDeviceModule.__getattr__	torchtitan/tools/utils.py	122	method	5	f97610543994d330	0	
+torchtitan/tools/utils#_TpuDeviceModule.is_available	torchtitan/tools/utils.py	126	method	0	8bebd079e023490c	0	
+torchtitan/tools/utils#_TpuDeviceModule.device_count	torchtitan/tools/utils.py	130	method	0	b7b8dbdb1d6e8ce0	0	
+torchtitan/tools/utils#_TpuDeviceModule.current_device	torchtitan/tools/utils.py	134	method	0	93ee1ed3b85b65b6	0	
+torchtitan/tools/utils#_TpuDeviceModule.set_device	torchtitan/tools/utils.py	138	method	0	6cff88e2999d65be	0	
+torchtitan/tools/utils#_TpuDeviceModule.synchronize	torchtitan/tools/utils.py	152	method	0	736e20d478b08d66	0	
+torchtitan/tools/utils#_TpuDeviceModule.current_stream	torchtitan/tools/utils.py	156	method	0	8196e1ac468bfcf8	0	
+torchtitan/tools/utils#_TpuDeviceModule.set_stream	torchtitan/tools/utils.py	160	method	0	7b38c9b96eb91243	0	
+torchtitan/tools/utils#_patch_tpu_device_module	torchtitan/tools/utils.py	164	function	40	bcddc63639ed710c	5	debug-and-profiling-tools
+torchtitan/tools/utils#_patch_tpu_device_module.reset_peak_memory_stats	torchtitan/tools/utils.py	177	function	2	31695bb9dc7c1e87	1	
+torchtitan/tools/utils#_patch_tpu_device_module.empty_cache	torchtitan/tools/utils.py	180	function	2	3600683d85dd93e7	1	
+torchtitan/tools/utils#_patch_tpu_device_module.memory_stats	torchtitan/tools/utils.py	183	function	2	59e875bdeb3bf0a5	1	
+torchtitan/tools/utils#_patch_tpu_device_module.is_triton_capable	torchtitan/tools/utils.py	193	function	2	d5df3a289c8f1a87	1	
+torchtitan/tools/utils#get_device_info	torchtitan/tools/utils.py	206	function	12	7bd84b8fa5879c5c	1	debug-and-profiling-tools
+torchtitan/tools/utils#device_module	torchtitan/tools/utils.py	219	value	57	88c9f0b1f6418eca	19	debug-and-profiling-tools
+torchtitan/tools/utils#device_type	torchtitan/tools/utils.py	219	value	98	88c9f0b1f6418eca	30	debug-and-profiling-tools
+torchtitan/tools/utils#get_local_device	torchtitan/tools/utils.py	222	function	28	7bccd2d2bee5c677	9	debug-and-profiling-tools
+torchtitan/tools/utils#GarbageCollection	torchtitan/tools/utils.py	270	class	28	b2705075d754e11f	8	debug-and-profiling-tools
+torchtitan/tools/utils#GarbageCollection.__init__	torchtitan/tools/utils.py	271	method	0	2f08c99c12466bec	0	
+torchtitan/tools/utils#GarbageCollection.gc_freq	torchtitan/tools/utils.py	273	member	2	1b4783cc3abb755a	1	
+torchtitan/tools/utils#GarbageCollection.debug	torchtitan/tools/utils.py	274	member	12	119cb17bd6f4e0fb	1	
+torchtitan/tools/utils#GarbageCollection.run	torchtitan/tools/utils.py	284	method	24	ef499967d34fd847	2	debug-and-profiling-tools
+torchtitan/tools/utils#GarbageCollection.collect	torchtitan/tools/utils.py	301	method	25	b3885b631a18e020	7	debug-and-profiling-tools
+torchtitan/tools/utils#get_peak_flops	torchtitan/tools/utils.py	309	function	18	fa91048c66c49009	4	debug-and-profiling-tools
+torchtitan/tools/utils#Color	torchtitan/tools/utils.py	456	class	18	95c647e46363f941	7	debug-and-profiling-tools
+torchtitan/tools/utils#Color.black	torchtitan/tools/utils.py	457	member	0	bfca1ebeafe818fa	0	
+torchtitan/tools/utils#Color.red	torchtitan/tools/utils.py	458	member	6	ab698d118cda3063	2	
+torchtitan/tools/utils#Color.green	torchtitan/tools/utils.py	459	member	0	9b1d5a2acd6bc3ea	0	
+torchtitan/tools/utils#Color.yellow	torchtitan/tools/utils.py	460	member	2	1fa15efad546af2c	1	
+torchtitan/tools/utils#Color.blue	torchtitan/tools/utils.py	461	member	0	9f9a59392ee88ea3	0	
+torchtitan/tools/utils#Color.magenta	torchtitan/tools/utils.py	462	member	0	bed87bbab3b472b6	0	
+torchtitan/tools/utils#Color.cyan	torchtitan/tools/utils.py	463	member	0	2581afa31c381363	0	
+torchtitan/tools/utils#Color.white	torchtitan/tools/utils.py	464	member	0	66ad3a6cf24e3982	0	
+torchtitan/tools/utils#Color.reset	torchtitan/tools/utils.py	465	member	4	c35cf83828a097f4	2	
+torchtitan/tools/utils#Color.orange	torchtitan/tools/utils.py	466	member	0	477be19d35dab3b2	0	
+torchtitan/tools/utils#Color.turquoise	torchtitan/tools/utils.py	467	member	0	ab7bbff29a8efe3c	0	
+torchtitan/tools/utils#NoColor	torchtitan/tools/utils.py	471	class	16	cd2e376d2265aad8	6	debug-and-profiling-tools
+torchtitan/tools/utils#NoColor.black	torchtitan/tools/utils.py	472	member	0	82523e8e091031ee	0	
+torchtitan/tools/utils#NoColor.red	torchtitan/tools/utils.py	473	member	4	c72f34fa1a3db554	2	
+torchtitan/tools/utils#NoColor.green	torchtitan/tools/utils.py	474	member	6	e398f1081d45ac78	3	
+torchtitan/tools/utils#NoColor.yellow	torchtitan/tools/utils.py	475	member	4	ce500087e1389234	2	
+torchtitan/tools/utils#NoColor.blue	torchtitan/tools/utils.py	476	member	6	5c5a915169b82bc7	3	
+torchtitan/tools/utils#NoColor.magenta	torchtitan/tools/utils.py	477	member	4	c9f22f95c491eedc	2	
+torchtitan/tools/utils#NoColor.cyan	torchtitan/tools/utils.py	478	member	4	afc68fef79071b65	2	
+torchtitan/tools/utils#NoColor.white	torchtitan/tools/utils.py	479	member	0	638e6f0bfc236efc	0	
+torchtitan/tools/utils#NoColor.reset	torchtitan/tools/utils.py	480	member	6	81c0b1e25833e226	3	
+torchtitan/tools/utils#NoColor.orange	torchtitan/tools/utils.py	481	member	4	dd6ab19a64df5cbe	2	
+torchtitan/tools/utils#NoColor.turquoise	torchtitan/tools/utils.py	482	member	14	c82110a63cc2a52b	2	debug-and-profiling-tools
+torchtitan/tools/utils#check_if_feature_in_pytorch	torchtitan/tools/utils.py	490	function	5	a5ca99db0c772ff8	0	debug-and-profiling-tools
+torchtitan/tools/utils#set_default_dtype	torchtitan/tools/utils.py	510	function	18	c20cbfc46563134e	9	debug-and-profiling-tools

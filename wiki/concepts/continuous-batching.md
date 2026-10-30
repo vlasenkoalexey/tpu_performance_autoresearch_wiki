@@ -34,4 +34,5 @@ Grounded implementations of **continuous-batching** across the ingested repos (g
 - [simply](../codebases/simply/concepts/simply-serving-page_batcher.md) — simply.serving.page_batcher — continuous-batching gRPC serving over paged attention
 - [simply](../codebases/simply/concepts/simply-utils-ragged_paged_attention.md) — simply.utils.ragged_paged_attention — paged KV cache + priority-ranked continuous-batching decode
 - [sglang-jax](../codebases/sglang-jax/concepts/python-sgl_jax-srt-managers-scheduler.md) — sgl_jax.srt.managers.scheduler — continuous-batching Scheduler, precompile padding buckets, overlap mode
+- [torchtitan](../codebases/torchtitan/concepts/rl-training.md) — TitanRL: asynchronous GRPO/DAPO training with disaggregated trainer and vLLM generators (experiments/rl)
 <!-- connect:auto:end -->

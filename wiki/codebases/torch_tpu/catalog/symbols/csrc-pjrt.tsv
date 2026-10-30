@@ -1,0 +1,166 @@
+# wikify symbol index: torch_tpu @ 005903d0ef, shard csrc/pjrt, 158 rows (200 symbols; overloads share a row). Grep it by anchor; never read it whole.
+# columns: anchor	path	line	kind	rank	hash	callers	pages
+# one symbol:  grep -P '^csrc/pjrt/pjrt_state.cc#PjrtBackend.GetInstance\t' catalog/symbols/*.tsv
+# by name:     grep -P '[#.]GetInstance\t' catalog/symbols/*.tsv | sort -t$'\t' -k5 -nr | head -20   (matches Class.GetInstance too)
+# by area:     grep -P '^csrc/pjrt/.*#GetInstance\t' catalog/symbols/*.tsv | head -20
+# one module:  awk -F'\t' '$2=="csrc/pjrt/pjrt_state.cc"' catalog/symbols/*.tsv | cut -f1,3,4 | head -40
+# to prose:    grep -P '^csrc/pjrt/pjrt_state.cc#PjrtBackend.GetInstance\t' catalog/symbols/*.tsv | cut -f1,8   (column 8: concept pages citing it)
+# callers:     column 7 is the count; the list lives in catalog/edges/*.tsv, see its header (count, narrow, head)
+csrc/pjrt/pjrt_client.cc#GetPjRtClient	csrc/pjrt/pjrt_client.cc	32	function	86	3882fe3d7fdf8b6d	1	pjrt-client
+csrc/pjrt/pjrt_execute.cc#MakeXlaShape	csrc/pjrt/pjrt_execute.cc	64	function	42	6697adec69ba97eb	1	pjrt-client
+csrc/pjrt/pjrt_execute.cc#CreateRuntimeShapeMetadataBuffer	csrc/pjrt/pjrt_execute.cc	78	function	77	fcef5d21febe4b8e	1	pjrt-client
+csrc/pjrt/pjrt_execute.cc#DynamicExecutionArguments	csrc/pjrt/pjrt_execute.cc	106	class	6	6b11f4c9b2868fef	3	
+csrc/pjrt/pjrt_execute.cc#DynamicExecutionArguments.full_args	csrc/pjrt/pjrt_execute.cc	107	member	12	518628f6b3eefbeb	2	
+csrc/pjrt/pjrt_execute.cc#DynamicExecutionArguments.ephemeral_buffers	csrc/pjrt/pjrt_execute.cc	108	member	16	b544d61241f40afb	2	
+csrc/pjrt/pjrt_execute.cc#PrepareDynamicExecutionArguments	csrc/pjrt/pjrt_execute.cc	117	function	197	815d1ec5f303446b	1	pjrt-client
+csrc/pjrt/pjrt_execute.cc#HloModuleContainsCollective	csrc/pjrt/pjrt_execute.cc	193	function	12	83674f62774db549	1	
+csrc/pjrt/pjrt_execute.cc#Execute	csrc/pjrt/pjrt_execute.cc	206	function	169	e2e58f52ad63751c	5	pjrt-client
+csrc/pjrt/pjrt_execute.h#PjRtBufferPointers	csrc/pjrt/pjrt_execute.h	35	class	62	5db2be5d4c55a93d	10	pjrt-client
+csrc/pjrt/pjrt_execute_test.cc#ElementsAre	csrc/pjrt/pjrt_execute_test.cc	46	function	4	be3439b61d0ba642	1	
+csrc/pjrt/pjrt_execute_test.cc#PjrtExecuteTest	csrc/pjrt/pjrt_execute_test.cc	48	class	13	7b3a12a171765e3a	1	
+csrc/pjrt/pjrt_execute_test.cc#PjrtExecuteTest.SetUp	csrc/pjrt/pjrt_execute_test.cc	50	method	35	6ce3d080f9c27174	0	
+csrc/pjrt/pjrt_execute_test.cc#PjrtExecuteTest.TearDown	csrc/pjrt/pjrt_execute_test.cc	60	method	15	ea35e6e0dda96bea	0	
+csrc/pjrt/pjrt_execute_test.cc#PjrtExecuteTest.client_	csrc/pjrt/pjrt_execute_test.cc	62	member	20	504de637914fce1e	2	
+csrc/pjrt/pjrt_execute_test.cc#PjrtExecuteTest.memory_space_	csrc/pjrt/pjrt_execute_test.cc	63	member	8	4ceb21d22e87c608	2	
+csrc/pjrt/pjrt_execute_test.cc#PjrtExecuteTest_Execute_WithDynamicExecutionMetadata_RoutesInputsOutputsAndMetadata_Test	csrc/pjrt/pjrt_execute_test.cc	66	class	40	590982ad77850a5c	2	
+csrc/pjrt/pjrt_execute_test.cc#PjrtExecuteTest_Execute_WithDynamicExecutionMetadata_RoutesInputsOutputsAndMetadata_Test.-PjrtExecuteTest_Execute_WithDynamicExecutionMetadata_RoutesInputsOutputsAndMetadata_Test	csrc/pjrt/pjrt_execute_test.cc	66	method	0	590982ad77850a5c	0	
+csrc/pjrt/pjrt_execute_test.cc#PjrtExecuteTest_Execute_WithDynamicExecutionMetadata_RoutesInputsOutputsAndMetadata_Test.PjrtExecuteTest_Execute_WithDynamicExecutionMetadata_RoutesInputsOutputsAndMetadata_Test	csrc/pjrt/pjrt_execute_test.cc	66	method	0	590982ad77850a5c	0	
+csrc/pjrt/pjrt_execute_test.cc#PjrtExecuteTest_Execute_WithDynamicExecutionMetadata_RoutesInputsOutputsAndMetadata_Test.TestBody	csrc/pjrt/pjrt_execute_test.cc	66	method	118	590982ad77850a5c	1	
+csrc/pjrt/pjrt_execute_test.cc#PjrtExecuteTest_Execute_WithDynamicExecutionMetadata_RoutesInputsOutputsAndMetadata_Test.operator	csrc/pjrt/pjrt_execute_test.cc	66	method	0	590982ad77850a5c	0	
+csrc/pjrt/pjrt_execute_test.cc#PjrtExecuteTest_Execute_WithDynamicExecutionMetadata_RoutesInputsOutputsAndMetadata_Test.test_info_	csrc/pjrt/pjrt_execute_test.cc	66	member	0	590982ad77850a5c	0	
+csrc/pjrt/pjrt_init_test.cc#StatusIs	csrc/pjrt/pjrt_init_test.cc	34	function	4	0b589192a6a2246e	1	
+csrc/pjrt/pjrt_init_test.cc#HasSubstr	csrc/pjrt/pjrt_init_test.cc	35	function	4	befdf2c79741c70b	1	
+csrc/pjrt/pjrt_init_test.cc#PjRtInitTest	csrc/pjrt/pjrt_init_test.cc	37	class	104	8da1e7608c4b1fd4	8	
+csrc/pjrt/pjrt_init_test.cc#PjRtInitTest.TearDown	csrc/pjrt/pjrt_init_test.cc	39	method	20	8d47b7445fa8c894	0	
+csrc/pjrt/pjrt_init_test.cc#PjRtInitTest_InitializePjRtIsLazy_Test	csrc/pjrt/pjrt_init_test.cc	47	class	40	b016965a6030f659	2	
+csrc/pjrt/pjrt_init_test.cc#PjRtInitTest_InitializePjRtIsLazy_Test.-PjRtInitTest_InitializePjRtIsLazy_Test	csrc/pjrt/pjrt_init_test.cc	47	method	0	b016965a6030f659	0	
+csrc/pjrt/pjrt_init_test.cc#PjRtInitTest_InitializePjRtIsLazy_Test.PjRtInitTest_InitializePjRtIsLazy_Test	csrc/pjrt/pjrt_init_test.cc	47	method	0	b016965a6030f659	0	
+csrc/pjrt/pjrt_init_test.cc#PjRtInitTest_InitializePjRtIsLazy_Test.TestBody	csrc/pjrt/pjrt_init_test.cc	47	method	53	b016965a6030f659	1	
+csrc/pjrt/pjrt_init_test.cc#PjRtInitTest_InitializePjRtIsLazy_Test.operator	csrc/pjrt/pjrt_init_test.cc	47	method	0	b016965a6030f659	0	
+csrc/pjrt/pjrt_init_test.cc#PjRtInitTest_InitializePjRtIsLazy_Test.test_info_	csrc/pjrt/pjrt_init_test.cc	47	member	0	b016965a6030f659	0	
+csrc/pjrt/pjrt_init_test.cc#PjRtInitTest_GetClientAndGetDeviceSucceedAfterInit_Test	csrc/pjrt/pjrt_init_test.cc	60	class	40	b01f77301e1aedac	2	
+csrc/pjrt/pjrt_init_test.cc#PjRtInitTest_GetClientAndGetDeviceSucceedAfterInit_Test.-PjRtInitTest_GetClientAndGetDeviceSucceedAfterInit_Test	csrc/pjrt/pjrt_init_test.cc	60	method	0	b01f77301e1aedac	0	
+csrc/pjrt/pjrt_init_test.cc#PjRtInitTest_GetClientAndGetDeviceSucceedAfterInit_Test.PjRtInitTest_GetClientAndGetDeviceSucceedAfterInit_Test	csrc/pjrt/pjrt_init_test.cc	60	method	0	b01f77301e1aedac	0	
+csrc/pjrt/pjrt_init_test.cc#PjRtInitTest_GetClientAndGetDeviceSucceedAfterInit_Test.TestBody	csrc/pjrt/pjrt_init_test.cc	60	method	53	b01f77301e1aedac	1	
+csrc/pjrt/pjrt_init_test.cc#PjRtInitTest_GetClientAndGetDeviceSucceedAfterInit_Test.operator	csrc/pjrt/pjrt_init_test.cc	60	method	0	b01f77301e1aedac	0	
+csrc/pjrt/pjrt_init_test.cc#PjRtInitTest_GetClientAndGetDeviceSucceedAfterInit_Test.test_info_	csrc/pjrt/pjrt_init_test.cc	60	member	0	b01f77301e1aedac	0	
+csrc/pjrt/pjrt_init_test.cc#PjRtInitTest_GetClientAndGetDeviceFailForUnsupportedDeviceType_Test	csrc/pjrt/pjrt_init_test.cc	73	class	40	f3281fe1afae7ca9	2	
+csrc/pjrt/pjrt_init_test.cc#PjRtInitTest_GetClientAndGetDeviceFailForUnsupportedDeviceType_Test.-PjRtInitTest_GetClientAndGetDeviceFailForUnsupportedDeviceType_Test	csrc/pjrt/pjrt_init_test.cc	73	method	0	f3281fe1afae7ca9	0	
+csrc/pjrt/pjrt_init_test.cc#PjRtInitTest_GetClientAndGetDeviceFailForUnsupportedDeviceType_Test.PjRtInitTest_GetClientAndGetDeviceFailForUnsupportedDeviceType_Test	csrc/pjrt/pjrt_init_test.cc	73	method	0	f3281fe1afae7ca9	0	
+csrc/pjrt/pjrt_init_test.cc#PjRtInitTest_GetClientAndGetDeviceFailForUnsupportedDeviceType_Test.TestBody	csrc/pjrt/pjrt_init_test.cc	73	method	53	f3281fe1afae7ca9	1	
+csrc/pjrt/pjrt_init_test.cc#PjRtInitTest_GetClientAndGetDeviceFailForUnsupportedDeviceType_Test.operator	csrc/pjrt/pjrt_init_test.cc	73	method	0	f3281fe1afae7ca9	0	
+csrc/pjrt/pjrt_init_test.cc#PjRtInitTest_GetClientAndGetDeviceFailForUnsupportedDeviceType_Test.test_info_	csrc/pjrt/pjrt_init_test.cc	73	member	0	f3281fe1afae7ca9	0	
+csrc/pjrt/pjrt_init_test.cc#PjRtInitTest_InitializePjRtSetsCorrectDeviceCount_Test	csrc/pjrt/pjrt_init_test.cc	82	class	40	6d07098386c5bf42	2	
+csrc/pjrt/pjrt_init_test.cc#PjRtInitTest_InitializePjRtSetsCorrectDeviceCount_Test.-PjRtInitTest_InitializePjRtSetsCorrectDeviceCount_Test	csrc/pjrt/pjrt_init_test.cc	82	method	0	6d07098386c5bf42	0	
+csrc/pjrt/pjrt_init_test.cc#PjRtInitTest_InitializePjRtSetsCorrectDeviceCount_Test.PjRtInitTest_InitializePjRtSetsCorrectDeviceCount_Test	csrc/pjrt/pjrt_init_test.cc	82	method	0	6d07098386c5bf42	0	
+csrc/pjrt/pjrt_init_test.cc#PjRtInitTest_InitializePjRtSetsCorrectDeviceCount_Test.TestBody	csrc/pjrt/pjrt_init_test.cc	82	method	58	6d07098386c5bf42	1	
+csrc/pjrt/pjrt_init_test.cc#PjRtInitTest_InitializePjRtSetsCorrectDeviceCount_Test.operator	csrc/pjrt/pjrt_init_test.cc	82	method	0	6d07098386c5bf42	0	
+csrc/pjrt/pjrt_init_test.cc#PjRtInitTest_InitializePjRtSetsCorrectDeviceCount_Test.test_info_	csrc/pjrt/pjrt_init_test.cc	82	member	0	6d07098386c5bf42	0	
+csrc/pjrt/pjrt_init_test.cc#PjRtInitTest_InitializeExpandsRankInEnvVars_Test	csrc/pjrt/pjrt_init_test.cc	98	class	40	57a360a30e9f5b83	2	
+csrc/pjrt/pjrt_init_test.cc#PjRtInitTest_InitializeExpandsRankInEnvVars_Test.-PjRtInitTest_InitializeExpandsRankInEnvVars_Test	csrc/pjrt/pjrt_init_test.cc	98	method	0	57a360a30e9f5b83	0	
+csrc/pjrt/pjrt_init_test.cc#PjRtInitTest_InitializeExpandsRankInEnvVars_Test.PjRtInitTest_InitializeExpandsRankInEnvVars_Test	csrc/pjrt/pjrt_init_test.cc	98	method	0	57a360a30e9f5b83	0	
+csrc/pjrt/pjrt_init_test.cc#PjRtInitTest_InitializeExpandsRankInEnvVars_Test.TestBody	csrc/pjrt/pjrt_init_test.cc	98	method	73	57a360a30e9f5b83	1	
+csrc/pjrt/pjrt_init_test.cc#PjRtInitTest_InitializeExpandsRankInEnvVars_Test.operator	csrc/pjrt/pjrt_init_test.cc	98	method	0	57a360a30e9f5b83	0	
+csrc/pjrt/pjrt_init_test.cc#PjRtInitTest_InitializeExpandsRankInEnvVars_Test.test_info_	csrc/pjrt/pjrt_init_test.cc	98	member	0	57a360a30e9f5b83	0	
+csrc/pjrt/pjrt_init_test.cc#PjRtInitTest_BadForkCheckerPreventsAccessAfterInit_Test	csrc/pjrt/pjrt_init_test.cc	125	class	40	6e356a125ae05ae5	2	
+csrc/pjrt/pjrt_init_test.cc#PjRtInitTest_BadForkCheckerPreventsAccessAfterInit_Test.-PjRtInitTest_BadForkCheckerPreventsAccessAfterInit_Test	csrc/pjrt/pjrt_init_test.cc	125	method	0	6e356a125ae05ae5	0	
+csrc/pjrt/pjrt_init_test.cc#PjRtInitTest_BadForkCheckerPreventsAccessAfterInit_Test.PjRtInitTest_BadForkCheckerPreventsAccessAfterInit_Test	csrc/pjrt/pjrt_init_test.cc	125	method	0	6e356a125ae05ae5	0	
+csrc/pjrt/pjrt_init_test.cc#PjRtInitTest_BadForkCheckerPreventsAccessAfterInit_Test.TestBody	csrc/pjrt/pjrt_init_test.cc	125	method	88	6e356a125ae05ae5	1	
+csrc/pjrt/pjrt_init_test.cc#PjRtInitTest_BadForkCheckerPreventsAccessAfterInit_Test.operator	csrc/pjrt/pjrt_init_test.cc	125	method	0	6e356a125ae05ae5	0	
+csrc/pjrt/pjrt_init_test.cc#PjRtInitTest_BadForkCheckerPreventsAccessAfterInit_Test.test_info_	csrc/pjrt/pjrt_init_test.cc	125	member	0	6e356a125ae05ae5	0	
+csrc/pjrt/pjrt_init_test.cc#PjRtInitTest_OnInitializedHookIsInvoked_Test	csrc/pjrt/pjrt_init_test.cc	147	class	40	54d254d504fea65c	2	
+csrc/pjrt/pjrt_init_test.cc#PjRtInitTest_OnInitializedHookIsInvoked_Test.-PjRtInitTest_OnInitializedHookIsInvoked_Test	csrc/pjrt/pjrt_init_test.cc	147	method	0	54d254d504fea65c	0	
+csrc/pjrt/pjrt_init_test.cc#PjRtInitTest_OnInitializedHookIsInvoked_Test.PjRtInitTest_OnInitializedHookIsInvoked_Test	csrc/pjrt/pjrt_init_test.cc	147	method	0	54d254d504fea65c	0	
+csrc/pjrt/pjrt_init_test.cc#PjRtInitTest_OnInitializedHookIsInvoked_Test.TestBody	csrc/pjrt/pjrt_init_test.cc	147	method	53	54d254d504fea65c	1	
+csrc/pjrt/pjrt_init_test.cc#PjRtInitTest_OnInitializedHookIsInvoked_Test.operator	csrc/pjrt/pjrt_init_test.cc	147	method	0	54d254d504fea65c	0	
+csrc/pjrt/pjrt_init_test.cc#PjRtInitTest_OnInitializedHookIsInvoked_Test.test_info_	csrc/pjrt/pjrt_init_test.cc	147	member	0	54d254d504fea65c	0	
+csrc/pjrt/pjrt_init_test.cc#PjRtInitTest_SingleSliceInitDoesNotSetSkipMegascaleEnvVar_Test	csrc/pjrt/pjrt_init_test.cc	165	class	40	2bd4d78bfa128d2f	2	
+csrc/pjrt/pjrt_init_test.cc#PjRtInitTest_SingleSliceInitDoesNotSetSkipMegascaleEnvVar_Test.-PjRtInitTest_SingleSliceInitDoesNotSetSkipMegascaleEnvVar_Test	csrc/pjrt/pjrt_init_test.cc	165	method	0	2bd4d78bfa128d2f	0	
+csrc/pjrt/pjrt_init_test.cc#PjRtInitTest_SingleSliceInitDoesNotSetSkipMegascaleEnvVar_Test.PjRtInitTest_SingleSliceInitDoesNotSetSkipMegascaleEnvVar_Test	csrc/pjrt/pjrt_init_test.cc	165	method	0	2bd4d78bfa128d2f	0	
+csrc/pjrt/pjrt_init_test.cc#PjRtInitTest_SingleSliceInitDoesNotSetSkipMegascaleEnvVar_Test.TestBody	csrc/pjrt/pjrt_init_test.cc	165	method	53	2bd4d78bfa128d2f	1	
+csrc/pjrt/pjrt_init_test.cc#PjRtInitTest_SingleSliceInitDoesNotSetSkipMegascaleEnvVar_Test.operator	csrc/pjrt/pjrt_init_test.cc	165	method	0	2bd4d78bfa128d2f	0	
+csrc/pjrt/pjrt_init_test.cc#PjRtInitTest_SingleSliceInitDoesNotSetSkipMegascaleEnvVar_Test.test_info_	csrc/pjrt/pjrt_init_test.cc	165	member	0	2bd4d78bfa128d2f	0	
+csrc/pjrt/pjrt_state.cc#TryExpandRankInEnvVar	csrc/pjrt/pjrt_state.cc	66	function	14	8977fdd2e92e4fb0	1	
+csrc/pjrt/pjrt_state.cc#CreateTpuProfiler	csrc/pjrt/pjrt_state.cc	78	function	7	62d9045bca7389b4	1	
+csrc/pjrt/pjrt_state.cc#MaybeRegisterProfiler	csrc/pjrt/pjrt_state.cc	114	function	12	b55b274fe958999e	1	
+csrc/pjrt/pjrt_state.cc#GetIntAttribute	csrc/pjrt/pjrt_state.cc	143	function	4	199197d6306f39a5	1	
+csrc/pjrt/pjrt_state.cc#GetIntVecAttribute	csrc/pjrt/pjrt_state.cc	155	function	2	94c0d0479bb2a444	1	
+csrc/pjrt/pjrt_state.cc#MaybeSkipMegascaleForLaterClients	csrc/pjrt/pjrt_state.cc	173	function	22	b33cba4a8c539fee	1	
+csrc/pjrt/pjrt_state.cc#PjrtBackend.GetInstance	csrc/pjrt/pjrt_state.cc	188	method	978	aa8548d196f98db0	70	pjrt-client
+csrc/pjrt/pjrt_state.cc#PjrtBackend.SetPjRtInitializationOptions	csrc/pjrt/pjrt_state.cc	193	method	273	0fe09019e59b2dc4	25	pjrt-client
+csrc/pjrt/pjrt_state.cc#PjrtBackend.EnsureInitialized	csrc/pjrt/pjrt_state.cc	202	method	308	de6d4f33a59ba253	19	compilation-cache
+csrc/pjrt/pjrt_state.cc#PjrtBackend.InitializeInternal	csrc/pjrt/pjrt_state.cc	235	method	290	d96a12f84325c482	2	pjrt-client
+csrc/pjrt/pjrt_state.cc#PjrtBackend.IsInitialized	csrc/pjrt/pjrt_state.cc	324	method	133	40daef77fc440f70	7	pjrt-client
+csrc/pjrt/pjrt_state.cc#PjrtBackend.IsInBadFork	csrc/pjrt/pjrt_state.cc	332	method	64	9a794c6b6e1a3634	5	pjrt-client
+csrc/pjrt/pjrt_state.cc#PjrtBackend.GetClient	csrc/pjrt/pjrt_state.cc	337	method	382	7f3804def6e2a056	33	pjrt-client
+csrc/pjrt/pjrt_state.cc#PjrtBackend.GetSharedClient	csrc/pjrt/pjrt_state.cc	348	method	93	d81575ce5785fa1f	3	pjrt-client
+csrc/pjrt/pjrt_state.cc#PjrtBackend.GetDevice	csrc/pjrt/pjrt_state.cc	354	method	214	430fd44b05422d18	14	pjrt-client
+csrc/pjrt/pjrt_state.cc#PjrtBackend.GetGlobalDeviceCount	csrc/pjrt/pjrt_state.cc	364	method	159	1254982ae4850c55	6	pjrt-client
+csrc/pjrt/pjrt_state.cc#PjrtBackend.GetGlobalDeviceId	csrc/pjrt/pjrt_state.cc	373	method	148	39241625b92713a1	3	pjrt-client
+csrc/pjrt/pjrt_state.cc#PjrtBackend.GetDeviceType	csrc/pjrt/pjrt_state.cc	382	method	37	c7406268d938f136	1	pjrt-client
+csrc/pjrt/pjrt_state.cc#PjrtBackend.GetDeviceAttributes	csrc/pjrt/pjrt_state.cc	387	method	183	aa0c64fb6e274ae4	3	pjrt-client
+csrc/pjrt/pjrt_state.cc#PjrtBackend.GetAllocatorStats	csrc/pjrt/pjrt_state.cc	406	method	73	9a757dbe1df51cd8	3	pjrt-client
+csrc/pjrt/pjrt_state.cc#PjrtBackend.ClearAllocatorStats	csrc/pjrt/pjrt_state.cc	411	method	65	5ff5dce86a9044d2	2	pjrt-client
+csrc/pjrt/pjrt_state.cc#PjrtBackend.GetHostAllocator	csrc/pjrt/pjrt_state.cc	416	method	105	ac215c72c00d41bc	2	pjrt-client
+csrc/pjrt/pjrt_state.cc#PjrtBackend.Shutdown	csrc/pjrt/pjrt_state.cc	426	method	123	1a79bf828d41c36c	7	pjrt-client
+csrc/pjrt/pjrt_state.h#BadForkChecker	csrc/pjrt/pjrt_state.h	41	class	6	d3a9930e0939bb21	3	
+csrc/pjrt/pjrt_state.h#OnInitializedHook	csrc/pjrt/pjrt_state.h	42	class	4	9f67a95646b870ad	2	
+csrc/pjrt/pjrt_state.h#PjRtInitializationOptions	csrc/pjrt/pjrt_state.h	45	class	6	8cf393706a88d309	3	
+csrc/pjrt/pjrt_state.h#PjRtInitializationOptions.device_type	csrc/pjrt/pjrt_state.h	46	member	8	29cdd0c539ca78a8	1	
+csrc/pjrt/pjrt_state.h#PjRtInitializationOptions.premapped_buffer_size_bytes	csrc/pjrt/pjrt_state.h	47	member	7	4d96dacf6ec7c6b9	1	
+csrc/pjrt/pjrt_state.h#PjRtInitializationOptions.bad_fork_checker	csrc/pjrt/pjrt_state.h	48	member	7	4c9c9e0e55d78ab9	1	
+csrc/pjrt/pjrt_state.h#PjRtInitializationOptions.on_initialized_hook	csrc/pjrt/pjrt_state.h	49	member	2	7e77ff6fc38123a8	1	
+csrc/pjrt/pjrt_state.h#PjRtDeviceAttributes	csrc/pjrt/pjrt_state.h	53	class	70	16578211332e23cb	13	pjrt-client
+csrc/pjrt/pjrt_state.h#PjRtDeviceAttributes.id	csrc/pjrt/pjrt_state.h	54	member	30	75f7ffef706aecc4	8	pjrt-client
+csrc/pjrt/pjrt_state.h#PjRtDeviceAttributes.process_index	csrc/pjrt/pjrt_state.h	55	member	14	2c92613bf4f66bdc	5	
+csrc/pjrt/pjrt_state.h#PjRtDeviceAttributes.device_kind	csrc/pjrt/pjrt_state.h	56	member	16	412fc2c07594d7e6	6	
+csrc/pjrt/pjrt_state.h#PjRtDeviceAttributes.coords	csrc/pjrt/pjrt_state.h	57	member	20	ab10c18aaeb7a7f0	6	
+csrc/pjrt/pjrt_state.h#PjRtDeviceAttributes.core_on_chip	csrc/pjrt/pjrt_state.h	58	member	16	b72d54ff1d588fe2	6	
+csrc/pjrt/pjrt_state.h#PjRtDeviceAttributes.slice_index	csrc/pjrt/pjrt_state.h	59	member	20	a3ddfc7966a3b887	7	
+csrc/pjrt/pjrt_state.h#PjrtBackend	csrc/pjrt/pjrt_state.h	66	class	454	ee00901edee7f417	91	pjrt-client
+csrc/pjrt/pjrt_state.h#PjrtBackend.PjrtBackend	csrc/pjrt/pjrt_state.h	69	method	5	da6edff50e22d504	0	
+csrc/pjrt/pjrt_state.h#PjrtBackend.operator	csrc/pjrt/pjrt_state.h	72	method	110	702f3b3acb717bb3	0	pjrt-client
+csrc/pjrt/pjrt_state.h#PjrtBackend.-PjrtBackend	csrc/pjrt/pjrt_state.h	142	method	20	ca08df1b1d8326ef	0	pjrt-client
+csrc/pjrt/pjrt_state.h#PjrtBackend.mutex_	csrc/pjrt/pjrt_state.h	147	member	70	d41a1e97e8eedf83	21	pjrt-client
+csrc/pjrt/pjrt_state.h#PjrtBackend.client_	csrc/pjrt/pjrt_state.h	150	member	29	a14a47b55cfe7033	7	pjrt-client
+csrc/pjrt/pjrt_state.h#PjrtBackend.device_	csrc/pjrt/pjrt_state.h	152	member	24	d4c31d03547a1e3a	4	pjrt-client
+csrc/pjrt/pjrt_state.h#PjrtBackend.device_type_	csrc/pjrt/pjrt_state.h	153	member	21	26cb896d10e2b0e8	3	
+csrc/pjrt/pjrt_state.h#PjrtBackend.global_device_count_	csrc/pjrt/pjrt_state.h	155	member	11	50654565fbaaccb6	3	
+csrc/pjrt/pjrt_state.h#PjrtBackend.global_device_id_	csrc/pjrt/pjrt_state.h	156	member	14	6cf20a3072614938	2	
+csrc/pjrt/pjrt_state.h#PjrtBackend.options_	csrc/pjrt/pjrt_state.h	157	member	15	01f4176713b42de6	2	
+csrc/pjrt/pjrt_state.h#PjrtBackend.init_attempted_	csrc/pjrt/pjrt_state.h	158	member	20	0dbe846ac289707b	2	
+csrc/pjrt/pjrt_state.h#PjrtBackend.init_status_	csrc/pjrt/pjrt_state.h	159	member	25	9d5adb73cafc2f6c	2	
+csrc/pjrt/pjrt_state.h#PjrtBackend.bad_fork_checker_	csrc/pjrt/pjrt_state.h	160	member	9	cbe4e4c8641bf077	2	
+csrc/pjrt/pjrt_state.h#PjrtBackend.on_initialized_hook_	csrc/pjrt/pjrt_state.h	161	member	4	19c28d3b7ecf29cd	2	
+csrc/pjrt/pjrt_transfer.cc#UnpackFp4	csrc/pjrt/pjrt_transfer.cc	77	function	7	12ecfaff5169c142	1	
+csrc/pjrt/pjrt_transfer.cc#PackFp4	csrc/pjrt/pjrt_transfer.cc	103	function	7	b59b3ed35e8d16ae	1	
+csrc/pjrt/pjrt_transfer.cc#ValidateFp4Dimensions	csrc/pjrt/pjrt_transfer.cc	116	function	9	b6c0dd2f4cb2e7ea	2	
+csrc/pjrt/pjrt_transfer.cc#TpuMemcpyDtoHFP4	csrc/pjrt/pjrt_transfer.cc	130	function	107	9392e4397a68c095	1	pjrt-client
+csrc/pjrt/pjrt_transfer.cc#TpuMallocAndMemcpyHtoD	csrc/pjrt/pjrt_transfer.cc	175	function	263	7b91cbc689e94ba9	4	pjrt-client
+csrc/pjrt/pjrt_transfer.cc#TpuMemcpyDtoH	csrc/pjrt/pjrt_transfer.cc	311	function	213	51da3fb473af902d	3	pjrt-client
+csrc/pjrt/pjrt_transfer.cc#TpuMemcpyDtoHDirectImpl	csrc/pjrt/pjrt_transfer.cc	378	function	34	3a653572a251f93f	1	
+csrc/pjrt/pjrt_transfer.cc#TpuMemcpyDtoHDirect	csrc/pjrt/pjrt_transfer.cc	399	function	138	ab8ead172f36e21f	3	pjrt-client
+csrc/pjrt/pjrt_transfer.cc#RawBufferHolder	csrc/pjrt/pjrt_transfer.cc	475	class	12	355b1622c80f387f	5	
+csrc/pjrt/pjrt_transfer.cc#RawBufferHolder.c_api	csrc/pjrt/pjrt_transfer.cc	477	member	6	afa886e9a0222d0a	2	
+csrc/pjrt/pjrt_transfer.cc#RawBufferHolder.extension	csrc/pjrt/pjrt_transfer.cc	479	member	8	4824e84357f3ce88	2	
+csrc/pjrt/pjrt_transfer.cc#RawBufferHolder.buffer	csrc/pjrt/pjrt_transfer.cc	481	member	11	3b52d58b1c22bf76	2	
+csrc/pjrt/pjrt_transfer.cc#RawBufferHolder.device_buffer_ref	csrc/pjrt/pjrt_transfer.cc	484	member	2	d80a2f3e3b5c9632	1	
+csrc/pjrt/pjrt_transfer.cc#RawBufferHolder.RawBufferHolder	csrc/pjrt/pjrt_transfer.cc	486	method	30	bedb35cf5fbc743b	0	
+csrc/pjrt/pjrt_transfer.cc#RawBufferHolder.operator	csrc/pjrt/pjrt_transfer.cc	494	method	5	b910cf1157a43777	0	
+csrc/pjrt/pjrt_transfer.cc#RawBufferHolder.-RawBufferHolder	csrc/pjrt/pjrt_transfer.cc	496	method	20	bc665da74aa737d4	0	
+csrc/pjrt/pjrt_transfer.cc#RawBufferContext	csrc/pjrt/pjrt_transfer.cc	511	class	4	cd3882cab2477004	2	
+csrc/pjrt/pjrt_transfer.cc#RawBufferContext.c_api	csrc/pjrt/pjrt_transfer.cc	513	member	8	afa886e9a0222d0a	2	
+csrc/pjrt/pjrt_transfer.cc#RawBufferContext.extension	csrc/pjrt/pjrt_transfer.cc	515	member	8	4824e84357f3ce88	2	
+csrc/pjrt/pjrt_transfer.cc#RawBufferContext.raw_buffer	csrc/pjrt/pjrt_transfer.cc	517	member	9	c511ef2d612863bd	2	
+csrc/pjrt/pjrt_transfer.cc#RawBufferContext.hold	csrc/pjrt/pjrt_transfer.cc	519	member	14	8f9da48db4243f42	2	
+csrc/pjrt/pjrt_transfer.cc#PrepareRawBuffer	csrc/pjrt/pjrt_transfer.cc	529	function	139	ee6ab432038e2b98	2	pjrt-client
+csrc/pjrt/pjrt_transfer.cc#TpuAsyncDmaCopyDtoH	csrc/pjrt/pjrt_transfer.cc	587	function	130	dcd94f7833c0bfab	1	pjrt-client
+csrc/pjrt/pjrt_transfer.cc#TpuAsyncDmaCopyHtoD	csrc/pjrt/pjrt_transfer.cc	615	function	130	bbba097bbc2f93c5	1	pjrt-client
+csrc/pjrt/pjrt_transfer.h#AsyncDmaResult	csrc/pjrt/pjrt_transfer.h	52	class	12	ba5cc23005bfd419	4	
+csrc/pjrt/pjrt_transfer.h#AsyncDmaResult.future	csrc/pjrt/pjrt_transfer.h	53	member	0	a5a7854fb9097099	0	
+csrc/pjrt/pjrt_transfer.h#AsyncDmaResult.buffer_hold	csrc/pjrt/pjrt_transfer.h	54	member	25	49a2d84110777b2b	0	
+csrc/pjrt/pjrt_utils.cc#GetPjRtClient	csrc/pjrt/pjrt_utils.cc	38	function	42	cd6daaccb0d43d5d	2	pjrt-client
+csrc/pjrt/pjrt_utils.cc#GetPjRtDevice	csrc/pjrt/pjrt_utils.cc	42	function	42	0c7f9753f0f7f72e	2	
+csrc/pjrt/pjrt_utils.cc#GetDefaultMemorySpace	csrc/pjrt/pjrt_utils.cc	46	function	97	0e7119ca248e7562	2	pjrt-client
+csrc/pjrt/pjrt_utils.cc#ToString	csrc/pjrt/pjrt_utils.cc	57	function	39	ba5e4936c3a30f4a	3	
+csrc/pjrt/pjrt_utils.cc#TpuDeviceSupportsSparseCore	csrc/pjrt/pjrt_utils.cc	63	function	69	edd3df59b7796279	3	pjrt-client

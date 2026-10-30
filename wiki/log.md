@@ -1,3 +1,18 @@
+## [2026-10-29] ingest-codebase | torch_tpu v0.2.0 + torchtitan (google-pytorch main) - PyTorch-on-TPU stack
+
+**Op**: ingest-codebase (x2, via `/wikify-ingest-repo`, wikify 0.4.1). Both repos became public on GitHub (and `torch-tpu` on PyPI), so the PyTorch-on-TPU stack is now ingested here.
+**Pages created**:
+- `wiki/codebases/torch_tpu/` - overview, 2 areas, 36 concept pages, 43 doc-concepts, 716-module catalog; submodule `raw/code/torch_tpu` at tag `v0.2.0` (`005903d0e`, 2026-10-17); `config/torch_tpu.md`.
+- `wiki/codebases/torchtitan/` - overview, 10 areas (9 generated + a hand-written `experiments` area), 34 concept pages, ~71 doc-concepts, 690-module catalog; submodule `raw/code/torchtitan` at google-pytorch `main` `2ad96c939` (2026-10-28); `config/torchtitan.md`.
+**Pages updated**: `wiki/index.md` (Codebases 27 -> 29, new "Wave 5" group); `wiki/model-optimization-index.md` (two dead links repointed to the new torchtitan overview / TPU-trainer page); `wiki/codebases/index.md` and ~14 `wiki/concepts/*.md` connect blocks (`wikify connect --refresh`; torch_tpu connected on 12 keys, torchtitan on 26).
+**Key result**:
+- torch_tpu: re-finalized from a cached wikify build (scip index, packets, verify state) without a bazel rebuild (lint OK, 100% of 20,186 symbols); internal shortlinks / bug ids quoted from source comments were neutralized in the synthesized pages. All 758 load-bearing claims were adversarially verified (49 corrected).
+- torchtitan: fresh ingest. `experiments/` is on wikify's default discovery exclude list, so the TPU backend units (trainer + flag maps, MoE dispatch, context parallelism, layer loop / remat / layouts, Pallas kernels, TPU graph trainer) plus jax lane, graph trainer and RL were pinned with explicit symbol seeds. finalize: lint OK, 100% of 14,209 symbols, 59 diagrams 0 warnings. Adversarial verify: all 724 load-bearing claims checked by 9 independent verifiers, 59 refuted and corrected, 0 refuted remaining.
+**Notes**:
+- Code findings recorded on pages (read from source, not run): `get_peak_flops` returns None for an unrecognized TPU generation (the A100 fallback it logs is unreachable); `dcp.py` calls `consolidate_safetensors_files_on_every_rank` with its import commented out; the flux TPU splash patch checks for `TPUTrainerConfig` but receives a plain `TrainingConfig`; the MoE GMM wrapper does a `.cpu()` on group sizes per layer (host sync + possible recompile); flux encodes the VAE outside `no_grad`.
+- Docs vs code: torchtitan READMEs reference removed CLI flags / configs (quantization `quantization=` vs `converters=`, `--job.config_file`, `local_batch_size`), the GKE/Slurm guides under `experiments/tpu` are A3 Mega GPU guides, and several recipe READMEs claim flags "carried by the config" that only come from the CLI; torch_tpu's GKE manifests set `TPU_LAUNCH_BLOCKING` but only `TORCH_TPU_LAUNCH_BLOCKING` is read. Each is noted on the relevant page.
+- Wikify behaviors worth a tool fix: `index_shards: ["pkg/**"]` makes one scip-python shard per file (995 for torchtitan; use `pkg/*`); `(subsystem: <prefix>)` seeds under an excluded dir silently fall back to unrelated hub symbols; area auto-blocks are not refreshed by finalize once the agenda changes after the first prepare; overloaded anchors (`operator<<`) can resolve to the wrong overload.
+
 ## [2026-09-04] manual | xprof-cli GitHub repo made private; submodule marked optional
 
 **Op**: manual

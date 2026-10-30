@@ -1,0 +1,51 @@
+# wikify symbol index: torch_tpu @ 005903d0ef, shard csrc/mlir, 43 rows (55 symbols; overloads share a row). Grep it by anchor; never read it whole.
+# columns: anchor	path	line	kind	rank	hash	callers	pages
+# one symbol:  grep -P '^csrc/mlir/pipeline.cc#RunTorchTpuOptimizationPasses\t' catalog/symbols/*.tsv
+# by name:     grep -P '[#.]RunTorchTpuOptimizationPasses\t' catalog/symbols/*.tsv | sort -t$'\t' -k5 -nr | head -20   (matches Class.RunTorchTpuOptimizationPasses too)
+# by area:     grep -P '^csrc/mlir/.*#RunTorchTpuOptimizationPasses\t' catalog/symbols/*.tsv | head -20
+# one module:  awk -F'\t' '$2=="csrc/mlir/pipeline.cc"' catalog/symbols/*.tsv | cut -f1,3,4 | head -40
+# to prose:    grep -P '^csrc/mlir/pipeline.cc#RunTorchTpuOptimizationPasses\t' catalog/symbols/*.tsv | cut -f1,8   (column 8: concept pages citing it)
+# callers:     column 7 is the count; the list lives in catalog/edges/*.tsv, see its header (count, narrow, head)
+csrc/mlir/instrumentation.cc#g_module_counter	csrc/mlir/instrumentation.cc	41	value	2	16e05356c3d59c69	1	mlir-optimization-passes
+csrc/mlir/instrumentation.cc#NextModuleId	csrc/mlir/instrumentation.cc	43	function	17	a59096a2d3c4d946	1	mlir-optimization-passes
+csrc/mlir/instrumentation.cc#InstrumentationState.Apply	csrc/mlir/instrumentation.cc	47	method	35	c1dcfc766f2bf39e	2	mlir-optimization-passes
+csrc/mlir/instrumentation.cc#ConfigureInstrumentation	csrc/mlir/instrumentation.cc	78	function	65	230756f8a75675ad	2	mlir-optimization-passes
+csrc/mlir/instrumentation.h#InstrumentationState	csrc/mlir/instrumentation.h	30	class	10	945257026b00d34a	4	mlir-optimization-passes
+csrc/mlir/instrumentation.h#InstrumentationState.ir_os	csrc/mlir/instrumentation.h	31	member	6	c348fead8a9125e7	2	mlir-optimization-passes
+csrc/mlir/instrumentation.h#InstrumentationState.timing_os	csrc/mlir/instrumentation.h	32	member	6	e242ee707d3a03ec	2	mlir-optimization-passes
+csrc/mlir/instrumentation.h#InstrumentationState.dump_to_print	csrc/mlir/instrumentation.h	33	member	26	0789cb697ef50909	2	mlir-optimization-passes
+csrc/mlir/passes/dummy_pass.cc#DummyPass	csrc/mlir/passes/dummy_pass.cc	31	class	18	2532a1d38b8da5d7	2	mlir-optimization-passes
+csrc/mlir/passes/dummy_pass.cc#DummyPass.resolveTypeID	csrc/mlir/passes/dummy_pass.cc	33	method	5	bd7fde78fe99f614	0	
+csrc/mlir/passes/dummy_pass.cc#DummyPass.getArgument	csrc/mlir/passes/dummy_pass.cc	35	method	0	b5be547a663997ea	0	
+csrc/mlir/passes/dummy_pass.cc#DummyPass.getDescription	csrc/mlir/passes/dummy_pass.cc	36	method	0	25bd58fbc7be14d3	0	
+csrc/mlir/passes/dummy_pass.cc#DummyPass.runOnOperation	csrc/mlir/passes/dummy_pass.cc	38	method	5	e70f69270d8724d1	0	
+csrc/mlir/passes/dummy_pass.cc#createDummyPass	csrc/mlir/passes/dummy_pass.cc	48	function	17	e56945ccf3dc104b	1	mlir-optimization-passes
+csrc/mlir/passes/reassociate_norm_weights.cc#SkipBroadcasts	csrc/mlir/passes/reassociate_norm_weights.cc	43	function	9	83c970711d91a14e	2	mlir-optimization-passes
+csrc/mlir/passes/reassociate_norm_weights.cc#IsOneSplat	csrc/mlir/passes/reassociate_norm_weights.cc	55	function	14	881af3c06d5ed04f	1	mlir-optimization-passes
+csrc/mlir/passes/reassociate_norm_weights.cc#MatchedWeight	csrc/mlir/passes/reassociate_norm_weights.cc	70	class	11	42e13e60d0af3f1c	3	mlir-optimization-passes
+csrc/mlir/passes/reassociate_norm_weights.cc#MatchedWeight.raw_weight	csrc/mlir/passes/reassociate_norm_weights.cc	71	member	9	e9f4a817224a2407	1	mlir-optimization-passes
+csrc/mlir/passes/reassociate_norm_weights.cc#MatchedWeight.outer_bcast	csrc/mlir/passes/reassociate_norm_weights.cc	72	member	11	0ee97b01cdc5cfa1	1	mlir-optimization-passes
+csrc/mlir/passes/reassociate_norm_weights.cc#MatchOnePlusWeight	csrc/mlir/passes/reassociate_norm_weights.cc	80	function	19	3b7e2accc9c9a440	1	mlir-optimization-passes
+csrc/mlir/passes/reassociate_norm_weights.cc#ReassociateMulNormPattern	csrc/mlir/passes/reassociate_norm_weights.cc	104	class	7	b1ad86dc6c4af677	1	mlir-optimization-passes
+csrc/mlir/passes/reassociate_norm_weights.cc#ReassociateMulNormPattern.ReassociateMulNormPattern	csrc/mlir/passes/reassociate_norm_weights.cc	106	method	5	1fcf3dac1f0783f9	0	
+csrc/mlir/passes/reassociate_norm_weights.cc#ReassociateMulNormPattern.matchAndRewrite	csrc/mlir/passes/reassociate_norm_weights.cc	108	method	30	e1358c65554d3cae	0	mlir-optimization-passes
+csrc/mlir/passes/reassociate_norm_weights.cc#ReassociateNormWeightsPass	csrc/mlir/passes/reassociate_norm_weights.cc	159	class	14	0d02c44b3633cb46	2	mlir-optimization-passes
+csrc/mlir/passes/reassociate_norm_weights.cc#ReassociateNormWeightsPass.resolveTypeID	csrc/mlir/passes/reassociate_norm_weights.cc	162	method	5	e353423fa021e4fc	0	
+csrc/mlir/passes/reassociate_norm_weights.cc#ReassociateNormWeightsPass.getArgument	csrc/mlir/passes/reassociate_norm_weights.cc	164	method	0	f097f28b206381d2	0	
+csrc/mlir/passes/reassociate_norm_weights.cc#ReassociateNormWeightsPass.getDescription	csrc/mlir/passes/reassociate_norm_weights.cc	167	method	0	11f09dfade854814	0	
+csrc/mlir/passes/reassociate_norm_weights.cc#ReassociateNormWeightsPass.runOnOperation	csrc/mlir/passes/reassociate_norm_weights.cc	172	method	10	e70f69270d8724d1	0	mlir-optimization-passes
+csrc/mlir/passes/reassociate_norm_weights.cc#createReassociateNormWeightsPass	csrc/mlir/passes/reassociate_norm_weights.cc	187	function	23	aabe2b2441f5b232	2	mlir-optimization-passes
+csrc/mlir/pipeline.cc#AddCleanupPasses	csrc/mlir/pipeline.cc	38	function	19	7778c4b17c7018e3	1	mlir-optimization-passes
+csrc/mlir/pipeline.cc#AddShloPasses	csrc/mlir/pipeline.cc	50	function	22	f010868a150d3842	1	mlir-optimization-passes
+csrc/mlir/pipeline.cc#AddTorchTpuOptimizationPasses	csrc/mlir/pipeline.cc	61	function	34	fe8098d8ec0e682f	1	mlir-optimization-passes
+csrc/mlir/pipeline.cc#RunTorchTpuOptimizationPasses	csrc/mlir/pipeline.cc	68	function	118	ac88388665f247f8	2	mlir-optimization-passes
+csrc/mlir/pipeline_test.cc#StatusIs	csrc/mlir/pipeline_test.cc	32	function	4	0b589192a6a2246e	1	
+csrc/mlir/pipeline_test.cc#HasSubstr	csrc/mlir/pipeline_test.cc	33	function	4	befdf2c79741c70b	1	
+csrc/mlir/pipeline_test.cc#PipelineTest_RunOptimizationPassesFailsOnInvalidModule_Test	csrc/mlir/pipeline_test.cc	35	class	40	d947dc618f0f44df	1	
+csrc/mlir/pipeline_test.cc#PipelineTest_RunOptimizationPassesFailsOnInvalidModule_Test.-PipelineTest_RunOptimizationPassesFailsOnInvalidModule_Test	csrc/mlir/pipeline_test.cc	35	method	0	d947dc618f0f44df	0	
+csrc/mlir/pipeline_test.cc#PipelineTest_RunOptimizationPassesFailsOnInvalidModule_Test.PipelineTest_RunOptimizationPassesFailsOnInvalidModule_Test	csrc/mlir/pipeline_test.cc	35	method	0	d947dc618f0f44df	0	
+csrc/mlir/pipeline_test.cc#PipelineTest_RunOptimizationPassesFailsOnInvalidModule_Test.TestBody	csrc/mlir/pipeline_test.cc	35	method	48	d947dc618f0f44df	1	
+csrc/mlir/pipeline_test.cc#PipelineTest_RunOptimizationPassesFailsOnInvalidModule_Test.operator	csrc/mlir/pipeline_test.cc	35	method	0	d947dc618f0f44df	0	
+csrc/mlir/pipeline_test.cc#PipelineTest_RunOptimizationPassesFailsOnInvalidModule_Test.test_info_	csrc/mlir/pipeline_test.cc	35	member	0	d947dc618f0f44df	0	
+csrc/mlir/registration.cc#RegisterTorchTpuPasses	csrc/mlir/registration.cc	30	function	17	974d9d2bb53189ef	0	mlir-optimization-passes
+csrc/mlir/registration.cc#RegisterTorchTpuDialects	csrc/mlir/registration.cc	38	function	7	8bbdad06a6aff418	0	mlir-optimization-passes

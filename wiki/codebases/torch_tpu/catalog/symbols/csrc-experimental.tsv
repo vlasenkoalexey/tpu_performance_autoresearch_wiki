@@ -1,0 +1,140 @@
+# wikify symbol index: torch_tpu @ 005903d0ef, shard csrc/experimental, 132 rows (155 symbols; overloads share a row). Grep it by anchor; never read it whole.
+# columns: anchor	path	line	kind	rank	hash	callers	pages
+# one symbol:  grep -P '^csrc/experimental/precompiled_kernels/nonzero_indices.cc#NonzeroBuilder.b_\t' catalog/symbols/*.tsv
+# by name:     grep -P '[#.]b_\t' catalog/symbols/*.tsv | sort -t$'\t' -k5 -nr | head -20   (matches Class.b_ too)
+# by area:     grep -P '^csrc/experimental/precompiled_kernels/.*#b_\t' catalog/symbols/*.tsv | head -20
+# one module:  awk -F'\t' '$2=="csrc/experimental/precompiled_kernels/nonzero_indices.cc"' catalog/symbols/*.tsv | cut -f1,3,4 | head -40
+# to prose:    grep -P '^csrc/experimental/precompiled_kernels/nonzero_indices.cc#NonzeroBuilder.b_\t' catalog/symbols/*.tsv | cut -f1,8   (column 8: concept pages citing it)
+# callers:     column 7 is the count; the list lives in catalog/edges/*.tsv, see its header (count, narrow, head)
+csrc/experimental/batch_transfer/batch_transfer.cc#RawBufferHolder	csrc/experimental/batch_transfer/batch_transfer.cc	55	class	60	355b1622c80f387f	7	batch-host-device-transfer
+csrc/experimental/batch_transfer/batch_transfer.cc#RawBufferHolder.c_api	csrc/experimental/batch_transfer/batch_transfer.cc	56	member	4	0b17ebae1c4d1644	2	
+csrc/experimental/batch_transfer/batch_transfer.cc#RawBufferHolder.extension	csrc/experimental/batch_transfer/batch_transfer.cc	57	member	4	f86853245a3dfc15	2	
+csrc/experimental/batch_transfer/batch_transfer.cc#RawBufferHolder.buffer	csrc/experimental/batch_transfer/batch_transfer.cc	58	member	6	e92bb4a5ed2f6ba3	2	
+csrc/experimental/batch_transfer/batch_transfer.cc#RawBufferHolder.RawBufferHolder	csrc/experimental/batch_transfer/batch_transfer.cc	60	method	15	bedb35cf5fbc743b	0	
+csrc/experimental/batch_transfer/batch_transfer.cc#RawBufferHolder.-RawBufferHolder	csrc/experimental/batch_transfer/batch_transfer.cc	64	method	25	bc665da74aa737d4	0	batch-host-device-transfer
+csrc/experimental/batch_transfer/batch_transfer.cc#TransferFuture.Await	csrc/experimental/batch_transfer/batch_transfer.cc	71	method	158	e12c95a9054d3f87	5	batch-host-device-transfer
+csrc/experimental/batch_transfer/batch_transfer.cc#TransferFuture.AndThen	csrc/experimental/batch_transfer/batch_transfer.cc	117	method	40	9c48971f7da23fe4	3	batch-host-device-transfer
+csrc/experimental/batch_transfer/batch_transfer.cc#ValidatePartialSpec	csrc/experimental/batch_transfer/batch_transfer.cc	153	function	74	6ac709316cc30541	2	batch-host-device-transfer
+csrc/experimental/batch_transfer/batch_transfer.cc#GetSizePerMajorDim	csrc/experimental/batch_transfer/batch_transfer.cc	170	function	74	ae548ee61b536553	2	batch-host-device-transfer
+csrc/experimental/batch_transfer/batch_transfer.cc#GetPjrtBuffer	csrc/experimental/batch_transfer/batch_transfer.cc	197	function	123	d09f8e6830fe98e1	2	batch-host-device-transfer
+csrc/experimental/batch_transfer/batch_transfer.cc#BatchTransferD2H	csrc/experimental/batch_transfer/batch_transfer.cc	212	function	225	a8dd5c787bd053f0	3	batch-host-device-transfer
+csrc/experimental/batch_transfer/batch_transfer.cc#BatchTransferH2D	csrc/experimental/batch_transfer/batch_transfer.cc	425	function	220	0713fd7cb6f6834a	3	batch-host-device-transfer
+csrc/experimental/batch_transfer/batch_transfer.cc#BatchTransferD2HSync	csrc/experimental/batch_transfer/batch_transfer.cc	593	function	67	7553607bd5d08d9c	2	batch-host-device-transfer
+csrc/experimental/batch_transfer/batch_transfer.cc#BatchTransferH2DSync	csrc/experimental/batch_transfer/batch_transfer.cc	605	function	55	3933397b6713542e	2	batch-host-device-transfer
+csrc/experimental/batch_transfer/batch_transfer.h#TransferFuture	csrc/experimental/batch_transfer/batch_transfer.h	35	class	46	3ece3545c995995a	14	batch-host-device-transfer
+csrc/experimental/batch_transfer/batch_transfer.h#TransferFuture.TransferFuture	csrc/experimental/batch_transfer/batch_transfer.h	37	method	44	42b84bd2972c30a0	2	batch-host-device-transfer
+csrc/experimental/batch_transfer/batch_transfer.h#TransferFuture.SetTag	csrc/experimental/batch_transfer/batch_transfer.h	54	method	7	52b9f5581855e467	1	
+csrc/experimental/batch_transfer/batch_transfer.h#TransferFuture.GetTag	csrc/experimental/batch_transfer/batch_transfer.h	55	method	5	ff17213fbe7eab48	0	
+csrc/experimental/batch_transfer/batch_transfer.h#TransferFuture.futures_	csrc/experimental/batch_transfer/batch_transfer.h	58	member	29	ee2f948895cd17ba	5	batch-host-device-transfer
+csrc/experimental/batch_transfer/batch_transfer.h#TransferFuture.c_api_holds_	csrc/experimental/batch_transfer/batch_transfer.h	59	member	16	94896ee8af8ae836	4	batch-host-device-transfer
+csrc/experimental/batch_transfer/batch_transfer.h#TransferFuture.holds_	csrc/experimental/batch_transfer/batch_transfer.h	60	member	21	0f11f1066cb84192	4	batch-host-device-transfer
+csrc/experimental/batch_transfer/batch_transfer.h#TransferFuture.tensors_	csrc/experimental/batch_transfer/batch_transfer.h	61	member	14	f4f1fdddaf8b4e0c	3	
+csrc/experimental/batch_transfer/batch_transfer.h#TransferFuture.tag_	csrc/experimental/batch_transfer/batch_transfer.h	62	member	48	9ca9cb277ce4d46b	3	batch-host-device-transfer
+csrc/experimental/precompiled_kernels/kernel_test_utils.cc#CreateKernelTestClient	csrc/experimental/precompiled_kernels/kernel_test_utils.cc	29	function	77	1da5a0cf327c658e	1	batch-host-device-transfer
+csrc/experimental/precompiled_kernels/mosaic_custom_call.cc#SerializeMosaic	csrc/experimental/precompiled_kernels/mosaic_custom_call.cc	46	function	84	ff0dc3e399b4b72b	1	batch-host-device-transfer
+csrc/experimental/precompiled_kernels/mosaic_custom_call.cc#BuildMosaicCustomCall	csrc/experimental/precompiled_kernels/mosaic_custom_call.cc	64	function	95	cdc99d80ad04a474	2	batch-host-device-transfer
+csrc/experimental/precompiled_kernels/mosaic_custom_call_test.cc#DynamicMosaic_CopiesDifferentShapesWithOneExecutable_Test	csrc/experimental/precompiled_kernels/mosaic_custom_call_test.cc	44	class	40	b9598117c6d239b7	1	
+csrc/experimental/precompiled_kernels/mosaic_custom_call_test.cc#DynamicMosaic_CopiesDifferentShapesWithOneExecutable_Test.-DynamicMosaic_CopiesDifferentShapesWithOneExecutable_Test	csrc/experimental/precompiled_kernels/mosaic_custom_call_test.cc	44	method	0	b9598117c6d239b7	0	
+csrc/experimental/precompiled_kernels/mosaic_custom_call_test.cc#DynamicMosaic_CopiesDifferentShapesWithOneExecutable_Test.DynamicMosaic_CopiesDifferentShapesWithOneExecutable_Test	csrc/experimental/precompiled_kernels/mosaic_custom_call_test.cc	44	method	0	b9598117c6d239b7	0	
+csrc/experimental/precompiled_kernels/mosaic_custom_call_test.cc#DynamicMosaic_CopiesDifferentShapesWithOneExecutable_Test.TestBody	csrc/experimental/precompiled_kernels/mosaic_custom_call_test.cc	44	method	48	b9598117c6d239b7	1	
+csrc/experimental/precompiled_kernels/mosaic_custom_call_test.cc#DynamicMosaic_CopiesDifferentShapesWithOneExecutable_Test.operator	csrc/experimental/precompiled_kernels/mosaic_custom_call_test.cc	44	method	0	b9598117c6d239b7	0	
+csrc/experimental/precompiled_kernels/mosaic_custom_call_test.cc#DynamicMosaic_CopiesDifferentShapesWithOneExecutable_Test.test_info_	csrc/experimental/precompiled_kernels/mosaic_custom_call_test.cc	44	member	0	b9598117c6d239b7	0	
+csrc/experimental/precompiled_kernels/nonzero_indices.cc#NonzeroBuilder	csrc/experimental/precompiled_kernels/nonzero_indices.cc	87	class	4	2225c606f3b575c6	1	
+csrc/experimental/precompiled_kernels/nonzero_indices.cc#NonzeroBuilder.NonzeroBuilder	csrc/experimental/precompiled_kernels/nonzero_indices.cc	89	method	14	ca6db27418416189	1	
+csrc/experimental/precompiled_kernels/nonzero_indices.cc#NonzeroBuilder.Build	csrc/experimental/precompiled_kernels/nonzero_indices.cc	93	method	84	a5ee95cb012de526	1	batch-host-device-transfer
+csrc/experimental/precompiled_kernels/nonzero_indices.cc#NonzeroBuilder.IsNonzero	csrc/experimental/precompiled_kernels/nonzero_indices.cc	113	method	34	e821921a8c55fac9	1	batch-host-device-transfer
+csrc/experimental/precompiled_kernels/nonzero_indices.cc#NonzeroBuilder.LoadRow	csrc/experimental/precompiled_kernels/nonzero_indices.cc	124	method	54	53525adfb395df36	1	batch-host-device-transfer
+csrc/experimental/precompiled_kernels/nonzero_indices.cc#NonzeroBuilder.Append	csrc/experimental/precompiled_kernels/nonzero_indices.cc	144	method	69	741e1e72e72e7e7c	1	batch-host-device-transfer
+csrc/experimental/precompiled_kernels/nonzero_indices.cc#NonzeroBuilder.Flush	csrc/experimental/precompiled_kernels/nonzero_indices.cc	159	method	38	d658d9b16b36120f	2	batch-host-device-transfer
+csrc/experimental/precompiled_kernels/nonzero_indices.cc#NonzeroBuilder.FlushTail	csrc/experimental/precompiled_kernels/nonzero_indices.cc	166	method	44	39a4e9f9db7b10c4	1	batch-host-device-transfer
+csrc/experimental/precompiled_kernels/nonzero_indices.cc#NonzeroBuilder.WriteTile	csrc/experimental/precompiled_kernels/nonzero_indices.cc	174	method	42	b9eadd0647b3fc98	2	batch-host-device-transfer
+csrc/experimental/precompiled_kernels/nonzero_indices.cc#NonzeroBuilder.ExtractLane	csrc/experimental/precompiled_kernels/nonzero_indices.cc	183	method	19	63a28322fd6dd9e6	1	
+csrc/experimental/precompiled_kernels/nonzero_indices.cc#NonzeroBuilder.Store	csrc/experimental/precompiled_kernels/nonzero_indices.cc	192	method	27	a027001371c6aed0	2	
+csrc/experimental/precompiled_kernels/nonzero_indices.cc#NonzeroBuilder.Copy	csrc/experimental/precompiled_kernels/nonzero_indices.cc	200	method	23	7da231fc5464bf6d	2	
+csrc/experimental/precompiled_kernels/nonzero_indices.cc#NonzeroBuilder.Const	csrc/experimental/precompiled_kernels/nonzero_indices.cc	210	method	78	caab4b8fb38a63e0	10	batch-host-device-transfer
+csrc/experimental/precompiled_kernels/nonzero_indices.cc#NonzeroBuilder.Index	csrc/experimental/precompiled_kernels/nonzero_indices.cc	214	method	26	03fcbe34d507b162	2	
+csrc/experimental/precompiled_kernels/nonzero_indices.cc#NonzeroBuilder.Add	csrc/experimental/precompiled_kernels/nonzero_indices.cc	218	method	22	4cf2b2c8e80625c7	3	
+csrc/experimental/precompiled_kernels/nonzero_indices.cc#NonzeroBuilder.Sub	csrc/experimental/precompiled_kernels/nonzero_indices.cc	222	method	18	00ffc5d7efc13d9d	2	
+csrc/experimental/precompiled_kernels/nonzero_indices.cc#NonzeroBuilder.Min	csrc/experimental/precompiled_kernels/nonzero_indices.cc	226	method	14	cc5fb961e00e70d1	1	
+csrc/experimental/precompiled_kernels/nonzero_indices.cc#NonzeroBuilder.Compare	csrc/experimental/precompiled_kernels/nonzero_indices.cc	230	method	22	ff7608bb81fc861a	3	
+csrc/experimental/precompiled_kernels/nonzero_indices.cc#NonzeroBuilder.And	csrc/experimental/precompiled_kernels/nonzero_indices.cc	235	method	47	ec7e445b6f6d07be	4	batch-host-device-transfer
+csrc/experimental/precompiled_kernels/nonzero_indices.cc#NonzeroBuilder.Splat	csrc/experimental/precompiled_kernels/nonzero_indices.cc	240	method	30	db5143fa0a620f58	3	
+csrc/experimental/precompiled_kernels/nonzero_indices.cc#NonzeroBuilder.Dim	csrc/experimental/precompiled_kernels/nonzero_indices.cc	246	method	22	3bdfb8691f6f169b	2	
+csrc/experimental/precompiled_kernels/nonzero_indices.cc#NonzeroBuilder.Ref	csrc/experimental/precompiled_kernels/nonzero_indices.cc	252	method	42	ebee987ebf47ac1a	4	batch-host-device-transfer
+csrc/experimental/precompiled_kernels/nonzero_indices.cc#NonzeroBuilder.For	csrc/experimental/precompiled_kernels/nonzero_indices.cc	259	method	31	1e582d927ad7005d	2	batch-host-device-transfer
+csrc/experimental/precompiled_kernels/nonzero_indices.cc#NonzeroBuilder.When	csrc/experimental/precompiled_kernels/nonzero_indices.cc	268	method	22	c8a8ee027395d3c3	3	
+csrc/experimental/precompiled_kernels/nonzero_indices.cc#NonzeroBuilder.Initialize	csrc/experimental/precompiled_kernels/nonzero_indices.cc	278	method	79	ef06ac444e2e8dc0	1	batch-host-device-transfer
+csrc/experimental/precompiled_kernels/nonzero_indices.cc#NonzeroBuilder.CreateModule	csrc/experimental/precompiled_kernels/nonzero_indices.cc	304	method	29	4266d75d4b22dd49	1	batch-host-device-transfer
+csrc/experimental/precompiled_kernels/nonzero_indices.cc#NonzeroBuilder.b_	csrc/experimental/precompiled_kernels/nonzero_indices.cc	319	member	253	c3ad15edad2868c6	25	batch-host-device-transfer
+csrc/experimental/precompiled_kernels/nonzero_indices.cc#NonzeroBuilder.count_	csrc/experimental/precompiled_kernels/nonzero_indices.cc	320	member	20	a14311e08dd81229	3	
+csrc/experimental/precompiled_kernels/nonzero_indices.cc#NonzeroBuilder.input_	csrc/experimental/precompiled_kernels/nonzero_indices.cc	320	member	16	a14311e08dd81229	3	
+csrc/experimental/precompiled_kernels/nonzero_indices.cc#NonzeroBuilder.output_	csrc/experimental/precompiled_kernels/nonzero_indices.cc	320	member	12	a14311e08dd81229	3	
+csrc/experimental/precompiled_kernels/nonzero_indices.cc#NonzeroBuilder.position_	csrc/experimental/precompiled_kernels/nonzero_indices.cc	320	member	13	a14311e08dd81229	2	
+csrc/experimental/precompiled_kernels/nonzero_indices.cc#NonzeroBuilder.sem_	csrc/experimental/precompiled_kernels/nonzero_indices.cc	320	member	12	a14311e08dd81229	2	
+csrc/experimental/precompiled_kernels/nonzero_indices.cc#NonzeroBuilder.stage_	csrc/experimental/precompiled_kernels/nonzero_indices.cc	320	member	24	a14311e08dd81229	3	
+csrc/experimental/precompiled_kernels/nonzero_indices.cc#NonzeroBuilder.tile_	csrc/experimental/precompiled_kernels/nonzero_indices.cc	320	member	12	a14311e08dd81229	2	
+csrc/experimental/precompiled_kernels/nonzero_indices.cc#BuildNonzeroIndices	csrc/experimental/precompiled_kernels/nonzero_indices.cc	323	function	24	c318baf2bd8fa5fd	1	batch-host-device-transfer
+csrc/experimental/precompiled_kernels/nonzero_indices.cc#MakeUnbounded	csrc/experimental/precompiled_kernels/nonzero_indices.cc	329	function	17	d501c77f3afbe0e6	2	batch-host-device-transfer
+csrc/experimental/precompiled_kernels/nonzero_indices.cc#DestinationPhysicalShape	csrc/experimental/precompiled_kernels/nonzero_indices.cc	340	function	19	ef56d53bde4a21ca	1	batch-host-device-transfer
+csrc/experimental/precompiled_kernels/nonzero_indices.cc#BitcastToLogicalIndices	csrc/experimental/precompiled_kernels/nonzero_indices.cc	351	function	59	66f2be9c4f016726	1	batch-host-device-transfer
+csrc/experimental/precompiled_kernels/nonzero_indices.cc#NonzeroParameters	csrc/experimental/precompiled_kernels/nonzero_indices.cc	367	function	18	166b28964dc62551	2	batch-host-device-transfer
+csrc/experimental/precompiled_kernels/nonzero_indices.cc#MakeNonzeroDynamicMetadata	csrc/experimental/precompiled_kernels/nonzero_indices.cc	377	function	121	0e773603bbd3777e	2	batch-host-device-transfer
+csrc/experimental/precompiled_kernels/nonzero_indices.cc#BuildNonzeroIndicesExecutable	csrc/experimental/precompiled_kernels/nonzero_indices.cc	421	function	146	01bde238b670d0af	2	batch-host-device-transfer
+csrc/experimental/precompiled_kernels/nonzero_indices.cc#NonZeroCacheKey	csrc/experimental/precompiled_kernels/nonzero_indices.cc	443	function	176	fb2c9024a7668816	1	batch-host-device-transfer
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#AbslFlagDefaultGenForbaseline	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	85	class	16	05e533c6da5db95d	1	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#AbslFlagDefaultGenForbaseline.Gen	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	85	method	0	05e533c6da5db95d	0	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#AbslFlagDefaultGenForbaseline.value	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	85	member	8	05e533c6da5db95d	1	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#AbslFlagHelpGenForbaseline	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	85	class	16	05e533c6da5db95d	1	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#AbslFlagHelpGenForbaseline.NonConst	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	85	method	0	05e533c6da5db95d	0	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#AbslFlagHelpGenForbaseline.Value	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	85	method	8	05e533c6da5db95d	1	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#FLAGS_baseline	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	85	value	64	05e533c6da5db95d	2	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#FLAGS_help_storage_baseline	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	85	value	8	05e533c6da5db95d	1	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#FLAGS_nobaseline	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	85	value	35	05e533c6da5db95d	0	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#AbslFlagDefaultGenForupdate	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	87	class	16	4445c0d1a0f25cf0	1	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#AbslFlagDefaultGenForupdate.Gen	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	87	method	0	4445c0d1a0f25cf0	0	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#AbslFlagDefaultGenForupdate.value	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	87	member	8	4445c0d1a0f25cf0	1	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#AbslFlagHelpGenForupdate	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	87	class	16	4445c0d1a0f25cf0	1	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#AbslFlagHelpGenForupdate.NonConst	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	87	method	0	4445c0d1a0f25cf0	0	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#AbslFlagHelpGenForupdate.Value	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	87	method	8	4445c0d1a0f25cf0	1	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#FLAGS_help_storage_update	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	87	value	8	4445c0d1a0f25cf0	1	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#FLAGS_noupdate	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	87	value	35	4445c0d1a0f25cf0	0	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#FLAGS_update	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	87	value	64	4445c0d1a0f25cf0	2	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#MakeInput	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	95	function	24	5ce4ef896d7171d2	3	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#ReferenceIndices	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	108	function	16	167c1d5ac2f2afcc	2	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#NonzeroIndicesTest	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	125	class	63	bfb75107bd7527cc	3	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#NonzeroIndicesTest.SetUpTestSuite	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	127	method	70	4d7b11ba3aa68134	0	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#NonzeroIndicesTest.PrepareOperands	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	154	method	99	fee60208b9f3c845	3	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#NonzeroIndicesTest.ExecuteKernel	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	170	method	31	5ed06ddb85b2707c	2	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#NonzeroIndicesTest.CheckMosaicKernelCorrectness	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	182	method	61	0b633acb99130a1f	2	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#NonzeroIndicesTest.client_	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	209	member	88	12961791d156a2b5	4	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#NonzeroIndicesTest.memory_space_	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	210	member	29	8bdc68b3c5fabf47	3	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#NonzeroIndicesTest.executable_	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	211	member	16	22b714bbe19b3c74	2	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#NonzeroIndicesTest.compile_ms_	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	212	member	16	5e455beae0f61c43	2	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#NonzeroIndicesTest_ReusesExecutableAcrossShapesAndCounts_Test	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	215	class	80	4d04c13cced2eaf4	2	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#NonzeroIndicesTest_ReusesExecutableAcrossShapesAndCounts_Test.-NonzeroIndicesTest_ReusesExecutableAcrossShapesAndCounts_Test	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	215	method	0	4d04c13cced2eaf4	0	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#NonzeroIndicesTest_ReusesExecutableAcrossShapesAndCounts_Test.NonzeroIndicesTest_ReusesExecutableAcrossShapesAndCounts_Test	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	215	method	0	4d04c13cced2eaf4	0	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#NonzeroIndicesTest_ReusesExecutableAcrossShapesAndCounts_Test.TestBody	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	215	method	52	4d04c13cced2eaf4	1	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#NonzeroIndicesTest_ReusesExecutableAcrossShapesAndCounts_Test.operator	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	215	method	0	4d04c13cced2eaf4	0	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#NonzeroIndicesTest_ReusesExecutableAcrossShapesAndCounts_Test.test_info_	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	215	member	0	4d04c13cced2eaf4	0	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#NonzeroIndicesTest_UnboundedDynamicCacheServesKernel_Test	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	231	class	80	167aaf763f77b297	2	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#NonzeroIndicesTest_UnboundedDynamicCacheServesKernel_Test.-NonzeroIndicesTest_UnboundedDynamicCacheServesKernel_Test	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	231	method	0	167aaf763f77b297	0	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#NonzeroIndicesTest_UnboundedDynamicCacheServesKernel_Test.NonzeroIndicesTest_UnboundedDynamicCacheServesKernel_Test	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	231	method	0	167aaf763f77b297	0	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#NonzeroIndicesTest_UnboundedDynamicCacheServesKernel_Test.TestBody	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	231	method	232	167aaf763f77b297	1	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#NonzeroIndicesTest_UnboundedDynamicCacheServesKernel_Test.operator	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	231	method	0	167aaf763f77b297	0	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#NonzeroIndicesTest_UnboundedDynamicCacheServesKernel_Test.test_info_	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	231	member	0	167aaf763f77b297	0	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#BuildReference	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	284	function	58	ec46f32e20bc2f92	1	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#TransferShloInput	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	314	function	68	07e7363f3fb18647	1	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#CompileShlo	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	337	function	43	f17e8fc67d8e914e	1	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#BenchmarkCase	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	348	class	16	0247a7dfd475a643	2	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#BenchmarkCase.rows	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	349	member	40	e033c806d886a2e7	1	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#BenchmarkCase.cols	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	350	member	40	bbb44c401bf30c90	1	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#BenchmarkCase.k	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	351	member	77	4812af68f306a9a2	1	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#kBenchmarkSweep	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	354	value	8	fa113bd03f09c63c	1	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#BaselineMap	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	363	class	34	1a50fb020aadf24e	3	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#LoadXlaBaseline	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	366	function	83	2850cd9ec57b2f56	1	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#NonzeroIndicesTest_Benchmark_Test	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	390	class	80	2c5329ccaf9d2e3d	2	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#NonzeroIndicesTest_Benchmark_Test.-NonzeroIndicesTest_Benchmark_Test	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	390	method	0	2c5329ccaf9d2e3d	0	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#NonzeroIndicesTest_Benchmark_Test.NonzeroIndicesTest_Benchmark_Test	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	390	method	0	2c5329ccaf9d2e3d	0	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#NonzeroIndicesTest_Benchmark_Test.TestBody	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	390	method	232	2c5329ccaf9d2e3d	1	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#NonzeroIndicesTest_Benchmark_Test.operator	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	390	method	0	2c5329ccaf9d2e3d	0	
+csrc/experimental/precompiled_kernels/nonzero_indices_test.cc#NonzeroIndicesTest_Benchmark_Test.test_info_	csrc/experimental/precompiled_kernels/nonzero_indices_test.cc	390	member	0	2c5329ccaf9d2e3d	0	

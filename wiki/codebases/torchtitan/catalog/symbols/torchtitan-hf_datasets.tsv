@@ -1,0 +1,97 @@
+# wikify symbol index: torchtitan @ 2ad96c9390, shard torchtitan/hf_datasets, 89 rows. Grep it by anchor; never read it whole.
+# columns: anchor	path	line	kind	rank	hash	callers	pages
+# one symbol:  grep -P '^torchtitan/hf_datasets/text_datasets#DATASETS.DATASETS\t' catalog/symbols/*.tsv
+# by name:     grep -P '[#.]DATASETS\t' catalog/symbols/*.tsv | sort -t$'\t' -k5 -nr | head -20   (matches Class.DATASETS too)
+# by area:     grep -P '^torchtitan/hf_datasets/.*#DATASETS\t' catalog/symbols/*.tsv | head -20
+# one module:  awk -F'\t' '$2=="torchtitan/hf_datasets/text_datasets.py"' catalog/symbols/*.tsv | cut -f1,3,4 | head -40
+# to prose:    grep -P '^torchtitan/hf_datasets/text_datasets#DATASETS.DATASETS\t' catalog/symbols/*.tsv | cut -f1,8   (column 8: concept pages citing it)
+# callers:     column 7 is the count; the list lives in catalog/edges/*.tsv, see its header (count, narrow, head)
+torchtitan/hf_datasets/multimodal/mm_collator#MultiModalCollator	torchtitan/hf_datasets/multimodal/mm_collator.py	22	class	35	59667d1e05e174f5	7	hf-datasets
+torchtitan/hf_datasets/multimodal/mm_collator#MultiModalCollator.Config	torchtitan/hf_datasets/multimodal/mm_collator.py	30	class	30	27aea42cf0f840ee	7	hf-datasets
+torchtitan/hf_datasets/multimodal/mm_collator#MultiModalCollator.Config.max_images_per_batch	torchtitan/hf_datasets/multimodal/mm_collator.py	31	member	6	5cf87dcb3e3ceaa3	3	
+torchtitan/hf_datasets/multimodal/mm_collator#MultiModalCollator.Config.patch_size	torchtitan/hf_datasets/multimodal/mm_collator.py	32	member	8	2aae0146745c5f6f	4	
+torchtitan/hf_datasets/multimodal/mm_collator#MultiModalCollator.Config.temporal_patch_size	torchtitan/hf_datasets/multimodal/mm_collator.py	33	member	8	e32128b62cd4133f	4	
+torchtitan/hf_datasets/multimodal/mm_collator#MultiModalCollator.Config.spatial_merge_size	torchtitan/hf_datasets/multimodal/mm_collator.py	34	member	8	dd4904e2549872a9	4	
+torchtitan/hf_datasets/multimodal/mm_collator#MultiModalCollator.Config.build_mrope_positions	torchtitan/hf_datasets/multimodal/mm_collator.py	35	member	14	45091ab97ee0c0be	7	hf-datasets
+torchtitan/hf_datasets/multimodal/mm_collator#MultiModalCollator.Config.patch_order	torchtitan/hf_datasets/multimodal/mm_collator.py	36	member	8	af353bba527c92aa	4	
+torchtitan/hf_datasets/multimodal/mm_collator#MultiModalCollator.__init__	torchtitan/hf_datasets/multimodal/mm_collator.py	38	method	10	16fbfe3c38e52a7b	0	
+torchtitan/hf_datasets/multimodal/mm_collator#MultiModalCollator._num_tokens_per_batch	torchtitan/hf_datasets/multimodal/mm_collator.py	39	member	7	dbbb3d12186d88de	1	
+torchtitan/hf_datasets/multimodal/mm_collator#MultiModalCollator._max_context_length	torchtitan/hf_datasets/multimodal/mm_collator.py	40	member	7	9e4666ba4b6c67c6	1	
+torchtitan/hf_datasets/multimodal/mm_collator#MultiModalCollator.max_images_per_batch	torchtitan/hf_datasets/multimodal/mm_collator.py	41	member	9	51cdfe65901faaa4	1	hf-datasets
+torchtitan/hf_datasets/multimodal/mm_collator#MultiModalCollator.patch_size	torchtitan/hf_datasets/multimodal/mm_collator.py	42	member	7	7e030991fdda80c0	1	
+torchtitan/hf_datasets/multimodal/mm_collator#MultiModalCollator.temporal_patch_size	torchtitan/hf_datasets/multimodal/mm_collator.py	43	member	11	542a70953a5e4334	2	hf-datasets
+torchtitan/hf_datasets/multimodal/mm_collator#MultiModalCollator.spatial_merge_size	torchtitan/hf_datasets/multimodal/mm_collator.py	44	member	9	c9e093011768125a	2	hf-datasets
+torchtitan/hf_datasets/multimodal/mm_collator#MultiModalCollator.tokenizer	torchtitan/hf_datasets/multimodal/mm_collator.py	45	member	16	fdd0f5eee96e46d6	2	hf-datasets
+torchtitan/hf_datasets/multimodal/mm_collator#MultiModalCollator.build_mrope_positions	torchtitan/hf_datasets/multimodal/mm_collator.py	46	member	7	e818e4a12dd6a330	1	
+torchtitan/hf_datasets/multimodal/mm_collator#MultiModalCollator.patch_order	torchtitan/hf_datasets/multimodal/mm_collator.py	47	member	11	711b95ef23c11583	2	hf-datasets
+torchtitan/hf_datasets/multimodal/mm_collator#MultiModalCollator.collate_images	torchtitan/hf_datasets/multimodal/mm_collator.py	49	method	29	ded4a198033c809d	1	hf-datasets
+torchtitan/hf_datasets/multimodal/mm_collator#MultiModalCollator.collate_text	torchtitan/hf_datasets/multimodal/mm_collator.py	81	method	22	b56482259381597a	1	hf-datasets
+torchtitan/hf_datasets/multimodal/mm_collator#MultiModalCollator._build_mrope_positions	torchtitan/hf_datasets/multimodal/mm_collator.py	120	method	12	a81fcb7e0f7a0029	1	hf-datasets
+torchtitan/hf_datasets/multimodal/mm_collator#MultiModalCollator.__call__	torchtitan/hf_datasets/multimodal/mm_collator.py	290	method	50	b151af68d004071c	0	hf-datasets
+torchtitan/hf_datasets/multimodal/mm_datasets#_process_mm_sample	torchtitan/hf_datasets/multimodal/mm_datasets.py	89	function	44	65bdc3b069b2a8ee	2	hf-datasets
+torchtitan/hf_datasets/multimodal/mm_datasets#_process_obelics_sample	torchtitan/hf_datasets/multimodal/mm_datasets.py	213	function	12	c503be6b3ae05c72	1	hf-datasets
+torchtitan/hf_datasets/multimodal/mm_datasets#_process_cc12_wd_sample	torchtitan/hf_datasets/multimodal/mm_datasets.py	241	function	14	224ccb9662b3937b	1	hf-datasets
+torchtitan/hf_datasets/multimodal/mm_datasets#MultiModalProcessor	torchtitan/hf_datasets/multimodal/mm_datasets.py	275	class	39	2261dd2d256615d0	8	hf-datasets
+torchtitan/hf_datasets/multimodal/mm_datasets#MultiModalProcessor.Config	torchtitan/hf_datasets/multimodal/mm_datasets.py	279	class	34	6f99f27798dc5462	8	hf-datasets
+torchtitan/hf_datasets/multimodal/mm_datasets#MultiModalProcessor.Config.sample_processor	torchtitan/hf_datasets/multimodal/mm_datasets.py	280	member	16	e0aff195c62f27fd	4	hf-datasets
+torchtitan/hf_datasets/multimodal/mm_datasets#MultiModalProcessor.Config.patch_size	torchtitan/hf_datasets/multimodal/mm_datasets.py	281	member	18	2aae0146745c5f6f	7	hf-datasets
+torchtitan/hf_datasets/multimodal/mm_datasets#MultiModalProcessor.Config.temporal_patch_size	torchtitan/hf_datasets/multimodal/mm_datasets.py	282	member	18	e32128b62cd4133f	7	hf-datasets
+torchtitan/hf_datasets/multimodal/mm_datasets#MultiModalProcessor.Config.spatial_merge_size	torchtitan/hf_datasets/multimodal/mm_datasets.py	283	member	18	dd4904e2549872a9	7	hf-datasets
+torchtitan/hf_datasets/multimodal/mm_datasets#MultiModalProcessor.Config.min_pixels	torchtitan/hf_datasets/multimodal/mm_datasets.py	284	member	4	a39d17e0e61f9082	2	
+torchtitan/hf_datasets/multimodal/mm_datasets#MultiModalProcessor.Config.max_pixels	torchtitan/hf_datasets/multimodal/mm_datasets.py	285	member	4	2462b6207d31d466	2	
+torchtitan/hf_datasets/multimodal/mm_datasets#MultiModalProcessor.Config.image_mean	torchtitan/hf_datasets/multimodal/mm_datasets.py	286	member	6	9b62f6488421603a	3	
+torchtitan/hf_datasets/multimodal/mm_datasets#MultiModalProcessor.Config.image_std	torchtitan/hf_datasets/multimodal/mm_datasets.py	287	member	6	e548ee2d3457c8c4	3	
+torchtitan/hf_datasets/multimodal/mm_datasets#MultiModalProcessor.Config.resize_fn	torchtitan/hf_datasets/multimodal/mm_datasets.py	288	member	11	094aac9b454d524c	3	hf-datasets
+torchtitan/hf_datasets/multimodal/mm_datasets#MultiModalProcessor.Config.max_patches	torchtitan/hf_datasets/multimodal/mm_datasets.py	291	member	6	2bc60ae5b517f0cf	3	
+torchtitan/hf_datasets/multimodal/mm_datasets#MultiModalProcessor.Config.max_patches_per_side	torchtitan/hf_datasets/multimodal/mm_datasets.py	292	member	6	6e626a6534e81c03	3	
+torchtitan/hf_datasets/multimodal/mm_datasets#MultiModalProcessor.Config.video_dir	torchtitan/hf_datasets/multimodal/mm_datasets.py	293	member	4	158dae49ac0bdae9	2	
+torchtitan/hf_datasets/multimodal/mm_datasets#MultiModalProcessor.Config.video_fps	torchtitan/hf_datasets/multimodal/mm_datasets.py	294	member	4	f81b4390408301a9	2	
+torchtitan/hf_datasets/multimodal/mm_datasets#MultiModalProcessor.Config.video_min_frames	torchtitan/hf_datasets/multimodal/mm_datasets.py	295	member	4	e89922c5ffbbed18	2	
+torchtitan/hf_datasets/multimodal/mm_datasets#MultiModalProcessor.Config.video_max_frames	torchtitan/hf_datasets/multimodal/mm_datasets.py	296	member	4	27cdea06d0ab1840	2	
+torchtitan/hf_datasets/multimodal/mm_datasets#MultiModalProcessor.__init__	torchtitan/hf_datasets/multimodal/mm_datasets.py	298	method	10	5e5826dea950146c	0	
+torchtitan/hf_datasets/multimodal/mm_datasets#MultiModalProcessor._config	torchtitan/hf_datasets/multimodal/mm_datasets.py	299	member	30	c96754e8705e6db2	1	hf-datasets
+torchtitan/hf_datasets/multimodal/mm_datasets#MultiModalProcessor._tokenizer	torchtitan/hf_datasets/multimodal/mm_datasets.py	300	member	7	6c5d1c59f0855765	1	
+torchtitan/hf_datasets/multimodal/mm_datasets#MultiModalProcessor._max_context_length	torchtitan/hf_datasets/multimodal/mm_datasets.py	301	member	9	9e4666ba4b6c67c6	1	hf-datasets
+torchtitan/hf_datasets/multimodal/mm_datasets#MultiModalProcessor.__call__	torchtitan/hf_datasets/multimodal/mm_datasets.py	303	method	95	9a51cc0fadfc6540	0	hf-datasets
+torchtitan/hf_datasets/multimodal/mm_datasets#MM_DATASETS.MM_DATASETS	torchtitan/hf_datasets/multimodal/mm_datasets.py	339	value	158	2ad672977b76a815	21	hf-datasets
+torchtitan/hf_datasets/multimodal/mm_datasets#MMSamplePackingConfig	torchtitan/hf_datasets/multimodal/mm_datasets.py	377	class	0	d4075aadee0fd0c3	0	
+torchtitan/hf_datasets/multimodal/mm_datasets#MMSamplePackingConfig.dataset	torchtitan/hf_datasets/multimodal/mm_datasets.py	380	member	7	8e8f8bc8e4446956	1	
+torchtitan/hf_datasets/multimodal/mm_datasets#MMSamplePackingConfig.num_packing_bins	torchtitan/hf_datasets/multimodal/mm_datasets.py	381	member	4	c587718c6e838d9b	2	
+torchtitan/hf_datasets/multimodal/mm_datasets#MMSamplePackingConfig.__post_init__	torchtitan/hf_datasets/multimodal/mm_datasets.py	384	method	5	23ef3f3b2acd493f	0	
+torchtitan/hf_datasets/multimodal/mm_datasets#MMSamplePackingConfig.build	torchtitan/hf_datasets/multimodal/mm_datasets.py	388	method	70	27acce68235a25cf	0	hf-datasets
+torchtitan/hf_datasets/multimodal/mm_datasets#_mm_sample_to_packing_input	torchtitan/hf_datasets/multimodal/mm_datasets.py	437	function	2	600f6518a6272f82	1	
+torchtitan/hf_datasets/multimodal/mm_datasets#_packing_output_to_mm_sample	torchtitan/hf_datasets/multimodal/mm_datasets.py	448	function	2	4cbb216fd1c7f74c	1	
+torchtitan/hf_datasets/multimodal/utils/image#_decode_image	torchtitan/hf_datasets/multimodal/utils/image.py	29	function	2	8398ff1b1b12e75c	1	
+torchtitan/hf_datasets/multimodal/utils/image#smart_resize	torchtitan/hf_datasets/multimodal/utils/image.py	50	function	4	c7d50d7975aa152d	1	
+torchtitan/hf_datasets/multimodal/utils/image#resize_to_pixel_budget	torchtitan/hf_datasets/multimodal/utils/image.py	94	function	10	17bffc7f8c489cbd	3	hf-datasets
+torchtitan/hf_datasets/multimodal/utils/image#resize_to_navit_patch_grid	torchtitan/hf_datasets/multimodal/utils/image.py	148	function	8	fd2b3ebbae450de2	2	
+torchtitan/hf_datasets/multimodal/utils/image#process_image	torchtitan/hf_datasets/multimodal/utils/image.py	200	function	19	6056ff80e156b483	1	hf-datasets
+torchtitan/hf_datasets/multimodal/utils/image#calculate_vision_tokens	torchtitan/hf_datasets/multimodal/utils/image.py	280	function	4	768225a2cb562a22	1	
+torchtitan/hf_datasets/multimodal/utils/image#vision_to_patches	torchtitan/hf_datasets/multimodal/utils/image.py	308	function	4	922d81992ae5a3df	1	
+torchtitan/hf_datasets/multimodal/utils/text#pad_seq_len	torchtitan/hf_datasets/multimodal/utils/text.py	12	function	0	c0d3b717c5afe610	0	
+torchtitan/hf_datasets/multimodal/utils/text#pad_batch_dim	torchtitan/hf_datasets/multimodal/utils/text.py	42	function	0	ffe25475519a6532	0	
+torchtitan/hf_datasets/multimodal/utils/text#insert_vision_placeholders	torchtitan/hf_datasets/multimodal/utils/text.py	70	function	4	4718058f62739cd8	1	
+torchtitan/hf_datasets/multimodal/utils/video#load_video	torchtitan/hf_datasets/multimodal/utils/video.py	19	function	5	42e9be3e6b784127	0	
+torchtitan/hf_datasets/multimodal/utils/video#process_video	torchtitan/hf_datasets/multimodal/utils/video.py	98	function	5	e8d07d3f292be61e	0	
+torchtitan/hf_datasets/text_datasets#_read_text	torchtitan/hf_datasets/text_datasets.py	28	function	2	cf5ad5f7d2726f38	1	
+torchtitan/hf_datasets/text_datasets#TextProcessor	torchtitan/hf_datasets/text_datasets.py	32	class	11	3aa6b7b4e99d4726	2	hf-datasets
+torchtitan/hf_datasets/text_datasets#TextProcessor.Config	torchtitan/hf_datasets/text_datasets.py	36	class	18	fc7e5fd769b224cc	2	hf-datasets
+torchtitan/hf_datasets/text_datasets#TextProcessor.Config.text_fn	torchtitan/hf_datasets/text_datasets.py	37	member	7	0cc6627081e0bf62	1	
+torchtitan/hf_datasets/text_datasets#TextProcessor.__init__	torchtitan/hf_datasets/text_datasets.py	41	method	10	94a42a297dadeb9e	0	
+torchtitan/hf_datasets/text_datasets#TextProcessor._tokenizer	torchtitan/hf_datasets/text_datasets.py	42	member	7	6c5d1c59f0855765	1	
+torchtitan/hf_datasets/text_datasets#TextProcessor._text_fn	torchtitan/hf_datasets/text_datasets.py	43	member	7	de9055067953bc08	1	
+torchtitan/hf_datasets/text_datasets#TextProcessor.__call__	torchtitan/hf_datasets/text_datasets.py	45	method	30	a26c6eed0de4cc4f	0	hf-datasets
+torchtitan/hf_datasets/text_datasets#ChatProcessor	torchtitan/hf_datasets/text_datasets.py	61	class	23	97c4be115bbc282f	6	hf-datasets
+torchtitan/hf_datasets/text_datasets#ChatProcessor.Config	torchtitan/hf_datasets/text_datasets.py	65	class	22	beee6147c7a0d9e7	6	hf-datasets
+torchtitan/hf_datasets/text_datasets#ChatProcessor.Config.messages_fn	torchtitan/hf_datasets/text_datasets.py	66	member	12	ac586cf83f48bbb7	6	hf-datasets
+torchtitan/hf_datasets/text_datasets#ChatProcessor.__init__	torchtitan/hf_datasets/text_datasets.py	70	method	20	6783020306130663	0	hf-datasets
+torchtitan/hf_datasets/text_datasets#ChatProcessor._tokenizer	torchtitan/hf_datasets/text_datasets.py	76	member	13	6c5d1c59f0855765	1	hf-datasets
+torchtitan/hf_datasets/text_datasets#ChatProcessor._eos_id	torchtitan/hf_datasets/text_datasets.py	77	member	14	46f0d02dfb187a69	1	hf-datasets
+torchtitan/hf_datasets/text_datasets#ChatProcessor._max_context_length	torchtitan/hf_datasets/text_datasets.py	78	member	9	9e4666ba4b6c67c6	1	
+torchtitan/hf_datasets/text_datasets#ChatProcessor._messages_fn	torchtitan/hf_datasets/text_datasets.py	79	member	7	142a28aa2464238b	1	
+torchtitan/hf_datasets/text_datasets#ChatProcessor._logged_first_sample	torchtitan/hf_datasets/text_datasets.py	80	member	4	c792303da6f5aefd	1	
+torchtitan/hf_datasets/text_datasets#ChatProcessor._validate_messages	torchtitan/hf_datasets/text_datasets.py	83	method	2	eac88172d974cf3d	1	
+torchtitan/hf_datasets/text_datasets#ChatProcessor._tokenize_sample	torchtitan/hf_datasets/text_datasets.py	100	method	67	b639c37a6d1fc794	1	hf-datasets
+torchtitan/hf_datasets/text_datasets#ChatProcessor.__call__	torchtitan/hf_datasets/text_datasets.py	152	method	10	d6d41ff0855001d7	0	hf-datasets
+torchtitan/hf_datasets/text_datasets#_is_not_none	torchtitan/hf_datasets/text_datasets.py	159	function	6	121a1c78f43af3ca	1	hf-datasets
+torchtitan/hf_datasets/text_datasets#DATASETS.DATASETS	torchtitan/hf_datasets/text_datasets.py	163	value	199	5fa57a5f872842ca	42	hf-datasets

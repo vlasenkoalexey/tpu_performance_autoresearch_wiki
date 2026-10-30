@@ -1,0 +1,688 @@
+# wikify symbol index: torchtitan @ 2ad96c9390, shard torchtitan/distributed, 680 rows. Grep it by anchor; never read it whole.
+# columns: anchor	path	line	kind	rank	hash	callers	pages
+# one symbol:  grep -P '^torchtitan/distributed/parallel_dims#ParallelDims\t' catalog/symbols/*.tsv
+# by name:     grep -P '[#.]ParallelDims\t' catalog/symbols/*.tsv | sort -t$'\t' -k5 -nr | head -20   (matches Class.ParallelDims too)
+# by area:     grep -P '^torchtitan/distributed/.*#ParallelDims\t' catalog/symbols/*.tsv | head -20
+# one module:  awk -F'\t' '$2=="torchtitan/distributed/parallel_dims.py"' catalog/symbols/*.tsv | cut -f1,3,4 | head -40
+# to prose:    grep -P '^torchtitan/distributed/parallel_dims#ParallelDims\t' catalog/symbols/*.tsv | cut -f1,8   (column 8: concept pages citing it)
+# callers:     column 7 is the count; the list lives in catalog/edges/*.tsv, see its header (count, narrow, head)
+torchtitan/distributed/__init__#__all__	torchtitan/distributed/__init__.py	9	value	0	939bc565afdcd76c	0	
+torchtitan/distributed/activation_checkpoint#_get_default_save_ops	torchtitan/distributed/activation_checkpoint.py	32	function	13	b11a95b361036229	3	
+torchtitan/distributed/activation_checkpoint#_get_default_save_ops._resolve_ops	torchtitan/distributed/activation_checkpoint.py	74	function	4	77b3b359929c1d2f	1	
+torchtitan/distributed/activation_checkpoint#_disable_dynamo_lru_cache	torchtitan/distributed/activation_checkpoint.py	99	function	4	c93c68344204a114	2	
+torchtitan/distributed/activation_checkpoint#ActivationCheckpointing	torchtitan/distributed/activation_checkpoint.py	114	class	43	e244d2c3524dfe13	10	parallel-dims-and-parallelization
+torchtitan/distributed/activation_checkpoint#ActivationCheckpointing.Config	torchtitan/distributed/activation_checkpoint.py	123	class	20	f497bcad10e3d1c1	5	
+torchtitan/distributed/activation_checkpoint#ActivationCheckpointing.Config.preserve_rng_state	torchtitan/distributed/activation_checkpoint.py	124	member	10	e8a6532a42bdafab	5	
+torchtitan/distributed/activation_checkpoint#ActivationCheckpointing.Config.determinism_check	torchtitan/distributed/activation_checkpoint.py	132	member	6	88a63db76a4f6fc9	3	
+torchtitan/distributed/activation_checkpoint#ActivationCheckpointing.Config.debug	torchtitan/distributed/activation_checkpoint.py	138	member	6	dfc4bdf43f3b258c	3	
+torchtitan/distributed/activation_checkpoint#ActivationCheckpointing.__init__	torchtitan/distributed/activation_checkpoint.py	144	method	10	3245aa3f55bbb9dd	0	
+torchtitan/distributed/activation_checkpoint#ActivationCheckpointing.config	torchtitan/distributed/activation_checkpoint.py	145	member	14	8857d6c4a0a01b4c	5	
+torchtitan/distributed/activation_checkpoint#ActivationCheckpointing.dump_folder	torchtitan/distributed/activation_checkpoint.py	146	member	2	7785a5adc70e3428	1	
+torchtitan/distributed/activation_checkpoint#ActivationCheckpointing._wrap_block	torchtitan/distributed/activation_checkpoint.py	148	method	17	11a0f5a8b78ce29d	1	
+torchtitan/distributed/activation_checkpoint#ActivationCheckpointing.apply	torchtitan/distributed/activation_checkpoint.py	154	method	27	49c8e8a937025f82	1	
+torchtitan/distributed/activation_checkpoint#FullAC	torchtitan/distributed/activation_checkpoint.py	168	class	153	e12feda64783c5f1	51	jax-lane
+torchtitan/distributed/activation_checkpoint#FullAC.Config	torchtitan/distributed/activation_checkpoint.py	172	class	110	d40fee6e25462d4c	50	jax-lane
+torchtitan/distributed/activation_checkpoint#FullAC._wrap_block	torchtitan/distributed/activation_checkpoint.py	175	method	25	e31bb644421506f4	1	
+torchtitan/distributed/activation_checkpoint#SelectiveAC	torchtitan/distributed/activation_checkpoint.py	187	class	243	d4cf4442792e325d	81	graph-trainer
+torchtitan/distributed/activation_checkpoint#SelectiveAC.Config	torchtitan/distributed/activation_checkpoint.py	197	class	168	0b780c84e822d896	78	jax-lane
+torchtitan/distributed/activation_checkpoint#SelectiveAC.Config.force_recompute_mm_shapes_by_fqns	torchtitan/distributed/activation_checkpoint.py	198	member	2	f8a63d076b011a24	1	
+torchtitan/distributed/activation_checkpoint#SelectiveAC.get_save_ops	torchtitan/distributed/activation_checkpoint.py	211	method	21	dd8925daa7764ccb	3	
+torchtitan/distributed/activation_checkpoint#SelectiveAC._wrap_block	torchtitan/distributed/activation_checkpoint.py	216	method	40	f78d50149bbdc536	1	
+torchtitan/distributed/activation_checkpoint#SelectiveAC._get_custom_policy	torchtitan/distributed/activation_checkpoint.py	249	method	7	337c91c135c6f7a2	1	
+torchtitan/distributed/activation_checkpoint#SelectiveAC.wrapped_policy	torchtitan/distributed/activation_checkpoint.py	252	method	2	7f3b355ee03f6787	1	
+torchtitan/distributed/activation_checkpoint#RegionAC	torchtitan/distributed/activation_checkpoint.py	298	class	11	87b264fac75647ec	3	
+torchtitan/distributed/activation_checkpoint#RegionAC.Config	torchtitan/distributed/activation_checkpoint.py	307	class	14	fef541e9555e2916	2	
+torchtitan/distributed/activation_checkpoint#RegionAC.Config.save_regions	torchtitan/distributed/activation_checkpoint.py	308	member	6	72aefc9de204c182	2	
+torchtitan/distributed/activation_checkpoint#RegionAC.Config.preserve_rng_state	torchtitan/distributed/activation_checkpoint.py	320	member	2	7e6ad5455a207b37	1	
+torchtitan/distributed/activation_checkpoint#RegionAC.Config.__post_init__	torchtitan/distributed/activation_checkpoint.py	326	method	10	93627c62a028dc5d	0	
+torchtitan/distributed/activation_checkpoint#RegionAC._wrap_block	torchtitan/distributed/activation_checkpoint.py	338	method	12	857f98df10f660f0	2	
+torchtitan/distributed/activation_checkpoint#RegionAC.apply	torchtitan/distributed/activation_checkpoint.py	351	method	30	33ed9f11c5443395	1	
+torchtitan/distributed/activation_checkpoint#MemoryBudgetAC	torchtitan/distributed/activation_checkpoint.py	372	class	11	ea0420f0ca283244	3	
+torchtitan/distributed/activation_checkpoint#MemoryBudgetAC.Config	torchtitan/distributed/activation_checkpoint.py	379	class	14	db2ebbf92c52f02d	2	
+torchtitan/distributed/activation_checkpoint#MemoryBudgetAC.Config.memory_budget	torchtitan/distributed/activation_checkpoint.py	380	member	6	40eba52f58fb9b0b	2	
+torchtitan/distributed/activation_checkpoint#MemoryBudgetAC.Config.visualize_memory_budget_pareto	torchtitan/distributed/activation_checkpoint.py	389	member	2	fc2fa44aae190b43	1	
+torchtitan/distributed/activation_checkpoint#MemoryBudgetAC.Config.__post_init__	torchtitan/distributed/activation_checkpoint.py	397	method	5	e953e67ee8654b5a	0	
+torchtitan/distributed/activation_checkpoint#MemoryBudgetAC.apply	torchtitan/distributed/activation_checkpoint.py	401	method	30	e455e993d11d9900	1	
+torchtitan/distributed/activation_checkpoint#ActivationCheckpointingConfig	torchtitan/distributed/activation_checkpoint.py	418	value	134	38f3b2df09c2688f	24	parallel-dims-and-parallelization
+torchtitan/distributed/compile#_regional_inductor_enabled._regional_inductor_enabled	torchtitan/distributed/compile.py	36	value	6	9440001b85ac31b5	2	
+torchtitan/distributed/compile#apply_compile	torchtitan/distributed/compile.py	39	function	92	ce677b0c0809b979	11	parallel-dims-and-parallelization
+torchtitan/distributed/compile#_maybe_enable_async_tp	torchtitan/distributed/compile.py	75	function	21	549f5070b64ffa7c	2	
+torchtitan/distributed/compile#_maybe_regional_inductor_backend	torchtitan/distributed/compile.py	99	function	21	6029f3bbcc9e3890	2	
+torchtitan/distributed/compile#maybe_regional_inductor	torchtitan/distributed/compile.py	137	function	9	361640a6a4183702	1	
+torchtitan/distributed/context_parallel/__init__#__all__	torchtitan/distributed/context_parallel/__init__.py	18	value	0	939bc565afdcd76c	0	
+torchtitan/distributed/context_parallel/api#_cp_shard_dims	torchtitan/distributed/context_parallel/api.py	25	function	23	9699810a9e0a16ee	3	
+torchtitan/distributed/context_parallel/api#prepare_context_parallel_input	torchtitan/distributed/context_parallel/api.py	39	function	44	ba202d08766c028f	8	
+torchtitan/distributed/context_parallel/api#cp_shard	torchtitan/distributed/context_parallel/api.py	110	function	21	6483c615bc3b4e8d	4	
+torchtitan/distributed/cudagraph#ForwardBackwardFn	torchtitan/distributed/cudagraph.py	23	value	0	e1338709790eb340	0	
+torchtitan/distributed/cudagraph#_BlockMaskInputSpec	torchtitan/distributed/cudagraph.py	30	class	4	76c7aa8d8e33706a	2	
+torchtitan/distributed/cudagraph#_BlockMaskInputSpec.num_leaves	torchtitan/distributed/cudagraph.py	31	member	4	7b97fe8632cc118f	2	
+torchtitan/distributed/cudagraph#_BlockMaskInputSpec.context	torchtitan/distributed/cudagraph.py	32	member	4	4cd076e943b8c514	2	
+torchtitan/distributed/cudagraph#CUDAGraphInputSpec	torchtitan/distributed/cudagraph.py	37	class	4	bba521126610dda1	2	
+torchtitan/distributed/cudagraph#CUDAGraphInputSpec.__init__	torchtitan/distributed/cudagraph.py	40	method	0	37f36b0e9ed90d49	0	
+torchtitan/distributed/cudagraph#CUDAGraphInputSpec._tree_spec	torchtitan/distributed/cudagraph.py	41	member	4	d2a2f7c689e47a1a	2	
+torchtitan/distributed/cudagraph#CUDAGraphInputSpec._leaf_specs	torchtitan/distributed/cudagraph.py	45	member	15	c42e3c47b323d15e	3	
+torchtitan/distributed/cudagraph#CUDAGraphInputSpec._num_flat_leaves	torchtitan/distributed/cudagraph.py	46	member	23	9bcce28b90957b01	2	
+torchtitan/distributed/cudagraph#CUDAGraphInputSpec.flatten	torchtitan/distributed/cudagraph.py	58	method	24	4cb0290ce39ac29b	1	
+torchtitan/distributed/cudagraph#CUDAGraphInputSpec.unflatten	torchtitan/distributed/cudagraph.py	98	method	27	69c1da2b03c8dbf8	1	
+torchtitan/distributed/cudagraph#_CUDAGraphManager	torchtitan/distributed/cudagraph.py	123	class	2	723d0215244e3b90	1	
+torchtitan/distributed/cudagraph#_CUDAGraphManager.__init__	torchtitan/distributed/cudagraph.py	126	method	0	59935de07b7fe9b6	0	
+torchtitan/distributed/cudagraph#_CUDAGraphManager._initialized	torchtitan/distributed/cudagraph.py	127	member	8	2fda5374a9b0bf9b	2	
+torchtitan/distributed/cudagraph#_CUDAGraphManager._wrappers	torchtitan/distributed/cudagraph.py	128	member	11	18197d3c236b39f5	2	
+torchtitan/distributed/cudagraph#_CUDAGraphManager._graph_pool	torchtitan/distributed/cudagraph.py	129	member	8	1b8f30bb4bcef321	3	
+torchtitan/distributed/cudagraph#_CUDAGraphManager._stream	torchtitan/distributed/cudagraph.py	130	member	8	6d1059e704fe4ff3	3	
+torchtitan/distributed/cudagraph#_CUDAGraphManager._dummy_graph	torchtitan/distributed/cudagraph.py	131	member	4	a03f45e83aa592eb	2	
+torchtitan/distributed/cudagraph#_CUDAGraphManager.all_annotations	torchtitan/distributed/cudagraph.py	132	member	4	fdd96628f767d72d	2	
+torchtitan/distributed/cudagraph#_CUDAGraphManager.graph_pool	torchtitan/distributed/cudagraph.py	135	method	7	7667c15fbf66f884	1	
+torchtitan/distributed/cudagraph#_CUDAGraphManager.stream	torchtitan/distributed/cudagraph.py	140	method	13	cf0a02ed9dcbbc1d	1	
+torchtitan/distributed/cudagraph#_CUDAGraphManager.maybe_initialize	torchtitan/distributed/cudagraph.py	144	method	22	9ed80ac01fc449d9	1	
+torchtitan/distributed/cudagraph#_CUDAGraphManager.register	torchtitan/distributed/cudagraph.py	165	method	12	59b4d090f9220ab2	1	
+torchtitan/distributed/cudagraph#_CUDAGraphManager.teardown	torchtitan/distributed/cudagraph.py	168	method	32	03ed765b81c15d9b	1	
+torchtitan/distributed/cudagraph#_manager	torchtitan/distributed/cudagraph.py	180	value	25	ce4f78be773f57ff	4	
+torchtitan/distributed/cudagraph#cudagraph_teardown	torchtitan/distributed/cudagraph.py	183	function	30	22de7dddf903029e	6	
+torchtitan/distributed/cudagraph#get_cudagraph_annotations	torchtitan/distributed/cudagraph.py	188	function	18	ab0ac5cdaccbc572	2	
+torchtitan/distributed/cudagraph#CUDAGraphWrapper	torchtitan/distributed/cudagraph.py	193	class	24	2389e4534d30d305	9	
+torchtitan/distributed/cudagraph#CUDAGraphWrapper.__init__	torchtitan/distributed/cudagraph.py	212	method	0	81e2678e80bc4187	0	
+torchtitan/distributed/cudagraph#CUDAGraphWrapper._fn	torchtitan/distributed/cudagraph.py	224	member	4	ff310d0709759760	1	
+torchtitan/distributed/cudagraph#CUDAGraphWrapper._num_inputs	torchtitan/distributed/cudagraph.py	225	member	6	cf25fe9f53c76e3b	2	
+torchtitan/distributed/cudagraph#CUDAGraphWrapper._static_input_indices	torchtitan/distributed/cudagraph.py	226	member	18	1f83bfa46ab29e64	3	
+torchtitan/distributed/cudagraph#CUDAGraphWrapper._input_indices_to_copy	torchtitan/distributed/cudagraph.py	237	member	14	00de9bf92b66ec76	2	
+torchtitan/distributed/cudagraph#CUDAGraphWrapper._tensor_metadata	torchtitan/distributed/cudagraph.py	246	member	2	ed65d81c40103286	1	
+torchtitan/distributed/cudagraph#CUDAGraphWrapper._non_tensor_inputs	torchtitan/distributed/cudagraph.py	251	member	4	e7ed7e091d16ddcf	2	
+torchtitan/distributed/cudagraph#CUDAGraphWrapper._graph	torchtitan/distributed/cudagraph.py	256	member	12	003b58443d5f732e	2	
+torchtitan/distributed/cudagraph#CUDAGraphWrapper._warmup_remaining	torchtitan/distributed/cudagraph.py	257	member	4	6f92c120da9b0cca	1	
+torchtitan/distributed/cudagraph#CUDAGraphWrapper._args	torchtitan/distributed/cudagraph.py	258	member	8	aee607e61391502f	2	
+torchtitan/distributed/cudagraph#CUDAGraphWrapper._output	torchtitan/distributed/cudagraph.py	259	member	6	6195c99a337643eb	2	
+torchtitan/distributed/cudagraph#CUDAGraphWrapper._should_check_address	torchtitan/distributed/cudagraph.py	260	member	2	9770f9fb6c0feddd	1	
+torchtitan/distributed/cudagraph#CUDAGraphWrapper._static_input_addresses	torchtitan/distributed/cudagraph.py	261	member	21	6c37fdaef6100a5f	3	
+torchtitan/distributed/cudagraph#CUDAGraphWrapper._record_static_input_addresses	torchtitan/distributed/cudagraph.py	266	method	12	e8506e3cb0555674	1	
+torchtitan/distributed/cudagraph#CUDAGraphWrapper._check_static_input_addresses	torchtitan/distributed/cudagraph.py	272	method	7	25ec1ca9736b4393	1	
+torchtitan/distributed/cudagraph#CUDAGraphWrapper._validate_inputs	torchtitan/distributed/cudagraph.py	284	method	17	80bbabc699c54a7b	1	
+torchtitan/distributed/cudagraph#CUDAGraphWrapper.__call__	torchtitan/distributed/cudagraph.py	312	method	75	d01684bf597bc6e3	0	
+torchtitan/distributed/cudagraph#CUDAGraphWrapper.teardown	torchtitan/distributed/cudagraph.py	349	method	27	34b51bfd2b799a84	1	
+torchtitan/distributed/cudagraph#wrap_with_cuda_graph	torchtitan/distributed/cudagraph.py	358	function	33	912fe830eb06ca41	2	
+torchtitan/distributed/cudagraph#wrap_with_cuda_graph.run	torchtitan/distributed/cudagraph.py	411	function	22	f092392d1ead455c	1	
+torchtitan/distributed/cudagraph#wrap_with_cuda_graph.run.flat_fn	torchtitan/distributed/cudagraph.py	417	function	7	8a12108975ce5d0e	1	
+torchtitan/distributed/deepep/deepep#e	torchtitan/distributed/deepep/deepep.py	46	value	7	eb44348bb5921a93	1	
+torchtitan/distributed/deepep/deepep#_buffer._buffer	torchtitan/distributed/deepep/deepep.py	55	value	32	539d0789bfae3c38	6	
+torchtitan/distributed/deepep/deepep#_handle_cache._handle_cache	torchtitan/distributed/deepep/deepep.py	61	value	10	82a82e4e9941cf60	4	
+torchtitan/distributed/deepep/deepep#_handle_counter._handle_counter	torchtitan/distributed/deepep/deepep.py	62	value	6	661b6cae69ae6f55	1	
+torchtitan/distributed/deepep/deepep#_pending_combine_event	torchtitan/distributed/deepep/deepep.py	67	value	12	796977025a235f8d	2	
+torchtitan/distributed/deepep/deepep#_get_next_handle_id	torchtitan/distributed/deepep/deepep.py	70	function	7	c1f4b1797465fe7c	1	
+torchtitan/distributed/deepep/deepep#_lib	torchtitan/distributed/deepep/deepep.py	87	value	13	c11b983740614777	3	
+torchtitan/distributed/deepep/deepep#_DEEPEP_MULTINODE_NUM_SMS	torchtitan/distributed/deepep/deepep.py	109	value	2	f7e937122e96d9e4	1	
+torchtitan/distributed/deepep/deepep#_resolve_dispatch_num_sms	torchtitan/distributed/deepep/deepep.py	112	function	7	916343b527c9d2a7	1	
+torchtitan/distributed/deepep/deepep#_dispatch_op_impl	torchtitan/distributed/deepep/deepep.py	130	function	25	db76cdf0f9ca378a	0	
+torchtitan/distributed/deepep/deepep#_dispatch_setup_context	torchtitan/distributed/deepep/deepep.py	197	function	7	9c41bfdb385dfda4	0	
+torchtitan/distributed/deepep/deepep#_dispatch_backward	torchtitan/distributed/deepep/deepep.py	204	function	7	c9ab9fdc00807a98	0	
+torchtitan/distributed/deepep/deepep#_combine_op_impl	torchtitan/distributed/deepep/deepep.py	246	function	20	1f2c84a4a6b233fd	0	
+torchtitan/distributed/deepep/deepep#_combine_setup_context	torchtitan/distributed/deepep/deepep.py	277	function	7	c00220fa9ae1cfd7	0	
+torchtitan/distributed/deepep/deepep#_combine_backward	torchtitan/distributed/deepep/deepep.py	282	function	7	2b9a30bc444ee7d9	0	
+torchtitan/distributed/deepep/deepep#sync_combine	torchtitan/distributed/deepep/deepep.py	315	function	9	6e2a5b6cbbd0a6e0	1	
+torchtitan/distributed/deepep/deepep#get_hidden_bytes	torchtitan/distributed/deepep/deepep.py	330	function	0	3a088473ce76149b	0	
+torchtitan/distributed/deepep/deepep#get_buffer	torchtitan/distributed/deepep/deepep.py	335	function	9	234a760d4f32ba36	1	
+torchtitan/distributed/deepep/deepep#_permute_tokens	torchtitan/distributed/deepep/deepep.py	384	function	2	a8f659b3bb75b9aa	1	
+torchtitan/distributed/deepep/deepep#_unpermute_tokens	torchtitan/distributed/deepep/deepep.py	422	function	2	f887133b2160fb15	1	
+torchtitan/distributed/deepep/deepep#DispatchState	torchtitan/distributed/deepep/deepep.py	441	class	8	d3c2badc79562e97	2	
+torchtitan/distributed/deepep/deepep#DispatchState.handle_id	torchtitan/distributed/deepep/deepep.py	444	member	8	6613c3279e77a093	2	
+torchtitan/distributed/deepep/deepep#DispatchState.num_recv_tokens	torchtitan/distributed/deepep/deepep.py	445	member	6	778bdbddb9856a08	2	
+torchtitan/distributed/deepep/deepep#DispatchState.cudagraphable	torchtitan/distributed/deepep/deepep.py	446	member	6	289ac77f5176172e	2	
+torchtitan/distributed/deepep/deepep#DispatchState.permuted_indices	torchtitan/distributed/deepep/deepep.py	448	member	6	f16b4c5d4a0787d9	2	
+torchtitan/distributed/deepep/deepep#DispatchState.permuted_scores	torchtitan/distributed/deepep/deepep.py	449	member	6	eabfaa30910c2a0f	2	
+torchtitan/distributed/deepep/deepep#DispatchState.recv_scores	torchtitan/distributed/deepep/deepep.py	451	member	6	82675a565bdbbbef	2	
+torchtitan/distributed/deepep/deepep#dispatch_tokens	torchtitan/distributed/deepep/deepep.py	454	function	49	841eae612f373a3d	1	
+torchtitan/distributed/deepep/deepep#combine_tokens	torchtitan/distributed/deepep/deepep.py	560	function	44	670bba7ce477bbba	1	
+torchtitan/distributed/deepep/hybridep#_buffer._buffer	torchtitan/distributed/deepep/hybridep.py	31	value	42	9d4aa484f6c36363	5	
+torchtitan/distributed/deepep/hybridep#DispatchHandle	torchtitan/distributed/deepep/hybridep.py	34	class	28	b8a9d4b116a8e447	11	
+torchtitan/distributed/deepep/hybridep#DispatchHandle.__init__	torchtitan/distributed/deepep/hybridep.py	42	method	0	fa6a34fb1cb9557e	0	
+torchtitan/distributed/deepep/hybridep#DispatchHandle.value	torchtitan/distributed/deepep/hybridep.py	43	member	16	4db92468ca21613b	5	
+torchtitan/distributed/deepep/hybridep#DispatchHandle.__eq__	torchtitan/distributed/deepep/hybridep.py	45	method	10	970334edcb573985	0	
+torchtitan/distributed/deepep/hybridep#DispatchHandle.__hash__	torchtitan/distributed/deepep/hybridep.py	50	method	5	ac4d07665869d25b	0	
+torchtitan/distributed/deepep/hybridep#DispatchHandle.__fx_repr__	torchtitan/distributed/deepep/hybridep.py	58	method	5	2e77e9ca599f3652	0	
+torchtitan/distributed/deepep/hybridep#DispatchState	torchtitan/distributed/deepep/hybridep.py	66	class	6	53b73bcc55b2165f	2	
+torchtitan/distributed/deepep/hybridep#DispatchState.handle	torchtitan/distributed/deepep/hybridep.py	75	member	9	4262891dd8d2d300	2	
+torchtitan/distributed/deepep/hybridep#DispatchState.permuted_scores	torchtitan/distributed/deepep/hybridep.py	76	member	6	eabfaa30910c2a0f	2	
+torchtitan/distributed/deepep/hybridep#DispatchState.num_tokens	torchtitan/distributed/deepep/hybridep.py	77	member	4	8cae6b8d22d39cc5	2	
+torchtitan/distributed/deepep/hybridep#_num_permuted_tokens_for_non_blocking	torchtitan/distributed/deepep/hybridep.py	80	function	4	03090c156b7cecc7	2	
+torchtitan/distributed/deepep/hybridep#_dispatch_impl	torchtitan/distributed/deepep/hybridep.py	116	function	19	b26146d2e2842410	1	
+torchtitan/distributed/deepep/hybridep#_dispatch_fake	torchtitan/distributed/deepep/hybridep.py	194	function	15	ef1d8c8b70b004b0	0	
+torchtitan/distributed/deepep/hybridep#_combine_impl	torchtitan/distributed/deepep/hybridep.py	225	function	19	2bffd6e59ca93c6d	1	
+torchtitan/distributed/deepep/hybridep#_combine_fake	torchtitan/distributed/deepep/hybridep.py	241	function	10	e85cab23cf51db5c	0	
+torchtitan/distributed/deepep/hybridep#_dispatch_bwd_impl	torchtitan/distributed/deepep/hybridep.py	257	function	17	09362fb2cbae0d97	1	
+torchtitan/distributed/deepep/hybridep#_dispatch_bwd_fake	torchtitan/distributed/deepep/hybridep.py	279	function	10	e795e24d3a17eac6	0	
+torchtitan/distributed/deepep/hybridep#_combine_bwd_impl	torchtitan/distributed/deepep/hybridep.py	290	function	17	98ee412e0ad1b5aa	1	
+torchtitan/distributed/deepep/hybridep#_combine_bwd_fake	torchtitan/distributed/deepep/hybridep.py	315	function	10	d9ab94986bccdc7e	0	
+torchtitan/distributed/deepep/hybridep#_dispatch_backward	torchtitan/distributed/deepep/hybridep.py	334	function	2	7470d88e657e224d	0	
+torchtitan/distributed/deepep/hybridep#_dispatch_setup_context	torchtitan/distributed/deepep/hybridep.py	357	function	2	9e79c55be322cef0	0	
+torchtitan/distributed/deepep/hybridep#_combine_backward	torchtitan/distributed/deepep/hybridep.py	367	function	2	727dce2ab96ff5a4	0	
+torchtitan/distributed/deepep/hybridep#_combine_setup_context	torchtitan/distributed/deepep/hybridep.py	376	function	2	131c9dd90eaef130	0	
+torchtitan/distributed/deepep/hybridep#_NUM_SMS_DISPATCH	torchtitan/distributed/deepep/hybridep.py	390	value	2	9b3e57499c28a581	1	
+torchtitan/distributed/deepep/hybridep#_NUM_SMS_COMBINE	torchtitan/distributed/deepep/hybridep.py	391	value	2	d47b99a3fecd7051	1	
+torchtitan/distributed/deepep/hybridep#get_buffer	torchtitan/distributed/deepep/hybridep.py	394	function	24	aa4842fbfa30ab1c	1	
+torchtitan/distributed/deepep/hybridep#dispatch_tokens	torchtitan/distributed/deepep/hybridep.py	455	function	24	a49fe3e079499241	1	
+torchtitan/distributed/deepep/hybridep#combine_tokens	torchtitan/distributed/deepep/hybridep.py	526	function	22	eb5282fa4f744672	1	
+torchtitan/distributed/deepep/hybridep#__all__	torchtitan/distributed/deepep/hybridep.py	543	value	0	939bc565afdcd76c	0	
+torchtitan/distributed/flex_shard/__init__#__all__	torchtitan/distributed/flex_shard/__init__.py	12	value	0	939bc565afdcd76c	0	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#__all__.__all__	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	38	value	0	ab9ecff94592b804	0	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_NUM_PIPELINE_SLOTS	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	41	value	2	87652a9e1a4b15fa	1	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_BufferKey._BufferKey	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	44	value	8	b529ff0989bd4291	4	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_BufferRequirements	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	48	class	10	763790a60f16a18b	3	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_BufferRequirements.storage_exchange_numel	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	49	member	8	d1ad247cc46bc300	2	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_BufferRequirements.compute_exchange_numel	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	50	member	8	23ef65acadb41489	2	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_BufferRequirements.compute_scratch_numel	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	51	member	8	87dc3796821e9a60	2	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_BufferRequirements.storage_scratch_numel	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	52	member	8	6ccfb02941258ec0	2	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_BufferRequirements.include_communication	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	54	method	10	9ea66ba27ff471c8	0	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_BufferRequirements.include_compute_scratch	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	69	method	7	147a2eca7c33abd0	1	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_BufferRequirements.include_storage_scratch	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	72	method	5	dd5cbea028e3bdce	0	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_ReservedBuffers	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	77	class	6	2555ef6ba6229e1b	2	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_ReservedBuffers.storage_exchange	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	78	member	6	c31ea5852306a09a	2	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_ReservedBuffers.compute_exchange	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	79	member	6	3b82924a032fcc67	2	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_ReservedBuffers.compute_scratch	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	82	member	8	bbbd5979b1543ab6	3	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_ReservedBuffers.storage_scratch	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	83	member	6	16a4e8b342008e57	2	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_reserve_tensor	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	86	function	8	201e6ce931dd9111	1	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_reserved_view	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	98	function	8	2b5dc21021418b0f	3	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_execute_packed_all_to_all	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	103	function	39	b154bcd191ffdf1e	2	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_BufferSlot	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	124	class	14	267118ffa0474793	7	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_BufferSlot.buffers	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	125	member	22	45c5c22b9ab18b69	5	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_BufferSlot._recorded_compute_streams	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	126	member	6	a98337d3250282bf	2	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_BufferSlot.reserve	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	128	method	79	1a55ee88b8c72f0e	1	flex-shard
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_BufferSlot.record_compute_stream	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	178	method	21	3bc94227badfe47a	2	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_BufferSlot.communication_buffers	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	190	method	57	c6b1b5111042e000	1	flex-shard
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_BufferSlot.compute_buffer	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	213	method	19	13d5c6c805535cb3	2	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_BufferSlot.storage_partition_buffer	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	223	method	19	468fbbfcf117421f	2	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_PipelineSlot	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	235	class	14	eb683580dc417b80	6	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_PipelineSlot.buffers	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	238	member	21	861f3ff5d809348d	6	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_PipelineSlot.compute_input_ready	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	240	member	8	fc8f35482c87298f	4	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_PipelineSlot.compute_done	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	242	member	8	21fb69dac85171da	4	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_PipelineSlot.done	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	244	member	8	49f6ca2962ead857	4	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_BucketWork	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	248	class	25	91e19544211833ec	8	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_BucketWork.plan	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	249	member	22	f1c5b51c00223a5c	5	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_BucketWork.slot	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	250	member	17	f873333970f5fc57	3	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_BucketWork.storage_buffer	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	251	member	4	accb3110d0458abb	2	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_BucketWork.compute_fragment_buffer	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	252	member	6	e7a40e376ce145cd	2	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_CommunicationContext	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	256	class	12	63e692ffc4372f08	6	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_CommunicationContext.device_handle	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	257	member	10	af3382f7b4a571f2	5	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_CommunicationContext.transfer_stream	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	258	member	14	a2e87ea87a4a85c8	4	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_CommunicationContext.slots	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	259	member	23	4e7686227aa19274	2	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_CommunicationContext.create	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	262	method	17	4a5e180933436598	1	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_CommunicationContext.create_slot	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	269	method	32	d73289759c34246e	1	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_include_compute_scratch_requirement	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	284	function	24	47ef59f850cc7f70	1	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_BucketedRedistributionRuntime	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	295	class	13	51c215c10b336714	3	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_BucketedRedistributionRuntime.__init__	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	315	method	0	f14f46f16c6f9f23	0	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_BucketedRedistributionRuntime._device	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	320	member	10	9caf77afbf6d4f70	2	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_BucketedRedistributionRuntime._context	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	321	member	11	768b24f3c3dc2a45	2	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_BucketedRedistributionRuntime._local_slot	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	322	member	11	fcabbb02dd95f28c	2	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_BucketedRedistributionRuntime.reserve_buffers	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	324	method	174	b8c90b8542804a9d	2	flex-shard
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_BucketedRedistributionRuntime.run	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	419	method	107	af0bf5e5a874410d	1	flex-shard
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_BucketedRedistributionRuntime.prefetch_next	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	449	method	27	46a932a4b903bf63	1	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_BucketedRedistributionRuntime._enqueue_storage_to_compute	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	559	method	71	47e98fc3c1984ef7	2	flex-shard
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_BucketedRedistributionRuntime._compute_bucket	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	589	method	67	94a582eb6fb79dc2	1	flex-shard
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_BucketedRedistributionRuntime._enqueue_compute_to_storage	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	621	method	83	c22ea1b60e1ae21d	1	flex-shard
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_BucketedRedistributionRuntime._release	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	640	method	24	27f28d8df94f8586	1	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_BucketedRedistributionRuntime._compute_without_redistribution	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	644	method	19	293c66782e222ead	2	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_prepare_redistributed	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	663	function	97	c233b34cae465ae5	1	flex-shard
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_compute_redistributed	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	697	function	122	7d6bb025ff995bfe	1	flex-shard
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_finalize_redistributed	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	750	function	112	dbb9a09d778cfa85	1	flex-shard
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_batched_copy_	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	784	function	8	74da897fff1fec00	3	
+torchtitan/distributed/flex_shard/_optimizer_reshard_runtime#_tensor_region_view	torchtitan/distributed/flex_shard/_optimizer_reshard_runtime.py	799	function	23	6850b9d9187068e1	3	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#__all__.__all__	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	27	value	0	ab9ecff94592b804	0	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_ItemT	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	30	value	134	3ced84219bcdcfe9	29	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_bind_bucket_configs	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	33	function	34	e94f9ad2a4372e33	1	flex-shard
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_resolve_buckets	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	93	function	17	12c2511bf07827d1	1	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_TensorRegion	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	114	class	68	b004138a091781e4	17	flex-shard
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_TensorRegion.offsets	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	117	member	66	c267647a513730a0	10	flex-shard
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_TensorRegion.shape	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	118	member	78	46cd7aa7c40456a1	13	flex-shard
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_TensorRegion.numel	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	121	method	33	2a1af59ce72833e9	8	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_StorageRegionMapping._StorageRegionMapping	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	127	value	17	a6896e2265fd1e9e	5	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_DTensorStorageDomain._DTensorStorageDomain	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	128	value	7	0bd42cd1b6ecf244	1	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_ParticipantPartition	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	134	class	26	296e5e1fad72c0b9	9	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_ParticipantPartition.participant	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	137	member	26	2c0ba158bc7697ca	7	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_ParticipantPartition.tensor_shape	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	138	member	36	3921b3365298be27	12	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_ParticipantPartition.logical_regions	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	139	member	29	8c7d73e3e216801f	7	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_ParticipantPartition.__post_init__	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	141	method	10	ee8ee3ac85dd33e9	0	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_RouteEndpoint	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	147	class	18	cecc85e5e2eeb0d9	5	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_RouteEndpoint.tensor_region	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	150	member	25	38f9cacacb57c8dc	3	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_RouteEndpoint.participants	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	151	member	30	9b1e62b8ed5b6b27	4	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_RouteEndpoint.__post_init__	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	153	method	5	2e3fe157af9ca1d8	0	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_TensorRegionRoute	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	158	class	22	d8b394920652504b	9	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_TensorRegionRoute.logical_region	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	161	member	27	eaa5d02edce77734	6	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_TensorRegionRoute.source	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	162	member	39	006aa3006415d25a	7	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_TensorRegionRoute.destination	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	163	member	39	960657223ca8d1dd	7	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_TensorRegionRoute.inverse	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	165	method	22	40ad78d1d85a9a13	1	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_RedistributionDirection	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	173	class	10	bbbe70328fb66f4e	4	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_RedistributionDirection.STORAGE_TO_COMPUTE	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	174	member	6	87a966c662e792d1	3	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_RedistributionDirection.COMPUTE_TO_STORAGE	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	175	member	2	e249ae06981988eb	1	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_RedistributionDirection.routes	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	177	method	32	32111c232f8bbf32	1	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_RedistributionPlan	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	184	class	32	e9396f9eb1417e6b	12	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_RedistributionPlan.participants	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	187	member	22	9b1e62b8ed5b6b27	8	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_RedistributionPlan.logical_shape	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	188	member	18	a9e04949ff552749	6	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_RedistributionPlan.storage_partitions	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	189	member	21	646fe6b99de1b17a	7	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_RedistributionPlan.compute_partitions	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	190	member	21	ccd17a6a0747f674	7	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_RedistributionPlan.storage_to_compute_routes	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	191	member	21	85c151e2032183e0	7	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_RedistributionPlan.compute_to_storage_routes	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	192	member	7	9cb653e7f1fb32c0	1	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_RedistributionPlan.__post_init__	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	194	method	35	a5d43ce2ea445aa6	0	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_RedistributionPlan.storage_partition	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	209	method	23	cb51eb022dfc4383	4	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_RedistributionPlan.compute_partition	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	216	method	19	71e1431097a87c19	2	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_require_valid_plan	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	224	function	52	cec91528de41bd59	9	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_validate_redistribution_plan	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	229	function	107	cc3d263e75b97793	1	flex-shard
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_validate_disjoint_regions_in_bounds	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	321	function	31	4313c482b2351680	3	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_validate_tensor_region_partition	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	371	function	28	fa2ddfdd41f6c885	2	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_validate_participant_logical_partition	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	389	function	32	398ad79e792a96e2	1	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_tensor_region_intersection_numel	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	407	function	17	31930ad6f2738a38	1	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_tensor_region_intersection	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	414	function	19	fdadaadac690ec9f	2	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_validate_regions_cover_partition	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	450	function	29	03b830dad5aa16a1	1	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_build_whole_tensor_redistribution_plan	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	482	function	102	157d9e2f3f1c8288	1	flex-shard
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_build_owned_redistribution_plan	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	569	function	19	32a2e8f75e5c7270	1	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_build_dim0_shard_redistribution_plan	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	585	function	109	9796ef37089fc22d	1	flex-shard
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_PackedSpan	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	706	class	12	f09e8b1885b40789	4	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_PackedSpan.region	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	709	member	19	afe641b0733ab4ec	4	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_PackedSpan.buffer_offset	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	710	member	16	0a7c7685e1924d48	3	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_PackedSpan.numel	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	713	method	18	86a66ef813d89217	3	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_PackedAllToAllSchedule	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	718	class	12	936b60a8f34f9856	4	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_PackedAllToAllSchedule.process_group	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	719	member	4	362a40b25a92c24f	2	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_PackedAllToAllSchedule.participants	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	720	member	2	9b1e62b8ed5b6b27	1	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_PackedAllToAllSchedule.local_participant	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	721	member	2	747df3ed970ce76b	1	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_PackedAllToAllSchedule.has_remote_transfers	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	722	member	6	9a533b47f407cb2b	3	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_PackedAllToAllSchedule.input_split_sizes	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	723	member	6	1cc51daac4dca37d	3	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_PackedAllToAllSchedule.output_split_sizes	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	724	member	6	a06d91db56ee891e	3	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_PackedAllToAllSchedule.input_spans_by_parameter	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	725	member	11	2b4359773c76b5f0	3	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_PackedAllToAllSchedule.output_spans_by_parameter	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	726	member	11	e67bd62efd65f399	3	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_PackedAllToAllSchedule.input_buffer_numel	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	727	member	14	fb409977b1e5ebab	4	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_PackedAllToAllSchedule.output_buffer_numel	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	728	member	14	11cb7a1ac045d5f6	4	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_PackedAllToAllSchedule.__post_init__	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	730	method	25	c2977b7cbc999715	0	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_RedistributionGroup	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	741	class	12	c5f1865d84cfac14	4	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_RedistributionGroup.process_group	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	742	member	4	362a40b25a92c24f	2	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_RedistributionGroup.participants	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	743	member	16	9b1e62b8ed5b6b27	3	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_RedistributionGroup.mesh_axis_participants	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	744	member	6	96e83187263402d4	3	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_RedistributionGroup.local_participant	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	745	member	10	747df3ed970ce76b	5	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_BucketPlanningContext	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	749	class	13	cfda271436b5e477	2	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_BucketPlanningContext.items	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	750	member	11	e004d2fd631b336e	2	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_BucketPlanningContext.group	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	751	member	15	02856af581ee28cd	2	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_BucketPlanningContext.name	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	752	member	2	412c92a84107b857	1	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_LocalBucketPlan	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	756	class	19	dcc2cd5079999d74	6	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_LocalBucketPlan.items	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	757	member	6	14612e6d3eac5eaf	3	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_RedistributionBucketPlan	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	761	class	21	899c028f2bcc8aa8	7	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_RedistributionBucketPlan.unredistributed_items	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	762	member	13	a70a0d90a3cbf881	4	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_RedistributionBucketPlan.redistributed_items	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	763	member	15	11dda22e98754159	5	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_RedistributionBucketPlan.redistribution_plans	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	764	member	17	b80036fede2aabb6	6	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_RedistributionBucketPlan.group	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	765	member	17	02856af581ee28cd	6	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_RedistributionBucketPlan.storage_to_compute_schedule	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	766	member	17	77fec4e93cef627b	6	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_RedistributionBucketPlan.compute_to_storage_schedule	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	767	member	17	af0fea2f7b170ad7	6	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_RedistributionBucketPlan.dtype	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	768	member	14	4cb26af3eb6aee2f	7	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_RedistributionBucketPlan.device	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	769	member	16	6cb0929b6a07ca57	7	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_BucketPlan._BucketPlan	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	772	value	25	2075d7651da20324	4	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_BucketPlanningResult	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	776	class	9	9f5888a18e42caa5	1	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_BucketPlanningResult.plans	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	777	member	14	fb11f3d18dade7e6	2	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_BucketPlanningResult.ordered_items	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	778	member	9	bedc8167ea5de712	2	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_resolve_routes_to_transfers	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	781	function	32	512dd6b24bbc3ad3	1	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_packed_spans_by_parameter	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	805	function	9	3c2c836969d3d712	1	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_build_packed_all_to_all_schedule	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	818	function	89	b6f1d69760ec8418	1	flex-shard
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_device_mesh_ranks	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	893	function	12	ae46d51837b08549	5	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_redistribution_group	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	899	function	32	e90e6291dcde054a	1	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_dtensor_storage_region_for_participant	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	913	function	27	914df72d2ac32b36	1	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_dtensor_storage_regions	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	949	function	34	20e8e04796d8d9aa	1	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_require_valid_planner_result	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	1056	function	12	15e42c2e00299838	1	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_build_bucket_plans	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	1061	function	159	3cf81e2ea66c61d6	1	flex-shard
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_validate_bucket_plans_across_ranks	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	1217	function	59	e0fd243ab5ed0a4e	1	flex-shard
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_redistribution_plan_key	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	1257	function	42	e29006874718c50f	1	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_redistribution_plan_key.partition_key	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	1258	function	34	12c421d7c4268c3b	1	
+torchtitan/distributed/flex_shard/_optimizer_reshard_schedule#_redistribution_plan_key.route_key	torchtitan/distributed/flex_shard/_optimizer_reshard_schedule.py	1267	function	42	599075e52374e91b	1	
+torchtitan/distributed/flex_shard/dist_muon#__all__	torchtitan/distributed/flex_shard/dist_muon.py	53	value	0	939bc565afdcd76c	0	
+torchtitan/distributed/flex_shard/dist_muon#build_dist_muon	torchtitan/distributed/flex_shard/dist_muon.py	58	function	26	f9a7a6a1eb0f49db	1	flex-shard
+torchtitan/distributed/flex_shard/dist_muon#_normalize_param_groups	torchtitan/distributed/flex_shard/dist_muon.py	84	function	2	d53fa64ce51f95e9	1	
+torchtitan/distributed/flex_shard/dist_muon#_validate_compute_sharding_configuration	torchtitan/distributed/flex_shard/dist_muon.py	110	function	7	be4e73f1b3d2a0f0	1	
+torchtitan/distributed/flex_shard/dist_muon#_matrix_batch_view_from_compute_layout	torchtitan/distributed/flex_shard/dist_muon.py	121	function	42	d6cbc9a543739c52	1	flex-shard
+torchtitan/distributed/flex_shard/dist_muon#_initialize_dist_muon	torchtitan/distributed/flex_shard/dist_muon.py	170	function	157	091c8a1167097fb9	1	flex-shard
+torchtitan/distributed/flex_shard/dist_muon#DistMuon	torchtitan/distributed/flex_shard/dist_muon.py	252	class	53	df4a788afd4c223d	3	flex-shard
+torchtitan/distributed/flex_shard/dist_muon#DistMuon._prepared_compute_layouts	torchtitan/distributed/flex_shard/dist_muon.py	266	member	9	789da314f82c793f	2	
+torchtitan/distributed/flex_shard/dist_muon#DistMuon._specs	torchtitan/distributed/flex_shard/dist_muon.py	267	member	9	8e9a6b05256d0e09	2	
+torchtitan/distributed/flex_shard/dist_muon#DistMuon._redistribution_runtime	torchtitan/distributed/flex_shard/dist_muon.py	268	member	18	db81f0386d7e974e	3	
+torchtitan/distributed/flex_shard/dist_muon#DistMuon._param_groups_frozen	torchtitan/distributed/flex_shard/dist_muon.py	269	member	6	80485f4a2db70197	2	
+torchtitan/distributed/flex_shard/dist_muon#DistMuon.__init__	torchtitan/distributed/flex_shard/dist_muon.py	271	method	10	22944e0aa2d74bb6	0	
+torchtitan/distributed/flex_shard/dist_muon#DistMuon._first_step_validated	torchtitan/distributed/flex_shard/dist_muon.py	296	member	21	7b089e51c187676a	2	
+torchtitan/distributed/flex_shard/dist_muon#DistMuon.step	torchtitan/distributed/flex_shard/dist_muon.py	308	method	4	c2fe736594799599	1	
+torchtitan/distributed/flex_shard/dist_muon#DistMuon.add_param_group	torchtitan/distributed/flex_shard/dist_muon.py	332	method	5	ff0997a1ad3ff78e	0	
+torchtitan/distributed/flex_shard/dist_muon#DistMuon._validate_groups	torchtitan/distributed/flex_shard/dist_muon.py	337	method	4	1b458c31c4cd3c09	2	
+torchtitan/distributed/flex_shard/dist_muon#DistMuon._validate_parameter_storage	torchtitan/distributed/flex_shard/dist_muon.py	359	method	2	cceb3d0fe4543389	1	
+torchtitan/distributed/flex_shard/dist_muon#DistMuon._build_parameter_compute_layouts	torchtitan/distributed/flex_shard/dist_muon.py	371	method	137	2deae5e752d4b4a6	1	flex-shard
+torchtitan/distributed/flex_shard/dist_muon#DistMuon._initialize_plan	torchtitan/distributed/flex_shard/dist_muon.py	421	method	39	34cd27a006db4a8d	2	
+torchtitan/distributed/flex_shard/dist_muon#DistMuon._bucket_plans	torchtitan/distributed/flex_shard/dist_muon.py	437	member	13	48ef9e8d59db3d53	4	
+torchtitan/distributed/flex_shard/dist_muon#DistMuon._parameter_compute_layouts	torchtitan/distributed/flex_shard/dist_muon.py	438	member	9	ad6e038b8ef451b1	2	
+torchtitan/distributed/flex_shard/dist_muon#DistMuon._validate_plan_across_ranks	torchtitan/distributed/flex_shard/dist_muon.py	440	method	19	4e4828ddfb45b16f	2	
+torchtitan/distributed/flex_shard/dist_muon#DistMuon._plan_item_signature	torchtitan/distributed/flex_shard/dist_muon.py	446	method	52	40207b9cd6ed34f0	1	flex-shard
+torchtitan/distributed/flex_shard/dist_muon#DistMuon._group	torchtitan/distributed/flex_shard/dist_muon.py	465	method	18	77a36163aaf9761c	4	
+torchtitan/distributed/flex_shard/dist_muon#DistMuon._group_signature	torchtitan/distributed/flex_shard/dist_muon.py	468	method	12	13961afdfa4dfbae	1	
+torchtitan/distributed/flex_shard/dist_muon#DistMuon._preflight_step	torchtitan/distributed/flex_shard/dist_muon.py	486	method	52	8ac58ac1031ee91f	1	flex-shard
+torchtitan/distributed/flex_shard/dist_muon#DistMuon._has_storage_layout	torchtitan/distributed/flex_shard/dist_muon.py	546	method	34	248e44e81d8778e3	2	flex-shard
+torchtitan/distributed/flex_shard/dist_muon#DistMuon._validate_momentum	torchtitan/distributed/flex_shard/dist_muon.py	558	method	22	f4f36ec0739972d8	1	
+torchtitan/distributed/flex_shard/dist_muon#DistMuon._momentum	torchtitan/distributed/flex_shard/dist_muon.py	569	method	12	93d9891cb307128d	1	
+torchtitan/distributed/flex_shard/dist_muon#DistMuon._local_gradient_and_momentum	torchtitan/distributed/flex_shard/dist_muon.py	579	method	22	440d6147238f7e1b	1	
+torchtitan/distributed/flex_shard/dist_muon#DistMuon._prepare_local	torchtitan/distributed/flex_shard/dist_muon.py	595	method	17	dcf996f1f9bf391a	1	
+torchtitan/distributed/flex_shard/dist_muon#DistMuon._compute_update	torchtitan/distributed/flex_shard/dist_muon.py	610	method	27	94b565888233a61f	1	flex-shard
+torchtitan/distributed/flex_shard/dist_muon#DistMuon._apply_update	torchtitan/distributed/flex_shard/dist_muon.py	624	method	32	fec88cde3e55587c	1	flex-shard
+torchtitan/distributed/flex_shard/dist_muon#DistMuon._local_tensor_spec	torchtitan/distributed/flex_shard/dist_muon.py	642	method	21	e34d54419207ab4b	3	
+torchtitan/distributed/flex_shard/dist_muon#_MatrixBatchView	torchtitan/distributed/flex_shard/dist_muon.py	651	class	16	7732062ecc3feee2	7	
+torchtitan/distributed/flex_shard/dist_muon#_MatrixBatchView.matrix_rows	torchtitan/distributed/flex_shard/dist_muon.py	652	member	8	254ef9e10f56b806	2	
+torchtitan/distributed/flex_shard/dist_muon#_MatrixBatchView.matrix_columns	torchtitan/distributed/flex_shard/dist_muon.py	653	member	4	df36e411a57be644	1	
+torchtitan/distributed/flex_shard/dist_muon#_MatrixBatchView.from_storage_shape	torchtitan/distributed/flex_shard/dist_muon.py	656	method	7	551f4ddd3873b8f5	1	
+torchtitan/distributed/flex_shard/dist_muon#_MatrixBatchView.matrix_batch_shape	torchtitan/distributed/flex_shard/dist_muon.py	676	method	14	135e6aae2cf6a39e	2	
+torchtitan/distributed/flex_shard/dist_muon#_MatrixBatchView.view_as_matrix_batch	torchtitan/distributed/flex_shard/dist_muon.py	694	method	7	cb25610219ac80f8	1	
+torchtitan/distributed/flex_shard/dist_muon#_validate_matrix_batch_storage_placements	torchtitan/distributed/flex_shard/dist_muon.py	700	function	2	c561d0f7e0a39314	1	
+torchtitan/distributed/flex_shard/dist_muon#_row_intervals_by_mesh_axis_coordinate	torchtitan/distributed/flex_shard/dist_muon.py	724	function	24	007967226615cdc1	1	flex-shard
+torchtitan/distributed/flex_shard/dist_muon#_resolve_storage_to_compute_redistribution_requirement	torchtitan/distributed/flex_shard/dist_muon.py	761	function	42	4c1331e117f1da93	1	flex-shard
+torchtitan/distributed/flex_shard/dist_muon#_PreparedParameterComputeLayout	torchtitan/distributed/flex_shard/dist_muon.py	879	class	4	8ccdd1a74fb251e2	2	
+torchtitan/distributed/flex_shard/dist_muon#_PreparedParameterComputeLayout.compute_view_key	torchtitan/distributed/flex_shard/dist_muon.py	880	member	4	3a63c024f6239d81	2	
+torchtitan/distributed/flex_shard/dist_muon#_PreparedParameterComputeLayout.compute_layout	torchtitan/distributed/flex_shard/dist_muon.py	881	member	9	d85a52ecf9250bfd	2	
+torchtitan/distributed/flex_shard/dist_muon#_PreparedParameterComputeLayout.global_compute_shape	torchtitan/distributed/flex_shard/dist_muon.py	882	member	4	f2a410a49e916a84	2	
+torchtitan/distributed/flex_shard/dist_muon#_PreparedParameterComputeLayout.compute_view	torchtitan/distributed/flex_shard/dist_muon.py	883	member	11	389cc893b9816a95	2	
+torchtitan/distributed/flex_shard/dist_muon#_ParameterComputeLayout	torchtitan/distributed/flex_shard/dist_muon.py	887	class	38	967f725edef4361e	18	flex-shard
+torchtitan/distributed/flex_shard/dist_muon#_ParameterComputeLayout.fqn	torchtitan/distributed/flex_shard/dist_muon.py	888	member	18	238818c6a6f7c288	7	
+torchtitan/distributed/flex_shard/dist_muon#_ParameterComputeLayout.param	torchtitan/distributed/flex_shard/dist_muon.py	889	member	54	8d975f2aa7586067	14	flex-shard
+torchtitan/distributed/flex_shard/dist_muon#_ParameterComputeLayout.group_index	torchtitan/distributed/flex_shard/dist_muon.py	890	member	6	ecfd4f917fe81f24	3	
+torchtitan/distributed/flex_shard/dist_muon#_ParameterComputeLayout.compute_view_key	torchtitan/distributed/flex_shard/dist_muon.py	891	member	4	3a63c024f6239d81	2	
+torchtitan/distributed/flex_shard/dist_muon#_ParameterComputeLayout.global_compute_shape	torchtitan/distributed/flex_shard/dist_muon.py	892	member	14	f2a410a49e916a84	6	
+torchtitan/distributed/flex_shard/dist_muon#_ParameterComputeLayout.compute_view	torchtitan/distributed/flex_shard/dist_muon.py	893	member	11	389cc893b9816a95	2	
+torchtitan/distributed/flex_shard/dist_muon#_ParameterComputeLayout.storage_mesh_ranks	torchtitan/distributed/flex_shard/dist_muon.py	894	member	6	f6ea9225b803e2a7	3	
+torchtitan/distributed/flex_shard/dist_muon#_ParameterComputeLayout.storage_layout_signature	torchtitan/distributed/flex_shard/dist_muon.py	895	member	6	69fa04a753c8b905	3	
+torchtitan/distributed/flex_shard/dist_muon#_ParameterComputeLayout.local_storage_signature	torchtitan/distributed/flex_shard/dist_muon.py	896	member	4	41c75b51e5f2ef65	2	
+torchtitan/distributed/flex_shard/dist_muon#_ParameterComputeLayout.compute_sharding	torchtitan/distributed/flex_shard/dist_muon.py	897	member	15	87b44302fc5d3960	5	
+torchtitan/distributed/flex_shard/dist_muon#_ParameterComputeLayout.storage_to_compute_transition	torchtitan/distributed/flex_shard/dist_muon.py	898	member	11	295f2fc897c69e1f	3	
+torchtitan/distributed/flex_shard/dist_muon#_ParameterComputeLayout.resolved_compute_layout_signature	torchtitan/distributed/flex_shard/dist_muon.py	899	member	4	7ec27a77313c2d5d	2	
+torchtitan/distributed/flex_shard/dist_muon#_ParameterComputeLayout.redistribution_storage_mesh_axis	torchtitan/distributed/flex_shard/dist_muon.py	900	member	8	7c9c4b4359fa3242	4	
+torchtitan/distributed/flex_shard/dist_muon#_ParameterComputeLayout.storage_is_compute_ready	torchtitan/distributed/flex_shard/dist_muon.py	903	method	26	588177d677544577	8	
+torchtitan/distributed/flex_shard/dist_muon#_NoRedistributionTransition	torchtitan/distributed/flex_shard/dist_muon.py	910	class	8	7aec13ca2bc817f0	4	
+torchtitan/distributed/flex_shard/dist_muon#_RedistributionTransition	torchtitan/distributed/flex_shard/dist_muon.py	915	class	6	70e5776fb15c65f4	3	
+torchtitan/distributed/flex_shard/dist_muon#_StorageToComputeTransition	torchtitan/distributed/flex_shard/dist_muon.py	919	value	14	8a9d04ca0d057919	2	
+torchtitan/distributed/flex_shard/dist_muon#_LoweredComputeSharding	torchtitan/distributed/flex_shard/dist_muon.py	929	value	16	5fe3af6a2795d588	2	flex-shard
+torchtitan/distributed/flex_shard/dist_muon#_AxisComputeSharding	torchtitan/distributed/flex_shard/dist_muon.py	933	value	23	e6869d340f9e8fd2	6	flex-shard
+torchtitan/distributed/flex_shard/dist_muon#_ResolvedComputeSharding	torchtitan/distributed/flex_shard/dist_muon.py	937	value	11	ad3606f1bae653c1	3	
+torchtitan/distributed/flex_shard/dist_muon#_UnsupportedStoragePlacement	torchtitan/distributed/flex_shard/dist_muon.py	941	class	10	9af27fb7479ed356	3	
+torchtitan/distributed/flex_shard/dist_muon#_UnsupportedStoragePlacement.type_name	torchtitan/distributed/flex_shard/dist_muon.py	942	member	6	52f6aad864f3dc9d	3	
+torchtitan/distributed/flex_shard/dist_muon#_UnsupportedStoragePlacement.representation	torchtitan/distributed/flex_shard/dist_muon.py	943	member	6	6c38add1d0c885f6	3	
+torchtitan/distributed/flex_shard/dist_muon#_ResolvedStorageToComputeTransition	torchtitan/distributed/flex_shard/dist_muon.py	947	class	6	8b17b19e6da52f95	1	
+torchtitan/distributed/flex_shard/dist_muon#_ResolvedStorageToComputeTransition.compute_sharding	torchtitan/distributed/flex_shard/dist_muon.py	948	member	11	87b44302fc5d3960	2	
+torchtitan/distributed/flex_shard/dist_muon#_ResolvedStorageToComputeTransition.storage_to_compute_transition	torchtitan/distributed/flex_shard/dist_muon.py	949	member	11	295f2fc897c69e1f	2	
+torchtitan/distributed/flex_shard/dist_muon#_ResolvedStorageToComputeTransition.resolved_compute_layout_signature	torchtitan/distributed/flex_shard/dist_muon.py	950	member	6	7ec27a77313c2d5d	2	
+torchtitan/distributed/flex_shard/dist_muon#_ResolvedStorageToComputeTransition.redistribution_storage_mesh_axis	torchtitan/distributed/flex_shard/dist_muon.py	951	member	4	47278ea84b0eabeb	2	
+torchtitan/distributed/flex_shard/dist_muon#_resolve_muon_redistribution_plans	torchtitan/distributed/flex_shard/dist_muon.py	954	function	82	6bb3504039aa2b0f	1	flex-shard
+torchtitan/distributed/flex_shard/dist_muon#_assign_balanced_owner_ranks	torchtitan/distributed/flex_shard/dist_muon.py	1006	function	47	a5bb4535f1a7a9e0	1	flex-shard
+torchtitan/distributed/flex_shard/dist_muon#_estimate_muon_compute_cost	torchtitan/distributed/flex_shard/dist_muon.py	1043	function	2	2ad09e6c4969ce31	1	
+torchtitan/distributed/flex_shard/dist_muon#_balance_loads_across_partitions	torchtitan/distributed/flex_shard/dist_muon.py	1053	function	2	386f3883293c01f5	1	
+torchtitan/distributed/flex_shard/dist_muon#_build_parameter_redistribution_plan	torchtitan/distributed/flex_shard/dist_muon.py	1104	function	87	00bea6a63d9d4bb6	1	flex-shard
+torchtitan/distributed/flex_shard/dist_muon#_build_batched_matrix_redistribution_plan	torchtitan/distributed/flex_shard/dist_muon.py	1148	function	102	724da15d432e2a51	1	flex-shard
+torchtitan/distributed/flex_shard/dist_muon#_lower_shard_order_to_strided_shards	torchtitan/distributed/flex_shard/dist_muon.py	1291	function	17	7d68d833c2e4ce25	1	flex-shard
+torchtitan/distributed/flex_shard/dist_muon#_validate_shard_order_compute_targets	torchtitan/distributed/flex_shard/dist_muon.py	1326	function	22	dded5d3ae9262d25	1	flex-shard
+torchtitan/distributed/flex_shard/dist_muon#_is_supported_orthogonal_dim0_shard_redistribution	torchtitan/distributed/flex_shard/dist_muon.py	1388	function	22	e77bed16e3601def	1	flex-shard
+torchtitan/distributed/flex_shard/dist_muon#_resolve_storage_to_compute_transition	torchtitan/distributed/flex_shard/dist_muon.py	1411	function	137	127c6eebf4a70491	1	flex-shard
+torchtitan/distributed/flex_shard/dist_muon#_raise_unsupported_layout	torchtitan/distributed/flex_shard/dist_muon.py	1759	function	2	6459c32d4185249a	1	
+torchtitan/distributed/flex_shard/dist_muon#_normalize_compute_placement	torchtitan/distributed/flex_shard/dist_muon.py	1763	function	27	01cf182a98b96040	1	
+torchtitan/distributed/flex_shard/dist_muon#_normalize_storage_placement	torchtitan/distributed/flex_shard/dist_muon.py	1793	function	34	b7e78f7f0b5ea985	3	
+torchtitan/distributed/flex_shard/dist_muon#_normalize_dim	torchtitan/distributed/flex_shard/dist_muon.py	1817	function	32	cd21038af8c40628	6	
+torchtitan/distributed/flex_shard/dist_muon#_adjust_muon_learning_rate	torchtitan/distributed/flex_shard/dist_muon.py	1824	function	2	c964cefb6d4dfcd5	1	
+torchtitan/distributed/flex_shard/dist_muon#_prepare_muon_input	torchtitan/distributed/flex_shard/dist_muon.py	1842	function	2	1a064d03626f5434	1	
+torchtitan/distributed/flex_shard/dist_muon#_compute_muon_direction	torchtitan/distributed/flex_shard/dist_muon.py	1864	function	7	6d266dfa2377edc5	1	
+torchtitan/distributed/flex_shard/dist_muon#_apply_muon_update	torchtitan/distributed/flex_shard/dist_muon.py	1883	function	7	462291053f0ecbd2	1	
+torchtitan/distributed/flex_shard/dist_muon#_zeropower_via_newtonschulz	torchtitan/distributed/flex_shard/dist_muon.py	1903	function	2	b7f1834ae9b89e46	1	
+torchtitan/distributed/flex_shard/dist_muon#_after_load_state_dict	torchtitan/distributed/flex_shard/dist_muon.py	1937	function	52	7c370d838cc9fca8	1	flex-shard
+torchtitan/distributed/flex_shard/dist_muon#_local_storage_signature	torchtitan/distributed/flex_shard/dist_muon.py	1952	function	4	ceb2c058f6797ab5	2	
+torchtitan/distributed/flex_shard/dist_muon#_storage_layout_signature	torchtitan/distributed/flex_shard/dist_muon.py	1963	function	4	9867ccaf00c79ef4	2	
+torchtitan/distributed/flex_shard/optimizer_reshard#__all__	torchtitan/distributed/flex_shard/optimizer_reshard.py	18	value	0	cdd4e5fbfa791b2c	0	
+torchtitan/distributed/flex_shard/optimizer_reshard#Owned	torchtitan/distributed/flex_shard/optimizer_reshard.py	22	class	32	63d63dcc3a64d7b9	8	flex-shard
+torchtitan/distributed/flex_shard/optimizer_reshard#BlockShard	torchtitan/distributed/flex_shard/optimizer_reshard.py	35	class	40	6e3da25ea4015989	10	flex-shard
+torchtitan/distributed/flex_shard/optimizer_reshard#BlockShard.dim	torchtitan/distributed/flex_shard/optimizer_reshard.py	45	member	38	36446ddaca85b55c	9	flex-shard
+torchtitan/distributed/flex_shard/optimizer_reshard#BlockShard.block_size	torchtitan/distributed/flex_shard/optimizer_reshard.py	46	member	22	ae03fd6cd9ea0085	5	flex-shard
+torchtitan/distributed/flex_shard/optimizer_reshard#BlockShard.__post_init__	torchtitan/distributed/flex_shard/optimizer_reshard.py	48	method	10	3e9b3e6ac31f66e9	0	
+torchtitan/distributed/flex_shard/optimizer_reshard#_ComputeSharding	torchtitan/distributed/flex_shard/optimizer_reshard.py	59	value	16	e1c3b5bb12aa399c	3	
+torchtitan/distributed/flex_shard/optimizer_reshard#_KeyT	torchtitan/distributed/flex_shard/optimizer_reshard.py	61	value	10	6989f1018ccd573b	5	
+torchtitan/distributed/flex_shard/optimizer_reshard#_ValueT	torchtitan/distributed/flex_shard/optimizer_reshard.py	62	value	8	30ae3056fab94c4a	4	
+torchtitan/distributed/flex_shard/optimizer_reshard#_FrozenConfigMapping	torchtitan/distributed/flex_shard/optimizer_reshard.py	65	class	28	a2682085ec86b4ed	9	
+torchtitan/distributed/flex_shard/optimizer_reshard#_FrozenConfigMapping.__slots__	torchtitan/distributed/flex_shard/optimizer_reshard.py	75	member	0	2bdd5291b14d84d5	0	
+torchtitan/distributed/flex_shard/optimizer_reshard#_FrozenConfigMapping.__init__	torchtitan/distributed/flex_shard/optimizer_reshard.py	77	method	15	6cc7b9fbef01d00e	0	
+torchtitan/distributed/flex_shard/optimizer_reshard#_FrozenConfigMapping.__getitem__	torchtitan/distributed/flex_shard/optimizer_reshard.py	80	method	15	5d9b8f6da1f38fe0	0	
+torchtitan/distributed/flex_shard/optimizer_reshard#_FrozenConfigMapping.__iter__	torchtitan/distributed/flex_shard/optimizer_reshard.py	86	method	10	f49476e480729448	0	
+torchtitan/distributed/flex_shard/optimizer_reshard#_FrozenConfigMapping.__len__	torchtitan/distributed/flex_shard/optimizer_reshard.py	89	method	5	5500c28778715c97	0	
+torchtitan/distributed/flex_shard/optimizer_reshard#_FrozenConfigMapping.__hash__	torchtitan/distributed/flex_shard/optimizer_reshard.py	92	method	5	c6ad522a6471806b	0	
+torchtitan/distributed/flex_shard/optimizer_reshard#_FrozenConfigMapping.__repr__	torchtitan/distributed/flex_shard/optimizer_reshard.py	95	method	5	350d746902ac8f08	0	
+torchtitan/distributed/flex_shard/optimizer_reshard#_FrozenConfigMapping.__deepcopy__	torchtitan/distributed/flex_shard/optimizer_reshard.py	98	method	15	d8beb32556fc5fe9	0	
+torchtitan/distributed/flex_shard/optimizer_reshard#_ShardingsByMeshAxis	torchtitan/distributed/flex_shard/optimizer_reshard.py	104	value	12	37c027668d2cd34e	1	
+torchtitan/distributed/flex_shard/optimizer_reshard#_ShardOrderByTensorDim	torchtitan/distributed/flex_shard/optimizer_reshard.py	105	value	9	ec65ccda2b0b84ab	2	
+torchtitan/distributed/flex_shard/optimizer_reshard#_DEFAULT_SHARD_ORDER	torchtitan/distributed/flex_shard/optimizer_reshard.py	107	value	7	573520bda9cf3761	1	
+torchtitan/distributed/flex_shard/optimizer_reshard#ComputeLayout	torchtitan/distributed/flex_shard/optimizer_reshard.py	111	class	42	d5661503e89ed6c9	12	flex-shard
+torchtitan/distributed/flex_shard/optimizer_reshard#ComputeLayout.shardings_by_mesh_axis	torchtitan/distributed/flex_shard/optimizer_reshard.py	165	member	23	ab9e1999e2cb60bc	5	flex-shard
+torchtitan/distributed/flex_shard/optimizer_reshard#ComputeLayout.shard_order_by_tensor_dim	torchtitan/distributed/flex_shard/optimizer_reshard.py	166	member	11	53f201094243b8b7	3	
+torchtitan/distributed/flex_shard/optimizer_reshard#ComputeLayout.__post_init__	torchtitan/distributed/flex_shard/optimizer_reshard.py	168	method	30	5fbf3cfae7758dfb	0	flex-shard
+torchtitan/distributed/flex_shard/optimizer_reshard#ComputeLayout._validated_shard_order	torchtitan/distributed/flex_shard/optimizer_reshard.py	196	method	17	655144380a3367d5	1	flex-shard
+torchtitan/distributed/flex_shard/optimizer_reshard#ComputeLayout.to_dict	torchtitan/distributed/flex_shard/optimizer_reshard.py	246	method	0	15755253a17bf106	0	
+torchtitan/distributed/flex_shard/optimizer_reshard#BucketConfig	torchtitan/distributed/flex_shard/optimizer_reshard.py	252	class	20	96c59fedfc26cf86	5	flex-shard
+torchtitan/distributed/flex_shard/optimizer_reshard#BucketConfig.patterns	torchtitan/distributed/flex_shard/optimizer_reshard.py	260	member	10	a5bb8dd304dcef23	4	
+torchtitan/distributed/flex_shard/optimizer_reshard#BucketConfig.name	torchtitan/distributed/flex_shard/optimizer_reshard.py	261	member	8	bdd9d03b6dd42d47	3	
+torchtitan/distributed/flex_shard/optimizer_reshard#BucketConfig.__post_init__	torchtitan/distributed/flex_shard/optimizer_reshard.py	263	method	5	84bef69d1e596e33	0	
+torchtitan/distributed/flex_shard/optimizer_reshard#BucketConfig._bind	torchtitan/distributed/flex_shard/optimizer_reshard.py	266	method	34	473d264710430189	1	
+torchtitan/distributed/flex_shard/optimizer_reshard#_BucketSpec	torchtitan/distributed/flex_shard/optimizer_reshard.py	275	class	16	b64b910a87e0a772	5	
+torchtitan/distributed/flex_shard/optimizer_reshard#_BucketSpec.patterns	torchtitan/distributed/flex_shard/optimizer_reshard.py	285	member	6	a5bb8dd304dcef23	3	
+torchtitan/distributed/flex_shard/optimizer_reshard#_BucketSpec.mesh	torchtitan/distributed/flex_shard/optimizer_reshard.py	286	member	6	7845bcae57f70a6c	2	
+torchtitan/distributed/flex_shard/optimizer_reshard#_BucketSpec.name	torchtitan/distributed/flex_shard/optimizer_reshard.py	287	member	2	bdd9d03b6dd42d47	1	
+torchtitan/distributed/flex_shard/optimizer_reshard#_BucketSpec.__post_init__	torchtitan/distributed/flex_shard/optimizer_reshard.py	289	method	10	a6e6b68da6abbd12	0	
+torchtitan/distributed/fsdp#_DENSE_STORAGE_AXES	torchtitan/distributed/fsdp.py	28	value	2	392d25166ee2586b	1	
+torchtitan/distributed/fsdp#_SPARSE_STORAGE_AXES	torchtitan/distributed/fsdp.py	29	value	2	473b9d5504267468	1	
+torchtitan/distributed/fsdp#resolve_fsdp_mesh	torchtitan/distributed/fsdp.py	32	function	88	f11b59404c34b4ac	16	parallel-dims-and-parallelization
+torchtitan/distributed/fsdp#resolve_sparse_fsdp_mesh	torchtitan/distributed/fsdp.py	65	function	62	5865eaeacaaaa949	8	parallel-dims-and-parallelization
+torchtitan/distributed/fsdp#disable_fsdp_gradient_division	torchtitan/distributed/fsdp.py	85	function	12	c86f8d03271df042	4	
+torchtitan/distributed/fsdp#enable_fsdp_symm_mem	torchtitan/distributed/fsdp.py	113	function	12	f73b1737fb24b00e	4	
+torchtitan/distributed/fsdp#get_fsdp_reshard_after_forward_policy	torchtitan/distributed/fsdp.py	123	function	20	8362b18ba8beeeef	6	
+torchtitan/distributed/fsdp#apply_fsdp_to_vision_encoder	torchtitan/distributed/fsdp.py	150	function	21	b93abd5fd55dcf9b	4	
+torchtitan/distributed/fsdp#apply_fsdp_to_decoder	torchtitan/distributed/fsdp.py	189	function	108	48ed3b0ca5f88ff2	12	parallel-dims-and-parallelization
+torchtitan/distributed/fsdp#apply_fsdp_to_decoder._experts_shard_placement_fn	torchtitan/distributed/fsdp.py	324	function	2	3485890c59de762f	1	
+torchtitan/distributed/fsdp#apply_fsdp_to_decoder._shard_placement_fn	torchtitan/distributed/fsdp.py	360	function	2	c34895cc9225a600	1	
+torchtitan/distributed/linear#ensure_symm_mem_ops	torchtitan/distributed/linear.py	35	function	6	59501db7462a7bea	3	
+torchtitan/distributed/linear#AllGatherLinear	torchtitan/distributed/linear.py	47	class	8	c68e05cdf08ecc3a	2	
+torchtitan/distributed/linear#AllGatherLinear.spmd_typecheck	torchtitan/distributed/linear.py	82	method	0	f46e056071f3abde	0	
+torchtitan/distributed/linear#AllGatherLinear.forward	torchtitan/distributed/linear.py	110	method	5	d770463ea0b9be7b	0	
+torchtitan/distributed/linear#AllGatherLinear.backward	torchtitan/distributed/linear.py	144	method	0	297d7c2ced5389de	0	
+torchtitan/distributed/linear#AllGatherLinearMulti	torchtitan/distributed/linear.py	185	class	4	5889bcbad7612a1c	1	
+torchtitan/distributed/linear#AllGatherLinearMulti.forward	torchtitan/distributed/linear.py	214	method	5	bbc00dadbc24dc30	0	
+torchtitan/distributed/linear#AllGatherLinearMulti.backward	torchtitan/distributed/linear.py	243	method	0	de249befe45a06a0	0	
+torchtitan/distributed/linear#AllGatherLinearMulti.spmd_typecheck	torchtitan/distributed/linear.py	283	method	0	0d7c270ea85772c0	0	
+torchtitan/distributed/linear#LinearReduceScatter	torchtitan/distributed/linear.py	305	class	10	fa6005e41e05d90f	3	
+torchtitan/distributed/linear#LinearReduceScatter.spmd_typecheck	torchtitan/distributed/linear.py	329	method	0	8f833b3e0aa68dad	0	
+torchtitan/distributed/linear#LinearReduceScatter.forward	torchtitan/distributed/linear.py	357	method	5	018bd31297e0a5ce	0	
+torchtitan/distributed/linear#LinearReduceScatter.backward	torchtitan/distributed/linear.py	386	method	0	4396577666dde3f5	0	
+torchtitan/distributed/minimal_async_ep/__init__#__all__	torchtitan/distributed/minimal_async_ep/__init__.py	15	value	0	939bc565afdcd76c	0	
+torchtitan/distributed/minimal_async_ep/api#_HIDDEN_RECV_BUFFER_COUNT	torchtitan/distributed/minimal_async_ep/api.py	43	value	4	a7039a24ba5e963e	2	
+torchtitan/distributed/minimal_async_ep/api#_HIDDEN_READY_CHANNEL	torchtitan/distributed/minimal_async_ep/api.py	45	value	2	58bb464f65f61f78	1	
+torchtitan/distributed/minimal_async_ep/api#_COUNTS_READY_CHANNEL	torchtitan/distributed/minimal_async_ep/api.py	46	value	2	c4ad1601a03c04ce	1	
+torchtitan/distributed/minimal_async_ep/api#_MinimalAsyncEPBufferState	torchtitan/distributed/minimal_async_ep/api.py	50	class	4	4e52cfb004a2b582	2	
+torchtitan/distributed/minimal_async_ep/api#_MinimalAsyncEPBufferState.group	torchtitan/distributed/minimal_async_ep/api.py	53	member	8	f7ac2f7caf1b5d4e	4	
+torchtitan/distributed/minimal_async_ep/api#_MinimalAsyncEPBufferState.num_max_tokens_per_rank	torchtitan/distributed/minimal_async_ep/api.py	54	member	6	ab5700b82a130416	2	
+torchtitan/distributed/minimal_async_ep/api#_MinimalAsyncEPBufferState.hidden_recv_buffers	torchtitan/distributed/minimal_async_ep/api.py	55	member	4	f6e815c95493fdce	2	
+torchtitan/distributed/minimal_async_ep/api#_MinimalAsyncEPBufferState.hidden_recv_handles	torchtitan/distributed/minimal_async_ep/api.py	56	member	4	7581bbc118464d0b	2	
+torchtitan/distributed/minimal_async_ep/api#_MinimalAsyncEPBufferState.hidden_recv_peer_buffers	torchtitan/distributed/minimal_async_ep/api.py	57	member	4	1f5b01d47e23d2c4	2	
+torchtitan/distributed/minimal_async_ep/api#_MinimalAsyncEPBufferState.hidden_recv_peer_ptrs	torchtitan/distributed/minimal_async_ep/api.py	58	member	4	27a91c82bd2698e1	2	
+torchtitan/distributed/minimal_async_ep/api#_MinimalAsyncEPBufferState.counts_recv_buffer	torchtitan/distributed/minimal_async_ep/api.py	59	member	4	09a85601bf292770	2	
+torchtitan/distributed/minimal_async_ep/api#_MinimalAsyncEPBufferState.counts_recv_handle	torchtitan/distributed/minimal_async_ep/api.py	60	member	4	afdd97bcb70a1f91	2	
+torchtitan/distributed/minimal_async_ep/api#_MinimalAsyncEPBufferState.counts_recv_peer_buffers	torchtitan/distributed/minimal_async_ep/api.py	61	member	4	980aa185b3a49812	2	
+torchtitan/distributed/minimal_async_ep/api#_MinimalAsyncEPBufferState.counts_recv_peer_ptrs	torchtitan/distributed/minimal_async_ep/api.py	62	member	4	1d54761ef8692ead	2	
+torchtitan/distributed/minimal_async_ep/api#_MinimalAsyncEPBufferState.hidden_recv_buffer_index	torchtitan/distributed/minimal_async_ep/api.py	63	member	6	0c9afe5cea41374a	1	
+torchtitan/distributed/minimal_async_ep/api#_buffer_state._buffer_state	torchtitan/distributed/minimal_async_ep/api.py	66	value	49	7c0b6447f4cac101	5	
+torchtitan/distributed/minimal_async_ep/api#_buffer_key._buffer_key	torchtitan/distributed/minimal_async_ep/api.py	70	value	8	881073f6f77c2486	1	
+torchtitan/distributed/minimal_async_ep/api#maybe_update_minimal_async_ep_config	torchtitan/distributed/minimal_async_ep/api.py	84	function	51	87d6bc300195424b	1	parallel-dims-and-parallelization
+torchtitan/distributed/minimal_async_ep/api#MinimalAsyncEPDispatchMetadata	torchtitan/distributed/minimal_async_ep/api.py	145	class	8	c173880fbd1acee9	2	
+torchtitan/distributed/minimal_async_ep/api#MinimalAsyncEPDispatchMetadata.dispatch_dst_ranks	torchtitan/distributed/minimal_async_ep/api.py	160	member	4	6d5a254d24e76501	2	
+torchtitan/distributed/minimal_async_ep/api#MinimalAsyncEPDispatchMetadata.dispatch_dst_rows	torchtitan/distributed/minimal_async_ep/api.py	161	member	4	f873eb51e602eead	2	
+torchtitan/distributed/minimal_async_ep/api#MinimalAsyncEPDispatchMetadata.combine_dst_ranks	torchtitan/distributed/minimal_async_ep/api.py	162	member	4	895e290847cd2cd7	2	
+torchtitan/distributed/minimal_async_ep/api#MinimalAsyncEPDispatchMetadata.combine_dst_rows	torchtitan/distributed/minimal_async_ep/api.py	163	member	4	84ef07381a1ce804	2	
+torchtitan/distributed/minimal_async_ep/api#MinimalAsyncEPDispatchMetadata.combine_num_valid_rows	torchtitan/distributed/minimal_async_ep/api.py	164	member	4	a0a693f9cb77502d	2	
+torchtitan/distributed/minimal_async_ep/api#MinimalAsyncEPDispatchMetadata.E_row_to_T_row	torchtitan/distributed/minimal_async_ep/api.py	165	member	4	cb4468e111b9bc30	2	
+torchtitan/distributed/minimal_async_ep/api#MinimalAsyncEPDispatchMetadata.T_row_to_E_row	torchtitan/distributed/minimal_async_ep/api.py	166	member	4	9bf47543e665f55d	2	
+torchtitan/distributed/minimal_async_ep/api#MinimalAsyncEPDispatchMetadata.routed_scores	torchtitan/distributed/minimal_async_ep/api.py	167	member	4	d6b40eebc6ca2246	2	
+torchtitan/distributed/minimal_async_ep/api#MinimalAsyncEPDispatchMetadata.num_tokens	torchtitan/distributed/minimal_async_ep/api.py	168	member	4	13dae45a6daa1bea	2	
+torchtitan/distributed/minimal_async_ep/api#MinimalAsyncEPDispatchMetadata.top_k	torchtitan/distributed/minimal_async_ep/api.py	169	member	4	df1f69cf81af0c8d	2	
+torchtitan/distributed/minimal_async_ep/api#init_buffer	torchtitan/distributed/minimal_async_ep/api.py	172	function	81	8ba9e8a29da51cbb	1	
+torchtitan/distributed/minimal_async_ep/api#_copy_rows_to_peers_and_wait_cuda	torchtitan/distributed/minimal_async_ep/api.py	296	function	56	15eb1014cd740346	3	
+torchtitan/distributed/minimal_async_ep/api#_wait_hidden_ready	torchtitan/distributed/minimal_async_ep/api.py	343	function	12	7040712765755eb0	1	
+torchtitan/distributed/minimal_async_ep/api#_wait_counts_ready	torchtitan/distributed/minimal_async_ep/api.py	347	function	22	fd0546811aebc13b	1	
+torchtitan/distributed/minimal_async_ep/api#_wait_ready	torchtitan/distributed/minimal_async_ep/api.py	352	function	4	482d9f0ab5edc01b	2	
+torchtitan/distributed/minimal_async_ep/api#_copy_all_counts_to_peers_and_wait_cuda	torchtitan/distributed/minimal_async_ep/api.py	366	function	37	dbf8bed57c220b84	1	
+torchtitan/distributed/minimal_async_ep/api#_compute_direct_metadata	torchtitan/distributed/minimal_async_ep/api.py	386	function	27	2d62ecadf40a6a4c	1	
+torchtitan/distributed/minimal_async_ep/api#_dispatch_to_experts	torchtitan/distributed/minimal_async_ep/api.py	466	function	7	fcc59feaee242ad4	1	
+torchtitan/distributed/minimal_async_ep/api#_combine_to_origin	torchtitan/distributed/minimal_async_ep/api.py	483	function	9	c64ae51dc047b132	2	
+torchtitan/distributed/minimal_async_ep/api#_dispatch_metadata	torchtitan/distributed/minimal_async_ep/api.py	505	function	12	716ddf049687e4fe	1	
+torchtitan/distributed/minimal_async_ep/api#dispatch_op	torchtitan/distributed/minimal_async_ep/api.py	561	function	25	d3a07d6a9ce07ca2	2	
+torchtitan/distributed/minimal_async_ep/api#dispatch_op_fake	torchtitan/distributed/minimal_async_ep/api.py	647	function	5	709b562e78672ff7	0	
+torchtitan/distributed/minimal_async_ep/api#combine_op	torchtitan/distributed/minimal_async_ep/api.py	687	function	20	4834fe6136bed6d1	2	
+torchtitan/distributed/minimal_async_ep/api#combine_op_fake	torchtitan/distributed/minimal_async_ep/api.py	741	function	5	f6387a5a65b97d82	0	
+torchtitan/distributed/minimal_async_ep/api#dispatch_backward_op	torchtitan/distributed/minimal_async_ep/api.py	768	function	14	548ecad3fb93ce91	2	
+torchtitan/distributed/minimal_async_ep/api#dispatch_backward_op_fake	torchtitan/distributed/minimal_async_ep/api.py	811	function	5	fe127abaedba4b3e	0	
+torchtitan/distributed/minimal_async_ep/api#combine_backward_op	torchtitan/distributed/minimal_async_ep/api.py	829	function	19	9b963b1eebd0f17a	2	
+torchtitan/distributed/minimal_async_ep/api#combine_backward_op_fake	torchtitan/distributed/minimal_async_ep/api.py	884	function	5	5b93bf1c9526c847	0	
+torchtitan/distributed/minimal_async_ep/api#dispatch_setup_context	torchtitan/distributed/minimal_async_ep/api.py	900	function	2	d2ff43057297dd4e	0	
+torchtitan/distributed/minimal_async_ep/api#dispatch_autograd_backward	torchtitan/distributed/minimal_async_ep/api.py	924	function	7	9471c8169a522bc5	0	
+torchtitan/distributed/minimal_async_ep/api#combine_setup_context	torchtitan/distributed/minimal_async_ep/api.py	946	function	2	8ad4803654ab3838	0	
+torchtitan/distributed/minimal_async_ep/api#combine_autograd_backward	torchtitan/distributed/minimal_async_ep/api.py	972	function	7	9979f7541d733fc0	0	
+torchtitan/distributed/minimal_async_ep/api#__all__	torchtitan/distributed/minimal_async_ep/api.py	1015	value	0	939bc565afdcd76c	0	
+torchtitan/distributed/minimal_async_ep/kernels#_COUNT_COPY_BLOCK_SIZE	torchtitan/distributed/minimal_async_ep/kernels.py	14	value	4	54432664cf488cc0	2	
+torchtitan/distributed/minimal_async_ep/kernels#_METADATA_BLOCK_SIZE	torchtitan/distributed/minimal_async_ep/kernels.py	15	value	4	be0e1dd7190f6445	2	
+torchtitan/distributed/minimal_async_ep/kernels#_MAX_BLOCK_N	torchtitan/distributed/minimal_async_ep/kernels.py	16	value	6	e36167715c7089f7	3	
+torchtitan/distributed/minimal_async_ep/kernels#_HIDDEN_ROW_DTYPES	torchtitan/distributed/minimal_async_ep/kernels.py	20	value	2	e6886ce87247d564	1	
+torchtitan/distributed/minimal_async_ep/kernels#_copy_full_counts_to_peer_ptrs_kernel	torchtitan/distributed/minimal_async_ep/kernels.py	27	function	2	bd55e3402e4dd5a8	1	
+torchtitan/distributed/minimal_async_ep/kernels#_fill_dispatch_metadata_kernel	torchtitan/distributed/minimal_async_ep/kernels.py	55	function	2	35dd590a798e72a9	1	
+torchtitan/distributed/minimal_async_ep/kernels#_fill_combine_metadata_kernel	torchtitan/distributed/minimal_async_ep/kernels.py	87	function	2	94dfb577afb25bb8	1	
+torchtitan/distributed/minimal_async_ep/kernels#_invert_flat_indices_kernel	torchtitan/distributed/minimal_async_ep/kernels.py	129	function	2	b7b02d8a5044ff7e	1	
+torchtitan/distributed/minimal_async_ep/kernels#_reduce_topk_slots_kernel	torchtitan/distributed/minimal_async_ep/kernels.py	148	function	2	f372e7a8d8bb1d98	1	
+torchtitan/distributed/minimal_async_ep/kernels#_expand_topk_grad_kernel	torchtitan/distributed/minimal_async_ep/kernels.py	199	function	2	0024438fe0b4081d	1	
+torchtitan/distributed/minimal_async_ep/kernels#_topk_scores_grad_kernel	torchtitan/distributed/minimal_async_ep/kernels.py	247	function	2	205e2c2fb2283904	1	
+torchtitan/distributed/minimal_async_ep/kernels#_copy_rows_to_peer_ptrs_kernel	torchtitan/distributed/minimal_async_ep/kernels.py	292	function	2	195fcaebb3c5de24	1	
+torchtitan/distributed/minimal_async_ep/kernels#copy_full_counts_to_peers_kernel	torchtitan/distributed/minimal_async_ep/kernels.py	351	function	14	df9550e1965f2845	1	
+torchtitan/distributed/minimal_async_ep/kernels#copy_rows_to_peers_kernel	torchtitan/distributed/minimal_async_ep/kernels.py	382	function	19	fcaccf22012b9e4b	1	
+torchtitan/distributed/minimal_async_ep/kernels#fill_dispatch_metadata_kernel	torchtitan/distributed/minimal_async_ep/kernels.py	426	function	14	62fbd2ab68ee4db6	1	
+torchtitan/distributed/minimal_async_ep/kernels#fill_combine_metadata_kernel	torchtitan/distributed/minimal_async_ep/kernels.py	463	function	14	21a32873b26bbd8c	1	
+torchtitan/distributed/minimal_async_ep/kernels#invert_flat_indices_kernel	torchtitan/distributed/minimal_async_ep/kernels.py	508	function	14	ebeb6f9d5dc9f250	1	
+torchtitan/distributed/minimal_async_ep/kernels#reduce_topk_slots_kernel	torchtitan/distributed/minimal_async_ep/kernels.py	525	function	16	328c29cc950679cf	2	
+torchtitan/distributed/minimal_async_ep/kernels#expand_topk_grad_kernel	torchtitan/distributed/minimal_async_ep/kernels.py	562	function	14	611bcdf62819215a	1	
+torchtitan/distributed/minimal_async_ep/kernels#topk_scores_grad_kernel	torchtitan/distributed/minimal_async_ep/kernels.py	602	function	9	771cad141426ce68	1	
+torchtitan/distributed/parallel_dims#init_device_mesh	torchtitan/distributed/parallel_dims.py	25	function	2	3e97e02d84ed58e7	1	
+torchtitan/distributed/parallel_dims#__all__	torchtitan/distributed/parallel_dims.py	64	value	0	939bc565afdcd76c	0	
+torchtitan/distributed/parallel_dims#MeshAxisName	torchtitan/distributed/parallel_dims.py	72	class	212	7172e767eb58a5f9	54	config-overrides
+torchtitan/distributed/parallel_dims#MeshAxisName.DP	torchtitan/distributed/parallel_dims.py	85	member	34	9806dd707effbfda	16	
+torchtitan/distributed/parallel_dims#MeshAxisName.DP_REPLICATE	torchtitan/distributed/parallel_dims.py	86	member	4	bdf2acc9fae58feb	2	
+torchtitan/distributed/parallel_dims#MeshAxisName.DP_SHARD	torchtitan/distributed/parallel_dims.py	87	member	10	b612a5e9e475a5e5	3	
+torchtitan/distributed/parallel_dims#MeshAxisName.FSDP	torchtitan/distributed/parallel_dims.py	88	member	0	0ad4fe530f0aa25f	0	
+torchtitan/distributed/parallel_dims#MeshAxisName.TP	torchtitan/distributed/parallel_dims.py	89	member	30	6c9a47bf05effbc7	13	
+torchtitan/distributed/parallel_dims#MeshAxisName.CP	torchtitan/distributed/parallel_dims.py	90	member	40	9fe9285abff14b8d	17	
+torchtitan/distributed/parallel_dims#MeshAxisName.PP	torchtitan/distributed/parallel_dims.py	91	member	0	333fb8fe5d2521a3	0	
+torchtitan/distributed/parallel_dims#MeshAxisName.EP	torchtitan/distributed/parallel_dims.py	92	member	8	9727b3f264709f3e	3	
+torchtitan/distributed/parallel_dims#MeshAxisName.EFSDP	torchtitan/distributed/parallel_dims.py	93	member	6	5a6268c2ee472ff7	2	
+torchtitan/distributed/parallel_dims#unfold_dp_axis	torchtitan/distributed/parallel_dims.py	96	function	26	70e11075c0541d3d	2	
+torchtitan/distributed/parallel_dims#unfold_dp_axes	torchtitan/distributed/parallel_dims.py	104	function	14	0c98f23fd93cdc33	1	
+torchtitan/distributed/parallel_dims#ParallelDims	torchtitan/distributed/parallel_dims.py	112	class	410	1586686410f63e51	128	flux-diffusion-model
+torchtitan/distributed/parallel_dims#ParallelDims.dp_replicate	torchtitan/distributed/parallel_dims.py	113	member	92	b419f4ac933d007e	38	parallel-dims-and-parallelization
+torchtitan/distributed/parallel_dims#ParallelDims.dp_shard	torchtitan/distributed/parallel_dims.py	114	member	102	06ee1ce54fcd57cb	41	parallel-dims-and-parallelization
+torchtitan/distributed/parallel_dims#ParallelDims.cp	torchtitan/distributed/parallel_dims.py	115	member	102	84e082be2738352e	43	parallel-dims-and-parallelization
+torchtitan/distributed/parallel_dims#ParallelDims.tp	torchtitan/distributed/parallel_dims.py	116	member	108	e6d3a6be626adcd2	46	parallel-dims-and-parallelization
+torchtitan/distributed/parallel_dims#ParallelDims.pp	torchtitan/distributed/parallel_dims.py	117	member	116	64d5149e8b3eb70c	41	parallel-dims-and-parallelization
+torchtitan/distributed/parallel_dims#ParallelDims.ep	torchtitan/distributed/parallel_dims.py	118	member	102	1e3b858938bafab3	47	parallel-dims-and-parallelization
+torchtitan/distributed/parallel_dims#ParallelDims.world_size	torchtitan/distributed/parallel_dims.py	119	member	78	1134fa78bb9c15a4	36	parallel-dims-and-parallelization
+torchtitan/distributed/parallel_dims#ParallelDims.spmd_backend	torchtitan/distributed/parallel_dims.py	120	member	76	43c2fdc79fb26874	33	parallel-dims-and-parallelization
+torchtitan/distributed/parallel_dims#ParallelDims.enable_tpu_topo_mesh	torchtitan/distributed/parallel_dims.py	121	member	2	5fbbfb109a301ed7	1	
+torchtitan/distributed/parallel_dims#ParallelDims._single_axis_meshes	torchtitan/distributed/parallel_dims.py	124	member	34	08f080a362000e73	8	
+torchtitan/distributed/parallel_dims#ParallelDims._multi_axis_meshes	torchtitan/distributed/parallel_dims.py	125	member	6	805f2f479e51bd8b	1	
+torchtitan/distributed/parallel_dims#ParallelDims._world_mesh	torchtitan/distributed/parallel_dims.py	126	member	20	17e5f2cbf40c5370	3	
+torchtitan/distributed/parallel_dims#ParallelDims.from_config	torchtitan/distributed/parallel_dims.py	129	method	56	72ed4c5ed67aa785	3	parallel-dims-and-parallelization
+torchtitan/distributed/parallel_dims#ParallelDims.__post_init__	torchtitan/distributed/parallel_dims.py	144	method	5	e834d1d24d2aa46c	0	
+torchtitan/distributed/parallel_dims#ParallelDims._validate	torchtitan/distributed/parallel_dims.py	147	method	37	37fedeb892fc61ba	1	
+torchtitan/distributed/parallel_dims#ParallelDims._mesh_exist	torchtitan/distributed/parallel_dims.py	175	method	16	32e58242cb8caa28	3	
+torchtitan/distributed/parallel_dims#ParallelDims.build_mesh	torchtitan/distributed/parallel_dims.py	192	method	86	dfd666f2368ef843	8	parallel-dims-and-parallelization
+torchtitan/distributed/parallel_dims#ParallelDims.unflatten_mesh	torchtitan/distributed/parallel_dims.py	233	method	15	bd8daa40338db533	1	
+torchtitan/distributed/parallel_dims#ParallelDims._global_meshes	torchtitan/distributed/parallel_dims.py	316	member	40	994879c65f2e1aef	4	
+torchtitan/distributed/parallel_dims#ParallelDims._validate_meshes	torchtitan/distributed/parallel_dims.py	349	method	42	370b297c47e84292	1	
+torchtitan/distributed/parallel_dims#ParallelDims.get_optional_mesh	torchtitan/distributed/parallel_dims.py	374	method	105	594bc92d5c2c70f7	30	parallel-dims-and-parallelization
+torchtitan/distributed/parallel_dims#ParallelDims.get_mesh	torchtitan/distributed/parallel_dims.py	442	method	137	2db81fedb8a711ca	54	parallel-dims-and-parallelization
+torchtitan/distributed/parallel_dims#ParallelDims.spmd_dense_mesh	torchtitan/distributed/parallel_dims.py	468	method	27	921479c249a01ad3	6	
+torchtitan/distributed/parallel_dims#ParallelDims.spmd_sparse_mesh	torchtitan/distributed/parallel_dims.py	474	method	19	bd88f1393bc63b58	2	
+torchtitan/distributed/parallel_dims#ParallelDims.get_dense_tp_mesh	torchtitan/distributed/parallel_dims.py	480	method	23	541ef970f56a475e	4	
+torchtitan/distributed/parallel_dims#ParallelDims.get_activated_mesh	torchtitan/distributed/parallel_dims.py	486	method	27	16386f03f2696679	6	
+torchtitan/distributed/parallel_dims#ParallelDims.resolve_mesh	torchtitan/distributed/parallel_dims.py	504	method	21	3a35c14707ff2c51	2	
+torchtitan/distributed/parallel_dims#ParallelDims.resolve_shared_mesh	torchtitan/distributed/parallel_dims.py	527	method	16	2000b1b2682fccca	3	
+torchtitan/distributed/parallel_dims#ParallelDims.get_all_one_dimensional_meshes	torchtitan/distributed/parallel_dims.py	557	method	17	1298e3c73fecdec9	1	
+torchtitan/distributed/parallel_dims#ParallelDims.world_mesh	torchtitan/distributed/parallel_dims.py	599	method	14	0a06e5b48c256058	2	
+torchtitan/distributed/parallel_dims#ParallelDims.dp_enabled	torchtitan/distributed/parallel_dims.py	605	method	36	4d5d082144450bf9	13	
+torchtitan/distributed/parallel_dims#ParallelDims.dp_replicate_enabled	torchtitan/distributed/parallel_dims.py	609	method	71	ba7f818cdc71fa23	22	
+torchtitan/distributed/parallel_dims#ParallelDims.dp_shard_enabled	torchtitan/distributed/parallel_dims.py	613	method	13	bd333622bf25c975	4	
+torchtitan/distributed/parallel_dims#ParallelDims.cp_enabled	torchtitan/distributed/parallel_dims.py	617	method	67	932484e1a3adfe11	29	
+torchtitan/distributed/parallel_dims#ParallelDims.dp_cp_enabled	torchtitan/distributed/parallel_dims.py	621	method	24	b24e14f930bb9834	7	
+torchtitan/distributed/parallel_dims#ParallelDims.fsdp_enabled	torchtitan/distributed/parallel_dims.py	625	method	14	74a7fd0323c72d7d	2	
+torchtitan/distributed/parallel_dims#ParallelDims.tp_enabled	torchtitan/distributed/parallel_dims.py	629	method	67	eeed5c0b2bfe1c21	28	
+torchtitan/distributed/parallel_dims#ParallelDims.pp_enabled	torchtitan/distributed/parallel_dims.py	633	method	97	77775d910b8e5150	32	
+torchtitan/distributed/parallel_dims#ParallelDims.ep_enabled	torchtitan/distributed/parallel_dims.py	637	method	61	8b24e9e4e0244a64	20	
+torchtitan/distributed/parallel_dims#ParallelDims.non_data_parallel_size	torchtitan/distributed/parallel_dims.py	641	method	19	0a0ea7f321b0a507	2	
+torchtitan/distributed/parallel_dims#ParallelDims.seq_len_divisor	torchtitan/distributed/parallel_dims.py	645	method	22	35f576068c9fd038	3	
+torchtitan/distributed/pipeline_parallel#__all__	torchtitan/distributed/pipeline_parallel.py	38	value	0	04715edeadb98f00	0	
+torchtitan/distributed/pipeline_parallel#_build_get_mesh_callback	torchtitan/distributed/pipeline_parallel.py	41	function	20	ae10732992177f1c	3	
+torchtitan/distributed/pipeline_parallel#_build_get_mesh_callback._get_mesh	torchtitan/distributed/pipeline_parallel.py	54	function	7	f0e5c39c707f212c	1	
+torchtitan/distributed/pipeline_parallel#pipeline_llm	torchtitan/distributed/pipeline_parallel.py	65	function	131	81b92028ced6695c	10	parallel-dims-and-parallelization
+torchtitan/distributed/pipeline_parallel#pipeline_with_first_stage_modules	torchtitan/distributed/pipeline_parallel.py	144	function	60	a83f04dd302d38d8	5	parallel-dims-and-parallelization
+torchtitan/distributed/pipeline_parallel#_get_pipeline_metadata	torchtitan/distributed/pipeline_parallel.py	194	function	53	6cc7ae9fdbe3368a	3	parallel-dims-and-parallelization
+torchtitan/distributed/pipeline_parallel#_build_pipeline_schedule	torchtitan/distributed/pipeline_parallel.py	267	function	40	96ba54d2ca046d1e	3	
+torchtitan/distributed/pipeline_parallel#_build_pipeline_schedule._scalar_loss_fn	torchtitan/distributed/pipeline_parallel.py	318	function	4	a651eecd99d4f246	1	
+torchtitan/distributed/pipeline_parallel#_generate_llm_fqn_per_model_part	torchtitan/distributed/pipeline_parallel.py	357	function	12	6eebb6e1c32b3675	4	
+torchtitan/distributed/pipeline_parallel#_split_module	torchtitan/distributed/pipeline_parallel.py	470	function	16	3783585f16cc78be	2	
+torchtitan/distributed/pipeline_parallel#_get_pp_rank_to_stage_indices_mapping	torchtitan/distributed/pipeline_parallel.py	532	function	6	73920cd9cdce88d7	2	
+torchtitan/distributed/pipeline_parallel#_pipeline_module_split	torchtitan/distributed/pipeline_parallel.py	572	function	17	d7df99c60fa3ed98	1	
+torchtitan/distributed/spmd_types#__all__	torchtitan/distributed/spmd_types.py	33	value	0	939bc565afdcd76c	0	
+torchtitan/distributed/spmd_types#_MESH_TLS	torchtitan/distributed/spmd_types.py	54	value	12	b4254c236490166b	4	
+torchtitan/distributed/spmd_types#spmd_axes	torchtitan/distributed/spmd_types.py	57	function	25	f5317bdb65bae60c	5	
+torchtitan/distributed/spmd_types#plain_tensor_to_dtensor_state_dict	torchtitan/distributed/spmd_types.py	69	function	37	060e709e124560c1	3	
+torchtitan/distributed/spmd_types#dtensor_to_plain_tensor_state_dict	torchtitan/distributed/spmd_types.py	101	function	12	a710797e12506b02	3	
+torchtitan/distributed/spmd_types#set_spmd_meshes	torchtitan/distributed/spmd_types.py	111	function	9	ab0e406409fd8035	1	
+torchtitan/distributed/spmd_types#spmd_dense_mesh	torchtitan/distributed/spmd_types.py	121	function	9	99340c01aa2c03e3	1	
+torchtitan/distributed/spmd_types#spmd_sparse_mesh	torchtitan/distributed/spmd_types.py	128	function	11	056af8e6800130c8	2	
+torchtitan/distributed/spmd_types#_spmd_mesh_stack	torchtitan/distributed/spmd_types.py	133	function	9	3d4891f61f38ef87	2	
+torchtitan/distributed/spmd_types#current_spmd_mesh	torchtitan/distributed/spmd_types.py	141	function	44	4c0950d44aa3bad8	11	parallel-dims-and-parallelization
+torchtitan/distributed/spmd_types#spmd_mesh_size	torchtitan/distributed/spmd_types.py	151	function	35	edcab1fd5b4a793d	9	
+torchtitan/distributed/spmd_types#spmd_mesh_group	torchtitan/distributed/spmd_types.py	162	function	19	28045ac63d021faf	5	
+torchtitan/distributed/spmd_types#spmd_local_context	torchtitan/distributed/spmd_types.py	174	function	30	40dffb953529b5da	5	
+torchtitan/distributed/spmd_types#set_current_spmd_mesh	torchtitan/distributed/spmd_types.py	195	function	28	7ca564596f2a6cae	6	
+torchtitan/distributed/spmd_types#maybe_set_sparse_mesh	torchtitan/distributed/spmd_types.py	220	function	29	03786c354fbdffc7	4	
+torchtitan/distributed/spmd_types#annotate_input_spmd_types	torchtitan/distributed/spmd_types.py	230	function	47	7df9f6daa7ad4ef5	8	parallel-dims-and-parallelization
+torchtitan/distributed/spmd_types#annotate_replicated_parameters	torchtitan/distributed/spmd_types.py	266	function	25	71bed12be212e25a	3	
+torchtitan/distributed/spmd_types#_per_axis_types	torchtitan/distributed/spmd_types.py	281	function	25	b7ccd83024989c86	5	
+torchtitan/distributed/spmd_types#spmd_validate_redistributions	torchtitan/distributed/spmd_types.py	306	function	9	8dc0ddc10e2cd4a8	1	
+torchtitan/distributed/spmd_types#spmd_validate_redistributions._normalize_partition_spec	torchtitan/distributed/spmd_types.py	322	function	9	f46a8083f9408c61	1	
+torchtitan/distributed/spmd_types#spmd_validate_redistributions._validate_redistribute_spmd_pair	torchtitan/distributed/spmd_types.py	343	function	14	e7a599521f164802	1	
+torchtitan/distributed/spmd_types#spmd_redistribute_per_axis	torchtitan/distributed/spmd_types.py	448	function	11	ad96d58ca099a1a4	2	
+torchtitan/distributed/spmd_types#spmd_distribute_tensor	torchtitan/distributed/spmd_types.py	490	function	9	e9f714e1a61c1c44	1	
+torchtitan/distributed/tensor_parallel#NoParallel	torchtitan/distributed/tensor_parallel.py	19	class	0	e119d7529dda9884	0	
+torchtitan/distributed/tensor_parallel#NoParallel.__init__	torchtitan/distributed/tensor_parallel.py	32	method	0	d060c3bbb9d65757	0	
+torchtitan/distributed/tensor_parallel#NoParallel.input_layout	torchtitan/distributed/tensor_parallel.py	40	member	2	a5c9d5562fa58144	1	
+torchtitan/distributed/tensor_parallel#NoParallel.output_layout	torchtitan/distributed/tensor_parallel.py	41	member	2	d71161820d6cc6d6	1	
+torchtitan/distributed/tensor_parallel#NoParallel.desired_input_layout	torchtitan/distributed/tensor_parallel.py	42	member	2	fc7bef13e1f40067	1	
+torchtitan/distributed/tensor_parallel#NoParallel.use_local_output	torchtitan/distributed/tensor_parallel.py	43	member	2	5bd0c376cea0d81e	1	
+torchtitan/distributed/tensor_parallel#NoParallel._prepare_input_fn	torchtitan/distributed/tensor_parallel.py	46	method	2	da9ca79fe901ab24	1	
+torchtitan/distributed/tensor_parallel#NoParallel._prepare_output_fn	torchtitan/distributed/tensor_parallel.py	69	method	2	7ee556a33122e086	1	
+torchtitan/distributed/tensor_parallel#NoParallel._apply	torchtitan/distributed/tensor_parallel.py	80	method	30	20edd5304d39e33d	0	
+torchtitan/distributed/utils#_spmd_backend	torchtitan/distributed/utils.py	36	value	6	04610b25a20e6834	2	
+torchtitan/distributed/utils#set_spmd_backend	torchtitan/distributed/utils.py	39	function	27	fb0d1330a5175a3d	10	
+torchtitan/distributed/utils#get_spmd_backend	torchtitan/distributed/utils.py	45	function	163	e0e8c1a758d6fc9c	45	config-overrides
+torchtitan/distributed/utils#check_dtensor_placements_match	torchtitan/distributed/utils.py	50	function	15	8a66bc30763964d4	2	
+torchtitan/distributed/utils#check_dtensor_placements_match.normalize_dim	torchtitan/distributed/utils.py	59	function	4	4c634cdf4f07d46e	1	
+torchtitan/distributed/utils#_dist_reduce	torchtitan/distributed/utils.py	78	function	11	1bf7abf960e3b827	3	
+torchtitan/distributed/utils#_dist_reduce_tensor	torchtitan/distributed/utils.py	98	function	4	c2368350320f479c	2	
+torchtitan/distributed/utils#dist_max	torchtitan/distributed/utils.py	131	function	13	9554cc5632cdd7b2	4	
+torchtitan/distributed/utils#dist_sum	torchtitan/distributed/utils.py	141	function	25	96b8292078d94bda	7	
+torchtitan/distributed/utils#dist_sum_tensor	torchtitan/distributed/utils.py	151	function	19	da412c0a2bfb45e3	7	
+torchtitan/distributed/utils#dist_mean	torchtitan/distributed/utils.py	162	function	5	3ed4a84b3eb202c7	0	
+torchtitan/distributed/utils#set_determinism	torchtitan/distributed/utils.py	172	function	82	7af1d74566cbe93c	6	parallel-dims-and-parallelization
+torchtitan/distributed/utils#_batch_invariant_enabled._batch_invariant_enabled	torchtitan/distributed/utils.py	310	value	8	cb9aad0304df8180	2	
+torchtitan/distributed/utils#is_in_batch_invariant_mode	torchtitan/distributed/utils.py	313	function	43	a188bdbede0aa967	10	
+torchtitan/distributed/utils#enable_fp32_matmul_emulation_with_bf16x9	torchtitan/distributed/utils.py	318	function	14	9d96fd643f2d43cd	2	
+torchtitan/distributed/utils#set_batch_invariance	torchtitan/distributed/utils.py	340	function	28	8e3343f98b5a353e	5	
+torchtitan/distributed/utils#SpmdContext	torchtitan/distributed/utils.py	413	class	6	a746fe4324e50066	3	
+torchtitan/distributed/utils#SpmdContext.__call__	torchtitan/distributed/utils.py	415	method	0	73dd7d5a605da399	0	
+torchtitan/distributed/utils#get_spmd_context	torchtitan/distributed/utils.py	419	function	39	63b28961ff97f715	11	parallel-dims-and-parallelization
+torchtitan/distributed/utils#get_spmd_context.context	torchtitan/distributed/utils.py	425	function	42	0d25b30cca2da90c	1	
+torchtitan/distributed/utils#init_fake_mode	torchtitan/distributed/utils.py	450	function	2	5802cf61d8802f58	1	
+torchtitan/distributed/utils#init_distributed	torchtitan/distributed/utils.py	468	function	71	599e6e50c96b54e1	8	
+torchtitan/distributed/utils#init_distributed._warn_overwrite_env	torchtitan/distributed/utils.py	515	function	13	9e42536dbb60d53a	1	
+torchtitan/distributed/utils#init_distributed._get_distributed_backend	torchtitan/distributed/utils.py	522	function	7	8b45785a55efc47b	1	
+torchtitan/distributed/utils#set_pg_timeouts	torchtitan/distributed/utils.py	565	function	24	50d715c7f4dfd926	2	
+torchtitan/distributed/utils#clip_grad_norm_	torchtitan/distributed/utils.py	597	function	15	4a84311bec61eea0	5	
+torchtitan/distributed/utils#_clip_grad_norm_with_ep	torchtitan/distributed/utils.py	678	function	2	10fc7f06563bdb77	1	

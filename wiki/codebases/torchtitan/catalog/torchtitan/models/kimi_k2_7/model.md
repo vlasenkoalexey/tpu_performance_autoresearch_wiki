@@ -1,0 +1,45 @@
+---
+title: 'Module: torchtitan/models/kimi_k2_7/model.py'
+type: catalog
+provenance: extracted
+module: torchtitan/models/kimi_k2_7/model.py
+status: fresh
+symbol_base: scip-python python torchtitan 0.0.0 `torchtitan.models.kimi_k2_7.model`/KimiK25Model#
+symbols:
+  KimiK25Model.preprocess_inputs: preprocess_inputs().
+  KimiK25Model.forward: forward().
+  KimiK25Model: ''
+  KimiK25Model.Config: Config#
+  KimiK25Model.Config.vision_encoder: Config#vision_encoder.
+  KimiK25Model.Config.update_from_config: Config#update_from_config().
+  KimiK25Model._prepare_multimodal_embeds: _prepare_multimodal_embeds().
+  KimiK25Model.vision_encoder: vision_encoder.
+  KimiK25Model.Config.get_nparams_and_flops: Config#get_nparams_and_flops().
+  KimiK25Model.__init__: __init__().
+---
+# Module: [`torchtitan/models/kimi_k2_7/model.py`](../../../../../../../raw/code/torchtitan/torchtitan/models/kimi_k2_7/model.py)
+
+## Classes
+### <a id="KimiK25Model"></a>`KimiK25Model`  ·  implements/extends DeepSeekV3Model
+- def: [`torchtitan/models/kimi_k2_7/model.py:45`](../../../../../../../raw/code/torchtitan/torchtitan/models/kimi_k2_7/model.py#L45) — documented in [kimi-k2-7-model](../../../../concepts/kimi-k2-7-model.md)
+- doc: Kimi K2.5: DeepSeekV3 language model with a MoonViT3d vision encoder.
+- signature: `class KimiK25Model(DeepSeekV3Model):`
+- members:
+  - <a id="KimiK25Model._prepare_multimodal_embeds"></a>`_prepare_multimodal_embeds(self, tokens: torch.Tensor, *, pixel_values: torch.Tensor | None, grid_thw: torch.Tensor | None, pixel_values_videos: torch.Tensor | None = None, grid_thw_videos: torch.Tensor | None = None, special_tokens: dict[str, int])` — [`L154`](../../../../../../../raw/code/torchtitan/torchtitan/models/kimi_k2_7/model.py#L154) — Embed tokens, run the vision encoder, scatter features into text. — documented in [kimi-k2-7-model](../../../../concepts/kimi-k2-7-model.md)
+  - <a id="KimiK25Model.forward"></a>`forward(self, tokens: torch.Tensor, *, pixel_values: torch.Tensor | None = None, grid_thw: torch.Tensor | None = None, pixel_values_videos: torch.Tensor | None = None, grid_thw_videos: torch.Tensor | None = None, special_tokens: dict[str, int] | None = None, attention_masks: AttentionMasksType | None = None, positions: torch.Tensor | None = None)` — [`L212`](../../../../../../../raw/code/torchtitan/torchtitan/models/kimi_k2_7/model.py#L212) — Forward pass for Kimi K2.5. — documented in [kimi-k2-7-model](../../../../concepts/kimi-k2-7-model.md)
+  - <a id="KimiK25Model.preprocess_inputs"></a>`preprocess_inputs(self, input_dict: dict[str, torch.Tensor], *, parallel_dims: ParallelDims, parallelism: ParallelismConfig, max_num_documents: int | None = None, max_context_length: int | None = None)` — [`L108`](../../../../../../../raw/code/torchtitan/torchtitan/models/kimi_k2_7/model.py#L108) — Build masks, CP-shard, SPMD-wrap, and return the batch. — documented in [kimi-k2-7-model](../../../../concepts/kimi-k2-7-model.md)
+  - <a id="KimiK25Model.vision_encoder"></a>`vision_encoder` — [`L104`](../../../../../../../raw/code/torchtitan/torchtitan/models/kimi_k2_7/model.py#L104) — documented in [kimi-k2-7-model](../../../../concepts/kimi-k2-7-model.md)
+- protocol/private: <a id="KimiK25Model.__init__"></a>`__init__`[`L102`](../../../../../../../raw/code/torchtitan/torchtitan/models/kimi_k2_7/model.py#L102)
+- uses (calls/refs, reference-scoped): [`build`](../../protocols/module.md#Module.Config.build), [`ParallelismConfig`](../../config/configs.md#ParallelismConfig), [`ParallelDims`](../../distributed/parallel_dims.md#ParallelDims), [`FlexInnerAttention`](../common/attention.md#FlexInnerAttention), [`spmd_backend`](../../config/configs.md#ParallelismConfig.spmd_backend), [`get_mesh`](../../distributed/parallel_dims.md#ParallelDims.get_mesh), [`VarlenInnerAttention`](../common/attention.md#VarlenInnerAttention), [`AttentionMasksType`](../common/attention.md#AttentionMasksType), [`get_attention_masks`](../common/decoder.md#Decoder.get_attention_masks), [`DeepSeekV3Model`](../deepseek_v3/model.md#DeepSeekV3Model), [`Config`](../common/attention.md#FlexInnerAttention.Config), [`tok_embeddings`](../common/decoder.md#Decoder.tok_embeddings), [`cp_enabled`](../../distributed/parallel_dims.md#ParallelDims.cp_enabled), [`lm_head`](../common/decoder.md#Decoder.lm_head), [`Config`](../common/attention.md#VarlenInnerAttention.Config), [`decoder_input_sharding`](../common/decoder_sharding.md#decoder_input_sharding), [`norm`](../common/decoder.md#Decoder.norm), [`layers`](../common/decoder.md#Decoder.layers), [`annotate_input_spmd_types`](../../distributed/spmd_types.md#annotate_input_spmd_types), [`prepare_context_parallel_input`](../../distributed/context_parallel/api.md#prepare_context_parallel_input), [`context_parallel_load_balancer`](../../config/configs.md#ParallelismConfig.context_parallel_load_balancer), [`Config`](model.md#KimiK25Model.Config), [`config`](../common/decoder.md#Decoder.config), [`first_attention`](../common/decoder.md#Decoder.Config.first_attention), [`vision_encoder`](model.md#KimiK25Model.Config.vision_encoder), [`spmd_local_context`](../../distributed/spmd_types.md#spmd_local_context), [`__init__`](../deepseek_v3/mtp.md#MTPDecoder.__init__), [`multimodal_input_sharding`](../common/vision_encoder_sharding.md#multimodal_input_sharding), [`_skip_lm_head`](../common/decoder.md#Decoder._skip_lm_head), [`get_vision_positions`](../common/multimodal.md#get_vision_positions), [`scatter_vision_embeds`](../common/multimodal.md#scatter_vision_embeds), [`context_parallel_ptrr_mask_key`](../../config/configs.md#ParallelismConfig.context_parallel_ptrr_mask_key)
+- used by: [`_dist_muon_optimizer`](config_registry.md#_dist_muon_optimizer), [`_debugmodel`](__init__.md#_debugmodel), [`_kimi_k2_5`](__init__.md#_kimi_k2_5), [`_moonlight_16b_a3b_config`](__init__.md#_moonlight_16b_a3b_config), [`preprocess_inputs`](../deepseek_v3/mtp.md#MTPDecoder.preprocess_inputs), [`_shard_decoder_after_embedding_scatter`](sharding.md#_shard_decoder_after_embedding_scatter), [`DeepSeekV3Model`](../deepseek_v3/model.md#DeepSeekV3Model), [`forward`](../deepseek_v3/mtp.md#MTPDecoder.forward), [`set_kimi_k2_5_sharding_config`](sharding.md#set_kimi_k2_5_sharding_config), [`TP`](sharding.md#TP), [`_kimi_vl_a3b`](__init__.md#_kimi_vl_a3b), [`_moonlight_16b_a3b`](__init__.md#_moonlight_16b_a3b), [`__init__`](state_dict_adapter.md#KimiK25StateDictAdapter.__init__), [`get_nparams_and_flops`](model.md#KimiK25Model.Config.get_nparams_and_flops)
+
+### <a id="KimiK25Model.Config"></a>`KimiK25Model.Config`  ·  implements/extends Config
+- def: [`torchtitan/models/kimi_k2_7/model.py:60`](../../../../../../../raw/code/torchtitan/torchtitan/models/kimi_k2_7/model.py#L60) — documented in [kimi-k2-7-model](../../../../concepts/kimi-k2-7-model.md)
+- signature: `class Config(DeepSeekV3Model.Config):`
+- members:
+  - <a id="KimiK25Model.Config.get_nparams_and_flops"></a>`get_nparams_and_flops(self, model: nn.Module, seq_len: int)` — [`L91`](../../../../../../../raw/code/torchtitan/torchtitan/models/kimi_k2_7/model.py#L91)
+  - <a id="KimiK25Model.Config.update_from_config"></a>`update_from_config(self, *, config, **kwargs)` — [`L63`](../../../../../../../raw/code/torchtitan/torchtitan/models/kimi_k2_7/model.py#L63)
+  - <a id="KimiK25Model.Config.vision_encoder"></a>`vision_encoder` — [`L61`](../../../../../../../raw/code/torchtitan/torchtitan/models/kimi_k2_7/model.py#L61) — documented in [kimi-k2-7-model](../../../../concepts/kimi-k2-7-model.md)
+- uses (calls/refs, reference-scoped): [`Decoder`](../common/decoder.md#Decoder), [`update_from_config`](../common/decoder.md#Decoder.Config.update_from_config), [`DeepSeekV3Model`](../deepseek_v3/model.md#DeepSeekV3Model), [`Config`](../common/decoder.md#Decoder.Config), [`Config`](../deepseek_v3/model.md#DeepSeekV3Model.Config), [`get_deepseek_v3_nparams_and_flops`](../deepseek_v3/model.md#get_deepseek_v3_nparams_and_flops), [`set_kimi_k2_5_sharding_config`](sharding.md#set_kimi_k2_5_sharding_config), [`Config`](vision_encoder.md#KimiK25VisionEncoder.Config), [`vision_encoder`](model.md#KimiK25Model.vision_encoder), [`KimiK25VisionEncoder`](vision_encoder.md#KimiK25VisionEncoder), [`num_heads`](vision_encoder.md#KimiK25VisionEncoder.Config.num_heads)
+- used by: [`_dist_muon_optimizer`](config_registry.md#_dist_muon_optimizer), [`_debugmodel`](__init__.md#_debugmodel), [`_kimi_k2_5`](__init__.md#_kimi_k2_5), [`_moonlight_16b_a3b_config`](__init__.md#_moonlight_16b_a3b_config), [`_shard_decoder_after_embedding_scatter`](sharding.md#_shard_decoder_after_embedding_scatter), [`set_kimi_k2_5_sharding_config`](sharding.md#set_kimi_k2_5_sharding_config), [`_kimi_vl_a3b`](__init__.md#_kimi_vl_a3b), [`vision_encoder`](model.md#KimiK25Model.vision_encoder), [`vision_encoder`](state_dict_adapter.md#KimiK25StateDictAdapter.vision_encoder), [`_moonlight_16b_a3b`](__init__.md#_moonlight_16b_a3b), [`__init__`](state_dict_adapter.md#KimiK25StateDictAdapter.__init__), [`__init__`](model.md#KimiK25Model.__init__)
+

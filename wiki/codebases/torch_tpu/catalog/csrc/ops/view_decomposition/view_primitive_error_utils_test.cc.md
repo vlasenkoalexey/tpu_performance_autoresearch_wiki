@@ -1,0 +1,65 @@
+---
+title: 'Module: csrc/ops/view_decomposition/view_primitive_error_utils_test.cc'
+type: catalog
+provenance: extracted
+module: csrc/ops/view_decomposition/view_primitive_error_utils_test.cc
+status: fresh
+symbol_base: cxx . . $ torch_tpu/`$anonymous_namespace_csrc/ops/view_decomposition/view_primitive_error_utils_test.cc`/
+symbols:
+  ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffix_Test.TestBody: ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffix_Test#TestBody(49f6e7a06ebc5aa8).
+  ViewPrimitiveErrorUtilsTest_GetViewPrimitiveErrorSuffix_Test.TestBody: ViewPrimitiveErrorUtilsTest_GetViewPrimitiveErrorSuffix_Test#TestBody(49f6e7a06ebc5aa8).
+  ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffixDynamic_Test.TestBody: ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffixDynamic_Test#TestBody(49f6e7a06ebc5aa8).
+  ViewPrimitiveErrorUtilsTest_GetUpdateLayoutBugSuffix_Test.TestBody: ViewPrimitiveErrorUtilsTest_GetUpdateLayoutBugSuffix_Test#TestBody(49f6e7a06ebc5aa8).
+  ViewPrimitiveErrorUtilsTest_GetViewPrimitiveErrorSuffix_Test: ViewPrimitiveErrorUtilsTest_GetViewPrimitiveErrorSuffix_Test#
+  ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffixDynamic_Test: ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffixDynamic_Test#
+  ViewPrimitiveErrorUtilsTest_GetUpdateLayoutBugSuffix_Test: ViewPrimitiveErrorUtilsTest_GetUpdateLayoutBugSuffix_Test#
+  ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffix_Test: ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffix_Test#
+  ViewPrimitiveErrorUtilsTest_GetViewPrimitiveErrorSuffix_Test.ViewPrimitiveErrorUtilsTest_GetViewPrimitiveErrorSuffix_Test: ViewPrimitiveErrorUtilsTest_GetViewPrimitiveErrorSuffix_Test#ViewPrimitiveErrorUtilsTest_GetViewPrimitiveErrorSuffix_Test(2e306db2182397ca).
+  ? ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffix_Test.ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffix_Test
+  : ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffix_Test#ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffix_Test(49f6e7a06ebc5aa8).
+  ? ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffix_Test.-ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffix_Test
+  : ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffix_Test#`~ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffix_Test`(ced63f7c635d850d).
+  ViewPrimitiveErrorUtilsTest_GetUpdateLayoutBugSuffix_Test.operator: ViewPrimitiveErrorUtilsTest_GetUpdateLayoutBugSuffix_Test#`operator=`(d37050f52b566dc3).
+  ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffix_Test.test_info_: ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffix_Test#test_info_.
+  ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffixDynamic_Test.test_info_: ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffixDynamic_Test#test_info_.
+  ViewPrimitiveErrorUtilsTest_GetViewPrimitiveErrorSuffix_Test.operator: ViewPrimitiveErrorUtilsTest_GetViewPrimitiveErrorSuffix_Test#`operator=`(7703dd082b73d655).
+  ? ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffixDynamic_Test.ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffixDynamic_Test
+  : ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffixDynamic_Test#ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffixDynamic_Test(49f6e7a06ebc5aa8).
+  ViewPrimitiveErrorUtilsTest_GetUpdateLayoutBugSuffix_Test.ViewPrimitiveErrorUtilsTest_GetUpdateLayoutBugSuffix_Test: ViewPrimitiveErrorUtilsTest_GetUpdateLayoutBugSuffix_Test#ViewPrimitiveErrorUtilsTest_GetUpdateLayoutBugSuffix_Test(ebda1c6314d8bdd5).
+  ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffixDynamic_Test.operator: ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffixDynamic_Test#`operator=`(831c4cd70285b1cc).
+  ViewPrimitiveErrorUtilsTest_GetViewPrimitiveErrorSuffix_Test.test_info_: ViewPrimitiveErrorUtilsTest_GetViewPrimitiveErrorSuffix_Test#test_info_.
+  ViewPrimitiveErrorUtilsTest_GetUpdateLayoutBugSuffix_Test.-ViewPrimitiveErrorUtilsTest_GetUpdateLayoutBugSuffix_Test: ViewPrimitiveErrorUtilsTest_GetUpdateLayoutBugSuffix_Test#`~ViewPrimitiveErrorUtilsTest_GetUpdateLayoutBugSuffix_Test`(ced63f7c635d850d).
+  ViewPrimitiveErrorUtilsTest_GetUpdateLayoutBugSuffix_Test.test_info_: ViewPrimitiveErrorUtilsTest_GetUpdateLayoutBugSuffix_Test#test_info_.
+  ? ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffixDynamic_Test.-ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffixDynamic_Test
+  : ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffixDynamic_Test#`~ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffixDynamic_Test`(ced63f7c635d850d).
+  ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffix_Test.operator: ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffix_Test#`operator=`(d1f4a77c855b92f2).
+  ViewPrimitiveErrorUtilsTest_GetViewPrimitiveErrorSuffix_Test.-ViewPrimitiveErrorUtilsTest_GetViewPrimitiveErrorSuffix_Test: ViewPrimitiveErrorUtilsTest_GetViewPrimitiveErrorSuffix_Test#`~ViewPrimitiveErrorUtilsTest_GetViewPrimitiveErrorSuffix_Test`(ced63f7c635d850d).
+---
+# Module: [`csrc/ops/view_decomposition/view_primitive_error_utils_test.cc`](../../../../../../../raw/code/torch_tpu/csrc/ops/view_decomposition/view_primitive_error_utils_test.cc)
+
+> **Collapsed catalog** (36 symbols) — one row per symbol with its source line; member detail omitted. See the source link above, or the curated codebase page, for depth.
+
+- <a id="ViewPrimitiveErrorUtilsTest_GetUpdateLayoutBugSuffix_Test"></a>`ViewPrimitiveErrorUtilsTest_GetUpdateLayoutBugSuffix_Test` — [`L51`](../../../../../../../raw/code/torch_tpu/csrc/ops/view_decomposition/view_primitive_error_utils_test.cc#L51)
+- <a id="ViewPrimitiveErrorUtilsTest_GetUpdateLayoutBugSuffix_Test.-ViewPrimitiveErrorUtilsTest_GetUpdateLayoutBugSuffix_Test"></a>`ViewPrimitiveErrorUtilsTest_GetUpdateLayoutBugSuffix_Test.-ViewPrimitiveErrorUtilsTest_GetUpdateLayoutBugSuffix_Test` — [`L51`](../../../../../../../raw/code/torch_tpu/csrc/ops/view_decomposition/view_primitive_error_utils_test.cc#L51)
+- <a id="ViewPrimitiveErrorUtilsTest_GetUpdateLayoutBugSuffix_Test.TestBody"></a>`ViewPrimitiveErrorUtilsTest_GetUpdateLayoutBugSuffix_Test.TestBody` — [`L51`](../../../../../../../raw/code/torch_tpu/csrc/ops/view_decomposition/view_primitive_error_utils_test.cc#L51)
+- <a id="ViewPrimitiveErrorUtilsTest_GetUpdateLayoutBugSuffix_Test.ViewPrimitiveErrorUtilsTest_GetUpdateLayoutBugSuffix_Test"></a>`ViewPrimitiveErrorUtilsTest_GetUpdateLayoutBugSuffix_Test.ViewPrimitiveErrorUtilsTest_GetUpdateLayoutBugSuffix_Test` — [`L51`](../../../../../../../raw/code/torch_tpu/csrc/ops/view_decomposition/view_primitive_error_utils_test.cc#L51)
+- <a id="ViewPrimitiveErrorUtilsTest_GetUpdateLayoutBugSuffix_Test.operator"></a>`ViewPrimitiveErrorUtilsTest_GetUpdateLayoutBugSuffix_Test.operator` — [`L51`](../../../../../../../raw/code/torch_tpu/csrc/ops/view_decomposition/view_primitive_error_utils_test.cc#L51)
+- <a id="ViewPrimitiveErrorUtilsTest_GetUpdateLayoutBugSuffix_Test.test_info_"></a>`ViewPrimitiveErrorUtilsTest_GetUpdateLayoutBugSuffix_Test.test_info_` — [`L51`](../../../../../../../raw/code/torch_tpu/csrc/ops/view_decomposition/view_primitive_error_utils_test.cc#L51)
+- <a id="ViewPrimitiveErrorUtilsTest_GetViewPrimitiveErrorSuffix_Test"></a>`ViewPrimitiveErrorUtilsTest_GetViewPrimitiveErrorSuffix_Test` — [`L30`](../../../../../../../raw/code/torch_tpu/csrc/ops/view_decomposition/view_primitive_error_utils_test.cc#L30)
+- <a id="ViewPrimitiveErrorUtilsTest_GetViewPrimitiveErrorSuffix_Test.-ViewPrimitiveErrorUtilsTest_GetViewPrimitiveErrorSuffix_Test"></a>`ViewPrimitiveErrorUtilsTest_GetViewPrimitiveErrorSuffix_Test.-ViewPrimitiveErrorUtilsTest_GetViewPrimitiveErrorSuffix_Test` — [`L30`](../../../../../../../raw/code/torch_tpu/csrc/ops/view_decomposition/view_primitive_error_utils_test.cc#L30)
+- <a id="ViewPrimitiveErrorUtilsTest_GetViewPrimitiveErrorSuffix_Test.TestBody"></a>`ViewPrimitiveErrorUtilsTest_GetViewPrimitiveErrorSuffix_Test.TestBody` — [`L30`](../../../../../../../raw/code/torch_tpu/csrc/ops/view_decomposition/view_primitive_error_utils_test.cc#L30)
+- <a id="ViewPrimitiveErrorUtilsTest_GetViewPrimitiveErrorSuffix_Test.ViewPrimitiveErrorUtilsTest_GetViewPrimitiveErrorSuffix_Test"></a>`ViewPrimitiveErrorUtilsTest_GetViewPrimitiveErrorSuffix_Test.ViewPrimitiveErrorUtilsTest_GetViewPrimitiveErrorSuffix_Test` — [`L30`](../../../../../../../raw/code/torch_tpu/csrc/ops/view_decomposition/view_primitive_error_utils_test.cc#L30)
+- <a id="ViewPrimitiveErrorUtilsTest_GetViewPrimitiveErrorSuffix_Test.operator"></a>`ViewPrimitiveErrorUtilsTest_GetViewPrimitiveErrorSuffix_Test.operator` — [`L30`](../../../../../../../raw/code/torch_tpu/csrc/ops/view_decomposition/view_primitive_error_utils_test.cc#L30)
+- <a id="ViewPrimitiveErrorUtilsTest_GetViewPrimitiveErrorSuffix_Test.test_info_"></a>`ViewPrimitiveErrorUtilsTest_GetViewPrimitiveErrorSuffix_Test.test_info_` — [`L30`](../../../../../../../raw/code/torch_tpu/csrc/ops/view_decomposition/view_primitive_error_utils_test.cc#L30)
+- <a id="ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffixDynamic_Test"></a>`ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffixDynamic_Test` — [`L81`](../../../../../../../raw/code/torch_tpu/csrc/ops/view_decomposition/view_primitive_error_utils_test.cc#L81)
+- <a id="ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffixDynamic_Test.-ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffixDynamic_Test"></a>`ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffixDynamic_Test.-ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffixDynamic_Test` — [`L81`](../../../../../../../raw/code/torch_tpu/csrc/ops/view_decomposition/view_primitive_error_utils_test.cc#L81)
+- <a id="ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffixDynamic_Test.TestBody"></a>`ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffixDynamic_Test.TestBody` — [`L81`](../../../../../../../raw/code/torch_tpu/csrc/ops/view_decomposition/view_primitive_error_utils_test.cc#L81)
+- <a id="ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffixDynamic_Test.ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffixDynamic_Test"></a>`ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffixDynamic_Test.ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffixDynamic_Test` — [`L81`](../../../../../../../raw/code/torch_tpu/csrc/ops/view_decomposition/view_primitive_error_utils_test.cc#L81)
+- <a id="ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffixDynamic_Test.operator"></a>`ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffixDynamic_Test.operator` — [`L81`](../../../../../../../raw/code/torch_tpu/csrc/ops/view_decomposition/view_primitive_error_utils_test.cc#L81)
+- <a id="ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffixDynamic_Test.test_info_"></a>`ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffixDynamic_Test.test_info_` — [`L81`](../../../../../../../raw/code/torch_tpu/csrc/ops/view_decomposition/view_primitive_error_utils_test.cc#L81)
+- <a id="ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffix_Test"></a>`ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffix_Test` — [`L64`](../../../../../../../raw/code/torch_tpu/csrc/ops/view_decomposition/view_primitive_error_utils_test.cc#L64)
+- <a id="ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffix_Test.-ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffix_Test"></a>`ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffix_Test.-ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffix_Test` — [`L64`](../../../../../../../raw/code/torch_tpu/csrc/ops/view_decomposition/view_primitive_error_utils_test.cc#L64)
+- <a id="ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffix_Test.TestBody"></a>`ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffix_Test.TestBody` — [`L64`](../../../../../../../raw/code/torch_tpu/csrc/ops/view_decomposition/view_primitive_error_utils_test.cc#L64)
+- <a id="ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffix_Test.ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffix_Test"></a>`ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffix_Test.ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffix_Test` — [`L64`](../../../../../../../raw/code/torch_tpu/csrc/ops/view_decomposition/view_primitive_error_utils_test.cc#L64)
+- <a id="ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffix_Test.operator"></a>`ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffix_Test.operator` — [`L64`](../../../../../../../raw/code/torch_tpu/csrc/ops/view_decomposition/view_primitive_error_utils_test.cc#L64)
+- <a id="ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffix_Test.test_info_"></a>`ViewPrimitiveErrorUtilsTest_GetViewPrimitiveShloErrorSuffix_Test.test_info_` — [`L64`](../../../../../../../raw/code/torch_tpu/csrc/ops/view_decomposition/view_primitive_error_utils_test.cc#L64)

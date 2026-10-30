@@ -1,0 +1,79 @@
+# wikify symbol index: torchtitan @ 2ad96c9390, shard torchtitan, 71 rows. Grep it by anchor; never read it whole.
+# columns: anchor	path	line	kind	rank	hash	callers	pages
+# one symbol:  grep -P '^torchtitan/trainer#Trainer.Config.parallelism\t' catalog/symbols/*.tsv
+# by name:     grep -P '[#.]parallelism\t' catalog/symbols/*.tsv | sort -t$'\t' -k5 -nr | head -20   (matches Class.parallelism too)
+# by area:     grep -P '^torchtitan/.*#parallelism\t' catalog/symbols/*.tsv | head -20
+# one module:  awk -F'\t' '$2=="torchtitan/trainer.py"' catalog/symbols/*.tsv | cut -f1,3,4 | head -40
+# to prose:    grep -P '^torchtitan/trainer#Trainer.Config.parallelism\t' catalog/symbols/*.tsv | cut -f1,8   (column 8: concept pages citing it)
+# callers:     column 7 is the count; the list lives in catalog/edges/*.tsv, see its header (count, narrow, head)
+torchtitan/__init__#__version__	torchtitan/__init__.py	10	value	9	641651c07329150a	2	
+torchtitan/train#_maybe_enable_min_cost_redistribute	torchtitan/train.py	19	function	19	0a2409ad60cba5ea	2	trainer-and-train-loop
+torchtitan/train#main	torchtitan/train.py	48	function	72	560946b315e4a9e8	0	
+torchtitan/trainer#Trainer	torchtitan/trainer.py	74	class	630	069344f24ea07952	221	checkpointing
+torchtitan/trainer#Trainer.Config	torchtitan/trainer.py	76	class	508	19303e567b5ffd32	199	tpu-trainer-and-job-config
+torchtitan/trainer#Trainer.Config.model_spec	torchtitan/trainer.py	83	member	683	ba60c3e37076c1fc	209	tpu-trainer-and-job-config
+torchtitan/trainer#Trainer.Config.hf_assets_path	torchtitan/trainer.py	89	member	180	0de15a1f874f4f12	89	
+torchtitan/trainer#Trainer.Config.dump_folder	torchtitan/trainer.py	96	member	52	3687782d4a24976c	19	
+torchtitan/trainer#Trainer.Config.profiler	torchtitan/trainer.py	99	member	50	1c90e1355a317ed1	19	
+torchtitan/trainer#Trainer.Config.metrics	torchtitan/trainer.py	100	member	164	03e6613139d5ccc3	75	
+torchtitan/trainer#Trainer.Config.tokenizer	torchtitan/trainer.py	103	member	82	a14e03e90945e958	30	
+torchtitan/trainer#Trainer.Config.dataloader	torchtitan/trainer.py	106	member	224	84a4565cdbaa433d	102	
+torchtitan/trainer#Trainer.Config.optimizer	torchtitan/trainer.py	107	member	226	603650bbb385fdda	101	
+torchtitan/trainer#Trainer.Config.lr_scheduler	torchtitan/trainer.py	110	member	200	49cc613e1caae3fa	93	
+torchtitan/trainer#Trainer.Config.training	torchtitan/trainer.py	113	member	795	e871b75cea177b68	228	job-config
+torchtitan/trainer#Trainer.Config.parallelism	torchtitan/trainer.py	114	member	871	11af593bf8ce5616	229	job-config
+torchtitan/trainer#Trainer.Config.checkpoint	torchtitan/trainer.py	115	member	252	b42e9a54f64e3a52	108	
+torchtitan/trainer#Trainer.Config.activation_checkpoint	torchtitan/trainer.py	118	member	237	41ed4ff77086f28a	108	
+torchtitan/trainer#Trainer.Config.compile	torchtitan/trainer.py	121	member	179	317780a90a018cf5	53	
+torchtitan/trainer#Trainer.Config.comm	torchtitan/trainer.py	122	member	25	db14aa42eba15c25	10	
+torchtitan/trainer#Trainer.Config.validator	torchtitan/trainer.py	123	member	84	609a3fcd5d7943d8	34	
+torchtitan/trainer#Trainer.Config.debug	torchtitan/trainer.py	124	member	81	4c7a4568c486f520	25	
+torchtitan/trainer#Trainer.Config.sdc_replayer	torchtitan/trainer.py	128	member	34	5c492e6d2d61c4d5	7	
+torchtitan/trainer#Trainer.Config.override	torchtitan/trainer.py	129	member	89	131d2e3c2d5f2bff	30	
+torchtitan/trainer#Trainer.Config.loss	torchtitan/trainer.py	130	member	238	828143682f012d1f	109	
+torchtitan/trainer#Trainer.Config.__post_init__	torchtitan/trainer.py	132	method	125	342e330c533ded79	5	
+torchtitan/trainer#Trainer.Config._validate_cuda_graphs	torchtitan/trainer.py	186	method	117	fe5cc76452159fc5	1	
+torchtitan/trainer#Trainer.Config._validate_sdc_replay	torchtitan/trainer.py	245	method	37	286728edf5546c3d	1	
+torchtitan/trainer#Trainer.Config.to_dict	torchtitan/trainer.py	267	method	39	e2604af7759804c0	6	
+torchtitan/trainer#Trainer.Config.maybe_log	torchtitan/trainer.py	287	method	40	a5d5403e6eb46f78	4	
+torchtitan/trainer#Trainer.config	torchtitan/trainer.py	309	member	143	237cea18238d0b49	34	
+torchtitan/trainer#Trainer.parallel_dims	torchtitan/trainer.py	310	member	81	1a9b4525a6bb7660	23	
+torchtitan/trainer#Trainer.tokenizer	torchtitan/trainer.py	313	member	19	2e9c410eae848616	4	
+torchtitan/trainer#Trainer.dataloader	torchtitan/trainer.py	314	member	35	bdfb2640d9298341	11	
+torchtitan/trainer#Trainer.model_config	torchtitan/trainer.py	315	member	24	df20d22fe292f7fd	5	
+torchtitan/trainer#Trainer.model_parts	torchtitan/trainer.py	318	member	122	b7df235e0108924f	28	
+torchtitan/trainer#Trainer.loss_fn	torchtitan/trainer.py	319	member	45	d6fc7174fa42639d	14	
+torchtitan/trainer#Trainer.optimizers	torchtitan/trainer.py	320	member	63	6abf4f2aff801a7f	11	
+torchtitan/trainer#Trainer.lr_schedulers	torchtitan/trainer.py	321	member	35	f436ad966d2edc3f	8	
+torchtitan/trainer#Trainer.validator	torchtitan/trainer.py	322	member	19	8f2aab9dea66dc11	5	
+torchtitan/trainer#Trainer.metrics_processor	torchtitan/trainer.py	323	member	65	73adc38682bed9fd	13	
+torchtitan/trainer#Trainer.checkpointer	torchtitan/trainer.py	324	member	33	964dab1df4aa4a65	11	
+torchtitan/trainer#Trainer.device	torchtitan/trainer.py	327	member	100	6cb0929b6a07ca57	20	
+torchtitan/trainer#Trainer.gc_handler	torchtitan/trainer.py	328	member	13	914870ec86bd5191	4	
+torchtitan/trainer#Trainer.train_context	torchtitan/trainer.py	329	member	33	07086f9c8cf1e164	10	
+torchtitan/trainer#Trainer.fwd_bwd_fn	torchtitan/trainer.py	330	member	22	54d723bf271df4f4	4	
+torchtitan/trainer#Trainer._pp_loss_sentinel_on_non_last_stage	torchtitan/trainer.py	331	member	6	46e0c551ec472c2e	3	
+torchtitan/trainer#Trainer.gradient_accumulation_steps	torchtitan/trainer.py	332	member	24	42d46c83555d7d2f	8	
+torchtitan/trainer#Trainer.num_pp_microbatches	torchtitan/trainer.py	333	member	12	cab68d84a89ff407	4	
+torchtitan/trainer#Trainer.pp_has_first_stage	torchtitan/trainer.py	334	member	12	1c1e28b0ac8e99cb	4	
+torchtitan/trainer#Trainer.pp_has_last_stage	torchtitan/trainer.py	335	member	20	cc009014286beb0f	7	
+torchtitan/trainer#Trainer.sdc_replayer	torchtitan/trainer.py	336	member	21	6efe46aa8611b5f8	4	
+torchtitan/trainer#Trainer.step	torchtitan/trainer.py	339	member	76	ab5f3115bce5db73	12	
+torchtitan/trainer#Trainer.ntokens_seen	torchtitan/trainer.py	340	member	42	37cb3f0dbb9048f6	15	
+torchtitan/trainer#Trainer.__init__	torchtitan/trainer.py	344	method	43	3ffcf4f13e53394f	4	trainer-and-train-loop
+torchtitan/trainer#Trainer.transfer_stream	torchtitan/trainer.py	356	member	286	fbd69c5c1ac4fb96	1	
+torchtitan/trainer#Trainer.pp_schedule	torchtitan/trainer.py	529	member	94	57cae4b55f805f59	2	
+torchtitan/trainer#Trainer._collect_moe_routing_metrics	torchtitan/trainer.py	587	member	314	1f913d652bc18f0c	3	
+torchtitan/trainer#Trainer.init_distributed	torchtitan/trainer.py	756	method	57	bc54d7cfcdfe7bbb	1	trainer-and-train-loop
+torchtitan/trainer#Trainer.batch_generator	torchtitan/trainer.py	766	method	34	a6188bec950e20c8	2	
+torchtitan/trainer#Trainer.forward_backward_step	torchtitan/trainer.py	795	method	116	f70111a702a5bc17	8	trainer-and-train-loop
+torchtitan/trainer#Trainer._forward_backward_body	torchtitan/trainer.py	858	method	21	d7d27987d58ea772	3	
+torchtitan/trainer#Trainer._pp_forward_backward_body	torchtitan/trainer.py	885	method	29	7ea2ec20a82aa2f0	2	
+torchtitan/trainer#Trainer.train_step	torchtitan/trainer.py	913	method	236	2527f1cbbc235ee6	3	trainer-and-train-loop
+torchtitan/trainer#Trainer.fwd_bwd	torchtitan/trainer.py	988	method	9	324433a0af7d2d98	1	
+torchtitan/trainer#Trainer._clip_grad_norm	torchtitan/trainer.py	1119	method	56	29dba342b3907401	3	trainer-and-train-loop
+torchtitan/trainer#Trainer.train	torchtitan/trainer.py	1129	method	185	8f0f694f96b3e6bb	3	trainer-and-train-loop
+torchtitan/trainer#Trainer.should_continue_training	torchtitan/trainer.py	1196	method	24	dd2343a8770e1db7	2	
+torchtitan/trainer#Trainer.state_dict	torchtitan/trainer.py	1199	method	10	2afa5aba603f1cbe	0	
+torchtitan/trainer#Trainer.load_state_dict	torchtitan/trainer.py	1202	method	20	c8db6dd9af5e8cc9	0	
+torchtitan/trainer#Trainer.close	torchtitan/trainer.py	1208	method	65	ba51138e42a4bb3a	3	

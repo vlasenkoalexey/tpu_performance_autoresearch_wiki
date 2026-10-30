@@ -38,12 +38,17 @@ Grounded implementations of **flash-attention** across the ingested repos (gener
 - [maxdiffusion](../codebases/maxdiffusion/concepts/maxdiffusion-kernels-splash_attention-splash_attention_kernel.md) — maxdiffusion/kernels/splash_attention/splash_attention_kernel — block-sparse flash attention (+ ring-attention merge variant)
 - [maxdiffusion](../codebases/maxdiffusion/concepts/maxdiffusion-models-ltx_video-transformers-attention.md) — maxdiffusion/models/ltx_video/transformers/attention — LTX-Video JAX attention (TPU-flash-only)
 - [maxdiffusion](../codebases/maxdiffusion/concepts/maxdiffusion-models-ltx_video-transformers_pytorch-attention.md) — maxdiffusion/models/ltx_video/transformers_pytorch/attention — PyTorch reference (calls JAX Pallas flash attention directly)
+- [torchtitan](../codebases/torchtitan/concepts/kimi-k2-7-model.md) — Kimi K2.7 model family (Kimi K2.5 / K2.6 / K2.7-Code, Kimi-VL, Moonlight)
+- [torchtitan](../codebases/torchtitan/concepts/model-building-blocks.md) — Model building blocks (torchtitan/models/common): config-built Decoder, attention, FFN, MoE, RoPE
+- [torchtitan](../codebases/torchtitan/concepts/tpu-pallas-kernels.md) — TPU Pallas kernels: splash attention (stock, Tokamax, SBD fork), grouped matmul, FP8 GMM and fused linear cross-entropy
 - [axlearn](../codebases/axlearn/concepts/axlearn-common-flash_attention-common.md) — axlearn.common.flash_attention.common — BaseFlashAttention's capability-negotiation contract
 - [axlearn](../codebases/axlearn/concepts/axlearn-common-flash_attention-layer.md) — axlearn.common.flash_attention.layer — FlashAttention, a GroupedQueryAttention with a kernel backend
 - [learning-machine](../codebases/learning-machine/concepts/custom_kernel_spmd.md) — custom_kernel_spmd — torch_xla SPMD flash-attention benchmark driver
 - [learning-machine](../codebases/learning-machine/concepts/jax_perf-splash_attention_debug.md) — jax_perf/splash_attention_debug — Splash vs flash attention mask-mode benchmark
+- [autoresearch](../codebases/autoresearch/concepts/train.md) — train — time-budgeted single-GPU GPT pretraining (FA3 attention, MFU accounting)
 - [ejkernel](../codebases/ejkernel/concepts/ejkernel-kernels-_pallas-tpu-flash_attention-_utils.md) — ejkernel/kernels/_pallas/tpu/flash_attention/_utils — BlockSizes, the flash-attention TPU tiling with major/minor validation
 - [maxtext](../codebases/maxtext/concepts/maxtext-kernels-attention-splash_attention_kernel.md) — SplashAttention backward — sparse flash-attention gradient kernels
 - [ringattention](../codebases/ringattention/concepts/ringattention-ringattention_pallas_tpu.md) — Ring Flash Attention — TPU Pallas kernel
 - [simply](../codebases/simply/concepts/simply-kernels-ragged_paged_attention.md) — simply.kernels.ragged_paged_attention — the Pallas double-buffered flash-attention-over-pages kernel
+- [torch_tpu](../codebases/torch_tpu/concepts/scaled-dot-product-attention.md) — Scaled dot-product attention - backend choice, Mosaic flash kernels, and the StableHLO fallback
 <!-- connect:auto:end -->

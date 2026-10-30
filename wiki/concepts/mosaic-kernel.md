@@ -35,7 +35,13 @@ Grounded implementations of **mosaic-kernel** across the ingested repos (generat
 - [tokamax](../codebases/tokamax/concepts/tokamax-_src-ops-experimental-mla-pallas_mosaic_tpu_kernel.md) — tokamax._src.ops.experimental.mla.pallas_mosaic_tpu_kernel — MLA ragged+paged attention, MlaCase dispatch
 - [tokamax](../codebases/tokamax/concepts/tokamax-_src-ops-ragged_dot-pallas_mosaic_tpu_v2_gmm_kernel.md) — tokamax._src.ops.ragged_dot.pallas_mosaic_tpu_v2_gmm_kernel — GMM v2, MXU-column-size-gated dequantization timing
 - [tokamax](../codebases/tokamax/concepts/tokamax-_src-ops-ragged_dot-pallas_mosaic_tpu_v2_tgmm_kernel.md) — tokamax._src.ops.ragged_dot.pallas_mosaic_tpu_v2_tgmm_kernel — TGMM (lhs.T @ dout) tiling, VMEM-budget-aware, XLU-transpose-cache-aware
+- [torch_tpu](../codebases/torch_tpu/concepts/batch-host-device-transfer.md) — Batch host-device transfer and precompiled Mosaic kernels (csrc/experimental)
+- [torch_tpu](../codebases/torch_tpu/concepts/kiln-kernel-dsl.md) — KILN - the Pallas-shaped C++ DSL for authoring Mosaic TPU kernels
+- [torch_tpu](../codebases/torch_tpu/concepts/mosaic-matmul.md) — Mosaic matmul and kernel-emission helpers - CreateMatmul, VMEM memrefs, dimension semantics
+- [torch_tpu](../codebases/torch_tpu/concepts/pallas-custom-kernels.md) — Pallas / JAX custom kernels as torch ops (torch.tpu.pallas.jax_op)
+- [torch_tpu](../codebases/torch_tpu/concepts/scaled-dot-product-attention.md) — Scaled dot-product attention - backend choice, Mosaic flash kernels, and the StableHLO fallback
 - [jax](../codebases/jax/concepts/jax-_src-pallas-mosaic-lowering.md) — jax._src.pallas.mosaic.lowering — jaxpr-to-Mosaic lowering via per-(kernel_type, primitive) rules
 - [jax](../codebases/jax/concepts/jax-_src-pallas-mosaic_gpu-core.md) — jax._src.pallas.mosaic_gpu.core — MemorySpace hierarchy and the kernel() entry point
 - [maxtext](../codebases/maxtext/concepts/maxtext-kernels-megablox-pallas_mosaic_tpu_v2_gmm_kernel.md) — MegaBlox GMM v2 — pipelined grouped-matmul kernel for MoE
+- [torchtitan](../codebases/torchtitan/concepts/tpu-pallas-kernels.md) — TPU Pallas kernels: splash attention (stock, Tokamax, SBD fork), grouped matmul, FP8 GMM and fused linear cross-entropy
 <!-- connect:auto:end -->
