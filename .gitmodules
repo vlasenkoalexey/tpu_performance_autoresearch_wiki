@@ -91,3 +91,6 @@
 [submodule "raw/code/torchtitan"]
 	path = raw/code/torchtitan
 	url = https://github.com/google-pytorch/torchtitan
+[submodule "raw/code/vllm-torchtpu"]
+	path = raw/code/vllm-torchtpu
+	url = https://github.com/vllm-project/vllm-torchtpu

@@ -36,6 +36,10 @@ Grounded implementations of **sequence-parallelism** across the ingested repos (
 - [torchtitan](../codebases/torchtitan/concepts/muse-glimmer-model.md) — Muse Glimmer model (text decoder + owned vision stack)
 - [torchtitan](../codebases/torchtitan/concepts/qwen3-5-model.md) — Qwen3.5 hybrid-attention model family (torchtitan/models/qwen3_5)
 - [torchtitan](../codebases/torchtitan/concepts/qwen3-model.md) — Qwen3 model family - dense and MoE (torchtitan/models/qwen3)
+- [vllm-torchtpu](../codebases/vllm-torchtpu/concepts/distributed-parallelism-and-meshes.md) — Distributed parallelism and op-local meshes (TP, DP, EP, PCP, DCP, PP)
+- [vllm-torchtpu](../codebases/vllm-torchtpu/concepts/kimi-k3-kernels.md) — Kimi-K3 Pallas kernels (SP32 ring collectives, fused projection-collectives, Attention Residual, KDA)
+- [vllm-torchtpu](../codebases/vllm-torchtpu/concepts/kimi-k3-model.md) — Kimi-K3 / Kimi-Linear model (KDA + MLA hybrid, TP32/EP32 sequence-parallel prefill)
+- [vllm-torchtpu](../codebases/vllm-torchtpu/concepts/omni-diffusion-support.md) — vLLM-Omni diffusion support (OmniTpuPlatform, diffusion attention, TPU patches, profiler)
 - [ejkernel](../codebases/ejkernel/concepts/ejkernel-kernels-_pallas-tpu-ring_attention-_pallas_impl_bwd.md) — ejkernel/kernels/_pallas/tpu/ring_attention/_pallas_impl_bwd — sequence-parallel ring attention over Splash
 - [maxdiffusion](../codebases/maxdiffusion/concepts/maxdiffusion-common_types.md) — maxdiffusion/common_types — sequence-parallel attention axis-rule presets
 <!-- connect:auto:end -->

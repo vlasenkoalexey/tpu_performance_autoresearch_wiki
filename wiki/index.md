@@ -1,5 +1,5 @@
 # TPU Model Performance Auto-optimization — Index
-*Last updated: 2026-05-06 — 195 pages (29 codebases + 45 sources + 97 concepts + 2 model-programs + 4 analyses + 6 analysis subpages + jax-exp47 rejected page + 2 maxtext baseline experiments + 1 torchax llama3-8b baseline + 1 torchax llama3-8b splash kernel-only autotune + 1 jax-llama3-8b SparseCore-offload frontier)*
+*Last updated: 2026-05-06 — 196 pages (30 codebases + 45 sources + 97 concepts + 2 model-programs + 4 analyses + 6 analysis subpages + jax-exp47 rejected page + 2 maxtext baseline experiments + 1 torchax llama3-8b baseline + 1 torchax llama3-8b splash kernel-only autotune + 1 jax-llama3-8b SparseCore-offload frontier)*
 
 *Methodology: autoresearch (see [README](../README.md) + [SCHEMA](../SCHEMA.md)).*
 
@@ -175,11 +175,12 @@ These were the candidates expected to recover the 9.2 % loop-fusion line in the 
 - [Ch 10 — Programming TPUs in JAX](sources/2025-scaling-book-ch10-jax.md) — Auto/Explicit/shard_map; collective matmul 1.27× via ppermute overlap.
 - [Ch 11 — How to Think About GPUs](sources/2025-scaling-book-ch11-gpus.md) — H100/B200 vs v5p/v5e; FLOPs/$ ranking.
 
-## Codebases (29)
+## Codebases (30)
 
-### Wave 5 - PyTorch-on-TPU stack (2, added 2026-10-29)
+### Wave 5 - PyTorch-on-TPU stack (3, added 2026-10-29 / 2026-11-03)
 - [torch_tpu](codebases/torch_tpu/overview.md) - release **v0.2.0** (tag `v0.2.0` -> `005903d0e`, 2026-10-17) - TorchTPU, the native PyTorch backend for Cloud TPU: ATen ops recorded as deferred StableHLO builders, cut into graphs at materialization points, compiled by XLA through PjRt behind a 3-tier compilation cache; torch.compile backend, Mosaic/Pallas attention and custom kernels, c10d collectives as graph ops. 36 mechanism pages + 43 doc-concepts, all load-bearing claims adversarially verified.
 - [torchtitan](codebases/torchtitan/overview.md) - commit `2ad96c939` (google-pytorch fork, main 2026-10-28) - TorchTitan with the TorchTPU backend (`experiments/tpu`): config-tree models, one world mesh with FSDP/TP/PP/CP/EP views, TPU trainer + libtpu flag maps, splash/GMM/fused-CE Pallas kernels, TPU MoE dispatch, context parallelism, scan/remat/graph-trainer memory policies, per-hardware recipes; plus JAX lane, graph trainer, RL. 34 mechanism pages + ~70 doc-concepts.
+- [vllm-torchtpu](codebases/vllm-torchtpu/overview.md) - commit `bf318e424` (vllm-project main, 2026-11-02) - the vLLM TPU platform plugin built on TorchTPU (the PyTorch counterpart of the JAX-based [tpu-inference](codebases/tpu-inference/overview.md)): one compiled program per token bucket, KV-cache layout and HBM budget, ragged/batched paged attention, MLA and fused-MoE Pallas kernels, megakernel, speculative decoding, 6-D parallelism (TP/EP/DP/PP/PCP/DCP), disaggregated prefill/decode, host offload. 33 mechanism pages + ~45 doc-concepts.
 
 ### Wave 4 follow-up — deferred Pallas ecosystem (5, added 2026-04-23)
 - [graphcast](codebases/graphcast/overview.md) — commit `08cf736` — DeepMind weather model; splash wrapper + `WeatherMeshMask` (non-LLM block-sparse reference).

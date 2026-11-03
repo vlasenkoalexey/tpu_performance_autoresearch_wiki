@@ -44,4 +44,5 @@ Grounded implementations of **mosaic-kernel** across the ingested repos (generat
 - [jax](../codebases/jax/concepts/jax-_src-pallas-mosaic_gpu-core.md) — jax._src.pallas.mosaic_gpu.core — MemorySpace hierarchy and the kernel() entry point
 - [maxtext](../codebases/maxtext/concepts/maxtext-kernels-megablox-pallas_mosaic_tpu_v2_gmm_kernel.md) — MegaBlox GMM v2 — pipelined grouped-matmul kernel for MoE
 - [torchtitan](../codebases/torchtitan/concepts/tpu-pallas-kernels.md) — TPU Pallas kernels: splash attention (stock, Tokamax, SBD fork), grouped matmul, FP8 GMM and fused linear cross-entropy
+- [vllm-torchtpu](../codebases/vllm-torchtpu/concepts/gated-deltanet-kernels.md) — Gated DeltaNet (GDN) v3 kernels: fused Conv1D + GDN/KDA Pallas kernel
 <!-- connect:auto:end -->

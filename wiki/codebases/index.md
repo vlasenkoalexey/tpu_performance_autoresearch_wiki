@@ -1,6 +1,6 @@
 ---
 title: wikify — top-level catalog
-updated: 2026-10-29
+updated: 2026-11-03
 ---
 
 # Wikify — repository wikis
@@ -34,5 +34,6 @@ updated: 2026-10-29
 | torchtitan | [torchtitan](torchtitan/index.md) | connected (26 concepts) |
 | tpu-inference | [tpu-inference](tpu-inference/index.md) | connected (1 concept) |
 | tpu-recipes | [tpu-recipes](tpu-recipes/index.md) | standalone |
+| vllm-torchtpu | [vllm-torchtpu](vllm-torchtpu/index.md) | connected (29 concepts) |
 | xprof | [xprof](xprof/index.md) | standalone |
 | xprof-mcp | [xprof-mcp](xprof-mcp/index.md) | standalone |

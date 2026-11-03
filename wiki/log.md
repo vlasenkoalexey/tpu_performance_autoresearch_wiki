@@ -1,3 +1,13 @@
+## [2026-11-03] ingest-codebase | vllm-torchtpu (vllm-project main) - vLLM TPU platform plugin on TorchTPU
+
+**Op**: ingest-codebase (via `/wikify-ingest-repo`, wikify 0.4.1). Public repo `vllm-project/vllm-torchtpu`; the PyTorch/TorchTPU counterpart of the JAX-based `tpu-inference` silo.
+**Pages created**: `wiki/codebases/vllm-torchtpu/` - overview, 19 areas, 33 concept pages, 45 doc-concepts, 377-module catalog; submodule `raw/code/vllm-torchtpu` at `main` `bf318e424` (2026-11-02); `config/vllm-torchtpu.md`.
+**Pages updated**: `wiki/index.md` (Codebases 29 -> 30, Wave 5 group); `wiki/codebases/index.md` and shared `wiki/concepts/*.md` connect blocks (`wikify connect --refresh`; vllm-torchtpu connected on 29 keys).
+**Key result**: finalize lint OK, 100% of 10,190 symbols, 55 diagrams 0 warnings. Agenda: planner units renamed to topic names; the repo-root modules seeded explicitly (KV-cache layout / HBM budget); the distributed unit re-seeded explicitly after its first packet was crowded by kv_transfer internals. Adversarial verify: all 747 load-bearing claims checked by 9 independent verifiers, 61 refuted and corrected, 0 refuted remaining. Public-content scrub (go/ links, bug ids, TODO(user), buckets, registries, project ids, emails, AFM): 0 hits across pages and catalog.
+**Notes**:
+- Code findings recorded on pages (read from source, not run): the runner calls `rpa_batched.schedule_capacity`, which does not exist in `batched_rpa/wrapper.py` at this commit; the megakernel package and the KDA / all-gather-matmul kernels have no callers under `src/` (tests only); `TPU_PCP_TOPOLOGY_AWARE_MESH` has no effect at this commit (`resolve_pcp_topology_order` has no callers); tracing env vars other than `PYTHON_TRACER_LEVEL` / `USE_PHASED_PROFILER` change the compile key.
+- Docs vs code: `VLLM_XLA_CACHE_PATH` is not read anywhere; documented values `MOE_FUSED_EP_KERNEL_IMPL=v1`, sparse-MLA layout `tc`, `TPU_RAIDEN_RESHARD_IMPL=host` and `TPU_KV_RESHARD_TRANSPORT=tcp` raise at startup; several booleans accept only 0/1; the disaggregated-serving guide names a connector class/module that does not exist (`TPURaidenConnector` in `kv_transfer.tpu_connector` is the real one); `awq`/`gptq` raise `NotImplementedError`; recipe docs diverge from the CI configs they cite. Each is noted on the relevant page.
+
 ## [2026-10-29] ingest-codebase | torch_tpu v0.2.0 + torchtitan (google-pytorch main) - PyTorch-on-TPU stack
 
 **Op**: ingest-codebase (x2, via `/wikify-ingest-repo`, wikify 0.4.1). Both repos became public on GitHub (and `torch-tpu` on PyPI), so the PyTorch-on-TPU stack is now ingested here.

@@ -32,6 +32,9 @@ Grounded implementations of **pipeline-parallelism** across the ingested repos (
 - [torchtitan](../codebases/torchtitan/concepts/muse-glimmer-model.md) — Muse Glimmer model (text decoder + owned vision stack)
 - [torchtitan](../codebases/torchtitan/concepts/parallel-dims-and-parallelization.md) — ParallelDims, device meshes and the parallelization pipeline (torchtitan/distributed)
 - [torchtitan](../codebases/torchtitan/concepts/trainer-and-train-loop.md) — Trainer and the train loop (torchtitan.train / Trainer)
+- [vllm-torchtpu](../codebases/vllm-torchtpu/concepts/distributed-parallelism-and-meshes.md) — Distributed parallelism and op-local meshes (TP, DP, EP, PCP, DCP, PP)
+- [vllm-torchtpu](../codebases/vllm-torchtpu/concepts/tpu-platform.md) — TPU platform plugin: TpuPlatform, config resolution and KV block sizing
+- [vllm-torchtpu](../codebases/vllm-torchtpu/concepts/tpu-schedulers.md) — TPU schedulers - time-budget pipeline chunks, lazy-push step loop and admission policies
 - [maxtext](../codebases/maxtext/concepts/maxtext-layers-pipeline.md) — MaxText pipeline parallelism (NNX)
 - [maxtext](../codebases/maxtext/concepts/maxtext-layers-pipeline_deprecated.md) — MaxText pipeline parallelism — deprecated Linen implementation
 - [simply](../codebases/simply/concepts/simply-utils-moe_lib.md) — simply.utils.moe_lib — expert-parallel MoE dispatch with pipelined communication/compute overlap

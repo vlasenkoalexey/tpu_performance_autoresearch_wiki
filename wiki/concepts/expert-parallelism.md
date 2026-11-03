@@ -41,6 +41,15 @@ Grounded implementations of **expert-parallelism** across the ingested repos (ge
 - [torchtitan](../codebases/torchtitan/concepts/qwen3-model.md) — Qwen3 model family - dense and MoE (torchtitan/models/qwen3)
 - [torchtitan](../codebases/torchtitan/concepts/rl-training.md) — TitanRL: asynchronous GRPO/DAPO training with disaggregated trainer and vLLM generators (experiments/rl)
 - [torchtitan](../codebases/torchtitan/concepts/tpu-moe-dispatch-and-grouped-experts.md) — TPU MoE dispatch and grouped experts (local reorder VJPs, fixed-K combine, Pallas grouped matmul)
+- [vllm-torchtpu](../codebases/vllm-torchtpu/concepts/adaptive-fused-moe-kernel.md) — Adaptive fused MoE kernel: the experimental fused-EP fork with VMEM-selected asymmetric W1/W2 weight rings
+- [vllm-torchtpu](../codebases/vllm-torchtpu/concepts/attention-and-layer-core.md) — Attention and layer core (layers/core)
+- [vllm-torchtpu](../codebases/vllm-torchtpu/concepts/deepseek-v4-model.md) — DeepSeek-V4 native TPU model: mHC residual chain, sparse MLA attention ops, hash MoE, DSpark draft
+- [vllm-torchtpu](../codebases/vllm-torchtpu/concepts/distributed-parallelism-and-meshes.md) — Distributed parallelism and op-local meshes (TP, DP, EP, PCP, DCP, PP)
+- [vllm-torchtpu](../codebases/vllm-torchtpu/concepts/fused-moe-kernels.md) — Fused expert-parallel MoE kernel (fused_ep_moe_v2): route, push, FFN and combine in one SPMD program
+- [vllm-torchtpu](../codebases/vllm-torchtpu/concepts/kimi-k3-model.md) — Kimi-K3 / Kimi-Linear model (KDA + MLA hybrid, TP32/EP32 sequence-parallel prefill)
+- [vllm-torchtpu](../codebases/vllm-torchtpu/concepts/sparsecore-ragged-gather-scatter.md) — SparseCore ragged gather / gather-reduce / scatter kernels (MoE token movement)
+- [vllm-torchtpu](../codebases/vllm-torchtpu/concepts/speculative-decoding.md) — Speculative decoding on TPU (EAGLE-3 / MTP / DFlash / DSpark proposers)
+- [vllm-torchtpu](../codebases/vllm-torchtpu/concepts/vllm-layer-adapters.md) — vLLM layer adapters (layers/adapter)
 - [sglang-jax](../codebases/sglang-jax/concepts/python-sgl_jax-srt-kernels-fused_moe-v1-kernel.md) — sgl_jax.srt.kernels.fused_moe.v1.kernel — fused expert-parallel MoE Pallas kernel with inline all-to-all
 - [simply](../codebases/simply/concepts/simply-utils-moe_lib.md) — simply.utils.moe_lib — expert-parallel MoE dispatch with pipelined communication/compute overlap
 - [torch_tpu](../codebases/torch_tpu/concepts/ragged-collectives-and-sparse-ops.md) — Experimental tpu:: ops - ragged all-to-all, ragged_dot (MoE), dim collectives, send/recv, and SparseCore embedding ops
